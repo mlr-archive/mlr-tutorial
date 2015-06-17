@@ -17,6 +17,9 @@ r_github_packages:
 before_script:
     - sudo R CMD javareconf
     - sudo pip install mkdocs
+script:
+    - cd tutorial
+    - ./build
 notifications:
   email:
     recipients:
