@@ -1,0 +1,25 @@
+language: r
+env:
+    global:
+        - _R_CHECK_TIMINGS_=0
+branches:
+    only:
+        - gh-pages
+apt_packages:
+    - r-cran-rjava
+    - python-pip
+r_github_packages:
+    - berndbischl/BBmisc
+    - berndbischl/mlr
+    - berndbischl/parallelMap
+    - berndbischl/ParamHelpers
+    - mllg/checkmate
+before_script:
+    - sudo R CMD javareconf
+    - sudo pip install mkdocs
+notifications:
+  email:
+    recipients:
+        - larsko@cs.ubc.ca
+    on_success: change
+    on_failure: always
