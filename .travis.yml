@@ -27,5 +27,6 @@ notifications:
   email:
     recipients:
         - larsko@cs.ubc.ca
+	- schiffner@math.uni-duesseldorf.de
     on_success: change
     on_failure: always

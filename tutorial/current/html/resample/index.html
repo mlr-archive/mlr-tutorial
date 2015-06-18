@@ -339,9 +339,9 @@ the specified resampling strategy for a given machine learning <a href="http://w
 <p>In the following example the performance of the
 <a href="http://www.rdocumentation.org/packages/survival/functions/coxph.html">Cox proportional hazards model</a> on the
 <a href="http://www.rdocumentation.org/packages/survival/functions/lung.html">lung</a> data set is calculated using <em>3-fold cross-validation</em>.
-Generally, in <em>K-fold cross-validation</em> the data set <em>D</em> is partitioned into <em>K</em> subsets of
+Generally, in <em><script type="math/tex">K</script>-fold cross-validation</em> the data set <script type="math/tex">D</script> is partitioned into <script type="math/tex">K</script> subsets of
 (approximately) equal size.
-In the <em>i</em>-th step of the <em>K</em> iterations, the <em>i</em>-th subset is
+In the <script type="math/tex">i</script>-th step of the <script type="math/tex">K</script> iterations, the <script type="math/tex">i</script>-th subset is
 used for testing, while the union of the remaining parts forms the training
 set.
 The default performance measure in survival analysis is the concordance index (<a href="../measures/index.html">cindex</a>).</p>
@@ -361,7 +361,7 @@ r
 #&gt; cindex.aggr: 0.63
 #&gt; cindex.mean: 0.63
 #&gt; cindex.sd: 0.05
-#&gt; Runtime: 0.10389
+#&gt; Runtime: 0.229112
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;measures.train&quot; &quot;measures.test&quot; 
@@ -417,7 +417,7 @@ passing a list of measures
 <p>In the following we estimate the Dunn index (<a href="../measures/index.html">dunn</a>), the Davies-Bouldin cluster
 separation measure (<a href="../measures/index.html">db</a>), and the time for training the learner (<a href="../measures/index.html">timetrain</a>)
 by <em>subsampling</em> with 5 iterations.
-In each iteration the data set <em>D</em> is randomly partitioned into a
+In each iteration the data set <script type="math/tex">D</script> is randomly partitioned into a
 training and a test set according to a given percentage, e.g., 2/3
 training and 1/3 test set. If there is just one iteration, the strategy
 is commonly called <em>holdout</em> or <em>test sample estimation</em>.</p>
@@ -435,10 +435,10 @@ r = resample(&quot;cluster.kmeans&quot;, task, rdesc, measures = list(dunn, db, 
 #&gt; [Resample] subsampling iter: 3
 #&gt; [Resample] subsampling iter: 4
 #&gt; [Resample] subsampling iter: 5
-#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.0022
+#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.002
 r$aggr
 #&gt;      dunn.test.mean        db.test.mean timetrain.test.mean 
-#&gt;           0.2738893           0.5103655           0.0022000
+#&gt;           0.2738893           0.5103655           0.0020000
 </code></pre>
 
 <h2 id="stratified-resampling">Stratified resampling</h2>
@@ -699,10 +699,10 @@ r$aggr
 </code></pre>
 
 <h3 id="example-bootstrap">Example: Bootstrap</h3>
-<p>In <em>out-of-bag bootstrap estimation</em> <em>B</em> new data sets <em>D_1</em> to <em>D_B</em> are drawn from the
-data set <em>D</em> with replacement, each of the same size as <em>D</em>.
-In the <em>i</em>-th iteration, <em>D_i</em> forms the training set, while the remaining elements from
-<em>D</em>, i.e., elements not in the training set, form the test set.</p>
+<p>In <em>out-of-bag bootstrap estimation</em> <script type="math/tex">B</script> new data sets <script type="math/tex">D_1</script> to <script type="math/tex">D_B</script> are drawn from the
+data set <script type="math/tex">D</script> with replacement, each of the same size as <script type="math/tex">D</script>.
+In the <script type="math/tex">i</script>-th iteration, <script type="math/tex">D_i</script> forms the training set, while the remaining elements from
+<script type="math/tex">D</script>, i.e., elements not in the training set, form the test set.</p>
 <!--(
                      |resampling_desc_figure|
 
@@ -765,6 +765,7 @@ crossval(&quot;classif.lda&quot;, iris.task, iters = 3, measures = list(mmce, be
         <script>var base_url = '..';</script>
         <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
             <div class="modal-dialog">
