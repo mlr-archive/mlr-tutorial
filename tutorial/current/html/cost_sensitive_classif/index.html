@@ -475,7 +475,11 @@ is the correct label and therefore increase the threshold for class Good and dec
 threshold for class Bad.</p>
 <h5 id="i-theoretical-thresholding">i. Theoretical thresholding</h5>
 <p>The theoretical threshold for the <em>positive</em> class can be calculated from the cost matrix as
-<img alt="theoretic threshold" src="../../../images/theoretic_threshold.png" title="theoretic threshold" />
+&lt;!--(
+.. |tune-varsel_processing| image:: /_images/theoretic_threshold.png
+     :align: middle
+     :alt: theoretic threshold</p>
+<p>)--&gt;
 For more details see <a href="http://www.cs.iastate.edu/~honavar/elkan.pdf">Elkan (2001)</a>.</p>
 <p>Below the theoretical threshold for the <a href="http://www.rdocumentation.org/packages/caret/functions/GermanCredit.html">German credit example</a>
 is calculated and used to predict class labels.
@@ -558,7 +562,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.222162
+#&gt; Runtime: 0.220805
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -606,7 +610,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.2314
+#&gt; Runtime: 0.21074
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -633,14 +637,22 @@ Alternatively, <em>over- and undersampling</em> techniques can be used.</p>
 cost matrix.
 If <em>t</em> indicates the target threshold and <em>t</em><sub>0</sub> the original threshold for the positive class the
 proportion of observations in the positive class has to be multiplied by
-<img alt="weight positive" src="../../../images/weight_positive.png" title="weight positive" />
+&lt;!--(
+.. |tune-varsel_processing| image:: /_images/weight_positive.png
+     :align: middle
+     :alt: weight positive</p>
+<p>)--&gt;
 Alternatively, the proportion of observations in the negative class can be multiplied by
 the inverse.
 A proof is given by <a href="http://www.cs.iastate.edu/~honavar/elkan.pdf">Elkan (2001)</a>.</p>
 <p>In most cases, the original threshold <em>t</em><sub>0</sub> is 0.5 and thus the second factor vanishes.
 If additionally the target threshold <em>t</em> equals the theoretical threshold <em>t</em><sup>*</sup> the
 proportion of observations in the positive class has to be multiplied by
-<img alt="theoretic weight positive" src="../../../images/theoretic_weight_positive.png" title="theoretic weight positive" /></p>
+&lt;!--(
+.. |tune-varsel_processing| image:: /_images/theoretic_weight_positive.png
+     :align: middle
+     :alt: theoretic weight positive</p>
+<p>)--&gt;</p>
 <p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a> allows to assign class weights to <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>s.
 Naturally, this is only possible for methods with either a 'class weights' or an 'observation weights' argument.
 (Have a look at the <a href="../integrated_learners/index.html">table of integrated learners</a> to see which methods
@@ -695,7 +707,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.276101
+#&gt; Runtime: 0.243395
 </code></pre>
 
 <p>Some classification methods as the support vector machine (<a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a>) in package <a href="http://www.rdocumentation.org/packages/kernlab/">kernlab</a>
@@ -710,7 +722,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.06
+#&gt; time: 0.10
 #&gt;   id truth response
 #&gt; 1  1  Good     Good
 #&gt; 2  2   Bad      Bad
@@ -730,7 +742,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.353915
+#&gt; Runtime: 0.347999
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -812,7 +824,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.428191
+#&gt; Runtime: 0.441271
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate.
@@ -913,7 +925,7 @@ r
 #&gt; mmce.aggr: 0.34
 #&gt; mmce.mean: 0.34
 #&gt; mmce.sd: 0.04
-#&gt; Runtime: 0.0594673
+#&gt; Runtime: 0.0657246
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1072,7 +1084,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.04
+#&gt; time: 0.05
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa
