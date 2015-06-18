@@ -2,16 +2,8 @@ language: bash
 branches:
     only:
         - gh-pages
-r_github_packages:
-    - berndbischl/BBmisc
-    - berndbischl/mlr
-    - berndbischl/parallelMap
-    - berndbischl/ParamHelpers
-    - mllg/checkmate
-apt_packages:
-    - r-cran-rjava
-    - python-pip
-before_script:
+install:
+    - sudo apt-get install r-cran-rjava python-pip
     - sudo R CMD javareconf
     - R <<< 'install.packages("devtools", repos="http://cran.rstudio.com/")'
     - R <<< 'install.packages("mlr", repos="http://cran.rstudio.com/", dependencies = TRUE)'
