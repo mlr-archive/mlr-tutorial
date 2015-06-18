@@ -107,13 +107,13 @@ In case of *class-dependent costs*, that depend on the actual and predicted clas
 is sufficient to create an ordinary [ClassifTask](&Task).
 
 In order to handle *example-specific costs* it is necessary to generate a [CostSensTask](&Task).
-In this scenario, each example (*x*, *y*) is associated with an individual cost vector of length
-*K* where *K* denotes the number of classes. The *k*-th component indicates the cost of assigning
-*x* to class *k*. Naturally, it is assumed that the cost of the intended class label *y* is
+In this scenario, each example $(x, y)$ is associated with an individual cost vector of length
+$K$ where $K$ denotes the number of classes. The $k$-th component indicates the cost of assigning
+$x$ to class $k$. Naturally, it is assumed that the cost of the intended class label $y$ is
 minimal.
 
-As the cost vector contains all relevant information about the intended class label *y*, only
-the feature values *x* and a ``cost`` matrix, which contains the cost vectors for all examples in the data
+As the cost vector contains all relevant information about the intended class label $y$, only
+the feature values $x$ and a ``cost`` matrix, which contains the cost vectors for all examples in the data
 set, are required to create the [CostSensTask](&Task).
 
 In the following example we use the [iris data](&datasets::iris) and generate an artificial cost matrix

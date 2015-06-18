@@ -6,21 +6,21 @@ A more general setting is *cost-sensitive classification* where the costs caused
 kinds of errors are not assumed to be equal and the objective is to minimize the expected costs.
 
 In case of *class-dependent costs* the costs depend on the true and predicted class label.
-The costs *c*(*k*, *l*) for predicting class *k* if the true label is *l* are usually organized
-into a *K* times *K* cost matrix where *K* is the number of classes.
-Naturally, it is assumed that the cost of predicting the correct class label *y* is minimal
-(that is *c*(*y*, *y*) is smaller or equal to *c*(*k*, *y*) for all *k*).
+The costs $c(k, l)$ for predicting class $k$ if the true label is $l$ are usually organized
+into a $K \times K$ cost matrix where $K$ is the number of classes.
+Naturally, it is assumed that the cost of predicting the correct class label $y$ is minimal
+(that is $c(y, y)$ is smaller or equal to $c(k, y)$ for all $k$).
 
 A further generalization of this scenario are *example-dependent misclassification costs* where
-each example (*x*, *y*) is coupled with an individual cost vector of length *K*. Its *k*-th
-component expresses the cost of assigning *x* to class *k*.
+each example $(x, y)$ is coupled with an individual cost vector of length $K$. Its $k$-th
+component expresses the cost of assigning $x$ to class $k$.
 A real-world example is fraud detection where the costs do not only depend on the true and
 predicted status fraud/non-fraud, but also on the amount of money involved in each case.
-Naturally, the cost of predicting the true class label *y* is assumed to be minimum.
+Naturally, the cost of predicting the true class label $y$ is assumed to be minimum.
 The true class labels are redundant information, as they can be easily inferred from the
 cost vectors.
-Moreover, given the cost vector, the expected costs do not depend on the true class label *y*.
-The classification problem is therefore completely defined by the feature values *x* and the
+Moreover, given the cost vector, the expected costs do not depend on the true class label $y$.
+The classification problem is therefore completely defined by the feature values $x$ and the
 corresponding cost vectors.
 
 In the following we show ways to handle cost-sensitive classification problems in [%mlr].
@@ -62,11 +62,11 @@ We start with binary classification problems and afterwards deal with multi-clas
 The positive and negative classes are labeled 1 and -1, respectively, and we consider the
 following cost matrix where the rows indicate true classes and the columns predicted classes:
 
-|            |           |            |
-|:----------:|:---------:|:----------:|
-| true\pred. | 1         | -1         |
-| 1          | *c*(1,1)  | *c*(-1,1)  |
-| -1         | *c*(1,-1) | *c*(-1,-1) |
+|            |            |            |
+|:----------:|:----------:|:----------:|
+| true\pred. | $+1$       | $-1$       |
+| $+1$       | $c(+1,+1)$ | $c(-1,+1)$ |
+| $-1$       | $c(+1,-1)$ | $c(-1,-1)$ |
 
 Often, the diagonal entries are zero or the cost matrix is rescaled to achieve zeros in the diagonal
 (see for example [O'Brien et al, 2008](http://machinelearning.org/archive/icml2008/papers/150.pdf)).
@@ -125,7 +125,7 @@ threshold for class Bad.
 ##### i. Theoretical thresholding
 
 The theoretical threshold for the *positive* class can be calculated from the cost matrix as
-![theoretic threshold](../../../images/theoretic_threshold.png "theoretic threshold")
+$$t^* = \frac{c(+1,-1) - c(-1,-1)}{c(+1,-1) - c(+1,+1) + c(-1,+1) - c(-1,-1)}.$$
 For more details see [Elkan (2001)](http://www.cs.iastate.edu/~honavar/elkan.pdf).
 
 Below the theoretical threshold for the [German credit example](&caret::GermanCredit)
@@ -259,17 +259,17 @@ Alternatively, *over- and undersampling* techniques can be used.
 
 Similar to *theoretical thresholding*, *theoretical weights* can be calculated from the
 cost matrix.
-If *t* indicates the target threshold and *t*<sub>0</sub> the original threshold for the positive class the
+If $t$ indicates the target threshold and $t_0$ the original threshold for the positive class the
 proportion of observations in the positive class has to be multiplied by
-![weight positive](../../../images/weight_positive.png "weight positive")
+$$\frac{1-t}{t} \frac{t_0}{1-t_0}.$$
 Alternatively, the proportion of observations in the negative class can be multiplied by
 the inverse.
 A proof is given by [Elkan (2001)](http://www.cs.iastate.edu/~honavar/elkan.pdf).
 
-In most cases, the original threshold *t*<sub>0</sub> is 0.5 and thus the second factor vanishes.
-If additionally the target threshold *t* equals the theoretical threshold *t*<sup>*</sup> the
+In most cases, the original threshold $t_0$ is 0.5 and thus the second factor vanishes.
+If additionally the target threshold $t$ equals the theoretical threshold $t^*$ the
 proportion of observations in the positive class has to be multiplied by
-![theoretic weight positive](../../../images/theoretic_weight_positive.png "theoretic weight positive")
+$$\frac{1-t^*}{t^*} = \frac{c(-1,+1) - c(+1,+1)}{c(+1,-1) - c(-1,-1)}.$$
 
 Function [&makeWeightedClassesWrapper] allows to assign class weights to [Learner](&makeLearner)s.
 Naturally, this is only possible for methods with either a 'class weights' or an 'observation weights' argument.
@@ -417,7 +417,7 @@ wf.costs = makeCostMeasure(id = "wf.costs", costs = costs, task = wf.task, best 
 ```
 
 In the multi-class case, both, *thresholding* and *rebalancing* correspond to cost matrices
-of a certain structure where *c*(*k*,*l*) = *c*(*l*) for *k*, *l* = 1, ..., *K*, *k* &ne; *l*.
+of a certain structure where $c(k,l) = c(l)$ for $k$, $l = 1, \ldots, K$, $k \neq l$.
 This condition means that the cost of misclassifying an observation is independent of the
 predicted class label
 (see [Domingos (1999)](http://homes.cs.washington.edu/~pedrod/papers/kdd99.pdf)).
@@ -428,7 +428,7 @@ Obviously, the cost matrix given above does not have this special structure.
 
 #### 1. Thresholding
 
-Given a vector of positive threshold values as long as the number of classes *K*, the predicted
+Given a vector of positive threshold values as long as the number of classes $K$, the predicted
 probabilities for all classes are adjusted by dividing them by the corresponding threshold value.
 Then the class with the highest adjusted probability is predicted.
 This way, as in the binary case, classes with a low threshold are predicted more easily than
@@ -456,8 +456,8 @@ performance(pred.th, measures = list(wf.costs, mmce))
 The threshold vector ``th`` in the above example is chosen according to the average costs
 of the true classes 55, 4.5 and 9.
 More exactly, ``th`` corresponds to an artificial cost matrix of the structure mentioned
-above with off-diagonal elements *c*(2,1) = *c*(3,1) = 55, *c*(1,2) = *c*(3,2) = 4.5 and
-*c*(1,3) = *c*(2,3) = 9.
+above with off-diagonal elements $c(2,1) = c(3,1) = 55$, $c(1,2) = c(3,2) = 4.5$ and
+$c(1,3) = c(2,3) = 9$.
 This threshold vector may be not optimal but leads to smaller total costs on the data set than
 the default.
 
@@ -487,7 +487,7 @@ th/sum(th)
 ##### i. Weighting
 
 In the multi-class case you have to pass a vector of weights as long as the number of classes
-*K* to function [&makeWeightedClassesWrapper].
+$K$ to function [&makeWeightedClassesWrapper].
 The weight vector can be tuned using function [&tuneParams].
 
 ```{r}
@@ -507,8 +507,8 @@ tune.res
 
 In case of example-dependent costs we have to create a special [&Task] via function
 [&makeCostSensTask].
-For this purpose the feature values *x* and an *n* times *K* ``cost`` matrix that contains
-the cost vectors for all *n* examples in the data set are required.
+For this purpose the feature values $x$ and an $n \times K$ ``cost`` matrix that contains
+the cost vectors for all $n$ examples in the data set are required.
 
 We use the [iris](&datasets::iris) data and generate an artificial cost matrix.
 

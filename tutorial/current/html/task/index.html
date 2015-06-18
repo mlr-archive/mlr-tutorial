@@ -437,12 +437,12 @@ equally severe. However, in many applications different kinds of errors cause di
 <p>In case of <em>class-dependent costs</em>, that depend on the actual and predicted class labels, it
 is sufficient to create an ordinary <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">ClassifTask</a>.</p>
 <p>In order to handle <em>example-specific costs</em> it is necessary to generate a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">CostSensTask</a>.
-In this scenario, each example (<em>x</em>, <em>y</em>) is associated with an individual cost vector of length
-<em>K</em> where <em>K</em> denotes the number of classes. The <em>k</em>-th component indicates the cost of assigning
-<em>x</em> to class <em>k</em>. Naturally, it is assumed that the cost of the intended class label <em>y</em> is
+In this scenario, each example <script type="math/tex">(x, y)</script> is associated with an individual cost vector of length
+<script type="math/tex">K</script> where <script type="math/tex">K</script> denotes the number of classes. The <script type="math/tex">k</script>-th component indicates the cost of assigning
+<script type="math/tex">x</script> to class <script type="math/tex">k</script>. Naturally, it is assumed that the cost of the intended class label <script type="math/tex">y</script> is
 minimal.</p>
-<p>As the cost vector contains all relevant information about the intended class label <em>y</em>, only
-the feature values <em>x</em> and a <code>cost</code> matrix, which contains the cost vectors for all examples in the data
+<p>As the cost vector contains all relevant information about the intended class label <script type="math/tex">y</script>, only
+the feature values <script type="math/tex">x</script> and a <code>cost</code> matrix, which contains the cost vectors for all examples in the data
 set, are required to create the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">CostSensTask</a>.</p>
 <p>In the following example we use the <a href="http://www.rdocumentation.org/packages/datasets/functions/iris.html">iris data</a> and generate an artificial cost matrix
 (following <a href="http://dx.doi.org/10.1145/1102351.1102358">Beygelzimer et al., 2005</a>):</p>
@@ -638,6 +638,7 @@ A list of all <a href="http://www.rdocumentation.org/packages/mlr/functions/Task
         <script>var base_url = '..';</script>
         <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
             <div class="modal-dialog">
