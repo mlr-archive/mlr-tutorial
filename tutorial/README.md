@@ -4,6 +4,8 @@ URL: http://berndbischl.github.io/mlr/tutorial/html/
 ## Howto
 * Install dependencies:
   `pip install --user mkdocs` or `easy_install --user mkdocs`.
+  Install the [math extension for Python-Markdown](https://github.com/mitya57/python-markdown-math):
+  After download type `python setup.py build` and `python setup.py install`.
   Install R dependencies as required.
 * Only edit R markdown files in subfolder `src`.
 * Markdown basics:
