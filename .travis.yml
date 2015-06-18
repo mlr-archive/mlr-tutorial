@@ -3,6 +3,9 @@ branches:
     only:
         - gh-pages
 install:
+    - sudo apt-get install software-properties-common python-software-properties
+    - sudo add-apt-repository ppa:marutter/rrutter
+    - sudo apt-get update
     - sudo apt-get install r-cran-rjava python-pip
     - sudo R CMD javareconf
     - sudo R --no-save <<< 'install.packages("devtools", repos="http://cran.rstudio.com/")'
