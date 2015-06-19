@@ -19,8 +19,7 @@ install:
     - sudo pip install mkdocs
     - wget https://github.com/mitya57/python-markdown-math/archive/master.zip
     - unzip master.zip
-    - cd python-markdown-math-master
-    - sudo python setup.py install
+    - cd python-markdown-math-master && sudo python setup.py install && cd ..
 script:
     - cd tutorial
     - ./build || ./build || ./build
