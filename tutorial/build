@@ -68,6 +68,7 @@ suppressPackageStartupMessages({
   library(stringr)
   library(digest)
   library(caret) # we get problems if this shadows "mlr::train"
+  suppressWarnings(libary(rgl)) # suppress "no X" warning on travis
   library(mlr)
 })
 
