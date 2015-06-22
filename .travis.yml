@@ -29,6 +29,7 @@ script:
     - ./build || ./build || ./build
 
 after_success:
+    - git remote set-url --push origin $(git config remote.origin.url | sed -e 's/git/https/')
     - git config user.name $GIT_NAME
     - git config user.email $GIT_EMAIL
     - git config credential.helper "store --file=.git/credentials"
