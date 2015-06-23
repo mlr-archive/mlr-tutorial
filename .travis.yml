@@ -27,6 +27,7 @@ install:
 script:
     - cd tutorial
     - ./build || ./build || ./build
+    - cd ..
 
 after_success:
     - git remote set-url --push origin $(git config remote.origin.url | sed -e 's/git/https/')
