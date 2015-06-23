@@ -30,14 +30,12 @@ script:
     - cd ..
 
 after_success:
+    - git checkout gh-pages
     - git remote set-url --push origin $(git config remote.origin.url | sed -e 's/git/https/')
-    - git remote set-branches --add origin gh-pages
-    - git fetch -q
     - git config user.name $GIT_NAME
     - git config user.email $GIT_EMAIL
     - git config credential.helper "store --file=.git/credentials"
     - echo "https://$GH_TOKEN:@github.com" >> .git/credentials
-    - git branch gh-pages origin/gh-pages
     - git config push.default matching
     - git commit -a -m "update auto-generated tutorial pages"
     - git push
