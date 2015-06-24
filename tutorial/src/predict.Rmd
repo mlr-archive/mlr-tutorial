@@ -77,7 +77,8 @@ the prediction corresponds to.
 
 ### Extract Probabilities
 The predicted probabilities can be extracted from the [&Prediction] using the function
-[&getProbabilities].
+[&getPredictionProbabilities].
+(Function [&getProbabilities] has been deprecated in favor of [&getPredictionProbabilities].)
 Here is another cluster analysis example. We use [fuzzy c-means clustering](&e1071::cmeans)
 on the [mtcars](&datasets::mtcars) data set.
 
@@ -86,7 +87,7 @@ lrn = makeLearner("cluster.cmeans", predict.type = "prob")
 mod = train(lrn, mtcars.task)
 
 pred = predict(mod, task = mtcars.task)
-head(getProbabilities(pred))
+head(getPredictionProbabilities(pred))
 ```
 
 For classification problems there are some more things worth mentioning.
@@ -120,9 +121,9 @@ In addition to the probabilities, class labels are predicted
 by choosing the class with the maximum probability and breaking ties at random.
 
 As mentioned above, the predicted posterior probabilities can be accessed via the
-[&getProbabilities] function.
+[&getPredictionProbabilities] function.
 ```{r}
-head(getProbabilities(pred))
+head(getPredictionProbabilities(pred))
 ```
 
 
@@ -155,13 +156,16 @@ getConfMatrix(pred1)
 getConfMatrix(pred2)
 ```
 
-Note that in the binary case [&getProbabilities] by default extracts the posterior
+Note that in the binary case [&getPredictionProbabilities] by default extracts the posterior
 probabilities of the positive class only.
 ```{r}
-head(getProbabilities(pred1))
+head(getPredictionProbabilities(pred1))
+
 ## But we can change that, too
-head(getProbabilities(pred1, cl = c("M", "R")))
+head(getPredictionProbabilities(pred1, cl = c("M", "R")))
 ```
+
+
 
 It works similarly for multiclass classification.
 The threshold has to be given by a named vector specifying the values by which each probability will be divided.
