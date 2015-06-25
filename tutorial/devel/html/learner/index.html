@@ -393,13 +393,14 @@ classif.lrn$par.set
 #&gt; replace          logical    -  TRUE        -   -    TRUE     -
 #&gt; classwt    numericvector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
 #&gt; cutoff     numericvector &lt;NA&gt;     -   0 to 1   -    TRUE     -
-#&gt; sampsize   integervector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
+#&gt; sampsize         integer    -     - 1 to Inf   -    TRUE     -
 #&gt; nodesize         integer    -     1 1 to Inf   -    TRUE     -
 #&gt; maxnodes         integer    -     - 1 to Inf   -    TRUE     -
 #&gt; importance       logical    - FALSE        -   -    TRUE     -
 #&gt; localImp         logical    - FALSE        -   -    TRUE     -
-#&gt; norm.votes       logical    -  TRUE        -   -    TRUE     -
-#&gt; keep.inbag       logical    - FALSE        -   -    TRUE     -
+#&gt; norm.votes       logical    -  TRUE        -   -   FALSE     -
+#&gt; do.trace         logical    - FALSE        -   -   FALSE     -
+#&gt; keep.inbag       logical    - FALSE        -   -   FALSE     -
 
 ## Get the type of prediction
 regr.lrn$predict.type
@@ -428,13 +429,14 @@ getParamSet(classif.lrn)
 #&gt; replace          logical    -  TRUE        -   -    TRUE     -
 #&gt; classwt    numericvector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
 #&gt; cutoff     numericvector &lt;NA&gt;     -   0 to 1   -    TRUE     -
-#&gt; sampsize   integervector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
+#&gt; sampsize         integer    -     - 1 to Inf   -    TRUE     -
 #&gt; nodesize         integer    -     1 1 to Inf   -    TRUE     -
 #&gt; maxnodes         integer    -     - 1 to Inf   -    TRUE     -
 #&gt; importance       logical    - FALSE        -   -    TRUE     -
 #&gt; localImp         logical    - FALSE        -   -    TRUE     -
-#&gt; norm.votes       logical    -  TRUE        -   -    TRUE     -
-#&gt; keep.inbag       logical    - FALSE        -   -    TRUE     -
+#&gt; norm.votes       logical    -  TRUE        -   -   FALSE     -
+#&gt; do.trace         logical    - FALSE        -   -   FALSE     -
+#&gt; keep.inbag       logical    - FALSE        -   -   FALSE     -
 </code></pre>
 
 <p>We can also use <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html">getParamSet</a> to get a quick overview about the available hyperparameters
@@ -446,13 +448,14 @@ and defaults of a learning method without explicitly constructing it (by calling
 #&gt; replace          logical    -  TRUE        -   -    TRUE     -
 #&gt; classwt    numericvector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
 #&gt; cutoff     numericvector &lt;NA&gt;     -   0 to 1   -    TRUE     -
-#&gt; sampsize   integervector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
+#&gt; sampsize         integer    -     - 1 to Inf   -    TRUE     -
 #&gt; nodesize         integer    -     1 1 to Inf   -    TRUE     -
 #&gt; maxnodes         integer    -     - 1 to Inf   -    TRUE     -
 #&gt; importance       logical    - FALSE        -   -    TRUE     -
 #&gt; localImp         logical    - FALSE        -   -    TRUE     -
-#&gt; norm.votes       logical    -  TRUE        -   -    TRUE     -
-#&gt; keep.inbag       logical    - FALSE        -   -    TRUE     -
+#&gt; norm.votes       logical    -  TRUE        -   -   FALSE     -
+#&gt; do.trace         logical    - FALSE        -   -   FALSE     -
+#&gt; keep.inbag       logical    - FALSE        -   -   FALSE     -
 </code></pre>
 
 <h2 id="modifying-a-learner">Modifying a learner</h2>

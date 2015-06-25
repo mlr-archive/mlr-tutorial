@@ -368,8 +368,6 @@ But until then you can turn off <a href="http://www.rdocumentation.org/packages/
 #&gt; Error in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newPar without available description object!
 #&gt; You can switch off this check by using configureMlr!
 lrn = makeLearner(&quot;classif.ksvm&quot;, epsilon = -3)
-#&gt; Error in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter epsilon without available description object!
-#&gt; You can switch off this check by using configureMlr!
 
 configureMlr(on.par.without.desc = &quot;quiet&quot;)
 lrn = makeLearner(&quot;classif.ksvm&quot;, newPar = 3)
@@ -387,7 +385,7 @@ The following example shows how to prevent this:</p>
 <pre><code class="r">## This call gives an error caused by the low number of observations in class `virginica`
 train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
 #&gt; Error in qda.default(x, grouping, ...): some group is too small for 'qda'
-#&gt; Timing stopped at: 0.003 0 0.003
+#&gt; Timing stopped at: 0.004 0 0.005
 
 configureMlr(on.learner.error = &quot;warn&quot;)
 mod = train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
