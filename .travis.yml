@@ -18,6 +18,7 @@ install:
     - sudo R --no-save <<< 'install.packages("pander", repos="http://cran.rstudio.com/")'
     - sudo R --no-save <<< 'install.packages("knitr", repos="http://cran.rstudio.com/")'
     - sudo R --no-save <<< 'install.packages("mlr", repos="http://cran.rstudio.com/", dependencies = TRUE)'
+    - sudo R --no-save <<< 'install.packages(c("flare", "kknn", "mRMRe"), repos="http://cran.rstudio.com/")'
     - sudo R --no-save <<< 'library("devtools"); install_github("berndbischl/mlr")'
     - sudo R --no-save <<< 'library("devtools"); install_github("berndbischl/ParamHelpers")'
     - sudo pip install mkdocs
