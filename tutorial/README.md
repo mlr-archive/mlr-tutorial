@@ -1,5 +1,5 @@
 # Tutorial
-URL: http://mlr-org.github.io/mlr-tutorial/tutorial/current/html/
+URL: http://mlr-org.github.io/mlr-tutorial/tutorial/devel/html/
 
 ## Howto
 * Install dependencies:

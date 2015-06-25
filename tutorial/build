@@ -89,7 +89,7 @@ ok = system3("mkdocs", "build")
 if (ok$exit.code == 0L) {
   message("Build successfull!")
   message("Now zip everything!")
-  setwd("current/html/")
+  setwd("devel/html/")
   suppressAll(zip("../mlr_tutorial.zip", files = "."))
   setwd("../")
   # clean up
