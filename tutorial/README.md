@@ -8,7 +8,6 @@ URL: http://mlr-org.github.io/mlr-tutorial/tutorial/devel/html/
   After download type `python setup.py build` and `python setup.py install`.
   Install R dependencies as required.
 * Only edit R markdown files in subfolder `src/`.
-* To add a new section to the tutorial or change their irder you need to edit the pages configuration in `mkdocs.yml`.
 * Markdown basics:
   * Basic Markdown: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
   * RStudio Support: https://support.rstudio.com/hc/en-us/articles/200552086-Using-R-Markdown
@@ -19,10 +18,12 @@ URL: http://mlr-org.github.io/mlr-tutorial/tutorial/devel/html/
   For example, in order to link to mlr function `foo` documented on help page `bar` write
   `[foo](&bar)` instead of `[&foo]`.
 * Link to packages: `[%pkg]` and `[name](%pkg)`.
-* Put additional images in `../images`.
+* To add a new section to the tutorial or change their order you need to edit the pages configuration in `mkdocs.yml`.
+* Put additional images in `../images/`.
 * Run `./build` to generate new static HTML.
 * If everything works:
-  Commit and push **only** your changes in `src/` (and `mkdocs.yml`) to update the tutorial.
+  Commit and push **only** your changes in `src/` (and possibly `mkdocs.yml` and `../images/`) to update
+  the tutorial.
   After your commit the HTML pages are automatically built and pushed by Travis.
   
 
@@ -30,8 +31,12 @@ URL: http://mlr-org.github.io/mlr-tutorial/tutorial/devel/html/
 * "mkdocs serve" starts a http server listening on http://localhost:8000
   and updates the docs on change.
 * Sometimes function names collide. These packages must be loaded _first_
-  in "build". That way mlr overwrites these functions again, e.g. caret::train.
-* The build caches the output of running the R commands in the cache/ directory.
+  in `build`. That way mlr overwrites these functions again, e.g. `caret::train`.
+* The build caches the output of running the R commands in the `cache/` directory.
   If your R setup has changed (e.g. new version of mlr), you should delete
   everything in the cache directory to make sure that the tutorial is
   regenerated with the new code.
+
+  This particularily means: If you encounter an error in building the tutorial
+  due to your R setup (e.g. outdated/missing packages) you **have to** delete
+  the cache (after updating said packages) to get rid of the error. 
