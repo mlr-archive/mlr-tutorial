@@ -5,7 +5,7 @@ URL: http://mlr-org.github.io/mlr-tutorial/tutorial/devel/html/
 * Install dependencies:
   `pip install --user mkdocs` or `easy_install --user mkdocs`.
   Install the [math extension for Python-Markdown](https://github.com/mitya57/python-markdown-math):
-  After download type `python setup.py build` and `python setup.py install`.
+  After download `chmod a+x setup.py`, edit the first line in the file if you use `pyhton2`, type `python setup.py build` and `python setup.py install`.
   Install R dependencies as required.
 * Only edit R markdown files in subfolder `src/`.
 * To add a new section to the tutorial or change their irder you need to edit the pages configuration in `mkdocs.yml`.
