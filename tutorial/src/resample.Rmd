@@ -15,7 +15,7 @@ Then the individual performance values are aggregated, typically by calculating 
 There exist various different resampling strategies, for example
 cross-validation and bootstrap, to mention just two popular approaches.
 
-![Resampling Figure](../../../images/resampling.png "Resampling Figure")
+![Resampling Figure](img/resampling.png "Resampling Figure")
 
 If you want to read up further details, the paper
 [Resampling Strategies for Model Assessment and Selection](http://link.springer.com/chapter/10.1007%2F978-0-387-47509-7_8)
