@@ -1,0 +1,66 @@
+# Visualization
+
+## Generate/Plot
+
+[%mlr]'s visualization capabilies rely on generation functions which generate data for plots, and plot functions which plot this output using either [%ggplot2] or [%ggvis] (the latter being currently experimental). This separation allows users to easily make custom visualizations by taking advantage of the generation functions. The only data transformation that is handled inside plotting functions is reshaping. This is also accessible by calling the plotting functions and then extracting the data from the [&ggplot2::ggplot] object.
+
+The functions are named accordingly. Functions that start with "generate" and are followed by a title-case description of their purpose, followed by "Data": i.e., [%generateFunctionPurposeData]. These functions output objects of class "FunctionPurposeData". Plotting functions are prefixed by "plot" and the name of the class output by the generation function minus the word "Data", i.e., "plotFunctionName".
+
+```{r}
+lrn = makeLearner("classif.lda", predict.type = "prob")
+n = getTaskSize(sonar.task)
+mod = train(lrn, task = sonar.task, subset = seq(1, n, by = 2))
+pred = predict(mod, task = sonar.task, subset = seq(2, n, by = 2))
+d = generateThreshVsPerfData(pred, measures = list(fpr, fnr, mmce))
+head(d$data)
+```
+
+For this task we can use the built-in [%mlr] function [&plotThreshVsPerf].
+
+```{r, fig.width = 8, fig.height = 4}
+plotThreshVsPerf(d)
+```
+
+We could also simply use [&generateThreshVsPerf] and then manually create the plot: in this case to plot only one measure.
+
+```{r, fig.width = 6, fig.height = 4}
+ggplot(d$data, aes(threshold, fpr)) + geom_line()
+```
+
+Here we use [&plotPartialPrediction] but extract the data from the plot object.
+
+```{r, fig.width = 6, fig.height = 4}
+sonar = getTaskData(sonar.task)
+pd = generatePartialPredictionData(mod, sonar, "V11")
+plt = plotPartialPrediction(pd)
+head(plt$data)
+plt
+```
+
+## Generation Functions
+
+After each function referenced, a tutorial page where it is described in more depth is provided. The corresponding plots are also described therein. Note that some plots, e.g. [&plotTuneMultiCritResult] are not described here since they lack a generation function.
+
+ - [&generateFilterValuesData]: [Feature Selection](feature_selection.md)
+ - [&generateLearningCurveData]: [Learning Curve](learning_curve.md)
+ - [&generateThreshVsPerfData]: [Performance](performance.md)
+ - [&generateROCRCurvesData]: [ROC Analysis](roc_analysis.md)
+ - [&generatePartialPredictionData]: [Partial Prediction Plots](partial_prediction.md)
+
+## ggplot2 Plotting Functions
+
+ - [&plotFilterValues]
+ - [&plotLearningCurve]
+ - [&plotThresVsPerf]
+ - [&plotROCRCurves]
+ - [&plotPartialPrediction]
+
+## ggvis Plotting Functions
+
+These functions are experimental and are subject to change, though they should work. Most generate interactive [%shiny] applications, that automatically start and run locally.
+
+ - [&plotFilterValuesGGVIS]
+ - [&plotLearningCurveGGVIS]
+ - [&plotThreshVsPerfGGVIS]
+ - [&plotROCRCurvesGGVIS]
+ - [&plotPartialPredictionGGVIS]

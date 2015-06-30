@@ -19,6 +19,7 @@ pages:
     - 'Resampling': 'resample.md'
     - 'Benchmark Experiments': 'benchmark_experiments.md'
     - 'Parallelization': 'parallelization.md'
+    - 'Visualization': 'visualization.md'
 - Advanced:
     - 'Configuration': 'configureMlr.md'
     - 'Wrapped Learners': 'wrapper.md'
