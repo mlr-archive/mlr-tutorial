@@ -71,6 +71,7 @@ binary classification problem ([&sonar.task]) and apply [linear discriminant ana
 
 ```{r}
 lrn1 = makeLearner("classif.lda", predict.type = "prob")
+
 mod1 = train(lrn1, sonar.task)
 pred1 = predict(mod1, task = sonar.task)
 roc_data = generateROCRCurvesData(pred1)
@@ -327,16 +328,16 @@ See [%ROCR]'s [plot](&ROCR::plot-methods) function for details.
 
 ```{r}
 ## lda average ROC curve
-plot(ROCRperfs[[1]], col = "blue", avg = "horizontal", spread.estimate = "stderror",
+ROCR::plot(ROCRperfs[[1]], col = "blue", avg = "horizontal", spread.estimate = "stderror",
   show.spread.at = seq(0.1, 0.9, 0.1), plotCI.col = "blue", plotCI.lwd = 2, lwd = 2)
 ## lda individual ROC curves
-plot(ROCRperfs[[1]], col = "blue", lty = 2, lwd = 0.25, add = TRUE)
+ROCR::plot(ROCRperfs[[1]], col = "blue", lty = 2, lwd = 0.25, add = TRUE)
 
 ## ksvm average ROC curve
-plot(ROCRperfs[[2]], col = "red", avg = "horizontal", spread.estimate = "stderror",
+ROCR::plot(ROCRperfs[[2]], col = "red", avg = "horizontal", spread.estimate = "stderror",
   show.spread.at = seq(0.4, 0.9, 0.1), plotCI.col = "red", plotCI.lwd = 2, lwd = 2, add = TRUE)
 ## ksvm individual ROC curves
-plot(ROCRperfs[[2]], col = "red", lty = 2, lwd = 0.25, add = TRUE)
+ROCR::plot(ROCRperfs[[2]], col = "red", lty = 2, lwd = 0.25, add = TRUE)
 
 legend("bottomright", legend = getBMRLearnerIds(res), lty = 1, lwd = 2, col = c("blue", "red"))
 ```
@@ -353,8 +354,8 @@ ROCRpreds = lapply(preds, asROCRPrediction)
 ROCRperfs = lapply(ROCRpreds, function(x) ROCR::performance(x, "prec", "rec"))
 
 ## Draw performance plot
-plot(ROCRperfs[[1]], col = "blue", avg = "threshold")
-plot(ROCRperfs[[2]], col = "red", avg = "threshold", add = TRUE)
+ROCR::plot(ROCRperfs[[1]], col = "blue", avg = "threshold")
+ROCR::plot(ROCRperfs[[2]], col = "red", avg = "threshold", add = TRUE)
 legend("bottomleft", legend = getBMRLearnerIds(res), lty = 1, col = c("blue", "red"))
 ```
 
@@ -372,7 +373,7 @@ ROCRpreds = lapply(preds, asROCRPrediction)
 ROCRperfs = lapply(ROCRpreds, function(x) ROCR::performance(x, "acc"))
 
 ## Plot accuracy versus threshold
-plot(ROCRperfs[[1]], avg = "vertical", spread.estimate = "boxplot", lwd = 2, col = "blue",
+ROCR::plot(ROCRperfs[[1]], avg = "vertical", spread.estimate = "boxplot", lwd = 2, col = "blue",
   show.spread.at = seq(0.1, 0.9, 0.1), ylim = c(0,1), xlab = "Threshold")
 ```
 
