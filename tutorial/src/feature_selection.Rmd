@@ -48,12 +48,11 @@ By default [&plotFilterValues] will create facetted subplots if multiple filter 
 [&generateFilterValuesData].
 
 There is also an experimental [%ggvis] plotting function, [&plotFilterValuesGGVIS]. This takes the same
-arguments as [&plotFilterValues] with the addition of a `logical(1)` argument `interactive`, which, if used with
-an output from [&generateFilterValuesData] that includes multiple filter values, produces a [%shiny] application
-that allows the interactive selection of the displayed filter method.
+arguments as [&plotFilterValues] and produces a [%shiny] application
+that allows the interactive selection of the displayed filter method, the number of features displayed, sorting method.
 
 ```{r, eval=FALSE}
-plotFilterValuesGGVIS(fv2, interactive = TRUE)
+plotFilterValuesGGVIS(fv2)
 ```
 
 According to the ``"information.gain"`` measure, `Petal.Width` and `Petal.Length`
