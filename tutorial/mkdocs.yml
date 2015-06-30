@@ -31,6 +31,7 @@ pages:
     - 'Imbalanced Classification Problems': 'over_and_undersampling.md'
     - 'ROC Analysis': 'roc_analysis.md'
     - 'Learning Curve': 'learning_curve.md'
+    - 'Partial Prediction Plots': 'partial_prediction.md'
 - Extend:
     - 'Create Custom Learners': 'create_learner.md'
     - 'Create Custom Measures': 'create_measure.md'
