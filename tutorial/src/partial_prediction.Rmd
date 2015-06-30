@@ -18,7 +18,7 @@ The algorithm works for any supervised learner.
 
 ### Generating Partial Predictions
 
-Our implementation, following the [generate-plot](plot.md) pattern, consists of the above mentioned function [&generatePartialPredictionData], as well as two visualization functions, [&plotPartialPrediction] and [&plotPartialPredictionGGVIS]. The former generates input (objects of class `partialPredictionData`) for the latter.
+Our implementation, following [%mlr]'s [visualization](visualization.md) pattern, consists of the above mentioned function [&generatePartialPredictionData], as well as two visualization functions, [&plotPartialPrediction] and [&plotPartialPredictionGGVIS]. The former generates input (objects of class `partialPredictionData`) for the latter.
 
 The first step executed by [&generatePartialPredictionData] is to generate a feature grid for every element of the character vector `features` passed, which must be a column name in the `data` argument, which is usually the training data. The feature grid can be generated in several ways. A uniformly spaced grid of length `gridsize` (default 10) from the empirical minimum to the empirical maximum is created by default, but arguments `fmin` and `fmax` may be used to override the empirical default (both the lengths of `fmin` and `fmax` must match the length of `features`). Alternatively the feature data can be resampled, either by using a bootstrap or by subsampling.
 
