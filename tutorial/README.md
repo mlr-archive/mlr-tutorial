@@ -1,12 +1,16 @@
 # Tutorial
 URL: http://mlr-org.github.io/mlr-tutorial/tutorial/devel/html/
 
-## Howto
-* Install dependencies:
-  `pip install --user mkdocs` or `easy_install --user mkdocs`.
-  Install the [math extension for Python-Markdown](https://github.com/mitya57/python-markdown-math):
+## First steps
+Install dependencies:  
+* `pip install --user mkdocs` or `easy_install --user mkdocs`.
+* Install the [math extension for Python-Markdown](https://github.com/mitya57/python-markdown-math):
   After download `chmod a+x setup.py`, edit the first line in the file if you use `pyhton2`, type `python setup.py build` and `python setup.py install`.
-  Install R dependencies as required.
+* Install R dependencies as required.
+
+## Howto
+
+### Edit a tutorial section
 * Only edit R markdown files in subfolder `src/`.
 * Markdown basics:
   * Basic Markdown: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
@@ -18,14 +22,23 @@ URL: http://mlr-org.github.io/mlr-tutorial/tutorial/devel/html/
   For example, in order to link to mlr function `foo` documented on help page `bar` write
   `[foo](&bar)` instead of `[&foo]`.
 * Link to packages: `[%pkg]` and `[name](%pkg)`.
-* To add a new section to the tutorial or change their order you need to edit the pages configuration in `mkdocs.yml`.
-* Put additional images in `../images/`.
+
+### Add a new tutorial section
+* Create a new R markdown file in subfolder `src/`.
+* Add the new section to the pages configuration in `mkdocs.yml`.
+
+### Include images
+Assume you want to include an additional image in file `pic.png`:  
+* Put this file in subfolder `../images/`.
+* Add a symlink in subfolder `custom_theme/img/`: `pic.png -> ../../../images/pic.png`.
+* When including the image in the R markdown link to `img/pic.png`:
+  `![alt text](img/pic.png "Image Title")
+
+### Commit your changes
 * Run `./build` to generate new static HTML.
 * If everything works:
-  Commit and push **only** your changes in `src/` (and possibly `mkdocs.yml` and `../images/`) to update
-  the tutorial.
+  Commit and push your changes **except the HTML** to update the tutorial.
   After your commit the HTML pages are automatically built and pushed by Travis.
-  
 
 ## More
 * "mkdocs serve" starts a http server listening on http://localhost:8000
