@@ -111,6 +111,12 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../visualization/index.html">Visualization</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
@@ -321,7 +327,7 @@
 <p>The algorithm works for any supervised learner.</p>
 <h2 id="usage">Usage</h2>
 <h3 id="generating-partial-predictions">Generating Partial Predictions</h3>
-<p>Our implementation, following the <a href="plot.md">generate-plot</a> pattern, consists of the above mentioned function <a href="http://www.rdocumentation.org/packages/mlr/functions/generatePartialPredictionData.html">generatePartialPredictionData</a>, as well as two visualization functions, <a href="http://www.rdocumentation.org/packages/mlr/functions/plotPartialPrediction.html">plotPartialPrediction</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/plotPartialPredictionGGVIS.html">plotPartialPredictionGGVIS</a>. The former generates input (objects of class <code>partialPredictionData</code>) for the latter.</p>
+<p>Our implementation, following <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s <a href="../visualization/index.html">visualization</a> pattern, consists of the above mentioned function <a href="http://www.rdocumentation.org/packages/mlr/functions/generatePartialPredictionData.html">generatePartialPredictionData</a>, as well as two visualization functions, <a href="http://www.rdocumentation.org/packages/mlr/functions/plotPartialPrediction.html">plotPartialPrediction</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/plotPartialPredictionGGVIS.html">plotPartialPredictionGGVIS</a>. The former generates input (objects of class <code>partialPredictionData</code>) for the latter.</p>
 <p>The first step executed by <a href="http://www.rdocumentation.org/packages/mlr/functions/generatePartialPredictionData.html">generatePartialPredictionData</a> is to generate a feature grid for every element of the character vector <code>features</code> passed, which must be a column name in the <code>data</code> argument, which is usually the training data. The feature grid can be generated in several ways. A uniformly spaced grid of length <code>gridsize</code> (default 10) from the empirical minimum to the empirical maximum is created by default, but arguments <code>fmin</code> and <code>fmax</code> may be used to override the empirical default (both the lengths of <code>fmin</code> and <code>fmax</code> must match the length of <code>features</code>). Alternatively the feature data can be resampled, either by using a bootstrap or by subsampling.</p>
 <pre><code class="r">lrn.classif = makeLearner(&quot;classif.ksvm&quot;, predict.type = &quot;prob&quot;)
 fit.classif = train(lrn.classif, iris.task)
