@@ -19,8 +19,8 @@ install:
     - sudo R --no-save <<< 'install.packages("knitr", repos="http://cran.rstudio.com/")'
     - sudo R --no-save <<< 'install.packages("mlr", repos="http://cran.rstudio.com/", dependencies = TRUE)'
     - sudo R --no-save <<< 'install.packages(c("flare", "kknn", "mRMRe"), repos="http://cran.rstudio.com/")'
-    - sudo R --no-save <<< 'library("devtools"); install_github("berndbischl/mlr")'
     - sudo R --no-save <<< 'library("devtools"); install_github("berndbischl/ParamHelpers")'
+    - sudo R --no-save <<< 'library("devtools"); install_github("berndbischl/mlr")'
     - sudo pip install mkdocs
     - wget https://github.com/mitya57/python-markdown-math/archive/master.zip
     - unzip master.zip
