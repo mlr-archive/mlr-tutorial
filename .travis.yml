@@ -26,7 +26,9 @@ install:
     - unzip master.zip
     - cd python-markdown-math-master && sudo python setup.py install && cd ..
 script:
+    - cd tutorial
     - ./build || ./build || ./build
+    - cd ..
 
 after_success:
     - git checkout gh-pages
@@ -36,7 +38,7 @@ after_success:
     - git config credential.helper "store --file=.git/credentials"
     - echo "https://$GH_TOKEN:@github.com" >> .git/credentials
     - git config push.default matching
-    - git add devel
+    - git add tutorial/devel
     - git commit -a -m "update auto-generated tutorial pages [ci skip]"
     - git push
 
