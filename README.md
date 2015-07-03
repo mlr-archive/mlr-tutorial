@@ -6,5 +6,5 @@ The mlr package online tutorial
 Everything you are looking for is in the `gh-pages` branch.
 This branch contains the build files for the most up to date **[mlr](https://github.com/berndbischl/mlr)** tutorial.
 To view the tutorial online see:
- * http://mlr-org.github.io/mlr-tutorial/tutorial/devel/html/ - targets the github-version of **mlr**
- * http://mlr-org.github.io/mlr-tutorial/tutorial/release/html/ - targets the cran-version of **mlr**.
+ * http://mlr-org.github.io/mlr-tutorial/devel/html/ - targets the github-version of **mlr**
+ * http://mlr-org.github.io/mlr-tutorial/release/html/ - targets the cran-version of **mlr**.
