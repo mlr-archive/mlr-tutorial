@@ -8,9 +8,9 @@ are regularly updated and reflect the documentation of the [current package vers
 
 An offline version of this tutorial is available for download
 
-* [here](https://mlr-org.github.io/mlr-tutorial/tutorial/release/mlr_tutorial.zip) for the
+* [here](https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip) for the
   current mlr release on CRAN
-* and [here](https://mlr-org.github.io/mlr-tutorial/tutorial/devel/mlr_tutorial.zip) for
+* and [here](https://mlr-org.github.io/mlr-tutorial/devel/mlr_tutorial.zip) for
   the mlr devel version on Github.
 
 The tutorial explains the basic analysis of a data set step by step.
