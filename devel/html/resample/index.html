@@ -373,7 +373,7 @@ r
 #&gt; cindex.aggr: 0.63
 #&gt; cindex.mean: 0.63
 #&gt; cindex.sd: 0.05
-#&gt; Runtime: 0.171826
+#&gt; Runtime: 0.130374
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;measures.train&quot; &quot;measures.test&quot; 
@@ -411,13 +411,13 @@ Just as a <a href="http://www.rdocumentation.org/packages/mlr/functions/Predicti
 predictions and in case of a supervised learning problem the true values of the target
 variable.</p>
 <pre><code class="r">head(r$pred$data)
-#&gt;    id truth.time truth.event   response iter  set
-#&gt; 2   1        455        TRUE -0.4951788    1 test
-#&gt; 4   2        210        TRUE  0.9573824    1 test
-#&gt; 7   4        310        TRUE  0.8069059    1 test
-#&gt; 17 10        613        TRUE  0.1918188    1 test
-#&gt; 19 12         61        TRUE  0.6638736    1 test
-#&gt; 22 14         81        TRUE -0.1873917    1 test
+#&gt;   id truth.time truth.event   response iter  set
+#&gt; 1  1        455        TRUE -0.4951788    1 test
+#&gt; 2  2        210        TRUE  0.9573824    1 test
+#&gt; 3  4        310        TRUE  0.8069059    1 test
+#&gt; 4 10        613        TRUE  0.1918188    1 test
+#&gt; 5 12         61        TRUE  0.6638736    1 test
+#&gt; 6 14         81        TRUE -0.1873917    1 test
 </code></pre>
 
 <p>The columns <code>iter</code> and <code>set</code>indicate the resampling iteration and
@@ -447,10 +447,10 @@ r = resample(&quot;cluster.kmeans&quot;, task, rdesc, measures = list(dunn, db, 
 #&gt; [Resample] subsampling iter: 3
 #&gt; [Resample] subsampling iter: 4
 #&gt; [Resample] subsampling iter: 5
-#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.0014
+#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.0012
 r$aggr
 #&gt;      dunn.test.mean        db.test.mean timetrain.test.mean 
-#&gt;           0.2738893           0.5103655           0.0014000
+#&gt;           0.2738893           0.5103655           0.0012000
 </code></pre>
 
 <h2 id="stratified-resampling">Stratified resampling</h2>
