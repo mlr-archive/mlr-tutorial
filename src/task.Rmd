@@ -135,48 +135,60 @@ For more details see the section about [cost-sensitive classification](cost_sens
 The [&Task] help page also lists several other arguments to describe further details of the
 learning problem.
 
-For example, we could include a ``blocking`` factor into the task.
+For example, we could include a ``blocking`` factor in the task.
 This would tell the task that some observations "belong together" and should
-not be separated when splitting into training and test sets during a resampling iteration.
+not be separated when splitting into training and test sets during a [resampling](resample.md) iteration.
 
-Another possibility is to assign ``weights`` to observations according to their importance.
+Another possibility is to assign ``weights`` to observations.
+These can for example simply indicate observation frequencies or result from the sampling
+scheme used to collect the data.
 
 
 ## Accessing a learning task
 We provide many operators to access the elements stored in a [&Task].
-For example, to access a [task description](&TaskDesc) you can use
+The most important ones are listed in the documentation of [&Task] and [&getTaskData].
+
+To access the [task description](&TaskDesc) that contains basic infos about
+the task you can use
 
 ```{r}
 getTaskDescription(regr.task)
 ```
 
-The most important operations are listed in the documentation of [&Task].
-Here are some more examples.
+For frequently needed elements of the task description there also exist separate getter functions.
+```{r}
+## Get the ID
+getTaskId(regr.task)
 
+## Get the type of task
+getTaskType(regr.task)
+
+## Get the names of the target columns
+getTaskTargetNames(regr.task)
+
+## Get the number of observations
+getTaskSize(regr.task)
+
+## Get the number of input variables
+getTaskNFeats(regr.task)
+```
+
+Moreover, [%mlr] provides several functions to extract data from a [&Task].
 ```{r}
 ## Accessing the data set in classif.task
 str(getTaskData(classif.task))
 
-## Get the number of observations in classif.task
-getTaskSize(classif.task)
-
-## Get the number of input variables in cluster.task
-getTaskNFeats(cluster.task)
-
 ## Get the names of the input variables in cluster.task
 getTaskFeatureNames(cluster.task)
 
-## Get the names of the target columns
-getTaskTargetNames(surv.task)
-
-## Get the values of the target variable in regr.task
-head(getTaskTargets(regr.task))
+## Get the values of the target variable in surv.task
+head(getTaskTargets(surv.task))
 
 ## Get the cost matrix in costsens.task
 head(getTaskCosts(costsens.task))
 ```
 
-Note the many options that [&getTaskData] provides to convert the data set into a convenient format.
+Note the many options that [&getTaskData] offers to convert the data set into a convenient format.
 This especially comes in handy when you [integrate a learner](create_learner.md) from another **R**
 package into [%mlr].
 In this regard the functions [&getTaskFormula] and [getTaskFormulaAsString](&getTaskFormula)
@@ -184,12 +196,12 @@ are also useful.
 
 
 ## Modifying a learning task
-[%mlr] provides several functions to alter an existing [&Task] which is often more
+[%mlr] provides several functions to alter an existing [&Task], which is often more
 convenient than creating a new [&Task] from scratch.
 Here are some examples.
 
 ```{r}
-## Select observations and features
+## Select observations and/or features
 cluster.task = subsetTask(cluster.task, subset = 4:17)
 
 ## It may happen, especially after selecting observations, that features are constant.
@@ -204,10 +216,11 @@ task = normalizeFeatures(cluster.task, method = "range")
 summary(getTaskData(task))
 ```
 
-Some of these functions are explained in more detail in the [data preprocessing](preproc.md) section.
+For more functions and more detailed explanations have a look at the
+[data preprocessing](preproc.md) section.
 
 
 ## Example tasks
-For your convenience [%mlr] provides pre-defined [tasks](&Task) for each type of learning problem.
+For your convenience [%mlr] provides pre-defined [Task](&Task)s for each type of learning problem.
 These are used throughout this tutorial in order to get shorter and more readable code.
-A list of all [tasks](&Task) can be found [here](example_tasks.md).
+A list of all [Task](&Task)s can be found [here](example_tasks.md).
