@@ -5,7 +5,7 @@ URL: http://mlr-org.github.io/mlr-tutorial/devel/html/
 Install dependencies:  
 * `pip install --user mkdocs` or `easy_install --user mkdocs`.
 * Install the [math extension for Python-Markdown](https://github.com/mitya57/python-markdown-math):
-  After download `chmod a+x setup.py`, edit the first line in the file if you use `pyhton2`, type `python setup.py build` and `python setup.py install`.
+  After download `chmod a+x setup.py`, edit the first line in the file if you use `python2`, type `python setup.py build` and `python setup.py install`.
 * Install R dependencies as required.
 
 ## Howto
@@ -28,16 +28,16 @@ Install dependencies:
 * Add the new section to the pages configuration in `mkdocs.yml`.
 
 ### Include images
-Assume you want to include an additional image in file `pic.png`:  
+If you want to include an additional image in file `pic.png`:  
 * Put this file in subfolder `images/`.
-* Add a symlink in subfolder `custom_theme/img/`: `pic.png -> ../../images/pic.png`.
-* When including the image in the R markdown link to `img/pic.png`:
+* Add a symlink in directory `custom_theme/img/`: `pic.png -> ../../images/pic.png`.
+* When including the image in the R markdown link to `img/pic.png`:  
   `![alt text](img/pic.png "Image Title")`
 
 ### Commit your changes
 * Run `./build` to generate new static HTML.
 * If everything works:
-  Commit and push your changes **except the HTML** to update the tutorial.
+  Commit and push your changes **except those in** `devel/` to update the tutorial.
   After your commit the HTML pages are automatically built and pushed by Travis.
 
 ## More
