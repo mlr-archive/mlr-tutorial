@@ -74,6 +74,15 @@ As you can see when predicting from a [&Task], the resulting [data frame](&base:
 contains an additional column, called ``id``, which tells us which element in the original data set
 the prediction corresponds to.
 
+A direct way to access the true and predicted values of the target variable(s) is provided by
+functions [getPredictionTruth](&getPredictionResponse) and [&getPredictionResponse].
+
+```{r, eval= FALSE}
+getPredictionTruth(task.pred)
+
+getPredictionResponse(task.pred)
+```
+
 
 ### Extract Probabilities
 The predicted probabilities can be extracted from the [&Prediction] using the function
