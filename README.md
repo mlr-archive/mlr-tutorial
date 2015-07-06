@@ -29,8 +29,8 @@ Install dependencies:
 
 ### Include images
 Assume you want to include an additional image in file `pic.png`:  
-* Put this file in subfolder `../images/`.
-* Add a symlink in subfolder `custom_theme/img/`: `pic.png -> ../../../images/pic.png`.
+* Put this file in subfolder `images/`.
+* Add a symlink in subfolder `custom_theme/img/`: `pic.png -> ../../images/pic.png`.
 * When including the image in the R markdown link to `img/pic.png`:
   `![alt text](img/pic.png "Image Title")`
 
