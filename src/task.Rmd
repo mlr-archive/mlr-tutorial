@@ -178,6 +178,9 @@ Moreover, [%mlr] provides several functions to extract data from a [&Task].
 ## Accessing the data set in classif.task
 str(getTaskData(classif.task))
 
+## Get the class levels in classif.task
+getTaskClassLevels(classif.task)
+
 ## Get the names of the input variables in cluster.task
 getTaskFeatureNames(cluster.task)
 
