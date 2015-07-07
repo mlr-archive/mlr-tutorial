@@ -77,10 +77,10 @@ the prediction corresponds to.
 A direct way to access the true and predicted values of the target variable(s) is provided by
 functions [getPredictionTruth](&getPredictionResponse) and [&getPredictionResponse].
 
-```{r, eval= FALSE}
-getPredictionTruth(task.pred)
+```{r}
+head(getPredictionTruth(task.pred))
 
-getPredictionResponse(task.pred)
+head(getPredictionResponse(task.pred))
 ```
 
 
