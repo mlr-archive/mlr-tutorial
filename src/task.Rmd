@@ -152,34 +152,36 @@ To access the [task description](&TaskDesc) that contains basic infos about
 the task you can use
 
 ```{r}
-getTaskDescription(regr.task)
+getTaskDescription(classif.task)
 ```
 
-For frequently needed elements of the task description there also exist separate getter functions.
+Note that [task description](&TaskDesc)s have slightly different elements, depending on
+the type of the [&Task].
+Frequently needed elements can also be accessed directly.
 ```{r}
 ## Get the ID
-getTaskId(regr.task)
+getTaskId(classif.task)
 
 ## Get the type of task
-getTaskType(regr.task)
+getTaskType(classif.task)
 
 ## Get the names of the target columns
-getTaskTargetNames(regr.task)
+getTaskTargetNames(classif.task)
 
 ## Get the number of observations
-getTaskSize(regr.task)
+getTaskSize(classif.task)
 
 ## Get the number of input variables
-getTaskNFeats(regr.task)
+getTaskNFeats(classif.task)
+
+## Get the class levels in classif.task
+getTaskClassLevels(classif.task)
 ```
 
 Moreover, [%mlr] provides several functions to extract data from a [&Task].
 ```{r}
 ## Accessing the data set in classif.task
 str(getTaskData(classif.task))
-
-## Get the class levels in classif.task
-getTaskClassLevels(classif.task)
 
 ## Get the names of the input variables in cluster.task
 getTaskFeatureNames(cluster.task)
@@ -194,7 +196,7 @@ head(getTaskCosts(costsens.task))
 Note the many options that [&getTaskData] offers to convert the data set into a convenient format.
 This especially comes in handy when you [integrate a learner](create_learner.md) from another **R**
 package into [%mlr].
-In this regard the functions [&getTaskFormula] is also useful.
+In this regard function [&getTaskFormula] is also useful.
 
 
 ## Modifying a learning task
