@@ -98,7 +98,7 @@ credit.task = removeConstantFeatures(credit.task)
 credit.task
 
 costs = matrix(c(0, 1, 5, 0), 2)
-colnames(costs) = rownames(costs) = getTaskDescription(credit.task)$class.levels
+colnames(costs) = rownames(costs) = getTaskClassLevels(credit.task)
 costs
 ```
 
@@ -409,7 +409,7 @@ wf.task = makeClassifTask(id = "waveform", data = as.data.frame(df), target = "c
 
 ## Cost matrix
 costs = matrix(c(0, 5, 10, 30, 0, 8, 80, 4, 0), 3)
-colnames(costs) = rownames(costs) = getTaskDescription(wf.task)$class.levels
+colnames(costs) = rownames(costs) = getTaskClassLevels(wf.task)
 
 ## Performance measure
 wf.costs = makeCostMeasure(id = "wf.costs", costs = costs, task = wf.task, best = 0,
@@ -446,7 +446,7 @@ r
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
-names(th) = getTaskDescription(wf.task)$class.levels
+names(th) = getTaskClassLevels(wf.task)
 th
 
 pred.th = setThreshold(r$pred, threshold = th)
