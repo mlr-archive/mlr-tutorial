@@ -126,7 +126,7 @@ lrn = makeLearner("classif.rpart", predict.type = "prob")
 mod = train(lrn, iris.task)
 
 pred = predict(mod, newdata = iris)
-head(pred$data)
+head(as.data.frame(pred))
 ```
 
 In addition to the probabilities, class labels are predicted
