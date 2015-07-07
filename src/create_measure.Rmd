@@ -1,37 +1,37 @@
 # Integrating another Measure
 
-In some cases, you may want to evaluate a prediction with a measure which is not yet implemented
-in [%mlr]. This could be either a performance measure which is not included in the in [%mlr]
-list of [&measures] or a measure that uses a non-standard misclassification cost matrix.
+In some cases, you may want to evaluate a [&Prediction] with a [Measure](&makeMeasure) which is not yet
+implemented in [%mlr]. This could be either a performance measure which is not included in
+the in [%mlr] [list of measures](measures.md) or a measure that uses a non-standard misclassification
+cost matrix.
 
 
 ## Construct a performance measure
 
 The [&makeMeasure] function provides a simple way of constructing your own performance
 measure. Below, this is exemplified by an implementation of the mean
-misclassification error ([mmce](measures.md)) for the iris dataset. We write a simple
+misclassification error ([mmce](measures.md)) for the [iris](&base::iris) dataset. We write a simple
 function that computes the measure on the basis of the predictions and subsequently wrap it
 in a [Measure](&makeMeasure) object. Then, we work with it as usual with the
 [&performance] function.
 See the **R** documentation of the [&makeMeasure] function for details on the
 various parameters.
 
-```r
+```{r}
 ## Define the measure
-my.mmce = function(task, model, pred, feats, extra.args) {
-  tb = table(pred$data$response, pred$data$truth)
+my.mmce.fun = function(task, model, pred, feats, extra.args) {
+  tb = table(getPredictionResponse(pred), getPredictionTruth(pred))
   1 - sum(diag(tb)) / sum(tb)
 }
 
 ## Encapsulate the function with a Measure object
-my.mmce = makeMeasure(id = "my.mmce", minimize = TRUE, classif = TRUE,
-  allowed.pred.types = "response", fun = my.mmce)
+my.mmce = makeMeasure(id = "my.mmce", minimize = TRUE,
+  properties = c("classif", "classif.multi", "req.pred", "req.truth"),
+  fun = my.mmce.fun, best = 0, worst = 1, name = "My Mean Misclassification Error")
 
 ## Create classification task and learner
-task = makeClassifTask(data = iris, target = "Species")
-lrn = makeLearner("classif.lda")
-mod = train(lrn, task)
-pred = predict(mod, newdata= iris)
+m = train("classif.lda", iris.task)
+pred = predict(m, task = iris.task)
 
 ## Compare predicted and true label with our measure
 performance(pred, measures = my.mmce)
@@ -53,16 +53,15 @@ details on the various parameters.
 ```r
 ## Create misclassification cost matrix
 mcm = matrix(c(0, 2, 2, 3, 0, 2, 1, 1, 0), ncol = 3)
-rownames(mcm) = colnames(mcm) = c("setosa", "versicolor", "virginica")
+rownames(mcm) = colnames(mcm) = getTaskClassLevels(iris.task)
 
 ## Create classification task and learner
-task = makeClassifTask(data = iris, target = "Species")
-lrn = makeLearner("classif.lda")
-mod = train(lrn, task)
-pred = predict(mod, newdata = iris)
+m = train("classif.lda", iris.task)
+pred = predict(m, newdata = iris)
 
 ## Encapsulate the cost matrix in a Measure object
-my.costs = makeCostMeasure(id = "costs", minimize = TRUE, costs = mcm, task, aggregate = mean)
+my.costs = makeCostMeasure(id = "costs", minimize = TRUE, costs = mcm, task = iris.task,
+  best = 0, worst = 3, name = "My Costs")
 
 ## Compare predicted and true label with our measure
 performance(pred, measures = my.costs)
@@ -72,13 +71,10 @@ performance(pred, measures = my.costs)
 ## Create an aggregation function
 
 It is possible to create your own aggregation function by calling the
-internal [%mlr] function [&makeAggregation].
-You can use internal (not exported) functions of **R** packages by prefixing the
-name of the function with the name of the package, i.e., `packagename:::function()`.
-In this case:
+[%mlr] function [&makeAggregation].
 
 ```{r}
-mlr:::makeAggregation(id = "some.name",
+makeAggregation(id = "some.id", name = "some name",
   fun = function (task, perf.test, perf.train, measure, group, pred) {
     ## stuff you want to do with perf.test or perf.train
   }
@@ -86,7 +82,8 @@ mlr:::makeAggregation(id = "some.name",
 ```
 
 Remember: It is important that the head of the function looks exactly as above!
-`perf.test` and `perf.train` are both numerical vectors containing the measure values.
+`perf.test` and `perf.train` are both numerical vectors containing the preformances on
+train and test sets.
 In the usual case (e.g. cross validation), the `perf.train` vector is empty.
 
 
@@ -94,7 +91,7 @@ In the usual case (e.g. cross validation), the `perf.train` vector is empty.
 
 Let's say you are interested in the range of the obtained measures:
 ```{r}
-my.range.aggr = mlr:::makeAggregation(id = "test.range",
+my.range.aggr = makeAggregation(id = "test.range", name = "Test Range",
   fun = function (task, perf.test, perf.train, measure, group, pred)
     diff(range(perf.test))
 )
@@ -103,7 +100,6 @@ my.range.aggr = mlr:::makeAggregation(id = "test.range",
 Now we can run a feature selection based on the first measure in the provided
 list and see how the other measures turn out.
 ```{r}
-library(ggplot2)
 ms1 = mmce
 ms2 = setAggregation(ms1, my.range.aggr)
 ms1min = setAggregation(ms1, test.min)
