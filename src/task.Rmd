@@ -191,8 +191,7 @@ head(getTaskCosts(costsens.task))
 Note the many options that [&getTaskData] offers to convert the data set into a convenient format.
 This especially comes in handy when you [integrate a learner](create_learner.md) from another **R**
 package into [%mlr].
-In this regard the functions [&getTaskFormula] and [getTaskFormulaAsString](&getTaskFormula)
-are also useful.
+In this regard the functions [&getTaskFormula] is also useful.
 
 
 ## Modifying a learning task
