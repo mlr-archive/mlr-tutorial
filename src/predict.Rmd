@@ -89,7 +89,8 @@ head(getPredictionResponse(task.pred))
 ### Extract Probabilities
 The predicted probabilities can be extracted from the [&Prediction] using the function
 [&getPredictionProbabilities].
-(Function [&getProbabilities] has been deprecated in favor of [&getPredictionProbabilities].)
+(Function [&getProbabilities] has been deprecated in favor of [&getPredictionProbabilities]
+in [%mlr] version 2.5.)
 Here is another cluster analysis example. We use [fuzzy c-means clustering](&e1071::cmeans)
 on the [mtcars](&datasets::mtcars) data set.
 
