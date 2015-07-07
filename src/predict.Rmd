@@ -53,9 +53,11 @@ These columns are automatically removed prior to calling the underlying ``predic
 
 
 ## Accessing the prediction
-The returned [&Prediction] object is a named [list](&base::list). The most important element is ``data`` which is a
-[data frame](&base::data.frame) that contains columns with the true values of the target variable (in case of
-supervised learning problems) and the predictions.
+Function [&predict] returns a named [list](&base::list) of class [&Prediction].
+Its most important element is ``$data`` which is a [data frame](&base::data.frame) that contains
+columns with the true values of the target variable (in case of supervised learning problems)
+and the predictions.
+Use [as.data.frame](&Prediction) for direct access.
 
 In the following the predictions on the [BostonHousing](&mlbench::BostonHousing) and the
 [iris](&datasets::iris) data sets are shown.
@@ -64,10 +66,10 @@ second case from a [data frame](&base::data.frame).
 
 ```{r}
 ## Result of predict with data passed via task argument
-head(task.pred$data)
+head(as.data.frame(task.pred))
 
 ## Result of predict with data passed via newdata argument
-head(newdata.pred$data)
+head(as.data.frame(newdata.pred))
 ```
 
 As you can see when predicting from a [&Task], the resulting [data frame](&base::data.frame)
