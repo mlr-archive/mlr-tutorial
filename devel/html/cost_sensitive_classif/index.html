@@ -469,7 +469,7 @@ credit.task
 #&gt; Positive class: Bad
 
 costs = matrix(c(0, 1, 5, 0), 2)
-colnames(costs) = rownames(costs) = getTaskDescription(credit.task)$class.levels
+colnames(costs) = rownames(costs) = getTaskClassLevels(credit.task)
 costs
 #&gt;      Bad Good
 #&gt; Bad    0    5
@@ -487,7 +487,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.50,Good=0.50
-#&gt; time: 0.01
+#&gt; time: 0.02
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -525,7 +525,7 @@ pred.th
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.17,Good=0.83
-#&gt; time: 0.01
+#&gt; time: 0.02
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -586,7 +586,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.371114
+#&gt; Runtime: 0.44859
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -634,7 +634,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.389612
+#&gt; Runtime: 0.40475
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -724,13 +724,13 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.513094
+#&gt; Runtime: 0.490522
 </code></pre>
 
 <p>Some classification methods as the support vector machine (<a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a>) in package <a href="http://www.rdocumentation.org/packages/kernlab/">kernlab</a>
 support class weights.
 When generating the wrapped <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> you have to pass the name of the relevant
-learner parameter (<code>"class.weights"</code> for <a href="../&amp;kernlab:::ksvm">ksvm</a>) via argument <code>wcw.param</code>
+learner parameter (<code>"class.weights"</code> for <a href="http://www.rdocumentation.org/packages/kernlab/functions/:ksvm.html">ksvm</a>) via argument <code>wcw.param</code>
 in addition to the weight.</p>
 <pre><code class="r">lrn = makeWeightedClassesWrapper(&quot;classif.ksvm&quot;, wcw.param = &quot;class.weights&quot;, wcw.weight = w)
 mod = train(lrn, credit.task)
@@ -739,7 +739,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.13
+#&gt; time: 0.12
 #&gt;   id truth response
 #&gt; 1  1  Good     Good
 #&gt; 2  2   Bad      Bad
@@ -759,7 +759,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.69552
+#&gt; Runtime: 0.708595
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -841,7 +841,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.861077
+#&gt; Runtime: 0.95088
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate.
@@ -905,7 +905,7 @@ wf.task = makeClassifTask(id = &quot;waveform&quot;, data = as.data.frame(df), t
 
 ## Cost matrix
 costs = matrix(c(0, 5, 10, 30, 0, 8, 80, 4, 0), 3)
-colnames(costs) = rownames(costs) = getTaskDescription(wf.task)$class.levels
+colnames(costs) = rownames(costs) = getTaskClassLevels(wf.task)
 
 ## Performance measure
 wf.costs = makeCostMeasure(id = &quot;wf.costs&quot;, costs = costs, task = wf.task, best = 0,
@@ -942,11 +942,11 @@ r
 #&gt; mmce.aggr: 0.34
 #&gt; mmce.mean: 0.34
 #&gt; mmce.sd: 0.04
-#&gt; Runtime: 0.0912616
+#&gt; Runtime: 0.10455
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
-names(th) = getTaskDescription(wf.task)$class.levels
+names(th) = getTaskClassLevels(wf.task)
 th
 #&gt;          1          2          3 
 #&gt; 0.01818182 0.22222222 0.11111111
@@ -1102,7 +1102,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.06
+#&gt; time: 0.07
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa

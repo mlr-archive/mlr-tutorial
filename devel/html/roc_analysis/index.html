@@ -355,7 +355,7 @@ multi-class case (<a href="../measures/index.html">multiclass.auc</a> based on p
    <a href="http://www.rdocumentation.org/packages/ROCR/functions/performance.html">performance</a> methods with an associated plotting function,
    <a href="http://www.rdocumentation.org/packages/mlr/functions/plotROCRCurves.html">plotROCRCurves</a> which uses <a href="http://www.rdocumentation.org/packages/ggplot2/">ggplot2</a>.</li>
 <li>The <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function <a href="http://www.rdocumentation.org/packages/mlr/functions/asROCRPrediction.html">asROCRPrediction</a> converts <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> objects to objects
-   of <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>'s class <a href="http://www.rdocumentation.org/packages/ROCR/functions/prediction-class.html">prediction</a>.
+   of <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>'s class <a href="../&amp;ROCR::prediction-class">prediction</a>.
    Then, <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>'s functionality can be used to further analyse the results and generate
    performance plots.</li>
 <li><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s function <a href="http://www.rdocumentation.org/packages/mlr/functions/plotViperCharts.html">plotViperCharts</a> provides an interface to
@@ -553,20 +553,20 @@ on the <a href="http://www.rdocumentation.org/packages/mlr/functions/BenchmarkRe
 <h2 id="performance-plots-with-asrocrprediction">Performance plots with asROCRPrediction</h2>
 <p>Drawing performance plots with package <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a> works through three basic commands:</p>
 <ol>
-<li><a href="http://www.rdocumentation.org/packages/ROCR/functions/prediction.html">ROCR::prediction</a>: Create a <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a> <a href="http://www.rdocumentation.org/packages/ROCR/functions/prediction-class.html">prediction</a> object.</li>
+<li><a href="http://www.rdocumentation.org/packages/ROCR/functions/prediction.html">ROCR::prediction</a>: Create a <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a> <a href="../&amp;ROCR::prediction-class">prediction</a> object.</li>
 <li><a href="http://www.rdocumentation.org/packages/ROCR/functions/performance.html">ROCR::performance</a>: Calculate one or more performance measures for the
    given prediction object.</li>
-<li>A reimplementation of <a href="http://www.rdocumentation.org/packages/ROCR/functions/plot-methods.html">ROCR::plot</a> which uses <a href="http://www.rdocumentation.org/packages/mlr/functions/ggplot2.html">ggplot2</a>.</li>
+<li>A reimplementation of <a href="../&amp;ROCR::plot-methods">ROCR::plot</a> which uses <a href="http://www.rdocumentation.org/packages/mlr/functions/ggplot2.html">ggplot2</a>.</li>
 </ol>
 <p><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s function <a href="http://www.rdocumentation.org/packages/mlr/functions/asROCRPrediction.html">asROCRPrediction</a> converts an <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> object to
-a <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a> <a href="http://www.rdocumentation.org/packages/ROCR/functions/prediction-class.html">prediction</a> object.
+a <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a> <a href="../&amp;ROCR::prediction-class">prediction</a> object.
 In order to create performance plots steps 2. and 3. have to be run by the user.</p>
 <p>This is obviously less convenient than calling <a href="http://www.rdocumentation.org/packages/mlr/functions/plotROCRCurves.html">plotROCRCurves</a> (which extracts predictions,
 calls <a href="http://www.rdocumentation.org/packages/mlr/functions/asROCRPrediction.html">asROCRPrediction</a> and executes steps 2. and 3. internally).
 On the other hand this way provides more control over the generated plots by, e.g., using graphical
 parameters that are not (yet) accessible via <a href="http://www.rdocumentation.org/packages/mlr/functions/plotROCRCurves.html">plotROCRCurves</a>.
 Moreover, you can directly benefit from any enhancements in <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>, use your own
-<a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>-based code or other packages that depend on <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>, and use <a href="http://www.rdocumentation.org/packages/mlr/functions/ROCR.html">ROCR</a>'s <a href="http://www.rdocumentation.org/packages/ROCR/functions/plot-methods.html">plot</a>.
+<a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>-based code or other packages that depend on <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>, and use <a href="http://www.rdocumentation.org/packages/mlr/functions/ROCR.html">ROCR</a>'s <a href="../&amp;ROCR::plot-methods">plot</a>.
 For more details see the <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a> documentation and <code>demo(ROCR)</code>.</p>
 <p>An addditional alternative is to call <a href="http://www.rdocumentation.org/packages/mlr/functions/plotROCRCurves.html">plotROCRCurves</a>, extract the data from the <a href="http://www.rdocumentation.org/packages/mlr/functions/ggplot2.html">ggplot2</a> object using the <code>data</code> element of the object, e.g., <code>obj$data</code>, and then plot the data using whatever method you prefer.</p>
 <h3 id="example-1-single-predictions-continued">Example 1: Single predictions (continued)</h3>
@@ -620,7 +620,7 @@ ROCRperfs = lapply(ROCRpreds, function(x) ROCR::performance(x, &quot;tpr&quot;, 
 <p>We draw the horizontally averaged ROC curves (solid lines) as well as the ROC curves for
 the individual resampling iterations (broken lines).
 Moreover, standard error bars are plotted for selected true positive rates (0.1, 0.2, ..., 0.9).
-See <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>'s <a href="http://www.rdocumentation.org/packages/ROCR/functions/plot-methods.html">plot</a> function for details.</p>
+See <a href="http://www.rdocumentation.org/packages/ROCR/">ROCR</a>'s <a href="../&amp;ROCR::plot-methods">plot</a> function for details.</p>
 <pre><code class="r">## lda average ROC curve
 plot(ROCRperfs[[1]], col = &quot;blue&quot;, avg = &quot;horizontal&quot;, spread.estimate = &quot;stderror&quot;,
   show.spread.at = seq(0.1, 0.9, 0.1), plotCI.col = &quot;blue&quot;, plotCI.lwd = 2, lwd = 2)
@@ -678,7 +678,7 @@ Below plots for the benchmark experiment (Example 2) are generated.</p>
 <pre><code class="r">z = plotViperCharts(res, chart = &quot;rocc&quot;, browse = FALSE)
 </code></pre>
 
-<p>You can see the plot created this way <a href="http://viper.ijs.si/chart/roc/f342b878-98c4-47ee-9638-46b99750538b/">here</a>.
+<p>You can see the plot created this way <a href="http://viper.ijs.si/chart/roc/ac15eec1-ece9-42a3-b604-9a7e1e6d2fe3/">here</a>.
 Note that besides ROC curves you get several other plots like lift charts or cost curves.
 For details, see <a href="http://www.rdocumentation.org/packages/mlr/functions/plotViperCharts.html">plotViperCharts</a>.</p></div>
             
