@@ -285,7 +285,7 @@
                 
                 
                     <li>
-                        <a href="https://github.com/berndbischl/mlr/">
+                        <a href="https://github.com/mlr-org/mlr/">
                             
                                 <i class="fa fa-github"></i>
                             
@@ -373,8 +373,8 @@ r = resample(&quot;classif.ksvm&quot;, iris.task, rdesc)
 <h2 id="example-turn-off-parameter-checking">Example: Turn off parameter checking</h2>
 <p>Or maybe you want to access a new parameter of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> where the learner
 is already available in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>, but the parameter is not "registered" in the learner's parameter set yet.
-If this is the case you might want to <a href="https://github.com/berndbischl/mlr#get-in-touch">contact us</a>
-or <a href="https://github.com/berndbischl/mlr/issues/new">open an issue</a> as well!
+If this is the case you might want to <a href="https://github.com/mlr-org/mlr#get-in-touch">contact us</a>
+or <a href="https://github.com/mlr-org/mlr/issues/new">open an issue</a> as well!
 But until then you can turn off <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s parameter checking like this:</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.ksvm&quot;, newPar = 3)
 #&gt; Error in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newPar without available description object!
@@ -397,7 +397,7 @@ The following example shows how to prevent this:</p>
 <pre><code class="r">## This call gives an error caused by the low number of observations in class `virginica`
 train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
 #&gt; Error in qda.default(x, grouping, ...): some group is too small for 'qda'
-#&gt; Timing stopped at: 0.006 0 0.006
+#&gt; Timing stopped at: 0.005 0 0.006
 
 configureMlr(on.learner.error = &quot;warn&quot;)
 mod = train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
