@@ -5,7 +5,7 @@ Many are already integrated in [%mlr], others are not, but the package is specif
 
 Section [integrated learners](integrated_learners.md) shows the already
 implemented machine learning methods and their properties.
-If your favorite method is missing, either [open an issue](https://github.com/berndbischl/mlr/issues) or take
+If your favorite method is missing, either [open an issue](https://github.com/mlr-org/mlr/issues) or take
 a look at [how to integrate a learning method yourself](create_learner.md).
 This basic introduction demonstrates how to use already implemented learners.
 
