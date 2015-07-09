@@ -39,6 +39,7 @@ after_success:
 notifications:
   email:
     recipients:
+        - bernd_bischl@gmx.net
         - larsko@cs.ubc.ca
         - schiffner@math.uni-duesseldorf.de
         - travis.mlr@jakob-r.de
