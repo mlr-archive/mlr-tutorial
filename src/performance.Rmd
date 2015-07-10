@@ -37,11 +37,25 @@ listMeasures("classif", properties = "classif.multi")
 ## Performance measure suitable for the iris classification task
 listMeasures(iris.task)
 ```
+For convenience there exists a default measure for each type of learning problem, which is
+calculated if nothing else is specified. As defaults we chose the most commonly used measures for the
+respective types, e.g., the mean squared error ([mse](measures.md)) for regression and the
+misclassification rate ([mmce](measures.md)) for classification.
+The help page of function [&getDefaultMeasure] lists all defaults for all types of learning problems.
+The function itself returns the default measure for a given task type, [&Task] or [&Learner].
+
+```{r}
+## Get default measure for iris.task
+getDefaultMeasure(iris.task)
+
+## Get the default measure for linear regression
+getDefaultMeasure(makeLearner("regr.lm"))
+```
 
 ## Calculate performance measures
 In the following example we fit a [gradient boosting machine](&gbm::gbm) on a subset of the
-[BostonHousing](&mlbench::BostonHousing) data set and calculate the mean squared error
-([mse](measures.md)) on the remaining observations.
+[BostonHousing](&mlbench::BostonHousing) data set and calculate the default measure mean
+squared error ([mse](measures.md)) on the remaining observations.
 
 ```{r}
 n = getTaskSize(bh.task)
@@ -49,12 +63,11 @@ lrn = makeLearner("regr.gbm", n.trees = 1000)
 mod = train(lrn, task = bh.task, subset = seq(1, n, 2))
 pred = predict(mod, task = bh.task, subset = seq(2, n, 2))
 
-# mse is the default measure for regression, we do not have to specify
-# it here
 performance(pred)
 ```
 
 The following code computes the median of squared errors ([medse](measures.md)) instead.
+
 ```{r}
 performance(pred, measures = medse)
 ```
