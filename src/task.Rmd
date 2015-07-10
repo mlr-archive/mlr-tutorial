@@ -224,7 +224,10 @@ For more functions and more detailed explanations have a look at the
 [data preprocessing](preproc.md) section.
 
 
-## Example tasks
+## Example tasks and convenience functions
 For your convenience [%mlr] provides pre-defined [Task](&Task)s for each type of learning problem.
 These are used throughout this tutorial in order to get shorter and more readable code.
 A list of all [Task](&Task)s can be found [here](example_tasks.md).
+
+Moreover, [%mlr]'s function [&convertMLBenchObjToTask] can generate [%mlr] [&Task]s from the data
+sets and data generating functions in package [%mlbench].
