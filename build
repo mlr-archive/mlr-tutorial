@@ -76,6 +76,8 @@ suppressPackageStartupMessages({
 options(warn = 2L)
 # embed images in HTML
 opts_knit$set(upload.fun = image_uri)
+# number of spaces to indent the code is 2 (for chunks with tidy=TRUE)
+opts_chunk$set(tidy.opts=list(indent=2, width.cutoff=80))
 
 # create output directory
 if (!isDirectory("docs"))
