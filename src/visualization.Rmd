@@ -2,11 +2,9 @@
 
 ## Generation and plotting functions
 
-[%mlr]'s visualization capabilities rely on
-
-* *generation functions* which generate data for plots and
-* *plotting functions* which plot this output using either [%ggplot2] or [%ggvis] (the latter
-  being currently experimental).
+[%mlr]'s visualization capabilities rely on *generation functions* which generate data for
+plots, and *plotting functions* which plot this output using either [%ggplot2] or [%ggvis]
+(the latter being currently experimental).
 
 This separation allows users to easily make custom visualizations by
 taking advantage of the generation functions. The only data transformation that is handled inside
@@ -44,21 +42,35 @@ For plotting we can use the built-in [%mlr] function [&plotThreshVsPerf].
 plotThreshVsPerf(d)
 ```
 
-We could also simply use [&generateThreshVsPerfData] and then manually create the plot: in this
-case to plot only one measure.
+Note that by default the [Measure](&makeMeasure) `name`s are used to annotate the plot.
+```{r}
+fpr$name
+
+fpr$id
+```
+This does not only apply to [&plotThreshVsPerf], but to most other plot functions that
+show performance measures.
+You can use the `id`s instead of the names by setting `pretty.names = FALSE`.
+
+
+Instead of using the built-in function [&plotThreshVsPerf] we could also manually create the plot
+based on the output of [&generateThreshVsPerfData]: in this case to plot only one measure.
 
 ```{r, fig.width = 6, fig.height = 4}
 ggplot(d$data, aes(threshold, fpr)) + geom_line()
 ```
 
 The option to create plots manually is particularly interesting for all who prefer traditional
-[%graphics] or [%lattice] plots to [%ggplot2]. Here is a [%lattice] plot.
+[%graphics] or [%lattice] plots to [%ggplot2]. Here is a [%lattice] plot which gives a result
+similar to that of [&plotThreshVsPerf].
 
 ```{r, fig.width = 8, fig.height = 4}
-lattice::xyplot(fpr + fnr + mmce ~ threshold, data = d$data, type = "l", ylab = "performance", outer = TRUE)
+lattice::xyplot(fpr + fnr + mmce ~ threshold, data = d$data, type = "l", ylab = "performance", outer = TRUE,
+  strip = strip.custom(factor.levels = sapply(d$measures, function(x) x$name)))
 ```
 
-Let's look at a second example.
+
+Let's conclude with a brief look on a second example.
 Here we use [&plotPartialPrediction] but extract the data from the plot object and use it
 to create a traditional [plot](&graphics::plot), additional to the [%ggplot2] plot.
 
