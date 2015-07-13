@@ -321,28 +321,22 @@ The <em>learn</em> and <em>impute</em> functions both have at least the followin
 <li><code>target</code> indicates the target variable(s) in a supervised learning task.</li>
 </ul>
 <p>Let's have a look at function <a href="http://www.rdocumentation.org/packages/mlr/functions/imputations.html">imputeMean</a>.</p>
-<pre><code class="r">imputeMean
-#&gt; function () 
-#&gt; {
-#&gt;     makeImputeMethod(learn = function(data, target, col) mean(data[[col]], 
-#&gt;         na.rm = TRUE), impute = simpleImpute)
-#&gt; }
-#&gt; &lt;bytecode: 0xfcb0f40&gt;
-#&gt; &lt;environment: namespace:mlr&gt;
-mlr:::simpleImpute
-#&gt; function (data, target, col, const) 
-#&gt; {
-#&gt;     if (is.na(const)) 
-#&gt;         stopf(&quot;Error imputing column '%s'. Maybe all input data was missing?&quot;, 
-#&gt;             col)
-#&gt;     x = data[[col]]
-#&gt;     if (is.factor(x) &amp;&amp; const %nin% levels(x)) {
-#&gt;         levels(x) = c(levels(x), as.character(const))
-#&gt;     }
-#&gt;     replace(x, is.na(x), const)
-#&gt; }
-#&gt; &lt;bytecode: 0xfb02f78&gt;
-#&gt; &lt;environment: namespace:mlr&gt;
+<pre><code class="r">imputeMean = function() {
+  makeImputeMethod(learn = function(data, target, col) mean(data[[col]], na.rm = TRUE), 
+    impute = simpleImpute)
+}
+</code></pre>
+
+<p>This calls the unexported <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function <code>simpleImpute</code> which is defined as follows.</p>
+<pre><code class="r">simpleImpute = function(data, target, col, const) {
+  if (is.na(const)) 
+    stopf(&quot;Error imputing column '%s'. Maybe all input data was missing?&quot;, col)
+  x = data[[col]]
+  if (is.factor(x) &amp;&amp; const %nin% levels(x)) {
+    levels(x) = c(levels(x), as.character(const))
+  }
+  replace(x, is.na(x), const)
+}
 </code></pre>
 
 <p>The <em>learn</em> function calculates the mean of the non-missing observations in column <code>col</code>.

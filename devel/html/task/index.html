@@ -313,7 +313,7 @@
         
             <li><a href="#modifying-a-learning-task">Modifying a learning task</a></li>
         
-            <li><a href="#example-tasks">Example tasks</a></li>
+            <li><a href="#example-tasks-and-convenience-functions">Example tasks and convenience functions</a></li>
         
     
     </ul>
@@ -527,7 +527,7 @@ the task you can use</p>
 #&gt; [1] &quot;benign&quot;
 #&gt; 
 #&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;TaskDescClassif&quot; &quot;TaskDesc&quot;
+#&gt; [1] &quot;TaskDescClassif&quot;    &quot;TaskDescSupervised&quot; &quot;TaskDesc&quot;
 </code></pre>
 
 <p>Note that <a href="http://www.rdocumentation.org/packages/mlr/functions/TaskDesc.html">task description</a>s have slightly different elements, depending on
@@ -665,10 +665,12 @@ summary(getTaskData(task))
 
 <p>For more functions and more detailed explanations have a look at the
 <a href="../preproc/index.html">data preprocessing</a> section.</p>
-<h2 id="example-tasks">Example tasks</h2>
+<h2 id="example-tasks-and-convenience-functions">Example tasks and convenience functions</h2>
 <p>For your convenience <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides pre-defined <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s for each type of learning problem.
 These are used throughout this tutorial in order to get shorter and more readable code.
-A list of all <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s can be found <a href="../example_tasks/index.html">here</a>.</p></div>
+A list of all <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s can be found <a href="../example_tasks/index.html">here</a>.</p>
+<p>Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s function <a href="http://www.rdocumentation.org/packages/mlr/functions/convertMLBenchObjToTask.html">convertMLBenchObjToTask</a> can generate <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s from the data
+sets and data generating functions in package <a href="http://www.rdocumentation.org/packages/mlbench/">mlbench</a>.</p></div>
             
         </div>
 
