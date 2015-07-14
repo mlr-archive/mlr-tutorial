@@ -152,4 +152,46 @@ r$aggr
 lrn = makeLearner("regr.nnet", trace = FALSE, decay = 1e-02)
 r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
 r$aggr
+```
+
+
+### Joint tuning of preprocessing and learner parameters
+
+Often it's not clear which preprocessing options work best with a certain learning algorithm.
+Common practice is to [tune](&tune.md) them, usually together with other hyperparameters of the learner.
+
+For example if principal component analysis is used for preprocessing one may want to optimize
+the number of principal components that are kept.
+
+In our scaling example we can try if [nnet](&nnet::nnet) works best with both centering and
+scaling the data or if it's better to omit one of the two operations or do no preprocessing
+at all.
+In order to tune `center` and `scale` we have to add them to the parameter set of the wrapped
+learner.
+
 ```{r}
+lrn = makeLearner("regr.nnet", trace = FALSE)
+lrn = makePreprocWrapper(lrn, train = tr.fun, predict = pr.fun,
+  par.set = makeParamSet(
+    makeLogicalLearnerParam("center"),
+    makeLogicalLearnerParam("scale")
+  ),
+  par.vals = list(center = TRUE, scale = TRUE))
+lrn
+
+getParamSet(lrn)
+```
+
+Now we do a simple grid search for the `decay` parameter of [nnet](&nnet::nnet) and the
+`center` and `scale` parameters.
+
+```{r}
+rdesc = makeResampleDesc("Holdout")
+ps = makeParamSet(
+  makeDiscreteParam("decay", c(0, 0.05, 0.1)),
+  makeLogicalParam("center"),
+  makeLogicalParam("scale")
+)
+ctrl = makeTuneControlGrid()
+tuneParams(lrn, bh.task, rdesc, par.set = ps, control = ctrl)
+```
