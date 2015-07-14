@@ -392,7 +392,7 @@ individual iterations.</p>
 
 <p>Predict the response and calculate the standard deviation:</p>
 <pre><code class="r">pred = predict(mod, task = bh.task, subset = test.inds)
-head(pred$data)
+head(as.data.frame(pred))
 #&gt;   id truth response       se
 #&gt; 2  2  21.6 21.46507 1.040829
 #&gt; 3  3  34.7 34.44916 4.090512
@@ -407,7 +407,7 @@ head(pred$data)
 Here we plot the percentage of lower status of the population (<code>lstat</code>) against the prediction.</p>
 <pre><code class="r">library(&quot;ggplot2&quot;)
 library(&quot;reshape2&quot;)
-data = cbind(pred$data, getTaskData(bh.task, subset = test.inds))
+data = cbind(as.data.frame(pred), getTaskData(bh.task, subset = test.inds))
 g = ggplot(data, aes(x = lstat, y = response, ymin = response-se, ymax = response+se, col = age))
 g + geom_point() + geom_linerange(alpha=0.5)
 </code></pre>
