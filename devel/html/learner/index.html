@@ -501,24 +501,18 @@ regr.lrn = removeHyperPars(regr.lrn, c(&quot;n.trees&quot;, &quot;interaction.de
 certain learning <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> use function <a href="http://www.rdocumentation.org/packages/mlr/functions/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## List everything in mlr
 head(listLearners())
-#&gt;           classif.ada   classif.bartMachine           classif.bdk 
-#&gt;         &quot;classif.ada&quot; &quot;classif.bartMachine&quot;         &quot;classif.bdk&quot; 
-#&gt;      classif.binomial    classif.blackboost      classif.boosting 
-#&gt;    &quot;classif.binomial&quot;  &quot;classif.blackboost&quot;    &quot;classif.boosting&quot;
+#&gt; [1] &quot;classif.ada&quot;         &quot;classif.bartMachine&quot; &quot;classif.bdk&quot;        
+#&gt; [4] &quot;classif.binomial&quot;    &quot;classif.blackboost&quot;  &quot;classif.boosting&quot;
 
 ## List classifiers that can output probabilities
 head(listLearners(&quot;classif&quot;, properties = &quot;prob&quot;))
-#&gt;           classif.ada   classif.bartMachine           classif.bdk 
-#&gt;         &quot;classif.ada&quot; &quot;classif.bartMachine&quot;         &quot;classif.bdk&quot; 
-#&gt;      classif.binomial    classif.blackboost      classif.boosting 
-#&gt;    &quot;classif.binomial&quot;  &quot;classif.blackboost&quot;    &quot;classif.boosting&quot;
+#&gt; [1] &quot;classif.ada&quot;         &quot;classif.bartMachine&quot; &quot;classif.bdk&quot;        
+#&gt; [4] &quot;classif.binomial&quot;    &quot;classif.blackboost&quot;  &quot;classif.boosting&quot;
 
 ## List classifiers that can be applied to iris (i.e., multiclass) and output probabilities
 head(listLearners(iris.task, properties = &quot;prob&quot;))
-#&gt;          classif.bdk     classif.boosting      classif.cforest 
-#&gt;        &quot;classif.bdk&quot;   &quot;classif.boosting&quot;    &quot;classif.cforest&quot; 
-#&gt;        classif.ctree   classif.extraTrees          classif.gbm 
-#&gt;      &quot;classif.ctree&quot; &quot;classif.extraTrees&quot;        &quot;classif.gbm&quot;
+#&gt; [1] &quot;classif.bdk&quot;        &quot;classif.boosting&quot;   &quot;classif.cforest&quot;   
+#&gt; [4] &quot;classif.ctree&quot;      &quot;classif.extraTrees&quot; &quot;classif.gbm&quot;
 
 ## The calls above return character vectors, but you can also create learner objects
 head(listLearners(&quot;cluster&quot;, create = TRUE), 2)

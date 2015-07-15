@@ -451,6 +451,99 @@ r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
 r$aggr
 #&gt; mse.test.mean 
 #&gt;      52.37755
+</code></pre>
+
+<h3 id="joint-tuning-of-preprocessing-and-learner-parameters">Joint tuning of preprocessing and learner parameters</h3>
+<p>Often it's not clear which preprocessing options work best with a certain learning algorithm.
+Common practice is to <a href="http://www.rdocumentation.org/packages/mlr/functions/tune.md.html">tune</a> them, usually together with other hyperparameters of the learner.</p>
+<p>For example if principal component analysis is used for preprocessing one may want to optimize
+the number of principal components that are kept.</p>
+<p>In our scaling example we can try if <a href="http://www.rdocumentation.org/packages/nnet/functions/nnet.html">nnet</a> works best with both centering and
+scaling the data or if it's better to omit one of the two operations or do no preprocessing
+at all.
+In order to tune <code>center</code> and <code>scale</code> we have to add them to the parameter set of the wrapped
+learner.</p>
+<pre><code class="r">lrn = makeLearner(&quot;regr.nnet&quot;, trace = FALSE)
+lrn = makePreprocWrapper(lrn, train = tr.fun, predict = pr.fun,
+  par.set = makeParamSet(
+    makeLogicalLearnerParam(&quot;center&quot;),
+    makeLogicalLearnerParam(&quot;scale&quot;)
+  ),
+  par.vals = list(center = TRUE, scale = TRUE))
+lrn
+#&gt; Learner regr.nnet.preproc from package nnet
+#&gt; Type: regr
+#&gt; Name: ; Short name: 
+#&gt; Class: PreprocWrapper
+#&gt; Properties: numerics,factors,weights
+#&gt; Predict-Type: response
+#&gt; Hyperparameters: size=3,trace=FALSE,center=TRUE,scale=TRUE
+
+getParamSet(lrn)
+#&gt;             Type len    Def      Constr Req Tunable Trafo
+#&gt; center   logical   -      -           -   -    TRUE     -
+#&gt; scale    logical   -      -           -   -    TRUE     -
+#&gt; size     integer   -      3    0 to Inf   -    TRUE     -
+#&gt; maxit    integer   -    100    1 to Inf   -    TRUE     -
+#&gt; linout   logical   -  FALSE           -   Y    TRUE     -
+#&gt; entropy  logical   -  FALSE           -   Y    TRUE     -
+#&gt; softmax  logical   -  FALSE           -   Y    TRUE     -
+#&gt; censored logical   -  FALSE           -   Y    TRUE     -
+#&gt; skip     logical   -  FALSE           -   -    TRUE     -
+#&gt; rang     numeric   -    0.7 -Inf to Inf   -    TRUE     -
+#&gt; decay    numeric   -      0    0 to Inf   -    TRUE     -
+#&gt; Hess     logical   -  FALSE           -   -    TRUE     -
+#&gt; trace    logical   -   TRUE           -   -   FALSE     -
+#&gt; MaxNWts  integer   -   1000    1 to Inf   -    TRUE     -
+#&gt; abstoll  numeric   - 0.0001 -Inf to Inf   -    TRUE     -
+#&gt; reltoll  numeric   -  1e-08 -Inf to Inf   -    TRUE     -
+</code></pre>
+
+<p>Now we do a simple grid search for the <code>decay</code> parameter of <a href="http://www.rdocumentation.org/packages/nnet/functions/nnet.html">nnet</a> and the
+<code>center</code> and <code>scale</code> parameters.</p>
+<pre><code class="r">rdesc = makeResampleDesc(&quot;Holdout&quot;)
+ps = makeParamSet(
+  makeDiscreteParam(&quot;decay&quot;, c(0, 0.05, 0.1)),
+  makeLogicalParam(&quot;center&quot;),
+  makeLogicalParam(&quot;scale&quot;)
+)
+ctrl = makeTuneControlGrid()
+tuneParams(lrn, bh.task, rdesc, par.set = ps, control = ctrl)
+#&gt; [Tune] Started tuning learner regr.nnet.preproc for parameter set:
+#&gt;            Type len Def     Constr Req Tunable Trafo
+#&gt; decay  discrete   -   - 0,0.05,0.1   -    TRUE     -
+#&gt; center  logical   -   -          -   -    TRUE     -
+#&gt; scale   logical   -   -          -   -    TRUE     -
+#&gt; With control class: TuneControlGrid
+#&gt; Imputation value: Inf
+#&gt; [Tune-x] 1: decay=0; center=TRUE; scale=TRUE
+#&gt; [Tune-y] 1: mse.test.mean=18.7; time: 0.0 min; memory: 117Mb use, 186Mb max
+#&gt; [Tune-x] 2: decay=0.05; center=TRUE; scale=TRUE
+#&gt; [Tune-y] 2: mse.test.mean=23.6; time: 0.0 min; memory: 117Mb use, 186Mb max
+#&gt; [Tune-x] 3: decay=0.1; center=TRUE; scale=TRUE
+#&gt; [Tune-y] 3: mse.test.mean=21.3; time: 0.0 min; memory: 117Mb use, 186Mb max
+#&gt; [Tune-x] 4: decay=0; center=FALSE; scale=TRUE
+#&gt; [Tune-y] 4: mse.test.mean=14.7; time: 0.0 min; memory: 117Mb use, 186Mb max
+#&gt; [Tune-x] 5: decay=0.05; center=FALSE; scale=TRUE
+#&gt; [Tune-y] 5: mse.test.mean=19.6; time: 0.0 min; memory: 118Mb use, 186Mb max
+#&gt; [Tune-x] 6: decay=0.1; center=FALSE; scale=TRUE
+#&gt; [Tune-y] 6: mse.test.mean=18.8; time: 0.0 min; memory: 118Mb use, 186Mb max
+#&gt; [Tune-x] 7: decay=0; center=TRUE; scale=FALSE
+#&gt; [Tune-y] 7: mse.test.mean=84.3; time: 0.0 min; memory: 118Mb use, 186Mb max
+#&gt; [Tune-x] 8: decay=0.05; center=TRUE; scale=FALSE
+#&gt; [Tune-y] 8: mse.test.mean=75.2; time: 0.0 min; memory: 118Mb use, 186Mb max
+#&gt; [Tune-x] 9: decay=0.1; center=TRUE; scale=FALSE
+#&gt; [Tune-y] 9: mse.test.mean=55.1; time: 0.0 min; memory: 118Mb use, 186Mb max
+#&gt; [Tune-x] 10: decay=0; center=FALSE; scale=FALSE
+#&gt; [Tune-y] 10: mse.test.mean= 103; time: 0.0 min; memory: 118Mb use, 186Mb max
+#&gt; [Tune-x] 11: decay=0.05; center=FALSE; scale=FALSE
+#&gt; [Tune-y] 11: mse.test.mean=41.7; time: 0.0 min; memory: 118Mb use, 186Mb max
+#&gt; [Tune-x] 12: decay=0.1; center=FALSE; scale=FALSE
+#&gt; [Tune-y] 12: mse.test.mean=60.4; time: 0.0 min; memory: 118Mb use, 186Mb max
+#&gt; [Tune] Result: decay=0; center=FALSE; scale=TRUE : mse.test.mean=14.7
+#&gt; Tune result:
+#&gt; Op. pars: decay=0; center=FALSE; scale=TRUE
+#&gt; mse.test.mean=14.7
 </code></pre></div>
             
         </div>
