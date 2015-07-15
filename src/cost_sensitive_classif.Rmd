@@ -555,10 +555,10 @@ mod
 ```
 
 The models corresponding to the individual pairs can be accessed by function
-[&getHomogeneousEnsembleModels].
+[&getLearnerModel].
 
 ```{r}
-getHomogeneousEnsembleModels(mod)
+getLearnerModel(mod)
 ```
 
 [%mlr] provides some performance measures for example-specific cost-sensitive classification.
