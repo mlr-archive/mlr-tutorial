@@ -586,7 +586,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.380429
+#&gt; Runtime: 0.352673
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -634,7 +634,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.379668
+#&gt; Runtime: 0.346857
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -704,7 +704,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth response
 #&gt; 1  1  Good     Good
 #&gt; 2  2   Bad      Bad
@@ -724,7 +724,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.44674
+#&gt; Runtime: 0.390149
 </code></pre>
 
 <p>Some classification methods as the support vector machine (<a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a>) in package <a href="http://www.rdocumentation.org/packages/kernlab/">kernlab</a>
@@ -739,7 +739,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.12
+#&gt; time: 0.11
 #&gt;   id truth response
 #&gt; 1  1  Good     Good
 #&gt; 2  2   Bad      Bad
@@ -759,7 +759,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.656142
+#&gt; Runtime: 0.580366
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -841,7 +841,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.80553
+#&gt; Runtime: 0.754259
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate.
@@ -942,7 +942,7 @@ r
 #&gt; mmce.aggr: 0.34
 #&gt; mmce.mean: 0.34
 #&gt; mmce.sd: 0.04
-#&gt; Runtime: 0.0896697
+#&gt; Runtime: 0.0925713
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1071,8 +1071,8 @@ mod
 </code></pre>
 
 <p>The models corresponding to the individual pairs can be accessed by function
-<a href="http://www.rdocumentation.org/packages/mlr/functions/getHomogeneousEnsembleModels.html">getHomogeneousEnsembleModels</a>.</p>
-<pre><code class="r">getHomogeneousEnsembleModels(mod)
+<a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerModel.html">getLearnerModel</a>.</p>
+<pre><code class="r">getLearnerModel(mod)
 #&gt; [[1]]
 #&gt; Model for learner.id=classif.multinom; learner.class=classif.multinom
 #&gt; Trained on: task.id = feats; obs = 150; features = 4
@@ -1102,7 +1102,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.08
+#&gt; time: 0.06
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa

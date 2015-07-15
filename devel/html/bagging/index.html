@@ -376,9 +376,9 @@ bag.lrn = setPredictType(bag.lrn, predict.type = &quot;se&quot;)
 mod = train(learner = bag.lrn, task = bh.task, subset = train.inds)
 </code></pre>
 
-<p>With the function <a href="http://www.rdocumentation.org/packages/mlr/functions/getHomogeneousEnsembleModels.html">getHomogeneousEnsembleModels</a>, you can access the models fitted in the
+<p>With function <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerModel.html">getLearnerModel</a>, you can access the models fitted in the
 individual iterations.</p>
-<pre><code class="r">head(getHomogeneousEnsembleModels(mod), 2)
+<pre><code class="r">head(getLearnerModel(mod), 2)
 #&gt; [[1]]
 #&gt; Model for learner.id=regr.rpart; learner.class=regr.rpart
 #&gt; Trained on: task.id = BostonHousing-example; obs = 169; features = 13
