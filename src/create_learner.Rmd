@@ -7,7 +7,7 @@ and a few other things. Second, you need to provide a function that calls the
 learner function and builds the model given data. Finally, a prediction function
 that returns predicted values given new data is needed.
 
-All learners should inherit from ``rlearner.classif``, ``rlearner.regr``,
+All learners should inherit from ``rlearner.classif``, ``rlearner.multilabel``, ``rlearner.regr``,
 ``rlearner.surv``, ``rlearner.costsens``, or ``rlearner.cluster``. While it is
 also possible to define a new type of learner that has special properties and
 does not fit into one of the existing schemes, this is much more advanced and
@@ -27,7 +27,8 @@ learner. In addition, you may provide a human-readable name, a short name and a
 note with information relevant to users of the learner.
 
 First, name your learner. The naming conventions in [%mlr] are
-``classif.<R_method_name>`` for classification, ``regr.<R_method_name>`` for
+``classif.<R_method_name>`` for classification, ``multilabel.<R_method_name>`` 
+for multilabel classification, ``regr.<R_method_name>`` for
 regression, ``surv.<R_method_name>`` for survival analysis,
 ``costsens.<R_method_name>`` for cost sensitive learning, and
 ``cluster.<R_method_name>`` for clustering. So in this example, the name starts with
@@ -139,6 +140,53 @@ predictLearner.classif.lda = function(.learner, .model, .newdata, ...) {
     return(p$class)
   else
     return(p$posterior)
+}
+```
+
+## Multilabel-Classification
+
+As stated in the [multilabel](multilabel.md) section, multilabel-classification 
+methods can be divided into problem transformation methods and algorithm adaption methods.
+
+At this moment the only problem transformation method, that is implemented in [%mlr]
+is the binary relevance method. Integrating further of these methods require good knowledge 
+of the architecture of the [%mlr] package.
+
+The integration of an algorithm adaption multilabel-classification learner is easier and works very similar to the normal multiclass-classification. 
+In contrast to the multiclass case, not all of the multiclass-classification properties are relevant. In particular, whether one-, two-, or multi-class problems are supported is not applicable. 
+Furthermore the prediction function output must be a matrix
+with each prediction of a label in one column and the names of the labels 
+as column names. If ``.learner$predict.type`` is ``"response"`` the predictions must
+be logical. If ``.learner$predict.type`` is ``"prob"`` and this type of
+prediction is supported by the learner, the matrix must consist of predicted
+probabilities. 
+
+Below is the definition for the [rFerns](&rFerns::rFerns) learner from the
+[%rFerns] package, which does not support probability predictions. 
+
+```{r}
+makeRLearner.multilabel.rFerns = function() {
+  makeRLearnerMultilabel(
+    cl = "multilabel.rFerns",
+    package = "rFerns",
+    par.set = makeParamSet(
+      makeIntegerLearnerParam(id = "depth", default = 5L),
+      makeIntegerLearnerParam(id = "ferns", default = 1000L)
+    ),
+    properties = c("numerics", "factors", "ordered"),
+    name = "Random ferns",
+    short.name = "rFerns",
+    note = ""
+  )
+}
+
+trainLearner.multilabel.rFerns = function(.learner, .task, .subset, .weights = NULL, ...) {
+  d = getTaskData(.task, .subset, target.extra = TRUE)
+  rFerns::rFerns(x = d$data, y = as.matrix(d$target), ...)
+}
+
+predictLearner.multilabel.rFerns = function(.learner, .model, .newdata, ...) {
+  as.matrix(predict(.model$learner.model, .newdata, ...))
 }
 ```
 

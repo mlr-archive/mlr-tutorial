@@ -24,6 +24,9 @@ Moreover, you can:
 ## Classification tree, set it up for predicting probabilities
 classif.lrn = makeLearner("classif.randomForest", predict.type = "prob", fix.factors.prediction = TRUE)
 
+## Multilabel Random Ferns classification algorithm
+multilabel.lrn2 = makeLearner("multilabel.rFerns")
+
 ## Regression gradient boosting machine, specify hyperparameters via a list
 regr.lrn = makeLearner("regr.gbm", par.vals = list(n.trees = 500, interaction.depth = 3))
 
