@@ -143,17 +143,17 @@ predictLearner.classif.lda = function(.learner, .model, .newdata, ...) {
 }
 ```
 
-## Multilabel-Classification
+## Multilabel Classification
 
-As stated in the [multilabel](multilabel.md) section, multilabel-classification 
+As stated in the [multilabel](multilabel.md) section, multilabel classification 
 methods can be divided into problem transformation methods and algorithm adaptation methods.
 
 At this moment the only problem transformation method, that is implemented in [%mlr]
 is the binary relevance method. Integrating further of these methods require good knowledge 
 of the architecture of the [%mlr] package.
 
-The integration of an algorithm adaptation multilabel-classification learner is easier and works very similar to the normal multiclass-classification. 
-In contrast to the multiclass case, not all of the multiclass-classification properties are relevant. In particular, whether one-, two-, or multi-class problems are supported is not applicable. 
+The integration of an algorithm adaptation multilabel classification learner is easier and works very similar to the normal multiclass-classification. 
+In contrast to the multiclass case, not all of the multiclass classification properties are relevant. In particular, whether one-, two-, or multi-class problems are supported is not applicable. 
 Furthermore the prediction function output must be a matrix
 with each prediction of a label in one column and the names of the labels 
 as column names. If ``.learner$predict.type`` is ``"response"`` the predictions must
