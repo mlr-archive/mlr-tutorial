@@ -182,6 +182,12 @@
                         
                             
 <li >
+    <a href="../multilabel/index.html">Multilabel Classification</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
 
@@ -305,9 +311,11 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-54">Classification (54)</a></li>
+            <li><a href="#classification-56">Classification (56)</a></li>
         
-            <li><a href="#regression-45">Regression (45)</a></li>
+            <li><a href="#multilabel-classification-1">Multilabel Classification (1)</a></li>
+        
+            <li><a href="#regression-46">Regression (46)</a></li>
         
             <li><a href="#survival-analysis-10">Survival analysis (10)</a></li>
         
@@ -331,7 +339,7 @@ For example <em>rcens</em> means that the learning method can deal with right ce
 Moreover, the type of prediction is displayed, where <em>prob</em> indicates that probabilities
 can be predicted.
 For <em>regression</em>, <em>se</em> means that standard errors and the mean response can be predicted.</p>
-<h3 id="classification-54">Classification (54)</h3>
+<h3 id="classification-56">Classification (56)</h3>
 <table>
 <thead>
 <tr>
@@ -357,6 +365,17 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="center">X</td>
 <td align="left">prob<br />twoclass</td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>classif.avNNet</strong> <br />avNNet</td>
+<td align="left">Neural Network</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/nnet/">nnet</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">multiclass<br />prob<br />twoclass</td>
+<td align="left"><code>size</code> has been set to 3 by default. Doing bagging training of <code>nnet</code> if set <code>bag=TRUE</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.bartMachine</strong> <br />bartmachine</td>
@@ -722,6 +741,17 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>classif.neuralnet</strong> <br />neuralnet</td>
+<td align="left">Neural Network from neuralnet</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/neuralnet/">neuralnet</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass</td>
+<td align="left"><code>err.fct</code> has been set to <code>ce</code> to do classification.</td>
+</tr>
+<tr>
 <td align="left"><strong>classif.nnet</strong> <br />nnet</td>
 <td align="left">Neural Network</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/nnet/">nnet</a></td>
@@ -943,7 +973,7 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 </tr>
 </tbody>
 </table>
-<h3 id="regression-45">Regression (45)</h3>
+<h3 id="multilabel-classification-1">Multilabel Classification (1)</h3>
 <table>
 <thead>
 <tr>
@@ -959,6 +989,46 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 </tr>
 </thead>
 <tbody>
+<tr>
+<td align="left"><strong>multilabel.rFerns</strong> <br />rFerns</td>
+<td align="left">Random ferns</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/rFerns/">rFerns</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">ordered</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="regression-46">Regression (46)</h3>
+<table>
+<thead>
+<tr>
+<th align="left">ID / Short Name</th>
+<th align="left">Name</th>
+<th align="left">Packages</th>
+<th align="center">Num.</th>
+<th align="center">Fac.</th>
+<th align="center">NAs</th>
+<th align="center">Weights</th>
+<th align="left">Props</th>
+<th align="left">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>regr.avNNet</strong> <br />avNNet</td>
+<td align="left">Neural Network</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/nnet/">nnet</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left"></td>
+<td align="left"><code>size</code> has been set to 3 by default.</td>
+</tr>
 <tr>
 <td align="left"><strong>regr.bartMachine</strong> <br />bartmachine</td>
 <td align="left">Bayesian Additive Regression Trees</td>

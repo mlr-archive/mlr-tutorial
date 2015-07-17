@@ -182,6 +182,12 @@
                         
                             
 <li >
+    <a href="../multilabel/index.html">Multilabel Classification</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
 
@@ -307,6 +313,8 @@
         
             <li><a href="#classification">Classification</a></li>
         
+            <li><a href="#multilabel-classification">Multilabel Classification</a></li>
+        
             <li><a href="#regression">Regression</a></li>
         
             <li><a href="#survival-analysis">Survival Analysis</a></li>
@@ -325,7 +333,7 @@ define the learner itself with a name, description, capabilities, parameters,
 and a few other things. Second, you need to provide a function that calls the
 learner function and builds the model given data. Finally, a prediction function
 that returns predicted values given new data is needed.</p>
-<p>All learners should inherit from <code>rlearner.classif</code>, <code>rlearner.regr</code>,
+<p>All learners should inherit from <code>rlearner.classif</code>, <code>rlearner.multilabel</code>, <code>rlearner.regr</code>,
 <code>rlearner.surv</code>, <code>rlearner.costsens</code>, or <code>rlearner.cluster</code>. While it is
 also possible to define a new type of learner that has special properties and
 does not fit into one of the existing schemes, this is much more advanced and
@@ -340,7 +348,8 @@ learner, its package, the parameter set, and the set of properties of your
 learner. In addition, you may provide a human-readable name, a short name and a
 note with information relevant to users of the learner.</p>
 <p>First, name your learner. The naming conventions in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> are
-<code>classif.&lt;R_method_name&gt;</code> for classification, <code>regr.&lt;R_method_name&gt;</code> for
+<code>classif.&lt;R_method_name&gt;</code> for classification, <code>multilabel.&lt;R_method_name&gt;</code> 
+for multilabel classification, <code>regr.&lt;R_method_name&gt;</code> for
 regression, <code>surv.&lt;R_method_name&gt;</code> for survival analysis,
 <code>costsens.&lt;R_method_name&gt;</code> for cost sensitive learning, and
 <code>cluster.&lt;R_method_name&gt;</code> for clustering. So in this example, the name starts with
@@ -435,6 +444,47 @@ prediction data depending on the type of prediction requested.</p>
     return(p$class)
   else
     return(p$posterior)
+}
+</code></pre>
+
+<h2 id="multilabel-classification">Multilabel Classification</h2>
+<p>As stated in the <a href="../multilabel/index.html">multilabel</a> section, multilabel classification 
+methods can be divided into problem transformation methods and algorithm adaptation methods.</p>
+<p>At this moment the only problem transformation method, that is implemented in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>
+is the binary relevance method. Integrating further of these methods require good knowledge 
+of the architecture of the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> package.</p>
+<p>The integration of an algorithm adaptation multilabel classification learner is easier and works very similar to the normal multiclass-classification. 
+In contrast to the multiclass case, not all of the multiclass classification properties are relevant. In particular, whether one-, two-, or multi-class problems are supported is not applicable. 
+Furthermore the prediction function output must be a matrix
+with each prediction of a label in one column and the names of the labels 
+as column names. If <code>.learner$predict.type</code> is <code>"response"</code> the predictions must
+be logical. If <code>.learner$predict.type</code> is <code>"prob"</code> and this type of
+prediction is supported by the learner, the matrix must consist of predicted
+probabilities. </p>
+<p>Below is the definition for the <a href="http://www.rdocumentation.org/packages/rFerns/functions/rFerns.html">rFerns</a> learner from the
+<a href="http://www.rdocumentation.org/packages/rFerns/">rFerns</a> package, which does not support probability predictions. </p>
+<pre><code class="r">makeRLearner.multilabel.rFerns = function() {
+  makeRLearnerMultilabel(
+    cl = &quot;multilabel.rFerns&quot;,
+    package = &quot;rFerns&quot;,
+    par.set = makeParamSet(
+      makeIntegerLearnerParam(id = &quot;depth&quot;, default = 5L),
+      makeIntegerLearnerParam(id = &quot;ferns&quot;, default = 1000L)
+    ),
+    properties = c(&quot;numerics&quot;, &quot;factors&quot;, &quot;ordered&quot;),
+    name = &quot;Random ferns&quot;,
+    short.name = &quot;rFerns&quot;,
+    note = &quot;&quot;
+  )
+}
+
+trainLearner.multilabel.rFerns = function(.learner, .task, .subset, .weights = NULL, ...) {
+  d = getTaskData(.task, .subset, target.extra = TRUE)
+  rFerns::rFerns(x = d$data, y = as.matrix(d$target), ...)
+}
+
+predictLearner.multilabel.rFerns = function(.learner, .model, .newdata, ...) {
+  as.matrix(predict(.model$learner.model, .newdata, ...))
 }
 </code></pre>
 
