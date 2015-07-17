@@ -66,11 +66,6 @@ numbers = sapply(tables, nrow)
 makeTab(tables[["classif"]])
 ```
 
-### Multilabel Classification (`r numbers["multilabel"]`)
-```{r echo=FALSE,results="asis"}
-makeTab(tables[["multilabel"]])
-```
-
 ### Regression (`r numbers["regr"]`)
 ```{r echo=FALSE,results="asis"}
 makeTab(tables[["regr"]])
@@ -85,3 +80,22 @@ makeTab(tables[["surv"]])
 ```{r echo=FALSE,results="asis"}
 makeTab(tables[["cluster"]])
 ```
+
+### Cost-sensitive classification
+For *ordinary misclassification costs* you can use all the standard classification methods listed
+above.
+
+For *example-dependent costs* there are several ways to generate cost-sensitive learners from
+ordinary regression and classification learners.
+See section [cost-sensitive classification](cost_sensitive_classif.md) and the documentation
+of [&makeCostSensClassifWrapper], [&makeCostSensRegrWrapper] and [&makeCostSensWeightedPairsWrapper]
+for details.
+
+### Multilabel classification (`r numbers["multilabel"]`)
+```{r echo=FALSE,results="asis"}
+makeTab(tables[["multilabel"]])
+```
+
+Moreover, you can use the binary relevance method to apply ordinary classification learners
+to the multilabel problem. See the documentation of function [&makeMultilabelBinaryRelevanceWrapper]
+and the tutorial section on [multilabel classification](multilabel.md) for details.
