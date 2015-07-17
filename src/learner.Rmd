@@ -24,9 +24,6 @@ Moreover, you can:
 ## Classification tree, set it up for predicting probabilities
 classif.lrn = makeLearner("classif.randomForest", predict.type = "prob", fix.factors.prediction = TRUE)
 
-## Multilabel Random Ferns classification algorithm
-multilabel.lrn2 = makeLearner("multilabel.rFerns")
-
 ## Regression gradient boosting machine, specify hyperparameters via a list
 regr.lrn = makeLearner("regr.gbm", par.vals = list(n.trees = 500, interaction.depth = 3))
 
@@ -35,13 +32,16 @@ surv.lrn = makeLearner("surv.coxph", id = "cph")
 
 ## K-means with 5 clusters
 cluster.lrn = makeLearner("cluster.SimpleKMeans", N = 5)
+
+## Multilabel Random Ferns classification algorithm
+multilabel.lrn = makeLearner("multilabel.rFerns")
 ```
 
 The first argument specifies which algorithm to use.
 The naming convention is ``classif.<R_method_name>`` for
 classification methods, ``regr.<R_method_name>`` for regression methods,
-``surv.<R_method_name>`` for survival analysis, and ``cluster.<R_method_name>``
-for clustering methods.
+``surv.<R_method_name>`` for survival analysis, ``cluster.<R_method_name>``
+for clustering methods, and ``multilabel.<R_method_name>`` for multilabel classification.
 
 Hyperparameter values can be specified either via the ``...`` argument or as a [list](&base::list)
 via ``par.vals``.
