@@ -87,6 +87,7 @@ and pass them to the ``target`` argument in [makeMultilabelTask](&makeMultilabel
 yeast = getTaskData(yeast.task)
 labels = colnames(yeast)[1:14]
 yeast.task = makeMultilabelTask(id = "multi", data = yeast, target = labels)
+yeast.task
 ```
 
 ### Cluster analysis

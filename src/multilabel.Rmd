@@ -5,7 +5,7 @@ assigned to each observation instead of only one like in multiclass classificati
 
 Two different approaches exist for multilabel classification. Problem transformation 
 methods try to transform the multilabel classification into binary or multiclass 
-classification problems. Algorithm adaption methods adapt multiclass algorithms
+classification problems. Algorithm adaptation methods adapt multiclass algorithms
 so they can be applied directly on the problem. 
 
 ## Creating a task
@@ -23,6 +23,7 @@ the 14 label names and create the task again.
 yeast = getTaskData(yeast.task)
 labels = colnames(yeast)[1:14]
 yeast.task = makeMultilabelTask(id = "multi", data = yeast, target = labels)
+yeast.task
 ```
 
 ## Constructing a learner
@@ -34,7 +35,7 @@ classification problems for each
 label and apply a simple binary classificator on these. In mlr this can be done by 
 converting your binary learner to a wrapped binary relevance multilabel learner
 
-* Apply directly a algorithm adaption method which treats the whole 
+* Apply directly a algorithm adaptation method which treats the whole 
 problem with a specific algorithm. 
 
 ### Binary Relevance Method
@@ -48,15 +49,17 @@ relevance learner directly, as you can see in the example.
 multilabel.lrn = makeLearner("classif.rpart", predict.type = "prob")
 multilabel.lrn = makeMultilabelBinaryRelevanceWrapper(multilabel.lrn)
 multilabel.lrn1 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
+multilabel.lrn
 ```
 
-### Algorithm adaption method
-Currently the only available algorithm adaption method in **R** is the Random Ferns 
+### Algorithm adaptation method
+Currently the only available algorithm adaptation method in **R** is the Random Ferns 
 multilabel algorithm in the [%rFerns] package. You can create the learner for this algorithm 
 like in multiclass classification problems.
 
 ```{r}
 multilabel.lrn2 = makeLearner("multilabel.rFerns")
+multilabel.lrn2
 ```
 
 ## Train
@@ -69,7 +72,9 @@ mod = train(multilabel.lrn, yeast.task)
 mod = train(multilabel.lrn, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
 mod2 = train(multilabel.lrn2, yeast.task, subset = 1:100)
 mod
+
 mod2
+
 ```
 
 ## Predict
@@ -92,7 +97,9 @@ can be shown by [listMeasures](&Performance).
 
 ```{r}
 performance(pred)
+
 performance(pred2, measures = list(hamloss))
+
 listMeasures("multilabel")
 ```
 
@@ -105,6 +112,7 @@ function. As default the Hamming Loss is calculated as evaluation measure.
 ```{r}
 rdesc = makeResampleDesc(method = "CV", stratify = FALSE, iters = 3)
 r = resample(learner = multilabel.lrn, task = yeast.task, resampling = rdesc)
+
 r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc)
 ```
 
@@ -119,6 +127,7 @@ predicted probabilities.
 
 ```{r}
 getMultilabelBinaryPerformances(pred, measures = list(acc, mmce))
+
 getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
 ```
 
