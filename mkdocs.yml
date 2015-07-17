@@ -30,8 +30,8 @@ pages:
     - 'Feature Selection': 'feature_selection.md'
     - 'Cost-Sensitive Classification': 'cost_sensitive_classif.md'
     - 'Imbalanced Classification Problems': 'over_and_undersampling.md'
-    - 'Multilabel Classification': 'multilabel.md'
     - 'ROC Analysis': 'roc_analysis.md'
+    - 'Multilabel Classification': 'multilabel.md'
     - 'Learning Curve': 'learning_curve.md'
     - 'Partial Prediction Plots': 'partial_prediction.md'
 - Extend:
