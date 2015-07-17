@@ -5,6 +5,9 @@ learning problems as well as general performance measures in alphabetical order.
 (See also the documentation about [&measures] and [&makeMeasure] for available measures and
 their properties.)
 
+If you find that a measure is missing, either [open an issue](https://github.com/mlr-org/mlr/issues)
+or read [how to implement a measure yourself](create_measure.md).
+
 Column **Minimize** indicates if the measure is minimized during, e.g., tuning or
 feature selection.
 **Best** and **Worst** show the best and worst values the performance measure can attain.
@@ -83,11 +86,6 @@ getTab = function(type) {
 getTab("classif")
 ```
 
-### Multilabel Classification
-```{r echo=FALSE,results="asis"}
-getTab("multilabel")
-```
-
 ### Regression
 ```{r echo=FALSE,results="asis"}
 getTab("regr")
@@ -106,6 +104,15 @@ getTab("cluster")
 ### Cost-sensitive classification
 ```{r echo=FALSE,results="asis"}
 getTab("costsens")
+```
+
+Note that in case of *ordinary misclassification costs* you can also generate performance
+measures from cost matrices by function [&makeCostMeasure].
+For details see the section on [cost-sensitive classification](cost_sensitive_classif.md).
+
+### Multilabel classification
+```{r echo=FALSE,results="asis"}
+getTab("multilabel")
 ```
 
 ### General performance measures
