@@ -9,12 +9,12 @@ The following tasks can be instantiated and all inherit from the virtual supercl
 
 * [ClassifTask](&Task) for binary and multi-class classification problems
   (normal cost-sensitive classification can be handled as well),
-* [MultilabelTask](&Task) for multilabel classification problems,
 * [RegrTask](&Task) for regression problems,
 * [SurvTask](&Task) for survival analysis,
+* [ClusterTask](&Task) for cluster analysis,
 * [CostSensTask](&Task) for general cost-sensitive classification
   (with example specific costs),
-* [ClusterTask](&Task) for cluster analysis.
+* [MultilabelTask](&Task) for multilabel classification problems.
 
 To create a task, just call ``make<TaskType>``, e.g., [makeClassifTask](&Task).
 All tasks require an identifier (argument ``id``) and a [data.frame](&base::data.frame) (argument ``data``).
@@ -73,33 +73,6 @@ Class ``malignant`` can be manually selected as the positive class:
 classif.task = makeClassifTask(id = "BreastCancer", data = df, target = "Class", positive = "malignant")
 ```
 
-### Multilabel Classification
-
-For multilabel classification the input [data.frame](&base::data.frame) must consist 
-of feature vectors and a logical vector for each label. 
-The target variable has to be a character vector of targets which represents the labels 
-and corresponds to the names of the logical vectors in the [data.frame](&base::data.frame). 
-
-In the following example we get the data of the yeast dataset, extract the labelnames, 
-and pass them to the ``target`` argument in [makeMultilabelTask](&makeMultilabelTask). 
-
-```{r}
-yeast = getTaskData(yeast.task)
-labels = colnames(yeast)[1:14]
-yeast.task = makeMultilabelTask(id = "multi", data = yeast, target = labels)
-yeast.task
-```
-
-### Cluster analysis
-As cluster analysis is unsupervised, the only mandatory argument to construct a cluster analysis task is the ``data``.
-Below we create a learning task from the data set [mtcars](&datasets::mtcars).
-
-```{r}
-data(mtcars, package = "datasets")
-cluster.task = makeClusterTask(data = mtcars)
-cluster.task
-```
-
 ### Survival analysis
 Survival tasks use two target columns.
 For left and right censored problems these consist of the survival time and a binary event indicator.
@@ -115,6 +88,41 @@ surv.task
 The type of censoring can be specified via the argument ``censoring``, which defaults to
 ``"rcens"`` for right censored data.
 
+
+### Multilabel classification
+In multilabel classification, in contrast to traditional supervized classification,
+each object can belong to more than one category at the same time.
+
+In order to generate the [MultilabelTask](&Task) the input [data.frame](&base::data.frame) has
+to contain feature columns and multiple target columns. Each target column corresponds to one
+class label and has to be a logical vector that indicates for which training observations this
+label is present.
+The names of the target columns are taken as class labels and need to be passed to the `target`
+argument of [makeMultilabelTask](&Task).
+
+In the following example we get the data of the yeast data set, extract the label names,
+and pass them to the ``target`` argument in [makeMultilabelTask](&Task).
+
+```{r}
+yeast = getTaskData(yeast.task)
+
+labels = colnames(yeast)[1:14]
+yeast.task = makeMultilabelTask(id = "multi", data = yeast, target = labels)
+yeast.task
+```
+
+See also the tutorial page on [multilabel classification](multilabel.md).
+
+
+### Cluster analysis
+As cluster analysis is unsupervised, the only mandatory argument to construct a cluster analysis task is the ``data``.
+Below we create a learning task from the data set [mtcars](&datasets::mtcars).
+
+```{r}
+data(mtcars, package = "datasets")
+cluster.task = makeClusterTask(data = mtcars)
+cluster.task
+```
 
 ### Cost-sensitive classification
 The standard objective in classification is to obtain a high prediction accuracy, i.e., to
