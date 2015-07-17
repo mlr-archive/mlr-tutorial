@@ -182,13 +182,13 @@
                         
                             
 <li >
-    <a href="../multilabel/index.html">Multilabel Classification</a>
+    <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
 
                         
                             
 <li >
-    <a href="../roc_analysis/index.html">ROC Analysis</a>
+    <a href="../multilabel/index.html">Multilabel Classification</a>
 </li>
 
                         
@@ -313,8 +313,6 @@
         
             <li><a href="#classification">Classification</a></li>
         
-            <li><a href="#multilabel-classification">Multilabel Classification</a></li>
-        
             <li><a href="#regression">Regression</a></li>
         
             <li><a href="#survival-analysis">Survival analysis</a></li>
@@ -322,6 +320,8 @@
             <li><a href="#cluster-analysis">Cluster analysis</a></li>
         
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
+        
+            <li><a href="#multilabel-classification">Multilabel classification</a></li>
         
             <li><a href="#general-performance-measures">General performance measures</a></li>
         
@@ -335,6 +335,8 @@
 learning problems as well as general performance measures in alphabetical order.
 (See also the documentation about <a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">measures</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">makeMeasure</a> for available measures and
 their properties.)</p>
+<p>If you find that a measure is missing, either <a href="https://github.com/mlr-org/mlr/issues">open an issue</a>
+or read <a href="../create_measure/index.html">how to implement a measure yourself</a>.</p>
 <p>Column <strong>Minimize</strong> indicates if the measure is minimized during, e.g., tuning or
 feature selection.
 <strong>Best</strong> and <strong>Worst</strong> show the best and worst values the performance measure can attain.
@@ -702,41 +704,6 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </tr>
 </tbody>
 </table>
-<h3 id="multilabel-classification">Multilabel Classification</h3>
-<table>
-<thead>
-<tr>
-<th align="left">Measure</th>
-<th align="left">Note</th>
-<th align="center">Minimize</th>
-<th align="right">Best</th>
-<th align="right">Worst</th>
-<th align="center">Prediction</th>
-<th align="center">Truth</th>
-<th align="center">Probs</th>
-<th align="center">Model</th>
-<th align="center">Task</th>
-<th align="center">Feats</th>
-<th align="left">Aggregation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/measures">hamloss</a> - Hamming loss</td>
-<td align="left"></td>
-<td align="center">X</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations">test.mean</a></td>
-</tr>
-</tbody>
-</table>
 <h3 id="regression">Regression</h3>
 <table>
 <thead>
@@ -1026,6 +993,44 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations">test.mean</a></td>
+</tr>
+</tbody>
+</table>
+<p>Note that in case of <em>ordinary misclassification costs</em> you can also generate performance
+measures from cost matrices by function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostMeasure.html">makeCostMeasure</a>.
+For details see the section on <a href="../cost_sensitive_classif/index.html">cost-sensitive classification</a>.</p>
+<h3 id="multilabel-classification">Multilabel classification</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Measure</th>
+<th align="left">Note</th>
+<th align="center">Minimize</th>
+<th align="right">Best</th>
+<th align="right">Worst</th>
+<th align="center">Prediction</th>
+<th align="center">Truth</th>
+<th align="center">Probs</th>
+<th align="center">Model</th>
+<th align="center">Task</th>
+<th align="center">Feats</th>
+<th align="left">Aggregation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/measures">hamloss</a> - Hamming loss</td>
+<td align="left"></td>
+<td align="center">X</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations">test.mean</a></td>
 </tr>

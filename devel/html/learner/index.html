@@ -182,13 +182,13 @@
                         
                             
 <li >
-    <a href="../multilabel/index.html">Multilabel Classification</a>
+    <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
 
                         
                             
 <li >
-    <a href="../roc_analysis/index.html">ROC Analysis</a>
+    <a href="../multilabel/index.html">Multilabel Classification</a>
 </li>
 
                         
@@ -346,9 +346,6 @@ Moreover, you can:</p>
 <pre><code class="r">## Classification tree, set it up for predicting probabilities
 classif.lrn = makeLearner(&quot;classif.randomForest&quot;, predict.type = &quot;prob&quot;, fix.factors.prediction = TRUE)
 
-## Multilabel Random Ferns classification algorithm
-multilabel.lrn2 = makeLearner(&quot;multilabel.rFerns&quot;)
-
 ## Regression gradient boosting machine, specify hyperparameters via a list
 regr.lrn = makeLearner(&quot;regr.gbm&quot;, par.vals = list(n.trees = 500, interaction.depth = 3))
 
@@ -357,13 +354,16 @@ surv.lrn = makeLearner(&quot;surv.coxph&quot;, id = &quot;cph&quot;)
 
 ## K-means with 5 clusters
 cluster.lrn = makeLearner(&quot;cluster.SimpleKMeans&quot;, N = 5)
+
+## Multilabel Random Ferns classification algorithm
+multilabel.lrn = makeLearner(&quot;multilabel.rFerns&quot;)
 </code></pre>
 
 <p>The first argument specifies which algorithm to use.
 The naming convention is <code>classif.&lt;R_method_name&gt;</code> for
 classification methods, <code>regr.&lt;R_method_name&gt;</code> for regression methods,
-<code>surv.&lt;R_method_name&gt;</code> for survival analysis, and <code>cluster.&lt;R_method_name&gt;</code>
-for clustering methods.</p>
+<code>surv.&lt;R_method_name&gt;</code> for survival analysis, <code>cluster.&lt;R_method_name&gt;</code>
+for clustering methods, and <code>multilabel.&lt;R_method_name&gt;</code> for multilabel classification.</p>
 <p>Hyperparameter values can be specified either via the <code>...</code> argument or as a <a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a>
 via <code>par.vals</code>.</p>
 <p>Occasionally, <a href="http://www.rdocumentation.org/packages/base/functions/factor.html">factor</a> features may cause problems when fewer levels are present in the

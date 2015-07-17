@@ -124,13 +124,13 @@
     </url>
         
     <url>
-     <loc>None/multilabel/index.html</loc>
+     <loc>None/roc_analysis/index.html</loc>
      <lastmod>2015-07-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/roc_analysis/index.html</loc>
+     <loc>None/multilabel/index.html</loc>
      <lastmod>2015-07-17</lastmod>
      <changefreq>daily</changefreq>
     </url>

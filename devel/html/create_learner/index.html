@@ -182,13 +182,13 @@
                         
                             
 <li >
-    <a href="../multilabel/index.html">Multilabel Classification</a>
+    <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
 
                         
                             
 <li >
-    <a href="../roc_analysis/index.html">ROC Analysis</a>
+    <a href="../multilabel/index.html">Multilabel Classification</a>
 </li>
 
                         
@@ -313,13 +313,13 @@
         
             <li><a href="#classification">Classification</a></li>
         
-            <li><a href="#multilabel-classification">Multilabel Classification</a></li>
-        
             <li><a href="#regression">Regression</a></li>
         
             <li><a href="#survival-analysis">Survival Analysis</a></li>
         
             <li><a href="#clustering">Clustering</a></li>
+        
+            <li><a href="#multilabel-classification">Multilabel classification</a></li>
         
     
     </ul>
@@ -447,47 +447,6 @@ prediction data depending on the type of prediction requested.</p>
 }
 </code></pre>
 
-<h2 id="multilabel-classification">Multilabel Classification</h2>
-<p>As stated in the <a href="../multilabel/index.html">multilabel</a> section, multilabel classification 
-methods can be divided into problem transformation methods and algorithm adaptation methods.</p>
-<p>At this moment the only problem transformation method, that is implemented in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>
-is the binary relevance method. Integrating further of these methods require good knowledge 
-of the architecture of the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> package.</p>
-<p>The integration of an algorithm adaptation multilabel classification learner is easier and works very similar to the normal multiclass-classification. 
-In contrast to the multiclass case, not all of the multiclass classification properties are relevant. In particular, whether one-, two-, or multi-class problems are supported is not applicable. 
-Furthermore the prediction function output must be a matrix
-with each prediction of a label in one column and the names of the labels 
-as column names. If <code>.learner$predict.type</code> is <code>"response"</code> the predictions must
-be logical. If <code>.learner$predict.type</code> is <code>"prob"</code> and this type of
-prediction is supported by the learner, the matrix must consist of predicted
-probabilities. </p>
-<p>Below is the definition for the <a href="http://www.rdocumentation.org/packages/rFerns/functions/rFerns.html">rFerns</a> learner from the
-<a href="http://www.rdocumentation.org/packages/rFerns/">rFerns</a> package, which does not support probability predictions. </p>
-<pre><code class="r">makeRLearner.multilabel.rFerns = function() {
-  makeRLearnerMultilabel(
-    cl = &quot;multilabel.rFerns&quot;,
-    package = &quot;rFerns&quot;,
-    par.set = makeParamSet(
-      makeIntegerLearnerParam(id = &quot;depth&quot;, default = 5L),
-      makeIntegerLearnerParam(id = &quot;ferns&quot;, default = 1000L)
-    ),
-    properties = c(&quot;numerics&quot;, &quot;factors&quot;, &quot;ordered&quot;),
-    name = &quot;Random ferns&quot;,
-    short.name = &quot;rFerns&quot;,
-    note = &quot;&quot;
-  )
-}
-
-trainLearner.multilabel.rFerns = function(.learner, .task, .subset, .weights = NULL, ...) {
-  d = getTaskData(.task, .subset, target.extra = TRUE)
-  rFerns::rFerns(x = d$data, y = as.matrix(d$target), ...)
-}
-
-predictLearner.multilabel.rFerns = function(.learner, .model, .newdata, ...) {
-  as.matrix(predict(.model$learner.model, .newdata, ...))
-}
-</code></pre>
-
 <h2 id="regression">Regression</h2>
 <p>The main difference for regression is that the type of predictions are different
 (numeric instead of labels or probabilities) and that not all of the properties
@@ -611,6 +570,49 @@ trainLearner.cluster.FarthestFirst = function(.learner, .task, .subset, .weights
 
 predictLearner.cluster.FarthestFirst = function(.learner, .model, .newdata, ...) {
   predict(.model$learner.model, .newdata, ...) + 1
+}
+</code></pre>
+
+<h2 id="multilabel-classification">Multilabel classification</h2>
+<p>As stated in the <a href="../multilabel/index.html">multilabel</a> section, multilabel classification
+methods can be divided into problem transformation methods and algorithm adaptation methods.</p>
+<p>At this moment the only problem transformation method implemented in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>
+is the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelBinaryRelevanceWrapper.html">binary relevance method</a>. Integrating more of
+these methods requires good knowledge of the architecture of the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> package.</p>
+<p>The integration of an algorithm adaptation multilabel classification learner is easier and
+works very similar to the normal multiclass-classification.
+In contrast to the multiclass case, not all of the learner properties are relevant.
+In particular, whether one-, two-, or multi-class problems are supported is not applicable.
+Furthermore the prediction function output must be a matrix
+with each prediction of a label in one column and the names of the labels
+as column names. If <code>.learner$predict.type</code> is <code>"response"</code> the predictions must
+be logical. If <code>.learner$predict.type</code> is <code>"prob"</code> and this type of
+prediction is supported by the learner, the matrix must consist of predicted
+probabilities.</p>
+<p>Below is the definition of the <a href="http://www.rdocumentation.org/packages/rFerns/functions/rFerns.html">rFerns</a> learner from the
+<a href="http://www.rdocumentation.org/packages/rFerns/">rFerns</a> package, which does not support probability predictions.</p>
+<pre><code class="r">makeRLearner.multilabel.rFerns = function() {
+  makeRLearnerMultilabel(
+    cl = &quot;multilabel.rFerns&quot;,
+    package = &quot;rFerns&quot;,
+    par.set = makeParamSet(
+      makeIntegerLearnerParam(id = &quot;depth&quot;, default = 5L),
+      makeIntegerLearnerParam(id = &quot;ferns&quot;, default = 1000L)
+    ),
+    properties = c(&quot;numerics&quot;, &quot;factors&quot;, &quot;ordered&quot;),
+    name = &quot;Random ferns&quot;,
+    short.name = &quot;rFerns&quot;,
+    note = &quot;&quot;
+  )
+}
+
+trainLearner.multilabel.rFerns = function(.learner, .task, .subset, .weights = NULL, ...) {
+  d = getTaskData(.task, .subset, target.extra = TRUE)
+  rFerns::rFerns(x = d$data, y = as.matrix(d$target), ...)
+}
+
+predictLearner.multilabel.rFerns = function(.learner, .model, .newdata, ...) {
+  as.matrix(predict(.model$learner.model, .newdata, ...))
 }
 </code></pre></div>
             

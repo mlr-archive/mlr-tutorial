@@ -182,13 +182,13 @@
                         
                             
 <li >
-    <a href="../multilabel/index.html">Multilabel Classification</a>
+    <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
 
                         
                             
 <li >
-    <a href="../roc_analysis/index.html">ROC Analysis</a>
+    <a href="../multilabel/index.html">Multilabel Classification</a>
 </li>
 
                         
@@ -313,13 +313,15 @@
         
             <li><a href="#classification-56">Classification (56)</a></li>
         
-            <li><a href="#multilabel-classification-1">Multilabel Classification (1)</a></li>
-        
             <li><a href="#regression-46">Regression (46)</a></li>
         
             <li><a href="#survival-analysis-10">Survival analysis (10)</a></li>
         
             <li><a href="#cluster-analysis-6">Cluster analysis (6)</a></li>
+        
+            <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
+        
+            <li><a href="#multilabel-classification-1">Multilabel classification (1)</a></li>
         
     
     </ul>
@@ -969,35 +971,6 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">multiclass<br />prob<br />twoclass</td>
-<td align="left"></td>
-</tr>
-</tbody>
-</table>
-<h3 id="multilabel-classification-1">Multilabel Classification (1)</h3>
-<table>
-<thead>
-<tr>
-<th align="left">ID / Short Name</th>
-<th align="left">Name</th>
-<th align="left">Packages</th>
-<th align="center">Num.</th>
-<th align="center">Fac.</th>
-<th align="center">NAs</th>
-<th align="center">Weights</th>
-<th align="left">Props</th>
-<th align="left">Note</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><strong>multilabel.rFerns</strong> <br />rFerns</td>
-<td align="left">Random ferns</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/rFerns/">rFerns</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">ordered</td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -1737,7 +1710,47 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="left">You may have to install the XMeans Weka package: WPM('install-package', 'XMeans').</td>
 </tr>
 </tbody>
-</table></div>
+</table>
+<h3 id="cost-sensitive-classification">Cost-sensitive classification</h3>
+<p>For <em>ordinary misclassification costs</em> you can use all the standard classification methods listed
+above.</p>
+<p>For <em>example-dependent costs</em> there are several ways to generate cost-sensitive learners from
+ordinary regression and classification learners.
+See section <a href="../cost_sensitive_classif/index.html">cost-sensitive classification</a> and the documentation
+of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostSensClassifWrapper.html">makeCostSensClassifWrapper</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostSensRegrWrapper.html">makeCostSensRegrWrapper</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostSensWeightedPairsWrapper.html">makeCostSensWeightedPairsWrapper</a>
+for details.</p>
+<h3 id="multilabel-classification-1">Multilabel classification (1)</h3>
+<table>
+<thead>
+<tr>
+<th align="left">ID / Short Name</th>
+<th align="left">Name</th>
+<th align="left">Packages</th>
+<th align="center">Num.</th>
+<th align="center">Fac.</th>
+<th align="center">NAs</th>
+<th align="center">Weights</th>
+<th align="left">Props</th>
+<th align="left">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>multilabel.rFerns</strong> <br />rFerns</td>
+<td align="left">Random ferns</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/rFerns/">rFerns</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">ordered</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>Moreover, you can use the binary relevance method to apply ordinary classification learners
+to the multilabel problem. See the documentation of function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelBinaryRelevanceWrapper.html">makeMultilabelBinaryRelevanceWrapper</a>
+and the tutorial section on <a href="../multilabel/index.html">multilabel classification</a> for details.</p></div>
             
         </div>
 
