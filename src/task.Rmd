@@ -9,6 +9,7 @@ The following tasks can be instantiated and all inherit from the virtual supercl
 
 * [ClassifTask](&Task) for binary and multi-class classification problems
   (normal cost-sensitive classification can be handled as well),
+* [MultilabelTask](&Task) for multilabel classification problems,
 * [RegrTask](&Task) for regression problems,
 * [SurvTask](&Task) for survival analysis,
 * [CostSensTask](&Task) for general cost-sensitive classification
@@ -70,6 +71,23 @@ Class ``malignant`` can be manually selected as the positive class:
 
 ```{r}
 classif.task = makeClassifTask(id = "BreastCancer", data = df, target = "Class", positive = "malignant")
+```
+
+### Multilabel Classification
+
+For multilabel classification the input [data.frame](&base::data.frame) must consist 
+of feature vectors and a logical vector for each label. 
+The target variable has to be a character vector of targets which represents the labels 
+and corresponds to the names of the logical vectors in the [data.frame](&base::data.frame). 
+
+In the following example we get the data of the yeast dataset, extract the labelnames, 
+and pass them to the ``target`` argument in [makeMultilabelTask](&makeMultilabelTask). 
+
+```{r}
+yeast = getTaskData(yeast.task)
+labels = colnames(yeast)[1:14]
+yeast.task = makeMultilabelTask(id = "multi", data = yeast, target = labels)
+yeast.task
 ```
 
 ### Cluster analysis

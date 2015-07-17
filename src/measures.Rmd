@@ -83,6 +83,11 @@ getTab = function(type) {
 getTab("classif")
 ```
 
+### Multilabel Classification
+```{r echo=FALSE,results="asis"}
+getTab("multilabel")
+```
+
 ### Regression
 ```{r echo=FALSE,results="asis"}
 getTab("regr")
