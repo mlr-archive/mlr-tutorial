@@ -182,6 +182,12 @@
                         
                             
 <li >
+    <a href="../multilabel/index.html">Multilabel Classification</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
 
@@ -339,6 +345,9 @@ Moreover, you can:</p>
 </ul>
 <pre><code class="r">## Classification tree, set it up for predicting probabilities
 classif.lrn = makeLearner(&quot;classif.randomForest&quot;, predict.type = &quot;prob&quot;, fix.factors.prediction = TRUE)
+
+## Multilabel Random Ferns classification algorithm
+multilabel.lrn2 = makeLearner(&quot;multilabel.rFerns&quot;)
 
 ## Regression gradient boosting machine, specify hyperparameters via a list
 regr.lrn = makeLearner(&quot;regr.gbm&quot;, par.vals = list(n.trees = 500, interaction.depth = 3))
@@ -501,18 +510,18 @@ regr.lrn = removeHyperPars(regr.lrn, c(&quot;n.trees&quot;, &quot;interaction.de
 certain learning <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> use function <a href="http://www.rdocumentation.org/packages/mlr/functions/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## List everything in mlr
 head(listLearners())
-#&gt; [1] &quot;classif.ada&quot;         &quot;classif.bartMachine&quot; &quot;classif.bdk&quot;        
-#&gt; [4] &quot;classif.binomial&quot;    &quot;classif.blackboost&quot;  &quot;classif.boosting&quot;
+#&gt; [1] &quot;classif.ada&quot;         &quot;classif.avNNet&quot;      &quot;classif.bartMachine&quot;
+#&gt; [4] &quot;classif.bdk&quot;         &quot;classif.binomial&quot;    &quot;classif.blackboost&quot;
 
 ## List classifiers that can output probabilities
 head(listLearners(&quot;classif&quot;, properties = &quot;prob&quot;))
-#&gt; [1] &quot;classif.ada&quot;         &quot;classif.bartMachine&quot; &quot;classif.bdk&quot;        
-#&gt; [4] &quot;classif.binomial&quot;    &quot;classif.blackboost&quot;  &quot;classif.boosting&quot;
+#&gt; [1] &quot;classif.ada&quot;         &quot;classif.avNNet&quot;      &quot;classif.bartMachine&quot;
+#&gt; [4] &quot;classif.bdk&quot;         &quot;classif.binomial&quot;    &quot;classif.blackboost&quot;
 
 ## List classifiers that can be applied to iris (i.e., multiclass) and output probabilities
 head(listLearners(iris.task, properties = &quot;prob&quot;))
-#&gt; [1] &quot;classif.bdk&quot;        &quot;classif.boosting&quot;   &quot;classif.cforest&quot;   
-#&gt; [4] &quot;classif.ctree&quot;      &quot;classif.extraTrees&quot; &quot;classif.gbm&quot;
+#&gt; [1] &quot;classif.avNNet&quot;     &quot;classif.bdk&quot;        &quot;classif.boosting&quot;  
+#&gt; [4] &quot;classif.cforest&quot;    &quot;classif.ctree&quot;      &quot;classif.extraTrees&quot;
 
 ## The calls above return character vectors, but you can also create learner objects
 head(listLearners(&quot;cluster&quot;, create = TRUE), 2)

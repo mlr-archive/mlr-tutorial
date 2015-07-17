@@ -182,6 +182,12 @@
                         
                             
 <li >
+    <a href="../multilabel/index.html">Multilabel Classification</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
 
@@ -329,6 +335,7 @@ The following tasks can be instantiated and all inherit from the virtual supercl
 <ul>
 <li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">ClassifTask</a> for binary and multi-class classification problems
   (normal cost-sensitive classification can be handled as well),</li>
+<li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">MultilabelTask</a> for multilabel classification problems,</li>
 <li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">RegrTask</a> for regression problems,</li>
 <li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">SurvTask</a> for survival analysis,</li>
 <li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">CostSensTask</a> for general cost-sensitive classification
@@ -401,6 +408,34 @@ classif.task
 <p>The positive class is <code>benign</code>.
 Class <code>malignant</code> can be manually selected as the positive class:</p>
 <pre><code class="r">classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;, positive = &quot;malignant&quot;)
+</code></pre>
+
+<h3 id="multilabel-classification">Multilabel Classification</h3>
+<p>For multilabel classification the input <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a> must consist 
+of feature vectors and a logical vector for each label. 
+The target variable has to be a character vector of targets which represents the labels 
+and corresponds to the names of the logical vectors in the <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a>. </p>
+<p>In the following example we get the data of the yeast dataset, extract the labelnames, 
+and pass them to the <code>target</code> argument in <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelTask.html">makeMultilabelTask</a>. </p>
+<pre><code class="r">yeast = getTaskData(yeast.task)
+labels = colnames(yeast)[1:14]
+yeast.task = makeMultilabelTask(id = &quot;multi&quot;, data = yeast, target = labels)
+yeast.task
+#&gt; Supervised task: multi
+#&gt; Type: multilabel
+#&gt; Target: label1,label2,label3,label4,label5,label6,label7,label8,label9,label10,label11,label12,label13,label14
+#&gt; Observations: 2417
+#&gt; Features:
+#&gt; numerics  factors  ordered 
+#&gt;      103        0        0 
+#&gt; Missings: FALSE
+#&gt; Has weights: FALSE
+#&gt; Has blocking: FALSE
+#&gt; Classes: 14
+#&gt;  label1  label2  label3  label4  label5  label6  label7  label8  label9 
+#&gt;     762    1038     983     862     722     597     428     480     178 
+#&gt; label10 label11 label12 label13 label14 
+#&gt;     253     289    1816    1799      34
 </code></pre>
 
 <h3 id="cluster-analysis">Cluster analysis</h3>
