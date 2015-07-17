@@ -1,22 +1,22 @@
 # Multilabel Classification
 
-Multilabel classification is a classification problem where multiple target labels can be 
-assigned to each observation instead of only one like in multiclass classification. 
+Multilabel classification is a classification problem where multiple target labels can be
+assigned to each observation instead of only one like in multiclass classification.
 
-Two different approaches exist for multilabel classification. Problem transformation 
-methods try to transform the multilabel classification into binary or multiclass 
-classification problems. Algorithm adaptation methods adapt multiclass algorithms
-so they can be applied directly on the problem. 
+Two different approaches exist for multilabel classification. *Problem transformation
+methods* try to transform the multilabel classification into binary or multiclass
+classification problems. *Algorithm adaptation methods* adapt multiclass algorithms
+so they can be applied directly to the problem.
 
 ## Creating a task
-The first thing you have to do for making multilabel classification in [%mlr] is to 
-get your data in the right format. You need a [data.frame](&base::data.frame) which 
-consists of the features and a logical vector for each label which indicates if the 
-label is present in the observation or not. After that you can create a 
-[MultilabelTask](task.md) like a normal [ClassifTask](task.md). Instead of one 
-target name you have to specify a vector of targets which corresponds to the names of 
-logical variables in the [data.frame](&base::data.frame). In the following example 
-we get the yeast dataframe from the already existing [yeast.task](&yeast.task) extract 
+The first thing you have to do for multilabel classification in [%mlr] is to
+get your data in the right format. You need a [data.frame](&base::data.frame) which
+consists of the features and a logical vector for each label which indicates if the
+label is present in the observation or not. After that you can create a
+[MultilabelTask](&Task) like a normal [ClassifTask](&Task). Instead of one
+target name you have to specify a vector of targets which correspond to the names of
+logical variables in the [data.frame](&base::data.frame). In the following example
+we get the yeast data frame from the already existing [yeast.task](&yeast.task), extract
 the 14 label names and create the task again.
 
 ```{r}
@@ -27,34 +27,37 @@ yeast.task
 ```
 
 ## Constructing a learner
-Multilabel classification in [&mlr] can currently be done in two ways:
+Multilabel classification in [%mlr] can currently be done in two ways:
 
 * Use the binary relevance method.
-This problem transformation method converts the multilabel problem to binary 
-classification problems for each 
-label and apply a simple binary classificator on these. In mlr this can be done by 
-converting your binary learner to a wrapped binary relevance multilabel learner
+This problem transformation method converts the multilabel problem to binary
+classification problems for each
+label and applies a simple binary classificator on these. In [%mlr] this can be done by
+converting your binary learner to a wrapped binary relevance multilabel learner.
 
-* Apply directly a algorithm adaptation method which treats the whole 
-problem with a specific algorithm. 
+* Apply directly an algorithm adaptation method which treats the whole
+problem with a specific algorithm.
 
-### Binary Relevance Method
-For generating a wrapped multilabel learner you must first create a binary (or multiclass) 
-classification learner with [makeLearner](&makeLearner). Afterwards you apply the function 
-[makeMultilabelBinaryRelevanceWrapper](&makeMultilabelBinaryRelevanceWrapper) on the learner 
-to convert it to a binary relevance learner. You can also generate a binary 
-relevance learner directly, as you can see in the example. 
+### Binary relevance method
+For generating a wrapped multilabel learner first create a binary (or multiclass)
+classification learner with [&makeLearner]. Afterwards apply the function
+[&makeMultilabelBinaryRelevanceWrapper] to the learner
+to convert it into a binary relevance learner.
+
+You can also generate a binary relevance learner directly, as you can see in the example.
 
 ```{r}
 multilabel.lrn = makeLearner("classif.rpart", predict.type = "prob")
 multilabel.lrn = makeMultilabelBinaryRelevanceWrapper(multilabel.lrn)
-multilabel.lrn1 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
 multilabel.lrn
+
+multilabel.lrn1 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
+multilabel.lrn1
 ```
 
 ### Algorithm adaptation method
-Currently the only available algorithm adaptation method in **R** is the Random Ferns 
-multilabel algorithm in the [%rFerns] package. You can create the learner for this algorithm 
+Currently the only available algorithm adaptation method in **R** is the Random Ferns
+multilabel algorithm in the [%rFerns] package. You can create the learner for this algorithm
 like in multiclass classification problems.
 
 ```{r}
@@ -63,71 +66,80 @@ multilabel.lrn2
 ```
 
 ## Train
-You can [&train] a model like usual with a multilabel learner and a 
-multilabel task as input. You can also pass a ``subset`` and ``weights`` argument if the 
-learner supports this. 
+You can [&train] a model as usual with a multilabel learner and a
+multilabel task as input. You can also pass ``subset`` and ``weights`` arguments if the
+learner supports this.
 
 ```{r}
 mod = train(multilabel.lrn, yeast.task)
 mod = train(multilabel.lrn, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
-mod2 = train(multilabel.lrn2, yeast.task, subset = 1:100)
 mod
 
+mod2 = train(multilabel.lrn2, yeast.task, subset = 1:100)
 mod2
-
 ```
 
 ## Predict
-Prediction can be done as usual in [&mlr] with [&predict] and by passing a trained model 
-and either the trained task to the ``task`` argument or some new data to the ``newdata`` 
-argument. In the case of passing a task you can specify a ``subset`` of the task data
-which should be predicted. 
+Prediction can be done as usual in [%mlr] with [&predict] and by passing a trained model
+and either the task to the ``task`` argument or some new data to the ``newdata``
+argument. As always you can specify a ``subset`` of the data
+which should be predicted.
 
 ```{r}
 pred = predict(mod, task = yeast.task, subset = 1:10)
 pred = predict(mod, newdata = yeast[1501:1600,])
+names(as.data.frame(pred))
+
 pred2 = predict(mod2, task = yeast.task)
+names(as.data.frame(pred2))
 ```
 
+Depending on the chosen `predict.type` of the learner you get true and predicted values and
+possibly probabilities for each class label.
+These can be extracted by the usual accessor functions [&getPredictionTruth], [&getPredictionResponse]
+and [&getPredictionProbabilities].
+
+
 ## Performance
-The performance of your prediction can be assessed via [&performance]. 
-With the ``measures`` argument you can specify the [measure(s)](measures.md). They 
-have to be passed as a list. A list of implemented measures for multilabel
-can be shown by [listMeasures](&Performance).
+The performance of your prediction can be assessed via function [&performance].
+You can specify via the `measures` argument which [measure(s)](measures.md) to calculate.
+The default measure for multilabel classification is the Hamming loss ([hamloss](measures.md)).
+All available measures for multilabel classification can be shown by [&listMeasures].
 
 ```{r}
 performance(pred)
 
-performance(pred2, measures = list(hamloss))
+performance(pred2, measures = list(hamloss, timepredict))
 
 listMeasures("multilabel")
 ```
 
 ## Resampling
-For evaluating the overall performance of the learning algorithm you can do some 
-[resampling](resample.md). Like usual you have to define a resampling strategy 
-via the function [&makeResampleDesc]. After that you can run the [&resample] 
-function. As default the Hamming Loss is calculated as evaluation measure. 
+For evaluating the overall performance of the learning algorithm you can do some
+[resampling](resample.md). As usual you have to define a resampling strategy, either
+via [&makeResampleDesc] or [&makeResampleInstance]. After that you can run the [&resample]
+function. Below the default measure Hamming loss is calculated.
 
 ```{r}
 rdesc = makeResampleDesc(method = "CV", stratify = FALSE, iters = 3)
-r = resample(learner = multilabel.lrn, task = yeast.task, resampling = rdesc)
+r = resample(learner = multilabel.lrn, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r
 
-r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc)
+r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r
 ```
 
-## Binary Performance
-If you want to calculate a binary 
-classification measure like e.g. the [accuracy](measures.md), the [mmce](measures.md) 
-or the [auc](measures.md) for each label, you can use the function 
+## Binary performance
+If you want to calculate a binary
+performance measure like, e.g., the [accuracy](measures.md), the [mmce](measures.md)
+or the [auc](measures.md) for each label, you can use function
 [&getMultilabelBinaryPerformances].
-You can apply this function on any multilabel prediction e.g. also on the resample 
-multilabel prediction. For calculating the [auc](measures.md) you need 
+You can apply this function to any multilabel prediction, e.g., also on the resample
+multilabel prediction. For calculating the [auc](measures.md) you need
 predicted probabilities.
 
 ```{r}
-getMultilabelBinaryPerformances(pred, measures = list(acc, mmce))
+getMultilabelBinaryPerformances(pred, measures = list(acc, mmce, auc))
 
 getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
 ```
-
