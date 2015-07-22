@@ -311,7 +311,7 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-56">Classification (56)</a></li>
+            <li><a href="#classification-60">Classification (60)</a></li>
         
             <li><a href="#regression-46">Regression (46)</a></li>
         
@@ -341,7 +341,7 @@ For example <em>rcens</em> means that the learning method can deal with right ce
 Moreover, the type of prediction is displayed, where <em>prob</em> indicates that probabilities
 can be predicted.
 For <em>regression</em>, <em>se</em> means that standard errors and the mean response can be predicted.</p>
-<h3 id="classification-56">Classification (56)</h3>
+<h3 id="classification-60">Classification (60)</h3>
 <table>
 <thead>
 <tr>
@@ -457,6 +457,17 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="left">see ?ctree_control for possible breakage for nominal features with missingness</td>
 </tr>
 <tr>
+<td align="left"><strong>classif.clusterSVM</strong> <br />clusterSVM</td>
+<td align="left">Clustered Support Vector Machines</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/SwarmSVM/">SwarmSVM</a><br /><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">twoclass</td>
+<td align="left"><code>centers</code> set to 2 by default</td>
+</tr>
+<tr>
 <td align="left"><strong>classif.ctree</strong> <br />ctree</td>
 <td align="left">Conditional Inference Trees</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/party/">party</a></td>
@@ -466,6 +477,17 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="center">X</td>
 <td align="left">multiclass<br />ordered<br />prob<br />twoclass</td>
 <td align="left">see ?ctree_control for possible breakage for nominal features with missingness</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.dcSVM</strong> <br />dcSVM</td>
+<td align="left">Divided-Conquer Support Vector Machines</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/SwarmSVM/">SwarmSVM</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">twoclass</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>classif.extraTrees</strong> <br />extraTrees</td>
@@ -488,6 +510,17 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="center"></td>
 <td align="left">multiclass<br />twoclass</td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>classif.gaterSVM</strong> <br />gaterSVM</td>
+<td align="left">Mixture of SVMs with Neural Network Gater Function</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/SwarmSVM/">SwarmSVM</a><br /><a href="http://www.rdocumentation.org/packages/e1071/">e1071</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">twoclass</td>
+<td align="left">m set to 3 and max.iter set to 1 by default</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.gbm</strong> <br />gbm</td>
@@ -719,6 +752,17 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="center"></td>
 <td align="left">multiclass<br />prob<br />twoclass</td>
 <td align="left"><code>keep.fitted</code> has been set to <code>FALSE</code> by default for speed and we use start.method='lvq' for more robust behavior / less technical crashes</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.mlp</strong> <br />mlp</td>
+<td align="left">Multi-Layer Perceptron</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/RSNNS/">RSNNS</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">multiclass<br />prob<br />twoclass</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>classif.multinom</strong> <br />multinom</td>
