@@ -53,10 +53,13 @@ the section on [tuning](tune.md)).
 
 Next, we add information on the properties of the learner (see also the section
 on [learners](learner.md)). Which types of features are supported (numerics,
-factors)? Are case weights supported? Can the method deal with missing values in
-the features and deal with NA's in a meaningful way (not ``na.omit``)? Are
-one-class, two-class, multi-class problems supported? Can the learner predict
+factors)? Are case weights supported? Are class weights supported? Can the method deal
+with missing values in the features and deal with NA's in a meaningful way (not ``na.omit``)?
+Are one-class, two-class, multi-class problems supported? Can the learner predict
 posterior probabilities?
+
+If the learner supports class weights the name of the relevant learner parameter
+can be specified via argument `class.weights.param`.
 
 Below is the complete code for the definition of the LDA learner. It has one
 discrete parameter, ``method``, and two continuous ones, ``nu`` and ``tol``. It
