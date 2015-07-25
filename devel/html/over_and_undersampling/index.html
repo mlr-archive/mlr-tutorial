@@ -567,11 +567,10 @@ to the weight of the positive / majority class, while the negative / minority
 class receives a weight of 1. So actually, no real costs are used within
 this approach, but the cost ratio is taken into account.</p>
 <p>If the underlying learner already has a parameter for class weighting (e.g.,
-<code>class.weights</code> in <code>classif.ksvm</code>), the <code>wcw.weight</code> is basically bound
-to the specific class weighting parameter. The latter has to be defined as an
-additional parameter (<code>wcw.param</code>).</p>
+<code>class.weights</code> in <code>classif.ksvm</code>), the <code>wcw.weight</code> is basically passed
+to the specific class weighting parameter.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.ksvm&quot;)
-wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.param = &quot;class.weights&quot;, wcw.weight = 0.01)
+wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
 </code></pre></div>
             
         </div>

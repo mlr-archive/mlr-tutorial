@@ -493,7 +493,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.50,Good=0.50
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -531,7 +531,7 @@ pred.th
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.17,Good=0.83
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -592,7 +592,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.413377
+#&gt; Runtime: 0.325626
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -640,7 +640,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.406834
+#&gt; Runtime: 0.317308
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -677,10 +677,72 @@ proportion of observations in the positive class has to be multiplied by
 <script type="math/tex; mode=display">\frac{1-t^*}{t^*} = \frac{c(-1,+1) - c(+1,+1)}{c(+1,-1) - c(-1,-1)}.</script>
 </p>
 <p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a> allows to assign class weights to <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>s.
-Naturally, this is only possible for methods with either a 'class weights' or an 'observation weights' argument.
-(Have a look at the <a href="../integrated_learners/index.html">table of integrated learners</a> to see which methods
-support observation weights.)</p>
-<p>Function <a href="http://www.rdocumentation.org/packages/nnet/functions/multinom.html">multinom</a> accepts observation weights.
+Naturally, this is only possible for methods with either a 'class weights' or an 'observation weights' argument.</p>
+<p>Have a look at the <a href="../integrated_learners/index.html">list of integrated learners</a> in the Appendix to
+see which methods support class/observation weights or use <a href="http://www.rdocumentation.org/packages/mlr/functions/listLearners.html">listLearners</a>.</p>
+<pre><code class="r">## Learners that accept observation weights
+listLearners(&quot;classif&quot;, properties = &quot;weights&quot;)
+#&gt; Loading required package: kknn
+#&gt; 
+#&gt; Attaching package: 'kknn'
+#&gt; 
+#&gt; The following object is masked from 'package:caret':
+#&gt; 
+#&gt;     contr.dummy
+#&gt; 
+#&gt; Loading required package: mda
+#&gt; Loading required package: class
+#&gt; Loaded mda 0.4-7
+#&gt; 
+#&gt; Loading required package: rrlda
+#&gt; Loading required package: pcaPP
+#&gt; Loading required package: mvoutlier
+#&gt; Loading required package: sgeostat
+#&gt; sROC 0.1-2 loaded
+#&gt; Loading required package: glasso
+#&gt; Loading required package: matrixcalc
+#&gt; Loading required package: sparseLDA
+#&gt; Loading required package: lars
+#&gt; Loaded lars 1.2
+#&gt; 
+#&gt; Loading required package: elasticnet
+#&gt; Loading required package: MASS
+#&gt; 
+#&gt; Attaching package: 'sparseLDA'
+#&gt; 
+#&gt; The following object is masked from 'package:BBmisc':
+#&gt; 
+#&gt;     normalize
+#&gt; 
+#&gt; Loading required package: crs
+#&gt; Categorical Regression Splines (version 0.15-24)
+#&gt; [vignette(&quot;crs_faq&quot;) provides answers to frequently asked questions]
+#&gt; Loading required package: CoxBoost
+#&gt; Loading required package: survival
+#&gt; 
+#&gt; Attaching package: 'survival'
+#&gt; 
+#&gt; The following object is masked from 'package:caret':
+#&gt; 
+#&gt;     cluster
+#&gt; 
+#&gt; Loading required package: prodlim
+#&gt;  [1] &quot;classif.ada&quot;        &quot;classif.avNNet&quot;     &quot;classif.binomial&quot;  
+#&gt;  [4] &quot;classif.blackboost&quot; &quot;classif.cforest&quot;    &quot;classif.ctree&quot;     
+#&gt;  [7] &quot;classif.extraTrees&quot; &quot;classif.gbm&quot;        &quot;classif.glmboost&quot;  
+#&gt; [10] &quot;classif.glmnet&quot;     &quot;classif.logreg&quot;     &quot;classif.lqa&quot;       
+#&gt; [13] &quot;classif.multinom&quot;   &quot;classif.nnet&quot;       &quot;classif.plr&quot;       
+#&gt; [16] &quot;classif.probit&quot;     &quot;classif.rpart&quot;
+
+## Learners that can deal with class weights
+listLearners(&quot;classif&quot;, properties = &quot;class.weights&quot;)
+#&gt; [1] &quot;classif.ksvm&quot;                &quot;classif.LiblineaRBinary&quot;    
+#&gt; [3] &quot;classif.LiblineaRLogReg&quot;     &quot;classif.LiblineaRMultiClass&quot;
+#&gt; [5] &quot;classif.randomForest&quot;        &quot;classif.svm&quot;
+</code></pre>
+
+<p>Learner <code>"classif.multinom"</code> (<a href="http://www.rdocumentation.org/packages/nnet/functions/multinom.html">multinom</a> from package <a href="http://www.rdocumentation.org/packages/nnet/">nnet</a>) accepts
+observation weights.
 The weight given to all observations from the positive class is passed via argument <code>wcw.weight</code>.
 Observations from the negative class automatically receive weight 1.</p>
 <pre><code class="r">## Weight corresponding to theoretical treshold
@@ -710,7 +772,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth response
 #&gt; 1  1  Good     Good
 #&gt; 2  2   Bad      Bad
@@ -730,22 +792,23 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.503206
+#&gt; Runtime: 0.372545
 </code></pre>
 
-<p>Some classification methods as the support vector machine (<a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a>) in package <a href="http://www.rdocumentation.org/packages/kernlab/">kernlab</a>
-support class weights.
-When generating the wrapped <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> you have to pass the name of the relevant
-learner parameter (<code>"class.weights"</code> for <a href="http://www.rdocumentation.org/packages/kernlab/functions/:ksvm.html">ksvm</a>) via argument <code>wcw.param</code>
-in addition to the weight.</p>
-<pre><code class="r">lrn = makeWeightedClassesWrapper(&quot;classif.ksvm&quot;, wcw.param = &quot;class.weights&quot;, wcw.weight = w)
+<p>As shown above, some classification methods as <code>"classif.ksvm"</code> (the support vector machine
+(<a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a>) in package <a href="http://www.rdocumentation.org/packages/kernlab/">kernlab</a>) support class weights.
+When generating the wrapped <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> the weights specified via argument <code>wcw.weight</code>
+are automatically passed to the correct argument of the underlying function --
+in case of <a href="http://www.rdocumentation.org/packages/kernlab/functions/:ksvm.html">ksvm</a> to argument <code>class.weights</code>.
+See the help page of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a> for more technical details.</p>
+<pre><code class="r">lrn = makeWeightedClassesWrapper(&quot;classif.ksvm&quot;, wcw.weight = w)
 mod = train(lrn, credit.task)
 pred = predict(mod, task = credit.task)
 pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.13
+#&gt; time: 0.10
 #&gt;   id truth response
 #&gt; 1  1  Good     Good
 #&gt; 2  2   Bad      Bad
@@ -765,7 +828,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.717138
+#&gt; Runtime: 0.545507
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -847,7 +910,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.896855
+#&gt; Runtime: 0.700512
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate.
@@ -862,7 +925,7 @@ tune.res = tuneParams(lrn, credit.task, rin, par.set = ps, measures = list(credi
 tune.res
 #&gt; Tune result:
 #&gt; Op. pars: osw.rate=6
-#&gt; credit.costs.test.mean=0.496,mmce.test.mean=0.352
+#&gt; credit.costs.test.mean=0.495,mmce.test.mean=0.351
 </code></pre>
 
 <h3 id="multi-class-problems">Multi-class problems</h3>
@@ -942,13 +1005,13 @@ r
 #&gt; Resample Result
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
-#&gt; wf.costs.aggr: 8.26
-#&gt; wf.costs.mean: 8.26
-#&gt; wf.costs.sd: 2.85
-#&gt; mmce.aggr: 0.34
-#&gt; mmce.mean: 0.34
-#&gt; mmce.sd: 0.04
-#&gt; Runtime: 0.0968537
+#&gt; wf.costs.aggr: 6.75
+#&gt; wf.costs.mean: 6.75
+#&gt; wf.costs.sd: 2.30
+#&gt; mmce.aggr: 0.28
+#&gt; mmce.mean: 0.28
+#&gt; mmce.sd: 0.03
+#&gt; Runtime: 0.0807199
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -960,7 +1023,7 @@ th
 pred.th = setThreshold(r$pred, threshold = th)
 performance(pred.th, measures = list(wf.costs, mmce))
 #&gt; wf.costs     mmce 
-#&gt;    5.668    0.480
+#&gt;    5.092    0.426
 </code></pre>
 
 <p>The threshold vector <code>th</code> in the above example is chosen according to the average costs
@@ -977,11 +1040,11 @@ Since the scaling of the threshold vector does not change the predicted class la
 <pre><code class="r">tune.res = tuneThreshold(pred = r$pred, measure = wf.costs)
 tune.res
 #&gt; $th
-#&gt;             1             2             3 
-#&gt; -1.657070e-09  3.914654e-01  6.085346e-01 
+#&gt;          1          2          3 
+#&gt; 0.03113778 0.25544497 0.71341725 
 #&gt; 
 #&gt; $perf
-#&gt; [1] 5.05
+#&gt; [1] 4.42
 </code></pre>
 
 <p>For comparison we show the standardized version of the theoretically motivated threshold
@@ -1006,8 +1069,8 @@ tune.res = tuneParams(lrn, wf.task, resampling = rin, par.set = ps,
   measures = list(wf.costs, mmce), control = ctrl, show.info = FALSE)
 tune.res
 #&gt; Tune result:
-#&gt; Op. pars: wcw.weight=0.673,0.12,0.0204
-#&gt; wf.costs.test.mean=2.63,mmce.test.mean=0.222
+#&gt; Op. pars: wcw.weight=0.591,0.188,0.092
+#&gt; wf.costs.test.mean=2.93,mmce.test.mean=0.218
 </code></pre>
 
 <h2 id="example-dependent-misclassification-costs">Example-dependent misclassification costs</h2>
@@ -1108,7 +1171,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.07
+#&gt; time: 0.06
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa
@@ -1119,7 +1182,7 @@ pred
 
 performance(pred, measures = list(meancosts, mcp), task = costsens.task)
 #&gt; meancosts       mcp 
-#&gt;  144.8978  139.8698
+#&gt;  173.0737  168.2466
 </code></pre></div>
             
         </div>

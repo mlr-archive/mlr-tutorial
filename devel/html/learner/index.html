@@ -520,8 +520,8 @@ head(listLearners(&quot;classif&quot;, properties = &quot;prob&quot;))
 
 ## List classifiers that can be applied to iris (i.e., multiclass) and output probabilities
 head(listLearners(iris.task, properties = &quot;prob&quot;))
-#&gt; [1] &quot;classif.avNNet&quot;     &quot;classif.bdk&quot;        &quot;classif.boosting&quot;  
-#&gt; [4] &quot;classif.cforest&quot;    &quot;classif.ctree&quot;      &quot;classif.extraTrees&quot;
+#&gt; [1] &quot;classif.avNNet&quot;   &quot;classif.bdk&quot;      &quot;classif.boosting&quot;
+#&gt; [4] &quot;classif.cforest&quot;  &quot;classif.ctree&quot;    &quot;classif.dbnDNN&quot;
 
 ## The calls above return character vectors, but you can also create learner objects
 head(listLearners(&quot;cluster&quot;, create = TRUE), 2)
