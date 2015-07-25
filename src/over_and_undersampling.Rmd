@@ -254,11 +254,10 @@ this approach, but the cost ratio is taken into account.
 
 
 If the underlying learner already has a parameter for class weighting (e.g.,
-`class.weights` in `classif.ksvm`), the `wcw.weight` is basically bound
-to the specific class weighting parameter. The latter has to be defined as an
-additional parameter (`wcw.param`).
+`class.weights` in `classif.ksvm`), the `wcw.weight` is basically passed
+to the specific class weighting parameter.
 
 ```{r makeWeightedClassesWrapper_setup2}
 lrn = makeLearner("classif.ksvm")
-wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.param = "class.weights", wcw.weight = 0.01)
+wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
 ```

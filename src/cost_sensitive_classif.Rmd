@@ -273,10 +273,20 @@ $$\frac{1-t^*}{t^*} = \frac{c(-1,+1) - c(+1,+1)}{c(+1,-1) - c(-1,-1)}.$$
 
 Function [&makeWeightedClassesWrapper] allows to assign class weights to [Learner](&makeLearner)s.
 Naturally, this is only possible for methods with either a 'class weights' or an 'observation weights' argument.
-(Have a look at the [table of integrated learners](integrated_learners.md) to see which methods
-support observation weights.)
 
-Function [multinom](&nnet::multinom) accepts observation weights.
+Have a look at the [list of integrated learners](integrated_learners.md) in the Appendix to
+see which methods support class/observation weights or use [&listLearners].
+
+```{r}
+## Learners that accept observation weights
+listLearners("classif", properties = "weights")
+
+## Learners that can deal with class weights
+listLearners("classif", properties = "class.weights")
+```
+
+Learner `"classif.multinom"` ([multinom](&nnet::multinom) from package [%nnet]) accepts
+observation weights.
 The weight given to all observations from the positive class is passed via argument ``wcw.weight``.
 Observations from the negative class automatically receive weight 1.
 
@@ -304,14 +314,15 @@ r = resample(lrn, credit.task, rin, measures = list(credit.costs, mmce), show.in
 r
 ```
 
-Some classification methods as the support vector machine ([ksvm](&kernlab::ksvm)) in package [%kernlab]
-support class weights.
-When generating the wrapped [Learner](&makeLearner) you have to pass the name of the relevant
-learner parameter (``"class.weights"`` for [ksvm](&kernlab:::ksvm)) via argument ``wcw.param``
-in addition to the weight.
+As shown above, some classification methods as `"classif.ksvm"` (the support vector machine
+([ksvm](&kernlab::ksvm)) in package [%kernlab]) support class weights.
+When generating the wrapped [Learner](&makeLearner) the weights specified via argument ``wcw.weight``
+are automatically passed to the correct argument of the underlying function --
+in case of [ksvm](&kernlab:::ksvm) to argument `class.weights`.
+See the help page of [&makeWeightedClassesWrapper] for more technical details.
 
 ```{r}
-lrn = makeWeightedClassesWrapper("classif.ksvm", wcw.param = "class.weights", wcw.weight = w)
+lrn = makeWeightedClassesWrapper("classif.ksvm", wcw.weight = w)
 mod = train(lrn, credit.task)
 pred = predict(mod, task = credit.task)
 pred
