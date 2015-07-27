@@ -206,6 +206,12 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
@@ -498,7 +504,7 @@ All available measures for multilabel classification can be shown by <a href="ht
 
 performance(pred2, measures = list(hamloss, timepredict))
 #&gt;     hamloss timepredict 
-#&gt;   0.6946924   0.0830000
+#&gt;   0.6946924   0.0920000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt; [1] &quot;timepredict&quot; &quot;featperc&quot;    &quot;timeboth&quot;    &quot;timetrain&quot;   &quot;hamloss&quot;
@@ -518,7 +524,7 @@ r
 #&gt; hamloss.aggr: 0.23
 #&gt; hamloss.mean: 0.23
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 9.99016
+#&gt; Runtime: 10.4588
 
 r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
@@ -528,7 +534,7 @@ r
 #&gt; hamloss.aggr: 0.47
 #&gt; hamloss.mean: 0.47
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 0.864028
+#&gt; Runtime: 0.935786
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>

@@ -147,6 +147,12 @@
      <changefreq>daily</changefreq>
     </url>
         
+    <url>
+     <loc>None/classifier_calibration/index.html</loc>
+     <lastmod>2015-07-27</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
     
