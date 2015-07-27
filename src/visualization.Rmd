@@ -99,6 +99,7 @@ are not described here since they lack a generation function.
  - [&generateThreshVsPerfData]: [Performance](performance.md)
  - [&generateROCRCurvesData]: [ROC Analysis](roc_analysis.md)
  - [&generatePartialPredictionData]: [Partial Prediction Plots](partial_prediction.md)
+ - [&generateCalibrationData]: [Classifier Calibration Plots](classifier_calibration.md)
 
 ## ggplot2 plotting functions
 
@@ -107,6 +108,7 @@ are not described here since they lack a generation function.
  - [&plotThresVsPerf]
  - [&plotROCRCurves]
  - [&plotPartialPrediction]
+ - [&plotCalibration]
 
 ## ggvis plotting functions
 

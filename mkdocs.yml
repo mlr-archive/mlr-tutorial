@@ -35,6 +35,7 @@ pages:
     - 'Multilabel Classification': 'multilabel.md'
     - 'Learning Curve': 'learning_curve.md'
     - 'Partial Prediction Plots': 'partial_prediction.md'
+    - 'Classifier Calibration Plots': 'classifier_calibration.md'
 - Extend:
     - 'Create Custom Learners': 'create_learner.md'
     - 'Create Custom Measures': 'create_measure.md'
