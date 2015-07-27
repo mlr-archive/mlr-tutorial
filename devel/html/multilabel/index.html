@@ -15,6 +15,8 @@
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/custom_mlr.css" rel="stylesheet">
+        <link href="../css/custom_highlight.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -496,10 +498,10 @@ All available measures for multilabel classification can be shown by <a href="ht
 
 performance(pred2, measures = list(hamloss, timepredict))
 #&gt;     hamloss timepredict 
-#&gt;   0.6946924   0.0880000
+#&gt;   0.6946924   0.0830000
 
 listMeasures(&quot;multilabel&quot;)
-#&gt; [1] &quot;featperc&quot;    &quot;timeboth&quot;    &quot;hamloss&quot;     &quot;timepredict&quot; &quot;timetrain&quot;
+#&gt; [1] &quot;timepredict&quot; &quot;featperc&quot;    &quot;timeboth&quot;    &quot;timetrain&quot;   &quot;hamloss&quot;
 </code></pre>
 
 <h2 id="resampling">Resampling</h2>
@@ -516,7 +518,7 @@ r
 #&gt; hamloss.aggr: 0.23
 #&gt; hamloss.mean: 0.23
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 9.83112
+#&gt; Runtime: 9.99016
 
 r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
@@ -526,7 +528,7 @@ r
 #&gt; hamloss.aggr: 0.47
 #&gt; hamloss.mean: 0.47
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 0.922269
+#&gt; Runtime: 0.864028
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>
