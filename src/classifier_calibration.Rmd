@@ -2,7 +2,7 @@
 
 A classifier is "calibrated" when the predicted probability of a class matches the expected frequency of that class. [%mlr] can visualize this by plotting estimated class probabilities (which are discretized) against the observed frequency of said class in the data using [&generateCalibrationData] and [&plotCalibration].
 
-[&generateCalibrationData] takes as input [&Prediction], [&ResampleResult], [&BenchmarkResult], or a named list of [&Prediction] or [&ResampleResult] objects on a classification (multiclass or binary) task with learner(s) that are capable of outputting probabiliites (i.e., learners must be constructed with `predict.type = TRUE`). The result is an object of class `calibrationData` which has elements `proportion`, `data`, and `task`. `proporition` gives the proportion of observations labelled with a given class for each predicted probability bin (e.g., for observations which are predicted to have class "A" with probability `(0, .1]`, what is the proportion of said observations which have class "A"?).
+[&generateCalibrationData] takes as input [&Prediction], [&ResampleResult], [&BenchmarkResult], or a named list of [&Prediction] or [&ResampleResult] objects on a classification (multiclass or binary) task with learner(s) that are capable of outputting probabiliites (i.e., learners must be constructed with `predict.type = TRUE`). The result is an object of class `calibrationData` which has elements `proportion`, `data`, and `task`. `proportion` gives the proportion of observations labelled with a given class for each predicted probability bin (e.g., for observations which are predicted to have class "A" with probability `(0, .1]`, what is the proportion of said observations which have class "A"?).
 
 
 ```{r}
@@ -20,7 +20,7 @@ cal = generateCalibrationData(pred, groups = 3)
 cal$proportion
 ```
 
-`calibrationData` objects can be plotted using [&plotCalibration]. [&plotCalibration] by default plots a reference line which shows perfect calibration and a "rag" plot, which is a rug plot on the top and bottom of the graph, where the top pertains to "positive" cases, where the predicted class matches the observed class, and the bottom pertains to "negative" cases, where the predicted class does not match the observed class. Perfect classifier performance would result in all the positive cases clustering in the top right (i.e., the correct classes are predicted with high probabilitiy) and the negative cases clustering in the bottom left.
+`calibrationData` objects can be plotted using [&plotCalibration]. [&plotCalibration] by default plots a reference line which shows perfect calibration and a "rag" plot, which is a rug plot on the top and bottom of the graph, where the top pertains to "positive" cases, where the predicted class matches the observed class, and the bottom pertains to "negative" cases, where the predicted class does not match the observed class. Perfect classifier performance would result in all the positive cases clustering in the top right (i.e., the correct classes are predicted with high probability) and the negative cases clustering in the bottom left.
 
 ```{r, fig.width = 8, fig.height = 6}
 plotCalibration(cal)
