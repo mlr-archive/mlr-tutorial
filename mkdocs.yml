@@ -28,6 +28,7 @@ pages:
     - 'Bagging': 'bagging.md'
     - 'Tuning': 'tune.md'
     - 'Feature Selection': 'feature_selection.md'
+    - 'Nested Resampling': 'nested_resampling.md'
     - 'Cost-Sensitive Classification': 'cost_sensitive_classif.md'
     - 'Imbalanced Classification Problems': 'over_and_undersampling.md'
     - 'ROC Analysis': 'roc_analysis.md'
