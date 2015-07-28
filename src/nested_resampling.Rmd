@@ -292,7 +292,7 @@ learners.
 If you have larger benchmark experiments you might want to have a look at the section
 about [parallelization](parallelization.md).
 
-As mentioned in the section about [benchmark experiments](benchmark.md) you can also use
+As mentioned in the section about [benchmark experiments](benchmark_experiments.md) you can also use
 different resampling strategies for different learning tasks by passing a
 [list](&base::list) of resampling descriptions or instances to [&benchmark].
 
