@@ -261,80 +261,6 @@ print(head(as.data.frame(res$opt.path)))
 ```
 
 
-## Nested resampling
-
-As we continually optimize over the same data during tuning, the estimated
-performance value `res$y` might be optimistically biased.
-A clean approach to ensure unbiased performance estimation is nested resampling,
-where we embed the whole model selection process into an outer resampling loop.
-
-Actually, we can get this for free without programming any looping by simply using the
-[wrapper functionality](wrapper.md) of [%mlr].
-See also function [&makeTuneWrapper].
-
-Let's use cross-validation with 5 folds in the outer loop and use simple
-holdout test set estimation during tuning in the inner loop.
-
-```{r}
-ps = makeParamSet(
-  makeDiscreteParam("C", values = 2^(-2:2)),
-  makeDiscreteParam("sigma", values = 2^(-2:2))
-)
-ctrl = makeTuneControlGrid()
-inner = makeResampleDesc("Holdout")
-outer = makeResampleDesc("CV", iters = 5)
-lrn = makeTuneWrapper("classif.ksvm", inner, par.set = ps, control = ctrl, show.info = FALSE)
-r = resample(lrn, iris.task, resampling = outer, extract = getTuneResult, show.info = FALSE)
-```
-
-If we want to find out how good those configurations are on the entire data
-set, we can look at the measures that we already know from [resampling](resample.md).
-We receive 5 misclassification errors (one for each optimal parameter
-configuration per outer fold) and one aggregated version, i.e., the mean,
-of those 5 values.
-
-```{r}
-r$measures.test
-r$aggr
-```
-
-
-### Accessing the tuning result
-
-We have kept the results of the tuning for further evaluations.
-For example one might want to find out, if the best obtained configurations vary for the
-different outer splits.
-As storing entire models may be expensive we used the `extract` option of [&resample].
-Function [&getTuneResult] returns the optimal parameter values and the optimization path
-for each iteration of the outer resampling loop.
-
-```{r}
-r$extract
-```
-We can compare the optimal parameter settings obtained in the 5 resampling iterations.
-As you can see, the optimal configuration usually depends on the data. You may
-be able to identify a *range* of parameter settings that achieve good
-performance though, e.g., the values for `C` should be at least 1 and the values
-for `sigma` should be between 0 and 1.
-
-In the following we extract the `opt.path`'s for each of the 5 cross-validation iterations.
-
-```{r}
-opt.paths = lapply(r$extract, function(x) as.data.frame(x$opt.path))
-head(opt.paths[[1]])
-```
-
-With the following code you can visualize the `opt.path` of the first resampling iteration.
-
-```{r tune_nestedGridSearchVisualized}
-opt.mmce = lapply(opt.paths, function(x) x$mmce.test.mean)
-opt.grid = opt.paths[[1]][, 1:2]
-opt.grid$mmce.test.mean = apply(simplify2array(opt.mmce), 1, mean)
-g = ggplot(opt.grid, aes(x = C, y = sigma, fill = mmce.test.mean))
-g + geom_tile()
-```
-
-
 ## Multi-criteria evaluation and optimization
 
 During tuning you might want to optimize multiple, potentially conflicting, performance measures
@@ -379,6 +305,12 @@ plotTuneMultiCritResult(res)
   numerical or other errors. Have a look at `on.learner.error` in [&configureMlr] as well as
   the examples given in section [Configure mlr](configureMlr.md) of this tutorial.
   You might also want to inform yourself about `impute.val` in [&TuneControl].
+
+* As we continually optimize over the same data during tuning, the estimated
+performance value might be optimistically biased.
+A clean approach to ensure unbiased performance estimation is [nested resampling](nested_resampling.md),
+where we embed the whole model selection process into an outer resampling loop.
+
 
 <!--(
 .. |tune-varsel_processing| image:: /_images/tune-varsel_processing.png
