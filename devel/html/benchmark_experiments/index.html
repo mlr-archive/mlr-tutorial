@@ -172,6 +172,12 @@
                         
                             
 <li >
+    <a href="../nested_resampling/index.html">Nested Resampling</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>
 </li>
 
@@ -653,18 +659,19 @@ GGally::ggpairs(perfr, c(3,5,7))
 <h2 id="further-comments">Further comments</h2>
 <ul>
 <li>In the examples shown in this section we applied "raw" learning algorithms, but often things
-are more complicated.
-At the very least, many learners have hyperparameters that need to be tuned to get sensible results.
-Reliable performance estimates can be obtained by nested resampling, i.e., by doing the tuning in an
-inner resampling loop while estimating the performance in an outer loop.
-Moreover, you might want to combine learners with pre-processing steps like imputation, scaling,
-outlier removal, dimensionality reduction or feature selection and so on.
-All this can be easily done by using <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s wrapper functionality.
-The general principle is explained in the section about <a href="http://www.rdocumentation.org/packages/mlr/functions/wrapper.md.html">wrapped learners</a> in the
-Advanced part of this tutorial. There are also several sections devoted to common pre-processing
-steps.</li>
+  are more complicated.
+  At the very least, many learners have hyperparameters that need to be tuned to get sensible results.
+  Reliable performance estimates can be obtained by nested resampling, i.e., by doing the tuning in an
+  inner resampling loop while estimating the performance in an outer loop.
+  The tutorial page about <a href="../nested_resampling/index.html">nested resampling</a> gives further details.<br />
+  Moreover, you might want to combine learners with pre-processing steps like imputation, scaling,
+  outlier removal, dimensionality reduction or feature selection and so on.
+  All this can be easily done by using <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s wrapper functionality.
+  The general principle is explained in the section about <a href="http://www.rdocumentation.org/packages/mlr/functions/wrapper.md.html">wrapped learners</a> in the
+  Advanced part of this tutorial. There are also several sections devoted to common pre-processing
+  steps.</li>
 <li>Benchmark experiments can very quickly become computationally demanding. <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> offers
-some possibilities for <a href="../parallelization/index.html">parallelization</a>.</li>
+  some possibilities for <a href="../parallelization/index.html">parallelization</a>.</li>
 </ul></div>
             
         </div>
