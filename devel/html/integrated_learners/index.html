@@ -15,6 +15,8 @@
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/custom_mlr.css" rel="stylesheet">
+        <link href="../css/custom_highlight.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -204,6 +206,12 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
@@ -311,7 +319,7 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-60">Classification (60)</a></li>
+            <li><a href="#classification-63">Classification (63)</a></li>
         
             <li><a href="#regression-46">Regression (46)</a></li>
         
@@ -329,19 +337,21 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="integrated-learners">Integrated Learners</h1>
-<p>Here, the learning methods already integrated into <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> are listed.</p>
+<p>This page lists the learning methods already integrated in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.</p>
 <p>Columns <strong>Num.</strong>, <strong>Fac.</strong>, <strong>NAs</strong>, and <strong>Weights</strong> indicate if a method can cope with
-numerical and factor predictors, if <code>NA</code>s in the data are allowed and if observation
+numerical and factor predictors, if <code>NA's</code> in the data are allowed and if observation
 weights are supported, respectively.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods.
 <em>ordered</em> indicates that a method can deal with ordered factor features.
-For <em>classification</em>, you can see if binary and/or multi-class problems are supported.
+For <em>classification</em>, you can see if binary and/or multi-class problems are supported
+and if the learner accepts class weights.
 For <em>survival analysis</em>, the censoring type is shown.
 For example <em>rcens</em> means that the learning method can deal with right censored data.
 Moreover, the type of prediction is displayed, where <em>prob</em> indicates that probabilities
 can be predicted.
-For <em>regression</em>, <em>se</em> means that standard errors and the mean response can be predicted.</p>
-<h3 id="classification-60">Classification (60)</h3>
+For <em>regression</em>, <em>se</em> means that additional to the mean response standard errors can be predicted.
+See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
+<h3 id="classification-63">Classification (63)</h3>
 <table>
 <thead>
 <tr>
@@ -477,6 +487,17 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="center">X</td>
 <td align="left">multiclass<br />ordered<br />prob<br />twoclass</td>
 <td align="left">see ?ctree_control for possible breakage for nominal features with missingness</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.dbnDNN</strong> <br />dbn.dnn</td>
+<td align="left">Deep neural network with weights initialized by DBN</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/deepnet/">deepnet</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">multiclass<br />prob<br />twoclass</td>
+<td align="left"><code>output</code> set to <code>softmax</code> by default</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.dcSVM</strong> <br />dcSVM</td>
@@ -809,6 +830,17 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="left"><code>size</code> has been set to 3 by default.</td>
 </tr>
 <tr>
+<td align="left"><strong>classif.nnTrain</strong> <br />nn.train</td>
+<td align="left">Training Neural Network by Backpropagation</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/deepnet/">deepnet</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">multiclass<br />prob<br />twoclass</td>
+<td align="left"><code>output</code> set to <code>softmax</code> by default</td>
+</tr>
+<tr>
 <td align="left"><strong>classif.nodeHarvest</strong> <br />nodeHarvest</td>
 <td align="left">Node Harvest</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/nodeHarvest/">nodeHarvest</a></td>
@@ -972,6 +1004,17 @@ For <em>regression</em>, <em>se</em> means that standard errors and the mean res
 <td align="center"></td>
 <td align="left">multiclass<br />twoclass</td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>classif.saeDNN</strong> <br />sae.dnn</td>
+<td align="left">Deep neural network with weights initialized by Stacked AutoEncoder</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/deepnet/">deepnet</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">multiclass<br />prob<br />twoclass</td>
+<td align="left"><code>output</code> set to <code>softmax</code> by default</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.sda</strong> <br />sda</td>

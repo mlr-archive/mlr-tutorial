@@ -3,7 +3,8 @@ site_dir: devel/html
 repo_url: https://github.com/mlr-org/mlr/
 use_directory_urls: False
 theme: 'mkdocs'
-theme_dir: 'custom_theme'
+theme_dir: custom_theme
+extra_css: ['css/custom_mlr.css', 'css/custom_highlight.css']
 markdown_extensions:
   - mdx_math:
       enable_dollar_delimiter: True
@@ -35,6 +36,7 @@ pages:
     - 'Multilabel Classification': 'multilabel.md'
     - 'Learning Curve': 'learning_curve.md'
     - 'Partial Prediction Plots': 'partial_prediction.md'
+    - 'Classifier Calibration Plots': 'classifier_calibration.md'
 - Extend:
     - 'Create Custom Learners': 'create_learner.md'
     - 'Create Custom Measures': 'create_measure.md'

@@ -15,6 +15,8 @@
         <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/custom_mlr.css" rel="stylesheet">
+        <link href="../css/custom_highlight.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -204,6 +206,12 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
@@ -354,12 +362,12 @@ non-standard misclassification costs, see the section on
 certain learning <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> use the function <a href="http://www.rdocumentation.org/packages/mlr/functions/listMeasures.html">listMeasures</a>.</p>
 <pre><code class="r">## Performance measures for classification with multiple classes
 listMeasures(&quot;classif&quot;, properties = &quot;classif.multi&quot;)
-#&gt; [1] &quot;featperc&quot;       &quot;mmce&quot;           &quot;timeboth&quot;       &quot;acc&quot;           
-#&gt; [5] &quot;multiclass.auc&quot; &quot;ber&quot;            &quot;timepredict&quot;    &quot;timetrain&quot;
+#&gt; [1] &quot;timepredict&quot;    &quot;acc&quot;            &quot;ber&quot;            &quot;featperc&quot;      
+#&gt; [5] &quot;mmce&quot;           &quot;timeboth&quot;       &quot;timetrain&quot;      &quot;multiclass.auc&quot;
 ## Performance measure suitable for the iris classification task
 listMeasures(iris.task)
-#&gt; [1] &quot;featperc&quot;       &quot;mmce&quot;           &quot;timeboth&quot;       &quot;acc&quot;           
-#&gt; [5] &quot;multiclass.auc&quot; &quot;ber&quot;            &quot;timepredict&quot;    &quot;timetrain&quot;
+#&gt; [1] &quot;timepredict&quot;    &quot;acc&quot;            &quot;ber&quot;            &quot;featperc&quot;      
+#&gt; [5] &quot;mmce&quot;           &quot;timeboth&quot;       &quot;timetrain&quot;      &quot;multiclass.auc&quot;
 </code></pre>
 
 <p>For convenience there exists a default measure for each type of learning problem, which is
@@ -426,7 +434,7 @@ works in the same way.</p>
 model has to be passed.</p>
 <pre><code class="r">performance(pred, measures = timetrain, model = mod)
 #&gt; timetrain 
-#&gt;     0.139
+#&gt;      0.12
 </code></pre>
 
 <p>For many performance measures in cluster analysis the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> is required.</p>
