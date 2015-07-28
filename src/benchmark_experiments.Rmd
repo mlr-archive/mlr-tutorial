@@ -218,15 +218,16 @@ GGally::ggpairs(perfr, c(3,5,7))
 ## Further comments
 
 * In the examples shown in this section we applied "raw" learning algorithms, but often things
-are more complicated.
-At the very least, many learners have hyperparameters that need to be tuned to get sensible results.
-Reliable performance estimates can be obtained by nested resampling, i.e., by doing the tuning in an
-inner resampling loop while estimating the performance in an outer loop.
-Moreover, you might want to combine learners with pre-processing steps like imputation, scaling,
-outlier removal, dimensionality reduction or feature selection and so on.
-All this can be easily done by using [%mlr]'s wrapper functionality.
-The general principle is explained in the section about [wrapped learners](&wrapper.md) in the
-Advanced part of this tutorial. There are also several sections devoted to common pre-processing
-steps.
+  are more complicated.
+  At the very least, many learners have hyperparameters that need to be tuned to get sensible results.
+  Reliable performance estimates can be obtained by nested resampling, i.e., by doing the tuning in an
+  inner resampling loop while estimating the performance in an outer loop.
+  The tutorial page about [nested resampling](nested_resampling.md) gives further details.  
+  Moreover, you might want to combine learners with pre-processing steps like imputation, scaling,
+  outlier removal, dimensionality reduction or feature selection and so on.
+  All this can be easily done by using [%mlr]'s wrapper functionality.
+  The general principle is explained in the section about [wrapped learners](&wrapper.md) in the
+  Advanced part of this tutorial. There are also several sections devoted to common pre-processing
+  steps.
 * Benchmark experiments can very quickly become computationally demanding. [%mlr] offers
-some possibilities for [parallelization](parallelization.md).
+  some possibilities for [parallelization](parallelization.md).
