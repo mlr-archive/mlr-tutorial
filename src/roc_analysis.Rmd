@@ -70,9 +70,13 @@ We consider the [Sonar](&mlbench::Sonar) data set from package [%mlbench], which
 binary classification problem ([&sonar.task]) and apply [linear discriminant analysis](&MASS::lda).
 
 ```{r}
+n = getTaskSize(sonar.task)
+train.set = sample(n, size = round(2/3 * n))
+test.set = setdiff(seq_len(n), train.set)
+
 lrn1 = makeLearner("classif.lda", predict.type = "prob")
-mod1 = train(lrn1, sonar.task)
-pred1 = predict(mod1, task = sonar.task)
+mod1 = train(lrn1, sonar.task, subset = train.set)
+pred1 = predict(mod1, task = sonar.task, subset = test.set)
 roc_data = generateROCRCurvesData(pred1)
 roc_data
 ```
@@ -105,8 +109,8 @@ with RBF kernel ([ksvm](&kernlab::ksvm)).
 
 ```{r}
 lrn2 = makeLearner("classif.ksvm", predict.type = "prob")
-mod2 = train(lrn2, sonar.task)
-pred2 = predict(mod2, task = sonar.task)
+mod2 = train(lrn2, sonar.task, subset = train.set)
+pred2 = predict(mod2, task = sonar.task, subset = test.set)
 ```
 
 In order to compare the performance of the two learners you might want to display the two
@@ -269,10 +273,14 @@ We go back to out first example where we trained and predicted [lda](&MASS::lda)
 [sonar classification task](&sonar.task).
 
 ```{r}
+n = getTaskSize(sonar.task)
+train.set = sample(n, size = round(2/3 * n))
+test.set = setdiff(seq_len(n), train.set)
+
 ## Train and predict linear discriminant analysis
 lrn1 = makeLearner("classif.lda", predict.type = "prob")
-mod1 = train(lrn1, sonar.task)
-pred1 = predict(mod1, task = sonar.task)
+mod1 = train(lrn1, sonar.task, subset = train.set)
+pred1 = predict(mod1, task = sonar.task, subset = test.set)
 ```
 
 Below we use [&asROCRPrediction] to convert the lda prediction, let [%ROCR] calculate the
