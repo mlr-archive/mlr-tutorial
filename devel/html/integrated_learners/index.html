@@ -325,9 +325,9 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-63">Classification (63)</a></li>
+            <li><a href="#classification-65">Classification (65)</a></li>
         
-            <li><a href="#regression-46">Regression (46)</a></li>
+            <li><a href="#regression-48">Regression (48)</a></li>
         
             <li><a href="#survival-analysis-10">Survival analysis (10)</a></li>
         
@@ -357,7 +357,7 @@ Moreover, the type of prediction is displayed, where <em>prob</em> indicates tha
 can be predicted.
 For <em>regression</em>, <em>se</em> means that additional to the mean response standard errors can be predicted.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-63">Classification (63)</h3>
+<h3 id="classification-65">Classification (65)</h3>
 <table>
 <thead>
 <tr>
@@ -990,6 +990,17 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>classif.rknn</strong> <br />rknn</td>
+<td align="left">Random k-Nearest-Neighbors</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/rknn/">rknn</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">multiclass<br />ordered<br />twoclass</td>
+<td align="left"></td>
+</tr>
+<tr>
 <td align="left"><strong>classif.rpart</strong> <br />rpart</td>
 <td align="left">Decision Tree</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/rpart/">rpart</a></td>
@@ -1056,6 +1067,17 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>classif.xgboost</strong> <br />xgboost</td>
+<td align="left">eXtreme Gradient Boosting</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/xgboost/">xgboost</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">multiclass<br />prob<br />twoclass</td>
+<td align="left"><code>nrounds</code> set to 1 by default</td>
+</tr>
+<tr>
 <td align="left"><strong>classif.xyf</strong> <br />xyf</td>
 <td align="left">X-Y fused self-organising maps</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/kohonen/">kohonen</a></td>
@@ -1068,7 +1090,7 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 </tr>
 </tbody>
 </table>
-<h3 id="regression-46">Regression (46)</h3>
+<h3 id="regression-48">Regression (48)</h3>
 <table>
 <thead>
 <tr>
@@ -1525,6 +1547,17 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left">na.action' has been set to 'na.impute' by default to allow missing data support</td>
 </tr>
 <tr>
+<td align="left"><strong>regr.rknn</strong> <br />rknn</td>
+<td align="left">Random k-Nearest-Neighbors</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/rknn/">rknn</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">ordered</td>
+<td align="left"></td>
+</tr>
+<tr>
 <td align="left"><strong>regr.rpart</strong> <br />rpart</td>
 <td align="left">Decision Tree</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/rpart/">rpart</a></td>
@@ -1578,6 +1611,17 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="center"></td>
 <td align="left"></td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>regr.xgboost</strong> <br />xgboost</td>
+<td align="left">eXtreme Gradient Boosting</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/xgboost/">xgboost</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left"></td>
+<td align="left"><code>nrounds</code> set to 1 by default</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.xyf</strong> <br />xyf</td>

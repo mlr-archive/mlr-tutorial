@@ -350,11 +350,8 @@ For all parameters, simply refer to the documentation of <a href="http://www.rdo
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 r = resample(&quot;classif.ksvm&quot;, iris.task, rdesc)
 #&gt; [Resample] cross-validation iter: 1
-#&gt; Using automatic sigma estimation (sigest) for RBF or laplace kernel
 #&gt; [Resample] cross-validation iter: 2
-#&gt; Using automatic sigma estimation (sigest) for RBF or laplace kernel
 #&gt; [Resample] cross-validation iter: 3
-#&gt; Using automatic sigma estimation (sigest) for RBF or laplace kernel
 #&gt; [Resample] Result: mmce.test.mean=0.06
 </code></pre>
 
@@ -417,7 +414,7 @@ The following example shows how to prevent this:</p>
 <pre><code class="r">## This call gives an error caused by the low number of observations in class `virginica`
 train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
 #&gt; Error in qda.default(x, grouping, ...): some group is too small for 'qda'
-#&gt; Timing stopped at: 0.006 0 0.005
+#&gt; Timing stopped at: 0.005 0 0.005
 
 configureMlr(on.learner.error = &quot;warn&quot;)
 mod = train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
