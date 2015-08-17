@@ -277,7 +277,7 @@ Naturally, this is only possible for methods with either a 'class weights' or an
 Have a look at the [list of integrated learners](integrated_learners.md) in the Appendix to
 see which methods support class/observation weights or use [&listLearners].
 
-```{r}
+```{r, eval = FALSE}
 ## Learners that accept observation weights
 listLearners("classif", properties = "weights")
 
@@ -314,8 +314,8 @@ r = resample(lrn, credit.task, rin, measures = list(credit.costs, mmce), show.in
 r
 ```
 
-As shown above, some classification methods as `"classif.ksvm"` (the support vector machine
-([ksvm](&kernlab::ksvm)) in package [%kernlab]) support class weights.
+Some classification methods as `"classif.ksvm"` (the support vector machine
+[ksvm](&kernlab::ksvm) in package [%kernlab]) support class weights.
 When generating the wrapped [Learner](&makeLearner) the weights specified via argument ``wcw.weight``
 are automatically passed to the correct argument of the underlying function --
 in case of [ksvm](&kernlab:::ksvm) to argument `class.weights`.
