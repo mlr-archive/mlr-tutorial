@@ -327,11 +327,11 @@
         
             <li><a href="#classification-65">Classification (65)</a></li>
         
-            <li><a href="#regression-48">Regression (48)</a></li>
+            <li><a href="#regression-45">Regression (45)</a></li>
         
-            <li><a href="#survival-analysis-10">Survival analysis (10)</a></li>
+            <li><a href="#survival-analysis-8">Survival analysis (8)</a></li>
         
-            <li><a href="#cluster-analysis-6">Cluster analysis (6)</a></li>
+            <li><a href="#cluster-analysis-4">Cluster analysis (4)</a></li>
         
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
         
@@ -1090,7 +1090,7 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 </tr>
 </tbody>
 </table>
-<h3 id="regression-48">Regression (48)</h3>
+<h3 id="regression-45">Regression (45)</h3>
 <table>
 <thead>
 <tr>
@@ -1393,17 +1393,6 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong>regr.km</strong> <br />km</td>
-<td align="left">Kriging</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/DiceKriging/">DiceKriging</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">se</td>
-<td align="left">In predict, we currently always use type = 'SK'. The extra param 'jitter' (default is FALSE) enables adding a very small jitter (order 1e-12) to the x-values before prediction, as predict.km reproduces the exact y-values of the training data points, when you pass them in, even if the nugget effect is turned on.</td>
-</tr>
-<tr>
 <td align="left"><strong>regr.ksvm</strong> <br />ksvm</td>
 <td align="left">Support Vector Machines</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/kernlab/">kernlab</a></td>
@@ -1413,17 +1402,6 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="center"></td>
 <td align="left"></td>
 <td align="left">Kernel parameters have to be passed directly and not by using the kpar list in ksvm. Note that <code>fit</code> has been set to <code>FALSE</code> by default for speed.</td>
-</tr>
-<tr>
-<td align="left"><strong>regr.laGP</strong> <br />laGP</td>
-<td align="left">Local Approximate Gaussian Process</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/laGP/">laGP</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">se</td>
-<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>regr.lm</strong> <br />lm</td>
@@ -1591,17 +1569,6 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left">Kernel parameters have to be passed directly and not by using the kpar list in rvm.   Note that <code>fit</code> has been set to <code>FALSE</code> by default for speed.</td>
 </tr>
 <tr>
-<td align="left"><strong>regr.slim</strong> <br />slim</td>
-<td align="left">Sparse Linear Regression using Nonsmooth Loss Functions and L1 Regularization</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/flare/">flare</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"></td>
-<td align="left">lambda.idx has been set to 3 by default</td>
-</tr>
-<tr>
 <td align="left"><strong>regr.svm</strong> <br />svm</td>
 <td align="left">Support Vector Machines (libsvm)</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/e1071/">e1071</a></td>
@@ -1636,7 +1603,7 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 </tr>
 </tbody>
 </table>
-<h3 id="survival-analysis-10">Survival analysis (10)</h3>
+<h3 id="survival-analysis-8">Survival analysis (8)</h3>
 <table>
 <thead>
 <tr>
@@ -1662,17 +1629,6 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="center">X</td>
 <td align="left">ordered<br />rcens</td>
 <td align="left">see ?ctree_control for possible breakage for nominal features with missingness</td>
-</tr>
-<tr>
-<td align="left"><strong>surv.CoxBoost</strong> <br />coxboost</td>
-<td align="left">Cox Proportional Hazards Model with Componentwise Likelihood based Boosting</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/CoxBoost/">CoxBoost</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center">X</td>
-<td align="left">ordered<br />rcens</td>
-<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.coxph</strong> <br />coxph</td>
@@ -1719,17 +1675,6 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer</td>
 </tr>
 <tr>
-<td align="left"><strong>surv.optimCoxBoostPenalty</strong> <br />optimCoxBoostPenalty</td>
-<td align="left">Cox Proportional Hazards Model with Componentwise Likelihood based Boosting, automatic tuning enabled</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/CoxBoost/">CoxBoost</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center">X</td>
-<td align="left">rcens</td>
-<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer</td>
-</tr>
-<tr>
 <td align="left"><strong>surv.penalized</strong> <br />penalized</td>
 <td align="left">Penalized Regression</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
@@ -1764,7 +1709,7 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 </tr>
 </tbody>
 </table>
-<h3 id="cluster-analysis-6">Cluster analysis (6)</h3>
+<h3 id="cluster-analysis-4">Cluster analysis (4)</h3>
 <table>
 <thead>
 <tr>
@@ -1780,17 +1725,6 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 </tr>
 </thead>
 <tbody>
-<tr>
-<td align="left"><strong>cluster.cmeans</strong> <br />cmeans</td>
-<td align="left">Fuzzy C-Means Clustering</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/e1071/">e1071</a><br /><a href="http://www.rdocumentation.org/packages/clue/">clue</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">prob</td>
-<td align="left">The 'predict' method uses 'cl_predict' from the 'clue' package to compute the cluster memberships for new data. The default 'centers=2' is added so the method runs without setting params, but this must in reality of course be changed by the user.</td>
-</tr>
 <tr>
 <td align="left"><strong>cluster.EM</strong> <br />em</td>
 <td align="left">Expectation-Maximization Clustering</td>
@@ -1812,17 +1746,6 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="center"></td>
 <td align="left"></td>
 <td align="left"></td>
-</tr>
-<tr>
-<td align="left"><strong>cluster.kmeans</strong> <br />kmeans</td>
-<td align="left">K-Means</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/stats/">stats</a><br /><a href="http://www.rdocumentation.org/packages/clue/">clue</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"></td>
-<td align="left">The 'predict' method uses 'cl_predict' from the 'clue' package to compute the cluster memberships for new data. The default 'centers=2' is added so the method runs without setting params, but this must in reality of course be changed by the user.</td>
 </tr>
 <tr>
 <td align="left"><strong>cluster.SimpleKMeans</strong> <br />simplekmeans</td>
