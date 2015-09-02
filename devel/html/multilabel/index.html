@@ -510,7 +510,7 @@ All available measures for multilabel classification can be shown by <a href="ht
 
 performance(pred2, measures = list(hamloss, timepredict))
 #&gt;     hamloss timepredict 
-#&gt;   0.6946924   0.1320000
+#&gt;   0.6946924   0.0870000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt; [1] &quot;timepredict&quot; &quot;featperc&quot;    &quot;timeboth&quot;    &quot;timetrain&quot;   &quot;hamloss&quot;
@@ -530,7 +530,7 @@ r
 #&gt; hamloss.aggr: 0.23
 #&gt; hamloss.mean: 0.23
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 12.0093
+#&gt; Runtime: 9.55278
 
 r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
@@ -540,7 +540,7 @@ r
 #&gt; hamloss.aggr: 0.47
 #&gt; hamloss.mean: 0.47
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 1.27148
+#&gt; Runtime: 0.830708
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>
