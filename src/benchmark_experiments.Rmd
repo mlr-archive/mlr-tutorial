@@ -168,7 +168,7 @@ perf = getBMRPerformances(res, as.df = TRUE)
 head(perf)
 ```
   
-By evaluating at the result we realize that our [random Forest](&randomForest::randomForest) outperforms the  [partition tree](&rpart::rpart) in every instance, while  [linear discriminant analysis](&MASS::lda) performs better then [rpart](&rpart::rpart) most of the time. Additionally [lda](&MASS::lda) sometimes even beats the random forest implementation.
+By evaluating the result we realize that our [random Forest](&randomForest::randomForest) outperforms the  [partition tree](&rpart::rpart) in every instance, while  [linear discriminant analysis](&MASS::lda) performs better then [rpart](&rpart::rpart) most of the time. Additionally [lda](&MASS::lda) sometimes even beats the random forest implementation.
 With an increasing size of such (&benchmark) experiments, those tables become almost unreadable and hard to comprehend. In order to get better insight into those results, several plotting strategies
 are implemented into [%mlr].
 
@@ -217,9 +217,9 @@ plotBenchmarkSummary(g)
   
 ### Comparing learners using hypothesis tests  
 
-Many researchers feel the need to display an algorithms superiority by employing some sort of hypothesis testing. As non-parametric tests seem better suited for such benchmark results the tests provided in [%mlr] are the **Overall Friedman test** and the **Friedman-Nemenyi post hoc test**.
+Many researchers feel the need to display an algorithm's superiority by employing some sort of hypothesis testing. As non-parametric tests seem better suited for such benchmark results the tests provided in [%mlr] are the **Overall Friedman test** and the **Friedman-Nemenyi post hoc test**.
 
-While the ad hoc [Friedman test](&friedmanTestBMR) based on [friedman.test](&friedman.test) from the base package is testing the hypothesis whether there is a significant difference between the employed learners, the post hoc [Friedman-Nemenyi](&friedmanPostHocTestBMR) tests for significant differences between all pairs of learners. *Non parametric* tests often do have less power then their *parametric* counterparts but less assumptions about underlying distributions have to be made. This often means many **data sets** are needed in order to be able to show significant differences at reasonable significance levels. 
+While the ad hoc [Friedman test](&friedmanTestBMR) based on [friedman.test](&friedman.test) from the stats package is testing the hypothesis whether there is a significant difference between the employed learners, the post hoc [Friedman-Nemenyi](&friedmanPostHocTestBMR) tests for significant differences between all pairs of learners. *Non parametric* tests often do have less power then their *parametric* counterparts but less assumptions about underlying distributions have to be made. This often means many **data sets** are needed in order to be able to show significant differences at reasonable significance levels. 
 
 In our example, we want to compare the three [learners](&makeLearner) on the selected data sets. 
 First we might we want to test the hypothesis whether there is a difference between the learners.
@@ -243,8 +243,8 @@ In order to visualize differently performing learners, a [Critical differences d
 `test = nemenyi` or the Bonferroni-Dunn (`test = "bd"`) test. 
 Interpretation: 
 Learners are drawn on the x-axis according to their mean rank.  
-Choosing `test = nemenyi` compares all pairs of [Learners](&makeLearner) to each other, thus the output are groups of not significantly different learners. The diagram connects all groups of learners where the mean ranks do not differ by more then the critical differences. Learners that are not connected by a bar are significantly different, and the learner(s) with the lower mean rank can be considered "better" at the chosen significance level.  
-Choosing `test = "bd"` performs an *pairwise comparison with a baseline*.  An interval which extends by the given *Critical Difference* in both directions is drawn around the [Learner](&makeLearner) chosen as baseline, though only comparisons with the baseline are possible. All learners within the interval are not significantly different, while the baseline can be considered better or worse then a given learner which is outside of the interval.
+Choosing `test = nemenyi` compares all pairs of [Learners](&makeLearner) to each other, thus the output are groups of not significantly different learners. The diagram connects all groups of learners where the mean ranks do not differ by more than the critical differences. Learners that are not connected by a bar are significantly different, and the learner(s) with the lower mean rank can be considered "better" at the chosen significance level.  
+Choosing `test = "bd"` performs an *pairwise comparison with a baseline*.  An interval which extends by the given *Critical Difference* in both directions is drawn around the [Learner](&makeLearner) chosen as baseline, though only comparisons with the baseline are possible. All learners within the interval are not significantly different, while the baseline can be considered better or worse than a given learner which is outside of the interval.
   
 Calculation:
 The Critical difference can be calculated by: $$ CD = q_\alpha *  \sqrt(\frac{k(k+1)}{6N} $$
@@ -267,7 +267,7 @@ plotCritDifferences(g) + coord_cartesian(xlim = c(-1,5), ylim = c(0,2))
 ### Custom plots
 
 This section is dedicated to some custom plots not yet integrated into [%mlr], that might be important to the researcher.
-Instead of just comparing mean performance values It is generally preferable to have a look
+Instead of just comparing mean performance values it is generally preferable to have a look
 at the distribution of performance values obtained in individual resampling iterations.
 The individual performances on the 10 folds for every task and learner are
 retrieved below.
