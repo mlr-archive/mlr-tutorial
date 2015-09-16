@@ -231,23 +231,13 @@ lrn = makeTuneWrapper(lrn, resampling = inner, par.set = ps, control = ctrl, sho
 
 ## Outer resampling loop
 outer = makeResampleDesc("CV", iters = 3)
-r = resample(learner = lrn, task = bh.task, resampling = outer, models = TRUE, show.info = FALSE,
-  extract = function(x) list(getFilteredFeatures(x), getTuneResult(x)))
-
+r = resample(learner = lrn, task = bh.task, resampling = outer, models = TRUE, show.info = FALSE)
 r
 ```
 
 #### Accessing the selected features and optimal percentage
 
 In the above example we kept the complete [model](&makeWrappedModel)s.
-
-If you are only interested in the selected features you can use function [&getFilteredFeatures]
-and set `extract = getFilteredFeatures` when calling [&resample].
-
-Likewise, if you only want to keep the tune result set `extract = getTuneResult`.
-
-Or you can also write an extractor function that returns both, for example:
-`extract = function(x) list(TuneResult = getTuneResult(x), FilteredFeatures = getFilteredFeatures(x))`.
 
 Below are some examples that show how to extract information from the [model](&makeWrappedModel)s.
 
@@ -259,7 +249,7 @@ The result of the feature selection can be extracted by function [&getFilteredFe
 Almost always all 13 features are selected.
 
 ```{r}
-lapply(r$models, getFilteredFeatures)
+lapply(r$models, function(x) getFilteredFeatures(x$learner.model$next.model))
 ```
 
 Below the [tune results](&TuneResult) and [optimization paths](&ParamHelpers::OptPath)
@@ -463,9 +453,6 @@ res
 ```
 
 ```{r}
-## Tuned number of filtered features
-getBMRTuneResults(res, as.df = TRUE)
-
 ## Performances on individual outer test data sets
 getBMRPerformances(res, as.df = TRUE)
 ```
