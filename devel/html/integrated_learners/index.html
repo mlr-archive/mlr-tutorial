@@ -325,9 +325,9 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-65">Classification (65)</a></li>
+            <li><a href="#classification-69">Classification (69)</a></li>
         
-            <li><a href="#regression-45">Regression (45)</a></li>
+            <li><a href="#regression-47">Regression (47)</a></li>
         
             <li><a href="#survival-analysis-8">Survival analysis (8)</a></li>
         
@@ -357,7 +357,7 @@ Moreover, the type of prediction is displayed, where <em>prob</em> indicates tha
 can be predicted.
 For <em>regression</em>, <em>se</em> means that additional to the mean response standard errors can be predicted.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-65">Classification (65)</h3>
+<h3 id="classification-69">Classification (69)</h3>
 <table>
 <thead>
 <tr>
@@ -682,37 +682,70 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left">Learner param 'predict.method' maps to 'method' in predict.lda.</td>
 </tr>
 <tr>
-<td align="left"><strong>classif.LiblineaRBinary</strong> <br />liblinearbinary</td>
-<td align="left">Regularized Binary Linear Predictive Models Estimation</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">class.weights<br />twoclass</td>
-<td align="left">This model subsumes the types 1,2,3,5.</td>
-</tr>
-<tr>
-<td align="left"><strong>classif.LiblineaRLogReg</strong> <br />reglreg</td>
-<td align="left">Regularized Logistic Regression</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">class.weights<br />multiclass<br />prob<br />twoclass</td>
-<td align="left">This model subsumes type 0,6,7.</td>
-</tr>
-<tr>
-<td align="left"><strong>classif.LiblineaRMultiClass</strong> <br />mcsvc</td>
-<td align="left">Multi-class Support Vector Classification by Crammer and Singer</td>
+<td align="left"><strong>classif.LiblineaRL1L2SVC</strong> <br />liblinl1l2svc</td>
+<td align="left">L1-Regularized L2-Loss Support Vector Classification</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">class.weights<br />multiclass<br />twoclass</td>
-<td align="left">This model is type 4.</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>classif.LiblineaRL1LogReg</strong> <br />liblinl1logreg</td>
+<td align="left">L1-Regularized Logistic Regression</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">class.weights<br />multiclass<br />prob<br />twoclass</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>classif.LiblineaRL2L1SVC</strong> <br />liblinl2l1svc</td>
+<td align="left">L2-Regularized L1-Loss Support Vector Classification</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">class.weights<br />multiclass<br />twoclass</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>classif.LiblineaRL2LogReg</strong> <br />liblinl2logreg</td>
+<td align="left">L2-Regularized Logistic Regression</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">class.weights<br />multiclass<br />prob<br />twoclass</td>
+<td align="left">type 0 is primal and type 7 is dual problem</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.LiblineaRL2SVC</strong> <br />liblinl2svc</td>
+<td align="left">L2-Regularized L2-Loss Support Vector Classification</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">class.weights<br />multiclass<br />twoclass</td>
+<td align="left">type 2 is primal and type 1 is dual problem</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.LiblineaRMultiClassSVC</strong> <br />liblinmulticlasssvc</td>
+<td align="left">Support Vector Classification by Crammer and Singer</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">class.weights<br />multiclass<br />twoclass</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>classif.linDA</strong> <br />linda</td>
@@ -1001,6 +1034,17 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>classif.rotationForest</strong> <br />rotationForest</td>
+<td align="left">Rotation Forest</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/rotationForest/">rotationForest</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">ordered<br />prob<br />twoclass</td>
+<td align="left"></td>
+</tr>
+<tr>
 <td align="left"><strong>classif.rpart</strong> <br />rpart</td>
 <td align="left">Decision Tree</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/rpart/">rpart</a></td>
@@ -1090,7 +1134,7 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 </tr>
 </tbody>
 </table>
-<h3 id="regression-45">Regression (45)</h3>
+<h3 id="regression-47">Regression (47)</h3>
 <table>
 <thead>
 <tr>
@@ -1402,6 +1446,28 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="center"></td>
 <td align="left"></td>
 <td align="left">Kernel parameters have to be passed directly and not by using the kpar list in ksvm. Note that <code>fit</code> has been set to <code>FALSE</code> by default for speed.</td>
+</tr>
+<tr>
+<td align="left"><strong>regr.LiblineaRL2L1SVR</strong> <br />liblinl2l1svr</td>
+<td align="left">L2-Regularized L1-Loss Support Vector Regression</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>regr.LiblineaRL2L2SVR</strong> <br />liblinl2l2svr</td>
+<td align="left">L2-Regularized L2-Loss Support Vector Regression</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/LiblineaR/">LiblineaR</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left">type 11 is primal and 12 is dual problem</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.lm</strong> <br />lm</td>

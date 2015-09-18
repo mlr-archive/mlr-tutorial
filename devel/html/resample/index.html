@@ -393,7 +393,7 @@ r
 #&gt; cindex.aggr: 0.63
 #&gt; cindex.mean: 0.63
 #&gt; cindex.sd: 0.05
-#&gt; Runtime: 0.154084
+#&gt; Runtime: 0.15998
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;measures.train&quot; &quot;measures.test&quot; 
@@ -467,10 +467,10 @@ r = resample(&quot;cluster.kmeans&quot;, task, rdesc, measures = list(dunn, db, 
 #&gt; [Resample] subsampling iter: 3
 #&gt; [Resample] subsampling iter: 4
 #&gt; [Resample] subsampling iter: 5
-#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.0032
+#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.0016
 r$aggr
 #&gt;      dunn.test.mean        db.test.mean timetrain.test.mean 
-#&gt;           0.2738893           0.5103655           0.0032000
+#&gt;           0.2738893           0.5103655           0.0016000
 </code></pre>
 
 <h2 id="stratified-resampling">Stratified resampling</h2>
@@ -688,7 +688,7 @@ mmce$aggr
 
 ## Root mean square error
 rmse$aggr
-#&gt; Aggregation function: test.sqrt.of.mean
+#&gt; Aggregation function: test.rmse
 </code></pre>
 
 <p>The aggregation method of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> can be changed via the function <a href="http://www.rdocumentation.org/packages/mlr/functions/setAggregation.html">setAggregation</a>.

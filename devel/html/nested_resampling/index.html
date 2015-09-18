@@ -411,7 +411,7 @@ r
 #&gt; mmce.aggr: 0.05
 #&gt; mmce.mean: 0.05
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 22.4502
+#&gt; Runtime: 24.0635
 </code></pre>
 
 <p>You can obtain the error rates on the 3 outer test sets by</p>
@@ -464,16 +464,16 @@ resampling iteration.</p>
 <pre><code class="r">opt.paths = getNestedTuneResultsOptPathDf(r)
 head(opt.paths, 10)
 #&gt;       C sigma mmce.test.mean dob eol error.message exec.time iter
-#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.053    1
-#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.045    1
-#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.044    1
-#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.045    1
-#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.048    1
-#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.048    1
-#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.048    1
-#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.049    1
-#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.048    1
-#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.047    1
+#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.056    1
+#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.053    1
+#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.052    1
+#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.052    1
+#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.052    1
+#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.053    1
+#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.053    1
+#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.053    1
+#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.053    1
+#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.052    1
 </code></pre>
 
 <p>Below we visualize the <code>opt.path</code>s for the 3 outer resampling iterations.</p>
@@ -520,7 +520,7 @@ r
 #&gt; mse.aggr: 31.70
 #&gt; mse.mean: 31.70
 #&gt; mse.sd: 4.79
-#&gt; Runtime: 49.1406
+#&gt; Runtime: 57.1046
 
 r$measures.test
 #&gt;   iter      mse
@@ -568,11 +568,11 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      80.48765
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      63.06724
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.023
-#&gt; 2   2   2          &lt;NA&gt;     0.035
-#&gt; 3   2   2          &lt;NA&gt;     0.035
-#&gt; 4   2   2          &lt;NA&gt;     0.033
-#&gt; 5   2   2          &lt;NA&gt;     0.040
+#&gt; 1   1   2          &lt;NA&gt;     0.025
+#&gt; 2   2   2          &lt;NA&gt;     0.038
+#&gt; 3   2   2          &lt;NA&gt;     0.037
+#&gt; 4   2   2          &lt;NA&gt;     0.048
+#&gt; 5   2   2          &lt;NA&gt;     0.041
 #&gt; 6   2   2          &lt;NA&gt;     0.037
 </code></pre>
 
@@ -618,9 +618,7 @@ lrn = makeTuneWrapper(lrn, resampling = inner, par.set = ps, control = ctrl, sho
 
 ## Outer resampling loop
 outer = makeResampleDesc(&quot;CV&quot;, iters = 3)
-r = resample(learner = lrn, task = bh.task, resampling = outer, models = TRUE, show.info = FALSE,
-  extract = function(x) list(getFilteredFeatures(x), getTuneResult(x)))
-
+r = resample(learner = lrn, task = bh.task, resampling = outer, models = TRUE, show.info = FALSE)
 r
 #&gt; Resample Result
 #&gt; Task: BostonHousing-example
@@ -628,16 +626,11 @@ r
 #&gt; mse.aggr: 25.39
 #&gt; mse.mean: 25.39
 #&gt; mse.sd: 8.35
-#&gt; Runtime: 10.8684
+#&gt; Runtime: 10.9275
 </code></pre>
 
 <h4 id="accessing-the-selected-features-and-optimal-percentage">Accessing the selected features and optimal percentage</h4>
 <p>In the above example we kept the complete <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWrappedModel.html">model</a>s.</p>
-<p>If you are only interested in the selected features you can use function <a href="http://www.rdocumentation.org/packages/mlr/functions/getFilteredFeatures.html">getFilteredFeatures</a>
-and set <code>extract = getFilteredFeatures</code> when calling <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a>.</p>
-<p>Likewise, if you only want to keep the tune result set <code>extract = getTuneResult</code>.</p>
-<p>Or you can also write an extractor function that returns both, for example:
-<code>extract = function(x) list(TuneResult = getTuneResult(x), FilteredFeatures = getFilteredFeatures(x))</code>.</p>
 <p>Below are some examples that show how to extract information from the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWrappedModel.html">model</a>s.</p>
 <pre><code class="r">r$models
 #&gt; [[1]]
@@ -658,14 +651,14 @@ and set <code>extract = getFilteredFeatures</code> when calling <a href="http://
 
 <p>The result of the feature selection can be extracted by function <a href="http://www.rdocumentation.org/packages/mlr/functions/getFilteredFeatures.html">getFilteredFeatures</a>.
 Almost always all 13 features are selected.</p>
-<pre><code class="r">lapply(r$models, getFilteredFeatures)
+<pre><code class="r">lapply(r$models, function(x) getFilteredFeatures(x$learner.model$next.model))
 #&gt; [[1]]
 #&gt;  [1] &quot;crim&quot;    &quot;zn&quot;      &quot;indus&quot;   &quot;chas&quot;    &quot;nox&quot;     &quot;rm&quot;      &quot;age&quot;    
 #&gt;  [8] &quot;dis&quot;     &quot;rad&quot;     &quot;tax&quot;     &quot;ptratio&quot; &quot;b&quot;       &quot;lstat&quot;  
 #&gt; 
 #&gt; [[2]]
-#&gt;  [1] &quot;crim&quot;    &quot;zn&quot;      &quot;indus&quot;   &quot;chas&quot;    &quot;nox&quot;     &quot;rm&quot;      &quot;age&quot;    
-#&gt;  [8] &quot;dis&quot;     &quot;rad&quot;     &quot;tax&quot;     &quot;ptratio&quot; &quot;b&quot;       &quot;lstat&quot;  
+#&gt;  [1] &quot;crim&quot;    &quot;zn&quot;      &quot;indus&quot;   &quot;nox&quot;     &quot;rm&quot;      &quot;age&quot;     &quot;dis&quot;    
+#&gt;  [8] &quot;rad&quot;     &quot;tax&quot;     &quot;ptratio&quot; &quot;b&quot;       &quot;lstat&quot;  
 #&gt; 
 #&gt; [[3]]
 #&gt;  [1] &quot;crim&quot;    &quot;zn&quot;      &quot;indus&quot;   &quot;chas&quot;    &quot;nox&quot;     &quot;rm&quot;      &quot;age&quot;    
@@ -694,12 +687,12 @@ res
 opt.paths = lapply(res, function(x) as.data.frame(x$opt.path))
 opt.paths[[1]]
 #&gt;   fw.threshold mse.test.mean dob eol error.message exec.time
-#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.640
-#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.316
-#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.293
-#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.274
-#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.280
-#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.265
+#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.775
+#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.339
+#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.340
+#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.384
+#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.342
+#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.275
 </code></pre>
 
 <h2 id="benchmark-experiments">Benchmark experiments</h2>
@@ -854,24 +847,24 @@ tune.res
 
 getNestedTuneResultsOptPathDf(res$results[[&quot;Sonar-example&quot;]][[&quot;classif.ksvm.tuned&quot;]])
 #&gt;      C sigma mmce.test.mean dob eol error.message exec.time iter
-#&gt; 1  0.5   0.5      0.3428571   1  NA          &lt;NA&gt;     0.059    1
-#&gt; 2    1   0.5      0.3428571   2  NA          &lt;NA&gt;     0.061    1
-#&gt; 3    2   0.5      0.3428571   3  NA          &lt;NA&gt;     0.057    1
-#&gt; 4  0.5     1      0.3428571   4  NA          &lt;NA&gt;     0.060    1
-#&gt; 5    1     1      0.3428571   5  NA          &lt;NA&gt;     0.056    1
-#&gt; 6    2     1      0.3428571   6  NA          &lt;NA&gt;     0.056    1
-#&gt; 7  0.5     2      0.3428571   7  NA          &lt;NA&gt;     0.059    1
-#&gt; 8    1     2      0.3428571   8  NA          &lt;NA&gt;     0.061    1
+#&gt; 1  0.5   0.5      0.3428571   1  NA          &lt;NA&gt;     0.057    1
+#&gt; 2    1   0.5      0.3428571   2  NA          &lt;NA&gt;     0.060    1
+#&gt; 3    2   0.5      0.3428571   3  NA          &lt;NA&gt;     0.055    1
+#&gt; 4  0.5     1      0.3428571   4  NA          &lt;NA&gt;     0.056    1
+#&gt; 5    1     1      0.3428571   5  NA          &lt;NA&gt;     0.061    1
+#&gt; 6    2     1      0.3428571   6  NA          &lt;NA&gt;     0.055    1
+#&gt; 7  0.5     2      0.3428571   7  NA          &lt;NA&gt;     0.057    1
+#&gt; 8    1     2      0.3428571   8  NA          &lt;NA&gt;     0.056    1
 #&gt; 9    2     2      0.3428571   9  NA          &lt;NA&gt;     0.055    1
-#&gt; 10 0.5   0.5      0.2142857   1  NA          &lt;NA&gt;     0.059    2
-#&gt; 11   1   0.5      0.2142857   2  NA          &lt;NA&gt;     0.055    2
-#&gt; 12   2   0.5      0.2000000   3  NA          &lt;NA&gt;     0.057    2
-#&gt; 13 0.5     1      0.2142857   4  NA          &lt;NA&gt;     0.059    2
-#&gt; 14   1     1      0.2142857   5  NA          &lt;NA&gt;     0.057    2
-#&gt; 15   2     1      0.2142857   6  NA          &lt;NA&gt;     0.058    2
+#&gt; 10 0.5   0.5      0.2142857   1  NA          &lt;NA&gt;     0.058    2
+#&gt; 11   1   0.5      0.2142857   2  NA          &lt;NA&gt;     0.057    2
+#&gt; 12   2   0.5      0.2000000   3  NA          &lt;NA&gt;     0.056    2
+#&gt; 13 0.5     1      0.2142857   4  NA          &lt;NA&gt;     0.056    2
+#&gt; 14   1     1      0.2142857   5  NA          &lt;NA&gt;     0.056    2
+#&gt; 15   2     1      0.2142857   6  NA          &lt;NA&gt;     0.064    2
 #&gt; 16 0.5     2      0.2142857   7  NA          &lt;NA&gt;     0.060    2
-#&gt; 17   1     2      0.2142857   8  NA          &lt;NA&gt;     0.062    2
-#&gt; 18   2     2      0.2142857   9  NA          &lt;NA&gt;     0.062    2
+#&gt; 17   1     2      0.2142857   8  NA          &lt;NA&gt;     0.060    2
+#&gt; 18   2     2      0.2142857   9  NA          &lt;NA&gt;     0.057    2
 </code></pre>
 
 <h3 id="example-2-one-task-two-learners-feature-selection">Example 2: One task, two learners, feature selection</h3>
@@ -942,12 +935,12 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      86.93409
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      76.32457
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.018
-#&gt; 2   2   2          &lt;NA&gt;     0.026
-#&gt; 3   2   2          &lt;NA&gt;     0.029
-#&gt; 4   2   2          &lt;NA&gt;     0.028
-#&gt; 5   2   2          &lt;NA&gt;     0.032
-#&gt; 6   2   2          &lt;NA&gt;     0.030
+#&gt; 1   1   2          &lt;NA&gt;     0.019
+#&gt; 2   2   2          &lt;NA&gt;     0.029
+#&gt; 3   2   2          &lt;NA&gt;     0.028
+#&gt; 4   2   2          &lt;NA&gt;     0.030
+#&gt; 5   2   2          &lt;NA&gt;     0.029
+#&gt; 6   2   2          &lt;NA&gt;     0.028
 
 analyzeFeatSelResult(feats[[1]])
 #&gt; Features         : 8
@@ -991,14 +984,7 @@ res
 #&gt; 2 BostonHousing-example regr.lm.filtered.tuned      23.76666
 </code></pre>
 
-<pre><code class="r">## Tuned number of filtered features
-getBMRTuneResults(res, as.df = TRUE)
-#&gt;                 task.id             learner.id iter fw.abs mse.test.mean
-#&gt; 1 BostonHousing-example regr.lm.filtered.tuned    1     12      27.35344
-#&gt; 2 BostonHousing-example regr.lm.filtered.tuned    2     11      26.76698
-#&gt; 3 BostonHousing-example regr.lm.filtered.tuned    3     12      27.67523
-
-## Performances on individual outer test data sets
+<pre><code class="r">## Performances on individual outer test data sets
 getBMRPerformances(res, as.df = TRUE)
 #&gt;                 task.id             learner.id iter      mse
 #&gt; 1 BostonHousing-example             regr.rpart    1 23.55486

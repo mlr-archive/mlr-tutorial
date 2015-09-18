@@ -795,7 +795,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </tr>
 <tr>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/measures">rmse</a> - Root mean square error</td>
-<td align="left"></td>
+<td align="left">The RMSE is aggregated as sqrt(mean(rmse.vals.on.test.sets^2)). If you don't want that, you could also use test.mean</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -805,7 +805,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations">test.sqrt.of.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations">test.rmse</a></td>
 </tr>
 <tr>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/measures">sae</a> - Sum of absolute errors</td>
