@@ -27,9 +27,6 @@ script:
 
 after_success:
     - git checkout gh-pages
-    - git config --get remote.origin.url
-    - git remote set-url --push origin $(git config remote.origin.url | sed -e 's/git/https/')
-    - git config --get remote.origin.url
     - git config user.name $GIT_NAME
     - git config user.email $GIT_EMAIL
     - git config credential.helper "store --file=.git/credentials"
