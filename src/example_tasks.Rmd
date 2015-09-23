@@ -9,9 +9,14 @@ linkTask = function(x) {
 }
 d = data(package = "mlr")
 d = d$results
-df = as.data.frame(d[ ,c("Item", "Title")])
-df$Item = sapply(df$Item, linkTask)
-names(df)[1] = "Task"
+types = sapply(d[,"Item"], function(x) getTaskDescription(eval(parse(text = x)))$type)
+names(types) = NULL
+ord = order(types)
+d = d[ord,]
+types = types[ord]
+types[duplicated(types)] = ""
+df = data.frame(Type = types, Task = d[,"Item"], Description = d[,"Title"])
+df$Task = sapply(df$Task, linkTask)
 pandoc.table(df, style = "rmarkdown", split.tables = Inf, split.cells = Inf,
-  justify = c("left", "left"))
+  justify = rep("left", 3))
 ```
