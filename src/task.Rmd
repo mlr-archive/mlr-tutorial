@@ -7,20 +7,21 @@ learning problem, for example the name of the target variable.
 The tasks are organized in a hierarchy, with the generic [&Task] at the top.
 The following tasks can be instantiated and all inherit from the virtual superclass [&Task]:
 
-* [ClassifTask](&Task) for binary and multi-class classification problems
-  (normal cost-sensitive classification can be handled as well),
 * [RegrTask](&Task) for regression problems,
+* [ClassifTask](&Task) for binary and multi-class classification problems
+  (normal [cost-sensitive classification](cost_sensitive_classif.md) with class-dependent costs
+  can be handled as well),
 * [SurvTask](&Task) for survival analysis,
 * [ClusterTask](&Task) for cluster analysis,
-* [CostSensTask](&Task) for general cost-sensitive classification
-  (with example specific costs),
-* [MultilabelTask](&Task) for multilabel classification problems.
+* [MultilabelTask](&Task) for multilabel classification problems,
+* [CostSensTask](&Task) for general [cost-sensitive classification](cost_sensitive_classif.md)
+  (with example-specific costs).
 
 To create a task, just call ``make<TaskType>``, e.g., [makeClassifTask](&Task).
 All tasks require an identifier (argument ``id``) and a [data.frame](&base::data.frame) (argument ``data``).
 If no ID is provided it is automatically generated using the variable name of the data.
 It will be later used to name results, for example of
-[benchmark experiments](benchmark_experiments.md), or in generated plots.
+[benchmark experiments](benchmark_experiments.md), and to annotate plots.
 Depending on the nature of the learning problem, additional arguments may be required and
 are discussed in the following subsections.
 
@@ -37,24 +38,18 @@ regr.task
 ```
 
 As you can see, the [&Task] records the type of the learning problem and basic information about
-the data set, e.g., the types of the features (numeric vectors, factors or ordered factors),
-the number of observations, or whether missing values are present.
+the data set, e.g., the types of the features ([numeric](&base::numeric) vectors, [factors](&base::factor) or
+[ordered factors](&base::factor)), the number of observations, or whether missing values are present.
 
 Creating tasks for classification problems and survival analysis follows the same scheme,
 the data type of the target variables included in ``data`` is simply different.
-For each of these learning problems, some specifics are described below.
+For each of these learning problems some specifics are described below.
 
 
 ### Classification
-For classification the target variable has to be a [factor](&base::factor).
+For classification the target column has to be a [factor](&base::factor).
 
-In binary classification it is customary to refer to the two classes as *positive* and
-*negative* class.
-This is for example relevant for certain [performance measures](performance.md)
-like the *true positive rate*.
-By default the first factor level of the target variable is selected as the positive class.
-
-In the following example, we define a classification task for the
+In the following example we define a classification task for the
 [BreastCancer](&mlbench::BreastCancer) data set and exclude the variable ``Id`` from all further
 model fitting and evaluation.
 
@@ -66,8 +61,16 @@ classif.task = makeClassifTask(id = "BreastCancer", data = df, target = "Class")
 classif.task
 ```
 
-The positive class is ``benign``.
-Class ``malignant`` can be manually selected as the positive class:
+In binary classification the two classes are usually referred to as *positive* and
+*negative* class with the positive class normally being the category of greater interest.
+This distinction is of course relevant for many [performance measures](performance.md)
+like the *true positive rate* or [ROC curves](roc_analysis.md).
+Moreover, [%mlr], where possible, permits to set options (like the [decision threshold](&setThreshold))
+and returns and plots results (like class posterior probabilities) for the positive class only.
+
+[makeClassifTask](&Task) by default selects the first factor level of the target variable
+as the positive class, in the above example ``benign``.
+Class ``malignant`` can be manually selected as follows:
 
 ```{r}
 classif.task = makeClassifTask(id = "BreastCancer", data = df, target = "Class", positive = "malignant")
@@ -90,13 +93,10 @@ The type of censoring can be specified via the argument ``censoring``, which def
 
 
 ### Multilabel classification
-In multilabel classification, in contrast to traditional supervized classification,
-each object can belong to more than one category at the same time.
+In multilabel classification each object can belong to more than one category at the same time.
 
-In order to generate the [MultilabelTask](&Task) the input [data.frame](&base::data.frame) has
-to contain feature columns and multiple target columns. Each target column corresponds to one
-class label and has to be a logical vector that indicates for which training observations this
-label is present.
+The `data` are expected to contain as many target columns as there are class labels.
+The target columns should be logical vectors that indicate which class labels are present.
 The names of the target columns are taken as class labels and need to be passed to the `target`
 argument of [makeMultilabelTask](&Task).
 
@@ -115,7 +115,8 @@ See also the tutorial page on [multilabel classification](multilabel.md).
 
 
 ### Cluster analysis
-As cluster analysis is unsupervised, the only mandatory argument to construct a cluster analysis task is the ``data``.
+As cluster analysis is unsupervised, the only mandatory argument to construct a cluster analysis
+task is the ``data``.
 Below we create a learning task from the data set [mtcars](&datasets::mtcars).
 
 ```{r}
@@ -126,15 +127,15 @@ cluster.task
 
 ### Cost-sensitive classification
 The standard objective in classification is to obtain a high prediction accuracy, i.e., to
-minimize the number of errors. Thereby, all types of misclassification errors are deemed
+minimize the number of errors. All types of misclassification errors are thereby deemed
 equally severe. However, in many applications different kinds of errors cause different costs.
 
-In case of *class-dependent costs*, that depend on the actual and predicted class labels, it
+In case of *class-dependent costs*, that depend on the actual and predicted class labels only, it
 is sufficient to create an ordinary [ClassifTask](&Task).
 
 In order to handle *example-specific costs* it is necessary to generate a [CostSensTask](&Task).
 In this scenario, each example $(x, y)$ is associated with an individual cost vector of length
-$K$ where $K$ denotes the number of classes. The $k$-th component indicates the cost of assigning
+$K$ with $K$ denoting the number of classes. The $k$-th component indicates the cost of assigning
 $x$ to class $k$. Naturally, it is assumed that the cost of the intended class label $y$ is
 minimal.
 
@@ -142,8 +143,8 @@ As the cost vector contains all relevant information about the intended class la
 the feature values $x$ and a ``cost`` matrix, which contains the cost vectors for all examples in the data
 set, are required to create the [CostSensTask](&Task).
 
-In the following example we use the [iris data](&datasets::iris) and generate an artificial cost matrix
-(following [Beygelzimer et al., 2005](http://dx.doi.org/10.1145/1102351.1102358)):
+In the following example we use the [iris](&datasets::iris)  data and an artificial cost matrix
+(which is generated as proposed by [Beygelzimer et al., 2005](http://dx.doi.org/10.1145/1102351.1102358)):
 
 ```{r}
 df = iris
@@ -165,24 +166,28 @@ For example, we could include a ``blocking`` factor in the task.
 This would tell the task that some observations "belong together" and should
 not be separated when splitting into training and test sets during a [resampling](resample.md) iteration.
 
-Another possibility is to assign ``weights`` to observations.
-These can for example simply indicate observation frequencies or result from the sampling
-scheme used to collect the data.
-
+Another option is to assign ``weights`` to observations.
+These can simply indicate observation frequencies or result from the sampling
+scheme used to collect the data.  
+Note that you should use this option only if the weights really belong to the task.
+If you plan to train some learning algorithms with different weights on the same [&Task],
+[%mlr] offers several other ways to set observation or class weights (for supervised
+classification). See for example the tutorial page about [training](train.md) or function
+[&makeWeightedClassesWrapper].
 
 ## Accessing a learning task
 We provide many operators to access the elements stored in a [&Task].
 The most important ones are listed in the documentation of [&Task] and [&getTaskData].
 
-To access the [task description](&TaskDesc) that contains basic infos about
+To access the [task description](&TaskDesc) that contains basic information about
 the task you can use
 
 ```{r}
 getTaskDescription(classif.task)
 ```
 
-Note that [task description](&TaskDesc)s have slightly different elements, depending on
-the type of the [&Task].
+Note that [task description](&TaskDesc)s have slightly different elements for different
+types of [&Task]s.
 Frequently needed elements can also be accessed directly.
 ```{r}
 ## Get the ID
@@ -219,7 +224,7 @@ head(getTaskTargets(surv.task))
 head(getTaskCosts(costsens.task))
 ```
 
-Note the many options that [&getTaskData] offers to convert the data set into a convenient format.
+Note that [&getTaskData] offers many options for converting the data set into a convenient format.
 This especially comes in handy when you [integrate a learner](create_learner.md) from another **R**
 package into [%mlr].
 In this regard function [&getTaskFormula] is also useful.
@@ -247,7 +252,7 @@ summary(getTaskData(task))
 ```
 
 For more functions and more detailed explanations have a look at the
-[data preprocessing](preproc.md) section.
+[data preprocessing](preproc.md) page.
 
 
 ## Example tasks and convenience functions
@@ -255,5 +260,5 @@ For your convenience [%mlr] provides pre-defined [Task](&Task)s for each type of
 These are used throughout this tutorial in order to get shorter and more readable code.
 A list of all [Task](&Task)s can be found [here](example_tasks.md).
 
-Moreover, [%mlr]'s function [&convertMLBenchObjToTask] can generate [%mlr] [&Task]s from the data
+Moreover, [%mlr]'s function [&convertMLBenchObjToTask] can generate [&Task]s from the data
 sets and data generating functions in package [%mlbench].
