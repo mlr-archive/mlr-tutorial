@@ -325,11 +325,11 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-69">Classification (69)</a></li>
+            <li><a href="#classification-70">Classification (70)</a></li>
         
             <li><a href="#regression-47">Regression (47)</a></li>
         
-            <li><a href="#survival-analysis-8">Survival analysis (8)</a></li>
+            <li><a href="#survival-analysis-9">Survival analysis (9)</a></li>
         
             <li><a href="#cluster-analysis-4">Cluster analysis (4)</a></li>
         
@@ -357,7 +357,7 @@ Moreover, the type of prediction is displayed, where <em>prob</em> indicates tha
 can be predicted.
 For <em>regression</em>, <em>se</em> means that additional to the mean response standard errors can be predicted.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-69">Classification (69)</h3>
+<h3 id="classification-70">Classification (70)</h3>
 <table>
 <thead>
 <tr>
@@ -1001,6 +1001,17 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left">'na.action' has been set to 'na.impute' by default to allow missing data support</td>
 </tr>
 <tr>
+<td align="left"><strong>classif.ranger</strong> <br />ranger</td>
+<td align="left">Random Forests</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/ranger/">ranger</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">multiclass<br />prob<br />twoclass</td>
+<td align="left"></td>
+</tr>
+<tr>
 <td align="left"><strong>classif.rda</strong> <br />rda</td>
 <td align="left">Regularized Discriminant Analysis</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/klaR/">klaR</a></td>
@@ -1338,17 +1349,6 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong>regr.earth</strong> <br />earth</td>
-<td align="left">Multivariate Adaptive Regression Splines</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/earth/">earth</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
 <td align="left"><strong>regr.elmNN</strong> <br />elmNN</td>
 <td align="left">Extreme Learning Machine for Single Hidden Layer Feedforward Neural Networks</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/elmNN/">elmNN</a></td>
@@ -1591,6 +1591,17 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="left">na.action' has been set to 'na.impute' by default to allow missing data support</td>
 </tr>
 <tr>
+<td align="left"><strong>regr.ranger</strong> <br />ranger</td>
+<td align="left">Random Forests</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/ranger/">ranger</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
 <td align="left"><strong>regr.rknn</strong> <br />rknn</td>
 <td align="left">Random k-Nearest-Neighbors</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/rknn/">rknn</a></td>
@@ -1669,7 +1680,7 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 </tr>
 </tbody>
 </table>
-<h3 id="survival-analysis-8">Survival analysis (8)</h3>
+<h3 id="survival-analysis-9">Survival analysis (9)</h3>
 <table>
 <thead>
 <tr>
@@ -1761,6 +1772,17 @@ See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.
 <td align="center"></td>
 <td align="left">ordered<br />rcens</td>
 <td align="left">'na.action' has been set to 'na.impute' by default to allow missing data support</td>
+</tr>
+<tr>
+<td align="left"><strong>surv.ranger</strong> <br />ranger</td>
+<td align="left">Random Forests</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/ranger/">ranger</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />rcens</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>surv.rpart</strong> <br />rpart</td>

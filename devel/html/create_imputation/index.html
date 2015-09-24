@@ -325,21 +325,26 @@
     
         <li class="main active"><a href="#creating-an-imputation-method">Creating an Imputation Method</a></li>
         
+            <li><a href="#example-imputation-using-the-mean">Example: Imputation using the mean</a></li>
+        
+            <li><a href="#writing-your-own-imputation-method">Writing your own imputation method</a></li>
+        
     
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
 <h1 id="creating-an-imputation-method">Creating an Imputation Method</h1>
-<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeImputeMethod.html">makeImputeMethod</a> allows to create your own imputation method.
+<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeImputeMethod.html">makeImputeMethod</a> permits to create your own imputation method.
 For this purpose you need to specify a <em>learn</em> function that extracts the necessary
 information and an <em>impute</em> function that does the actual imputation.
-The <em>learn</em> and <em>impute</em> functions both have at least the following arguments:</p>
+The <em>learn</em> and <em>impute</em> functions both have at least the following formal arguments:</p>
 <ul>
-<li><code>data</code> is a <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data frame</a> with missing values in some features.</li>
+<li><code>data</code> is a <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a> with missing values in some features.</li>
 <li><code>col</code> indicates the feature to be imputed.</li>
 <li><code>target</code> indicates the target variable(s) in a supervised learning task.</li>
 </ul>
+<h2 id="example-imputation-using-the-mean">Example: Imputation using the mean</h2>
 <p>Let's have a look at function <a href="http://www.rdocumentation.org/packages/mlr/functions/imputations.html">imputeMean</a>.</p>
 <pre><code class="r">imputeMean = function() {
   makeImputeMethod(learn = function(data, target, col) mean(data[[col]], na.rm = TRUE), 
@@ -347,7 +352,7 @@ The <em>learn</em> and <em>impute</em> functions both have at least the followin
 }
 </code></pre>
 
-<p>This calls the unexported <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function <code>simpleImpute</code> which is defined as follows.</p>
+<p><a href="http://www.rdocumentation.org/packages/mlr/functions/imputations.html">imputeMean</a> calls the unexported <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function <code>simpleImpute</code> which is defined as follows.</p>
 <pre><code class="r">simpleImpute = function(data, target, col, const) {
   if (is.na(const)) 
     stopf(&quot;Error imputing column '%s'. Maybe all input data was missing?&quot;, col)
@@ -360,37 +365,40 @@ The <em>learn</em> and <em>impute</em> functions both have at least the followin
 </code></pre>
 
 <p>The <em>learn</em> function calculates the mean of the non-missing observations in column <code>col</code>.
-The mean is passed via argument <code>const</code> to the <em>impute</em> function that replaces all <code>NA's</code>
+The mean is passed via argument <code>const</code> to the <em>impute</em> function that replaces all missing values
 in feature <code>col</code>.</p>
-<p>Now let's write a new imputation method: 
-In case of longitudinal data a frequently used technique is <em>last observation
-carried forward</em> (LOCF) where missing values are replaced by the most recent observed value.</p>
-<p>In the <strong>R</strong> code below the <em>learn</em> function determines the last observed value previous to each <code>NA</code> (<code>values</code>)
-as well as the corresponding number of consecutive <code>NA's</code> (<code>times</code>).
-The <em>impute</em> function generates a vector where the entries in <code>values</code> are replicated
+<h2 id="writing-your-own-imputation-method">Writing your own imputation method</h2>
+<p>Now let's write a new imputation method:
+A frequently used simple technique for longitudinal data is <em>last observation
+carried forward</em> (LOCF). Missing values are replaced by the most recent observed value.</p>
+<p>In the <strong>R</strong> code below the <em>learn</em> function determines the last observed value previous to
+each <code>NA</code> (<code>values</code>) as well as the corresponding number of consecutive <code>NA's</code> (<code>times</code>).
+The <em>impute</em> function generates a vector by replicating the entries in <code>values</code>
 according to <code>times</code> and replaces the <code>NA's</code> in feature <code>col</code>.</p>
 <pre><code class="r">imputeLOCF = function() {
-    makeImputeMethod(
-      learn = function(data, target, col) {
-        x = data[[col]]
-        ind = is.na(x)
-        dind = diff(ind)
-        first = which(dind == 1)     # position of the last observed value previous to NA
-        last = which(dind == -1)     # position of the last of potentially several consecutive NA's
-        values = x[first]            # observed value previous to NA
-        times = last - first         # number of consecutive NA's
-        return(list(values = values, times = times))
-      },
-      impute = function(data, target, col, values, times) {
-        x = data[[col]]
-        replace(x, is.na(x), rep(values, times))
-      }
-    )
+  makeImputeMethod(
+    learn = function(data, target, col) {
+      x = data[[col]]
+      ind = is.na(x)
+      dind = diff(ind)
+      lastValue = which(dind == 1)  # position of the last observed value previous to NA
+      lastNA = which(dind == -1)    # position of the last of potentially several consecutive NA's
+      values = x[lastValue]         # last observed value previous to NA
+      times = lastNA - lastValue    # number of consecutive NA's
+      return(list(values = values, times = times))
+    },
+    impute = function(data, target, col, values, times) {
+      x = data[[col]]
+      replace(x, is.na(x), rep(values, times))
+    }
+  )
 }
 </code></pre>
 
-<p>In the following the missing values in features <code>Ozone</code> and <code>Solar.R</code> in the <a href="http://www.rdocumentation.org/packages/datasets/functions/airquality.html">airquality</a> data set
-are imputed by LOCF.</p>
+<p>Note that this function is just for demonstration and is lacking some checks for real-world
+usage (for example 'What should happen if the first value in <code>x</code> is already missing?').
+Below it is used to impute the missing values in features <code>Ozone</code> and <code>Solar.R</code> in the
+<a href="http://www.rdocumentation.org/packages/datasets/functions/airquality.html">airquality</a> data set.</p>
 <pre><code class="r">data(airquality)
 imp = impute(airquality, cols = list(Ozone = imputeLOCF(), Solar.R = imputeLOCF()),
   dummy.cols = c(&quot;Ozone&quot;, &quot;Solar.R&quot;))

@@ -347,20 +347,21 @@ learning problem, for example the name of the target variable.</p>
 <p>The tasks are organized in a hierarchy, with the generic <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> at the top.
 The following tasks can be instantiated and all inherit from the virtual superclass <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>:</p>
 <ul>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">ClassifTask</a> for binary and multi-class classification problems
-  (normal cost-sensitive classification can be handled as well),</li>
 <li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">RegrTask</a> for regression problems,</li>
+<li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">ClassifTask</a> for binary and multi-class classification problems
+  (normal <a href="../cost_sensitive_classif/index.html">cost-sensitive classification</a> with class-dependent costs
+  can be handled as well),</li>
 <li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">SurvTask</a> for survival analysis,</li>
 <li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">ClusterTask</a> for cluster analysis,</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">CostSensTask</a> for general cost-sensitive classification
-  (with example specific costs),</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">MultilabelTask</a> for multilabel classification problems.</li>
+<li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">MultilabelTask</a> for multilabel classification problems,</li>
+<li><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">CostSensTask</a> for general <a href="../cost_sensitive_classif/index.html">cost-sensitive classification</a>
+  (with example-specific costs).</li>
 </ul>
 <p>To create a task, just call <code>make&lt;TaskType&gt;</code>, e.g., <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">makeClassifTask</a>.
 All tasks require an identifier (argument <code>id</code>) and a <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a> (argument <code>data</code>).
 If no ID is provided it is automatically generated using the variable name of the data.
 It will be later used to name results, for example of
-<a href="../benchmark_experiments/index.html">benchmark experiments</a>, or in generated plots.
+<a href="../benchmark_experiments/index.html">benchmark experiments</a>, and to annotate plots.
 Depending on the nature of the learning problem, additional arguments may be required and
 are discussed in the following subsections.</p>
 <h3 id="regression">Regression</h3>
@@ -383,19 +384,14 @@ regr.task
 </code></pre>
 
 <p>As you can see, the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> records the type of the learning problem and basic information about
-the data set, e.g., the types of the features (numeric vectors, factors or ordered factors),
-the number of observations, or whether missing values are present.</p>
+the data set, e.g., the types of the features (<a href="http://www.rdocumentation.org/packages/base/functions/numeric.html">numeric</a> vectors, <a href="http://www.rdocumentation.org/packages/base/functions/factor.html">factors</a> or
+<a href="http://www.rdocumentation.org/packages/base/functions/factor.html">ordered factors</a>), the number of observations, or whether missing values are present.</p>
 <p>Creating tasks for classification problems and survival analysis follows the same scheme,
 the data type of the target variables included in <code>data</code> is simply different.
-For each of these learning problems, some specifics are described below.</p>
+For each of these learning problems some specifics are described below.</p>
 <h3 id="classification">Classification</h3>
-<p>For classification the target variable has to be a <a href="http://www.rdocumentation.org/packages/base/functions/factor.html">factor</a>.</p>
-<p>In binary classification it is customary to refer to the two classes as <em>positive</em> and
-<em>negative</em> class.
-This is for example relevant for certain <a href="../performance/index.html">performance measures</a>
-like the <em>true positive rate</em>.
-By default the first factor level of the target variable is selected as the positive class.</p>
-<p>In the following example, we define a classification task for the
+<p>For classification the target column has to be a <a href="http://www.rdocumentation.org/packages/base/functions/factor.html">factor</a>.</p>
+<p>In the following example we define a classification task for the
 <a href="http://www.rdocumentation.org/packages/mlbench/functions/BreastCancer.html">BreastCancer</a> data set and exclude the variable <code>Id</code> from all further
 model fitting and evaluation.</p>
 <pre><code class="r">data(BreastCancer, package = &quot;mlbench&quot;)
@@ -419,8 +415,15 @@ classif.task
 #&gt; Positive class: benign
 </code></pre>
 
-<p>The positive class is <code>benign</code>.
-Class <code>malignant</code> can be manually selected as the positive class:</p>
+<p>In binary classification the two classes are usually referred to as <em>positive</em> and
+<em>negative</em> class with the positive class normally being the category of greater interest.
+This distinction is of course relevant for many <a href="../performance/index.html">performance measures</a>
+like the <em>true positive rate</em> or <a href="../roc_analysis/index.html">ROC curves</a>.
+Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>, where possible, permits to set options (like the <a href="http://www.rdocumentation.org/packages/mlr/functions/setThreshold.html">decision threshold</a>)
+and returns and plots results (like class posterior probabilities) for the positive class only.</p>
+<p><a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">makeClassifTask</a> by default selects the first factor level of the target variable
+as the positive class, in the above example <code>benign</code>.
+Class <code>malignant</code> can be manually selected as follows:</p>
 <pre><code class="r">classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;, positive = &quot;malignant&quot;)
 </code></pre>
 
@@ -447,12 +450,9 @@ surv.task
 <p>The type of censoring can be specified via the argument <code>censoring</code>, which defaults to
 <code>"rcens"</code> for right censored data.</p>
 <h3 id="multilabel-classification">Multilabel classification</h3>
-<p>In multilabel classification, in contrast to traditional supervized classification,
-each object can belong to more than one category at the same time.</p>
-<p>In order to generate the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">MultilabelTask</a> the input <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a> has
-to contain feature columns and multiple target columns. Each target column corresponds to one
-class label and has to be a logical vector that indicates for which training observations this
-label is present.
+<p>In multilabel classification each object can belong to more than one category at the same time.</p>
+<p>The <code>data</code> are expected to contain as many target columns as there are class labels.
+The target columns should be logical vectors that indicate which class labels are present.
 The names of the target columns are taken as class labels and need to be passed to the <code>target</code>
 argument of <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">makeMultilabelTask</a>.</p>
 <p>In the following example we get the data of the yeast data set, extract the label names,
@@ -481,7 +481,8 @@ yeast.task
 
 <p>See also the tutorial page on <a href="../multilabel/index.html">multilabel classification</a>.</p>
 <h3 id="cluster-analysis">Cluster analysis</h3>
-<p>As cluster analysis is unsupervised, the only mandatory argument to construct a cluster analysis task is the <code>data</code>.
+<p>As cluster analysis is unsupervised, the only mandatory argument to construct a cluster analysis
+task is the <code>data</code>.
 Below we create a learning task from the data set <a href="http://www.rdocumentation.org/packages/datasets/functions/mtcars.html">mtcars</a>.</p>
 <pre><code class="r">data(mtcars, package = &quot;datasets&quot;)
 cluster.task = makeClusterTask(data = mtcars)
@@ -499,20 +500,20 @@ cluster.task
 
 <h3 id="cost-sensitive-classification">Cost-sensitive classification</h3>
 <p>The standard objective in classification is to obtain a high prediction accuracy, i.e., to
-minimize the number of errors. Thereby, all types of misclassification errors are deemed
+minimize the number of errors. All types of misclassification errors are thereby deemed
 equally severe. However, in many applications different kinds of errors cause different costs.</p>
-<p>In case of <em>class-dependent costs</em>, that depend on the actual and predicted class labels, it
+<p>In case of <em>class-dependent costs</em>, that depend on the actual and predicted class labels only, it
 is sufficient to create an ordinary <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">ClassifTask</a>.</p>
 <p>In order to handle <em>example-specific costs</em> it is necessary to generate a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">CostSensTask</a>.
 In this scenario, each example <script type="math/tex">(x, y)</script> is associated with an individual cost vector of length
-<script type="math/tex">K</script> where <script type="math/tex">K</script> denotes the number of classes. The <script type="math/tex">k</script>-th component indicates the cost of assigning
+<script type="math/tex">K</script> with <script type="math/tex">K</script> denoting the number of classes. The <script type="math/tex">k</script>-th component indicates the cost of assigning
 <script type="math/tex">x</script> to class <script type="math/tex">k</script>. Naturally, it is assumed that the cost of the intended class label <script type="math/tex">y</script> is
 minimal.</p>
 <p>As the cost vector contains all relevant information about the intended class label <script type="math/tex">y</script>, only
 the feature values <script type="math/tex">x</script> and a <code>cost</code> matrix, which contains the cost vectors for all examples in the data
 set, are required to create the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">CostSensTask</a>.</p>
-<p>In the following example we use the <a href="http://www.rdocumentation.org/packages/datasets/functions/iris.html">iris data</a> and generate an artificial cost matrix
-(following <a href="http://dx.doi.org/10.1145/1102351.1102358">Beygelzimer et al., 2005</a>):</p>
+<p>In the following example we use the <a href="http://www.rdocumentation.org/packages/datasets/functions/iris.html">iris</a>  data and an artificial cost matrix
+(which is generated as proposed by <a href="http://dx.doi.org/10.1145/1102351.1102358">Beygelzimer et al., 2005</a>):</p>
 <pre><code class="r">df = iris
 cost = matrix(runif(150 * 3, 0, 2000), 150) * (1 - diag(3))[df$Species,]
 df$Species = NULL
@@ -538,13 +539,18 @@ learning problem.</p>
 <p>For example, we could include a <code>blocking</code> factor in the task.
 This would tell the task that some observations "belong together" and should
 not be separated when splitting into training and test sets during a <a href="../resample/index.html">resampling</a> iteration.</p>
-<p>Another possibility is to assign <code>weights</code> to observations.
-These can for example simply indicate observation frequencies or result from the sampling
-scheme used to collect the data.</p>
+<p>Another option is to assign <code>weights</code> to observations.
+These can simply indicate observation frequencies or result from the sampling
+scheme used to collect the data.<br />
+Note that you should use this option only if the weights really belong to the task.
+If you plan to train some learning algorithms with different weights on the same <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>,
+<a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> offers several other ways to set observation or class weights (for supervised
+classification). See for example the tutorial page about <a href="../train/index.html">training</a> or function
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a>.</p>
 <h2 id="accessing-a-learning-task">Accessing a learning task</h2>
 <p>We provide many operators to access the elements stored in a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.
 The most important ones are listed in the documentation of <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a>.</p>
-<p>To access the <a href="http://www.rdocumentation.org/packages/mlr/functions/TaskDesc.html">task description</a> that contains basic infos about
+<p>To access the <a href="http://www.rdocumentation.org/packages/mlr/functions/TaskDesc.html">task description</a> that contains basic information about
 the task you can use</p>
 <pre><code class="r">getTaskDescription(classif.task)
 #&gt; $id
@@ -585,8 +591,8 @@ the task you can use</p>
 #&gt; [1] &quot;TaskDescClassif&quot;    &quot;TaskDescSupervised&quot; &quot;TaskDesc&quot;
 </code></pre>
 
-<p>Note that <a href="http://www.rdocumentation.org/packages/mlr/functions/TaskDesc.html">task description</a>s have slightly different elements, depending on
-the type of the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.
+<p>Note that <a href="http://www.rdocumentation.org/packages/mlr/functions/TaskDesc.html">task description</a>s have slightly different elements for different
+types of <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s.
 Frequently needed elements can also be accessed directly.</p>
 <pre><code class="r">## Get the ID
 getTaskId(classif.task)
@@ -654,7 +660,7 @@ head(getTaskCosts(costsens.task))
 #&gt; [6,]  0 1819.9830  841.06686
 </code></pre>
 
-<p>Note the many options that <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a> offers to convert the data set into a convenient format.
+<p>Note that <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a> offers many options for converting the data set into a convenient format.
 This especially comes in handy when you <a href="../create_learner/index.html">integrate a learner</a> from another <strong>R</strong>
 package into <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.
 In this regard function <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskFormula.html">getTaskFormula</a> is also useful.</p>
@@ -719,12 +725,12 @@ summary(getTaskData(task))
 </code></pre>
 
 <p>For more functions and more detailed explanations have a look at the
-<a href="../preproc/index.html">data preprocessing</a> section.</p>
+<a href="../preproc/index.html">data preprocessing</a> page.</p>
 <h2 id="example-tasks-and-convenience-functions">Example tasks and convenience functions</h2>
 <p>For your convenience <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides pre-defined <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s for each type of learning problem.
 These are used throughout this tutorial in order to get shorter and more readable code.
 A list of all <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s can be found <a href="../example_tasks/index.html">here</a>.</p>
-<p>Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s function <a href="http://www.rdocumentation.org/packages/mlr/functions/convertMLBenchObjToTask.html">convertMLBenchObjToTask</a> can generate <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s from the data
+<p>Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s function <a href="http://www.rdocumentation.org/packages/mlr/functions/convertMLBenchObjToTask.html">convertMLBenchObjToTask</a> can generate <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s from the data
 sets and data generating functions in package <a href="http://www.rdocumentation.org/packages/mlbench/">mlbench</a>.</p></div>
             
         </div>
