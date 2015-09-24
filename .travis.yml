@@ -10,6 +10,7 @@ install:
     - sudo apt-get update
     - sudo apt-get install software-properties-common python-software-properties ed wget unzip
     - sudo add-apt-repository -y ppa:marutter/rrutter
+    - sudo add-apt-repository -y ppa:marutter/c2d4u
     - sudo apt-get install -y libgmp-dev
     - sudo apt-get update
     - sudo apt-get install r-cran-rjava python-pip
@@ -22,10 +23,13 @@ install:
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 90
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
     - sudo update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-4.8 90
-    - sudo apt-get build-dep r-cran-rgl 
-    - sudo R --no-save <<< 'install.packages(c("devtools", "pander", "knitr", "mlr", "kknn", "mRMRe", "Hmisc"), dependencies = TRUE, Ncpus = 2, repos="http://cran.rstudio.com/")'
+    - sudo apt-get build-dep r-cran-rgl
+    #- sudo R --no-save <<< 'install.packages(c("devtools", "pander", "knitr", "mlr", "kknn", "mRMRe", "Hmisc"), dependencies = TRUE, Ncpus = 2, repos="http://cran.rstudio.com/")'
+    - sudo apt-get install ada adabag brnn bst care caret checkmate class clue cluster clusterSim clValid cmaes CoxBoost crs Cubist DiceKriging DiceOptim DiscriMiner deepnet e1071 earth elasticnet elmNN emoa fields flare FNN frbs FSelector gbm GenSA ggplot2 ggvis glmnet Hmisc irace kernlab kknn klaR knitr kohonen laGP LiblineaR lqa MASS mboost mco mda mlbench modeltools mRMRe neuralnet nnet nodeHarvest pamr party penalized pls plyr pROC randomForest randomForestSRC reshape2 RCurl RSNNS rFerns rjson rmarkdown robustbase ROCR rpart rrlda rsm RWeka sda shiny sparsediscrim sparseLDA stepPlr stringi SwarmSVM testthat tgp TH.data XML
     - sudo R --no-save <<< 'library("devtools"); install_github("berndbischl/ParamHelpers")'
     - sudo R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr", dependencies = TRUE)'
+    - curl -L https://raw.githubusercontent.com/mllg/travis-r-tools/master/update-packages.r -o /tmp/update-packages.r
+    - Rscript /tmp/update-packages.r
     - sudo pip install mkdocs
     - wget https://github.com/mitya57/python-markdown-math/archive/master.zip
     - unzip master.zip
