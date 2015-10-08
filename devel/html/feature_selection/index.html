@@ -481,19 +481,19 @@ res = tuneParams(lrn, task = bh.task, resampling = rdesc, par.set = ps,
 #&gt; With control class: TuneControlGrid
 #&gt; Imputation value: Inf
 #&gt; [Tune-x] 1: fw.perc=0.2
-#&gt; [Tune-y] 1: mse.test.mean=40.6; time: 0.0 min; memory: 136Mb use, 607Mb max
+#&gt; [Tune-y] 1: mse.test.mean=40.6; time: 0.0 min; memory: 136Mb use, 585Mb max
 #&gt; [Tune-x] 2: fw.perc=0.25
-#&gt; [Tune-y] 2: mse.test.mean=40.6; time: 0.0 min; memory: 136Mb use, 607Mb max
+#&gt; [Tune-y] 2: mse.test.mean=40.6; time: 0.0 min; memory: 136Mb use, 585Mb max
 #&gt; [Tune-x] 3: fw.perc=0.3
-#&gt; [Tune-y] 3: mse.test.mean=37.1; time: 0.0 min; memory: 136Mb use, 607Mb max
+#&gt; [Tune-y] 3: mse.test.mean=37.1; time: 0.0 min; memory: 136Mb use, 585Mb max
 #&gt; [Tune-x] 4: fw.perc=0.35
-#&gt; [Tune-y] 4: mse.test.mean=35.8; time: 0.0 min; memory: 136Mb use, 607Mb max
+#&gt; [Tune-y] 4: mse.test.mean=35.8; time: 0.0 min; memory: 136Mb use, 585Mb max
 #&gt; [Tune-x] 5: fw.perc=0.4
-#&gt; [Tune-y] 5: mse.test.mean=35.8; time: 0.0 min; memory: 136Mb use, 607Mb max
+#&gt; [Tune-y] 5: mse.test.mean=35.8; time: 0.0 min; memory: 136Mb use, 585Mb max
 #&gt; [Tune-x] 6: fw.perc=0.45
-#&gt; [Tune-y] 6: mse.test.mean=27.4; time: 0.0 min; memory: 136Mb use, 607Mb max
+#&gt; [Tune-y] 6: mse.test.mean=27.4; time: 0.0 min; memory: 136Mb use, 585Mb max
 #&gt; [Tune-x] 7: fw.perc=0.5
-#&gt; [Tune-y] 7: mse.test.mean=27.4; time: 0.0 min; memory: 136Mb use, 607Mb max
+#&gt; [Tune-y] 7: mse.test.mean=27.4; time: 0.0 min; memory: 136Mb use, 585Mb max
 #&gt; [Tune] Result: fw.perc=0.5 : mse.test.mean=27.4
 res
 #&gt; Tune result:
@@ -504,13 +504,13 @@ res
 <p>The performance of all percentage values visited during tuning is:</p>
 <pre><code class="r">as.data.frame(res$opt.path)
 #&gt;   fw.perc mse.test.mean dob eol error.message exec.time
-#&gt; 1     0.2      40.59578   1  NA          &lt;NA&gt;     0.275
+#&gt; 1     0.2      40.59578   1  NA          &lt;NA&gt;     0.289
 #&gt; 2    0.25      40.59578   2  NA          &lt;NA&gt;     0.270
-#&gt; 3     0.3      37.05592   3  NA          &lt;NA&gt;     0.244
-#&gt; 4    0.35      35.83712   4  NA          &lt;NA&gt;     0.229
-#&gt; 5     0.4      35.83712   5  NA          &lt;NA&gt;     0.225
-#&gt; 6    0.45      27.39955   6  NA          &lt;NA&gt;     0.223
-#&gt; 7     0.5      27.39955   7  NA          &lt;NA&gt;     0.261
+#&gt; 3     0.3      37.05592   3  NA          &lt;NA&gt;     0.272
+#&gt; 4    0.35      35.83712   4  NA          &lt;NA&gt;     0.265
+#&gt; 5     0.4      35.83712   5  NA          &lt;NA&gt;     0.288
+#&gt; 6    0.45      27.39955   6  NA          &lt;NA&gt;     0.262
+#&gt; 7     0.5      27.39955   7  NA          &lt;NA&gt;     0.257
 </code></pre>
 
 <p>The optimal percentage and the corresponding performance can be accessed as follows:</p>
@@ -553,12 +553,12 @@ res
 #&gt; Points on front: 13
 head(as.data.frame(res$opt.path))
 #&gt;   fw.threshold fpr.test.mean fnr.test.mean dob eol error.message exec.time
-#&gt; 1    0.4892321     0.3092818     0.2639033   1  NA          &lt;NA&gt;     2.398
-#&gt; 2    0.2481696     0.2045499     0.2319697   2  NA          &lt;NA&gt;     2.422
-#&gt; 3    0.7691875     0.5128000     0.3459740   3  NA          &lt;NA&gt;     2.389
-#&gt; 4    0.1470133     0.2045499     0.2319697   4  NA          &lt;NA&gt;     2.499
-#&gt; 5    0.5958241     0.5028216     0.5239538   5  NA          &lt;NA&gt;     2.432
-#&gt; 6    0.6892421     0.6323959     0.4480808   6  NA          &lt;NA&gt;     2.368
+#&gt; 1    0.4892321     0.3092818     0.2639033   1  NA          &lt;NA&gt;     2.536
+#&gt; 2    0.2481696     0.2045499     0.2319697   2  NA          &lt;NA&gt;     2.635
+#&gt; 3    0.7691875     0.5128000     0.3459740   3  NA          &lt;NA&gt;     2.428
+#&gt; 4    0.1470133     0.2045499     0.2319697   4  NA          &lt;NA&gt;     2.559
+#&gt; 5    0.5958241     0.5028216     0.5239538   5  NA          &lt;NA&gt;     2.394
+#&gt; 6    0.6892421     0.6323959     0.4480808   6  NA          &lt;NA&gt;     2.370
 </code></pre>
 
 <p>The results can be visualized with function <a href="http://www.rdocumentation.org/packages/mlr/functions/plotTuneMultiCritResult.html">plotTuneMultiCritResult</a>.
