@@ -7,12 +7,20 @@ distribution family).
 Moreover, missing values in one feature can be replaced based on the other features by predictions from
 any supervised [Learner](&makeLearner) integrated into [%mlr].
 
-Furthermore, [%mlr] permits to [create your own imputation method](create_imputation.md).
+If your favourite option is not implemented in [%mlr] yet, you can easily
+[create your own imputation method](create_imputation.md).
 
-Note that some of the learning algorithms included in [%mlr] can deal with missing values in a sensible way, i.e.,
-other than deleting observations with ``NA's``.
-Those [Learner](&makeLearner)s have the property ``"missings"`` and are indicated in the
-[table of integrated learners](integrated_learners.md).
+Also note that some of the learning algorithms included in [%mlr] can deal with missing values
+in a sensible way, i.e., other than simply deleting observations with missing values.
+Those [Learner](&makeLearner)s have the property ``"missings"`` and thus can be identified
+using [&listLearners].
+
+```{r}
+## Regression learners that can deal with missing values
+listLearners("regr", properties = "missings")
+```
+
+See also the list of [integrated learners](integrated_learners.md) in the Appendix.
 
 
 ## Imputation and reimputation
@@ -73,7 +81,7 @@ and the number of imputed features.
 Note that the latter number refers to the features for which an imputation method was specified
 (five integers plus one factor) and not to the features actually containing ``NA's``.
 ``dummy.type`` indicates that the dummy variables are factors.
-For ``impute.new.levels`` and ``recode.factor.levels`` see the help page for function [&impute].
+For details on ``impute.new.levels`` and ``recode.factor.levels`` see the help page of function [&impute].
 
 
 Let's have a look at another example involving a target variable.
@@ -116,6 +124,7 @@ do not pose a problem.
 imp = impute(airq.train, target = "Ozone", cols = list(Solar.R = imputeHist(),
   Wind = imputeLearner(makeLearner("classif.rpart"))), dummy.cols = c("Solar.R", "Wind"))
 summary(imp$data)
+
 imp$desc
 ```
 
@@ -166,5 +175,10 @@ r$aggr
 ```
 
 ```{r}
-lapply(r$models, getLearnerModel)
+lapply(r$models, getLearnerModel, more.unwrap = TRUE)
 ```
+
+A second possibility to fuse a learner with imputation is provided by [&makePreprocWrapperCaret],
+which is an interface to [%caret]'s [preProcess](&caret::preProcess) function.
+[preProcess](&caret::preProcess) only works for numeric features and offers imputation by
+k-nearest neighbors, bagged trees, and by the median.
