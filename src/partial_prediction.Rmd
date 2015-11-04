@@ -1,8 +1,16 @@
 # Exploring Learner Predictions
 
-Learners use features to make predictions but how those features are used is often not apparent. [%mlr] can estimate the dependence of a learned function on a subset of the feature space using [&generatePartialPredictionData].
+Learners use features to make predictions but how those features are used is often not apparent.
+[%mlr] can estimate the dependence of a learned function on a subset of the feature space using
+[&generatePartialPredictionData].
 
-Partial prediction plots reduce the potentially high dimensional function estimated by the learner, and display a marginalized version of this function in a lower dimensional space. For example suppose $Y = f(X) + \epsilon$, where $\mathbb{E}[\epsilon|X] = 0$. With $(X, Y)$ pairs drawn independently from this statistical model, a learner may estimate $\hat{f}$, which, if $X$ is high dimensional can be uninterpretable. Suppose we want to approximate the relationship between some subset of $X$. We partition $X$ into two sets, $X_s$ and $X_c$ such that $X = X_s \cup X_c$, where $X_s$ is a subset of $X$ of interest.
+Partial prediction plots reduce the potentially high dimensional function estimated by the
+learner, and display a marginalized version of this function in a lower dimensional space.
+For example suppose $Y = f(X) + \epsilon$, where $\mathbb{E}[\epsilon|X] = 0$. With $(X, Y)$
+pairs drawn independently from this statistical model, a learner may estimate $\hat{f}$, which,
+if $X$ is high dimensional can be uninterpretable. Suppose we want to approximate the relationship
+between some subset of $X$. We partition $X$ into two sets, $X_s$ and $X_c$ such that
+$X = X_s \cup X_c$, where $X_s$ is a subset of $X$ of interest.
 
 The partial dependence of $f$ on $X_c$ is:
 
@@ -12,21 +20,52 @@ $X_c$ is integrated out. We use the following estimator:
 
 $$\hat{f}_{X_s} = \frac{1}{N} \sum_{i = 1}^N \hat{f}(X_s, x_{ic})$$
 
-The individual conditional expectation of an observation can also be estimated using the above algorithm absent the averaging, giving $\hat{f}^{(i)}_{X_s}$. This allows the discovery of features of $\hat{f}$ that may be obscured by an aggregated summary of $\hat{f}$.
+The individual conditional expectation of an observation can also be estimated using the above
+algorithm absent the averaging, giving $\hat{f}^{(i)}_{X_s}$. This allows the discovery of
+features of $\hat{f}$ that may be obscured by an aggregated summary of $\hat{f}$.
 
-The partial derivative of the partial prediction function, $\frac{\partial \hat{f}_{X_s}}{\partial X_s}$, and the individual conditional expectation function, $\frac{\partial \hat{f}^{(i)}_{X_s}}{\partial X_s}$ can also be computed. For regression and survival tasks the partial derivative of a single feature $X_s$ is the gradient of the partial prediction function, and for classification tasks where the learner can output class probabilities the Jacobian. Note that if the learner produces discontinuous partial predictions (e.g., piecewise constant functions such as decision trees, ensembles of decision trees, etc.) the derivative will be 0 (where the function is not changing) or trending towards positive or negative infinity (at the discontinuities where the derivative is undefined). Plotting the partial prediction function of such learners may give the impression that the function is not discontinuous because the prediction grid is not composed of all discontinuous points in the predictor space. This results in a line interpolating that makes the function appear to be piecewise linear (where the derivative would be defined except at the boundaries of each piece).
+The partial derivative of the partial prediction function, $\frac{\partial \hat{f}_{X_s}}{\partial X_s}$,
+and the individual conditional expectation function, $\frac{\partial \hat{f}^{(i)}_{X_s}}{\partial X_s}$
+can also be computed. For regression and survival tasks the partial derivative of a single
+feature $X_s$ is the gradient of the partial prediction function, and for classification tasks
+where the learner can output class probabilities the Jacobian. Note that if the learner produces
+discontinuous partial predictions (e.g., piecewise constant functions such as decision trees,
+ensembles of decision trees, etc.) the derivative will be 0 (where the function is not changing)
+or trending towards positive or negative infinity (at the discontinuities where the derivative
+is undefined). Plotting the partial prediction function of such learners may give the impression
+that the function is not discontinuous because the prediction grid is not composed of all
+discontinuous points in the predictor space. This results in a line interpolating that makes
+the function appear to be piecewise linear (where the derivative would be defined except at
+the boundaries of each piece).
 
-The partial derivative can be informative regarding the additivity of the learned function in certain features. If $\hat{f}^{(i)}_{X_s}$ is an additive function in a feature $X_s$, then its partial derivative will not depend on any other features ($X_c$) that may have been used by the learner. Variation in the estimated partial derivative indicates that there is a region of interaction between $X_s$ and $X_c$ in $\hat{f}$.
+The partial derivative can be informative regarding the additivity of the learned function
+in certain features. If $\hat{f}^{(i)}_{X_s}$ is an additive function in a feature $X_s$,
+then its partial derivative will not depend on any other features ($X_c$) that may have been
+used by the learner. Variation in the estimated partial derivative indicates that there is a
+region of interaction between $X_s$ and $X_c$ in $\hat{f}$.
 
-See [Goldstein, Kapelner, Bleich, and Pitkin (2014)](http://arxiv.org/abs/1309.6392) for more details and their package [ICEbox](https://cran.r-project.org/web/packages/ICEbox/index.html) for the original implementation. The algorithm works for any supervised learner with classification, regression, and survival tasks.
+See [Goldstein, Kapelner, Bleich, and Pitkin (2014)](http://arxiv.org/abs/1309.6392) for more
+details and their package [ICEbox](https://cran.r-project.org/web/packages/ICEbox/index.html)
+for the original implementation. The algorithm works for any supervised learner with classification,
+regression, and survival tasks.
 
 ## Usage
 
 ### Generating Partial Predictions
 
-Our implementation, following [%mlr]'s [visualization](visualization.md) pattern, consists of the above mentioned function [&generatePartialPredictionData], as well as two visualization functions, [&plotPartialPrediction] and [&plotPartialPredictionGGVIS]. The former generates input (objects of class [&PartialPredictionData]) for the latter.
+Our implementation, following [%mlr]'s [visualization](visualization.md) pattern, consists
+of the above mentioned function [&generatePartialPredictionData], as well as two visualization
+functions, [&plotPartialPrediction] and [&plotPartialPredictionGGVIS]. The former generates
+input (objects of class [&PartialPredictionData]) for the latter.
 
-The first step executed by [&generatePartialPredictionData] is to generate a feature grid for every element of the character vector `features` passed. The data are given by the `input` argument, which can be a [&Task] or a `data.frame`. The feature grid can be generated in several ways. A uniformly spaced grid of length `gridsize` (default 10) from the empirical minimum to the empirical maximum is created by default, but arguments `fmin` and `fmax` may be used to override the empirical default (the lengths of `fmin` and `fmax` must match the length of `features`). Alternatively the feature data can be resampled, either by using a bootstrap or by subsampling.
+The first step executed by [&generatePartialPredictionData] is to generate a feature grid for
+every element of the character vector `features` passed. The data are given by the `input`
+argument, which can be a [&Task] or a `data.frame`. The feature grid can be generated in
+several ways. A uniformly spaced grid of length `gridsize` (default 10) from the empirical
+minimum to the empirical maximum is created by default, but arguments `fmin` and `fmax` may
+be used to override the empirical default (the lengths of `fmin` and `fmax` must match the
+length of `features`). Alternatively the feature data can be resampled, either by using a
+bootstrap or by subsampling.
 
 ```{r}
 lrn.classif = makeLearner("classif.ksvm", predict.type = "prob")
@@ -35,7 +74,13 @@ pd = generatePartialPredictionData(fit.classif, iris.task, "Petal.Width")
 pd
 ```
 
-As noted above, $X_s$ does not have to be unidimensional. If it is not, the `interaction` flag must be set to `TRUE`. Then the individual feature grids are combined using the Cartesian product, and the estimator above is applied, producing a partial prediction for every combination of unique feature values. If the `interaction` flag is `FALSE` (the default) then by default $X_s$ is assumed unidimensional, and partial predictions are generate for each feature separately. The resulting output when `interaction = FALSE` has a column for each feature, and `NA` where the feature was not used in generating partial predictions.
+As noted above, $X_s$ does not have to be unidimensional. If it is not, the `interaction`
+flag must be set to `TRUE`. Then the individual feature grids are combined using the Cartesian
+product, and the estimator above is applied, producing a partial prediction for every combination
+of unique feature values. If the `interaction` flag is `FALSE` (the default) then by default
+$X_s$ is assumed unidimensional, and partial predictions are generate for each feature separately.
+The resulting output when `interaction = FALSE` has a column for each feature, and `NA` where
+the feature was not used in generating partial predictions.
 
 ```{r}
 pd.lst = generatePartialPredictionData(fit.classif, iris.task, c("Petal.Width", "Petal.Length"), FALSE)
@@ -49,9 +94,17 @@ pd.int = generatePartialPredictionData(fit.classif, iris.task, c("Petal.Width", 
 pd.int
 ```
 
-At each step in the estimation of $\hat{f}_{X_s}$ a set of predictions of length $N$ is generated. By default the mean prediction is used. For classification where `predict.type = "prob"` this entails the mean class probabilities. However, other summaries of the predictions may be used. For regression and survival tasks the function used here must either return one number or three, and, if the latter, the numbers must be sorted lowest to highest. For classification tasks the function must return a number for each level of the target feature.
+At each step in the estimation of $\hat{f}_{X_s}$ a set of predictions of length $N$ is generated.
+By default the mean prediction is used. For classification where `predict.type = "prob"` this
+entails the mean class probabilities. However, other summaries of the predictions may be used.
+For regression and survival tasks the function used here must either return one number or three,
+and, if the latter, the numbers must be sorted lowest to highest. For classification tasks
+the function must return a number for each level of the target feature.
 
-As noted, the `fun` argument can be a function which returns three numbers (sorted low to high) for a regression task. This allows further exploration of relative feature importance. If a feature is relatively important, the bounds are necessarily tighter because the feature accounts for more of the variance of the predictions, i.e., it is "used" more by the learner.
+As noted, the `fun` argument can be a function which returns three numbers (sorted low to high)
+for a regression task. This allows further exploration of relative feature importance. If a
+feature is relatively important, the bounds are necessarily tighter because the feature accounts
+for more of the variance of the predictions, i.e., it is "used" more by the learner.
 
 ```{r}
 lrn.regr = makeLearner("regr.ksvm")
@@ -80,14 +133,18 @@ head(pd.se$data)
 tail(pd.se$data)
 ```
 
-As previously mentioned if the aggregation function is not used, i.e., it is the identity, then the conditional expectation of $\hat{f}^{i}_{X_x}$ is estimated. If `individual = TRUE` then `generatePartialPredictionData` returns $n$ partial predictions made at each point in the prediction grid constructed from the features.
+As previously mentioned if the aggregation function is not used, i.e., it is the identity,
+then the conditional expectation of $\hat{f}^{i}_{X_x}$ is estimated. If `individual = TRUE`
+then `generatePartialPredictionData` returns $n$ partial predictions made at each point in
+the prediction grid constructed from the features.
 
 ```{r}
 pd.ind.regr = generatePartialPredictionData(fit.regr, bh.task, "lstat", individual = TRUE)
 pd.ind.regr
 ```
 
-The resulting output, particularly the element `data` in the returned object, has an additional column `idx` which gives the index of the observation to which the row pertains.
+The resulting output, particularly the element `data` in the returned object, has an additional
+column `idx` which gives the index of the observation to which the row pertains.
 
 For classification tasks this index references both the class and the observation index.
 
@@ -96,15 +153,21 @@ pd.ind.classif = generatePartialPredictionData(fit.classif, iris.task, "Petal.Le
 pd.ind.classif
 ```
 
-Individual partial predictions can also be centered by predictions made at all $n$ observations for a particular point in the prediction grid created by the features. This is controlled by the argument `center` which is a list  of the same length as the length of the `features` argument and contains the values of the `features` desired.
+Individual partial predictions can also be centered by predictions made at all $n$ observations
+for a particular point in the prediction grid created by the features. This is controlled by
+the argument `center` which is a list of the same length as the length of the `features`
+argument and contains the values of the `features` desired.
 
 ```{r}
 iris = getTaskData(iris.task)
 pd.ind.classif = generatePartialPredictionData(fit.classif, iris.task, "Petal.Length", individual = TRUE,
-                                               center = list("Petal.Length" = min(iris$Petal.Length)))
+  center = list("Petal.Length" = min(iris$Petal.Length)))
 ```
 
-Partial derivatives can also be computed for individual partial predictions and aggregate partial predictions. This is restricted to a single feature at a time. The derivatives of individual partial predictions can be useful in finding regions of interaction between the feature for which the derivative is estimated and the features excluded.
+Partial derivatives can also be computed for individual partial predictions and aggregate
+partial predictions. This is restricted to a single feature at a time. The derivatives of
+individual partial predictions can be useful in finding regions of interaction between the
+feature for which the derivative is estimated and the features excluded.
 
 ```{r}
 pd.regr.der = generatePartialPredictionData(fit.regr, bh.task, "lstat", derivative = TRUE)
@@ -123,27 +186,31 @@ head(pd.classif.der$data)
 
 ```{r}
 pd.classif.der.ind = generatePartialPredictionData(fit.classif, iris.task, "Petal.Width", derivative = TRUE,
-                                                   individual = TRUE)
+  individual = TRUE)
 head(pd.classif.der.ind$data)
 ```
 
 ### Plotting partial predictions
 
-Results from [&generatePartialPredictionData] can be visualized with [&plotPartialPrediction] and [&plotPartialPredictionGGVIS].
+Results from [&generatePartialPredictionData] can be visualized with [&plotPartialPrediction]
+and [&plotPartialPredictionGGVIS].
 
-With one feature and a regression task the output is a line plot, with a point for each point in the corresponding feature's grid.
+With one feature and a regression task the output is a line plot, with a point for each point
+in the corresponding feature's grid.
 
 ```{r, fig.width = 8, fig.height = 4}
 plotPartialPrediction(pd.regr)
 ```
 
-With a classification task, a line is drawn for each class, which gives the estimated partial probability of that class for a particular point in the feature grid.
+With a classification task, a line is drawn for each class, which gives the estimated partial
+probability of that class for a particular point in the feature grid.
 
 ```{r, fig.width = 8, fig.height = 4}
 plotPartialPrediction(pd.classif)
 ```
 
-For regression tasks, when the `fun` argument of [&generatePartialPredictionData] is used, the bounds will automatically be displayed using a gray ribbon.
+For regression tasks, when the `fun` argument of [&generatePartialPredictionData] is used,
+the bounds will automatically be displayed using a gray ribbon.
 
 ```{r, fig.width = 8, fig.height = 4}
 plotPartialPrediction(pd.ci)
@@ -155,19 +222,25 @@ The same goes for plots of partial predictions where the learner has `predict.ty
 plotPartialPrediction(pd.se)
 ```
 
-When multiple features are passed to [&generatePartialPredictionData] but `interaction = FALSE`, facetting is used to display each estimated bivariate relationship.
+When multiple features are passed to [&generatePartialPredictionData] but `interaction = FALSE`,
+facetting is used to display each estimated bivariate relationship.
 
 ```{r, fig.width = 8, fig.height = 4}
 plotPartialPrediction(pd.lst)
 ```
 
-When `interaction = TRUE` in the call to [&generatePartialPredictionData], one variable must be chosen to be used for facetting, and a subplot for each value in the chosen feature's grid is created, wherein the other feature's partial predictions within the facetting feature's value are shown. Note that this type of plot is limited to two features.
+When `interaction = TRUE` in the call to [&generatePartialPredictionData], one variable must
+be chosen to be used for facetting, and a subplot for each value in the chosen feature's grid
+is created, wherein the other feature's partial predictions within the facetting feature's
+value are shown. Note that this type of plot is limited to two features.
 
 ```{r, fig.width = 8, fig.height = 8}
 plotPartialPrediction(pd.int, facet = "Petal.Length")
 ```
 
-[&plotPartialPredictionGGVIS] can be used similarly, however, since [%ggvis] currently lacks subplotting/facetting capabilities, the argument `interact` maps one feature to an interactive sidebar where the user can select a value of one feature.
+[&plotPartialPredictionGGVIS] can be used similarly, however, since [%ggvis] currently lacks
+subplotting/facetting capabilities, the argument `interact` maps one feature to an interactive
+sidebar where the user can select a value of one feature.
 
 ```{r, eval = FALSE}
 plotPartialPredictionGGVIS(pd.int, interact = "Petal.Length")
@@ -179,13 +252,17 @@ When `individual = TRUE` each individual conditional expectation curve is plotte
 plotPartialPrediction(pd.ind.regr)
 ```
 
-When the individual curves are centered by subtracting the individual conditional expectations estimated at a particular value of $X_s$ this results in a fixed intercept which aids in visualizing variation in predictions made by $\hat{f}^{(i)}_{X_s}$.
+When the individual curves are centered by subtracting the individual conditional expectations
+estimated at a particular value of $X_s$ this results in a fixed intercept which aids in
+visualizing variation in predictions made by $\hat{f}^{(i)}_{X_s}$.
 
 ```{r, fig.width = 8, fig.height = 4}
 plotPartialPrediction(pd.ind.classif)
 ```
 
-Plotting partial derivative functions is the same as partial predictions. Below are estimates of the derivative of the mean aggregated partial prediction function, and the individual partial prediction functions for a regression and a classification task respectively.
+Plotting partial derivative functions is the same as partial predictions. Below are estimates
+of the derivative of the mean aggregated partial prediction function, and the individual
+partial prediction functions for a regression and a classification task respectively.
 
 ```{r, fig.width = 8, fig.height = 4}
 plotPartialPrediction(pd.regr.der)
@@ -197,10 +274,10 @@ This suggests that $\hat{f}$ is not additive in `lstat` except in the neighborho
 plotPartialPrediction(pd.regr.der.ind)
 ```
 
-This suggests that `Petal.Width` interacts with some other feature in the neighborhood of $(1.5, 2)$ for classes "virginica" and "versicolor."
+This suggests that `Petal.Width` interacts with some other feature in the neighborhood of
+$(1.5, 2)$ for classes "virginica" and "versicolor."
 
 ```{r, fig.width = 8, fig.height = 4}
 plotPartialPrediction(pd.classif.der.ind)
 ```
-
 
