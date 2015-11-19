@@ -13,7 +13,6 @@ multiple performance measures to be calculated.
 
 
 ## Example: One task, two learners, prediction on a single test set
-
 We start with a small example. Two learners, [linear discriminant analysis](&MASS::lda) and
 [classification trees](&rpart::rpart), are applied to one classification problem ([&sonar.task]).
 As resampling strategy we choose `"Holdout"`.
@@ -21,8 +20,8 @@ The performance is thus calculated on one single randomly sampled test data set.
 
 In the example below we create a resample description ([ResampleDesc](&makeResampleDesc)),
 which is automatically instantiated by [&benchmark].
-The instantiation is done only once, that is, the same resample instance
-([ResampleInstance](&makeResampleInstance)) is used for all learners applied to the [&Task].
+The instantiation is done only once for each [&Task], i.e., the same resample instance
+([ResampleInstance](&makeResampleInstance)) is used for all learners.
 It is also possible to directly pass a [ResampleInstance](&makeResampleInstance).
 
 If you would like to use a *fixed test data set* instead of a randomly selected one, you can
@@ -46,7 +45,7 @@ In the printed table every row corresponds to one pair of [&Task] and [Learner](
 The entries show the mean misclassification error ([mmce](measures.md)), the default performance
 measure for classification, on the test data set.
 
-The result `res` is an object of class [&BenchmarkResult]. Basically, this is a [list](&base::list)
+The result `res` is an object of class [&BenchmarkResult]. Basically, it contains a [list](&base::list)
 of lists of [&ResampleResult] objects, first ordered by [&Task] and then by [Learner](&makeLearner).
 
 [%mlr] provides several accessor functions, named `getBMR<what_to_extract>`, that permit
@@ -63,8 +62,8 @@ getBMRPerformances(res)
 getBMRAggrPerformances(res)
 ```
 
-Since we used holdout as resampling strategy, individual and aggregated performances are the
-same.
+Since we used holdout as resampling strategy, individual and aggregated performance values
+coincide.
 
 Often it is more convenient to work with [data.frame](&base::data.frame)s. You can easily
 convert the result structure by setting `as.df = TRUE`.
@@ -85,18 +84,16 @@ getBMRPredictions(res)
 head(getBMRPredictions(res, as.df = TRUE))
 ```
 
-
 It is also easily possible to access results for certain learners or tasks via their
-IDs. Many "getter" functions have a `learner.ids` and a `task.ids` argument.
+IDs. For this purpose many "getter" functions have a `learner.ids` and a `task.ids` argument.
 
 ```{r}
 head(getBMRPredictions(res, learner.ids = "classif.rpart", as.df = TRUE))
 ```
 
-
-As you might recall, you can use the `id` option in [&makeLearner] or function [&setId]
-to set the ID of a [Learner](&makeLearner) and the `id` option of [make*Task](&Task) for
-[&Task] IDs.
+As you might recall, you can set the IDs of learners and tasks via the `id` option of
+[&makeLearner] and [make*Task](&Task).
+Moreover, you can conveniently change the ID of a [Learner](&makeLearner) via function [&setId].
 
 The IDs of all [Learner](&makeLearner)s, [&Task]s and [Measure](&makeMeasure)s in a benchmark
 experiment can be retrieved as follows:
@@ -117,191 +114,241 @@ getBMRLearners(res)
 getBMRMeasures(res)
 ```
 
-******
 
-## Benchmark analysis and visualization  
+## Benchmark analysis and visualization 
 
 ### Example: Compare lda, rpart and random Forest
+As an introductory example, we compare three learners ([lda](&MASS::lda), [rpart](&rpart::rpart)
+and [random forest](&randomForest::randomForest)).
+Since the default learner IDs are a little long, we choose shorter names.
 
-As an introductory example, we might want to compare three learners such as [lda](&MASS::lda), [rpart](&rpart::rpart) and a [random forest](&randomForest::randomForest).
+As comparing their performance on only one task does not provide a generally valid answer, the
+comparison is performed on several tasks, using [mmce](measures.md) as primary performance
+measure.
+Package [%mlbench] provides additional [&Task]s, that we will use for our validation.
 
-As comparing performance on only one task does not provide a generally valid answer, the comparison is performed on several tasks, using [mmce](measures.md) as a primary performance measure.
-
-The package [%mlbench] provides additional [&Task]s, that we will use for our validation. Since the default learner IDs are a little long, we choose shorter names.  
-For both tasks cross-validation with 10 folds is chosen as resampling strategy.  
+For both tasks 10-fold cross-validation is chosen as resampling strategy.
 This is achieved by passing a single resample description to [&benchmark], which is then
-instantiated automatically once for each [&Task].
-Thus, the same instance is used for all learners applied to one task.
+instantiated automatically once for each [&Task]. This way, the same instance is used for all
+learners applied to one task.
 
 It is also possible to choose a different resampling strategy for each [&Task] by passing a
 [list](&base::list) of the same length as the number of tasks that can contain both
 [ResampleDesc](&makeResampleDesc)s and [ResampleInstance](&makeResampleInstance)s.
 
-In this example the mean misclassification error ([mmce](measures.md)), the balanced error rate ([ber](measures.md)) and accuracy ([acc](measures.md)) are calculated.
+In this example additional to the mean misclassification error ([mmce](measures.md)),
+the balanced error rate ([ber](measures.md)) and accuracy ([acc](measures.md)) are calculated.
 
 ```{r, message = FALSE, echo= FALSE}
 set.seed(4444)
-library(mlbench)
 ```
 
 ```{r, message = FALSE}
-# Create a list of learners
-lrns = list(makeLearner("classif.lda", id = "lda"),
-            makeLearner("classif.rpart", id = "rpart"),
-            makeLearner("classif.randomForest", id = "randomForest"))
-            
-# Get additional Tasks from mlbench
+## Create a list of learners
+lrns = list(
+  makeLearner("classif.lda", id = "lda"),
+  makeLearner("classif.rpart", id = "rpart"),
+  makeLearner("classif.randomForest", id = "randomForest")
+)
+
+## Get additional Tasks from package mlbench
 ring.task = convertMLBenchObjToTask("mlbench.ringnorm", n = 600)
 wave.task = convertMLBenchObjToTask("mlbench.waveform", n = 600)
 
 tasks = list(iris.task, sonar.task, pid.task, ring.task, wave.task)
 rdesc = makeResampleDesc("CV", iters = 10)
-meas = list(mmce,ber,acc)
+meas = list(mmce, ber, acc)
 res = benchmark(lrns, tasks, rdesc, meas, show.info = FALSE)
 ```
 
-The table below shows the three selected performance measures (&measures.md) across all learners and tasks.
-It can be easily used for plotting as well, but [%mlr] also features some integrated plots that operate on [BenchmarkResult](&benchmark)s. 
+The table below shows the three selected [performance measures](measures.md) across all learners
+and tasks.
+It can be easily used for plotting as well, but [%mlr] also features some integrated plots
+that operate on [&BenchmarkResult]s.
 
 ```{r}
 perf = getBMRPerformances(res, as.df = TRUE)
 head(perf)
 ```
-  
-By evaluating the result we realize that our [random Forest](&randomForest::randomForest) outperforms the  [partition tree](&rpart::rpart) in every instance, while  [linear discriminant analysis](&MASS::lda) performs better then [rpart](&rpart::rpart) most of the time. Additionally [lda](&MASS::lda) sometimes even beats the random forest implementation.
-With an increasing size of such (&benchmark) experiments, those tables become almost unreadable and hard to comprehend. In order to get better insight into those results, several plotting strategies
-are implemented into [%mlr].
+
+A closer look at the result reveals that the [random Forest](&randomForest::randomForest)
+outperforms the [classification tree](&rpart::rpart) in every instance, while
+[linear discriminant analysis](&MASS::lda) performs better than [rpart](&rpart::rpart) most
+of the time. Additionally [lda](&MASS::lda) sometimes even beats the random forest implementation.
+With increasing size of such [&benchmark] experiments, those tables become almost unreadable
+and hard to comprehend. In order to gain deeper insight into those results, several plotting
+strategies are implemented in [%mlr].
 
 
-### Data generation and plotting 
+### Data generation and plotting
+As explained in the [visualization](visualization.md) section, [%mlr] provides
+[data generation](&generateRankMatrixAsBarData) functions, e.g., `generateRankMatrixAsBarData()`
+that can be used within [plot functions](&plotRankMatrixAsBarData) like `plotRankMatrixAsBar()`.
+The data generated by such data generation functions contains all information required for
+plotting later on.
+This design additionally enables the user to use the generated data in order to create custom
+plots using other packages such as [%lattice], [%ggplot2] or the base [plot](&graphics::plot)
+functions.
+Plots are produced using [%ggplot2] or [%ggvis], as these packages enable further customization,
+such as renaming plot elements or changing colors.
 
-As explained in the [visualization](visualization.md) section, 
-[%mlr] provides [data generation](&generateRankMatrixAsBarData) functions e.g `generateRankMatrixAsBarData()` that can be used within [plot functions](&plotRankMatrixAsBarData) e.g `plotRankMatrixAsBar()`.  
-The data generated by such data generation functions contains all info that is necessary for plotting later on.  
-This design additionally enables the user to use the generated data in order to create custom plots using other packages such as [%lattice],[%ggplot2] or the base (&plot) functions.  
-Plots are produced using [%ggplot2] or [%ggvis], as these packages enable further customization, such as renaming plot elements or changing colors. 
+An example that demonstrates how a plot can be extended is given below.
+As a first result, we might want to compare [Learner](&makeLearner) performance across
+[resample](&makeResampleDesc) iterations, in order to get insight on how the individual
+[Learner](&makeLearner)s perform within the different tasks. Additionally we color the boxes
+according to the learner in order to facilitate distinction by adding additional
+[aesthetics](&ggplot2::aes).
 
-An example for how a plot can be extended is given below. 
-As a first result, we might want to compare [Learner](&makeLearner) performance across [resample](&makeResampleDesc) iterations, in order to get insight on how the individual [Learner](&makeLearner)s perform within the different tasks. Additionally we color the boxes according to the learner in order to facilitate distinction by adding additional `aesthetics`: `aes(color = learner.id)`.  
-```{r}
+```{r, fig.width=9}
 plotBenchmarkResult(res, measure = mmce, pretty.names = FALSE) +
-  aes(color = learner.id)
+  aes(color = learner.id) + facet_wrap(~ task.id, nrow = 2)
 ```
-   
-As no data transformation or computation was conducted for this plot, and all data used for plotting comes from `getBMRPerformances`, no data generation function is needed.  
 
-Taking into account the properties of such resample results, such as an eventual lack of commensurability, and the hypothesis tests that have to be employed for such comparisons, a 
+As no data transformation or computation was conducted for this plot, and all data used for
+plotting comes from [&getBMRPerformances], no data generation function is needed.
+
+Taking into account the properties of such resample results, such as an eventual lack of
+commensurability, and the hypothesis tests that have to be employed for such comparisons, a
 **rank** structure for plots might provide valuable additional insight.
 
-Although [BenchmarkResults](&benchmark) usually provide a variety of measures, subsequent analysis is best performed on one or few selected measures. In this case [mean misclassification error](&measures.md) is chosen as it is easy to compute and understand. In order to break down the benchmark result, we can either display a [rank matrix](&convertBMRToRankMatrix) or plot it as a [bar plot](&plotRankMatrixAsBar).  
-Attention: Due to the plotting structure, ties that might occur in the aggregated [BenchmarkResult](&benchmark) are broken randomly.  
+Although [&BenchmarkResult]s usually provide a variety of measures, subsequent analysis is
+best performed on one or few selected measures. In this case
+[mean misclassification error](measures.md) is chosen as it is easy to compute and understand.
+In order to break down the benchmark result, we can either display a
+[rank matrix](&convertBMRToRankMatrix) or plot it as a [bar plot](&plotRankMatrixAsBar).
+Attention: Due to the plotting structure, ties that might occur in the aggregated
+[&BenchmarkResult] are broken randomly.
 
 ```{r}
-# Convert to a rank matrix
+## Convert to a rank matrix
 m = convertBMRToRankMatrix(res, mmce)
 m
 
-# Plot the rank matrix
+## Plot the rank matrix
 g = generateRankMatrixAsBarData(res, mmce, pos = "tile")
 plotRankMatrixAsBar(g)
-
 ```
-  
+
 As an additional visualization, we can compare the performances using a **benchmark summary plot**.
-This plot displays the [Learner](&makeLearner)s performance in comparison to the best or worst performing learner within this task. It facilitates finding tasks where learners perform similarly. Additionally it might allow to uncover structures within the experiment that might be hidden otherwise.
+This plot displays the [Learner](&makeLearner)s' performance in comparison to the best or worst
+performing learner within this task. It facilitates finding tasks where learners perform similarly.
+Additionally it might allow to uncover structures within the experiment that might be hidden
+otherwise.
 
 ```{r}
 g = generateBenchmarkSummaryData(res, mmce, fill = "best")
 plotBenchmarkSummary(g)
 ```
-  
-### Comparing learners using hypothesis tests  
 
-Many researchers feel the need to display an algorithm's superiority by employing some sort of hypothesis testing. As non-parametric tests seem better suited for such benchmark results the tests provided in [%mlr] are the **Overall Friedman test** and the **Friedman-Nemenyi post hoc test**.
 
-While the ad hoc [Friedman test](&friedmanTestBMR) based on [friedman.test](&friedman.test) from the stats package is testing the hypothesis whether there is a significant difference between the employed learners, the post hoc [Friedman-Nemenyi](&friedmanPostHocTestBMR) tests for significant differences between all pairs of learners. *Non parametric* tests often do have less power then their *parametric* counterparts but less assumptions about underlying distributions have to be made. This often means many **data sets** are needed in order to be able to show significant differences at reasonable significance levels. 
+### Comparing learners using hypothesis tests
+Many researchers feel the need to display an algorithm's superiority by employing some sort
+of hypothesis testing. As non-parametric tests seem better suited for such benchmark results
+the tests provided in [%mlr] are the **Overall Friedman test** and the
+**Friedman-Nemenyi post hoc test**.
 
-In our example, we want to compare the three [learners](&makeLearner) on the selected data sets. 
+While the ad hoc [Friedman test](&friedmanTestBMR) based on [friedman.test](&stats::friedman.test)
+from the [%stats] package is testing the hypothesis whether there is a significant difference
+between the employed learners, the post hoc [Friedman-Nemenyi test](&friedmanPostHocTestBMR) tests
+for significant differences between all pairs of learners. *Non parametric* tests often do
+have less power then their *parametric* counterparts but less assumptions about underlying
+distributions have to be made. This often means many **data sets** are needed in order to be
+able to show significant differences at reasonable significance levels.
+
+In our example, we want to compare the three [learners](&makeLearner) on the selected data sets.
 First we might we want to test the hypothesis whether there is a difference between the learners.
 
 ```{r}
 friedmanTestBMR(res)
 ```
-  
-In order to keep the computational time for this tutorial small, the [Learners](&makeLearner) are only evaluated on 6 tasks. This also means that we operate on a relatively low significance level $\alpha = 0.1$.
-As we can reject the null hypothesis of the Friedman test at a reasonable significance level we might now want to test where these differences lie exactly.
+
+In order to keep the computation time for this tutorial small, the [Learner](&makeLearner)s
+are only evaluated on 6 tasks. This also means that we operate on a relatively low significance
+level $\alpha = 0.1$.
+As we can reject the null hypothesis of the Friedman test at a reasonable significance level
+we might now want to test where these differences lie exactly.
+
 ```{r, message = FALSE}
 friedmanPostHocTestBMR(res, p.value = 0.1)
 ```
 
-At this level of sigfnificance, we can accept the hypothesis that there exists a significant difference between the  decision tree(`classif.rpart`) and the  [random Forest](&randomForest::randomForest).   
+At this level of significance, we can accept the hypothesis that there exists a significant
+difference between the decision tree ([rpart](&rpart::rpart)) and the
+[random Forest](&randomForest::randomForest).
 
 
-### Critical Differences Diagram  
+### Critical differences diagram
+In order to visualize differently performing learners, a
+[critical differences diagram](&plotCritDifferences) can be plotted, using either the
+Nemenyi test (`test = "nemenyi"`) or the Bonferroni-Dunn test (`test = "bd"`).
 
-In order to visualize differently performing learners, a [Critical differences diagram](&plotCritDifferences) can be plotted, using either the 
-`test = nemenyi` or the Bonferroni-Dunn (`test = "bd"`) test. 
-Interpretation: 
-Learners are drawn on the x-axis according to their mean rank.  
-Choosing `test = nemenyi` compares all pairs of [Learners](&makeLearner) to each other, thus the output are groups of not significantly different learners. The diagram connects all groups of learners where the mean ranks do not differ by more than the critical differences. Learners that are not connected by a bar are significantly different, and the learner(s) with the lower mean rank can be considered "better" at the chosen significance level.  
-Choosing `test = "bd"` performs an *pairwise comparison with a baseline*.  An interval which extends by the given *Critical Difference* in both directions is drawn around the [Learner](&makeLearner) chosen as baseline, though only comparisons with the baseline are possible. All learners within the interval are not significantly different, while the baseline can be considered better or worse than a given learner which is outside of the interval.
-  
-Calculation:
-The Critical difference can be calculated by: $$ CD = q_\alpha *  \sqrt(\frac{k(k+1)}{6N} $$
-Where $q_\alpha$ comes from the studentized range statistic divided by $\sqrt{2}$ .
-For Details see   
-*Janez Demsar, Statistical Comparisons of Classifiers over Multiple Data Sets, JMLR, 2006*
+Interpretation:  
+Learners are drawn on the x-axis according to their mean rank.
 
-```{r, fig.height= 4, fig.width=8 }
-# Nemenyi test
+* Choosing `test = "nemenyi"` compares all pairs of [Learner](&makeLearner)s to each other, thus
+  the output are groups of not significantly different learners. The diagram connects all groups
+  of learners where the mean ranks do not differ by more than the critical differences. Learners
+  that are not connected by a bar are significantly different, and the learner(s) with the
+  lower mean rank can be considered "better" at the chosen significance level.
+* Choosing `test = "bd"` performs a *pairwise comparison with a baseline*. An interval which
+  extends by the given *critical difference* in both directions is drawn around the
+  [Learner](&makeLearner) chosen as baseline, though only comparisons with the baseline are
+  possible. All learners within the interval are not significantly different, while the
+  baseline can be considered better or worse than a given learner which is outside of the
+  interval.
+
+Calculation:  
+The critical difference $CD$ can be calculated by
+$$CD = q_\alpha \cdot \sqrt{\frac{k(k+1)}{6N}},$$
+where $q_\alpha$ comes from the studentized range statistic divided by $\sqrt{2}$.
+For details see [Demsar (2006)](http://www.jmlr.org/papers/volume7/demsar06a/demsar06a.pdf).
+
+```{r, fig.height=4, fig.width=8}
+## Nemenyi test
 g = generateCritDifferencesData(res, p.value = 0.1, test = "nemenyi")
 plotCritDifferences(g) + coord_cartesian(xlim = c(-1,5), ylim = c(0,2))
-
-# Bonferroni-Dunn test
+## Bonferroni-Dunn test
 g = generateCritDifferencesData(res, p.value = 0.1, test = "bd", baseline = "randomForest")
 plotCritDifferences(g) + coord_cartesian(xlim = c(-1,5), ylim = c(0,2))
 ```
 
 
-
 ### Custom plots
-
-This section is dedicated to some custom plots not yet integrated into [%mlr], that might be important to the researcher.
+This section is dedicated to some custom plots not yet integrated into [%mlr], that might
+be important to the researcher.
 Instead of just comparing mean performance values it is generally preferable to have a look
 at the distribution of performance values obtained in individual resampling iterations.
-The individual performances on the 10 folds for every task and learner are
-retrieved below.
+The individual performances on the 10 folds for every task and learner are retrieved below.
 
 ```{r, fig.width=8, fig.height=4}
 perf = getBMRPerformances(res, as.df = TRUE)
 
-# plot density for two examples
+## Plot density for two examples
 qplot(mmce, colour = learner.id, facets = . ~ task.id,
-      data = perf[perf$task.id %in% c("iris-example", "Sonar-example"),], geom = "density")
-
+  data = perf[perf$task.id %in% c("iris-example", "Sonar-example"),], geom = "density")
 ```
-  
-In order to plot both performance measures using [ggplot](ggplot2::ggplot), `perf` is reshaped to long format.
+
+In order to plot both performance measures in parallel, `perf` is reshaped to long format.
 Below we generate grouped boxplots and densityplots for some tasks, learners and measures.
-  
-```{r}
-# compare ber and mmce
+
+```{r, fig.width=9}
+## Compare ber and mmce
 df = reshape2::melt(perf, id.vars = c("task.id", "learner.id", "iter"), measure.vars = c("acc", "mmce", "ber"))
-df= df[df$variable != "acc",]
+df = df[df$variable != "acc",]
 head(df)
 
-qplot(variable, value, data = df, colour = learner.id, facets = . ~ task.id, geom = "boxplot",
-  xlab = "measure", ylab = "performance")
+qplot(variable, value, data = df, colour = learner.id, geom = "boxplot",
+  xlab = "measure", ylab = "performance") + facet_wrap(~ task.id, nrow = 2)
 ```
-
 
 It might also be useful to assess if learner performances in single resampling iterations,
 i.e., in one fold, are related.
 This might help to gain further insight, for example by having a closer look at bootstrap
 samples where one learner performs exceptionally well while another one is fairly bad.
 Moreover, this might be useful for the construction of ensembles of learning algorithms.
-Below, function [ggpairs](GGally::ggpairs) from package [%GGally] is used to generate a scatterplot
-matrix of learner mean misclassification errors ([mmce](&measures.md)) on the sonar data set.
+Below, function [ggpairs](&GGally::ggpairs) from package [%GGally] is used to generate a scatterplot
+matrix of mean misclassification errors ([mmce](&measures.md)) on the [Sonar](&mlbench::Sonar)
+data set.
 
 ```{r}
 perf = getBMRPerformances(res, task.id = "Sonar-example", as.df = TRUE)
@@ -315,11 +362,12 @@ GGally::ggpairs(df, c(4,7,10))
 
 
 ## Further comments
-
 * In the examples shown in this section we applied "raw" learning algorithms, but often things
 are more complicated.
-At the very least, many learners have hyperparameters that need to be tuned to get sensible results.
-Reliable performance estimates can be obtained by nested resampling, i.e., by doing the tuning in an
+At the very least, many learners have hyperparameters that need to be tuned to get sensible
+results.
+Reliable performance estimates can be obtained by [nested resampling](nested_resampling.md),
+i.e., by doing the tuning in an
 inner resampling loop while estimating the performance in an outer loop.
 Moreover, you might want to combine learners with pre-processing steps like imputation, scaling,
 outlier removal, dimensionality reduction or feature selection and so on.
