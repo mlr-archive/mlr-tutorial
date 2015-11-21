@@ -1,7 +1,6 @@
 # Visualization
 
 ## Generation and plotting functions
-
 [%mlr]'s visualization capabilities rely on *generation functions* which generate data for
 plots, and *plotting functions* which plot this output using either [%ggplot2] or [%ggvis]
 (the latter being currently experimental).
@@ -14,9 +13,10 @@ functions and then extracting the data from the [&ggplot2::ggplot] object.
 The functions are named accordingly.
 
 * Names of generation functions start with `generate` and are followed by a title-case description of
-  their `FunctionPurpose`, followed by `Data`: i.e., `generateFunctionPurposeData`.
+  their `FunctionPurpose`, followed by `Data`, i.e., `generateFunctionPurposeData`.
   These functions output objects of class `FunctionPurposeData`.
 * Plotting functions are prefixed by `plot` followed by their purpose, i.e., `plotFunctionPurpose`.
+* [%ggvis] plotting functions have an additional suffix `GGVIS`, i.e., `plotFunctionPurposeGGVIS`.
 
 In the example below we create a plot of classifier performance as function of the decision
 threshold for the binary classification problem [&sonar.task].
@@ -60,19 +60,21 @@ based on the output of [&generateThreshVsPerfData]: in this case to plot only on
 ggplot(d$data, aes(threshold, fpr)) + geom_line()
 ```
 
-The option to create plots manually is particularly interesting for all who prefer traditional
-[%graphics] or [%lattice] plots to [%ggplot2]. Here is a [%lattice] plot which gives a result
-similar to that of [&plotThreshVsPerf].
+The decoupling of generation and plotting functions is especially practical for all users
+who prefer traditional [%graphics] or [%lattice]. Here is a [%lattice] plot which gives a
+result similar to that of [&plotThreshVsPerf].
+
 
 ```{r, fig.width = 8, fig.height = 4}
-lattice::xyplot(fpr + fnr + mmce ~ threshold, data = d$data, type = "l", ylab = "performance", outer = TRUE,
+lattice::xyplot(fpr + fnr + mmce ~ threshold, data = d$data, type = "l", ylab = "performance",
+  outer = TRUE, scales = list(relation = "free"),
   strip = strip.custom(factor.levels = sapply(d$measures, function(x) x$name)))
 ```
 
 
 Let's conclude with a brief look on a second example.
 Here we use [&plotPartialPrediction] but extract the data from the plot object and use it
-to create a traditional [plot](&graphics::plot), additional to the [%ggplot2] plot.
+to create a traditional [&graphics::plot], additional to the [%ggplot2] plot.
 
 ```{r, fig.width = 6, fig.height = 4}
 sonar = getTaskData(sonar.task)
@@ -88,35 +90,24 @@ plot(Probability ~ V11, data = plt$data, type = "b")
 ```
 
 
-## Generation functions
+## List of available functions
+The table shows the currently available generation and plotting functions.
+It also references tutorial pages that provide in depth descriptions of the listed functions.
 
-After each function referenced, a tutorial page where it is described in more depth is provided.
-The corresponding plots are also described therein. Note that some plots, e.g. [&plotTuneMultiCritResult]
-are not described here since they lack a generation function.
+Note that some plots, e.g., [&plotTuneMultiCritResult] are not described here since they lack
+a generation function.
 
- - [&generateFilterValuesData]: [Feature Selection](feature_selection.md)
- - [&generateLearningCurveData]: [Learning Curve](learning_curve.md)
- - [&generateThreshVsPerfData]: [Performance](performance.md)
- - [&generateROCRCurvesData]: [ROC Analysis](roc_analysis.md)
- - [&generatePartialPredictionData]: [Partial Prediction Plots](partial_prediction.md)
- - [&generateCalibrationData]: [Classifier Calibration Plots](classifier_calibration.md)
+The [%ggvis] functions are experimental and are subject to change, though they should work.
+Most generate interactive [%shiny] applications, that automatically start and run locally.
 
-## ggplot2 plotting functions
-
- - [&plotFilterValues]
- - [&plotLearningCurve]
- - [&plotThresVsPerf]
- - [&plotROCRCurves]
- - [&plotPartialPrediction]
- - [&plotCalibration]
-
-## ggvis plotting functions
-
-These functions are experimental and are subject to change, though they should work. Most generate
-interactive [%shiny] applications, that automatically start and run locally.
-
- - [&plotFilterValuesGGVIS]
- - [&plotLearningCurveGGVIS]
- - [&plotThreshVsPerfGGVIS]
- - [&plotROCRCurvesGGVIS]
- - [&plotPartialPredictionGGVIS]
+| generation function              | ggplot2 plotting function | ggvis plotting function       | tutorial page                                             |
+| -------------------------------- | ------------------------- | ----------------------------- | --------------------------------------------------------- |
+| [&generateBenchmarkSummaryData]  | [&plotBenchmarkSummary]   | --                            | [Benchmark Experiments](benchmark_experiments.md)         |
+| [&generateCritDifferencesData]   | [&plotCritDifferences]    | --                            | [Benchmark Experiments](benchmark_experiments.md)         |
+| [&generateRankMatrixAsBarData]   | [&plotRankMatrixAsBar]    | --                            | [Benchmark Experiments](benchmark_experiments.md)         |
+| [&generateFilterValuesData]      | [&plotFilterValues]       | [&plotFilterValuesGGVIS]      | [Feature Selection](feature_selection.md)                 |
+| [&generateLearningCurveData]     | [&plotLearningCurve]      | [&plotLearningCurveGGVIS]     | [Learning Curve](learning_curve.md)                       |
+| [&generatePartialPredictionData] | [&plotPartialPrediction]  | [&plotPartialPredictionGGVIS] | [Partial Prediction Plots](partial_prediction.md)         |
+| [&generateThreshVsPerfData]      | [&plotThresVsPerf]        | [&plotThreshVsPerfGGVIS]      | [Performance](performance.md)                             |
+| [&generateROCRCurvesData]        | [&plotROCRCurves]         | [&plotROCRCurvesGGVIS]        | [ROC Analysis](roc_analysis.md)                           |
+| [&generateCalibrationData]       | [&plotCalibration]        | --                            | [Classifier Calibration Plots](classifier_calibration.md) |
