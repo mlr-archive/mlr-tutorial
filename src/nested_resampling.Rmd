@@ -2,8 +2,8 @@
 
 In order to obtain honest performance estimates for a learner all parts of the model building
 like preprocessing and model selection steps should be included in the resampling, i.e.,
-repeated for every training/test data pair.
-For steps that themselves require resampling like parameter [tuning](tune.md) or
+repeated for every pair of training/test data.
+For steps that themselves require resampling like [parameter tuning](tune.md) or
 [feature selection](feature_selection.md) (via the wrapper approach) this results in two
 nested resampling loops.
 
@@ -18,7 +18,7 @@ This way, we get one set of selected hyperparameters for each outer training set
 Then the learner is fitted on each outer training set using the corresponding selected
 hyperparameters and its performance is evaluated on the outer test sets.
 
-In [%mlr], we can get nested resampling for free without programming any looping by
+In [%mlr], you can get nested resampling for free without programming any looping by
 using the [wrapper functionality](wrapper.md). This works as follows:
 
 1. Generate a wrapped [Learner](&makeLearner) via function [&makeTuneWrapper] or [&makeFeatSelWrapper].
@@ -45,12 +45,13 @@ or [makeFeatSelControl*](&FeatSelControl).
 Nested resampling is computationally expensive.
 For this reason in the examples shown below we use relatively small search spaces and a low
 number of resampling iterations. In practice, you normally have to increase both.
-You might want to have a look at section [parallelization](parallelization.md).
+As this is computationally intensive you might want to have a look at section
+[parallelization](parallelization.md).
 
 
 ## Tuning
 
-As you might recall from the tutorial section about [tuning](tune.md), you need to define a search space by
+As you might recall from the tutorial page about [tuning](tune.md), you need to define a search space by
 function [makeParamSet](&ParamHelpers::makeParamSet), a search strategy by [makeTuneControl*](&TuneControl),
 and a method to evaluate hyperparameter settings (i.e., the inner resampling strategy and a performance measure).
 
@@ -83,7 +84,7 @@ r = resample(lrn, iris.task, resampling = outer, extract = getTuneResult, show.i
 r
 ```
 
-You can obtain the error rates on the 3 outer test sets by
+You can obtain the error rates on the 3 outer test sets by:
 ```{r}
 r$measures.test
 ```
@@ -99,8 +100,8 @@ the `extract` option of [&resample].
 Function [&getTuneResult] returns, among other things, the optimal hyperparameter values and
 the [optimization path](&ParamHelpers::optPath) for each iteration of the outer resampling loop.
 Note that the performance values shown when printing `r$extract` are the aggregated performances
-resulting from inner resampling on the outer training set for the best hyperparameter configurations.
-
+resulting from inner resampling on the outer training set for the best hyperparameter configurations
+(not to be confused with `r$measures.test` shown above).
 ```{r}
 r$extract
 
@@ -213,7 +214,7 @@ analyzeFeatSelResult(r$extract[[1]])
 Filter methods assign an importance value to each feature.
 Based on these values you can select a feature subset by either keeping all features with importance
 higher than a certain threshold or by keeping a fixed number or percentage of the highest ranking features.
-Normally, neither the theshold nor the number or percentage of features is known in advance
+Often, neither the theshold nor the number or percentage of features is known in advance
 and thus tuning is necessary.
 
 In the example below the threshold value (`fw.threshold`) is tuned in the inner resampling loop.
