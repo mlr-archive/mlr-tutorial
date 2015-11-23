@@ -341,11 +341,20 @@ and random numbers (either from the empirical distribution of the feature under 
 distribution family).
 Moreover, missing values in one feature can be replaced based on the other features by predictions from
 any supervised <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> integrated into <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.</p>
-<p>Furthermore, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> permits to <a href="../create_imputation/index.html">create your own imputation method</a>.</p>
-<p>Note that some of the learning algorithms included in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> can deal with missing values in a sensible way, i.e.,
-other than deleting observations with <code>NA's</code>.
-Those <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>s have the property <code>"missings"</code> and are indicated in the
-<a href="../integrated_learners/index.html">table of integrated learners</a>.</p>
+<p>If your favourite option is not implemented in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> yet, you can easily
+<a href="../create_imputation/index.html">create your own imputation method</a>.</p>
+<p>Also note that some of the learning algorithms included in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> can deal with missing values
+in a sensible way, i.e., other than simply deleting observations with missing values.
+Those <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>s have the property <code>"missings"</code> and thus can be identified
+using <a href="http://www.rdocumentation.org/packages/mlr/functions/listLearners.html">listLearners</a>.</p>
+<pre><code class="r">## Regression learners that can deal with missing values
+listLearners(&quot;regr&quot;, properties = &quot;missings&quot;)
+#&gt; [1] &quot;regr.bartMachine&quot;     &quot;regr.blackboost&quot;      &quot;regr.cforest&quot;        
+#&gt; [4] &quot;regr.ctree&quot;           &quot;regr.cubist&quot;          &quot;regr.gbm&quot;            
+#&gt; [7] &quot;regr.randomForestSRC&quot; &quot;regr.rpart&quot;
+</code></pre>
+
+<p>See also the list of <a href="../integrated_learners/index.html">integrated learners</a> in the Appendix.</p>
 <h2 id="imputation-and-reimputation">Imputation and reimputation</h2>
 <p>Imputation can be done by function <a href="http://www.rdocumentation.org/packages/mlr/functions/impute.html">impute</a>.
 You can specify an imputation method for each feature individually or for classes of features like numerics or factors.
@@ -441,7 +450,7 @@ and the number of imputed features.
 Note that the latter number refers to the features for which an imputation method was specified
 (five integers plus one factor) and not to the features actually containing <code>NA's</code>.
 <code>dummy.type</code> indicates that the dummy variables are factors.
-For <code>impute.new.levels</code> and <code>recode.factor.levels</code> see the help page for function <a href="http://www.rdocumentation.org/packages/mlr/functions/impute.html">impute</a>.</p>
+For details on <code>impute.new.levels</code> and <code>recode.factor.levels</code> see the help page of function <a href="http://www.rdocumentation.org/packages/mlr/functions/impute.html">impute</a>.</p>
 <p>Let's have a look at another example involving a target variable.
 A possible learning task associated with the <a href="http://www.rdocumentation.org/packages/datasets/functions/airquality.html">airquality</a> data is to predict the ozone
 pollution based on the meteorological features.
@@ -489,6 +498,7 @@ summary(imp$data)
 #&gt;                          
 #&gt;                          
 #&gt; 
+
 imp$desc
 #&gt; Imputation description
 #&gt; Target: Ozone
@@ -548,22 +558,53 @@ r$aggr
 #&gt;      524.3392
 </code></pre>
 
-<pre><code class="r">lapply(r$models, getLearnerModel)
+<pre><code class="r">lapply(r$models, getLearnerModel, more.unwrap = TRUE)
 #&gt; [[1]]
-#&gt; Model for learner.id=regr.lm; learner.class=regr.lm
-#&gt; Trained on: task.id = airq; obs = 77; features = 5
-#&gt; Hyperparameters: 
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = f, data = d)
+#&gt; 
+#&gt; Coefficients:
+#&gt;       (Intercept)            Solar.R         Wind(8,16]  
+#&gt;         -117.0954             0.0853           -27.6763  
+#&gt;       Wind(16,24]               Temp  Solar.R.dummyTRUE  
+#&gt;           -9.0988             2.0505           -27.4152  
+#&gt;    Wind.dummyTRUE  
+#&gt;            2.2535  
+#&gt; 
 #&gt; 
 #&gt; [[2]]
-#&gt; Model for learner.id=regr.lm; learner.class=regr.lm
-#&gt; Trained on: task.id = airq; obs = 78; features = 5
-#&gt; Hyperparameters: 
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = f, data = d)
+#&gt; 
+#&gt; Coefficients:
+#&gt;       (Intercept)            Solar.R         Wind(8,16]  
+#&gt;         -94.84542            0.03936          -16.26255  
+#&gt;       Wind(16,24]               Temp  Solar.R.dummyTRUE  
+#&gt;          -7.00707            1.79513          -11.08578  
+#&gt;    Wind.dummyTRUE  
+#&gt;          -0.68340  
+#&gt; 
 #&gt; 
 #&gt; [[3]]
-#&gt; Model for learner.id=regr.lm; learner.class=regr.lm
-#&gt; Trained on: task.id = airq; obs = 77; features = 5
-#&gt; Hyperparameters:
-</code></pre></div>
+#&gt; 
+#&gt; Call:
+#&gt; stats::lm(formula = f, data = d)
+#&gt; 
+#&gt; Coefficients:
+#&gt;       (Intercept)            Solar.R         Wind(8,16]  
+#&gt;         -57.30438            0.07426          -30.70737  
+#&gt;       Wind(16,24]               Temp  Solar.R.dummyTRUE  
+#&gt;         -18.25055            1.35898           -2.16654  
+#&gt;    Wind.dummyTRUE  
+#&gt;          -5.56400
+</code></pre>
+
+<p>A second possibility to fuse a learner with imputation is provided by <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a>,
+which is an interface to <a href="http://www.rdocumentation.org/packages/caret/">caret</a>'s <a href="http://www.rdocumentation.org/packages/caret/functions/preProcess.html">preProcess</a> function.
+<a href="http://www.rdocumentation.org/packages/caret/functions/preProcess.html">preProcess</a> only works for numeric features and offers imputation by
+k-nearest neighbors, bagged trees, and by the median.</p></div>
             
         </div>
 
