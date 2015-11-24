@@ -148,7 +148,7 @@
                         
                             
 <li >
-    <a href="../impute/index.html">Imputations</a>
+    <a href="../impute/index.html">Imputation</a>
 </li>
 
                         
@@ -202,7 +202,7 @@
                         
                             
 <li >
-    <a href="../learning_curve/index.html">Learning Curve</a>
+    <a href="../learning_curve/index.html">Learning Curves</a>
 </li>
 
                         
@@ -241,7 +241,7 @@
                         
                             
 <li >
-    <a href="../create_imputation/index.html">Create an Imputation Method</a>
+    <a href="../create_imputation/index.html">Create Imputation Methods</a>
 </li>
 
                         
@@ -393,7 +393,7 @@ r
 #&gt; cindex.aggr: 0.63
 #&gt; cindex.mean: 0.63
 #&gt; cindex.sd: 0.05
-#&gt; Runtime: 0.159528
+#&gt; Runtime: 0.167005
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;measures.train&quot; &quot;measures.test&quot; 
@@ -467,10 +467,10 @@ r = resample(&quot;cluster.kmeans&quot;, task, rdesc, measures = list(dunn, db, 
 #&gt; [Resample] subsampling iter: 3
 #&gt; [Resample] subsampling iter: 4
 #&gt; [Resample] subsampling iter: 5
-#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.0012
+#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.001
 r$aggr
 #&gt;      dunn.test.mean        db.test.mean timetrain.test.mean 
-#&gt;           0.2738893           0.5103655           0.0012000
+#&gt;           0.2738893           0.5103655           0.0010000
 </code></pre>
 
 <h2 id="stratified-resampling">Stratified resampling</h2>
