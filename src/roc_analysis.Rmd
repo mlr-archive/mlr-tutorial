@@ -392,10 +392,11 @@ curves. Like [&plotROCRCurves] it has S3 methods for objects of class [&Predicti
 [&ResampleResult] and [&BenchmarkResult].
 Below plots for the benchmark experiment (Example 2) are generated.
 
-```{r}
+
+```{r, error = TRUE}
 z = plotViperCharts(res, chart = "rocc", browse = FALSE)
 ```
 
-You can see the plot created this way [here](`r z`).
+`r if (exists("z")){"You can see the plot created this way [here](z)."}`
 Note that besides ROC curves you get several other plots like lift charts or cost curves.
 For details, see [&plotViperCharts].
