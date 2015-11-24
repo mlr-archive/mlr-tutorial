@@ -29,7 +29,7 @@ install:
     - sudo R --no-save <<< 'library("devtools"); install_github("berndbischl/ParamHelpers")'
     - sudo R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr", dependencies = TRUE)'
     - curl -L https://raw.githubusercontent.com/mllg/travis-r-tools/master/update-packages.r -o /tmp/update-packages.r
-    - Rscript /tmp/update-packages.r
+    - sudo Rscript /tmp/update-packages.r
     - sudo pip install mkdocs
     - wget https://github.com/mitya57/python-markdown-math/archive/master.zip
     - unzip master.zip
