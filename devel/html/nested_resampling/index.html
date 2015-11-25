@@ -148,7 +148,7 @@
                         
                             
 <li >
-    <a href="../impute/index.html">Imputations</a>
+    <a href="../impute/index.html">Imputation</a>
 </li>
 
                         
@@ -202,7 +202,7 @@
                         
                             
 <li >
-    <a href="../learning_curve/index.html">Learning Curve</a>
+    <a href="../learning_curve/index.html">Learning Curves</a>
 </li>
 
                         
@@ -241,7 +241,7 @@
                         
                             
 <li >
-    <a href="../create_imputation/index.html">Create an Imputation Method</a>
+    <a href="../create_imputation/index.html">Create Imputation Methods</a>
 </li>
 
                         
@@ -339,8 +339,8 @@
 <h1 id="nested-resampling">Nested Resampling</h1>
 <p>In order to obtain honest performance estimates for a learner all parts of the model building
 like preprocessing and model selection steps should be included in the resampling, i.e.,
-repeated for every training/test data pair.
-For steps that themselves require resampling like parameter <a href="../tune/index.html">tuning</a> or
+repeated for every pair of training/test data.
+For steps that themselves require resampling like <a href="../tune/index.html">parameter tuning</a> or
 <a href="../feature_selection/index.html">feature selection</a> (via the wrapper approach) this results in two
 nested resampling loops.</p>
 <p><img alt="nested resampling" src="../../../images/nested_resampling.png" title="nested resampling" />
@@ -352,7 +352,7 @@ resampling loop.
 This way, we get one set of selected hyperparameters for each outer training set.
 Then the learner is fitted on each outer training set using the corresponding selected
 hyperparameters and its performance is evaluated on the outer test sets.</p>
-<p>In <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>, we can get nested resampling for free without programming any looping by
+<p>In <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>, you can get nested resampling for free without programming any looping by
 using the <a href="../wrapper/index.html">wrapper functionality</a>. This works as follows:</p>
 <ol>
 <li>Generate a wrapped <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> via function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTuneWrapper.html">makeTuneWrapper</a> or <a href="http://www.rdocumentation.org/packages/mlr/functions/makeFeatSelWrapper.html">makeFeatSelWrapper</a>.
@@ -376,9 +376,10 @@ or <a href="http://www.rdocumentation.org/packages/mlr/functions/FeatSelControl.
 <p>Nested resampling is computationally expensive.
 For this reason in the examples shown below we use relatively small search spaces and a low
 number of resampling iterations. In practice, you normally have to increase both.
-You might want to have a look at section <a href="../parallelization/index.html">parallelization</a>.</p>
+As this is computationally intensive you might want to have a look at section
+<a href="../parallelization/index.html">parallelization</a>.</p>
 <h2 id="tuning">Tuning</h2>
-<p>As you might recall from the tutorial section about <a href="../tune/index.html">tuning</a>, you need to define a search space by
+<p>As you might recall from the tutorial page about <a href="../tune/index.html">tuning</a>, you need to define a search space by
 function <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/makeParamSet.html">makeParamSet</a>, a search strategy by <a href="http://www.rdocumentation.org/packages/mlr/functions/TuneControl.html">makeTuneControl*</a>,
 and a method to evaluate hyperparameter settings (i.e., the inner resampling strategy and a performance measure).</p>
 <p>Below is a classification example.
@@ -411,10 +412,10 @@ r
 #&gt; mmce.aggr: 0.05
 #&gt; mmce.mean: 0.05
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 24.242
+#&gt; Runtime: 18.9149
 </code></pre>
 
-<p>You can obtain the error rates on the 3 outer test sets by</p>
+<p>You can obtain the error rates on the 3 outer test sets by:</p>
 <pre><code class="r">r$measures.test
 #&gt;   iter mmce
 #&gt; 1    1 0.02
@@ -431,7 +432,8 @@ the <code>extract</code> option of <a href="http://www.rdocumentation.org/packag
 Function <a href="http://www.rdocumentation.org/packages/mlr/functions/getTuneResult.html">getTuneResult</a> returns, among other things, the optimal hyperparameter values and
 the <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/optPath.html">optimization path</a> for each iteration of the outer resampling loop.
 Note that the performance values shown when printing <code>r$extract</code> are the aggregated performances
-resulting from inner resampling on the outer training set for the best hyperparameter configurations.</p>
+resulting from inner resampling on the outer training set for the best hyperparameter configurations
+(not to be confused with <code>r$measures.test</code> shown above).</p>
 <pre><code class="r">r$extract
 #&gt; [[1]]
 #&gt; Tune result:
@@ -464,16 +466,16 @@ resampling iteration.</p>
 <pre><code class="r">opt.paths = getNestedTuneResultsOptPathDf(r)
 head(opt.paths, 10)
 #&gt;       C sigma mmce.test.mean dob eol error.message exec.time iter
-#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.057    1
-#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.052    1
-#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.052    1
-#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.052    1
-#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.051    1
-#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.054    1
-#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.056    1
-#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.053    1
-#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.053    1
-#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.056    1
+#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.046    1
+#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.045    1
+#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.046    1
+#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.047    1
+#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.046    1
+#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.046    1
+#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.046    1
+#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.045    1
+#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.046    1
+#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.049    1
 </code></pre>
 
 <p>Below we visualize the <code>opt.path</code>s for the 3 outer resampling iterations.</p>
@@ -520,7 +522,7 @@ r
 #&gt; mse.aggr: 31.70
 #&gt; mse.mean: 31.70
 #&gt; mse.sd: 4.79
-#&gt; Runtime: 54.5295
+#&gt; Runtime: 49.0522
 
 r$measures.test
 #&gt;   iter      mse
@@ -568,12 +570,12 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      80.48765
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      63.06724
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.026
+#&gt; 1   1   2          &lt;NA&gt;     0.022
 #&gt; 2   2   2          &lt;NA&gt;     0.038
-#&gt; 3   2   2          &lt;NA&gt;     0.037
-#&gt; 4   2   2          &lt;NA&gt;     0.037
-#&gt; 5   2   2          &lt;NA&gt;     0.042
-#&gt; 6   2   2          &lt;NA&gt;     0.036
+#&gt; 3   2   2          &lt;NA&gt;     0.034
+#&gt; 4   2   2          &lt;NA&gt;     0.034
+#&gt; 5   2   2          &lt;NA&gt;     0.034
+#&gt; 6   2   2          &lt;NA&gt;     0.034
 </code></pre>
 
 <p>An easy-to-read version of the optimization path for sequential feature selection can be
@@ -603,7 +605,7 @@ obtained with function <a href="http://www.rdocumentation.org/packages/mlr/funct
 <p>Filter methods assign an importance value to each feature.
 Based on these values you can select a feature subset by either keeping all features with importance
 higher than a certain threshold or by keeping a fixed number or percentage of the highest ranking features.
-Normally, neither the theshold nor the number or percentage of features is known in advance
+Often, neither the theshold nor the number or percentage of features is known in advance
 and thus tuning is necessary.</p>
 <p>In the example below the threshold value (<code>fw.threshold</code>) is tuned in the inner resampling loop.
 For this purpose the base <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> <code>"regr.lm"</code> is wrapped two times.
@@ -626,7 +628,7 @@ r
 #&gt; mse.aggr: 25.39
 #&gt; mse.mean: 25.39
 #&gt; mse.sd: 8.35
-#&gt; Runtime: 10.5803
+#&gt; Runtime: 8.5303
 </code></pre>
 
 <h4 id="accessing-the-selected-features-and-optimal-percentage">Accessing the selected features and optimal percentage</h4>
@@ -687,12 +689,12 @@ res
 opt.paths = lapply(res, function(x) as.data.frame(x$opt.path))
 opt.paths[[1]]
 #&gt;   fw.threshold mse.test.mean dob eol error.message exec.time
-#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.674
-#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.324
-#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.313
-#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.296
-#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.282
-#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.269
+#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.560
+#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.273
+#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.262
+#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.245
+#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.233
+#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.218
 </code></pre>
 
 <h2 id="benchmark-experiments">Benchmark experiments</h2>
@@ -847,24 +849,24 @@ tune.res
 
 getNestedTuneResultsOptPathDf(res$results[[&quot;Sonar-example&quot;]][[&quot;classif.ksvm.tuned&quot;]])
 #&gt;      C sigma mmce.test.mean dob eol error.message exec.time iter
-#&gt; 1  0.5   0.5      0.3428571   1  NA          &lt;NA&gt;     0.058    1
-#&gt; 2    1   0.5      0.3428571   2  NA          &lt;NA&gt;     0.062    1
-#&gt; 3    2   0.5      0.3428571   3  NA          &lt;NA&gt;     0.056    1
-#&gt; 4  0.5     1      0.3428571   4  NA          &lt;NA&gt;     0.057    1
-#&gt; 5    1     1      0.3428571   5  NA          &lt;NA&gt;     0.059    1
-#&gt; 6    2     1      0.3428571   6  NA          &lt;NA&gt;     0.058    1
-#&gt; 7  0.5     2      0.3428571   7  NA          &lt;NA&gt;     0.059    1
-#&gt; 8    1     2      0.3428571   8  NA          &lt;NA&gt;     0.060    1
-#&gt; 9    2     2      0.3428571   9  NA          &lt;NA&gt;     0.057    1
-#&gt; 10 0.5   0.5      0.2142857   1  NA          &lt;NA&gt;     0.059    2
-#&gt; 11   1   0.5      0.2142857   2  NA          &lt;NA&gt;     0.060    2
-#&gt; 12   2   0.5      0.2000000   3  NA          &lt;NA&gt;     0.057    2
-#&gt; 13 0.5     1      0.2142857   4  NA          &lt;NA&gt;     0.059    2
-#&gt; 14   1     1      0.2142857   5  NA          &lt;NA&gt;     0.061    2
-#&gt; 15   2     1      0.2142857   6  NA          &lt;NA&gt;     0.061    2
-#&gt; 16 0.5     2      0.2142857   7  NA          &lt;NA&gt;     0.059    2
-#&gt; 17   1     2      0.2142857   8  NA          &lt;NA&gt;     0.062    2
-#&gt; 18   2     2      0.2142857   9  NA          &lt;NA&gt;     0.058    2
+#&gt; 1  0.5   0.5      0.3428571   1  NA          &lt;NA&gt;     0.048    1
+#&gt; 2    1   0.5      0.3428571   2  NA          &lt;NA&gt;     0.049    1
+#&gt; 3    2   0.5      0.3428571   3  NA          &lt;NA&gt;     0.046    1
+#&gt; 4  0.5     1      0.3428571   4  NA          &lt;NA&gt;     0.048    1
+#&gt; 5    1     1      0.3428571   5  NA          &lt;NA&gt;     0.048    1
+#&gt; 6    2     1      0.3428571   6  NA          &lt;NA&gt;     0.049    1
+#&gt; 7  0.5     2      0.3428571   7  NA          &lt;NA&gt;     0.048    1
+#&gt; 8    1     2      0.3428571   8  NA          &lt;NA&gt;     0.052    1
+#&gt; 9    2     2      0.3428571   9  NA          &lt;NA&gt;     0.048    1
+#&gt; 10 0.5   0.5      0.2142857   1  NA          &lt;NA&gt;     0.051    2
+#&gt; 11   1   0.5      0.2142857   2  NA          &lt;NA&gt;     0.048    2
+#&gt; 12   2   0.5      0.2000000   3  NA          &lt;NA&gt;     0.047    2
+#&gt; 13 0.5     1      0.2142857   4  NA          &lt;NA&gt;     0.050    2
+#&gt; 14   1     1      0.2142857   5  NA          &lt;NA&gt;     0.048    2
+#&gt; 15   2     1      0.2142857   6  NA          &lt;NA&gt;     0.050    2
+#&gt; 16 0.5     2      0.2142857   7  NA          &lt;NA&gt;     0.051    2
+#&gt; 17   1     2      0.2142857   8  NA          &lt;NA&gt;     0.051    2
+#&gt; 18   2     2      0.2142857   9  NA          &lt;NA&gt;     0.051    2
 </code></pre>
 
 <h3 id="example-2-one-task-two-learners-feature-selection">Example 2: One task, two learners, feature selection</h3>
@@ -935,12 +937,12 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      86.93409
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      76.32457
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.020
-#&gt; 2   2   2          &lt;NA&gt;     0.025
-#&gt; 3   2   2          &lt;NA&gt;     0.028
-#&gt; 4   2   2          &lt;NA&gt;     0.026
-#&gt; 5   2   2          &lt;NA&gt;     0.029
-#&gt; 6   2   2          &lt;NA&gt;     0.028
+#&gt; 1   1   2          &lt;NA&gt;     0.018
+#&gt; 2   2   2          &lt;NA&gt;     0.023
+#&gt; 3   2   2          &lt;NA&gt;     0.023
+#&gt; 4   2   2          &lt;NA&gt;     0.024
+#&gt; 5   2   2          &lt;NA&gt;     0.025
+#&gt; 6   2   2          &lt;NA&gt;     0.023
 
 analyzeFeatSelResult(feats[[1]])
 #&gt; Features         : 8
