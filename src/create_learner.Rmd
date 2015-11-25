@@ -13,14 +13,14 @@ also possible to define a new type of learner that has special properties and
 does not fit into one of the existing schemes, this is much more advanced and
 not covered here.
 
-## Classification
 
+## Classification
 We show how the [Linear Discriminant Analysis](&MASS::lda) from
 package [%MASS] has been integrated
 into the classification learner ``classif.lda`` in [%mlr] as an example.
 
-### Definition of the learner
 
+### Definition of the learner
 The minimal information required to define a learner is the [%mlr] name of the
 learner, its package, the parameter set, and the set of properties of your
 learner. In addition, you may provide a human-readable name, a short name and a
@@ -95,8 +95,8 @@ makeRLearner.classif.lda = function() {
 }
 ```
 
-### Creating the training function of the learner
 
+### Creating the training function of the learner
 Once the learner has been defined, we need to tell [%mlr] how to call it to
 train a model. The name of the function has to start with ``trainLearner.``,
 followed by the [%mlr] name of the learner as defined above (``classif.lda``
@@ -124,8 +124,8 @@ trainLearner.classif.lda = function(.learner, .task, .subset, .weights = NULL,  
 }
 ```
 
-### Creating the prediction method
 
+### Creating the prediction method
 Finally, the prediction function needs to be defined. The name of this function
 starts with ``predictLearner.``, followed again by the [%mlr] name of the
 learner. The prototype of the function is as follows.
@@ -159,8 +159,8 @@ predictLearner.classif.lda = function(.learner, .model, .newdata, predict.method
 }
 ```
 
-## Regression
 
+## Regression
 The main difference for regression is that the type of predictions are different
 (numeric instead of labels or probabilities) and that not all of the properties
 are relevant. In particular, whether one-, two-, or multi-class problems and
@@ -213,8 +213,8 @@ predictLearner.regr.earth = function(.learner, .model, .newdata, ...) {
 Again most of the data is passed straight through to/from the train/predict
 functions of the learner.
 
-## Survival Analysis
 
+## Survival analysis
 For survival analysis, you have to return so-called linear predictors in order to compute
 the default measure for this task type, the [cindex](measures.md) (for
 ``.learner$predict.type`` == ``"response"``). For ``.learner$predict.type`` == ``"prob"``,
@@ -281,8 +281,8 @@ predictLearner.surv.coxph = function(.learner, .model, .newdata, ...) {
 }
 ```
 
-## Clustering
 
+## Clustering
 For clustering, you have to return a numeric vector with the IDs of the clusters
 that the respective datum has been assigned to. The numbering should start at 1.
 
@@ -321,8 +321,8 @@ predictLearner.cluster.FarthestFirst = function(.learner, .model, .newdata, ...)
 }
 ```
 
-## Multilabel classification
 
+## Multilabel classification
 As stated in the [multilabel](multilabel.md) section, multilabel classification
 methods can be divided into problem transformation methods and algorithm adaptation methods.
 
