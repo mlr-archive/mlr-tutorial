@@ -95,6 +95,7 @@ Per default, Bad is the positive class.
 data(GermanCredit, package = "caret")
 credit.task = makeClassifTask(data = GermanCredit, target = "Class")
 credit.task = removeConstantFeatures(credit.task)
+
 credit.task
 
 costs = matrix(c(0, 1, 5, 0), 2)
@@ -158,7 +159,8 @@ It is expected that the rows of the cost matrix indicate true and the columns pr
 class labels.
 
 ```{r}
-credit.costs = makeCostMeasure(id = "credit.costs", costs = costs, task = credit.task, best = 0, worst = 5)
+credit.costs = makeCostMeasure(id = "credit.costs", name = "Credit costs", costs = costs, task = credit.task,
+  best = 0, worst = 5)
 credit.costs
 ```
 
@@ -420,8 +422,8 @@ costs = matrix(c(0, 5, 10, 30, 0, 8, 80, 4, 0), 3)
 colnames(costs) = rownames(costs) = getTaskClassLevels(wf.task)
 
 ## Performance measure
-wf.costs = makeCostMeasure(id = "wf.costs", costs = costs, task = wf.task, best = 0,
-  worst = 10)
+wf.costs = makeCostMeasure(id = "wf.costs", name = "Waveform costs", costs = costs, task = wf.task,
+  best = 0, worst = 10)
 ```
 
 In the multi-class case, both, *thresholding* and *rebalancing* correspond to cost matrices
