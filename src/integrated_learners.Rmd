@@ -27,7 +27,7 @@ linkPkg = function(x) {
 }
 
 getTab = function(type) {
-  lrns = listLearners(type, create = TRUE, warn.missing.packages = FALSE)
+  lrns = listLearners(type, create = TRUE, warn.missing.packages = TRUE)
   cols = c("ID / Short Name", "Name", "Packages", "Num.", "Fac.", "NAs", "Weights", "Props", "Note")
   df = makeDataFrame(nrow = length(lrns), ncol = length(cols),
     col.types = c("character", "character", "character", "logical", "logical", "logical", "logical", "character", "character"))
