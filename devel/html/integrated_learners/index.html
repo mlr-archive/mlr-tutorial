@@ -358,6 +358,104 @@ Moreover, the type of prediction is displayed, where <em>prob</em> indicates tha
 can be predicted.
 For <em>regression</em>, <em>se</em> means that additional to the mean response standard errors can be predicted.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
+<pre><code class="r">library(&quot;mlr&quot;)
+library(&quot;pander&quot;)
+linkPkg = function(x) {
+  collapse(sprintf(&quot;[%1$s](http://www.rdocumentation.org/packages/%1$s/)&quot;, x), sep = &quot;&lt;br /&gt;&quot;)
+}
+
+getTab = function(type) {
+  lrns = listLearners(type, create = TRUE, warn.missing.packages = TRUE, quiet = FALSE)
+  cols = c(&quot;ID / Short Name&quot;, &quot;Name&quot;, &quot;Packages&quot;, &quot;Num.&quot;, &quot;Fac.&quot;, &quot;NAs&quot;, &quot;Weights&quot;, &quot;Props&quot;, &quot;Note&quot;)
+  df = makeDataFrame(nrow = length(lrns), ncol = length(cols),
+    col.types = c(&quot;character&quot;, &quot;character&quot;, &quot;character&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;character&quot;, &quot;character&quot;))
+  names(df) = cols
+
+  cn = function(x) if (is.null(x)) NA else gsub(&quot;\\n&quot;, &quot; &quot;, x)
+
+  for (i in seq_along(lrns)) {
+    lrn = lrns[[i]]
+    df[i, 1] = paste0(&quot;**&quot;,lrn$id,&quot;** &lt;br /&gt;&quot;, cn(lrn$short.name))
+    df[i, 2] = cn(lrn$name)
+    df[i, 3] = linkPkg(mlr:::cleanupPackageNames(lrn$package))
+    df[i, 4] = hasLearnerProperties(lrn, &quot;numerics&quot;)
+    df[i, 5] = hasLearnerProperties(lrn, &quot;factors&quot;)
+    df[i, 6] = hasLearnerProperties(lrn, &quot;missings&quot;)
+    df[i, 7] = hasLearnerProperties(lrn, &quot;weights&quot;)
+    df[i, 8] = collapse(sort(setdiff(lrn$properties, c(&quot;numerics&quot;, &quot;factors&quot;, &quot;missings&quot;, &quot;weights&quot;))), sep = &quot;&lt;br /&gt;&quot;)
+    df[i, 9] = cn(lrn$note)
+  }
+  logicals = vlapply(df, is.logical)
+  df[logicals] = lapply(df[logicals], function(x) ifelse(x, &quot;X&quot;, &quot;&quot;))
+  df
+}
+
+makeTab = function(df) {
+  pandoc.table(df, style = &quot;rmarkdown&quot;, split.tables = Inf, split.cells = Inf,
+    justify = c(&quot;left&quot;, &quot;left&quot;, &quot;left&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;left&quot;, &quot;left&quot;))
+}
+
+types = c(&quot;classif&quot;, &quot;multilabel&quot;, &quot;regr&quot;, &quot;surv&quot;, &quot;cluster&quot;)
+tables = lapply(types, getTab)
+#&gt; Loading required package: kknn
+#&gt; 
+#&gt; Attaching package: 'kknn'
+#&gt; 
+#&gt; The following object is masked from 'package:caret':
+#&gt; 
+#&gt;     contr.dummy
+#&gt; 
+#&gt; Loading required package: mda
+#&gt; Loading required package: class
+#&gt; Loaded mda 0.4-7
+#&gt; 
+#&gt; Loading required package: rrlda
+#&gt; Loading required package: pcaPP
+#&gt; Loading required package: mvoutlier
+#&gt; Loading required package: sgeostat
+#&gt; sROC 0.1-2 loaded
+#&gt; Loading required package: glasso
+#&gt; Loading required package: matrixcalc
+#&gt; Loading required package: sparseLDA
+#&gt; 
+#&gt; Attaching package: 'sparseLDA'
+#&gt; 
+#&gt; The following object is masked from 'package:BBmisc':
+#&gt; 
+#&gt;     normalize
+#&gt; 
+#&gt; Loading required package: elasticnet
+#&gt; Loading required package: lars
+#&gt; Loaded lars 1.2
+#&gt; 
+#&gt; Loading required package: crs
+#&gt; Categorical Regression Splines (version 0.15-24)
+#&gt; [vignette(&quot;crs_faq&quot;) provides answers to frequently asked questions]
+#&gt; Warning in listLearners.character(type, create = TRUE, warn.missing.packages = TRUE, : The following learners could not be constructed, probably because their packages are not installed:
+#&gt; regr.km,regr.laGP,regr.slim
+#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
+#&gt; Loading required package: CoxBoost
+#&gt; Loading required package: survival
+#&gt; 
+#&gt; Attaching package: 'survival'
+#&gt; 
+#&gt; The following object is masked from 'package:caret':
+#&gt; 
+#&gt;     cluster
+#&gt; 
+#&gt; Loading required package: prodlim
+#&gt; Loading required package: CoxBoost
+#&gt; Loading required package: prodlim
+#&gt; Warning in listLearners.character(type, create = TRUE, warn.missing.packages = TRUE, : The following learners could not be constructed, probably because their packages are not installed:
+#&gt; surv.CoxBoost,surv.optimCoxBoostPenalty
+#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
+#&gt; Warning in listLearners.character(type, create = TRUE, warn.missing.packages = TRUE, : The following learners could not be constructed, probably because their packages are not installed:
+#&gt; cluster.cmeans,cluster.kmeans
+#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
+names(tables) = types
+numbers = sapply(tables, nrow)
+</code></pre>
+
 <h3 id="classification-70">Classification (70)</h3>
 <table>
 <thead>
