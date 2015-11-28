@@ -19,7 +19,7 @@ For *regression*, *se* means that additional to the mean response standard error
 See also [&RLearner] for details.
 
 
-```{r include=FALSE}
+```{r include=TRUE}
 library("mlr")
 library("pander")
 linkPkg = function(x) {
@@ -27,7 +27,7 @@ linkPkg = function(x) {
 }
 
 getTab = function(type) {
-  lrns = listLearners(type, create = TRUE, warn.missing.packages = TRUE)
+  lrns = listLearners(type, create = TRUE, warn.missing.packages = TRUE, quiet = FALSE)
   cols = c("ID / Short Name", "Name", "Packages", "Num.", "Fac.", "NAs", "Weights", "Props", "Note")
   df = makeDataFrame(nrow = length(lrns), ncol = length(cols),
     col.types = c("character", "character", "character", "logical", "logical", "logical", "logical", "character", "character"))
