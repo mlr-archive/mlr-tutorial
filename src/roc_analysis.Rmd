@@ -397,6 +397,6 @@ Below plots for the benchmark experiment (Example 2) are generated.
 z = plotViperCharts(res, chart = "rocc", browse = FALSE)
 ```
 
-`r if (exists("z")){"You can see the plot created this way [here](z)."}`
+`r if (exists("z")){paste("You can see the plot created this way [here](", z, ").")}`
 Note that besides ROC curves you get several other plots like lift charts or cost curves.
 For details, see [&plotViperCharts].
