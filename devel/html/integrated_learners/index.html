@@ -327,11 +327,11 @@
         
             <li><a href="#classification-70">Classification (70)</a></li>
         
-            <li><a href="#regression-49">Regression (49)</a></li>
+            <li><a href="#regression-52">Regression (52)</a></li>
         
-            <li><a href="#survival-analysis-9">Survival analysis (9)</a></li>
+            <li><a href="#survival-analysis-11">Survival analysis (11)</a></li>
         
-            <li><a href="#cluster-analysis-5">Cluster analysis (5)</a></li>
+            <li><a href="#cluster-analysis-7">Cluster analysis (7)</a></li>
         
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
         
@@ -358,104 +358,6 @@ Moreover, the type of prediction is displayed, where <em>prob</em> indicates tha
 can be predicted.
 For <em>regression</em>, <em>se</em> means that additional to the mean response standard errors can be predicted.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
-<pre><code class="r">library(&quot;mlr&quot;)
-library(&quot;pander&quot;)
-linkPkg = function(x) {
-  collapse(sprintf(&quot;[%1$s](http://www.rdocumentation.org/packages/%1$s/)&quot;, x), sep = &quot;&lt;br /&gt;&quot;)
-}
-
-getTab = function(type) {
-  lrns = listLearners(type, create = TRUE, warn.missing.packages = TRUE, quiet = FALSE)
-  cols = c(&quot;ID / Short Name&quot;, &quot;Name&quot;, &quot;Packages&quot;, &quot;Num.&quot;, &quot;Fac.&quot;, &quot;NAs&quot;, &quot;Weights&quot;, &quot;Props&quot;, &quot;Note&quot;)
-  df = makeDataFrame(nrow = length(lrns), ncol = length(cols),
-    col.types = c(&quot;character&quot;, &quot;character&quot;, &quot;character&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;character&quot;, &quot;character&quot;))
-  names(df) = cols
-
-  cn = function(x) if (is.null(x)) NA else gsub(&quot;\\n&quot;, &quot; &quot;, x)
-
-  for (i in seq_along(lrns)) {
-    lrn = lrns[[i]]
-    df[i, 1] = paste0(&quot;**&quot;,lrn$id,&quot;** &lt;br /&gt;&quot;, cn(lrn$short.name))
-    df[i, 2] = cn(lrn$name)
-    df[i, 3] = linkPkg(mlr:::cleanupPackageNames(lrn$package))
-    df[i, 4] = hasLearnerProperties(lrn, &quot;numerics&quot;)
-    df[i, 5] = hasLearnerProperties(lrn, &quot;factors&quot;)
-    df[i, 6] = hasLearnerProperties(lrn, &quot;missings&quot;)
-    df[i, 7] = hasLearnerProperties(lrn, &quot;weights&quot;)
-    df[i, 8] = collapse(sort(setdiff(lrn$properties, c(&quot;numerics&quot;, &quot;factors&quot;, &quot;missings&quot;, &quot;weights&quot;))), sep = &quot;&lt;br /&gt;&quot;)
-    df[i, 9] = cn(lrn$note)
-  }
-  logicals = vlapply(df, is.logical)
-  df[logicals] = lapply(df[logicals], function(x) ifelse(x, &quot;X&quot;, &quot;&quot;))
-  df
-}
-
-makeTab = function(df) {
-  pandoc.table(df, style = &quot;rmarkdown&quot;, split.tables = Inf, split.cells = Inf,
-    justify = c(&quot;left&quot;, &quot;left&quot;, &quot;left&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;left&quot;, &quot;left&quot;))
-}
-
-types = c(&quot;classif&quot;, &quot;multilabel&quot;, &quot;regr&quot;, &quot;surv&quot;, &quot;cluster&quot;)
-tables = lapply(types, getTab)
-#&gt; Loading required package: kknn
-#&gt; 
-#&gt; Attaching package: 'kknn'
-#&gt; 
-#&gt; The following object is masked from 'package:caret':
-#&gt; 
-#&gt;     contr.dummy
-#&gt; 
-#&gt; Loading required package: mda
-#&gt; Loading required package: class
-#&gt; Loaded mda 0.4-7
-#&gt; 
-#&gt; Loading required package: rrlda
-#&gt; Loading required package: pcaPP
-#&gt; Loading required package: mvoutlier
-#&gt; Loading required package: sgeostat
-#&gt; sROC 0.1-2 loaded
-#&gt; Loading required package: glasso
-#&gt; Loading required package: matrixcalc
-#&gt; Loading required package: sparseLDA
-#&gt; 
-#&gt; Attaching package: 'sparseLDA'
-#&gt; 
-#&gt; The following object is masked from 'package:BBmisc':
-#&gt; 
-#&gt;     normalize
-#&gt; 
-#&gt; Loading required package: elasticnet
-#&gt; Loading required package: lars
-#&gt; Loaded lars 1.2
-#&gt; 
-#&gt; Loading required package: crs
-#&gt; Categorical Regression Splines (version 0.15-24)
-#&gt; [vignette(&quot;crs_faq&quot;) provides answers to frequently asked questions]
-#&gt; Warning in listLearners.character(type, create = TRUE, warn.missing.packages = TRUE, : The following learners could not be constructed, probably because their packages are not installed:
-#&gt; regr.km,regr.laGP,regr.slim
-#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
-#&gt; Loading required package: CoxBoost
-#&gt; Loading required package: survival
-#&gt; 
-#&gt; Attaching package: 'survival'
-#&gt; 
-#&gt; The following object is masked from 'package:caret':
-#&gt; 
-#&gt;     cluster
-#&gt; 
-#&gt; Loading required package: prodlim
-#&gt; Loading required package: CoxBoost
-#&gt; Loading required package: prodlim
-#&gt; Warning in listLearners.character(type, create = TRUE, warn.missing.packages = TRUE, : The following learners could not be constructed, probably because their packages are not installed:
-#&gt; surv.CoxBoost,surv.optimCoxBoostPenalty
-#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
-#&gt; Warning in listLearners.character(type, create = TRUE, warn.missing.packages = TRUE, : The following learners could not be constructed, probably because their packages are not installed:
-#&gt; cluster.cmeans,cluster.kmeans
-#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
-names(tables) = types
-numbers = sapply(tables, nrow)
-</code></pre>
-
 <h3 id="classification-70">Classification (70)</h3>
 <table>
 <thead>
@@ -1244,7 +1146,7 @@ numbers = sapply(tables, nrow)
 </tr>
 </tbody>
 </table>
-<h3 id="regression-49">Regression (49)</h3>
+<h3 id="regression-52">Regression (52)</h3>
 <table>
 <thead>
 <tr>
@@ -1558,6 +1460,17 @@ numbers = sapply(tables, nrow)
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>regr.km</strong> <br />km</td>
+<td align="left">Kriging</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/DiceKriging/">DiceKriging</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">se</td>
+<td align="left">In predict, we currently always use type = 'SK'. The extra param 'jitter' (default is FALSE) enables adding a very small jitter (order 1e-12) to the x-values before prediction, as predict.km reproduces the exact y-values of the training data points, when you pass them in, even if the nugget effect is turned on.</td>
+</tr>
+<tr>
 <td align="left"><strong>regr.ksvm</strong> <br />ksvm</td>
 <td align="left">Support Vector Machines</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/kernlab/">kernlab</a></td>
@@ -1567,6 +1480,17 @@ numbers = sapply(tables, nrow)
 <td align="center"></td>
 <td align="left"></td>
 <td align="left">Kernel parameters have to be passed directly and not by using the kpar list in ksvm. Note that <code>fit</code> has been set to <code>FALSE</code> by default for speed.</td>
+</tr>
+<tr>
+<td align="left"><strong>regr.laGP</strong> <br />laGP</td>
+<td align="left">Local Approximate Gaussian Process</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/laGP/">laGP</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">se</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>regr.LiblineaRL2L1SVR</strong> <br />liblinl2l1svr</td>
@@ -1767,6 +1691,17 @@ numbers = sapply(tables, nrow)
 <td align="left">Kernel parameters have to be passed directly and not by using the kpar list in rvm.   Note that <code>fit</code> has been set to <code>FALSE</code> by default for speed.</td>
 </tr>
 <tr>
+<td align="left"><strong>regr.slim</strong> <br />slim</td>
+<td align="left">Sparse Linear Regression using Nonsmooth Loss Functions and L1 Regularization</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/flare/">flare</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left">lambda.idx has been set to 3 by default</td>
+</tr>
+<tr>
 <td align="left"><strong>regr.svm</strong> <br />svm</td>
 <td align="left">Support Vector Machines (libsvm)</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/e1071/">e1071</a></td>
@@ -1801,7 +1736,7 @@ numbers = sapply(tables, nrow)
 </tr>
 </tbody>
 </table>
-<h3 id="survival-analysis-9">Survival analysis (9)</h3>
+<h3 id="survival-analysis-11">Survival analysis (11)</h3>
 <table>
 <thead>
 <tr>
@@ -1827,6 +1762,17 @@ numbers = sapply(tables, nrow)
 <td align="center">X</td>
 <td align="left">ordered<br />rcens</td>
 <td align="left">see ?ctree_control for possible breakage for nominal features with missingness</td>
+</tr>
+<tr>
+<td align="left"><strong>surv.CoxBoost</strong> <br />coxboost</td>
+<td align="left">Cox Proportional Hazards Model with Componentwise Likelihood based Boosting</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/CoxBoost/">CoxBoost</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">ordered<br />rcens</td>
+<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.coxph</strong> <br />coxph</td>
@@ -1870,6 +1816,17 @@ numbers = sapply(tables, nrow)
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">ordered<br />rcens</td>
+<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer</td>
+</tr>
+<tr>
+<td align="left"><strong>surv.optimCoxBoostPenalty</strong> <br />optimCoxBoostPenalty</td>
+<td align="left">Cox Proportional Hazards Model with Componentwise Likelihood based Boosting, automatic tuning enabled</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/CoxBoost/">CoxBoost</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">rcens</td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer</td>
 </tr>
 <tr>
@@ -1918,7 +1875,7 @@ numbers = sapply(tables, nrow)
 </tr>
 </tbody>
 </table>
-<h3 id="cluster-analysis-5">Cluster analysis (5)</h3>
+<h3 id="cluster-analysis-7">Cluster analysis (7)</h3>
 <table>
 <thead>
 <tr>
@@ -1934,6 +1891,17 @@ numbers = sapply(tables, nrow)
 </tr>
 </thead>
 <tbody>
+<tr>
+<td align="left"><strong>cluster.cmeans</strong> <br />cmeans</td>
+<td align="left">Fuzzy C-Means Clustering</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/e1071/">e1071</a><br /><a href="http://www.rdocumentation.org/packages/clue/">clue</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob</td>
+<td align="left">The 'predict' method uses 'cl_predict' from the 'clue' package to compute the cluster memberships for new data. The default 'centers=2' is added so the method runs without setting params, but this must in reality of course be changed by the user.</td>
+</tr>
 <tr>
 <td align="left"><strong>cluster.Cobweb</strong> <br />cobweb</td>
 <td align="left">Cobweb Clustering Algorithm</td>
@@ -1966,6 +1934,17 @@ numbers = sapply(tables, nrow)
 <td align="center"></td>
 <td align="left"></td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>cluster.kmeans</strong> <br />kmeans</td>
+<td align="left">K-Means</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/stats/">stats</a><br /><a href="http://www.rdocumentation.org/packages/clue/">clue</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob</td>
+<td align="left">The 'predict' method uses 'cl_predict' from the 'clue' package to compute the cluster memberships for new data. The default 'centers=2' is added so the method runs without setting params, but this must in reality of course be changed by the user.</td>
 </tr>
 <tr>
 <td align="left"><strong>cluster.SimpleKMeans</strong> <br />simplekmeans</td>
