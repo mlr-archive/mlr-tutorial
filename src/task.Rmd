@@ -1,6 +1,6 @@
 # Learning Tasks
 Learning tasks encapsulate the data set and further relevant information about a machine
-learning problem, for example the name of the target variable.
+learning problem, for example the name of the target variable for supervised problems.
 
 
 ## Task types and creation
@@ -9,7 +9,7 @@ The following tasks can be instantiated and all inherit from the virtual supercl
 
 * [RegrTask](&Task) for regression problems,
 * [ClassifTask](&Task) for binary and multi-class classification problems
-  (normal [cost-sensitive classification](cost_sensitive_classif.md) with class-dependent costs
+  ([cost-sensitive classification](cost_sensitive_classif.md) with class-dependent costs
   can be handled as well),
 * [SurvTask](&Task) for survival analysis,
 * [ClusterTask](&Task) for cluster analysis,
@@ -20,10 +20,10 @@ The following tasks can be instantiated and all inherit from the virtual supercl
 To create a task, just call ``make<TaskType>``, e.g., [makeClassifTask](&Task).
 All tasks require an identifier (argument ``id``) and a [data.frame](&base::data.frame) (argument ``data``).
 If no ID is provided it is automatically generated using the variable name of the data.
-It will be later used to name results, for example of
+The ID will be later used to name results, for example of
 [benchmark experiments](benchmark_experiments.md), and to annotate plots.
 Depending on the nature of the learning problem, additional arguments may be required and
-are discussed in the following subsections.
+are discussed in the following sections.
 
 
 ### Regression
@@ -41,7 +41,7 @@ As you can see, the [&Task] records the type of the learning problem and basic i
 the data set, e.g., the types of the features ([numeric](&base::numeric) vectors, [factors](&base::factor) or
 [ordered factors](&base::factor)), the number of observations, or whether missing values are present.
 
-Creating tasks for classification problems and survival analysis follows the same scheme,
+Creating tasks for classification and survival analysis follows the same scheme,
 the data type of the target variables included in ``data`` is simply different.
 For each of these learning problems some specifics are described below.
 
@@ -62,11 +62,12 @@ classif.task
 ```
 
 In binary classification the two classes are usually referred to as *positive* and
-*negative* class with the positive class normally being the category of greater interest.
-This distinction is of course relevant for many [performance measures](performance.md)
+*negative* class with the positive class being the category of greater interest.
+This is relevant for many [performance measures](performance.md)
 like the *true positive rate* or [ROC curves](roc_analysis.md).
-Moreover, [%mlr], where possible, permits to set options (like the [decision threshold](&setThreshold))
-and returns and plots results (like class posterior probabilities) for the positive class only.
+Moreover, [%mlr], where possible, permits to set options (like the [decision threshold](&setThreshold)
+or [class weights](&makeWeightedClassesWrapper)) and returns and plots results (like class
+posterior probabilities) for the positive class only.
 
 [makeClassifTask](&Task) by default selects the first factor level of the target variable
 as the positive class, in the above example ``benign``.
@@ -130,7 +131,7 @@ The standard objective in classification is to obtain a high prediction accuracy
 minimize the number of errors. All types of misclassification errors are thereby deemed
 equally severe. However, in many applications different kinds of errors cause different costs.
 
-In case of *class-dependent costs*, that depend on the actual and predicted class labels only, it
+In case of *class-dependent costs*, that solely depend on the actual and predicted class labels, it
 is sufficient to create an ordinary [ClassifTask](&Task).
 
 In order to handle *example-specific costs* it is necessary to generate a [CostSensTask](&Task).
@@ -139,7 +140,7 @@ $K$ with $K$ denoting the number of classes. The $k$-th component indicates the 
 $x$ to class $k$. Naturally, it is assumed that the cost of the intended class label $y$ is
 minimal.
 
-As the cost vector contains all relevant information about the intended class label $y$, only
+As the cost vector contains all relevant information about the intended class $y$, only
 the feature values $x$ and a ``cost`` matrix, which contains the cost vectors for all examples in the data
 set, are required to create the [CostSensTask](&Task).
 
@@ -155,7 +156,7 @@ costsens.task = makeCostSensTask(data = df, cost = cost)
 costsens.task
 ```
 
-For more details see the section about [cost-sensitive classification](cost_sensitive_classif.md).
+For more details see the page about [cost-sensitive classification](cost_sensitive_classif.md).
 
 
 ## Further settings
@@ -163,8 +164,8 @@ The [&Task] help page also lists several other arguments to describe further det
 learning problem.
 
 For example, we could include a ``blocking`` factor in the task.
-This would tell the task that some observations "belong together" and should
-not be separated when splitting into training and test sets during a [resampling](resample.md) iteration.
+This would indicate that some observations "belong together" and should
+not be separated when splitting the data into training and test sets for [resampling](resample.md).
 
 Another option is to assign ``weights`` to observations.
 These can simply indicate observation frequencies or result from the sampling
@@ -180,15 +181,15 @@ We provide many operators to access the elements stored in a [&Task].
 The most important ones are listed in the documentation of [&Task] and [&getTaskData].
 
 To access the [task description](&TaskDesc) that contains basic information about
-the task you can use
+the task you can use:
 
 ```{r}
 getTaskDescription(classif.task)
 ```
 
-Note that [task description](&TaskDesc)s have slightly different elements for different
+Note that [task descriptions](&TaskDesc) have slightly different elements for different
 types of [&Task]s.
-Frequently needed elements can also be accessed directly.
+Frequently required elements can also be accessed directly.
 ```{r}
 ## Get the ID
 getTaskId(classif.task)
@@ -217,7 +218,7 @@ str(getTaskData(classif.task))
 ## Get the names of the input variables in cluster.task
 getTaskFeatureNames(cluster.task)
 
-## Get the values of the target variable in surv.task
+## Get the values of the target variables in surv.task
 head(getTaskTargets(surv.task))
 
 ## Get the cost matrix in costsens.task
@@ -225,7 +226,7 @@ head(getTaskCosts(costsens.task))
 ```
 
 Note that [&getTaskData] offers many options for converting the data set into a convenient format.
-This especially comes in handy when you [integrate a learner](create_learner.md) from another **R**
+This especially comes in handy when you [integrate a new learner](create_learner.md) from another **R**
 package into [%mlr].
 In this regard function [&getTaskFormula] is also useful.
 
@@ -257,8 +258,8 @@ For more functions and more detailed explanations have a look at the
 
 ## Example tasks and convenience functions
 For your convenience [%mlr] provides pre-defined [Task](&Task)s for each type of learning problem.
-These are used throughout this tutorial in order to get shorter and more readable code.
-A list of all [Task](&Task)s can be found [here](example_tasks.md).
+These are also used throughout this tutorial in order to get shorter and more readable code.
+A list of all [Task](&Task)s can be found in the [Appendix](example_tasks.md).
 
 Moreover, [%mlr]'s function [&convertMLBenchObjToTask] can generate [&Task]s from the data
 sets and data generating functions in package [%mlbench].
