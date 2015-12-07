@@ -18,12 +18,18 @@ can be predicted.
 For *regression*, *se* means that additional to the mean response standard errors can be predicted.
 See also [&RLearner] for details.
 
-
 ```{r include=FALSE}
 library("mlr")
 library("pander")
+# baseR, urlBasePackages, urlContribPackages are defined in build
 linkPkg = function(x) {
-  collapse(sprintf("[%1$s](http://www.rdocumentation.org/packages/%1$s/)", x), sep = "<br />")
+  if (urlBasePackages != urlContribPackages) {
+    ind = x %in% baseR
+    url = c(urlContribPackages, urlBasePackages)[ind + 1]
+  } else {
+    url = urlContribPackages
+  }
+  collapse(sprintf("[%1$s](%2$s%1$s/)", x, url), sep = "<br />")
 }
 
 getTab = function(type) {

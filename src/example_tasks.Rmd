@@ -4,8 +4,9 @@ For your convenience [%mlr] provides pre-defined [&Task]s for each type of learn
 These are used throughout this tutorial in order to get shorter and more readable code.
 
 ```{r echo=FALSE, results="asis"}
+# urlMlrFunctions, ext are defined in build
 linkTask = function(x) {
-  collapse(sprintf("[%1$s](http://www.rdocumentation.org/packages/mlr/functions/%1$s/)", x), sep = "<br />")
+  collapse(sprintf("[%1$s](%2$s%1$s%3$s)", x, urlMlrFunctions, ext), sep = "<br />")
 }
 d = data(package = "mlr")
 d = d$results

@@ -27,8 +27,9 @@ The next six columns refer to information required to calculate the performance 
 
 
 ```{r include=FALSE}
+# urlMlrFunctions, ext are defined in build
 linkFct = function(x, y) {
-  collapse(sprintf("[%1$s](http://www.rdocumentation.org/packages/mlr/functions/%2$s)", x, y), sep = "<br />")
+  collapse(sprintf("[%1$s](%3$s%2$s%4$s)", x, y, urlMlrFunctions, ext), sep = "<br />")
 }
 
 getTab = function(type) {
