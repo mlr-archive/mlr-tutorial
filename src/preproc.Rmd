@@ -350,7 +350,7 @@ r
 
 Often it's not clear which preprocessing options work best with a certain learning algorithm.
 As already shown for the number of principal components in [&makePreprocWrapperCaret] we can
-[tune](&tune.md) them easily together with other hyperparameters of the learner.
+[tune](tune.md) them easily together with other hyperparameters of the learner.
 
 In our scaling example we can try if [nnet](&nnet::nnet) works best with both centering and
 scaling the data or if it's better to omit one of the two operations or do no preprocessing
