@@ -102,12 +102,10 @@ Most generate interactive [%shiny] applications, that automatically start and ru
 
 | generation function              | ggplot2 plotting function | ggvis plotting function       | tutorial page                                             |
 | -------------------------------- | ------------------------- | ----------------------------- | --------------------------------------------------------- |
-| [&generateBenchmarkSummaryData]  | [&plotBenchmarkSummary]   | --                            | [Benchmark Experiments](benchmark_experiments.md)         |
-| [&generateCritDifferencesData]   | [&plotCritDifferences]    | --                            | [Benchmark Experiments](benchmark_experiments.md)         |
-| [&generateRankMatrixAsBarData]   | [&plotRankMatrixAsBar]    | --                            | [Benchmark Experiments](benchmark_experiments.md)         |
-| [&generateFilterValuesData]      | [&plotFilterValues]       | [&plotFilterValuesGGVIS]      | [Feature Selection](feature_selection.md)                 |
-| [&generateLearningCurveData]     | [&plotLearningCurve]      | [&plotLearningCurveGGVIS]     | [Learning Curve](learning_curve.md)                       |
-| [&generatePartialPredictionData] | [&plotPartialPrediction]  | [&plotPartialPredictionGGVIS] | [Partial Prediction Plots](partial_prediction.md)         |
 | [&generateThreshVsPerfData]      | [&plotThresVsPerf]        | [&plotThreshVsPerfGGVIS]      | [Performance](performance.md)                             |
+| [&generateCritDifferencesData]   | [&plotCritDifferences]    | --                            | [Benchmark Experiments](benchmark_experiments.md)         |
+| [&generateFilterValuesData]      | [&plotFilterValues]       | [&plotFilterValuesGGVIS]      | [Feature Selection](feature_selection.md)                 |
 | [&generateROCRCurvesData]        | [&plotROCRCurves]         | [&plotROCRCurvesGGVIS]        | [ROC Analysis](roc_analysis.md)                           |
+| [&generateLearningCurveData]     | [&plotLearningCurve]      | [&plotLearningCurveGGVIS]     | [Learning Curves](learning_curve.md)                       |
+| [&generatePartialPredictionData] | [&plotPartialPrediction]  | [&plotPartialPredictionGGVIS] | [Partial Prediction Plots](partial_prediction.md)         |
 | [&generateCalibrationData]       | [&plotCalibration]        | --                            | [Classifier Calibration Plots](classifier_calibration.md) |
