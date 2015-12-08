@@ -86,7 +86,7 @@ plt
 ```
 
 ```{r, fig.width = 6, fig.height = 5}
-plot(Probability ~ V11, data = plt$data, type = "b")
+plot(Probability ~ Value, data = plt$data, type = "b")
 ```
 
 
