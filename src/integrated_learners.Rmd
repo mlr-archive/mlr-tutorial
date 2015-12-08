@@ -65,31 +65,50 @@ makeTab = function(df) {
     justify = c("left", "left", "left", "center", "center", "center", "center", "left", "left"))
 }
 
-types = c("classif", "multilabel", "regr", "surv", "cluster")
-tables = lapply(types, getTab)
-names(tables) = types
-numbers = sapply(tables, nrow)
+# types = c("classif", "multilabel", "regr", "surv", "cluster")
+# tables = lapply(types, getTab)
+# names(tables) = types
+# numbers = sapply(tables, nrow)
 ```
 
-
-### Classification (`r numbers["classif"]`)
+```{r include=FALSE}
+table = getTab("classif")
+number = nrow(table)
+```
+### Classification (`r number # numbers["classif"]`)
 ```{r echo=FALSE,results="asis"}
-makeTab(tables[["classif"]])
+makeTab(table)
+# makeTab(tables[["classif"]])
 ```
 
-### Regression (`r numbers["regr"]`)
+```{r include=FALSE}
+table = getTab("regr")
+number = nrow(table)
+```
+### Regression (`r number # numbers["regr"]`)
 ```{r echo=FALSE,results="asis"}
-makeTab(tables[["regr"]])
+makeTab(table)
+# makeTab(tables[["regr"]])
 ```
 
-### Survival analysis (`r numbers["surv"]`)
+```{r include=FALSE}
+table = getTab("surv")
+number = nrow(table)
+```
+### Survival analysis (`r number # numbers["surv"]`)
 ```{r echo=FALSE,results="asis"}
-makeTab(tables[["surv"]])
+makeTab(table)
+# makeTab(tables[["surv"]])
 ```
 
-### Cluster analysis (`r numbers["cluster"]`)
+```{r include=FALSE}
+table = getTab("cluster")
+number = nrow(table)
+```
+### Cluster analysis (`r number # numbers["cluster"]`)
 ```{r echo=FALSE,results="asis"}
-makeTab(tables[["cluster"]])
+makeTab(table)
+# makeTab(tables[["cluster"]])
 ```
 
 ### Cost-sensitive classification
@@ -102,9 +121,14 @@ See section [cost-sensitive classification](cost_sensitive_classif.md) and the d
 of [&makeCostSensClassifWrapper], [&makeCostSensRegrWrapper] and [&makeCostSensWeightedPairsWrapper]
 for details.
 
-### Multilabel classification (`r numbers["multilabel"]`)
+```{r include=FALSE}
+table = getTab("multilabel")
+number = nrow(table)
+```
+### Multilabel classification (`r number # numbers["multilabel"]`)
 ```{r echo=FALSE,results="asis"}
-makeTab(tables[["multilabel"]])
+makeTab(table)
+# makeTab(tables[["multilabel"]])
 ```
 
 Moreover, you can use the binary relevance method to apply ordinary classification learners
