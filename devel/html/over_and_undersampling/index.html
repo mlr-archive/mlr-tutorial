@@ -350,7 +350,7 @@ the minority class as noise and therefore predict the majority class far more
 often. In order to lay more weight on the cases of the minority class, there are
 numerous correction methods which tackle the <em>imbalanced classification problem</em>.
 These methods can generally be divided into <em>cost- and sampling-based approaches</em>.
-Below all methods supported by <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> are introduced.</p>
+Below all methods supported by <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> are introduced.</p>
 <h2 id="sampling-based-approaches">Sampling-based approaches</h2>
 <p>The basic idea of <em>sampling methods</em> is to simply adjust the proportion of
 the classes in order to increase the weight of the minority class observations
@@ -376,7 +376,7 @@ within the model.</p>
 <p>All these methods directly access the underlying data and "rearrange" it.
 In this way the sampling is done as part of the <em>preprocesssing</em> and can therefore
 be combined with every appropriate classifier.</p>
-<p><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> currently supports the first two approaches.</p>
+<p><a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> currently supports the first two approaches.</p>
 <h3 id="simple-over-and-undersampling">(Simple) over- and undersampling</h3>
 <p>As mentioned above <em>undersampling</em> always refers to the majority class, while
 <em>oversampling</em> affects the minority class. By the use of <em>undersampling</em>, randomly
@@ -385,9 +385,9 @@ chosen observations of the majority class are eliminated. Through (simple)
 once when fitting the model. In addition, exact copies of minority class cases are created
 by random sampling with repetitions.</p>
 <p>First, let's take a look at the effect for a classification <a href="../task/index.html">task</a>.
-Based on a simulated <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">ClassifTask</a> with imbalanced classes two new
-tasks (<code>task.over</code>, <code>task.under</code>) are created via <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> functions
-<a href="http://www.rdocumentation.org/packages/mlr/functions/oversample.html">oversample</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/oversample.html">undersample</a>, respectively.</p>
+Based on a simulated <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">ClassifTask</a> with imbalanced classes two new
+tasks (<code>task.over</code>, <code>task.under</code>) are created via <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> functions
+<a href="http://rpackages.ianhowson.com/cran/mlr/man/oversample.html">oversample</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/oversample.html">undersample</a>, respectively.</p>
 <pre><code class="r">data.imbal.train = rbind(
   data.frame(x = rnorm(100, mean = 1), class = &quot;A&quot;),
   data.frame(x = rnorm(5000, mean = 2), class = &quot;B&quot;)
@@ -440,13 +440,13 @@ accuracy of the predictions, the <em>area under the ROC Curve</em> (<a href="../
 might be more suitable here, as the misclassifications within each class
 are separately taken into account.</p>
 <h3 id="over-and-undersampling-wrappers">Over- and undersampling wrappers</h3>
-<p>Alternatively, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> also offers the integration of over- and undersampling
+<p>Alternatively, <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> also offers the integration of over- and undersampling
 via a <em>wrapping-based approach</em> (<a href="../wrapper/index.html">wrappers</a>). In this way
 over- and undersampling can be applied to already existing <a href="../learner/index.html">learners</a>
 to extend their functionality. </p>
 <p>The example given above is repeated once again, but this time with extended
-learners instead of modified tasks (see <a href="http://www.rdocumentation.org/packages/mlr/functions/makeUndersampleWrapper.html">makeOversampleWrapper</a>
-and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeUndersampleWrapper.html">makeUndersampleWrapper</a>).
+learners instead of modified tasks (see <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeUndersampleWrapper.html">makeOversampleWrapper</a>
+and <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeUndersampleWrapper.html">makeUndersampleWrapper</a>).
 Just like before the <em>undersampling rate</em> has to be between 0 and 1, while the
 <em>oversampling rate</em> has a lower boundary of 1.</p>
 <pre><code class="r">lrn.over = makeOversampleWrapper(lrn, osw.rate = 8)
@@ -466,14 +466,14 @@ performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce,
 </code></pre>
 
 <h3 id="extensions-to-oversampling">Extensions to oversampling</h3>
-<p>Two extensions to (simple) oversampling are available in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.</p>
+<p>Two extensions to (simple) oversampling are available in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a>.</p>
 <h4 id="1-smote-synthetic-minority-oversampling-technique">1. SMOTE (Synthetic Minority Oversampling Technique)</h4>
 <p>As the duplicating of the minority class observations can lead to overfitting,
 within <em>SMOTE</em> the "new cases" are constructed in a different way. For each
 new observation, one randomly chosen minority class observation as well as
 one of its <em>randomly chosen next neighbours</em> are interpolated, so that finally
 a new <em>artificial observation</em> of the minority class is created.
-The <a href="http://www.rdocumentation.org/packages/mlr/functions/smote.html">smote</a> function in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> handles numeric as well as factor features, as
+The <a href="http://rpackages.ianhowson.com/cran/mlr/man/smote.html">smote</a> function in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> handles numeric as well as factor features, as
 the gower distance is used for nearest neighbour calculation. The factor level
 of the new artificial case is sampled from the given levels of the two
 input observations.</p>
@@ -490,7 +490,7 @@ table(getTaskTargets(task.smote))
 #&gt;  800 5000
 </code></pre>
 
-<p>Alternatively, a new wrapped learner can be created via <a href="http://www.rdocumentation.org/packages/mlr/functions/makeSMOTEWrapper.html">makeSMOTEWrapper</a>.</p>
+<p>Alternatively, a new wrapped learner can be created via <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeSMOTEWrapper.html">makeSMOTEWrapper</a>.</p>
 <pre><code class="r">lrn.smote = makeSMOTEWrapper(lrn, sw.rate = 8, sw.nn = 5)
 mod.smote = train(lrn.smote, task)
 performance(predict(mod.smote, newdata = data.imbal.test), measures = auc)
@@ -508,8 +508,8 @@ The majority class cases can either all be taken into account for each
 iteration (<code>obw.maxcl = "all"</code>) or bootstrapped with replacement to increase
 variability between training data sets during iterations (<code>obw.maxcl = "boot"</code>).</p>
 <p>The construction of the <strong>Overbagging Wrapper</strong> works similar
-to <a href="http://www.rdocumentation.org/packages/mlr/functions/makeBaggingWrapper.html">makeBaggingWrapper</a>.
-First an existing <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> learner has to be passed to <a href="http://www.rdocumentation.org/packages/mlr/functions/makeOverBaggingWrapper.html">makeOverBaggingWrapper</a>.
+to <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeBaggingWrapper.html">makeBaggingWrapper</a>.
+First an existing <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> learner has to be passed to <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeOverBaggingWrapper.html">makeOverBaggingWrapper</a>.
 The number of iterations or fitted models can be set via <code>obw.iters</code>.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;response&quot;)
 obw.lrn = makeOverBaggingWrapper(lrn, obw.rate = 8, obw.iters = 3)

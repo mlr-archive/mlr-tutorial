@@ -335,24 +335,24 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="creating-an-imputation-method">Creating an Imputation Method</h1>
-<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeImputeMethod.html">makeImputeMethod</a> permits to create your own imputation method.
+<p>Function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeImputeMethod.html">makeImputeMethod</a> permits to create your own imputation method.
 For this purpose you need to specify a <em>learn</em> function that extracts the necessary
 information and an <em>impute</em> function that does the actual imputation.
 The <em>learn</em> and <em>impute</em> functions both have at least the following formal arguments:</p>
 <ul>
-<li><code>data</code> is a <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a> with missing values in some features.</li>
+<li><code>data</code> is a <a href="http://www.inside-r.org/r-doc/base/data.frame">data.frame</a> with missing values in some features.</li>
 <li><code>col</code> indicates the feature to be imputed.</li>
 <li><code>target</code> indicates the target variable(s) in a supervised learning task.</li>
 </ul>
 <h2 id="example-imputation-using-the-mean">Example: Imputation using the mean</h2>
-<p>Let's have a look at function <a href="http://www.rdocumentation.org/packages/mlr/functions/imputations.html">imputeMean</a>.</p>
+<p>Let's have a look at function <a href="http://rpackages.ianhowson.com/cran/mlr/man/imputations.html">imputeMean</a>.</p>
 <pre><code class="r">imputeMean = function() {
   makeImputeMethod(learn = function(data, target, col) mean(data[[col]], na.rm = TRUE), 
     impute = simpleImpute)
 }
 </code></pre>
 
-<p><a href="http://www.rdocumentation.org/packages/mlr/functions/imputations.html">imputeMean</a> calls the unexported <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function <code>simpleImpute</code> which is defined as follows.</p>
+<p><a href="http://rpackages.ianhowson.com/cran/mlr/man/imputations.html">imputeMean</a> calls the unexported <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> function <code>simpleImpute</code> which is defined as follows.</p>
 <pre><code class="r">simpleImpute = function(data, target, col, const) {
   if (is.na(const)) 
     stopf(&quot;Error imputing column '%s'. Maybe all input data was missing?&quot;, col)
@@ -398,7 +398,7 @@ according to <code>times</code> and replaces the <code>NA's</code> in feature <c
 <p>Note that this function is just for demonstration and is lacking some checks for real-world
 usage (for example 'What should happen if the first value in <code>x</code> is already missing?').
 Below it is used to impute the missing values in features <code>Ozone</code> and <code>Solar.R</code> in the
-<a href="http://www.rdocumentation.org/packages/datasets/functions/airquality.html">airquality</a> data set.</p>
+<a href="http://www.inside-r.org/r-doc/datasets/airquality">airquality</a> data set.</p>
 <pre><code class="r">data(airquality)
 imp = impute(airquality, cols = list(Ozone = imputeLOCF(), Solar.R = imputeLOCF()),
   dummy.cols = c(&quot;Ozone&quot;, &quot;Solar.R&quot;))

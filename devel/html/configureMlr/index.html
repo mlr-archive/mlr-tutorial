@@ -339,20 +339,20 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="configuring-mlr">Configuring mlr</h1>
-<p>If you really know what you are doing you may think <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> is limiting you in certain ways.
-<a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> is designed to make usage errors due to typos or invalid parameter values
+<p>If you really know what you are doing you may think <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> is limiting you in certain ways.
+<a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> is designed to make usage errors due to typos or invalid parameter values
 as unlikely as possible.
 But sometimes you want to break those barriers and get full access.
-For all available options, simply refer to the documentation of <a href="http://www.rdocumentation.org/packages/mlr/functions/configureMlr.html">configureMlr</a>.</p>
-<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/configureMlr.html">configureMlr</a> permits to set options globally for your current <strong>R</strong> session.</p>
+For all available options, simply refer to the documentation of <a href="http://rpackages.ianhowson.com/cran/mlr/man/configureMlr.html">configureMlr</a>.</p>
+<p>Function <a href="http://rpackages.ianhowson.com/cran/mlr/man/configureMlr.html">configureMlr</a> permits to set options globally for your current <strong>R</strong> session.</p>
 <p>It is also possible to set options locally.</p>
 <ul>
 <li>All options referring to the behavior of learners (these are all options except <code>show.info</code>)
-  can be set for an individual learner via the <code>config</code> argument of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a>.
+  can be set for an individual learner via the <code>config</code> argument of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">makeLearner</a>.
   The local precedes the global configuration.</li>
-<li>Some functions like <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/benchmark.html">benchmark</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/selectFeatures.html">selectFeatures</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/tuneParams.html">tuneParams</a>,
-  and <a href="http://www.rdocumentation.org/packages/mlr/functions/tuneParamsMultiCrit.html">tuneParamsMultiCrit</a> have a <code>show.info</code> flag that controls if verbose messages
-  are shown. The default value of <code>show.info</code> can be set by <a href="http://www.rdocumentation.org/packages/mlr/functions/configureMlr.html">configureMlr</a>.</li>
+<li>Some functions like <a href="http://rpackages.ianhowson.com/cran/mlr/man/resample.html">resample</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/benchmark.html">benchmark</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/selectFeatures.html">selectFeatures</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/tuneParams.html">tuneParams</a>,
+  and <a href="http://rpackages.ianhowson.com/cran/mlr/man/tuneParamsMultiCrit.html">tuneParamsMultiCrit</a> have a <code>show.info</code> flag that controls if verbose messages
+  are shown. The default value of <code>show.info</code> can be set by <a href="http://rpackages.ianhowson.com/cran/mlr/man/configureMlr.html">configureMlr</a>.</li>
 </ul>
 <h2 id="example-reducing-the-output-on-the-console">Example: Reducing the output on the console</h2>
 <p>You are bothered by all the output on the console like in this example?</p>
@@ -376,21 +376,21 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 #&gt; [Resample] Result: mmce.test.mean=0.02
 </code></pre>
 
-<p>You can suppress the output for this <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> and this <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> call as follows:</p>
+<p>You can suppress the output for this <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> and this <a href="http://rpackages.ianhowson.com/cran/mlr/man/resample.html">resample</a> call as follows:</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.multinom&quot;, config = list(show.learner.output = FALSE))
 r = resample(lrn, iris.task, rdesc, show.info = FALSE)
 </code></pre>
 
-<p>(Note that <a href="http://www.rdocumentation.org/packages/nnet/functions/multinom.html">multinom</a> has a <code>trace</code> switch that can alternatively be used to turn off
+<p>(Note that <a href="http://rpackages.ianhowson.com/cran/nnet/man/multinom.html">multinom</a> has a <code>trace</code> switch that can alternatively be used to turn off
 the progress messages.)</p>
-<p>To globally suppress the output for all subsequent learners and calls to <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a>,
-<a href="http://www.rdocumentation.org/packages/mlr/functions/benchmark.html">benchmark</a>, etc. try the following:</p>
+<p>To globally suppress the output for all subsequent learners and calls to <a href="http://rpackages.ianhowson.com/cran/mlr/man/resample.html">resample</a>,
+<a href="http://rpackages.ianhowson.com/cran/mlr/man/benchmark.html">benchmark</a>, etc. try the following:</p>
 <pre><code class="r">configureMlr(show.learner.output = FALSE, show.info = FALSE)
 r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 </code></pre>
 
 <h2 id="accessing-and-resetting-the-configuration">Accessing and resetting the configuration</h2>
-<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/getMlrOptions.html">getMlrOptions</a> returns a <a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a> with the current configuration.</p>
+<p>Function <a href="http://rpackages.ianhowson.com/cran/mlr/man/getMlrOptions.html">getMlrOptions</a> returns a <a href="http://www.inside-r.org/r-doc/base/list">list</a> with the current configuration.</p>
 <pre><code class="r">getMlrOptions()
 #&gt; $on.learner.error
 #&gt; [1] &quot;stop&quot;
@@ -411,7 +411,7 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 #&gt; [1] FALSE
 </code></pre>
 
-<p>To restore the default configuration call <a href="http://www.rdocumentation.org/packages/mlr/functions/configureMlr.html">configureMlr</a> with an empty argument list.</p>
+<p>To restore the default configuration call <a href="http://rpackages.ianhowson.com/cran/mlr/man/configureMlr.html">configureMlr</a> with an empty argument list.</p>
 <pre><code class="r">configureMlr()
 </code></pre>
 
@@ -436,12 +436,12 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 </code></pre>
 
 <h2 id="example-turning-off-parameter-checking">Example: Turning off parameter checking</h2>
-<p>It might happen that you want to access a new parameter of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> which
-is already available in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>, but the parameter is not "registered" in the learner's
-<a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/makeParamSet.html">parameter set</a> yet.
+<p>It might happen that you want to access a new parameter of a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> which
+is already available in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a>, but the parameter is not "registered" in the learner's
+<a href="http://rpackages.ianhowson.com/cran/ParamHelpers/man/makeParamSet.html">parameter set</a> yet.
 In this case you might want to <a href="https://github.com/mlr-org/mlr#get-in-touch">contact us</a>
 or <a href="https://github.com/mlr-org/mlr/issues/new">open an issue</a> as well!
-But until then you can turn off <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s parameter checking.
+But until then you can turn off <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a>'s parameter checking.
 The parameter setting will then be passed to the underlying function without further ado.</p>
 <pre><code class="r">## Support Vector Machine with linear kernel and new parameter 'newParam'
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3)
@@ -479,7 +479,7 @@ train(lrn, iris.task)
 </code></pre>
 
 <h2 id="example-handling-errors-in-an-underlying-learning-method">Example: Handling errors in an underlying learning method</h2>
-<p>If an underlying learning method throws an error the default behavior of <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> is to
+<p>If an underlying learning method throws an error the default behavior of <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> is to
 generate an exception as well.
 However, in some situations, for example if you conduct a <a href="../benchmark_experiments/index.html">benchmark study</a>
 with multiple data sets and learners, you usually don't want the whole experiment stopped due
@@ -534,8 +534,8 @@ performance(pred)
 #&gt;   NA
 </code></pre>
 
-<p>Instead of an exception, a warning is issued and a <a href="http://www.rdocumentation.org/packages/mlr/functions/FailureModel.html">FailureModel</a> is created.
-Function <a href="http://www.rdocumentation.org/packages/mlr/functions/getFailureModelMsg.html">getFailureModelMsg</a> extracts the error message.
+<p>Instead of an exception, a warning is issued and a <a href="http://rpackages.ianhowson.com/cran/mlr/man/FailureModel.html">FailureModel</a> is created.
+Function <a href="http://rpackages.ianhowson.com/cran/mlr/man/getFailureModelMsg.html">getFailureModelMsg</a> extracts the error message.
 All further steps like prediction and performance calculation work and return <code>NA's</code>.</p></div>
             
         </div>

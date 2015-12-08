@@ -343,22 +343,22 @@ This comprises for example finding and resolving inconsistencies, imputation of 
 identifying, removing or replacing outliers, discretizing numerical data or generating numerical
 dummy variables for categorical data, any kind of transformation like standardization of predictors
 or Box-Cox, dimensionality reduction and feature extraction and/or selection.</p>
-<p><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> offers several options for data preprocessing.
-Some of the following simple methods to change a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> were already mentioned in the
+<p><a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> offers several options for data preprocessing.
+Some of the following simple methods to change a <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> were already mentioned in the
 section about <a href="../task/index.html">learning tasks</a>:</p>
 <ul>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/capLargeValues.html">capLargeValues</a>: Convert large/infinite numeric values in a <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a>
-  or <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/createDummyFeatures.html">createDummyFeatures</a>: Generate dummy variables for factor features in a
-  <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a> or <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/dropFeatures.html">dropFeatures</a>: Remove some features from a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/joinClassLevels.html">joinClassLevels</a>: Only for classification: Merge existing classes in a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> to
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/capLargeValues.html">capLargeValues</a>: Convert large/infinite numeric values in a <a href="http://www.inside-r.org/r-doc/base/data.frame">data.frame</a>
+  or <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>.</li>
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/createDummyFeatures.html">createDummyFeatures</a>: Generate dummy variables for factor features in a
+  <a href="http://www.inside-r.org/r-doc/base/data.frame">data.frame</a> or <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>.</li>
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/dropFeatures.html">dropFeatures</a>: Remove some features from a <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>.</li>
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/joinClassLevels.html">joinClassLevels</a>: Only for classification: Merge existing classes in a <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> to
   new, larger classes.</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/mergeSmallFactorLevels.html">mergeSmallFactorLevels</a>: Merge infrequent levels of factor features in a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/normalizeFeatures.html">normalizeFeatures</a>: Normalize features in a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> by different methods, e.g.,
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/mergeSmallFactorLevels.html">mergeSmallFactorLevels</a>: Merge infrequent levels of factor features in a <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>.</li>
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/normalizeFeatures.html">normalizeFeatures</a>: Normalize features in a <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> by different methods, e.g.,
   standardization or scaling to a certain range.</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/removeConstantFeatures.html">removeConstantFeatures</a>: Remove constant features from a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/subsetTask.html">subsetTask</a>: Remove observations and/or features from a <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.</li>
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/removeConstantFeatures.html">removeConstantFeatures</a>: Remove constant features from a <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>.</li>
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/subsetTask.html">subsetTask</a>: Remove observations and/or features from a <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>.</li>
 </ul>
 <p>Moreover, there are tutorial sections devoted to</p>
 <ul>
@@ -366,11 +366,11 @@ section about <a href="../task/index.html">learning tasks</a>:</p>
 <li><a href="../impute/index.html">Imputation of missing values</a>.</li>
 </ul>
 <h2 id="fusing-learners-with-preprocessing">Fusing learners with preprocessing</h2>
-<p><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s wrapper functionality permits to combine learners with preprocessing steps.
+<p><a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a>'s wrapper functionality permits to combine learners with preprocessing steps.
 This means that the preprocessing "belongs" to the learner and is done any time the learner
 is trained or predictions are made.</p>
 <p>This is, on the one hand, very practical.
-You don't need to change any data or learning <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s and it's quite easy to combine
+You don't need to change any data or learning <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>s and it's quite easy to combine
 different learners with different preprocessing steps.</p>
 <p>On the other hand this helps to avoid a common mistake in evaluating the performance of a
 learner with preprocessing:
@@ -393,57 +393,57 @@ Imputation by a fixed constant, however, is not.</p>
 <p>To get a honest estimate of learner performance combined with preprocessing, all data-dependent
 preprocessing steps must be included in the resampling.
 This is automatically done when fusing a learner with preprocessing.</p>
-<p>To this end <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides two <a href="../wrapper/index.html">wrappers</a>:</p>
+<p>To this end <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> provides two <a href="../wrapper/index.html">wrappers</a>:</p>
 <ul>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> is an interface to all preprocessing options offered by <a href="http://www.rdocumentation.org/packages/caret/">caret</a>'s
-  <a href="http://www.rdocumentation.org/packages/caret/functions/preProcess.html">preProcess</a> function.</li>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapper.html">makePreprocWrapper</a> permits to write your own custom preprocessing methods by defining
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> is an interface to all preprocessing options offered by <a href="http://rpackages.ianhowson.com/cran/caret/">caret</a>'s
+  <a href="http://rpackages.ianhowson.com/cran/caret/man/preProcess.html">preProcess</a> function.</li>
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapper.html">makePreprocWrapper</a> permits to write your own custom preprocessing methods by defining
   the actions to be taken before training and before prediction.</li>
 </ul>
-<p>As mentioned above the specified preprocessing steps then "belong" to the wrapped <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>.
-In contrast to the preprocessing options listed above like <a href="http://www.rdocumentation.org/packages/mlr/functions/normalizeFeatures.html">normalizeFeatures</a></p>
+<p>As mentioned above the specified preprocessing steps then "belong" to the wrapped <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a>.
+In contrast to the preprocessing options listed above like <a href="http://rpackages.ianhowson.com/cran/mlr/man/normalizeFeatures.html">normalizeFeatures</a></p>
 <ul>
-<li>the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> itself remains unchanged,</li>
+<li>the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> itself remains unchanged,</li>
 <li>the preprocessing is not done globally, i.e., for the whole data set, but for every pair of
   training/test data sets in, e.g., resampling,</li>
 <li>any parameters controlling the preprocessing as, e.g., the percentage of outliers to be removed
   can be <a href="../tune/index.html">tuned</a> together with the base learner parameters.</li>
 </ul>
-<p>We start with some examples for <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a>.</p>
+<p>We start with some examples for <a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a>.</p>
 <h2 id="preprocessing-with-makepreprocwrappercaret">Preprocessing with makePreprocWrapperCaret</h2>
-<p><a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> is an interface to <a href="http://www.rdocumentation.org/packages/caret/">caret</a>'s <a href="http://www.rdocumentation.org/packages/caret/functions/preProcess.html">preProcess</a>
+<p><a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> is an interface to <a href="http://rpackages.ianhowson.com/cran/caret/">caret</a>'s <a href="http://rpackages.ianhowson.com/cran/caret/man/preProcess.html">preProcess</a>
 function that provides many different options like imputation of missing values,
 data transformations as scaling the features to a certain range or Box-Cox and dimensionality
 reduction via Independent or Principal Component Analysis.
-For all possible options see the help page of function <a href="http://www.rdocumentation.org/packages/caret/functions/preProcess.html">preProcess</a>.</p>
-<p>Note that the usage of <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> is slightly different than that of
-<a href="http://www.rdocumentation.org/packages/caret/functions/preProcess.html">preProcess</a>.</p>
+For all possible options see the help page of function <a href="http://rpackages.ianhowson.com/cran/caret/man/preProcess.html">preProcess</a>.</p>
+<p>Note that the usage of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> is slightly different than that of
+<a href="http://rpackages.ianhowson.com/cran/caret/man/preProcess.html">preProcess</a>.</p>
 <ul>
-<li><a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> takes (almost) the same formal arguments as <a href="../&amp;caret:preProcess">preProcess</a>,
+<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> takes (almost) the same formal arguments as <a href="../&amp;caret:preProcess">preProcess</a>,
   but their names are prefixed by <code>ppc.</code>.</li>
-<li>The only exception: <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> does not have a <code>method</code> argument. Instead
-  all preprocessing options that would be passed to <a href="http://www.rdocumentation.org/packages/caret/functions/preProcess.html">preProcess</a>'s <code>method</code>
-  argument are given as individual logical parameters to <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a>.</li>
+<li>The only exception: <a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> does not have a <code>method</code> argument. Instead
+  all preprocessing options that would be passed to <a href="http://rpackages.ianhowson.com/cran/caret/man/preProcess.html">preProcess</a>'s <code>method</code>
+  argument are given as individual logical parameters to <a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a>.</li>
 </ul>
-<p>For example the following call to <a href="http://www.rdocumentation.org/packages/caret/functions/preProcess.html">preProcess</a></p>
+<p>For example the following call to <a href="http://rpackages.ianhowson.com/cran/caret/man/preProcess.html">preProcess</a></p>
 <pre><code class="r">preProcess(x, method = c(&quot;knnImpute&quot;, &quot;pca&quot;), pcaComp = 10)
 </code></pre>
 
-<p>with <code>x</code> being a <a href="http://www.rdocumentation.org/packages/base/functions/matrix.html">matrix</a> or <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a>
+<p>with <code>x</code> being a <a href="http://www.inside-r.org/r-doc/base/matrix">matrix</a> or <a href="http://www.inside-r.org/r-doc/base/data.frame">data.frame</a>
 would thus translate into</p>
 <pre><code class="r">makePreprocWrapperCaret(learner, ppc.knnImpute = TRUE, ppc.pca = TRUE, ppc.pcaComp = 10)
 </code></pre>
 
-<p>where <code>learner</code> is a <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> or the name of a learner class like
+<p>where <code>learner</code> is a <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> or the name of a learner class like
 <code>"classif.lda"</code>.</p>
 <p>If you enable multiple preprocessing options (like knn imputation and principal component
 analysis above) these are executed in a certain order detailed on the help page of function
-<a href="http://www.rdocumentation.org/packages/caret/functions/preProcess.html">preProcess</a>.</p>
+<a href="http://rpackages.ianhowson.com/cran/caret/man/preProcess.html">preProcess</a>.</p>
 <p>In the following we show an example where principal components analysis (PCA) is used for
 dimensionality reduction.
 This should never be applied blindly, but can be beneficial with learners that get problems
 with high dimensionality or those that can profit from rotating the data.</p>
-<p>We consider the <a href="http://www.rdocumentation.org/packages/mlr/functions/sonar.task.html">sonar.task</a>, which poses a binary classification problem with 208 observations
+<p>We consider the <a href="http://rpackages.ianhowson.com/cran/mlr/man/sonar.task.html">sonar.task</a>, which poses a binary classification problem with 208 observations
 and 60 features.</p>
 <pre><code class="r">sonar.task
 #&gt; Supervised task: Sonar-example
@@ -462,7 +462,7 @@ and 60 features.</p>
 #&gt; Positive class: M
 </code></pre>
 
-<p>Below we fuse <a href="http://www.rdocumentation.org/packages/MASS/functions/qda.html">quadratic discriminant analysis</a> from package <a href="http://www.rdocumentation.org/packages/MASS/">MASS</a> with a principal
+<p>Below we fuse <a href="http://rpackages.ianhowson.com/cran/MASS/man/qda.html">quadratic discriminant analysis</a> from package <a href="http://rpackages.ianhowson.com/cran/MASS/">MASS</a> with a principal
 components preprocessing step.
 The threshold is set to 0.9, i.e., the principal components necessary to explain a cumulative
 percentage of 90% of the total variance are kept.
@@ -478,8 +478,8 @@ lrn
 #&gt; Hyperparameters: ppc.BoxCox=FALSE,ppc.YeoJohnson=FALSE,ppc.expoTrans=FALSE,ppc.center=TRUE,ppc.scale=TRUE,ppc.range=FALSE,ppc.knnImpute=FALSE,ppc.bagImpute=FALSE,ppc.medianImpute=FALSE,ppc.pca=TRUE,ppc.ica=FALSE,ppc.spatialSign=FALSE,ppc.thresh=0.9,ppc.na.remove=TRUE,ppc.k=5,ppc.fudge=0.2,ppc.numUnique=3
 </code></pre>
 
-<p>The wrapped learner is trained on the <a href="http://www.rdocumentation.org/packages/mlr/functions/sonar.task.html">sonar.task</a>.
-By inspecting the underlying <a href="http://www.rdocumentation.org/packages/MASS/functions/qda.html">qda</a> model, we see that the first 22
+<p>The wrapped learner is trained on the <a href="http://rpackages.ianhowson.com/cran/mlr/man/sonar.task.html">sonar.task</a>.
+By inspecting the underlying <a href="http://rpackages.ianhowson.com/cran/MASS/man/qda.html">qda</a> model, we see that the first 22
 principal components have been used for training.</p>
 <pre><code class="r">mod = train(lrn, sonar.task)
 mod
@@ -515,9 +515,9 @@ getLearnerModel(mod, more.unwrap = TRUE)
 #&gt; R  0.01364323 -0.006978877 -0.01445851  0.001401586
 </code></pre>
 
-<p>Below the performances of <a href="http://www.rdocumentation.org/packages/MASS/functions/qda.html">qda</a> with and without PCA preprocessing are compared
+<p>Below the performances of <a href="http://rpackages.ianhowson.com/cran/MASS/man/qda.html">qda</a> with and without PCA preprocessing are compared
 in a <a href="../benchmark_experiments/index.html">benchmark experiment</a>.
-Note that we use stratified resampling to prevent errors in <a href="http://www.rdocumentation.org/packages/MASS/functions/qda.html">qda</a> due to a too
+Note that we use stratified resampling to prevent errors in <a href="http://rpackages.ianhowson.com/cran/MASS/man/qda.html">qda</a> due to a too
 small number of observations from either class.</p>
 <pre><code class="r">rin = makeResampleInstance(&quot;CV&quot;, iters = 3, stratify = TRUE, task = sonar.task)
 res = benchmark(list(makeLearner(&quot;classif.qda&quot;), lrn), sonar.task, rin, show.info = FALSE)
@@ -534,11 +534,11 @@ performance of Quadratic Discriminant Analysis.</p>
 The threshold value of 0.9 above was chosen arbitrarily and led to 22 out of 60 principal
 components.
 But maybe a lower or higher number of principal components should be used.
-Moreover, <a href="http://www.rdocumentation.org/packages/MASS/functions/qda.html">qda</a> has several options that control how the class covariance matrices
+Moreover, <a href="http://rpackages.ianhowson.com/cran/MASS/man/qda.html">qda</a> has several options that control how the class covariance matrices
 or class probabilities are estimated.</p>
 <p>Those preprocessing and learner parameters can be <a href="../tune/index.html">tuned</a> jointly.
 Before doing this let's first get an overview of all the parameters of the wrapped learner
-using function <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html">getParamSet</a>.</p>
+using function <a href="http://rpackages.ianhowson.com/cran/mlr/man/getParamSet.html">getParamSet</a>.</p>
 <pre><code class="r">getParamSet(lrn)
 #&gt;                      Type len     Def                      Constr Req
 #&gt; ppc.BoxCox        logical   -   FALSE                           -   -
@@ -587,10 +587,10 @@ using function <a href="http://www.rdocumentation.org/packages/mlr/functions/get
 </code></pre>
 
 <p>The parameters prefixed by <code>ppc.</code> belong to preprocessing. <code>method</code>, <code>nu</code> and <code>predict.method</code>
-are <a href="http://www.rdocumentation.org/packages/MASS/functions/qda.html">qda</a> parameters.</p>
+are <a href="http://rpackages.ianhowson.com/cran/MASS/man/qda.html">qda</a> parameters.</p>
 <p>Instead of tuning the PCA threshold (<code>ppc.thresh</code>) we tune the number of principal
 components (<code>ppc.pcaComp</code>) directly.
-Moreover, for <a href="http://www.rdocumentation.org/packages/MASS/functions/qda.html">qda</a> we try two different ways to estimate the posterior probabilities
+Moreover, for <a href="http://rpackages.ianhowson.com/cran/MASS/man/qda.html">qda</a> we try two different ways to estimate the posterior probabilities
 (parameter <code>predict.method</code>): the usual plug-in estimates and unbiased estimates.</p>
 <p>We perform a grid search and set the resolution to 10.
 This is for demonstration. You might want to use a finer resolution.</p>
@@ -632,8 +632,8 @@ as.data.frame(res$opt.path)[1:3]
 <p>There seems to be a preference for a lower number of principal components (&lt;27) for both <code>"plug-in"</code>
 and <code>"debiased"</code> with <code>"plug-in"</code> achieving slightly lower error rates.</p>
 <h2 id="writing-a-custom-preprocessing-wrapper">Writing a custom preprocessing wrapper</h2>
-<p>If the options offered by <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> are not enough, you can write your own
-preprocessing wrapper using function <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapper.html">makePreprocWrapper</a>.</p>
+<p>If the options offered by <a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> are not enough, you can write your own
+preprocessing wrapper using function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapper.html">makePreprocWrapper</a>.</p>
 <p>As described in the tutorial section about <a href="../wrapper/index.html">wrapped learners</a> wrappers are
 implemented using a <em>train</em> and a <em>predict</em> method.
 In case of preprocessing wrappers these methods specify how to transform the data before
@@ -645,27 +645,27 @@ usually require scaled features.
 Many, but not all, have a built-in scaling option where the training data set is scaled before
 model fitting and the test data set is scaled accordingly, that is by using the scaling
 parameters from the training stage, before making predictions.
-In the following we show how to add a scaling option to a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> by coupling
-it with function <a href="http://www.rdocumentation.org/packages/base/functions/scale.html">scale</a>.</p>
+In the following we show how to add a scaling option to a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> by coupling
+it with function <a href="http://www.inside-r.org/r-doc/base/scale">scale</a>.</p>
 <p>Note that we chose this simple example for demonstration.
-Centering/scaling the data is also possible with <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a>.</p>
+Centering/scaling the data is also possible with <a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a>.</p>
 <h3 id="specifying-the-train-function">Specifying the train function</h3>
 <p>The <em>train</em> function has to be a function with the following arguments:</p>
 <ul>
-<li><code>data</code> is a <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a> with columns for all features and
+<li><code>data</code> is a <a href="http://www.inside-r.org/r-doc/base/data.frame">data.frame</a> with columns for all features and
   the target variable.</li>
 <li><code>target</code> is a string and denotes the name of the target variable in <code>data</code>.</li>
-<li><code>args</code> is a <a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a> of further arguments and parameters that influence the
+<li><code>args</code> is a <a href="http://www.inside-r.org/r-doc/base/list">list</a> of further arguments and parameters that influence the
   preprocessing.</li>
 </ul>
-<p>It must return a <a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a> with elements <code>$data</code> and <code>$control</code>,
+<p>It must return a <a href="http://www.inside-r.org/r-doc/base/list">list</a> with elements <code>$data</code> and <code>$control</code>,
 where <code>$data</code> is the preprocessed data set and <code>$control</code> stores all information required
 to preprocess the data before prediction.</p>
-<p>The <em>train</em> function for the scaling example is given below. It calls <a href="http://www.rdocumentation.org/packages/base/functions/scale.html">scale</a> on the
+<p>The <em>train</em> function for the scaling example is given below. It calls <a href="http://www.inside-r.org/r-doc/base/scale">scale</a> on the
 numerical features and returns the scaled training data and the corresponding scaling parameters.</p>
-<p><code>args</code> contains the <code>center</code> and <code>scale</code> arguments of function <a href="http://www.rdocumentation.org/packages/base/functions/scale.html">scale</a>
+<p><code>args</code> contains the <code>center</code> and <code>scale</code> arguments of function <a href="http://www.inside-r.org/r-doc/base/scale">scale</a>
 and slot <code>$control</code> stores the scaling parameters to be used in the prediction stage.</p>
-<p>Regarding the latter note that the <code>center</code> and <code>scale</code> arguments of <a href="http://www.rdocumentation.org/packages/base/functions/scale.html">scale</a>
+<p>Regarding the latter note that the <code>center</code> and <code>scale</code> arguments of <a href="http://www.inside-r.org/r-doc/base/scale">scale</a>
 can be either a logical value or a numeric vector of length equal to the number of the numeric
 columns in <code>data</code>, respectively.
 If a logical value was passed to <code>args</code> we store the column means and standard deviations/
@@ -694,7 +694,7 @@ root mean squares in the <code>$center</code> and <code>$scale</code> slots of t
 <h3 id="specifying-the-predict-function">Specifying the predict function</h3>
 <p>The <em>predict</em> function has the following arguments:</p>
 <ul>
-<li><code>data</code> is a <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a> containing <em>only</em> feature values
+<li><code>data</code> is a <a href="http://www.inside-r.org/r-doc/base/data.frame">data.frame</a> containing <em>only</em> feature values
   (as for prediction the target values naturally are not known).</li>
 <li><code>target</code> is a string indicating the name of the target variable.</li>
 <li><code>args</code> are the <code>args</code> that were passed to the <em>train</em> function.</li>
@@ -718,11 +718,11 @@ parameters from the training stage stored in <code>control</code>.</p>
 </code></pre>
 
 <h3 id="creating-the-preprocessing-wrapper">Creating the preprocessing wrapper</h3>
-<p>Below we create a preprocessing wrapper with a <a href="http://www.rdocumentation.org/packages/nnet/functions/nnet.html">regression neural network</a> (which
+<p>Below we create a preprocessing wrapper with a <a href="http://rpackages.ianhowson.com/cran/nnet/man/nnet.html">regression neural network</a> (which
 itself does not have a scaling option) as base learner.</p>
-<p>The <em>train</em> and <em>predict</em> functions defined above are passed to <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapper.html">makePreprocWrapper</a> via
+<p>The <em>train</em> and <em>predict</em> functions defined above are passed to <a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapper.html">makePreprocWrapper</a> via
 the <code>train</code> and <code>predict</code> arguments.
-<code>par.vals</code> is a <a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a> of parameter values that is relayed to the <code>args</code>
+<code>par.vals</code> is a <a href="http://www.inside-r.org/r-doc/base/list">list</a> of parameter values that is relayed to the <code>args</code>
 argument of the <em>train</em> function.</p>
 <pre><code class="r">lrn = makeLearner(&quot;regr.nnet&quot;, trace = FALSE, decay = 1e-02)
 lrn = makePreprocWrapper(lrn, train = trainfun, predict = predictfun,
@@ -738,7 +738,7 @@ lrn
 </code></pre>
 
 <p>Let's compare the cross-validated mean squared error (<a href="../measures/index.html">mse</a>) on the
-<a href="http://www.rdocumentation.org/packages/mlbench/functions/BostonHousing.html">Boston Housing data set</a> with and without scaling.</p>
+<a href="http://rpackages.ianhowson.com/cran/mlbench/man/BostonHousing.html">Boston Housing data set</a> with and without scaling.</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 
 r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
@@ -749,7 +749,7 @@ r
 #&gt; mse.aggr: 20.62
 #&gt; mse.mean: 20.62
 #&gt; mse.sd: 8.53
-#&gt; Runtime: 0.204169
+#&gt; Runtime: 0.218534
 
 lrn = makeLearner(&quot;regr.nnet&quot;, trace = FALSE, decay = 1e-02)
 r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
@@ -760,19 +760,19 @@ r
 #&gt; mse.aggr: 55.06
 #&gt; mse.mean: 55.06
 #&gt; mse.sd: 19.40
-#&gt; Runtime: 0.173894
+#&gt; Runtime: 0.171678
 </code></pre>
 
 <h3 id="joint-tuning-of-preprocessing-and-learner-parameters">Joint tuning of preprocessing and learner parameters</h3>
 <p>Often it's not clear which preprocessing options work best with a certain learning algorithm.
-As already shown for the number of principal components in <a href="http://www.rdocumentation.org/packages/mlr/functions/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> we can
-<a href="http://www.rdocumentation.org/packages/mlr/functions/tune.md.html">tune</a> them easily together with other hyperparameters of the learner.</p>
-<p>In our scaling example we can try if <a href="http://www.rdocumentation.org/packages/nnet/functions/nnet.html">nnet</a> works best with both centering and
+As already shown for the number of principal components in <a href="http://rpackages.ianhowson.com/cran/mlr/man/makePreprocWrapperCaret.html">makePreprocWrapperCaret</a> we can
+<a href="../tune/index.html">tune</a> them easily together with other hyperparameters of the learner.</p>
+<p>In our scaling example we can try if <a href="http://rpackages.ianhowson.com/cran/nnet/man/nnet.html">nnet</a> works best with both centering and
 scaling the data or if it's better to omit one of the two operations or do no preprocessing
 at all.
-In order to tune <code>center</code> and <code>scale</code> we have to add appropriate <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/LearnerParam.html">LearnerParam</a>s
-to the <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/ParamSet.html">parameter set</a> of the wrapped learner.</p>
-<p>As mentioned above <a href="http://www.rdocumentation.org/packages/base/functions/scale.html">scale</a> allows for numeric and logical <code>center</code> and <code>scale</code>
+In order to tune <code>center</code> and <code>scale</code> we have to add appropriate <a href="http://rpackages.ianhowson.com/cran/ParamHelpers/man/LearnerParam.html">LearnerParam</a>s
+to the <a href="http://rpackages.ianhowson.com/cran/ParamHelpers/man/ParamSet.html">parameter set</a> of the wrapped learner.</p>
+<p>As mentioned above <a href="http://www.inside-r.org/r-doc/base/scale">scale</a> allows for numeric and logical <code>center</code> and <code>scale</code>
 arguments. As we want to use the latter option we declare <code>center</code> and <code>scale</code> as logical
 learner parameters.</p>
 <pre><code class="r">lrn = makeLearner(&quot;regr.nnet&quot;, trace = FALSE)
@@ -812,7 +812,7 @@ getParamSet(lrn)
 #&gt; reltoll  numeric   -  1e-08 -Inf to Inf   -    TRUE     -
 </code></pre>
 
-<p>Now we do a simple grid search for the <code>decay</code> parameter of <a href="http://www.rdocumentation.org/packages/nnet/functions/nnet.html">nnet</a> and the
+<p>Now we do a simple grid search for the <code>decay</code> parameter of <a href="http://rpackages.ianhowson.com/cran/nnet/man/nnet.html">nnet</a> and the
 <code>center</code> and <code>scale</code> parameters.</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;Holdout&quot;)
 ps = makeParamSet(
@@ -830,25 +830,25 @@ res
 
 as.data.frame(res$opt.path)
 #&gt;    decay center scale mse.test.mean dob eol error.message exec.time
-#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.064
-#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.075
-#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.066
-#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.027
-#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.074
-#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.060
-#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.067
+#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.069
+#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.078
+#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.076
+#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.033
+#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.079
+#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.071
+#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.076
 #&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.073
-#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.077
-#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.030
-#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.076
-#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.064
+#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.121
+#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.033
+#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.081
+#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.078
 </code></pre>
 
 <h3 id="preprocessing-wrapper-functions">Preprocessing wrapper functions</h3>
 <p>If you have written a preprocessing wrapper that you might want to use from time to time
 it's a good idea to encapsulate it in an own function as shown below.
 If you think your preprocessing method is something others might want to use as well and should
-be integrated into <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> just <a href="https://github.com/mlr-org/mlr/issues">contact us</a>.</p>
+be integrated into <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> just <a href="https://github.com/mlr-org/mlr/issues">contact us</a>.</p>
 <pre><code class="r">makePreprocWrapperScale = function(learner) {
   trainfun = function(data, target, args = list(center, scale)) {
     cns = colnames(data)
