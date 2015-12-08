@@ -403,7 +403,7 @@ If you think your preprocessing method is something others might want to use as 
 be integrated into [%mlr] just [contact us](https://github.com/mlr-org/mlr/issues).
 
 ```{r}
-makePreprocWrapperScale = function(learner) {
+makePreprocWrapperScale = function(learner, center = TRUE, scale = TRUE) {
   trainfun = function(data, target, args = list(center, scale)) {
     cns = colnames(data)
     nums = setdiff(cns[sapply(data, is.numeric)], target)
@@ -435,9 +435,10 @@ makePreprocWrapperScale = function(learner) {
       makeLogicalLearnerParam("center"),
       makeLogicalLearnerParam("scale")
     ),
-    par.vals = list(center = TRUE, scale = TRUE)
+    par.vals = list(center = center, scale = scale)
   )
 }
 
-makePreprocWrapperScale("classif.lda")
+lrn = makePreprocWrapperScale("classif.lda")
+train(lrn, iris.task)
 ```
