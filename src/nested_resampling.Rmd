@@ -98,7 +98,7 @@ different outer splits.
 As storing entire models may be expensive (but possible by setting `models = TRUE`) we used
 the `extract` option of [&resample].
 Function [&getTuneResult] returns, among other things, the optimal hyperparameter values and
-the [optimization path](&ParamHelpers::optPath) for each iteration of the outer resampling loop.
+the [optimization path](&ParamHelpers::OptPath) for each iteration of the outer resampling loop.
 Note that the performance values shown when printing `r$extract` are the aggregated performances
 resulting from inner resampling on the outer training set for the best hyperparameter configurations
 (not to be confused with `r$measures.test` shown above).
@@ -366,7 +366,7 @@ getBMRTuneResults(res, as.df = TRUE)
 ```
 
 It is also possible to extract the tuning results for individual tasks and learners and,
-as shown in earlier examples, inspect the [optimization path](&ParalleMap::OptPath).
+as shown in earlier examples, inspect the [optimization path](&ParamHelpers::OptPath).
 
 ```{r}
 tune.res = getBMRTuneResults(res, task.ids = "Sonar-example", learner.ids = "classif.ksvm.tuned",
