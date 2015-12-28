@@ -2,20 +2,13 @@
 
 This page lists the learning methods already integrated in [%mlr].
 
-Columns **Num.**, **Fac.**, **NAs**, and **Weights** indicate if a method can cope with
-numerical and factor predictors, if it can deal with missing values in a meaningful way
+Columns **Num.**, **Fac.**, **Ord.**, **NAs**, and **Weights** indicate if a method can cope with
+numerical, factor, and ordered factor predictors, if it can deal with missing values in a meaningful way
 (other than simply removing observations with missing values) and if observation
 weights are supported.
 
-Column **Props** shows further properties of the learning methods.
-*ordered* indicates that a method can deal with ordered factor features.
-For *classification*, you can see if binary and/or multi-class problems are supported
-and if the learner accepts class weights.
-For *survival analysis*, the censoring type is shown.
-For example *rcens* means that the learning method can deal with right censored data.
-Moreover, the type of prediction is displayed, where *prob* indicates that probabilities
-can be predicted.
-For *regression*, *se* means that additional to the mean response standard errors can be predicted.
+Column **Props** shows further properties of the learning methods specific to the
+type of learning task.
 See also [&RLearner] for details.
 
 ```{r include=FALSE}
@@ -23,6 +16,8 @@ library("mlr")
 library("pander")
 # baseR, urlBasePackages, urlContribPackages are defined in build
 linkPkg = function(x) {
+  x = strsplit(x, ",")[[1]]
+  x = mlr:::cleanupPackageNames(x)    # remove exclamation marks
   if (urlBasePackages != urlContribPackages) {
     ind = x %in% baseR
     url = c(urlContribPackages, urlBasePackages)[ind + 1]
@@ -33,28 +28,22 @@ linkPkg = function(x) {
 }
 
 getTab = function(type) {
-  # lrnNames = listLearners(type)
-  # lrns = lapply(lrnNames, makeLearner)
-  lrns = listLearners(type, create = TRUE, warn.missing.packages = FALSE)
-  cols = c("ID / Short Name", "Name", "Packages", "Num.", "Fac.", "NAs", "Weights", "Props", "Note")
-  df = makeDataFrame(nrow = length(lrns), ncol = length(cols),
-    col.types = c("character", "character", "character", "logical", "logical", "logical", "logical", "character", "character"))
-  names(df) = cols
-
   cn = function(x) if (is.null(x)) NA else gsub("\\n", " ", x)
+  lrns = listLearners(type)
+  cols = c("class", "type", "package", "short.name", "name", "numerics", "factors", "ordered", "missings", "weights", "note")
+  props = setdiff(colnames(lrns), cols)
 
-  for (i in seq_along(lrns)) {
-    lrn = lrns[[i]]
-    df[i, 1] = paste0("**",lrn$id,"** <br />", cn(lrn$short.name))
-    df[i, 2] = cn(lrn$name)
-    df[i, 3] = linkPkg(mlr:::cleanupPackageNames(lrn$package))
-    df[i, 4] = hasLearnerProperties(lrn, "numerics")
-    df[i, 5] = hasLearnerProperties(lrn, "factors")
-    df[i, 6] = hasLearnerProperties(lrn, "missings")
-    df[i, 7] = hasLearnerProperties(lrn, "weights")
-    df[i, 8] = collapse(sort(setdiff(lrn$properties, c("numerics", "factors", "missings", "weights"))), sep = "<br />")
-    df[i, 9] = cn(lrn$note)
-  }
+  colNames = c("Class / Short Name / Name", "Packages", "Num.", "Fac.", "Ord.", "NAs", "Weights", "Props", "Note")
+  df = makeDataFrame(nrow = nrow(lrns), ncol = length(colNames),
+    col.types = c("character", "character", "logical", "logical", "logical", "logical", "logical", "character", "character"))
+  names(df) = colNames
+
+  df[1] = apply(lrns[c("class", "short.name", "name")], 1, function(x)
+    paste0("**", x["class"], "** <br /> *", cn(x["short.name"]), "* <br /><br />", cn(x["name"])))
+  df$Packages = sapply(lrns$package, linkPkg)
+  df[3:7] = lrns[c("numerics", "factors", "ordered", "missings", "weights")]
+  df$Props = apply(lrns[props], 1, function(x) collapse(props[x], sep = "<br />"))
+  df$Note = sapply(lrns$note, cn)
   logicals = vlapply(df, is.logical)
   df[logicals] = lapply(df[logicals], function(x) ifelse(x, "X", ""))
   df
@@ -62,53 +51,54 @@ getTab = function(type) {
 
 makeTab = function(df) {
   pandoc.table(df, style = "rmarkdown", split.tables = Inf, split.cells = Inf,
-    justify = c("left", "left", "left", "center", "center", "center", "center", "left", "left"))
+    justify = c("left", "left", "center", "center", "center", "center", "center", "left", "left"))
 }
 
-# types = c("classif", "multilabel", "regr", "surv", "cluster")
-# tables = lapply(types, getTab)
-# names(tables) = types
-# numbers = sapply(tables, nrow)
+types = c("classif", "multilabel", "regr", "surv", "cluster")
+tables = lapply(types, getTab)
+names(tables) = types
+numbers = sapply(tables, nrow)
 ```
 
-```{r include=FALSE}
-table = getTab("classif")
-number = nrow(table)
-```
-### Classification (`r number # numbers["classif"]`)
+### Classification (`r numbers["classif"]`)
+For classification the following additional learner properties are relevant and shown in
+column **Props**:
+
+* *prob*: The method can predict probabilities,
+* *oneclass*, *twoclass*, *multiclass*: One-class, two-class (binary) or multi-class
+  classification problems be handled,
+* *class.weights*: Class weights can be handled.
+
 ```{r echo=FALSE,results="asis"}
-makeTab(table)
-# makeTab(tables[["classif"]])
+makeTab(tables[["classif"]])
 ```
 
-```{r include=FALSE}
-table = getTab("regr")
-number = nrow(table)
-```
-### Regression (`r number # numbers["regr"]`)
+### Regression (`r numbers["regr"]`)
+Additional learner properties:
+
+* *se*: Standard errors can be predicted.
+
 ```{r echo=FALSE,results="asis"}
-makeTab(table)
-# makeTab(tables[["regr"]])
+makeTab(tables[["regr"]])
 ```
 
-```{r include=FALSE}
-table = getTab("surv")
-number = nrow(table)
-```
-### Survival analysis (`r number # numbers["surv"]`)
+### Survival analysis (`r numbers["surv"]`)
+Additional learner properties:
+
+* *prob*: Probabilities can be predicted,
+* *rcens*, *lcens*, *icens*: The learner can handle right, left and/or interval censored data.
+
 ```{r echo=FALSE,results="asis"}
-makeTab(table)
-# makeTab(tables[["surv"]])
+makeTab(tables[["surv"]])
 ```
 
-```{r include=FALSE}
-table = getTab("cluster")
-number = nrow(table)
-```
-### Cluster analysis (`r number # numbers["cluster"]`)
+### Cluster analysis (`r numbers["cluster"]`)
+Additional learner properties:
+
+* *prob*: Probabilities can be predicted.
+
 ```{r echo=FALSE,results="asis"}
-makeTab(table)
-# makeTab(tables[["cluster"]])
+makeTab(tables[["cluster"]])
 ```
 
 ### Cost-sensitive classification
@@ -121,14 +111,9 @@ See section [cost-sensitive classification](cost_sensitive_classif.md) and the d
 of [&makeCostSensClassifWrapper], [&makeCostSensRegrWrapper] and [&makeCostSensWeightedPairsWrapper]
 for details.
 
-```{r include=FALSE}
-table = getTab("multilabel")
-number = nrow(table)
-```
-### Multilabel classification (`r number # numbers["multilabel"]`)
+### Multilabel classification (`r numbers["multilabel"]`)
 ```{r echo=FALSE,results="asis"}
-makeTab(table)
-# makeTab(tables[["multilabel"]])
+makeTab(tables[["multilabel"]])
 ```
 
 Moreover, you can use the binary relevance method to apply ordinary classification learners
