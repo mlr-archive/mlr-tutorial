@@ -54,6 +54,7 @@ of lists of [&ResampleResult] objects, first ordered by [&Task] and then by [Lea
 to retrieve information for further analyses. This includes for example the performances
 or predictions of the learning algorithms under consideration.
 
+### Learner performances
 Let's have a look at the benchmark result above.
 [&getBMRPerformances] returns individual performances in resampling runs, while
 [&getBMRAggrPerformances] gives the aggregated values.
@@ -76,7 +77,13 @@ getBMRPerformances(bmr, as.df = TRUE)
 getBMRAggrPerformances(bmr, as.df = TRUE)
 ```
 
-Function [&getBMRPredictions] returns the predictions.
+
+### Predictions
+Per default, the [&BenchmarkResult] contains the learner predictions.
+If you do not want to keep them, e.g., to conserve memory, set `keep.pred = FALSE` when
+calling [&benchmark].
+
+You can access the predictions using function [&getBMRPredictions].
 Per default, you get a [list](&base::list) of lists of [&ResamplePrediction] objects.
 In most cases you might prefer the [data.frame](&base::data.frame) version.
 
@@ -97,6 +104,8 @@ If you don't like the default IDs, you can set the IDs of learners and tasks via
 [&makeLearner] and [make*Task](&Task).
 Moreover, you can conveniently change the ID of a [Learner](&makeLearner) via function [&setId].
 
+
+### IDs
 The IDs of all [Learner](&makeLearner)s, [&Task]s and [Measure](&makeMeasure)s in a benchmark
 experiment can be retrieved as follows:
 
@@ -108,6 +117,21 @@ getBMRLearnerIds(bmr)
 getBMRMeasureIds(bmr)
 ```
 
+
+### Learner models
+Per default the [&BenchmarkResult] also contains the fitted models for all learners on all tasks.
+If you do not want to keep them set `models = FALSE` when calling [&benchmark].
+The fitted models can be retrieved by function [&getBMRModels].
+It returns a [list](&base::list) of lists of [WrappedModel](&makeWrappedModel) objects.
+
+```{r}
+getBMRModels(bmr)
+
+getBMRModels(bmr, learner.ids = "classif.lda")
+```
+
+
+### Learners and measures
 Moreover, you can extract the employed [Learner](&makeLearner)s and [Measure](&makeMeasure)s.
 
 ```{r}
