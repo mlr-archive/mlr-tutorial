@@ -349,9 +349,42 @@ Those <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Lea
 using <a href="http://rpackages.ianhowson.com/cran/mlr/man/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## Regression learners that can deal with missing values
 listLearners(&quot;regr&quot;, properties = &quot;missings&quot;)
-#&gt; [1] &quot;regr.bartMachine&quot;     &quot;regr.blackboost&quot;      &quot;regr.cforest&quot;        
-#&gt; [4] &quot;regr.ctree&quot;           &quot;regr.cubist&quot;          &quot;regr.gbm&quot;            
-#&gt; [7] &quot;regr.randomForestSRC&quot; &quot;regr.rpart&quot;
+#&gt;                  class type         package  short.name
+#&gt; 1     regr.bartMachine regr     bartMachine bartmachine
+#&gt; 2      regr.blackboost regr    mboost,party    blackbst
+#&gt; 3         regr.cforest regr           party     cforest
+#&gt; 4           regr.ctree regr           party       ctree
+#&gt; 5          regr.cubist regr          Cubist      cubist
+#&gt; 6             regr.gbm regr             gbm         gbm
+#&gt; 7 regr.randomForestSRC regr randomForestSRC       rfsrc
+#&gt; 8           regr.rpart regr           rpart       rpart
+#&gt;                                                 name numerics factors
+#&gt; 1                 Bayesian Additive Regression Trees     TRUE    TRUE
+#&gt; 2            Gradient Boosting with Regression Trees     TRUE    TRUE
+#&gt; 3 Random Forest Based on Conditional Inference Trees     TRUE    TRUE
+#&gt; 4                        Conditional Inference Trees     TRUE    TRUE
+#&gt; 5                                             Cubist     TRUE    TRUE
+#&gt; 6                          Gradient Boosting Machine     TRUE    TRUE
+#&gt; 7                                      Random Forest     TRUE    TRUE
+#&gt; 8                                      Decision Tree     TRUE    TRUE
+#&gt;   ordered missings weights    se
+#&gt; 1   FALSE     TRUE   FALSE FALSE
+#&gt; 2   FALSE     TRUE    TRUE FALSE
+#&gt; 3    TRUE     TRUE    TRUE FALSE
+#&gt; 4    TRUE     TRUE    TRUE FALSE
+#&gt; 5   FALSE     TRUE   FALSE FALSE
+#&gt; 6   FALSE     TRUE    TRUE FALSE
+#&gt; 7   FALSE     TRUE   FALSE FALSE
+#&gt; 8    TRUE     TRUE    TRUE FALSE
+#&gt;                                                                                  note
+#&gt; 1 `use_missing_data` has been set to `TRUE` by default to allow missing data support.
+#&gt; 2   See `?ctree_control` for possible breakage for nominal features with missingness.
+#&gt; 3   See `?ctree_control` for possible breakage for nominal features with missingness.
+#&gt; 4   See `?ctree_control` for possible breakage for nominal features with missingness.
+#&gt; 5                                                                                    
+#&gt; 6                             `distribution` has been set to `&quot;gaussian&quot;` by default.
+#&gt; 7   `na.action` has been set to `na.impute` by default to allow missing data support.
+#&gt; 8                                    `xval` has been set to `0` by default for speed.
 </code></pre>
 
 <p>See also the list of <a href="../integrated_learners/index.html">integrated learners</a> in the Appendix.</p>

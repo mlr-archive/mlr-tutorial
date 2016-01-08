@@ -41,18 +41,39 @@ div.well, pre.well {
     background-color: #E7EBF2;
 }
 
-/* Hopefully only affects the learner list */
-h3[id|=classification] + table td:last-child, h3[id|=regression] + table td:last-child, h3[id|=survival-analysis] + table td:last-child, h3[id|=cluster-analysis] + table td:last-child  {
+
+/* Hopefully only affects the learner and measure tables */
+/* Draw a vertical line left of last column */
+h1[id|=integrated-learners] ~ table td:last-child, 
+h1[id|=implemented-performance-measures] ~ table td:last-child  
+{
     border-left: solid #CCC;
     border-left-width: 1px;
     padding-left: 5px;
 }
 
-h3[id|=classification] + table td, h3[id|=regression] + table td, h3[id|=survival-analysis] + table td, h3[id|=cluster-analysis] + table td  {
-    font-size: small;
-    padding: 1px;
-    line-height: 1.3em;
+/* Allow long code elements in last column to wrap (in learner table) */
+h1[id|=integrated-learners] ~ table td:last-child code  
+{
+    white-space: normal;
 }
+
+/* Smaller font size and padding */
+h1[id|=integrated-learners] ~ table td, 
+h1[id|=implemented-performance-measures] ~ table td  
+{
+    font-size: small;
+    padding: 2px;
+/*    line-height: 1.3em;*/
+}
+
+/* Don't wrap table headers */
+h1[id|=integrated-learners] ~ table th, 
+h1[id|=implemented-performance-measures] ~ table th  
+{
+    white-space: nowrap;
+}
+
 
 @media (min-width: 768px) .navbar-nav>li>a {
     padding-top: 25px;

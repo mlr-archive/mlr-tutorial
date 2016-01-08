@@ -749,7 +749,7 @@ r
 #&gt; mse.aggr: 20.62
 #&gt; mse.mean: 20.62
 #&gt; mse.sd: 8.53
-#&gt; Runtime: 0.257625
+#&gt; Runtime: 0.102468
 
 lrn = makeLearner(&quot;regr.nnet&quot;, trace = FALSE, decay = 1e-02)
 r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
@@ -760,7 +760,7 @@ r
 #&gt; mse.aggr: 55.06
 #&gt; mse.mean: 55.06
 #&gt; mse.sd: 19.40
-#&gt; Runtime: 0.225855
+#&gt; Runtime: 0.080019
 </code></pre>
 
 <h3 id="joint-tuning-of-preprocessing-and-learner-parameters">Joint tuning of preprocessing and learner parameters</h3>
@@ -830,18 +830,18 @@ res
 
 as.data.frame(res$opt.path)
 #&gt;    decay center scale mse.test.mean dob eol error.message exec.time
-#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.082
-#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.094
-#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.080
-#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.037
-#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.091
-#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.077
-#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.090
-#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.096
-#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.095
-#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.032
-#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.088
-#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.083
+#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.033
+#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.036
+#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.034
+#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.017
+#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.037
+#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.033
+#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.036
+#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.035
+#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.036
+#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.017
+#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.036
+#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.033
 </code></pre>
 
 <h3 id="preprocessing-wrapper-functions">Preprocessing wrapper functions</h3>
