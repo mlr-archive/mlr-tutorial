@@ -12,9 +12,9 @@ You can specify an individual resampling strategy for each [&Task] and select on
 multiple performance measures to be calculated.
 
 
-## Conducting a benchmark experiment
-We start with a small example. Two learners, [linear discriminant analysis](&MASS::lda) and
-[classification trees](&rpart::rpart), are applied to one classification problem ([&sonar.task]).
+## Conducting benchmark experiments
+We start with a small example. Two learners, [linear discriminant analysis (lda)](&MASS::lda) and a
+[classification tree (rpart)](&rpart::rpart), are applied to one classification problem ([&sonar.task]).
 As resampling strategy we choose `"Holdout"`.
 The performance is thus calculated on a single randomly sampled test data set.
 
@@ -49,7 +49,7 @@ The result `bmr` is an object of class [&BenchmarkResult]. Basically, it contain
 of lists of [&ResampleResult] objects, first ordered by [&Task] and then by [Learner](&makeLearner).
 
 
-## Accessing the benchmark result
+## Accessing benchmark results
 [%mlr] provides several accessor functions, named `getBMR<WhatToExtract>`, that permit
 to retrieve information for further analyses. This includes for example the performances
 or predictions of the learning algorithms under consideration.
@@ -141,8 +141,67 @@ getBMRMeasures(bmr)
 ```
 
 
+## Merging benchmark results
+Sometimes after completing a benchmark experiment it turns out that you want to extend it
+by another [Learner](&makeLearner) or another [&Task].
+In this case you can perform an additional benchmark experiment and then merge the results
+to get a single [&BenchmarkResult] object that can be accessed and analyzed as usual.
+
+[%mlr] provides two functions to merge results:
+[&mergeBenchmarkResultLearner] combines two or more benchmark results for different sets of
+learners on the same [&Task]s, while [&mergeBenchmarkResultTask] fuses results obtained
+with the same [Learner](&makeLearner)s on different sets of [&Task]s.
+
+For example in the benchmark experiment above we applied [lda](&MASS::lda) and [rpart](&rpart::rpart)
+to the [&sonar.task]. We now perform a second experiment using a [random forest](&randomForest::randomForest)
+and [quadratic discriminant analysis (qda)](&MASS::qda) and use [&mergeBenchmarkResultLearner]
+to combine the results.
+
+```{r}
+## First benchmark result
+bmr
+
+## Benchmark experiment for the additional learners
+lrns2 = list(makeLearner("classif.randomForest"), makeLearner("classif.qda"))
+bmr2 = benchmark(lrns2, sonar.task, rdesc, show.info = FALSE)
+bmr2
+
+## Merge the results
+mergeBenchmarkResultLearner(bmr, bmr2)
+```
+
+Note that in the above examples in each case a [resample description](&makeResampleDesc)
+was passed to the [&benchmark] function.
+For this reason [lda](&MASS::lda) and [rpart](&rpart::rpart) were most likely evaluated on
+a different training/test set pair than [random forest](&randomForest::randomForest) and
+[qda](&MASS::qda).
+
+Differing training/test set pairs across learners pose an additional source of variation in
+the results, which can make it harder to detect actual performance differences between learners.
+Therefore, if you suspect that you will have to extend your benchmark experiment by another
+[Learner](&makeLearner) later on it's probably easiest to work with 
+[ResampleInstance](&makeResampleInstance)s from the start. These can be stored and used for
+any additional experiments.
+
+Alternatively, if you used a resample description in the first benchmark experiment you could
+also extract the [ResampleInstance](&makeResampleInstance)s from the [&BenchmarkResult] `bmr`
+and pass these to all further [&benchmark] calls.
+
+```{r}
+rin = getBMRPredictions(bmr)[[1]][[1]]$instance
+rin
+
+## Benchmark experiment for the additional random forest
+bmr3 = benchmark(lrns2, sonar.task, rin, show.info = FALSE)
+bmr3
+
+## Merge the results
+mergeBenchmarkResultLearner(bmr, bmr3)
+```
+
+
 ## Benchmark analysis and visualization
-[%mlr] offers several possibilities to analyse the results of a benchmark experiment.
+[%mlr] offers several possibilities to analyze the results of a benchmark experiment.
 This includes visualization, ranking of learning algorithms and hypothesis tests to
 assess performance differences between learners.
 
