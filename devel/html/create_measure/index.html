@@ -369,7 +369,7 @@ mse$fun
 #&gt; {
 #&gt;     measureMSE(pred$data$truth, pred$data$response)
 #&gt; }
-#&gt; &lt;bytecode: 0x15e026b8&gt;
+#&gt; &lt;bytecode: 0xbb2fb00&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 
 measureMSE
@@ -377,7 +377,7 @@ measureMSE
 #&gt; {
 #&gt;     mean((response - truth)^2)
 #&gt; }
-#&gt; &lt;bytecode: 0xc4fe0f8&gt;
+#&gt; &lt;bytecode: 0xb1d0040&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -385,7 +385,8 @@ measureMSE
 slots.</p>
 <p>At the core is slot <code>$fun</code> which contains the function that calculates the performance value.
 The actual work is done by function <a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">measureMSE</a>.
-Similar functions, always following the same naming scheme <code>measureX</code>, exist for most measures.
+Similar functions, adhering to the same naming scheme, i.e., <code>measure</code> followed by the all
+caps measure ID, exist for most performance measures.
 See the <a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">measures</a> help page for a complete list.</p>
 <p>Just as <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> objects each <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> has an
 identifier <code>$id</code> which is for example used to annotate results and plots.
@@ -398,10 +399,11 @@ Obviously, most measures need the <a href="http://rpackages.ianhowson.com/cran/m
 problems, the true values of the target variable(s) (<code>"req.truth"</code>).</p>
 <p>For <a href="../tune/index.html">tuning</a> each <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> knows its extreme values <code>$best</code> and
 <code>$worst</code> and if it wants to be minimized or maximized (<code>$minimize</code>).</p>
-<p>For resampling slot <code>$aggr</code> specifies how performance values obtained in individual resampling
-iterations are aggregated.
-The most common scheme is <code>test.mean</code>, i.e., the unweighted mean of the performances on the
-test sets.</p>
+<p>For resampling slot <code>$aggr</code> specifies how the overall performance across all resampling
+iterations is calculated. Typically, this is just a matter of aggregating the performance
+values obtained on the test sets <code>perf.test</code> or the training sets <code>perf.train</code> by a simple
+function. The by far most common scheme is <a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a>, i.e., the unweighted
+mean of the performances on the test sets.</p>
 <pre><code class="r">str(test.mean)
 #&gt; List of 3
 #&gt;  $ id  : chr &quot;test.mean&quot;
@@ -412,7 +414,7 @@ test sets.</p>
 test.mean$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; mean(perf.test)
-#&gt; &lt;bytecode: 0x1a383708&gt;
+#&gt; &lt;bytecode: 0x8fa8d70&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -500,7 +502,13 @@ performance(pred, measures = my.costs)
 <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeAggregation.html">makeAggregation</a>.
 You need to specify an identifier <code>id</code> and optionally a <code>name</code> and, most importantly, write
 a function that does the actual aggregation. Note that this function must have a certain
-signature detailed in the documentation of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeAggregation.html">makeAggregation</a>.</p>
+signature detailed in the documentation of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeAggregation.html">makeAggregation</a>.
+Usually, you will only need the performance values on the test sets <code>perf.test</code> or
+the training sets <code>perf.train</code>. In rare cases, e.g., the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Prediction.html">Prediction</a> object <code>pred</code> or
+information stored in the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> object might be required to obtain the aggregated performance.
+For an example have a look at the
+<a href="https://github.com/mlr-org/mlr/blob/master/R/aggregations.R#L211">definition</a> of function
+<a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.join</a>.</p>
 <h3 id="example-evaluating-the-range-of-measures">Example: Evaluating the range of measures</h3>
 <p>Let's say you are interested in the range of the performance values obtained on individual
 test sets.</p>
@@ -512,7 +520,7 @@ test sets.</p>
 
 <p><code>perf.train</code> and <code>perf.test</code> are both numerical vectors containing the preformances on
 the train and test data sets.
-In the usual case (e.g., cross validation), the <code>perf.train</code> vector is empty.</p>
+Usually (e.g., cross validation), the <code>perf.train</code> vector is empty.</p>
 <p>Now we can run a feature selection based on the first measure in the provided
 <a href="http://www.inside-r.org/r-doc/base/list">list</a> and see how the other measures turn out.</p>
 <pre><code class="r">## mmce with default aggregation scheme test.mean
