@@ -23,7 +23,8 @@ slots.
 
 At the core is slot `$fun` which contains the function that calculates the performance value.
 The actual work is done by function [measureMSE](&measures).
-Similar functions, always following the same naming scheme `measureX`, exist for most measures.
+Similar functions, adhering to the same naming scheme, i.e., `measure` followed by the all
+caps measure ID, exist for most performance measures.
 See the [&measures] help page for a complete list.
 
 Just as [&Task] and [Learner](&makeLearner) objects each [Measure](&makeMeasure) has an
@@ -40,10 +41,11 @@ problems, the true values of the target variable(s) (`"req.truth"`).
 For [tuning](tune.md) each [Measure](&makeMeasure) knows its extreme values `$best` and
 `$worst` and if it wants to be minimized or maximized (`$minimize`).
 
-For resampling slot `$aggr` specifies how performance values obtained in individual resampling
-iterations are aggregated.
-The most common scheme is `test.mean`, i.e., the unweighted mean of the performances on the
-test sets.
+For resampling slot `$aggr` specifies how the overall performance across all resampling
+iterations is calculated. Typically, this is just a matter of aggregating the performance
+values obtained on the test sets `perf.test` or the training sets `perf.train` by a simple
+function. The by far most common scheme is [test.mean](&aggregations), i.e., the unweighted
+mean of the performances on the test sets.
 
 ```{r}
 str(test.mean)
@@ -144,6 +146,12 @@ It is possible to create your own aggregation scheme by calling the [%mlr] funct
 You need to specify an identifier `id` and optionally a `name` and, most importantly, write
 a function that does the actual aggregation. Note that this function must have a certain
 signature detailed in the documentation of [&makeAggregation].
+Usually, you will only need the performance values on the test sets `perf.test` or
+the training sets `perf.train`. In rare cases, e.g., the [&Prediction] object `pred` or
+information stored in the [&Task] object might be required to obtain the aggregated performance.
+For an example have a look at the
+[definition](https://github.com/mlr-org/mlr/blob/master/R/aggregations.R#L211) of function
+[test.join](&aggregations).
 
 
 ### Example: Evaluating the range of measures
@@ -159,7 +167,7 @@ my.range.aggr = makeAggregation(id = "test.range", name = "Test Range",
 
 `perf.train` and `perf.test` are both numerical vectors containing the preformances on
 the train and test data sets.
-In the usual case (e.g., cross validation), the `perf.train` vector is empty.
+Usually (e.g., cross validation), the `perf.train` vector is empty.
 
 Now we can run a feature selection based on the first measure in the provided
 [list](&base::list) and see how the other measures turn out.
