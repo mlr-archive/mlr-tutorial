@@ -607,7 +607,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.16252
+#&gt; Runtime: 0.179836
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -655,7 +655,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.157341
+#&gt; Runtime: 0.16653
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -679,155 +679,39 @@ has a 'class weights' or an 'observation weights' argument.
 To find out which learning methods support either type of weights have a look at the
 <a href="../integrated_learners/index.html">list of integrated learners</a> in the Appendix or use <a href="http://rpackages.ianhowson.com/cran/mlr/man/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## Learners that accept observation weights
-listLearners(&quot;classif&quot;, properties = &quot;weights&quot;)
-#&gt;                 class    type      package short.name
-#&gt; 1         classif.ada classif          ada        ada
-#&gt; 2      classif.avNNet classif         nnet     avNNet
-#&gt; 3    classif.binomial classif        stats   binomial
-#&gt; 4  classif.blackboost classif mboost,party   blackbst
-#&gt; 5     classif.cforest classif        party    cforest
-#&gt; 6       classif.ctree classif        party      ctree
-#&gt; 7  classif.extraTrees classif   extraTrees extraTrees
-#&gt; 8         classif.gbm classif          gbm        gbm
-#&gt; 9    classif.glmboost classif       mboost     glmbst
-#&gt; 10     classif.glmnet classif      !glmnet     glmnet
-#&gt; 11     classif.logreg classif        stats     logreg
-#&gt; 12        classif.lqa classif          lqa        lqa
-#&gt; 13   classif.multinom classif         nnet   multinom
-#&gt; 14       classif.nnet classif         nnet       nnet
-#&gt; 15        classif.plr classif      stepPlr        plr
-#&gt; 16     classif.probit classif        stats     probit
-#&gt; 17      classif.rpart classif        rpart      rpart
-#&gt; 18    classif.xgboost classif      xgboost    xgboost
-#&gt;                                                                  name
-#&gt; 1                                                        ada Boosting
-#&gt; 2                                                      Neural Network
-#&gt; 3                                                 Binomial Regression
-#&gt; 4                             Gradient Boosting With Regression Trees
-#&gt; 5                  Random forest based on conditional inference trees
-#&gt; 6                                         Conditional Inference Trees
-#&gt; 7                                          Extremely Randomized Trees
-#&gt; 8                                           Gradient Boosting Machine
-#&gt; 9                                                   Boosting for GLMs
-#&gt; 10                        GLM with Lasso or Elasticnet Regularization
-#&gt; 11                                                Logistic Regression
-#&gt; 12 Fitting penalized Generalized Linear Models with the LQA algorithm
-#&gt; 13                                             Multinomial Regression
-#&gt; 14                                                     Neural Network
-#&gt; 15                              Logistic Regression with a L2 Penalty
-#&gt; 16                                                  Probit Regression
-#&gt; 17                                                      Decision Tree
-#&gt; 18                                          eXtreme Gradient Boosting
-#&gt;    numerics factors ordered missings weights prob oneclass twoclass
-#&gt; 1      TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 2      TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 3      TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 4      TRUE    TRUE   FALSE     TRUE    TRUE TRUE    FALSE     TRUE
-#&gt; 5      TRUE    TRUE    TRUE     TRUE    TRUE TRUE    FALSE     TRUE
-#&gt; 6      TRUE    TRUE    TRUE     TRUE    TRUE TRUE    FALSE     TRUE
-#&gt; 7      TRUE   FALSE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 8      TRUE    TRUE   FALSE     TRUE    TRUE TRUE    FALSE     TRUE
-#&gt; 9      TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 10     TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 11     TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 12     TRUE   FALSE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 13     TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 14     TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 15     TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 16     TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt; 17     TRUE    TRUE    TRUE     TRUE    TRUE TRUE    FALSE     TRUE
-#&gt; 18     TRUE    TRUE   FALSE    FALSE    TRUE TRUE    FALSE     TRUE
-#&gt;    multiclass class.weights
-#&gt; 1       FALSE         FALSE
-#&gt; 2        TRUE         FALSE
-#&gt; 3       FALSE         FALSE
-#&gt; 4       FALSE         FALSE
-#&gt; 5        TRUE         FALSE
-#&gt; 6        TRUE         FALSE
-#&gt; 7        TRUE         FALSE
-#&gt; 8        TRUE         FALSE
-#&gt; 9       FALSE         FALSE
-#&gt; 10       TRUE         FALSE
-#&gt; 11      FALSE         FALSE
-#&gt; 12      FALSE         FALSE
-#&gt; 13       TRUE         FALSE
-#&gt; 14       TRUE         FALSE
-#&gt; 15      FALSE         FALSE
-#&gt; 16      FALSE         FALSE
-#&gt; 17       TRUE         FALSE
-#&gt; 18       TRUE         FALSE
-#&gt;                                                                                                                                                                       note
-#&gt; 1                                                                                                                         `xval` has been set to `0` by default for speed.
-#&gt; 2                                                                             `size` has been set to `3` by default. Doing bagging training of `nnet` if set `bag = TRUE`.
-#&gt; 3                                                                            Delegates to `glm` with freely choosable binomial link function via learner parameter `link`.
-#&gt; 4                                                                                        See `?ctree_control` for possible breakage for nominal features with missingness.
-#&gt; 5                                                                                        See `?ctree_control` for possible breakage for nominal features with missingness.
-#&gt; 6                                                                                        See `?ctree_control` for possible breakage for nominal features with missingness.
-#&gt; 7                                                                                                                                                                         
-#&gt; 8                                                                                                                                                                         
-#&gt; 9  `family` has been set to `Binomial()` by default. Maximum number of boosting iterations is set via `mstop`, the actual number used for prediction is controlled by `m`.
-#&gt; 10                                                                                       Factors automatically get converted to dummy columns, ordered factors to integer.
-#&gt; 11                                                                                                            Delegates to `glm` with `family = binomial(link = &quot;logit&quot;)`.
-#&gt; 12                                                                                                   `penalty` has been set to `&quot;lasso&quot;` and `lambda` to `0.1` by default.
-#&gt; 13                                                                                                                                                                        
-#&gt; 14                                                                                                                                  `size` has been set to `3` by default.
-#&gt; 15                                                                                              AIC and BIC penalty types can be selected via the new parameter `cp.type`.
-#&gt; 16                                                                                                           Delegates to `glm` with `family = binomial(link = &quot;probit&quot;)`.
-#&gt; 17                                                                                                                        `xval` has been set to `0` by default for speed.
-#&gt; 18                                          All settings are passed directly, rather than through `xgboost`'s `params` argument. `nrounds` has been set to `1` by default.
+listLearners(&quot;classif&quot;, properties = &quot;weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
+#&gt;                 class      package
+#&gt; 1         classif.ada          ada
+#&gt; 2      classif.avNNet         nnet
+#&gt; 3    classif.binomial        stats
+#&gt; 4  classif.blackboost mboost,party
+#&gt; 5     classif.cforest        party
+#&gt; 6       classif.ctree        party
+#&gt; 7  classif.extraTrees   extraTrees
+#&gt; 8         classif.gbm          gbm
+#&gt; 9    classif.glmboost       mboost
+#&gt; 10     classif.glmnet      !glmnet
+#&gt; 11     classif.logreg        stats
+#&gt; 12        classif.lqa          lqa
+#&gt; 13   classif.multinom         nnet
+#&gt; 14       classif.nnet         nnet
+#&gt; 15        classif.plr      stepPlr
+#&gt; 16     classif.probit        stats
+#&gt; 17      classif.rpart        rpart
+#&gt; 18    classif.xgboost      xgboost
 
 ## Learners that can deal with class weights
-listLearners(&quot;classif&quot;, properties = &quot;class.weights&quot;)
-#&gt;                            class    type      package          short.name
-#&gt; 1                   classif.ksvm classif      kernlab                ksvm
-#&gt; 2       classif.LiblineaRL1L2SVC classif    LiblineaR       liblinl1l2svc
-#&gt; 3      classif.LiblineaRL1LogReg classif    LiblineaR      liblinl1logreg
-#&gt; 4       classif.LiblineaRL2L1SVC classif    LiblineaR       liblinl2l1svc
-#&gt; 5      classif.LiblineaRL2LogReg classif    LiblineaR      liblinl2logreg
-#&gt; 6         classif.LiblineaRL2SVC classif    LiblineaR         liblinl2svc
-#&gt; 7 classif.LiblineaRMultiClassSVC classif    LiblineaR liblinmulticlasssvc
-#&gt; 8           classif.randomForest classif randomForest                  rf
-#&gt; 9                    classif.svm classif        e1071                 svm
-#&gt;                                                   name numerics factors
-#&gt; 1                              Support Vector Machines     TRUE    TRUE
-#&gt; 2 L1-Regularized L2-Loss Support Vector Classification     TRUE   FALSE
-#&gt; 3                   L1-Regularized Logistic Regression     TRUE   FALSE
-#&gt; 4 L2-Regularized L1-Loss Support Vector Classification     TRUE   FALSE
-#&gt; 5                   L2-Regularized Logistic Regression     TRUE   FALSE
-#&gt; 6 L2-Regularized L2-Loss Support Vector Classification     TRUE   FALSE
-#&gt; 7  Support Vector Classification by Crammer and Singer     TRUE   FALSE
-#&gt; 8                                        Random Forest     TRUE    TRUE
-#&gt; 9                     Support Vector Machines (libsvm)     TRUE    TRUE
-#&gt;   ordered missings weights  prob oneclass twoclass multiclass
-#&gt; 1   FALSE    FALSE   FALSE  TRUE    FALSE     TRUE       TRUE
-#&gt; 2   FALSE    FALSE   FALSE FALSE    FALSE     TRUE       TRUE
-#&gt; 3   FALSE    FALSE   FALSE  TRUE    FALSE     TRUE       TRUE
-#&gt; 4   FALSE    FALSE   FALSE FALSE    FALSE     TRUE       TRUE
-#&gt; 5   FALSE    FALSE   FALSE  TRUE    FALSE     TRUE       TRUE
-#&gt; 6   FALSE    FALSE   FALSE FALSE    FALSE     TRUE       TRUE
-#&gt; 7   FALSE    FALSE   FALSE FALSE    FALSE     TRUE       TRUE
-#&gt; 8    TRUE    FALSE   FALSE  TRUE    FALSE     TRUE       TRUE
-#&gt; 9   FALSE    FALSE   FALSE  TRUE    FALSE     TRUE       TRUE
-#&gt;   class.weights
-#&gt; 1          TRUE
-#&gt; 2          TRUE
-#&gt; 3          TRUE
-#&gt; 4          TRUE
-#&gt; 5          TRUE
-#&gt; 6          TRUE
-#&gt; 7          TRUE
-#&gt; 8          TRUE
-#&gt; 9          TRUE
-#&gt;                                                                                                                                                     note
-#&gt; 1 Kernel parameters have to be passed directly and not by using the `kpar` list in `ksvm`. Note that `fit` has been set to `FALSE` by default for speed.
-#&gt; 2                                                                                                                                                       
-#&gt; 3                                                                                                                                                       
-#&gt; 4                                                                                                                                                       
-#&gt; 5                                                                                     `type = 0` (the default) is primal and `type = 7` is dual problem.
-#&gt; 6                                                                                     `type = 2` (the default) is primal and `type = 1` is dual problem.
-#&gt; 7                                                                                                                                                       
-#&gt; 8                                                                                                                                                       
-#&gt; 9
+listLearners(&quot;classif&quot;, properties = &quot;class.weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
+#&gt;                            class      package
+#&gt; 1                   classif.ksvm      kernlab
+#&gt; 2       classif.LiblineaRL1L2SVC    LiblineaR
+#&gt; 3      classif.LiblineaRL1LogReg    LiblineaR
+#&gt; 4       classif.LiblineaRL2L1SVC    LiblineaR
+#&gt; 5      classif.LiblineaRL2LogReg    LiblineaR
+#&gt; 6         classif.LiblineaRL2SVC    LiblineaR
+#&gt; 7 classif.LiblineaRMultiClassSVC    LiblineaR
+#&gt; 8           classif.randomForest randomForest
+#&gt; 9                    classif.svm        e1071
 </code></pre>
 
 <p>Alternatively, <em>over- and undersampling</em> techniques can be used.</p>
@@ -888,7 +772,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.192708
+#&gt; Runtime: 0.201133
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -910,7 +794,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.314613
+#&gt; Runtime: 0.328675
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -993,7 +877,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.325575
+#&gt; Runtime: 0.364552
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -1094,7 +978,7 @@ r
 #&gt; mmce.aggr: 0.30
 #&gt; mmce.mean: 0.30
 #&gt; mmce.sd: 0.00
-#&gt; Runtime: 0.0464785
+#&gt; Runtime: 0.0516262
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)

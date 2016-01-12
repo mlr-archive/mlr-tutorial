@@ -384,7 +384,8 @@ multi-class case (<a href="../measures/index.html">multiclass.auc</a> based on p
 <p>Let's have a look at some examples demonstrating the three possible methods.</p>
 <p>Note that the <a href="../learner/index.html">learners</a> have to be capable of predicting probabilities.
 Have a look at the <a href="../integrated_learners/index.html">table of learners</a>
-or run <code>listLearners(prob = TRUE)</code> to get a list of all learners that support this.</p>
+or run <code>listLearners("classif", properties = c("twoclass", "prob"))</code> to get a list of all
+learners that support this.</p>
 <h2 id="performance-plots-with-generaterocrcurvesdata-and-plotrocrcurves">Performance plots with generateROCRCurvesData and plotROCRCurves</h2>
 <p>As mentioned above <a href="http://rpackages.ianhowson.com/cran/mlr/man/generateROCRCurvesData.html">generateROCRCurvesData</a> is an interface to <a href="http://rpackages.ianhowson.com/cran/ROCR/">ROCR</a>'s
 <a href="http://rpackages.ianhowson.com/cran/ROCR/man/performance.html">performance</a> methods.
