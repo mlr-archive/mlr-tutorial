@@ -524,18 +524,103 @@ regr.lrn = removeHyperPars(regr.lrn, c(&quot;n.trees&quot;, &quot;interaction.de
 certain learning <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> use function <a href="http://rpackages.ianhowson.com/cran/mlr/man/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## List everything in mlr
 head(listLearners())
-#&gt; [1] &quot;classif.ada&quot;         &quot;classif.avNNet&quot;      &quot;classif.bartMachine&quot;
-#&gt; [4] &quot;classif.bdk&quot;         &quot;classif.binomial&quot;    &quot;classif.blackboost&quot;
+#&gt;                 class    type      package  short.name
+#&gt; 1         classif.ada classif          ada         ada
+#&gt; 2      classif.avNNet classif         nnet      avNNet
+#&gt; 3 classif.bartMachine classif  bartMachine bartmachine
+#&gt; 4         classif.bdk classif      kohonen         bdk
+#&gt; 5    classif.binomial classif        stats    binomial
+#&gt; 6  classif.blackboost classif mboost,party    blackbst
+#&gt;                                      name numerics factors ordered
+#&gt; 1                            ada Boosting     TRUE    TRUE   FALSE
+#&gt; 2                          Neural Network     TRUE    TRUE   FALSE
+#&gt; 3      Bayesian Additive Regression Trees     TRUE    TRUE   FALSE
+#&gt; 4              Bi-Directional Kohonen map     TRUE   FALSE   FALSE
+#&gt; 5                     Binomial Regression     TRUE    TRUE   FALSE
+#&gt; 6 Gradient Boosting With Regression Trees     TRUE    TRUE   FALSE
+#&gt;   missings weights prob oneclass twoclass multiclass class.weights    se
+#&gt; 1    FALSE    TRUE TRUE    FALSE     TRUE      FALSE         FALSE FALSE
+#&gt; 2    FALSE    TRUE TRUE    FALSE     TRUE       TRUE         FALSE FALSE
+#&gt; 3     TRUE   FALSE TRUE    FALSE     TRUE      FALSE         FALSE FALSE
+#&gt; 4    FALSE   FALSE TRUE    FALSE     TRUE       TRUE         FALSE FALSE
+#&gt; 5    FALSE    TRUE TRUE    FALSE     TRUE      FALSE         FALSE FALSE
+#&gt; 6     TRUE    TRUE TRUE    FALSE     TRUE      FALSE         FALSE FALSE
+#&gt;   lcens rcens icens
+#&gt; 1 FALSE FALSE FALSE
+#&gt; 2 FALSE FALSE FALSE
+#&gt; 3 FALSE FALSE FALSE
+#&gt; 4 FALSE FALSE FALSE
+#&gt; 5 FALSE FALSE FALSE
+#&gt; 6 FALSE FALSE FALSE
+#&gt;                                                                                            note
+#&gt; 1                                              `xval` has been set to `0` by default for speed.
+#&gt; 2  `size` has been set to `3` by default. Doing bagging training of `nnet` if set `bag = TRUE`.
+#&gt; 3           `use_missing_data` has been set to `TRUE` by default to allow missing data support.
+#&gt; 4                                                                                              
+#&gt; 5 Delegates to `glm` with freely choosable binomial link function via learner parameter `link`.
+#&gt; 6             See `?ctree_control` for possible breakage for nominal features with missingness.
 
 ## List classifiers that can output probabilities
 head(listLearners(&quot;classif&quot;, properties = &quot;prob&quot;))
-#&gt; [1] &quot;classif.ada&quot;         &quot;classif.avNNet&quot;      &quot;classif.bartMachine&quot;
-#&gt; [4] &quot;classif.bdk&quot;         &quot;classif.binomial&quot;    &quot;classif.blackboost&quot;
+#&gt;                 class    type      package  short.name
+#&gt; 1         classif.ada classif          ada         ada
+#&gt; 2      classif.avNNet classif         nnet      avNNet
+#&gt; 3 classif.bartMachine classif  bartMachine bartmachine
+#&gt; 4         classif.bdk classif      kohonen         bdk
+#&gt; 5    classif.binomial classif        stats    binomial
+#&gt; 6  classif.blackboost classif mboost,party    blackbst
+#&gt;                                      name numerics factors ordered
+#&gt; 1                            ada Boosting     TRUE    TRUE   FALSE
+#&gt; 2                          Neural Network     TRUE    TRUE   FALSE
+#&gt; 3      Bayesian Additive Regression Trees     TRUE    TRUE   FALSE
+#&gt; 4              Bi-Directional Kohonen map     TRUE   FALSE   FALSE
+#&gt; 5                     Binomial Regression     TRUE    TRUE   FALSE
+#&gt; 6 Gradient Boosting With Regression Trees     TRUE    TRUE   FALSE
+#&gt;   missings weights prob oneclass twoclass multiclass class.weights
+#&gt; 1    FALSE    TRUE TRUE    FALSE     TRUE      FALSE         FALSE
+#&gt; 2    FALSE    TRUE TRUE    FALSE     TRUE       TRUE         FALSE
+#&gt; 3     TRUE   FALSE TRUE    FALSE     TRUE      FALSE         FALSE
+#&gt; 4    FALSE   FALSE TRUE    FALSE     TRUE       TRUE         FALSE
+#&gt; 5    FALSE    TRUE TRUE    FALSE     TRUE      FALSE         FALSE
+#&gt; 6     TRUE    TRUE TRUE    FALSE     TRUE      FALSE         FALSE
+#&gt;                                                                                            note
+#&gt; 1                                              `xval` has been set to `0` by default for speed.
+#&gt; 2  `size` has been set to `3` by default. Doing bagging training of `nnet` if set `bag = TRUE`.
+#&gt; 3           `use_missing_data` has been set to `TRUE` by default to allow missing data support.
+#&gt; 4                                                                                              
+#&gt; 5 Delegates to `glm` with freely choosable binomial link function via learner parameter `link`.
+#&gt; 6             See `?ctree_control` for possible breakage for nominal features with missingness.
 
 ## List classifiers that can be applied to iris (i.e., multiclass) and output probabilities
 head(listLearners(iris.task, properties = &quot;prob&quot;))
-#&gt; [1] &quot;classif.avNNet&quot;   &quot;classif.bdk&quot;      &quot;classif.boosting&quot;
-#&gt; [4] &quot;classif.cforest&quot;  &quot;classif.ctree&quot;    &quot;classif.dbnDNN&quot;
+#&gt;              class    type      package short.name
+#&gt; 1   classif.avNNet classif         nnet     avNNet
+#&gt; 2      classif.bdk classif      kohonen        bdk
+#&gt; 3 classif.boosting classif adabag,rpart     adabag
+#&gt; 4  classif.cforest classif        party    cforest
+#&gt; 5    classif.ctree classif        party      ctree
+#&gt; 6   classif.dbnDNN classif      deepnet    dbn.dnn
+#&gt;                                                  name numerics factors
+#&gt; 1                                      Neural Network     TRUE    TRUE
+#&gt; 2                          Bi-Directional Kohonen map     TRUE   FALSE
+#&gt; 3                                     Adabag Boosting     TRUE    TRUE
+#&gt; 4  Random forest based on conditional inference trees     TRUE    TRUE
+#&gt; 5                         Conditional Inference Trees     TRUE    TRUE
+#&gt; 6 Deep neural network with weights initialized by DBN     TRUE   FALSE
+#&gt;   ordered missings weights prob oneclass twoclass multiclass class.weights
+#&gt; 1   FALSE    FALSE    TRUE TRUE    FALSE     TRUE       TRUE         FALSE
+#&gt; 2   FALSE    FALSE   FALSE TRUE    FALSE     TRUE       TRUE         FALSE
+#&gt; 3   FALSE     TRUE   FALSE TRUE    FALSE     TRUE       TRUE         FALSE
+#&gt; 4    TRUE     TRUE    TRUE TRUE    FALSE     TRUE       TRUE         FALSE
+#&gt; 5    TRUE     TRUE    TRUE TRUE    FALSE     TRUE       TRUE         FALSE
+#&gt; 6   FALSE    FALSE   FALSE TRUE    FALSE     TRUE       TRUE         FALSE
+#&gt;                                                                                           note
+#&gt; 1 `size` has been set to `3` by default. Doing bagging training of `nnet` if set `bag = TRUE`.
+#&gt; 2                                                                                             
+#&gt; 3                                             `xval` has been set to `0` by default for speed.
+#&gt; 4            See `?ctree_control` for possible breakage for nominal features with missingness.
+#&gt; 5            See `?ctree_control` for possible breakage for nominal features with missingness.
+#&gt; 6                                                      `output` set to `&quot;softmax&quot;` by default.
 
 ## The calls above return character vectors, but you can also create learner objects
 head(listLearners(&quot;cluster&quot;, create = TRUE), 2)
