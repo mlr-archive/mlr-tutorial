@@ -52,7 +52,8 @@ Let's have a look at some examples demonstrating the three possible methods.
 
 Note that the [learners](learner.md) have to be capable of predicting probabilities.
 Have a look at the [table of learners](integrated_learners.md)
-or run `listLearners(prob = TRUE)` to get a list of all learners that support this.
+or run `listLearners("classif", properties = c("twoclass", "prob"))` to get a list of all
+learners that support this.
 
 
 ## Performance plots with generateROCRCurvesData and plotROCRCurves

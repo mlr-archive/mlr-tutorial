@@ -258,10 +258,10 @@ To find out which learning methods support either type of weights have a look at
 
 ```{r}
 ## Learners that accept observation weights
-listLearners("classif", properties = "weights")
+listLearners("classif", properties = "weights")[c("class", "package")]
 
 ## Learners that can deal with class weights
-listLearners("classif", properties = "class.weights")
+listLearners("classif", properties = "class.weights")[c("class", "package")]
 ```
 
 Alternatively, *over- and undersampling* techniques can be used.

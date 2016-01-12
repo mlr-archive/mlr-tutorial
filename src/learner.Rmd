@@ -141,13 +141,16 @@ certain learning [&Task] use function [&listLearners].
 
 ```{r}
 ## List everything in mlr
-head(listLearners())
+lrns = listLearners()
+head(lrns[c("class", "package")])
 
 ## List classifiers that can output probabilities
-head(listLearners("classif", properties = "prob"))
+lrns = listLearners("classif", properties = "prob")
+head(lrns[c("class", "package")])
 
 ## List classifiers that can be applied to iris (i.e., multiclass) and output probabilities
-head(listLearners(iris.task, properties = "prob"))
+lrns = listLearners(iris.task, properties = "prob")
+head(lrns[c("class", "package")])
 
 ## The calls above return character vectors, but you can also create learner objects
 head(listLearners("cluster", create = TRUE), 2)

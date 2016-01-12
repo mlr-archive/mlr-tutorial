@@ -17,7 +17,7 @@ using [&listLearners].
 
 ```{r}
 ## Regression learners that can deal with missing values
-listLearners("regr", properties = "missings")
+listLearners("regr", properties = "missings")[c("class", "package")]
 ```
 
 See also the list of [integrated learners](integrated_learners.md) in the Appendix.
