@@ -738,6 +738,34 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </thead>
 <tbody>
 <tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">adjrsq</a></strong> <br />Adjusted coefficient of determination</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Adjusted R-squared is only defined for normal linear regression</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">expvar</a></strong> <br />Explained variance</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Similar to measaure rsq (R-squared). Defined as explained_sum_of_squares / total_sum_of_squares.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mae</a></strong> <br />Mean of absolute errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
@@ -806,6 +834,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.rmse</a></td>
 <td align="left">The RMSE is aggregated as sqrt(mean(rmse.vals.on.test.sets^2)). If you don't want that, you could also use <code>test.mean</code>.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">rsq</a></strong> <br />Coefficient of determination</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">-Inf</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Also called R-squared, which is 1 - residual_sum_of_squares / total_sum_of_squares.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">sae</a></strong> <br />Sum of absolute errors</td>

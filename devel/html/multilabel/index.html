@@ -459,7 +459,8 @@ mod2
 </code></pre>
 
 <h2 id="predict">Predict</h2>
-<p>Prediction can be done as usual in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> with <a href="http://rpackages.ianhowson.com/cran/mlr/man/predict.html">predict</a> and by passing a trained model
+<p>Prediction can be done as usual in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> with <a href="http://rpackages.ianhowson.com/cran/mlr/man/predict.WrappedModel.html">predict</a> and by
+passing a trained model
 and either the task to the <code>task</code> argument or some new data to the <code>newdata</code>
 argument. As always you can specify a <code>subset</code> of the data
 which should be predicted.</p>
@@ -510,7 +511,7 @@ All available measures for multilabel classification can be shown by <a href="ht
 
 performance(pred2, measures = list(hamloss, timepredict))
 #&gt;     hamloss timepredict 
-#&gt;   0.7033217   0.0560000
+#&gt;   0.7033217   0.0570000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt; [1] &quot;timepredict&quot; &quot;featperc&quot;    &quot;timeboth&quot;    &quot;timetrain&quot;   &quot;hamloss&quot;
@@ -530,7 +531,7 @@ r
 #&gt; hamloss.aggr: 0.23
 #&gt; hamloss.mean: 0.23
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 5.09002
+#&gt; Runtime: 4.63303
 
 r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
@@ -540,7 +541,7 @@ r
 #&gt; hamloss.aggr: 0.47
 #&gt; hamloss.mean: 0.47
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 0.467268
+#&gt; Runtime: 0.436034
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>

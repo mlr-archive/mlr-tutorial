@@ -607,7 +607,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.179836
+#&gt; Runtime: 0.185019
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -655,7 +655,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.16653
+#&gt; Runtime: 0.163412
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -772,7 +772,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.201133
+#&gt; Runtime: 0.206916
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -794,7 +794,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.328675
+#&gt; Runtime: 0.31608
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -877,7 +877,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.364552
+#&gt; Runtime: 0.339264
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -978,7 +978,7 @@ r
 #&gt; mmce.aggr: 0.30
 #&gt; mmce.mean: 0.30
 #&gt; mmce.sd: 0.00
-#&gt; Runtime: 0.0516262
+#&gt; Runtime: 0.0468075
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
