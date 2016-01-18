@@ -80,7 +80,8 @@ mod2
 ```
 
 ## Predict
-Prediction can be done as usual in [%mlr] with [&predict] and by passing a trained model
+Prediction can be done as usual in [%mlr] with [predict](&predict.WrappedModel) and by
+passing a trained model
 and either the task to the ``task`` argument or some new data to the ``newdata``
 argument. As always you can specify a ``subset`` of the data
 which should be predicted.
