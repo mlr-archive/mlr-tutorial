@@ -1,20 +1,20 @@
 # ROC Analysis and Performance Curves
 
-For binary scoring classifiers a *threshold* (in the following also called *cutoff*) value
-controls how predicted posterior probabilities are turned into class labels.
+For binary scoring classifiers a *threshold* (or *cutoff*) value
+controls how predicted posterior probabilities are converted into class labels.
 ROC curves and other performance plots serve to visualize and analyse the relationship between
 one or two performance measures and the threshold.
 
-This section is mainly devoted to *receiver operating characteristic* (ROC) curves that
+This page is mainly devoted to *receiver operating characteristic* (ROC) curves that
 plot the *true positive rate* (sensitivity) on the vertical axis against the *false positive rate*
 (1 - specificity, fall-out) on the horizontal axis for all possible threshold values.
 Creating other performance plots like *lift charts* or *precision/recall graphs* works
-analogously and is only shown briefly.
+analogously and is shown briefly.
 
 In addition to performance visualization ROC curves are helpful in
 
 * determining an optimal decision threshold for given class prior probabilities and
-  misclassification costs (for alternatives see also the sections about
+  misclassification costs (for alternatives see also the pages about
   [cost-sensitive classification](cost_sensitive_classif.md) and
   [imbalanced classification problems](over_and_undersampling.md) in this tutorial),
 * identifying regions where one classifier outperforms another and building suitable multi-classifier
@@ -22,7 +22,7 @@ In addition to performance visualization ROC curves are helpful in
 * obtaining calibrated estimates of the posterior probabilities.
 
 For more information see the tutorials and introductory papers by
-[Fawcett (2004)](http://home.comcast.net/~tom.fawcett/public_html/papers/ROC101.pdf),
+[Fawcett (2004)](http://binf.gmu.edu/mmasso/ROC101.pdf),
 [Fawcett (2006)](https://ccrma.stanford.edu/workshops/mir2009/references/ROCintro.pdf)
 as well as [Flach (ICML 2004)](http://www.cs.bris.ac.uk/~flach/ICML04tutorial/index.html).
 
@@ -33,36 +33,35 @@ Under these circumstances the classifier is expected to work well for a whole ra
 decision thresholds and the area under the ROC curve (AUC) provides a scalar performance
 measure for comparing and selecting classifiers.
 [%mlr] provides the AUC for binary classification ([auc](measures.md) based on package
-[ROCR](&ROCR::performance)) an also a generalization of the AUC for the
+[ROCR](&ROCR::performance)) and also a generalization of the AUC for the
 multi-class case ([multiclass.auc](measures.md) based on package [pROC](&pROC::multiclass)).
 
 [%mlr] offers three ways to plot ROC and other performance curves.
 
-1. [%mlr]'s function [&generateROCRCurvesData] is a convenient interface to [%ROCR]'s
-   [performance](&ROCR::performance) methods with an associated plotting function,
-   [&plotROCRCurves] which uses [%ggplot2].
-2. The [%mlr] function [&asROCRPrediction] converts [%mlr] [&Prediction] objects to objects
-   of [%ROCR]'s class [prediction](&ROCR::prediction-class).
-   Then, [%ROCR]'s functionality can be used to further analyse the results and generate
-   performance plots.
+1. Function [&plotROCCurves] can, based on the output of [&generateThreshVsPerfData],
+   plot performance curves for any pair of [performance measures](measures.md) available in
+   [%mlr].
+2. [%mlr] offers an interface to package [%ROCR] through function [&asROCRPrediction].
 3. [%mlr]'s function [&plotViperCharts] provides an interface to
    [ViperCharts](http://viper.ijs.si).
 
-Let's have a look at some examples demonstrating the three possible methods.
+With [%mlr] version 2.8 functions `generateROCRCurvesData`, `plotROCRCurves`, and `plotROCRCurvesGGVIS`
+were deprecated.
 
-Note that the [learners](learner.md) have to be capable of predicting probabilities.
-Have a look at the [table of learners](integrated_learners.md)
+Below are some examples that demonstrate the three possible ways.
+Note that you can only use [learners](learner.md) that are capable of predicting probabilities.
+Have a look at the [learner table in the Appendix](integrated_learners.md)
 or run `listLearners("classif", properties = c("twoclass", "prob"))` to get a list of all
 learners that support this.
 
 
-## Performance plots with generateROCRCurvesData and plotROCRCurves
+## Performance plots with plotROCCurves
 
-As mentioned above [&generateROCRCurvesData] is an interface to [%ROCR]'s
-[performance](&ROCR::performance) methods.
+As you might recall [&generateThreshVsPerfData] calculates one or several performance measures
+for a sequence of decision thresholds from 0 to 1.
 It provides S3 methods for objects of class [&Prediction], [&ResampleResult]
-and [&BenchmarkResult] (resulting from calling [predict](&predict.WrappedModel), [&resample]
-or [&benchmark]). [&plotROCRCurves] plots output from [&generateROCRCurvesData] using [%ggplot2].
+and [&BenchmarkResult] (resulting from [predict](&predict.WrappedModel), [&resample]
+or [&benchmark]). [&plotROCCurves] plots the result of [&generateThreshVsPerfData] using [%ggplot2].
 
 
 ### Example 1: Single predictions
@@ -78,24 +77,26 @@ test.set = setdiff(seq_len(n), train.set)
 lrn1 = makeLearner("classif.lda", predict.type = "prob")
 mod1 = train(lrn1, sonar.task, subset = train.set)
 pred1 = predict(mod1, task = sonar.task, subset = test.set)
-roc_data = generateROCRCurvesData(pred1)
-roc_data
 ```
-[&generateROCRCurvesData] returns an object of class "ROCRCurvesData" which contains the results from [%ROCR]'s [performance](&ROCR::performance) method (which depends on arguments `meas1` and `meas2`). The data can be extracted by accessing the data element of the object. The object also contains information about the input arguments to `generateROCRCurvesData` which may be useful.
 
-Per default, [&plotROCRCurves] draws a ROC curve and optionally adds a diagonal line that represents
-the performance of a random classifier.
+Since we want to plot ROC curves we calculate the false and true positive rates ([fpr](measures.md)
+and [tpr](measures.md)).
+Additionally, we also compute error rates ([mmce](measures.md)).
 
 ```{r}
-droc = generateROCRCurvesData(pred1)
-plotROCRCurves(droc, diagonal = TRUE)
+df = generateThreshVsPerfData(pred1, measures = list(fpr, tpr, mmce))
 ```
-There is also an experimental plotting function [&plotROCRCurvesGGVIS] which uses [%ggvis] to create similar
-figures with the addition of (optional) interactive tooltips (displayed on hover) that display the threshold
-at that point in the curve.
 
-```{r, eval = FALSE}
-plotROCRCurvesGGVIS(droc, cutoffs = TRUE)
+[&generateThreshVsPerfData] returns an object of class [ThreshVsPerfData](&generateThreshVsPerfData)
+which contains the performance values in the `$data` element.
+
+Per default, [&plotROCCurves] plots the performance values of the first two measures passed
+to [&generateThreshVsPerfData]. The first is shown on the x-axis, the second on the y-axis.
+Moreover, a diagonal line that represents the performance of a random classifier is added.
+You can remove the diagonal by setting `diagonal = FALSE`.
+
+```{r, fig.width = 5, fig.height = 5}
+plotROCCurves(df)
 ```
 
 The corresponding area under curve ([auc](measures.md)) can be calculated as usual by calling
@@ -105,7 +106,16 @@ The corresponding area under curve ([auc](measures.md)) can be calculated as usu
 performance(pred1, auc)
 ```
 
-In addition to [linear discriminant analysis](&MASS::lda) we try a support vector machine
+[&plotROCCurves] always requires a pair of performance measures that are plotted against
+each other.
+If you want to plot individual measures versus the decision threshold you can use function
+[&plotThreshVsPerf].
+
+```{r, fig.width = 10}
+plotThreshVsPerf(df)
+```
+
+Additional to [linear discriminant analysis](&MASS::lda) we try a support vector machine
 with RBF kernel ([ksvm](&kernlab::ksvm)).
 
 ```{r}
@@ -116,10 +126,11 @@ pred2 = predict(mod2, task = sonar.task, subset = test.set)
 
 In order to compare the performance of the two learners you might want to display the two
 corresponding ROC curves in one plot.
-For this purpose just pass a named [list](&base::list) of [&Prediction]s to [&plotROCRCurves].
+For this purpose just pass a named [list](&base::list) of [&Prediction]s to [&generateThreshVsPerfData].
 
-```{r}
-plotROCRCurves(generateROCRCurvesData(list(lda = pred1, ksvm = pred2)))
+```{r, fig.width = 10}
+df = generateThreshVsPerfData(list(lda = pred1, ksvm = pred2), measures = list(fpr, tpr))
+plotROCCurves(df)
 ```
 
 It's clear from the plot above that [ksvm](&kernlab::ksvm) has a slightly higher AUC than
@@ -129,41 +140,36 @@ It's clear from the plot above that [ksvm](&kernlab::ksvm) has a slightly higher
 performance(pred2, auc)
 ```
 
-It is easily possible to generate other performance plots by passing the appropriate performance
-measures to [&plotROCRCurves].
-Note that arguments `meas1` and `meas2` do not refer to [%mlr]'s performance measures,
-but to measures provided by [%ROCR] and listed [here](&ROCR::performance).
-Below is code for a *lift chart* which shows the lift value (`"lift"`) versus the rate of
-positive predictions (`"rpp"`).
+Based on the `$data` member of `df` you can easily generate custom plots.
+Below the curves for the two learners are superposed.
 
-```{r}
-out = generateROCRCurvesData(list(lda = pred1, ksvm = pred2), meas1 = "lift", meas2 = "rpp")
-plotROCRCurves(out)
+```{r, fig.width = 5, fig.height = 5}
+qplot(x = fpr, y = tpr, color = learner, data = df$data, geom = "path")
 ```
 
-A plot of a single performance measure (accuracy in the example code below) versus the
-threshold can be generated by setting `meas2 = "cutoff"`.
+It is easily possible to generate other performance plots by passing the appropriate
+performance measures to [&generateThreshVsPerfData] and [&plotROCCurves].
+Below, we generate a *precision/recall graph* (precision = positive predictive value = ppv,
+recall = tpr) and a *sensitivity/specificity plot* (sensitivity = tpr, specificity = tnr).
 
-```{r}
-out = generateROCRCurvesData(list(lda = pred1, ksvm = pred2), meas1 = "acc", meas2 = "cutoff")
-plotROCRCurves(out)
+```{r, fig.show = "hold", out.width = 412}
+df = generateThreshVsPerfData(list(lda = pred1, ksvm = pred2), measures = list(ppv, tpr, tnr))
+
+# precision/recall graph
+plotROCCurves(df, measures = list(tpr, ppv), diagonal = FALSE)
+
+# sensitivity/specificity plot
+plotROCCurves(df, measures = list(tnr, tpr), diagonal = FALSE)
 ```
-
-As you may recall, an alternative function for plotting performance values versus the decision
-threshold is [&plotThreshVsPerf].
-While [&plotThreshVsPerf] permits to plot several performance measures at once,
-[&plotROCRCurves] makes it easy to superpose the performance curves of multiple learners.
 
 
 ### Example 2: Benchmark experiment
 
-The analysis in the example above can be improved in several regards.
-We only considered the training performance and, ideally, the support vector machine should
-have been [tuned](tune.md).
-Moreover, we wrote individual code for training/prediction of each learner, which can become
-tedious very quickly.
-A more practical way to apply several learners to a [&Task] and compare their performance is
-provided by function [&benchmark] (see also [Benchmark Experiments](benchmark_experiments.md)).
+The analysis in the example above can be improved a little.
+Instead of writing individual code for training/prediction of each learner, which can become
+tedious very quickly, we can use function [&benchmark] (see also
+[Benchmark Experiments](benchmark_experiments.md)) and, ideally, the support vector machine
+should have been [tuned](tune.md).
 
 We again consider the [Sonar](&mlbench::Sonar) data set and apply [lda](&MASS::lda)
 as well as [ksvm](&kernlab::ksvm).
@@ -171,7 +177,7 @@ We first generate a [tuning wrapper](&makeTuneWrapper) for [ksvm](&kernlab::ksvm
 The cost parameter is tuned on a (for demonstration purposes small) parameter grid.
 We assume that we are interested in a good performance over the complete threshold range
 and therefore tune with regard to the [auc](measures.md).
-The error rate ([mmce](measures.md)) for threshold 0.5 is reported as well.
+The error rate ([mmce](measures.md)) for a threshold value of 0.5 is reported as well.
 
 ```{r}
 ## Tune wrapper for ksvm
@@ -193,35 +199,41 @@ as well as the error rate (for a threshold/cutoff value of 0.5).
 lrns = list(lrn1, lrn2)
 rdesc.outer = makeResampleDesc("CV", iters = 5)
 
-res = benchmark(lrns, tasks = sonar.task, resampling = rdesc.outer, measures = ms, show.info = FALSE)
-res
+bmr = benchmark(lrns, tasks = sonar.task, resampling = rdesc.outer, measures = ms, show.info = FALSE)
+bmr
 ```
 
-Calling [&plotROCRCurves] on the [result](&BenchmarkResult) of the benchmark experiment
+Calling [&generateThreshVsPerfData] and [&plotROCCurves] on the [benchmark result](&BenchmarkResult)
 produces a plot with ROC curves for all learners in the experiment.
 
-```{r}
-plotROCRCurves(generateROCRCurvesData(res))
+```{r, fig.width = 10}
+df = generateThreshVsPerfData(bmr, measures = list(fpr, tpr, mmce))
+plotROCCurves(df)
 ```
 
-Per default, threshold-averaged ROC curves are shown.
-Since we used 5-fold cross-validation we have predictions on 5 test data sets and therefore
-5 ROC curves per classifier.
-For each threshold value the means of the corresponding 5 false and true positive rates are
-calculated and plotted against each other.
+Per default, [&generateThreshVsPerfData] calculates aggregated performances according to the
+chosen resampling strategy (5-fold cross-validation) and aggregation scheme
+([test.mean](&aggregations)) for each threshold in the sequence.
+This way we get *threshold-averaged* ROC curves.
 
-If you want to plot the individual ROC curves for each resample iteration set `avg = "none"`.
-Other available options are `avg = "horizontal"` and `avg = "vertical"`.
+If you want to plot the individual ROC curves for each resample iteration set `aggregate = FALSE`.
 
-```{r}
-plotROCRCurves(generateROCRCurvesData(res, avg = "none"))
+```{r, fig.width = 10}
+df = generateThreshVsPerfData(bmr, measures = list(fpr, tpr, mmce), aggregate = FALSE)
+plotROCCurves(df)
+```
+
+The same applies for [&plotThreshVsPerf].
+
+```{r, fig.width = 10}
+plotThreshVsPerf(df)
 ```
 
 An alternative to averaging is to just merge the 5 test folds and draw a single ROC curve.
 Merging can be achieved by manually changing the [class](&base::class) attribute of
 the prediction objects from [&ResamplePrediction] to [&Prediction].
 
-Below the predictions are extracted from the [&BenchmarkResult] via function [&getBMRPredictions],
+Below, the predictions are extracted from the [&BenchmarkResult] via function [&getBMRPredictions],
 the [class](&base::class) is changed and the ROC curves are created.
 
 Averaging methods are normally preferred
@@ -229,19 +241,20 @@ Averaging methods are normally preferred
 as they permit to assess the variability, which is needed to properly compare classifier
 performance.
 
-```{r}
+```{r, fig.width = 10}
 ## Extract predictions
-preds = getBMRPredictions(res)[[1]]
+preds = getBMRPredictions(bmr)[[1]]
 
 ## Change the class attribute
 preds2 = lapply(preds, function(x) {class(x) = "Prediction"; return(x)})
 
 ## Draw ROC curves
-plotROCRCurves(generateROCRCurvesData(preds2, avg = "none"))
+df = generateThreshVsPerfData(preds2, measures = list(fpr, tpr, mmce))
+plotROCCurves(df)
 ```
 
-Again, you can easily create other standard evaluation plots by calling [&plotROCRCurves]
-on the [&BenchmarkResult] with the appropriate performance measures (see [&ROCR::performance]).
+Again, you can easily create other standard evaluation plots by passing the appropriate
+performance measures to [&generateThreshVsPerfData] and [&plotROCCurves].
 
 
 ## Performance plots with asROCRPrediction
@@ -251,21 +264,14 @@ Drawing performance plots with package [%ROCR] works through three basic command
 1. [&ROCR::prediction]: Create a [%ROCR] [prediction](&ROCR::prediction-class) object.
 2. [&ROCR::performance]: Calculate one or more performance measures for the
    given prediction object.
-3. A reimplementation of [ROCR::plot](&ROCR::plot-methods) which uses [&ggplot2].
+3. [ROCR::plot](&ROCR::plot-methods): Generate the performance plot.
 
 [%mlr]'s function [&asROCRPrediction] converts an [%mlr] [&Prediction] object to
-a [%ROCR] [prediction](&ROCR::prediction-class) object.
-In order to create performance plots steps 2. and 3. have to be run by the user.
-
-This is obviously less convenient than calling [&plotROCRCurves] (which extracts predictions,
-calls [&asROCRPrediction] and executes steps 2. and 3. internally).
-On the other hand this way provides more control over the generated plots by, e.g., using graphical
-parameters that are not (yet) accessible via [&plotROCRCurves].
-Moreover, you can directly benefit from any enhancements in [%ROCR], use your own
-[%ROCR]-based code or other packages that depend on [%ROCR], and use [&ROCR]'s [plot](&ROCR::plot-methods).
-For more details see the [%ROCR] documentation and `demo(ROCR)`.
-
-An addditional alternative is to call [&plotROCRCurves], extract the data from the [&ggplot2] object using the `data` element of the object, e.g., `obj$data`, and then plot the data using whatever method you prefer.
+a [%ROCR] [prediction](&ROCR::prediction-class) object, so you can easily generate
+performance plots by doing steps 2. and 3. yourself.
+[%ROCR]'s [plot](&ROCR::plot-methods) method has some nice features which are not (yet)
+available in [&plotROCCurves], for example plotting the convex hull of the ROC curves.
+Some examples are shown below.
 
 
 ### Example 1: Single predictions (continued)
@@ -287,7 +293,7 @@ pred1 = predict(mod1, task = sonar.task, subset = test.set)
 Below we use [&asROCRPrediction] to convert the lda prediction, let [%ROCR] calculate the
 true and false positive rate and plot the ROC curve.
 
-```{r}
+```{r, fig.width = 5, fig.height = 5}
 ## Convert prediction
 ROCRpred1 = asROCRPrediction(pred1)
 
@@ -302,7 +308,7 @@ Below is the same ROC curve, but we make use of some more graphical parameters:
 The ROC curve is color-coded by the threshold and selected threshold values are printed on
 the curve. Additionally, the convex hull (black broken line) of the ROC curve is drawn.
 
-```{r}
+```{r, fig.width = 5, fig.height = 5}
 ## Draw ROC curve
 ROCR::plot(ROCRperf1, colorize = TRUE, print.cutoffs.at = seq(0.1, 0.9, 0.1), lwd = 2)
 
@@ -320,7 +326,7 @@ We first extract the predictions by [&getBMRPredictions] and then convert them v
 
 ```{r}
 ## Extract predictions
-preds = getBMRPredictions(res)[[1]]
+preds = getBMRPredictions(bmr)[[1]]
 
 ## Convert predictions
 ROCRpreds = lapply(preds, asROCRPrediction)
@@ -329,33 +335,35 @@ ROCRpreds = lapply(preds, asROCRPrediction)
 ROCRperfs = lapply(ROCRpreds, function(x) ROCR::performance(x, "tpr", "fpr"))
 ```
 
-We draw the horizontally averaged ROC curves (solid lines) as well as the ROC curves for
+We draw the vertically averaged ROC curves (solid lines) as well as the ROC curves for
 the individual resampling iterations (broken lines).
 Moreover, standard error bars are plotted for selected true positive rates (0.1, 0.2, ..., 0.9).
 See [%ROCR]'s [plot](&ROCR::plot-methods) function for details.
 
-```{r}
+```{r, fig.width = 5, fig.height = 5}
 ## lda average ROC curve
-plot(ROCRperfs[[1]], col = "blue", avg = "horizontal", spread.estimate = "stderror",
-  show.spread.at = seq(0.1, 0.9, 0.1), plotCI.col = "blue", plotCI.lwd = 2, lwd = 2)
+plot(ROCRperfs[[1]], col = "blue", avg = "vertical", spread.estimate = "stderror",
+  show.spread.at = seq(0.1, 0.8, 0.1), plotCI.col = "blue", plotCI.lwd = 2, lwd = 2)
 ## lda individual ROC curves
 plot(ROCRperfs[[1]], col = "blue", lty = 2, lwd = 0.25, add = TRUE)
 
 ## ksvm average ROC curve
-plot(ROCRperfs[[2]], col = "red", avg = "horizontal", spread.estimate = "stderror",
-  show.spread.at = seq(0.4, 0.9, 0.1), plotCI.col = "red", plotCI.lwd = 2, lwd = 2, add = TRUE)
+plot(ROCRperfs[[2]], col = "red", avg = "vertical", spread.estimate = "stderror",
+  show.spread.at = seq(0.1, 0.6, 0.1), plotCI.col = "red", plotCI.lwd = 2, lwd = 2, add = TRUE)
 ## ksvm individual ROC curves
 plot(ROCRperfs[[2]], col = "red", lty = 2, lwd = 0.25, add = TRUE)
 
-legend("bottomright", legend = getBMRLearnerIds(res), lty = 1, lwd = 2, col = c("blue", "red"))
+legend("bottomright", legend = getBMRLearnerIds(bmr), lty = 1, lwd = 2, col = c("blue", "red"))
 ```
 
-In order to create other evaluation plots like *precision/recall graphs* you just have to change
-the performance measures when calling [&ROCR::performance].
+In order to create other evaluation plots like *precision/recall graphs* you just have to
+change the performance measures when calling [&ROCR::performance].
+(Note that you have to use the measures provided by [%ROCR] listed [here](&ROCR::performance)
+and not [%mlr]'s performance measures.)
 
-```{r}
+```{r, fig.width = 5, fig.height = 5}
 ## Extract and convert predictions
-preds = getBMRPredictions(res)[[1]]
+preds = getBMRPredictions(bmr)[[1]]
 ROCRpreds = lapply(preds, asROCRPrediction)
 
 ## Calculate precision and recall
@@ -364,7 +372,7 @@ ROCRperfs = lapply(ROCRpreds, function(x) ROCR::performance(x, "prec", "rec"))
 ## Draw performance plot
 plot(ROCRperfs[[1]], col = "blue", avg = "threshold")
 plot(ROCRperfs[[2]], col = "red", avg = "threshold", add = TRUE)
-legend("bottomleft", legend = getBMRLearnerIds(res), lty = 1, col = c("blue", "red"))
+legend("bottomleft", legend = getBMRLearnerIds(bmr), lty = 1, col = c("blue", "red"))
 ```
 
 If you want to plot a performance measure versus the threshold, specify only one measure when
@@ -372,9 +380,9 @@ calling [&ROCR::performance].
 Below the average accuracy over the 5 cross-validation iterations is plotted against the
 threshold. Moreover, boxplots for certain threshold values (0.1, 0.2, ..., 0.9) are drawn.
 
-```{r}
+```{r, fig.width = 5, fig.height = 5}
 ## Extract and convert predictions
-preds = getBMRPredictions(res)[[1]]
+preds = getBMRPredictions(bmr)[[1]]
 ROCRpreds = lapply(preds, asROCRPrediction)
 
 ## Calculate accuracy
@@ -389,13 +397,13 @@ plot(ROCRperfs[[1]], avg = "vertical", spread.estimate = "boxplot", lwd = 2, col
 ## Viper charts
 
 [%mlr] also supports [ViperCharts](http://viper.ijs.si/) for plotting ROC and other performance
-curves. Like [&plotROCRCurves] it has S3 methods for objects of class [&Prediction],
+curves. Like [&generateThreshVsPerfData] it has S3 methods for objects of class [&Prediction],
 [&ResampleResult] and [&BenchmarkResult].
 Below plots for the benchmark experiment (Example 2) are generated.
 
 
 ```{r, error = TRUE}
-z = plotViperCharts(res, chart = "rocc", browse = FALSE)
+z = plotViperCharts(bmr, chart = "rocc", browse = FALSE)
 ```
 
 `r if (exists("z")){paste("You can see the plot created this way [here](", z, ").")}`
