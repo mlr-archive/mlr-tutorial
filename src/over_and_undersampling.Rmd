@@ -94,16 +94,17 @@ data.imbal.test = rbind(
   data.frame(x = rnorm(500, mean = 2), class = "B")
 )
 
-performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, auc))
+performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, ber, auc))
 
-performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, auc))
+performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, ber, auc))
 
-performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, auc))
+performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, ber, auc))
 ```
 
 In this case the *performance measure* has to be considered very carefully.
 As the *misclassification rate* ([mmce](measures.md)) evaluates the overall
-accuracy of the predictions, the *area under the ROC Curve* ([auc](measures.md)) 
+accuracy of the predictions, the *balanced error rate* ([ber](measures.md)) and
+*area under the ROC Curve* ([auc](measures.md)) 
 might be more suitable here, as the misclassifications within each class
 are separately taken into account.
 
@@ -111,7 +112,7 @@ are separately taken into account.
 ### Over- and undersampling wrappers
 
 Alternatively, [%mlr] also offers the integration of over- and undersampling
-via a *wrapping-based approach* ([wrappers](wrapper.md)). In this way
+via a [wrapper approach](wrapper.md). This way
 over- and undersampling can be applied to already existing [learners](learner.md)
 to extend their functionality. 
 
@@ -128,11 +129,11 @@ mod = train(lrn, task)
 mod.over = train(lrn.over, task)
 mod.under = train(lrn.under, task)
 
-performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, auc))
+performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, ber, auc))
 
-performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, auc))
+performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, ber, auc))
 
-performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, auc))
+performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, ber, auc))
 ```
 
 
@@ -166,7 +167,7 @@ Alternatively, a new wrapped learner can be created via [&makeSMOTEWrapper].
 ```{r smote_wrapper}
 lrn.smote = makeSMOTEWrapper(lrn, sw.rate = 8, sw.nn = 5)
 mod.smote = train(lrn.smote, task)
-performance(predict(mod.smote, newdata = data.imbal.test), measures = auc)
+performance(predict(mod.smote, newdata = data.imbal.test), measures = list(mmce, ber, auc))
 ```
 
 By default the number of nearest neighbours considered within the algorithm is
@@ -175,7 +176,7 @@ set to 5.
 
 #### 2. Overbagging
 Another extension of oversampling consists in the combination of sampling with
-the [bagging-approach](bagging.md). For each iteration of the bagging process,
+the [bagging approach](bagging.md). For each iteration of the bagging process,
 minority class observations are oversampled with a given rate in `obw.rate`.
 The majority class cases can either all be taken into account for each
 iteration (`obw.maxcl = "all"`) or bootstrapped with replacement to increase
@@ -201,12 +202,14 @@ First, let's take a look at the tree learner with and without overbagging:
 ```{r makeOverBaggingWrapper_tree}
 lrn = setPredictType(lrn, "prob")
 rdesc = makeResampleDesc("CV", iters = 5)
-r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE, measures = auc)
-r1
+r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE,
+  measures = list(mmce, ber, auc))
+r1$aggr
 
 obw.lrn = setPredictType(obw.lrn, "prob")
-r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE, measures = auc)
-r2
+r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,
+  measures = list(mmce, ber, auc))
+r2$aggr
 ```
 
 Now let's consider a *random forest* as initial learner:
@@ -216,12 +219,14 @@ lrn = makeLearner("classif.randomForest")
 obw.lrn = makeOverBaggingWrapper(lrn, obw.rate = 8, obw.iters = 3)
 
 lrn = setPredictType(lrn, "prob")
-r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE, measures = auc)
-r1
+r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE,
+  measures = list(mmce, ber, auc))
+r1$aggr
 
 obw.lrn = setPredictType(obw.lrn, "prob")
-r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,  measures = auc)
-r2
+r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,
+  measures = list(mmce, ber, auc))
+r2$aggr
 ```
 
 While *overbagging* slighty improves the performance of the *decision tree*,
@@ -247,7 +252,7 @@ the effect of the minority class observations is thereby increased simply by a
 higher weight of these instances and vice versa for majority class observations.
 
 In this way every learner which supports weights can be extended through
-the [wrapping-approach](wrapper.md).
+the [wrapper approach](wrapper.md).
 If the learner does not have a direct parameter for class weights,
 but supports observation weights, the weights depending on the class are
 internally set in the wrapper.
@@ -264,7 +269,7 @@ this approach, but the cost ratio is taken into account.
 
 
 If the underlying learner already has a parameter for class weighting (e.g.,
-`class.weights` in `classif.ksvm`), the `wcw.weight` is basically passed
+`class.weights` in `"classif.ksvm"`), the `wcw.weight` is basically passed
 to the specific class weighting parameter.
 
 ```{r makeWeightedClassesWrapper_setup2}
