@@ -353,11 +353,11 @@ of the classes in the training data can be changed by over- or undersampling.
 
 In the [GermanCredit data set](&caret::GermanCredit) the positive class Bad should receive
 a theoretical weight of ``w = (1 - th)/th = 5``.
-This can be achieved by oversampling class Bad with a ``rate`` of 5 (see also the documentation
-of function [&oversample]).
+This can be achieved by oversampling class Bad with a ``rate`` of 5 or by undersampling
+class Good with a `rate` of 1/5 (using functions [&oversample] or [undersample](&oversample)).
 
 ```{r}
-credit.task.over = oversample(credit.task, rate = w)
+credit.task.over = oversample(credit.task, rate = w, cl = "Bad")
 lrn = makeLearner("classif.multinom", trace = FALSE)
 mod = train(lrn, credit.task.over)
 pred = predict(mod, task = credit.task)
@@ -375,7 +375,7 @@ Internally, [&oversample] is called before training, but predictions are done on
 
 ```{r}
 lrn = makeLearner("classif.multinom", trace = FALSE)
-lrn = makeOversampleWrapper(lrn, osw.rate = w)
+lrn = makeOversampleWrapper(lrn, osw.rate = w, osw.cl = "Bad")
 lrn
 
 r = resample(lrn, credit.task, rin, measures = list(credit.costs, mmce), show.info = FALSE)
@@ -388,7 +388,7 @@ Optimal values for parameter `osw.rate` can be obtained using function [&tunePar
 
 ```{r}
 lrn = makeLearner("classif.multinom", trace = FALSE)
-lrn = makeOversampleWrapper(lrn)
+lrn = makeOversampleWrapper(lrn, osw.cl = "Bad")
 ps = makeParamSet(makeDiscreteParam("osw.rate", seq(3, 7, 0.25)))
 ctrl = makeTuneControlGrid()
 tune.res = tuneParams(lrn, credit.task, rin, par.set = ps, measures = list(credit.costs, mmce),
