@@ -12,7 +12,7 @@
 	<title>Imputation - mlr tutorial</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
         <link href="../css/custom_mlr.css" rel="stylesheet">
@@ -349,6 +349,9 @@ Those <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Lea
 using <a href="http://rpackages.ianhowson.com/cran/mlr/man/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## Regression learners that can deal with missing values
 listLearners(&quot;regr&quot;, properties = &quot;missings&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
+#&gt; Warning in listLearners.character(&quot;regr&quot;, properties = &quot;missings&quot;): The following learners could not be constructed, probably because their packages are not installed:
+#&gt; classif.xgboost,regr.xgboost
+#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
 #&gt;                  class         package
 #&gt; 1     regr.bartMachine     bartMachine
 #&gt; 2      regr.blackboost    mboost,party

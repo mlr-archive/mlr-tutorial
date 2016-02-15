@@ -12,7 +12,7 @@
 	<title>Multilabel Classification - mlr tutorial</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
         <link href="../css/custom_mlr.css" rel="stylesheet">
@@ -511,7 +511,7 @@ All available measures for multilabel classification can be shown by <a href="ht
 
 performance(pred2, measures = list(hamloss, timepredict))
 #&gt;     hamloss timepredict 
-#&gt;   0.7033217   0.0570000
+#&gt;   0.7033217   0.0510000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt; [1] &quot;timepredict&quot; &quot;featperc&quot;    &quot;timeboth&quot;    &quot;timetrain&quot;   &quot;hamloss&quot;
@@ -531,7 +531,7 @@ r
 #&gt; hamloss.aggr: 0.23
 #&gt; hamloss.mean: 0.23
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 4.63303
+#&gt; Runtime: 4.42189
 
 r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
@@ -541,7 +541,7 @@ r
 #&gt; hamloss.aggr: 0.47
 #&gt; hamloss.mean: 0.47
 #&gt; hamloss.sd: 0.01
-#&gt; Runtime: 0.436034
+#&gt; Runtime: 0.430625
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>

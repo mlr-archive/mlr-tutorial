@@ -12,7 +12,7 @@
 	<title>Nested Resampling - mlr tutorial</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
         <link href="../css/custom_mlr.css" rel="stylesheet">
@@ -412,7 +412,7 @@ r
 #&gt; mmce.aggr: 0.05
 #&gt; mmce.mean: 0.05
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 18.1547
+#&gt; Runtime: 18.7613
 </code></pre>
 
 <p>You can obtain the error rates on the 3 outer test sets by:</p>
@@ -466,15 +466,15 @@ resampling iteration.</p>
 <pre><code class="r">opt.paths = getNestedTuneResultsOptPathDf(r)
 head(opt.paths, 10)
 #&gt;       C sigma mmce.test.mean dob eol error.message exec.time iter
-#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.031    1
-#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.031    1
-#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.029    1
+#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.032    1
+#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.028    1
+#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.030    1
 #&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.029    1
-#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.031    1
-#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.030    1
+#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.029    1
+#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.029    1
 #&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.030    1
 #&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.030    1
-#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.031    1
+#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.032    1
 #&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.029    1
 </code></pre>
 
@@ -522,7 +522,7 @@ r
 #&gt; mse.aggr: 31.70
 #&gt; mse.mean: 31.70
 #&gt; mse.sd: 4.79
-#&gt; Runtime: 41.5466
+#&gt; Runtime: 42.9882
 
 r$measures.test
 #&gt;   iter      mse
@@ -570,12 +570,12 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      80.48765
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      63.06724
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.016
-#&gt; 2   2   2          &lt;NA&gt;     0.022
-#&gt; 3   2   2          &lt;NA&gt;     0.023
-#&gt; 4   2   2          &lt;NA&gt;     0.023
-#&gt; 5   2   2          &lt;NA&gt;     0.026
-#&gt; 6   2   2          &lt;NA&gt;     0.023
+#&gt; 1   1   2          &lt;NA&gt;     0.015
+#&gt; 2   2   2          &lt;NA&gt;     0.023
+#&gt; 3   2   2          &lt;NA&gt;     0.020
+#&gt; 4   2   2          &lt;NA&gt;     0.022
+#&gt; 5   2   2          &lt;NA&gt;     0.023
+#&gt; 6   2   2          &lt;NA&gt;     0.022
 </code></pre>
 
 <p>An easy-to-read version of the optimization path for sequential feature selection can be
@@ -628,7 +628,7 @@ r
 #&gt; mse.aggr: 25.39
 #&gt; mse.mean: 25.39
 #&gt; mse.sd: 8.35
-#&gt; Runtime: 6.76882
+#&gt; Runtime: 6.99428
 </code></pre>
 
 <h4 id="accessing-the-selected-features-and-optimal-percentage">Accessing the selected features and optimal percentage</h4>
@@ -689,12 +689,12 @@ res
 opt.paths = lapply(res, function(x) as.data.frame(x$opt.path))
 opt.paths[[1]]
 #&gt;   fw.threshold mse.test.mean dob eol error.message exec.time
-#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.162
-#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.160
-#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.166
-#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.152
-#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.142
-#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.142
+#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.169
+#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.155
+#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.160
+#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.157
+#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.148
+#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.145
 </code></pre>
 
 <h2 id="benchmark-experiments">Benchmark experiments</h2>
@@ -855,23 +855,23 @@ tune.res
 
 getNestedTuneResultsOptPathDf(res$results[[&quot;Sonar-example&quot;]][[&quot;classif.ksvm.tuned&quot;]])
 #&gt;      C sigma mmce.test.mean dob eol error.message exec.time iter
-#&gt; 1  0.5   0.5      0.3428571   1  NA          &lt;NA&gt;     0.029    1
+#&gt; 1  0.5   0.5      0.3428571   1  NA          &lt;NA&gt;     0.030    1
 #&gt; 2    1   0.5      0.3428571   2  NA          &lt;NA&gt;     0.031    1
-#&gt; 3    2   0.5      0.3428571   3  NA          &lt;NA&gt;     0.029    1
-#&gt; 4  0.5     1      0.3428571   4  NA          &lt;NA&gt;     0.031    1
+#&gt; 3    2   0.5      0.3428571   3  NA          &lt;NA&gt;     0.031    1
+#&gt; 4  0.5     1      0.3428571   4  NA          &lt;NA&gt;     0.029    1
 #&gt; 5    1     1      0.3428571   5  NA          &lt;NA&gt;     0.031    1
 #&gt; 6    2     1      0.3428571   6  NA          &lt;NA&gt;     0.029    1
-#&gt; 7  0.5     2      0.3428571   7  NA          &lt;NA&gt;     0.031    1
-#&gt; 8    1     2      0.3428571   8  NA          &lt;NA&gt;     0.029    1
+#&gt; 7  0.5     2      0.3428571   7  NA          &lt;NA&gt;     0.030    1
+#&gt; 8    1     2      0.3428571   8  NA          &lt;NA&gt;     0.030    1
 #&gt; 9    2     2      0.3428571   9  NA          &lt;NA&gt;     0.029    1
-#&gt; 10 0.5   0.5      0.2142857   1  NA          &lt;NA&gt;     0.032    2
-#&gt; 11   1   0.5      0.2142857   2  NA          &lt;NA&gt;     0.031    2
-#&gt; 12   2   0.5      0.2000000   3  NA          &lt;NA&gt;     0.029    2
+#&gt; 10 0.5   0.5      0.2142857   1  NA          &lt;NA&gt;     0.030    2
+#&gt; 11   1   0.5      0.2142857   2  NA          &lt;NA&gt;     0.030    2
+#&gt; 12   2   0.5      0.2000000   3  NA          &lt;NA&gt;     0.030    2
 #&gt; 13 0.5     1      0.2142857   4  NA          &lt;NA&gt;     0.030    2
-#&gt; 14   1     1      0.2142857   5  NA          &lt;NA&gt;     0.029    2
-#&gt; 15   2     1      0.2142857   6  NA          &lt;NA&gt;     0.030    2
-#&gt; 16 0.5     2      0.2142857   7  NA          &lt;NA&gt;     0.030    2
-#&gt; 17   1     2      0.2142857   8  NA          &lt;NA&gt;     0.029    2
+#&gt; 14   1     1      0.2142857   5  NA          &lt;NA&gt;     0.031    2
+#&gt; 15   2     1      0.2142857   6  NA          &lt;NA&gt;     0.033    2
+#&gt; 16 0.5     2      0.2142857   7  NA          &lt;NA&gt;     0.031    2
+#&gt; 17   1     2      0.2142857   8  NA          &lt;NA&gt;     0.031    2
 #&gt; 18   2     2      0.2142857   9  NA          &lt;NA&gt;     0.029    2
 </code></pre>
 
@@ -944,9 +944,9 @@ head(opt.paths[[1]])
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      76.32457
 #&gt;   dob eol error.message exec.time
 #&gt; 1   1   2          &lt;NA&gt;     0.012
-#&gt; 2   2   2          &lt;NA&gt;     0.015
-#&gt; 3   2   2          &lt;NA&gt;     0.015
-#&gt; 4   2   2          &lt;NA&gt;     0.015
+#&gt; 2   2   2          &lt;NA&gt;     0.016
+#&gt; 3   2   2          &lt;NA&gt;     0.022
+#&gt; 4   2   2          &lt;NA&gt;     0.016
 #&gt; 5   2   2          &lt;NA&gt;     0.018
 #&gt; 6   2   2          &lt;NA&gt;     0.016
 
