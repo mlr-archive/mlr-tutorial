@@ -7,7 +7,8 @@ For steps that themselves require resampling like [parameter tuning](tune.md) or
 [feature selection](feature_selection.md) (via the wrapper approach) this results in two
 nested resampling loops.
 
-![nested resampling](../../images/nested_resampling.png "nested resampling")
+![Nested Resampling Figure](img/nested_resampling.png "Nested Resampling Figure")
+
 The graphic above illustrates nested resampling for parameter tuning with 3-fold cross-validation
 in the outer and 4-fold cross-validation in the inner loop.
 
