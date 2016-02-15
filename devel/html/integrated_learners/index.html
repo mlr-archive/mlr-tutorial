@@ -325,9 +325,9 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-71">Classification (71)</a></li>
+            <li><a href="#classification-72">Classification (72)</a></li>
         
-            <li><a href="#regression-52">Regression (52)</a></li>
+            <li><a href="#regression-53">Regression (53)</a></li>
         
             <li><a href="#survival-analysis-11">Survival analysis (11)</a></li>
         
@@ -351,7 +351,7 @@ weights are supported.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods specific to the
 type of learning task.
 See also <a href="http://rpackages.ianhowson.com/cran/mlr/man/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-71">Classification (71)</h3>
+<h3 id="classification-72">Classification (72)</h3>
 <p>For classification the following additional learner properties are relevant and shown in
 column <strong>Props</strong>:</p>
 <ul>
@@ -1146,6 +1146,17 @@ column <strong>Props</strong>:</p>
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>classif.xgboost</strong> <br /> <em>xgboost</em> <br /><br />eXtreme Gradient Boosting</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/xgboost/">xgboost</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default.</td>
+</tr>
+<tr>
 <td align="left"><strong>classif.xyf</strong> <br /> <em>xyf</em> <br /><br />X-Y fused self-organising maps</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/kohonen/">kohonen</a></td>
 <td align="center">X</td>
@@ -1158,7 +1169,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-52">Regression (52)</h3>
+<h3 id="regression-53">Regression (53)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1738,6 +1749,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left"></td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>regr.xgboost</strong> <br /> <em>xgboost</em> <br /><br />eXtreme Gradient Boosting</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/xgboost/">xgboost</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left"></td>
+<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.xyf</strong> <br /> <em>xyf</em> <br /><br />X-Y fused self-organising maps</td>

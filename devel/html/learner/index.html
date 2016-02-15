@@ -524,9 +524,6 @@ regr.lrn = removeHyperPars(regr.lrn, c(&quot;n.trees&quot;, &quot;interaction.de
 certain learning <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> use function <a href="http://rpackages.ianhowson.com/cran/mlr/man/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## List everything in mlr
 lrns = listLearners()
-#&gt; Warning in listLearners.character(obj = NA_character_, properties, quiet, : The following learners could not be constructed, probably because their packages are not installed:
-#&gt; classif.xgboost,regr.xgboost
-#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;                 class      package
 #&gt; 1         classif.ada          ada
@@ -538,9 +535,6 @@ head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 
 ## List classifiers that can output probabilities
 lrns = listLearners(&quot;classif&quot;, properties = &quot;prob&quot;)
-#&gt; Warning in listLearners.character(&quot;classif&quot;, properties = &quot;prob&quot;): The following learners could not be constructed, probably because their packages are not installed:
-#&gt; classif.xgboost,regr.xgboost
-#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;                 class      package
 #&gt; 1         classif.ada          ada
@@ -552,9 +546,6 @@ head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 
 ## List classifiers that can be applied to iris (i.e., multiclass) and output probabilities
 lrns = listLearners(iris.task, properties = &quot;prob&quot;)
-#&gt; Warning in listLearners.character(td$type, union(props, properties), quiet, : The following learners could not be constructed, probably because their packages are not installed:
-#&gt; classif.xgboost,regr.xgboost
-#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;              class      package
 #&gt; 1   classif.avNNet         nnet
