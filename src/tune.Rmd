@@ -207,7 +207,7 @@ as.data.frame(trafoOptPath(res$opt.path))
 
 The package supports a larger number of tuning algorithms, which can all be looked up and
 selected via [&TuneControl]. One of the cooler algorithms is iterated F-racing from the 
-[%irace] package. This not only works for arbitrary parameter types (numeric, integer,
+[%irace] package (technical description [here](http://iridia.ulb.ac.be/IridiaTrSeries/link/IridiaTr2011-004.pdf)). This not only works for arbitrary parameter types (numeric, integer,
 discrete, logical), but also for so-called dependent / hierarchical parameters:
 
 ```{r}
