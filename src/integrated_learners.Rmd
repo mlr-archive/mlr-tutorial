@@ -30,7 +30,7 @@ linkPkg = function(x) {
 getTab = function(type) {
   cn = function(x) if (is.null(x)) NA else gsub("\\n", " ", x)
   lrns = listLearners(type)
-  cols = c("class", "type", "package", "short.name", "name", "numerics", "factors", "ordered", "missings", "weights", "note")
+  cols = c("class", "type", "package", "short.name", "name", "numerics", "factors", "ordered", "missings", "weights", "note", "installed")
   props = setdiff(colnames(lrns), cols)
 
   colNames = c("Class / Short Name / Name", "Packages", "Num.", "Fac.", "Ord.", "NAs", "Weights", "Props", "Note")
