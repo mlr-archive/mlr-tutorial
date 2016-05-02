@@ -127,7 +127,7 @@ rownames(costs) = colnames(costs) = getTaskClassLevels(iris.task)
 ## Encapsulate the cost matrix in a Measure object
 my.costs = makeCostMeasure(
   id = "my.costs", name = "My Costs",
-  costs = costs, task = iris.task,
+  costs = costs,
   minimize = TRUE, best = 0, worst = 3
 )
 

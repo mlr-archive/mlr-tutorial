@@ -153,13 +153,12 @@ pred.th
 ```
 
 In order to calculate the average costs over the entire data set we first need to create a new
-performance [Measure](&makeMeasure). This can be done through function [&makeCostMeasure]
-which requires the [ClassifTask](&Task) object and the cost matrix (argument `costs`).
+performance [Measure](&makeMeasure). This can be done through function [&makeCostMeasure].
 It is expected that the rows of the cost matrix indicate true and the columns predicted
 class labels.
 
 ```{r}
-credit.costs = makeCostMeasure(id = "credit.costs", name = "Credit costs", costs = costs, task = credit.task,
+credit.costs = makeCostMeasure(id = "credit.costs", name = "Credit costs", costs = costs,
   best = 0, worst = 5)
 credit.costs
 ```
@@ -422,7 +421,7 @@ costs = matrix(c(0, 5, 10, 30, 0, 8, 80, 4, 0), 3)
 colnames(costs) = rownames(costs) = getTaskClassLevels(wf.task)
 
 ## Performance measure
-wf.costs = makeCostMeasure(id = "wf.costs", name = "Waveform costs", costs = costs, task = wf.task,
+wf.costs = makeCostMeasure(id = "wf.costs", name = "Waveform costs", costs = costs,
   best = 0, worst = 10)
 ```
 
