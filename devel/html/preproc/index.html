@@ -559,6 +559,7 @@ using function <a href="http://rpackages.ianhowson.com/cran/mlr/man/getParamSet.
 #&gt; ppc.k             integer   -       5                    1 to Inf   -
 #&gt; ppc.fudge         numeric   -     0.2                    0 to Inf   -
 #&gt; ppc.numUnique     integer   -       3                    1 to Inf   -
+#&gt; ppc.n.comp        integer   -       -                    1 to Inf   -
 #&gt; method           discrete   -  moment            moment,mle,mve,t   -
 #&gt; nu                numeric   -       5                    2 to Inf   Y
 #&gt; predict.method   discrete   - plug-in plug-in,predictive,debiased   -
@@ -581,6 +582,7 @@ using function <a href="http://rpackages.ianhowson.com/cran/mlr/man/getParamSet.
 #&gt; ppc.k               TRUE     -
 #&gt; ppc.fudge           TRUE     -
 #&gt; ppc.numUnique       TRUE     -
+#&gt; ppc.n.comp          TRUE     -
 #&gt; method              TRUE     -
 #&gt; nu                  TRUE     -
 #&gt; predict.method      TRUE     -
@@ -749,7 +751,7 @@ r
 #&gt; mse.aggr: 20.62
 #&gt; mse.mean: 20.62
 #&gt; mse.sd: 8.53
-#&gt; Runtime: 0.119904
+#&gt; Runtime: 0.147847
 
 lrn = makeLearner(&quot;regr.nnet&quot;, trace = FALSE, decay = 1e-02)
 r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
@@ -760,7 +762,7 @@ r
 #&gt; mse.aggr: 55.06
 #&gt; mse.mean: 55.06
 #&gt; mse.sd: 19.40
-#&gt; Runtime: 0.0883982
+#&gt; Runtime: 0.114162
 </code></pre>
 
 <h3 id="joint-tuning-of-preprocessing-and-learner-parameters">Joint tuning of preprocessing and learner parameters</h3>
@@ -830,18 +832,18 @@ res
 
 as.data.frame(res$opt.path)
 #&gt;    decay center scale mse.test.mean dob eol error.message exec.time
-#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.036
-#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.042
-#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.042
-#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.021
-#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.044
-#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.040
-#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.040
-#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.045
-#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.045
-#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.020
-#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.045
-#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.043
+#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.043
+#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.048
+#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.048
+#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.023
+#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.080
+#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.045
+#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.048
+#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.050
+#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.048
+#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.024
+#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.047
+#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.055
 </code></pre>
 
 <h3 id="preprocessing-wrapper-functions">Preprocessing wrapper functions</h3>

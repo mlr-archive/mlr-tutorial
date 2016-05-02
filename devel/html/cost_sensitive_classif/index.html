@@ -557,11 +557,10 @@ pred.th
 </code></pre>
 
 <p>In order to calculate the average costs over the entire data set we first need to create a new
-performance <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a>. This can be done through function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostMeasure.html">makeCostMeasure</a>
-which requires the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">ClassifTask</a> object and the cost matrix (argument <code>costs</code>).
+performance <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a>. This can be done through function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostMeasure.html">makeCostMeasure</a>.
 It is expected that the rows of the cost matrix indicate true and the columns predicted
 class labels.</p>
-<pre><code class="r">credit.costs = makeCostMeasure(id = &quot;credit.costs&quot;, name = &quot;Credit costs&quot;, costs = costs, task = credit.task,
+<pre><code class="r">credit.costs = makeCostMeasure(id = &quot;credit.costs&quot;, name = &quot;Credit costs&quot;, costs = costs,
   best = 0, worst = 5)
 credit.costs
 #&gt; Name: Credit costs
@@ -607,7 +606,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.199785
+#&gt; Runtime: 0.33445
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -655,7 +654,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.201638
+#&gt; Runtime: 0.30793
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -685,21 +684,22 @@ listLearners(&quot;classif&quot;, properties = &quot;weights&quot;)[c(&quot;clas
 #&gt; 2      classif.avNNet         nnet
 #&gt; 3    classif.binomial        stats
 #&gt; 4  classif.blackboost mboost,party
-#&gt; 5     classif.cforest        party
-#&gt; 6       classif.ctree        party
-#&gt; 7    classif.cvglmnet       glmnet
-#&gt; 8  classif.extraTrees   extraTrees
-#&gt; 9         classif.gbm          gbm
-#&gt; 10   classif.glmboost       mboost
-#&gt; 11     classif.glmnet       glmnet
-#&gt; 12     classif.logreg        stats
-#&gt; 13        classif.lqa          lqa
-#&gt; 14   classif.multinom         nnet
-#&gt; 15       classif.nnet         nnet
-#&gt; 16        classif.plr      stepPlr
-#&gt; 17     classif.probit        stats
-#&gt; 18      classif.rpart        rpart
-#&gt; 19    classif.xgboost      xgboost
+#&gt; 5         classif.C50          C50
+#&gt; 6     classif.cforest        party
+#&gt; 7       classif.ctree        party
+#&gt; 8    classif.cvglmnet       glmnet
+#&gt; 9  classif.extraTrees   extraTrees
+#&gt; 10        classif.gbm          gbm
+#&gt; 11   classif.glmboost       mboost
+#&gt; 12     classif.glmnet       glmnet
+#&gt; 13     classif.logreg        stats
+#&gt; 14        classif.lqa          lqa
+#&gt; 15   classif.multinom         nnet
+#&gt; 16       classif.nnet         nnet
+#&gt; 17        classif.plr      stepPlr
+#&gt; 18     classif.probit        stats
+#&gt; 19      classif.rpart        rpart
+#&gt; 20    classif.xgboost      xgboost
 
 ## Learners that can deal with class weights
 listLearners(&quot;classif&quot;, properties = &quot;class.weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
@@ -773,7 +773,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.245844
+#&gt; Runtime: 0.291
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -795,7 +795,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.365926
+#&gt; Runtime: 0.415916
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -878,7 +878,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.01
-#&gt; Runtime: 0.401439
+#&gt; Runtime: 0.57218
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -945,7 +945,7 @@ costs = matrix(c(0, 5, 10, 30, 0, 8, 80, 4, 0), 3)
 colnames(costs) = rownames(costs) = getTaskClassLevels(wf.task)
 
 ## Performance measure
-wf.costs = makeCostMeasure(id = &quot;wf.costs&quot;, name = &quot;Waveform costs&quot;, costs = costs, task = wf.task,
+wf.costs = makeCostMeasure(id = &quot;wf.costs&quot;, name = &quot;Waveform costs&quot;, costs = costs,
   best = 0, worst = 10)
 </code></pre>
 
@@ -979,7 +979,7 @@ r
 #&gt; mmce.aggr: 0.26
 #&gt; mmce.mean: 0.26
 #&gt; mmce.sd: 0.05
-#&gt; Runtime: 0.0572019
+#&gt; Runtime: 0.0796402
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1140,7 +1140,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.05
+#&gt; time: 0.06
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa

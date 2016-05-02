@@ -325,11 +325,11 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-72">Classification (72)</a></li>
+            <li><a href="#classification-76">Classification (76)</a></li>
         
-            <li><a href="#regression-52">Regression (52)</a></li>
+            <li><a href="#regression-54">Regression (54)</a></li>
         
-            <li><a href="#survival-analysis-11">Survival analysis (11)</a></li>
+            <li><a href="#survival-analysis-14">Survival analysis (14)</a></li>
         
             <li><a href="#cluster-analysis-8">Cluster analysis (8)</a></li>
         
@@ -351,7 +351,7 @@ weights are supported.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods specific to the
 type of learning task.
 See also <a href="http://rpackages.ianhowson.com/cran/mlr/man/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-72">Classification (72)</h3>
+<h3 id="classification-76">Classification (76)</h3>
 <p>For classification the following additional learner properties are relevant and shown in
 column <strong>Props</strong>:</p>
 <ul>
@@ -462,6 +462,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left">twoclass</td>
 <td align="left">Renamed parameter <code>learner</code> to <code>Learner</code> due to nameclash with <code>setHyperPars</code>. Default changes: <code>Learner = "ls"</code>, <code>xval = 0</code>, and <code>maxdepth = 1</code>.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.C50</strong> <br /> <em>C50</em> <br /><br />C50</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/C50/">C50</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>classif.cforest</strong> <br /> <em>cforest</em> <br /><br />Random forest based on conditional inference trees</td>
@@ -937,6 +948,39 @@ column <strong>Props</strong>:</p>
 <td align="left">NAs are directly passed to WEKA with <code>na.action = na.pass</code>.</td>
 </tr>
 <tr>
+<td align="left"><strong>classif.penalized.fusedlasso</strong> <br /> <em>fusedlasso</em> <br /><br />Logistic Fused Lasso Regression</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass</td>
+<td align="left">trace=FALSE was set by default to disable logging output. lambda1 and lambda2 have been set to 1 by default, as fusedlasso needs both penalizations &gt; 0.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.penalized.lasso</strong> <br /> <em>lasso</em> <br /><br />Logistic Lasso Regression</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass</td>
+<td align="left">trace=FALSE was set by default to disable logging output.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.penalized.ridge</strong> <br /> <em>ridge</em> <br /><br />Logistic Ridge Regression</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass</td>
+<td align="left">trace=FALSE was set by default to disable logging output.</td>
+</tr>
+<tr>
 <td align="left"><strong>classif.plr</strong> <br /> <em>plr</em> <br /><br />Logistic Regression with a L2 Penalty</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/stepPlr/">stepPlr</a></td>
 <td align="center">X</td>
@@ -1169,7 +1213,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-52">Regression (52)</h3>
+<h3 id="regression-54">Regression (54)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1432,6 +1476,17 @@ column <strong>Props</strong>:</p>
 <td align="left"><code>keep.data</code> is set to FALSE to reduce memory requirements, <code>distribution</code> has been set to <code>"gaussian"</code> by default.</td>
 </tr>
 <tr>
+<td align="left"><strong>regr.glm</strong> <br /> <em>glm</em> <br /><br />Generalized Linear Regression</td>
+<td align="left"><a href="http://www.inside-r.org/r-doc/stats/">stats</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">se</td>
+<td align="left"></td>
+</tr>
+<tr>
 <td align="left"><strong>regr.glmboost</strong> <br /> <em>glmboost</em> <br /><br />Boosting for GLMs</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mboost/">mboost</a></td>
 <td align="center">X</td>
@@ -1597,6 +1652,17 @@ column <strong>Props</strong>:</p>
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>regr.penalized.fusedlasso</strong> <br /> <em>fusedlasso</em> <br /><br />Fused Lasso Regression</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left">trace=FALSE was set by default to disable logging output. lambda1 and lambda2 have been set to 1 by default, as fusedlasso needs both penalizations &gt; 0.</td>
+</tr>
+<tr>
 <td align="left"><strong>regr.penalized.lasso</strong> <br /> <em>lasso</em> <br /><br />Lasso Regression</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
 <td align="center">X</td>
@@ -1605,10 +1671,10 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="left">trace=FALSE was set by default to disable logging output.</td>
 </tr>
 <tr>
-<td align="left"><strong>regr.penalized.ridge</strong> <br /> <em>ridge</em> <br /><br />Penalized Ridge Regression</td>
+<td align="left"><strong>regr.penalized.ridge</strong> <br /> <em>ridge</em> <br /><br />Ridge Regression</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
 <td align="center">X</td>
 <td align="center">X</td>
@@ -1616,7 +1682,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"></td>
-<td align="left"></td>
+<td align="left">trace=FALSE was set by default to disable logging output.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.plsr</strong> <br /> <em>plsr</em> <br /><br />Partial Least Squares Regression</td>
@@ -1763,7 +1829,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="survival-analysis-11">Survival analysis (11)</h3>
+<h3 id="survival-analysis-14">Survival analysis (14)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>prob</em>: Probabilities can be predicted,</li>
@@ -1871,6 +1937,39 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left">rcens</td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
+</tr>
+<tr>
+<td align="left"><strong>surv.penalized.fusedlasso</strong> <br /> <em>fusedlasso</em> <br /><br />Fused Lasso Regression</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">rcens</td>
+<td align="left">trace=FALSE was set by default to disable logging output. lambda1 and lambda2 have been set to 1 by default, as fusedlasso needs both penalizations &gt; 0.</td>
+</tr>
+<tr>
+<td align="left"><strong>surv.penalized.lasso</strong> <br /> <em>lasso</em> <br /><br />LassoRegression</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">rcens</td>
+<td align="left">trace=FALSE was set by default to disable logging output.</td>
+</tr>
+<tr>
+<td align="left"><strong>surv.penalized.ridge</strong> <br /> <em>ridge</em> <br /><br />Ridge Regression</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">rcens</td>
+<td align="left">trace=FALSE was set by default to disable logging output.</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.randomForestSRC</strong> <br /> <em>rfsrc</em> <br /><br />Random Forest</td>
