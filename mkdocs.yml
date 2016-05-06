@@ -35,7 +35,7 @@ pages:
     - 'ROC Analysis': 'roc_analysis.md'
     - 'Multilabel Classification': 'multilabel.md'
     - 'Learning Curves': 'learning_curve.md'
-    - 'Partial Prediction Plots': 'partial_prediction.md'
+    - 'Partial Dependence Plots': 'partial_dependence.md'
     - 'Classifier Calibration Plots': 'classifier_calibration.md'
 - Extend:
     - 'Create Custom Learners': 'create_learner.md'
