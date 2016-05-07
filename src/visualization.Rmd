@@ -73,13 +73,13 @@ lattice::xyplot(fpr + fnr + mmce ~ threshold, data = d$data, type = "l", ylab = 
 
 
 Let's conclude with a brief look on a second example.
-Here we use [&plotPartialPrediction] but extract the data from the plot object and use it
+Here we use [&plotPartialDependence] but extract the data from the plot object and use it
 to create a traditional [&graphics::plot], additional to the [%ggplot2] plot.
 
 ```{r, fig.width = 6, fig.height = 4}
 sonar = getTaskData(sonar.task)
-pd = generatePartialPredictionData(mod, sonar, "V11")
-plt = plotPartialPrediction(pd)
+pd = generatePartialDependenceData(mod, sonar, "V11")
+plt = plotPartialDependence(pd)
 head(plt$data)
 
 plt
@@ -108,5 +108,5 @@ Most generate interactive [%shiny] applications, that automatically start and ru
 | [&generateCritDifferencesData]   | [&plotCritDifferences]    | --                            | [Benchmark Experiments](benchmark_experiments.md)         |
 | [&generateFilterValuesData]      | [&plotFilterValues]       | [&plotFilterValuesGGVIS]      | [Feature Selection](feature_selection.md)                 |
 | [&generateLearningCurveData]     | [&plotLearningCurve]      | [&plotLearningCurveGGVIS]     | [Learning Curves](learning_curve.md)                      |
-| [&generatePartialPredictionData] | [&plotPartialPrediction]  | [&plotPartialPredictionGGVIS] | [Partial Prediction Plots](partial_prediction.md)         |
+| [&generatePartialDependenceData] | [&plotPartialDependence]  | [&plotPartialDependenceGGVIS] | [Partial Dependence Plots](partial_dependence.md)         |
 | [&generateCalibrationData]       | [&plotCalibration]        | --                            | [Classifier Calibration Plots](classifier_calibration.md) |
