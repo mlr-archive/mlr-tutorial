@@ -50,7 +50,7 @@ See [Goldstein, Kapelner, Bleich, and Pitkin (2014)](http://arxiv.org/abs/1309.6
 details and their package [%ICEbox] for the original implementation. The algorithm works for
 any supervised learner with classification, regression, and survival tasks.
 
-## Generating PartialDdependences
+## Generating partial dependences
 
 Our implementation, following [%mlr]'s [visualization](visualization.md) pattern, consists
 of the above mentioned function [&generatePartialDependenceData], as well as two visualization
