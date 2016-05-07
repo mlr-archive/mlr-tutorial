@@ -606,7 +606,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.33445
+#&gt; Runtime: 0.228917
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -654,7 +654,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.30793
+#&gt; Runtime: 0.231756
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -680,26 +680,24 @@ To find out which learning methods support either type of weights have a look at
 <pre><code class="r">## Learners that accept observation weights
 listLearners(&quot;classif&quot;, properties = &quot;weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
 #&gt;                 class      package
-#&gt; 1         classif.ada          ada
-#&gt; 2      classif.avNNet         nnet
-#&gt; 3    classif.binomial        stats
-#&gt; 4  classif.blackboost mboost,party
-#&gt; 5         classif.C50          C50
-#&gt; 6     classif.cforest        party
-#&gt; 7       classif.ctree        party
-#&gt; 8    classif.cvglmnet       glmnet
-#&gt; 9  classif.extraTrees   extraTrees
-#&gt; 10        classif.gbm          gbm
-#&gt; 11   classif.glmboost       mboost
-#&gt; 12     classif.glmnet       glmnet
-#&gt; 13     classif.logreg        stats
-#&gt; 14        classif.lqa          lqa
-#&gt; 15   classif.multinom         nnet
-#&gt; 16       classif.nnet         nnet
-#&gt; 17        classif.plr      stepPlr
-#&gt; 18     classif.probit        stats
-#&gt; 19      classif.rpart        rpart
-#&gt; 20    classif.xgboost      xgboost
+#&gt; 1      classif.avNNet         nnet
+#&gt; 2    classif.binomial        stats
+#&gt; 3  classif.blackboost mboost,party
+#&gt; 4         classif.C50          C50
+#&gt; 5     classif.cforest        party
+#&gt; 6       classif.ctree        party
+#&gt; 7    classif.cvglmnet       glmnet
+#&gt; 8  classif.extraTrees   extraTrees
+#&gt; 9         classif.gbm          gbm
+#&gt; 10   classif.glmboost       mboost
+#&gt; 11     classif.glmnet       glmnet
+#&gt; 12     classif.logreg        stats
+#&gt; 13   classif.multinom         nnet
+#&gt; 14       classif.nnet         nnet
+#&gt; 15        classif.plr      stepPlr
+#&gt; 16     classif.probit        stats
+#&gt; 17      classif.rpart        rpart
+#&gt; 18    classif.xgboost      xgboost
 
 ## Learners that can deal with class weights
 listLearners(&quot;classif&quot;, properties = &quot;class.weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
@@ -773,7 +771,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.291
+#&gt; Runtime: 0.272853
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -795,7 +793,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.415916
+#&gt; Runtime: 0.427026
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -878,7 +876,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.01
-#&gt; Runtime: 0.57218
+#&gt; Runtime: 0.442669
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -979,7 +977,7 @@ r
 #&gt; mmce.aggr: 0.26
 #&gt; mmce.mean: 0.26
 #&gt; mmce.sd: 0.05
-#&gt; Runtime: 0.0796402
+#&gt; Runtime: 0.0702851
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
