@@ -101,7 +101,7 @@ pred = predict(mod, task = iris.task)
 ## Calculate the performance using the new measure
 performance(pred, measures = my.mmce)
 
-## Apparently the result coincides with the mlr implementaion
+## Apparently the result coincides with the mlr implementation
 performance(pred, measures = mmce)
 ```
 
@@ -165,7 +165,7 @@ my.range.aggr = makeAggregation(id = "test.range", name = "Test Range",
 )
 ```
 
-`perf.train` and `perf.test` are both numerical vectors containing the preformances on
+`perf.train` and `perf.test` are both numerical vectors containing the performances on
 the train and test data sets.
 Usually (e.g., cross validation), the `perf.train` vector is empty.
 
