@@ -41,6 +41,7 @@ pages:
     - 'Create Custom Learners': 'create_learner.md'
     - 'Create Custom Measures': 'create_measure.md'
     - 'Create Imputation Methods': 'create_imputation.md'
+    - 'Create Custom Filters': 'create_filter.md'
 - Appendix:
     - 'Example Tasks': 'example_tasks.md'
     - 'Integrated Learners': 'integrated_learners.md'
