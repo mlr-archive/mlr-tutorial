@@ -245,6 +245,12 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../create_filter/index.html">Create Custom Filters</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
@@ -325,9 +331,9 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-76">Classification (76)</a></li>
+            <li><a href="#classification-77">Classification (77)</a></li>
         
-            <li><a href="#regression-54">Regression (54)</a></li>
+            <li><a href="#regression-55">Regression (55)</a></li>
         
             <li><a href="#survival-analysis-14">Survival analysis (14)</a></li>
         
@@ -351,7 +357,7 @@ weights are supported.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods specific to the
 type of learning task.
 See also <a href="http://rpackages.ianhowson.com/cran/mlr/man/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-76">Classification (76)</h3>
+<h3 id="classification-77">Classification (77)</h3>
 <p>For classification the following additional learner properties are relevant and shown in
 column <strong>Props</strong>:</p>
 <ul>
@@ -572,6 +578,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left">twoclass</td>
 <td align="left"><code>m</code> set to <code>3</code> and <code>max.iter</code> set to <code>1</code> by default.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.gausspr</strong> <br /> <em>gausspr</em> <br /><br />Gaussian Processes</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/kernlab/">kernlab</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left">Kernel parameters have to be passed directly and not by using the <code>kpar</code> list in <code>gausspr</code>.     Note that <code>fit</code> has been set to <code>FALSE</code> by default for speed.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.gbm</strong> <br /> <em>gbm</em> <br /><br />Gradient Boosting Machine</td>
@@ -1053,9 +1070,9 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.       <code>mtry.ratio</code> indicates the proportion of variables randomly selected as candidates for a split.</td>
+<td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.randomForestSRCSyn</strong> <br /> <em>rfsrcSyn</em> <br /><br />Synthetic Random Forest</td>
@@ -1063,17 +1080,17 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left">na.action' has been set to 'na.impute' by default to allow missing data support</td>
+<td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support and <code>verbose</code> has been set to <code>FALSE</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.ranger</strong> <br /> <em>ranger</em> <br /><br />Random Forests</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/ranger/">ranger</a></td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
@@ -1198,7 +1215,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default.</td>
+<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default. <code>num_class</code> is set internally, so do not set this manually.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.xyf</strong> <br /> <em>xyf</em> <br /><br />X-Y fused self-organising maps</td>
@@ -1213,7 +1230,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-54">Regression (54)</h3>
+<h3 id="regression-55">Regression (55)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1465,6 +1482,17 @@ column <strong>Props</strong>:</p>
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>regr.gausspr</strong> <br /> <em>gausspr</em> <br /><br />Gaussian Processes</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/kernlab/">kernlab</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">se</td>
+<td align="left">Kernel parameters have to be passed directly and not by using the <code>kpar</code> list in <code>gausspr</code>.     Note that <code>fit</code> has been set to <code>FALSE</code> by default for speed.</td>
+</tr>
+<tr>
 <td align="left"><strong>regr.gbm</strong> <br /> <em>gbm</em> <br /><br />Gradient Boosting Machine</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/gbm/">gbm</a></td>
 <td align="center">X</td>
@@ -1539,7 +1567,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">se</td>
-<td align="left">In predict, we currently always use <code>type = "SK"</code>. The extra parameter <code>jitter</code> (default is <code>FALSE</code>) enables adding a very small jitter (order 1e-12) to the x-values before prediction, as <code>predict.km</code> reproduces the exact y-values of the training data points, when you pass them in, even if the nugget effect is turned on.</td>
+<td align="left">In predict, we currently always use <code>type = "SK"</code>. The extra parameter <code>jitter</code> (default is <code>FALSE</code>) enables adding a very small jitter (order 1e-12) to the x-values before prediction, as <code>predict.km</code> reproduces the exact y-values of the training data points, when you pass them in, even if the nugget effect is turned on.   We further introduced <code>nugget.stability</code> which sets the <code>nugget</code> to <code>nugget.stability * var(y)</code> before each training to improve numerical stability. We recommend a setting of 10^-8</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.ksvm</strong> <br /> <em>ksvm</em> <br /><br />Support Vector Machines</td>
@@ -1713,9 +1741,9 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="left"></td>
-<td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.       <code>mtry.ratio</code> indicates the proportion of variables randomly selected as candidates for a split.</td>
+<td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.randomForestSRCSyn</strong> <br /> <em>rfsrcSyn</em> <br /><br />Synthetic Random Forest</td>
@@ -1724,7 +1752,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="left"></td>
 <td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support and <code>verbose</code> has been set to <code>FALSE</code>.</td>
 </tr>
@@ -1733,7 +1761,7 @@ column <strong>Props</strong>:</p>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/ranger/">ranger</a></td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"></td>
@@ -1878,7 +1906,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center">X</td>
+<td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />rcens</td>
 <td align="left"></td>
@@ -1978,16 +2006,16 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="left">rcens</td>
-<td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.       <code>mtry.ratio</code> indicates the proportion of variables randomly selected as candidates for a split.</td>
+<td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.ranger</strong> <br /> <em>ranger</em> <br /><br />Random Forests</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/ranger/">ranger</a></td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">prob<br />rcens</td>
