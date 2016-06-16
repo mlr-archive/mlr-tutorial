@@ -17,6 +17,6 @@ df$package = sapply(df$package, linkPkg)
 logicals = vlapply(df, is.logical)
 df[logicals] = lapply(df[logicals], function(x) ifelse(x, "X", ""))
 names(df) = c("Method", "Package", "Description", "Classif", "Regr", "Surv", "Fac.", "Num.")
-# just = rep(c("left", "center"), c(3, 5))
-pandoc.table(df, style = "rmarkdown", split.tables = Inf, split.cells = Inf)#, justify = just)
+just = rep(c("left", "center"), c(3, 5))
+pandoc.table(df, style = "rmarkdown", split.tables = Inf, split.cells = Inf, justify = just)
 ```
