@@ -303,8 +303,8 @@ In the second plot we color the boxes according to the learners by adding additi
 [aesthetics](&ggplot2::aes) to make them better distinguishable.
 
 ```{r, fig.width=9}
-plotBMRBoxplots(bmr, measure = mmce, facet.wrap.nrow = 2)
-plotBMRBoxplots(bmr, measure = ber, style = "violin", facet.wrap.nrow = 2) +
+plotBMRBoxplots(bmr, measure = mmce)
+plotBMRBoxplots(bmr, measure = ber, style = "violin") +
   aes(color = learner.id)
 ```
 
