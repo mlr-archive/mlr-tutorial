@@ -331,13 +331,13 @@
     
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
         
-            <li><a href="#classification-77">Classification (77)</a></li>
+            <li><a href="#classification-82">Classification (82)</a></li>
         
-            <li><a href="#regression-55">Regression (55)</a></li>
+            <li><a href="#regression-60">Regression (60)</a></li>
         
-            <li><a href="#survival-analysis-14">Survival analysis (14)</a></li>
+            <li><a href="#survival-analysis-13">Survival analysis (13)</a></li>
         
-            <li><a href="#cluster-analysis-8">Cluster analysis (8)</a></li>
+            <li><a href="#cluster-analysis-9">Cluster analysis (9)</a></li>
         
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
         
@@ -357,7 +357,7 @@ weights are supported.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods specific to the
 type of learning task.
 See also <a href="http://rpackages.ianhowson.com/cran/mlr/man/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-77">Classification (77)</h3>
+<h3 id="classification-82">Classification (82)</h3>
 <p>For classification the following additional learner properties are relevant and shown in
 column <strong>Props</strong>:</p>
 <ul>
@@ -633,6 +633,50 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
 <td align="left">The family parameter is set to <code>binomial</code> for two-class problems and to <code>multinomial</code> otherwise. Factors automatically get converted to dummy columns, ordered factors to integer.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.h2o.deeplearning</strong> <br /> <em>h2o.dl</em> <br /><br />h2o.deeplearning</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/h2o/">h2o</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>classif.h2o.gbm</strong> <br /> <em>h2o.gbm</em> <br /><br />h2o.gbm</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/h2o/">h2o</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left">'distribution' is set automatically to 'gaussian'.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.h2o.glm</strong> <br /> <em>h2o.glm</em> <br /><br />h2o.glm</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/h2o/">h2o</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">prob<br />twoclass</td>
+<td align="left">'family' is always set to 'binomial' to get a binary classifier.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.h2o.randomForest</strong> <br /> <em>h2o.rf</em> <br /><br />h2o.randomForest</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/h2o/">h2o</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>classif.hdrda</strong> <br /> <em>hdrda</em> <br /><br />High-Dimensional Regularized Discriminant Analysis</td>
@@ -918,7 +962,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left"><code>output</code> set to <code>softmax</code> by default.</td>
+<td align="left"><code>output</code> set to <code>softmax</code> by default. <code>max.number.of.layers</code> can be set to control and tune the maximal number of layers specified via <code>hidden</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.nodeHarvest</strong> <br /> <em>nodeHarvest</em> <br /><br />Node Harvest</td>
@@ -1094,7 +1138,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>) and <code>verbose</code> output is disabled. Both settings are changeable.</td>
+<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code> and ranger's .forest object is kept for prediction (<code>keep.forest</code> = <code>TRUE</code>). All settings are changeable.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.rda</strong> <br /> <em>rda</em> <br /><br />Regularized Discriminant Analysis</td>
@@ -1150,6 +1194,17 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
 <td align="left"><code>xval</code> has been set to <code>0</code> by default for speed.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.RRF</strong> <br /> <em>RRF</em> <br /><br />Regularized Random Forests</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/RRF/">RRF</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>classif.rrlda</strong> <br /> <em>rrlda</em> <br /><br />Robust Regularized Linear Discriminant Analysis</td>
@@ -1230,7 +1285,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-55">Regression (55)</h3>
+<h3 id="regression-60">Regression (60)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1537,6 +1592,50 @@ column <strong>Props</strong>:</p>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
 </tr>
 <tr>
+<td align="left"><strong>regr.h2o.deeplearning</strong> <br /> <em>h2o.dl</em> <br /><br />h2o.deeplearning</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/h2o/">h2o</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>regr.h2o.gbm</strong> <br /> <em>h2o.gbm</em> <br /><br />h2o.gbm</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/h2o/">h2o</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left">'distribution' is set automatically to 'gaussian'.</td>
+</tr>
+<tr>
+<td align="left"><strong>regr.h2o.glm</strong> <br /> <em>h2o.glm</em> <br /><br />h2o.glm</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/h2o/">h2o</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left"></td>
+<td align="left">'family' is always set to 'gaussian'.</td>
+</tr>
+<tr>
+<td align="left"><strong>regr.h2o.randomForest</strong> <br /> <em>h2o.rf</em> <br /><br />h2o.randomForest</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/h2o/">h2o</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
 <td align="left"><strong>regr.IBk</strong> <br /> <em>ibk</em> <br /><br />K-Nearest Neighbours</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/RWeka/">RWeka</a></td>
 <td align="center">X</td>
@@ -1765,7 +1864,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"></td>
-<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>) and <code>verbose</code> output is disabled. Both settings are changeable.</td>
+<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code> and ranger's .forest object is kept for prediction (<code>keep.forest</code> = <code>TRUE</code>). All settings are changeable.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.rknn</strong> <br /> <em>rknn</em> <br /><br />Random k-Nearest-Neighbors</td>
@@ -1788,6 +1887,17 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="left"></td>
 <td align="left"><code>xval</code> has been set to <code>0</code> by default for speed.</td>
+</tr>
+<tr>
+<td align="left"><strong>regr.RRF</strong> <br /> <em>RRF</em> <br /><br />Regularized Random Forests</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/RRF/">RRF</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
 <td align="left"><strong>regr.rsm</strong> <br /> <em>rsm</em> <br /><br />Response Surface Regression</td>
@@ -1857,7 +1967,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="survival-analysis-14">Survival analysis (14)</h3>
+<h3 id="survival-analysis-13">Survival analysis (13)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>prob</em>: Probabilities can be predicted,</li>
@@ -1908,7 +2018,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">prob<br />rcens</td>
+<td align="left">rcens</td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -1952,17 +2062,6 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
-<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
-</tr>
-<tr>
-<td align="left"><strong>surv.penalized</strong> <br /> <em>penalized</em> <br /><br />Penalized Regression</td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/penalized/">penalized</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
 <td align="left">rcens</td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
 </tr>
@@ -2019,7 +2118,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">prob<br />rcens</td>
-<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>) and <code>verbose</code> output is disabled. Both settings are changeable.</td>
+<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code> and ranger's .forest object is kept for prediction (<code>keep.forest</code> = <code>TRUE</code>). All settings are changeable.</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.rpart</strong> <br /> <em>rpart</em> <br /><br />Survival Tree</td>
@@ -2034,7 +2133,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="cluster-analysis-8">Cluster analysis (8)</h3>
+<h3 id="cluster-analysis-9">Cluster analysis (9)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>prob</em>: Probabilities can be predicted.</li>
@@ -2108,6 +2207,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left"></td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>cluster.kkmeans</strong> <br /> <em>kkmeans</em> <br /><br />Kernel K-Means</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/kernlab/">kernlab</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"><code>centers</code> has been set to <code>2L</code> by default. The nearest center in kernel distance determines cluster assignment of new data points. Kernel parameters have to be passed directly and not by using the <code>kpar</code> list in <code>kkmeans</code></td>
 </tr>
 <tr>
 <td align="left"><strong>cluster.kmeans</strong> <br /> <em>kmeans</em> <br /><br />K-Means</td>

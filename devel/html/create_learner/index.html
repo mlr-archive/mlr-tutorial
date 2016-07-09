@@ -566,8 +566,6 @@ into the survival learner <code>surv.coxph</code> in <a href="http://rpackages.i
   } else {
     mod = survival::coxph(formula = f, data = data, weights = .weights, ...)
   }
-  if (.learner$predict.type == &quot;prob&quot;) 
-    mod = attachTrainingInfo(mod, list(surv.range = range(getTaskTargets(.task)[, 1L])))
   mod
 }
 </code></pre>
@@ -575,13 +573,6 @@ into the survival learner <code>surv.coxph</code> in <a href="http://rpackages.i
 <pre><code class="r">predictLearner.surv.coxph = function(.learner, .model, .newdata, ...) {
   if (.learner$predict.type == &quot;response&quot;) {
     predict(.model$learner.model, newdata = .newdata, type = &quot;lp&quot;, ...)
-  } else if (.learner$predict.type == &quot;prob&quot;) {
-    surv.range = getTrainingInfo(.model$learner.model)$surv.range
-    times = seq(from = surv.range[1L], to = surv.range[2L], length.out = 1000)
-    t(summary(survival::survfit(.model$learner.model, newdata = .newdata, se.fit = FALSE, conf.int = FALSE), 
-      times = times)$surv)
-  } else {
-    stop(&quot;Unknown predict type&quot;)
   }
 }
 </code></pre>

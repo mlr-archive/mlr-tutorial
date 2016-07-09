@@ -374,14 +374,16 @@ non-standard misclassification costs, see the section on
 certain learning <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> use the function <a href="http://rpackages.ianhowson.com/cran/mlr/man/listMeasures.html">listMeasures</a>.</p>
 <pre><code class="r">## Performance measures for classification with multiple classes
 listMeasures(&quot;classif&quot;, properties = &quot;classif.multi&quot;)
-#&gt; [1] &quot;timepredict&quot;      &quot;acc&quot;              &quot;ber&quot;             
-#&gt; [4] &quot;featperc&quot;         &quot;mmce&quot;             &quot;timeboth&quot;        
-#&gt; [7] &quot;multiclass.brier&quot; &quot;timetrain&quot;        &quot;multiclass.auc&quot;
+#&gt;  [1] &quot;timepredict&quot;      &quot;acc&quot;              &quot;ber&quot;             
+#&gt;  [4] &quot;featperc&quot;         &quot;mmce&quot;             &quot;timeboth&quot;        
+#&gt;  [7] &quot;multiclass.brier&quot; &quot;timetrain&quot;        &quot;logloss&quot;         
+#&gt; [10] &quot;multiclass.auc&quot;
 ## Performance measure suitable for the iris classification task
 listMeasures(iris.task)
-#&gt; [1] &quot;timepredict&quot;      &quot;acc&quot;              &quot;ber&quot;             
-#&gt; [4] &quot;featperc&quot;         &quot;mmce&quot;             &quot;timeboth&quot;        
-#&gt; [7] &quot;multiclass.brier&quot; &quot;timetrain&quot;        &quot;multiclass.auc&quot;
+#&gt;  [1] &quot;timepredict&quot;      &quot;acc&quot;              &quot;ber&quot;             
+#&gt;  [4] &quot;featperc&quot;         &quot;mmce&quot;             &quot;timeboth&quot;        
+#&gt;  [7] &quot;multiclass.brier&quot; &quot;timetrain&quot;        &quot;logloss&quot;         
+#&gt; [10] &quot;multiclass.auc&quot;
 </code></pre>
 
 <p>For convenience there exists a default measure for each type of learning problem, which is

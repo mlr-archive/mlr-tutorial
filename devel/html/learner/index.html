@@ -404,7 +404,7 @@ surv.lrn
 #&gt; Type: surv
 #&gt; Name: Cox Proportional Hazard Model; Short name: coxph
 #&gt; Class: surv.coxph
-#&gt; Properties: numerics,factors,weights,prob,rcens
+#&gt; Properties: numerics,factors,weights,rcens
 #&gt; Predict-Type: response
 #&gt; Hyperparameters:
 </code></pre>
@@ -428,20 +428,24 @@ cluster.lrn$par.vals
 
 ## Get the set of hyperparameters
 classif.lrn$par.set
-#&gt;                     Type  len   Def   Constr Req Tunable Trafo
-#&gt; ntree            integer    -   500 1 to Inf   -    TRUE     -
-#&gt; mtry             integer    -     - 1 to Inf   -    TRUE     -
-#&gt; replace          logical    -  TRUE        -   -    TRUE     -
-#&gt; classwt    numericvector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
-#&gt; cutoff     numericvector &lt;NA&gt;     -   0 to 1   -    TRUE     -
-#&gt; sampsize         integer    -     - 1 to Inf   -    TRUE     -
-#&gt; nodesize         integer    -     1 1 to Inf   -    TRUE     -
-#&gt; maxnodes         integer    -     - 1 to Inf   -    TRUE     -
-#&gt; importance       logical    - FALSE        -   -    TRUE     -
-#&gt; localImp         logical    - FALSE        -   -    TRUE     -
-#&gt; norm.votes       logical    -  TRUE        -   -   FALSE     -
-#&gt; do.trace         logical    - FALSE        -   -   FALSE     -
-#&gt; keep.inbag       logical    - FALSE        -   -   FALSE     -
+#&gt;                      Type  len   Def   Constr Req Tunable Trafo
+#&gt; ntree             integer    -   500 1 to Inf   -    TRUE     -
+#&gt; mtry              integer    -     - 1 to Inf   -    TRUE     -
+#&gt; replace           logical    -  TRUE        -   -    TRUE     -
+#&gt; classwt     numericvector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
+#&gt; cutoff      numericvector &lt;NA&gt;     -   0 to 1   -    TRUE     -
+#&gt; strata            untyped    -     -        -   -    TRUE     -
+#&gt; sampsize    integervector &lt;NA&gt;     - 1 to Inf   -    TRUE     -
+#&gt; nodesize          integer    -     1 1 to Inf   -    TRUE     -
+#&gt; maxnodes          integer    -     - 1 to Inf   -    TRUE     -
+#&gt; importance        logical    - FALSE        -   -    TRUE     -
+#&gt; localImp          logical    - FALSE        -   -    TRUE     -
+#&gt; proximity         logical    - FALSE        -   -   FALSE     -
+#&gt; oob.prox          logical    -     -        -   Y   FALSE     -
+#&gt; norm.votes        logical    -  TRUE        -   -   FALSE     -
+#&gt; do.trace          logical    - FALSE        -   -   FALSE     -
+#&gt; keep.forest       logical    -  TRUE        -   -   FALSE     -
+#&gt; keep.inbag        logical    - FALSE        -   -   FALSE     -
 
 ## Get the type of prediction
 regr.lrn$predict.type
@@ -464,39 +468,47 @@ getHyperPars(cluster.lrn)
 
 ## Get a description of all possible hyperparameter settings
 getParamSet(classif.lrn)
-#&gt;                     Type  len   Def   Constr Req Tunable Trafo
-#&gt; ntree            integer    -   500 1 to Inf   -    TRUE     -
-#&gt; mtry             integer    -     - 1 to Inf   -    TRUE     -
-#&gt; replace          logical    -  TRUE        -   -    TRUE     -
-#&gt; classwt    numericvector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
-#&gt; cutoff     numericvector &lt;NA&gt;     -   0 to 1   -    TRUE     -
-#&gt; sampsize         integer    -     - 1 to Inf   -    TRUE     -
-#&gt; nodesize         integer    -     1 1 to Inf   -    TRUE     -
-#&gt; maxnodes         integer    -     - 1 to Inf   -    TRUE     -
-#&gt; importance       logical    - FALSE        -   -    TRUE     -
-#&gt; localImp         logical    - FALSE        -   -    TRUE     -
-#&gt; norm.votes       logical    -  TRUE        -   -   FALSE     -
-#&gt; do.trace         logical    - FALSE        -   -   FALSE     -
-#&gt; keep.inbag       logical    - FALSE        -   -   FALSE     -
+#&gt;                      Type  len   Def   Constr Req Tunable Trafo
+#&gt; ntree             integer    -   500 1 to Inf   -    TRUE     -
+#&gt; mtry              integer    -     - 1 to Inf   -    TRUE     -
+#&gt; replace           logical    -  TRUE        -   -    TRUE     -
+#&gt; classwt     numericvector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
+#&gt; cutoff      numericvector &lt;NA&gt;     -   0 to 1   -    TRUE     -
+#&gt; strata            untyped    -     -        -   -    TRUE     -
+#&gt; sampsize    integervector &lt;NA&gt;     - 1 to Inf   -    TRUE     -
+#&gt; nodesize          integer    -     1 1 to Inf   -    TRUE     -
+#&gt; maxnodes          integer    -     - 1 to Inf   -    TRUE     -
+#&gt; importance        logical    - FALSE        -   -    TRUE     -
+#&gt; localImp          logical    - FALSE        -   -    TRUE     -
+#&gt; proximity         logical    - FALSE        -   -   FALSE     -
+#&gt; oob.prox          logical    -     -        -   Y   FALSE     -
+#&gt; norm.votes        logical    -  TRUE        -   -   FALSE     -
+#&gt; do.trace          logical    - FALSE        -   -   FALSE     -
+#&gt; keep.forest       logical    -  TRUE        -   -   FALSE     -
+#&gt; keep.inbag        logical    - FALSE        -   -   FALSE     -
 </code></pre>
 
 <p>We can also use <a href="http://rpackages.ianhowson.com/cran/mlr/man/getParamSet.html">getParamSet</a> to get a quick overview about the available hyperparameters
 and defaults of a learning method without explicitly constructing it (by calling <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">makeLearner</a>).</p>
 <pre><code class="r">getParamSet(&quot;classif.randomForest&quot;)
-#&gt;                     Type  len   Def   Constr Req Tunable Trafo
-#&gt; ntree            integer    -   500 1 to Inf   -    TRUE     -
-#&gt; mtry             integer    -     - 1 to Inf   -    TRUE     -
-#&gt; replace          logical    -  TRUE        -   -    TRUE     -
-#&gt; classwt    numericvector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
-#&gt; cutoff     numericvector &lt;NA&gt;     -   0 to 1   -    TRUE     -
-#&gt; sampsize         integer    -     - 1 to Inf   -    TRUE     -
-#&gt; nodesize         integer    -     1 1 to Inf   -    TRUE     -
-#&gt; maxnodes         integer    -     - 1 to Inf   -    TRUE     -
-#&gt; importance       logical    - FALSE        -   -    TRUE     -
-#&gt; localImp         logical    - FALSE        -   -    TRUE     -
-#&gt; norm.votes       logical    -  TRUE        -   -   FALSE     -
-#&gt; do.trace         logical    - FALSE        -   -   FALSE     -
-#&gt; keep.inbag       logical    - FALSE        -   -   FALSE     -
+#&gt;                      Type  len   Def   Constr Req Tunable Trafo
+#&gt; ntree             integer    -   500 1 to Inf   -    TRUE     -
+#&gt; mtry              integer    -     - 1 to Inf   -    TRUE     -
+#&gt; replace           logical    -  TRUE        -   -    TRUE     -
+#&gt; classwt     numericvector &lt;NA&gt;     - 0 to Inf   -    TRUE     -
+#&gt; cutoff      numericvector &lt;NA&gt;     -   0 to 1   -    TRUE     -
+#&gt; strata            untyped    -     -        -   -    TRUE     -
+#&gt; sampsize    integervector &lt;NA&gt;     - 1 to Inf   -    TRUE     -
+#&gt; nodesize          integer    -     1 1 to Inf   -    TRUE     -
+#&gt; maxnodes          integer    -     - 1 to Inf   -    TRUE     -
+#&gt; importance        logical    - FALSE        -   -    TRUE     -
+#&gt; localImp          logical    - FALSE        -   -    TRUE     -
+#&gt; proximity         logical    - FALSE        -   -   FALSE     -
+#&gt; oob.prox          logical    -     -        -   Y   FALSE     -
+#&gt; norm.votes        logical    -  TRUE        -   -   FALSE     -
+#&gt; do.trace          logical    - FALSE        -   -   FALSE     -
+#&gt; keep.forest       logical    -  TRUE        -   -   FALSE     -
+#&gt; keep.inbag        logical    - FALSE        -   -   FALSE     -
 </code></pre>
 
 <h2 id="modifying-a-learner">Modifying a learner</h2>
@@ -510,7 +522,7 @@ surv.lrn
 #&gt; Type: surv
 #&gt; Name: Cox Proportional Hazard Model; Short name: coxph
 #&gt; Class: surv.coxph
-#&gt; Properties: numerics,factors,weights,prob,rcens
+#&gt; Properties: numerics,factors,weights,rcens
 #&gt; Predict-Type: response
 #&gt; Hyperparameters:
 

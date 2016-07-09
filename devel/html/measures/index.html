@@ -588,6 +588,21 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">logloss</a></strong> <br />Logarithmic loss</td>
+<td align="center">X</td>
+<td align="right">0</td>
+<td align="right">Inf</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: -mean(log(p_i)), where p_i is the predicted probability of the true class of observation i. Inspired by https://www.kaggle.com/wiki/MultiClassLogLoss.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mcc</a></strong> <br />Matthews correlation coefficient</td>
 <td align="center"></td>
 <td align="right">1</td>
@@ -645,7 +660,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Following the definition by Brier: http://docs.lib.noaa.gov/rescue/mwr/078/mwr-078-01-0001.pdf</td>
+<td align="left">Defined as: (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j. From http://docs.lib.noaa.gov/rescue/mwr/078/mwr-078-01-0001.pdf</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">npv</a></strong> <br />Negative predictive value</td>
