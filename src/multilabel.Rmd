@@ -62,9 +62,9 @@ Currently the available algorithm adaptation methods in **R** are the multivaria
 like in multiclass classification problems.
 
 ```{r}
-#multilabel.lrn2 = makeLearner("multilabel.randomForestSRC")
-multilabel.lrn2 = makeLearner("multilabel.rFerns")
-multilabel.lrn2
+multilabel.lrn.rfsrc = makeLearner("multilabel.randomForestSRC")
+multilabel.lrn.rFerns = makeLearner("multilabel.rFerns")
+multilabel.lrn.rFerns
 ```
 
 ### Problem transformation method
@@ -76,12 +76,12 @@ classification learner with [&makeLearner]. Afterwards apply a function like
 You can also generate a binary relevance learner directly, as you can see in the example.
 
 ```{r}
-multilabel.lrn = makeLearner("classif.rpart", predict.type = "prob")
-multilabel.lrn = makeMultilabelBinaryRelevanceWrapper(multilabel.lrn)
-multilabel.lrn
+multilabel.lrn.rpart = makeLearner("classif.rpart", predict.type = "prob")
+multilabel.lrn.rpart = makeMultilabelBinaryRelevanceWrapper(multilabel.lrn)
+multilabel.lrn.rpart
 
-multilabel.lrn1 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
-multilabel.lrn1
+multilabel.lrn.rpart2 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
+multilabel.lrn.rpart2
 ```
 
 
@@ -92,11 +92,11 @@ multilabel task as input. You can also pass ``subset`` and ``weights`` arguments
 learner supports this.
 
 ```{r}
-mod = train(multilabel.lrn, yeast.task)
-mod = train(multilabel.lrn, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
+mod = train(multilabel.lrn.rpart, yeast.task)
+mod = train(multilabel.lrn.rpart, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
 mod
 
-mod2 = train(multilabel.lrn2, yeast.task, subset = 1:100)
+mod2 = train(multilabel.lrn.rfsrc, yeast.task, subset = 1:100)
 mod2
 ```
 
@@ -131,7 +131,7 @@ All available measures for multilabel classification can be shown by [&listMeasu
 ```{r}
 performance(pred)
 
-#performance(pred2, measures = list(subset01, hamloss, accmult, f1mult, timepredict))
+performance(pred2, measures = list(subset01, hamloss, accmult, f1mult, timepredict))
 
 listMeasures("multilabel")
 ```
@@ -144,10 +144,10 @@ function. Below the default measure Hamming loss is calculated.
 
 ```{r}
 rdesc = makeResampleDesc(method = "CV", stratify = FALSE, iters = 3)
-r = resample(learner = multilabel.lrn, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r = resample(learner = multilabel.lrn.rpart, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 
-r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r = resample(learner = multilabel.lrn.rfsrc, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 ```
 
