@@ -32,6 +32,8 @@ linkFct = function(x, y) {
   collapse(sprintf("[%1$s](%3$s%2$s%4$s)", x, y, urlMlrFunctions, ext), sep = "<br />")
 }
 
+cn = function(x) if (is.null(x)) NA else gsub("\\n", " ", x)
+
 getTab = function(type) {
   m = list(featperc = featperc, timeboth = timeboth, timepredict = timepredict, timetrain = timetrain)
 
@@ -64,7 +66,7 @@ getTab = function(type) {
     df[i, 10] = "req.task" %in% mea$properties
     df[i, 11] = "req.feats" %in% mea$properties
     df[i, 12] = linkFct(mea$aggr$id, "aggregations")
-    df[i, 13] = mea$note
+    df[i, 13] = cn(mea$note)
   }
 
   just = c("left", "center", "right", "right", "center", "center", "center", "center", "center", "center", "center", "left", "left")
