@@ -131,7 +131,7 @@ All available measures for multilabel classification can be shown by [&listMeasu
 ```{r}
 performance(pred)
 
-performance(pred2, measures = list(subset01, hamloss, accmult, f1mult, timepredict))
+performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc, multilabel.f1, timepredict))
 
 listMeasures("multilabel")
 ```
