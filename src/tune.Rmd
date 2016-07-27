@@ -9,62 +9,148 @@ that is automatically identify values that lead to the best performance.
 
 ## Basics
 
-For tuning you have to specify
+In order to tune a machine learning algorithm, you have to specify:
 
-* the search space,
-* the optimization algorithm,
-* an evaluation method, i.e., a resampling strategy and a performance measure.
+* the search space
+* the optimization algorithm
+* an evaluation method, i.e., a resampling strategy and a performance measure
 
-The last point is already covered in this tutorial in the parts about the
-[evaluation of learning methods](performance.md) and [resampling](resample.md).
-
-Below we show how to specify the search space and optimization algorithm, how to do the
-tuning and how to access the tuning result, using the example of a grid search.
-
-Throughout this section we consider classification examples. For the other types of learning
-problems tuning works analogously.
-
-
-### Grid search with manual discretization
-
-A grid search is one of the standard -- albeit slow -- ways to choose an
-appropriate set of parameters from a given range of values.
-
-We use the [iris classification task](&iris.task) for illustration and tune the
-hyperparameters of an SVM (function [ksvm](&kernlab::ksvm) from the [%kernlab] package)
-with a radial basis kernel.
-
-First, we create a [ParamSet](&ParamHelpers::makeParamSet) object, which describes the
-parameter space we wish to search.
-This is done via function [makeParamSet](&ParamHelpers::makeParamSet).
-We wish to tune the cost parameter `C` and the RBF kernel parameter `sigma` of the
-[ksvm](&kernlab::ksvm) function.
-Since we will use a grid search strategy, we add discrete parameters to the parameter set.
-The specified `values` have to be vectors of feasible settings and the complete grid simply is
-their cross-product.
-Every entry in the parameter set has to be named according to the corresponding parameter
-of the underlying **R** function.
-
-Please note that whenever parameters in the underlying **R** functions should be
-passed in a [list](&base::list) structure, [%mlr] tries to give you direct access to
-each parameter and get rid of the list structure.
-This is the case with the `kpar` argument of [ksvm](&kernlab::ksvm) which is a list of
-kernel parameters like `sigma`.
+An example of the search space could be searching values of the `C` parameter for 
+SVM:
 
 ```{r}
+# ex: create a search space for the C hyperparameter from 0.01 to 0.1
 ps = makeParamSet(
-  makeDiscreteParam("C", values = 2^(-2:2)),
-  makeDiscreteParam("sigma", values = 2^(-2:2))
+  makeNumericParam("C", lower = 0.01, upper = 0.1)
 )
 ```
 
-Additional to the parameter set, we need an instance of a [&TuneControl] object.
-These describe the optimization strategy to be used and its settings.
-Here we choose a grid search:
+An example of the optimization algorithm could be performing random search on 
+the space:
+
+```{r}
+# ex: random search with 100 iterations
+ctrl = makeTuneControlRandom(maxit = 100L)
+```
+
+An example of an evaluation method could be 3-fold CV using accuracy as the 
+performance measure:
+
+```{r}
+rdesc = makeResampleDesc("CV", iters = 3L)
+measure = acc
+```
+
+The evaluation method is already covered in detail in
+[evaluation of learning methods](performance.md) and [resampling](resample.md).
+
+In this tutorial, we show how to specify the search space and optimization algorithm, how to do the
+tuning and how to access the tuning result, and how to visualize the hyperparameter tuning effects through 
+several examples.
+
+Throughout this section we consider classification examples. For the other types of learning
+problems, you can follow the same process analogously.
+
+We use the [iris classification task](&iris.task) for illustration and tune the
+hyperparameters of an SVM (function [ksvm](&kernlab::ksvm) from the [%kernlab] package)
+with a radial basis kernel. The following examples tune the cost parameter `C` and 
+the RBF kernel parameter `sigma` of the [ksvm](&kernlab::ksvm) function.
+
+### Specifying the search space
+
+We first must define a space to search when tuning our learner. For example, maybe 
+we want to tune several specific values of a hyperparameter or perhaps we want to 
+define a space from 10^-10 to 10^10 and let the optimization algorithm decide 
+which points to choose.
+
+In order to define a search space, we create a [ParamSet](&ParamHelpers::makeParamSet) object, which describes the
+parameter space we wish to search. This is done via function [makeParamSet](&ParamHelpers::makeParamSet).
+
+For example, we could define a search space with just the values 0.5, 1.0, 1.5, 2.0 
+for both `C` and `gamma`. Notice how we name each parameter as it's defined in 
+the [%kernlab] package: 
+
+```{r}
+discrete_ps = makeParamSet(
+  makeDiscreteParam("C", values = c(0.5, 1.0, 1.5, 2.0)),
+  makeDiscreteParam("sigma", values = c(0.5, 1.0, 1.5, 2.0))
+)
+```
+
+We could also define a search space from 10^-10 to 10^10 for both parameters through the use of `trafo` 
+arg. Trafos work like this: All optimizers basically see the parameters on their
+original scale (from -12 to 12) in this case and produce values on this scale during the search.
+Right before they are passed to the learning algorithm, the transformation function is applied.
+
+Notice this time we use `makeNumericParam`:
+
+```{r}
+num_ps = makeParamSet(
+  makeNumericParam("C", lower = -10, upper = 10, trafo = function(x) 10^x),
+  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 10^x)
+)
+```
+
+Many other parameters can be created, check out the examples in [makeParamSet](&ParamHelpers::makeParamSet).
+
+In order to standardize your workflow across several packages, whenever parameters in the underlying **R** functions should be
+passed in a [list](&base::list) structure, [%mlr] tries to give you direct access to
+each parameter and get rid of the list structure! 
+
+This is the case with the `kpar` argument of [ksvm](&kernlab::ksvm) which is a list of kernel parameters like `sigma`. 
+This allows us to interface with learners from different packages in the same way when defining parameters to tune!
+
+### Specifying the optimization algorithm
+
+Now that we have specified the search space, we need to choose an optimization algorithm for our 
+parameters to pass to the [ksvm](&kernlab::ksvm) learner. Optimization algorithms are considered 
+[&TuneControl] objects in [%mlr].
+
+A grid search is one of the standard -- albeit slow -- ways to choose an
+appropriate set of parameters from a given search space.
+
+In the case of `discrete_ps` above, since we have manually specified the values, 
+grid search will simply be the cross product. We create the grid search object using
+the defaults, noting that we will have 4x4=16 combinations in the case of `discrete_ps`:
 
 ```{r}
 ctrl = makeTuneControlGrid()
 ```
+
+In the case of `num_ps` above, since we have only specified the upper and lower bounds 
+for the search space, grid search will create a grid using equally-sized steps. By default, 
+grid search will span the space in 10 equal-sized steps. The number of steps can be changed 
+with the `resolution` arg. Here we change to 15 equal-sized steps in the space defined within the 
+[ParamSet](&ParamHelpers::makeParamSet) object. For `num_ps`, this means 15 steps in the form of
+`10 ^ seq(-10, 10, length.out = 15)`:
+
+```{r}
+ctrl = makeTuneControlGrid(resolution = 15L)
+```
+
+Many other types of optimization algorithms are available. Check out [TuneControl](&mlr::TuneControl) 
+for some examples. 
+
+Since grid search is normally too slow in practice, we'll also examine random search. 
+In the case of `discrete_ps`, random search will randomly choose from the specified values. The 
+`maxit` arg controls the amount of iterations.
+
+```{r}
+ctrl = makeTuneControlRandom(maxit = 10L)
+```
+
+In the case of `num_ps`, random search will randomly choose points within the space according to 
+the specified bounds. Perhaps in this case we would want to increase the amount of iterations to 
+ensure we adequately cover the space:
+
+```{r}
+ctrl = makeTuneControlRandom(maxit = 200L)
+```
+
+### Performing the tuning
+
+Now that we have specified a search space and the optimization algorithm, it's time to 
+perform the tuning. We will need to define a resampling strategy and make note of our performance measure. 
 
 We will use 3-fold cross-validation to assess the quality of a specific parameter setting.
 For this we need to create a resampling description just like in the [resampling](resample.md)
@@ -75,11 +161,17 @@ rdesc = makeResampleDesc("CV", iters = 3L)
 ```
 
 Finally, by combining all the previous pieces, we can tune the SVM parameters by calling
-[&tuneParams].
+[&tuneParams]. We will use `discrete_ps` with grid search:
 
 ```{r}
-res = tuneParams("classif.ksvm", task = iris.task, resampling = rdesc, par.set = ps,
-  control = ctrl)
+discrete_ps = makeParamSet(
+  makeDiscreteParam("C", values = c(0.5, 1.0, 1.5, 2.0)),
+  makeDiscreteParam("sigma", values = c(0.5, 1.0, 1.5, 2.0))
+)
+ctrl = makeTuneControlGrid()
+rdesc = makeResampleDesc("CV", iters = 3L)
+res = tuneParams("classif.ksvm", task = iris.task, resampling = rdesc, 
+                 par.set = discrete_ps, control = ctrl)
 res
 ```
 
@@ -100,16 +192,20 @@ acc$minimize
 
 Of course, you can pass other measures and also a list of measures to [&tuneParams].
 In the latter case the first measure is optimized during tuning, the others are simply evaluated.
-If you are interested in optimizing several measures simultaneously have a look at the
-paragraph about multi-criteria tuning below.
+If you are interested in optimizing several measures simultaneously have a look at FIXME:figure out section
 
 In the example below we calculate the accuracy ([acc](measures.md)) instead of the error
-rate.
-We use function [&setAggregation], as described in the section on [resampling](resample.md),
-to additionally obtain the standard deviation of the accuracy.
+rate. We use function [&setAggregation], as described in the section on [resampling](resample.md),
+to additionally obtain the standard deviation of the accuracy. We also use random search with 100 iterations on 
+the `num_set` we defined above and set `show.info` to `FALSE` to hide the output for all 100 iterations:
 
 ```{r}
-res = tuneParams("classif.ksvm", task = iris.task, resampling = rdesc, par.set = ps,
+num_ps = makeParamSet(
+  makeNumericParam("C", lower = -10, upper = 10, trafo = function(x) 10^x),
+  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 10^x)
+)
+ctrl = makeTuneControlRandom(maxit = 100L)
+res = tuneParams("classif.ksvm", task = iris.task, resampling = rdesc, par.set = num_ps,
   control = ctrl, measures = list(acc, setAggregation(acc, test.sd)), show.info = FALSE)
 res
 ```
@@ -125,29 +221,7 @@ res$x
 res$y
 ```
 
-Moreover, we can inspect all points evaluated during the search by accessing the
-`$opt.path` (see also the documentation of [OptPath](&ParamHelpers::OptPath)).
-
-```{r}
-res$opt.path
-opt.grid = as.data.frame(res$opt.path)
-head(opt.grid)
-```
-
-A quick visualization of the performance values on the search grid can be accomplished as follows:
-
-```{r tune_gridSearchVisualized}
-library(ggplot2)
-g = ggplot(opt.grid, aes(x = C, y = sigma, fill = acc.test.mean, label = round(acc.test.sd, 3)))
-g + geom_tile() + geom_text(color = "white")
-```
-
-The colors of the tiles display the achieved accuracy, the tile labels show the standard deviation.
-
-
-### Using the optimal parameter values
-
-After tuning you can generate a [Learner](&makeLearner) with optimal hyperparameter settings
+We can generate a [Learner](&makeLearner) with optimal hyperparameter settings
 as follows:
 
 ```{r}
@@ -155,145 +229,51 @@ lrn = setHyperPars(makeLearner("classif.ksvm"), par.vals = res$x)
 lrn
 ```
 
-Then you can proceed as usual.
-Here we refit and predict the learner on the complete [iris](&datasets::iris) data
-set.
+Then you can proceed as usual. Here we refit and predict the learner on the complete [iris](&datasets::iris) data
+set:
 
 ```{r}
 m = train(lrn, iris.task)
 predict(m, task = iris.task)
 ```
 
+But what if you wanted to inspect the other points on the search path, not just the optimal?
 
-### Grid search without manual discretization
+### Investigating hyperparameter tuning effects
 
-We can also specify the true numeric parameter types of `C` and `sigma` when creating the
-parameter set and use the `resolution` option of [makeTuneControlGrid](&TuneControl) to
-automatically discretize them.
-
-Note how we also make use of the `trafo` option when creating the parameter set to easily
-optimize on a log-scale.
-
-Trafos work like this: All optimizers basically see the parameters on their
-original scale (from -12 to 12) in this case and produce values on this scale during the search.
-Right before they are passed to the learning algorithm, the transformation function is applied.
+We can inspect all points evaluated during the search by using 
+[generateHyperParsEffectData](&mlr::generateHyperParsEffectData):
 
 ```{r}
-ps = makeParamSet(
-  makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
-  makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x)
-)
-ctrl = makeTuneControlGrid(resolution = 3L)
-rdesc = makeResampleDesc("CV", iters = 2L)
-res = tuneParams("classif.ksvm", iris.task, rdesc, par.set = ps, control = ctrl)
-res
+generateHyperParsEffectData(res)
 ```
 
-Note that ``res$opt.path`` contains the parameter values *on the original scale*.
+Note that the result of `generateHyperParsEffectData` contains the parameter values *on the original scale*. 
+In order to get the *transformed* parameter values instead, use the `trafo` arg:
 
 ```{r}
-as.data.frame(res$opt.path)
+generateHyperParsEffectData(res, trafo = TRUE)
 ```
 
-In order to get the *transformed* parameter values instead, use function
-[trafoOptPath](&ParamHelpers::trafoOptPath).
+We can also easily visualize the points evaluated by using 
+[plotHyperParsEffect](&mlr::generateHyperParsEffectData). In the example below, 
+we plot the performance over iterations, using the `res` from the previous section:
 
 ```{r}
-as.data.frame(trafoOptPath(res$opt.path))
+data = generateHyperParsEffectData(res)
+plotHyperParsEffect(data, x = "iteration", y = "acc.test.mean", 
+                    plot.type = "line")
 ```
 
+Note that by default, we only plot the current global optima. This can be changed with 
+the `global.only` arg.
 
-## Iterated F-Racing for mixed spaces and dependencies
+FIXME: add 1D visual example
 
-The package supports a larger number of tuning algorithms, which can all be looked up and
-selected via [&TuneControl]. One of the cooler algorithms is iterated F-racing from the 
-[%irace] package (technical description [here](http://iridia.ulb.ac.be/IridiaTrSeries/link/IridiaTr2011-004.pdf)). This not only works for arbitrary parameter types (numeric, integer,
-discrete, logical), but also for so-called dependent / hierarchical parameters:
+FIXME: integrate plotting of 2 hyperpars once PR merged.
 
-```{r}
-ps = makeParamSet(
-  makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
-  makeDiscreteParam("kernel", values = c("vanilladot", "polydot", "rbfdot")),
-  makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x,
-    requires = quote(kernel == "rbfdot")),
-  makeIntegerParam("degree", lower = 2L, upper = 5L,
-    requires = quote(kernel == "polydot"))
-)
-ctrl = makeTuneControlIrace(maxExperiments = 200L)
-rdesc = makeResampleDesc("Holdout")
-res = tuneParams("classif.ksvm", iris.task, rdesc, par.set = ps, control = ctrl, show.info = FALSE)
-print(head(as.data.frame(res$opt.path)))
-```
-
-See how we made the kernel parameters like `sigma` and `degree` dependent on the `kernel`
-selection parameters? This approach allows you to tune parameters of multiple kernels at once, 
-efficiently concentrating on the ones which work best for your given data set.
-
-
-## Tuning across whole model spaces with ModelMultiplexer
-
-We can now take the following example even one step further. If we use the
-[ModelMultiplexer](&makeModelMultiplexer) we can tune over different model classes at once,
-just as we did with the SVM kernels above.
-
-```{r}
-base.learners = list(
-  makeLearner("classif.ksvm"),
-  makeLearner("classif.randomForest")
-)
-lrn = makeModelMultiplexer(base.learners)
-```
-
-Function [&makeModelMultiplexerParamSet] offers a simple way to contruct parameter set for tuning:
-The parameter names are prefixed automatically and the `requires` element is set, too,
-to make all paramaters subordinate to `selected.learner`.
-
-```{r}
-ps = makeModelMultiplexerParamSet(lrn,
-  makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x),
-  makeIntegerParam("ntree", lower = 1L, upper = 500L)
-)
-print(ps)
-rdesc = makeResampleDesc("CV", iters = 2L)
-ctrl = makeTuneControlIrace(maxExperiments = 200L)
-res = tuneParams(lrn, iris.task, rdesc, par.set = ps, control = ctrl, show.info = FALSE)
-print(head(as.data.frame(res$opt.path)))
-```
-
-
-## Multi-criteria evaluation and optimization
-
-During tuning you might want to optimize multiple, potentially conflicting, performance measures
-simultaneously.
-
-In the following example we aim to minimize both, the false positive and the false negative rates
-([fpr](measures.md) and [fnr](measures.md)).
-We again tune the hyperparameters of an SVM (function [ksvm](&kernlab::ksvm)) with a radial
-basis kernel and use the [sonar classification task](&sonar.task) for illustration.
-As search strategy we choose a random search.
-
-For all available multi-criteria tuning algorithms see [&TuneMultiCritControl].
-
-```{r}
-ps = makeParamSet(
-  makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
-  makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x)
-)
-ctrl = makeTuneMultiCritControlRandom(maxit = 30L)
-rdesc = makeResampleDesc("Holdout")
-res = tuneParamsMultiCrit("classif.ksvm", task = sonar.task, resampling = rdesc, par.set = ps,
-  measures = list(fpr, fnr), control = ctrl, show.info = FALSE)
-res
-head(as.data.frame(trafoOptPath(res$opt.path)))
-```
-
-The results can be visualized with function [&plotTuneMultiCritResult].
-The plot shows the false positive and false negative rates for all parameter settings evaluated
-during tuning. Points on the Pareto front are slightly increased.
-
-```{r}
-plotTuneMultiCritResult(res)
-```
+For an in-depth exploration of hyperparameter tuning effects, check out 
+[Hyperparameter Tuning Effects](hyperpar_tuning_effects.md)
 
 
 ## Further comments
