@@ -192,7 +192,7 @@ acc$minimize
 
 Of course, you can pass other measures and also a list of measures to [&tuneParams].
 In the latter case the first measure is optimized during tuning, the others are simply evaluated.
-If you are interested in optimizing several measures simultaneously have a look at FIXME:figure out section
+If you are interested in optimizing several measures simultaneously have a look at [Advanced Tuning](advanced_tune.md)
 
 In the example below we calculate the accuracy ([acc](measures.md)) instead of the error
 rate. We use function [&setAggregation], as described in the section on [resampling](resample.md),
@@ -255,6 +255,16 @@ In order to get the *transformed* parameter values instead, use the `trafo` arg:
 generateHyperParsEffectData(res, trafo = TRUE)
 ```
 
+Note that we can also generate performance on the train data along with the validation/test data, as discussed in [Resampling](resample.md) aggregating measures section:
+
+```{r}
+rdesc2 = makeResampleDesc("CV", iters = 3L, predict = "both")
+res2 = tuneParams("classif.ksvm", task = iris.task, resampling = rdesc2, par.set = num_ps,
+  control = ctrl, measures = list(acc, setAggregation(acc, train.mean)), show.info = FALSE)
+generateHyperParsEffectData(res2)
+```
+
+
 We can also easily visualize the points evaluated by using 
 [plotHyperParsEffect](&mlr::generateHyperParsEffectData). In the example below, 
 we plot the performance over iterations, using the `res` from the previous section:
@@ -268,12 +278,7 @@ plotHyperParsEffect(data, x = "iteration", y = "acc.test.mean",
 Note that by default, we only plot the current global optima. This can be changed with 
 the `global.only` arg.
 
-FIXME: add 1D visual example
-
-FIXME: integrate plotting of 2 hyperpars once PR merged.
-
-For an in-depth exploration of hyperparameter tuning effects, check out 
-[Hyperparameter Tuning Effects](hyperpar_tuning_effects.md)
+For an in-depth exploration of generating hyperparameter tuning effects and plotting the data, check out [Hyperparameter Tuning Effects](hyperpar_tuning_effects.md)
 
 
 ## Further comments

@@ -65,6 +65,18 @@ lc = generateLearningCurveData(learners = lrns, task = sonar.task,
 plotLearningCurve(lc)
 ```
 
+We can display performance on the train set as well as the test set:
+
+```{r}
+rin2 = makeResampleDesc(method = "CV", iters = 5, predict = "both")
+lc2 = generateLearningCurveData(learners = lrns, task = sonar.task,
+                               percs = seq(0.1, 1, by = 0.1), 
+                               measures = list(acc,setAggregation(acc, train.mean)), 
+                               resampling = rin2, show.info = FALSE)
+plotLearningCurve(lc2, facet = "learner")
+```
+
+
 There is also an experimental [%ggvis] plotting function, [&plotLearningCurveGGVIS]. Instead of the `facet`
 argument to [&plotLearningCurve] there is an argument `interactive` which plays a similar role. As subplots
 are not available in [%ggvis], measures or learners are mapped to an interactive sidebar which allows selection
