@@ -104,13 +104,13 @@ and [&getPredictionProbabilities].
 ## Performance
 The performance of your prediction can be assessed via function [&performance].
 You can specify via the `measures` argument which [measure(s)](measures.md) to calculate.
-The default measure for multilabel classification is the Hamming loss ([hamloss](measures.md)).
+The default measure for multilabel classification is the Hamming loss ([multilabel.hamloss](measures.md)).
 All available measures for multilabel classification can be shown by [&listMeasures].
 
 ```{r}
 performance(pred)
 
-performance(pred2, measures = list(hamloss, timepredict))
+performance(pred2, measures = list(multilabel.hamloss, timepredict))
 
 listMeasures("multilabel")
 ```

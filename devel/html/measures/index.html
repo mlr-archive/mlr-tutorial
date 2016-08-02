@@ -468,6 +468,21 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">brier.scaled</a></strong> <br />Brier scaled</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Brier score scaled to [0,1], see http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3575184/.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">f1</a></strong> <br />F1 measure</td>
 <td align="center"></td>
 <td align="right">1</td>
@@ -1114,7 +1129,35 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">hamloss</a></strong> <br />Hamming loss</td>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.acc</a></strong> <br />Accuracy (multilabel)</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Mean of proportion of correctly predicted labels with respect to the total number of labels for each instance,   following the definition by Charte and Charte: https://journal.r-project.org/archive/2015-2/charte-charte.pdf</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.f1</a></strong> <br />F1 measure (multilabel)</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Harmonic mean of precision and recall on a per instance basis (Micro-F1),   following the definition by Montanes et al.: http://www.sciencedirect.com/science/article/pii/S0031320313004019</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.hamloss</a></strong> <br />Hamming loss</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -1125,7 +1168,49 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Proportion of labels whose relevance is incorrectly predicted,   following the definition by Charte and Charte: https://journal.r-project.org/archive/2015-2/charte-charte.pdf</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.ppv</a></strong> <br />Postive predicive value (multilabel)</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Also called precision. Mean of ratio of truly predicted labels for each instance,   following the definition by Charte and Charte: https://journal.r-project.org/archive/2015-2/charte-charte.pdf</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.subset01</a></strong> <br />Subset-0-1 loss</td>
+<td align="center">X</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Proportion of observations where the complete multilabel set (all 0-1-lables) is not correctly predicted,   following the definition by Charte and Charte: https://journal.r-project.org/archive/2015-2/charte-charte.pdf</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.tpr</a></strong> <br />TPR (multilabel)</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Also called recall. Mean of proportion of predicted labels which are relevant for each instance,   following the definition by Charte and Charte: https://journal.r-project.org/archive/2015-2/charte-charte.pdf</td>
 </tr>
 </tbody>
 </table>

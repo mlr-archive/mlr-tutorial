@@ -333,7 +333,7 @@
         
             <li><a href="#classification-82">Classification (82)</a></li>
         
-            <li><a href="#regression-60">Regression (60)</a></li>
+            <li><a href="#regression-61">Regression (61)</a></li>
         
             <li><a href="#survival-analysis-13">Survival analysis (13)</a></li>
         
@@ -632,7 +632,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left">The family parameter is set to <code>binomial</code> for two-class problems and to <code>multinomial</code> otherwise. Factors automatically get converted to dummy columns, ordered factors to integer.</td>
+<td align="left">The family parameter is set to <code>binomial</code> for two-class problems and to <code>multinomial</code> otherwise.       Factors automatically get converted to dummy columns, ordered factors to integer.       Parameter <code>s</code> (value of the regularization parameter used for predictions) is set to <code>0.1</code> by default,       but needs to be tuned by the user.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.h2o.deeplearning</strong> <br /> <em>h2o.dl</em> <br /><br />h2o.deeplearning</td>
@@ -1285,7 +1285,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-60">Regression (60)</h3>
+<h3 id="regression-61">Regression (61)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1589,7 +1589,18 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left"></td>
-<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
+<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.       Parameter <code>s</code> (value of the regularization parameter used for predictions) is set to <code>0.1</code> by default,       but needs to be tuned by the user.</td>
+</tr>
+<tr>
+<td align="left"><strong>regr.GPfit</strong> <br /> <em>GPfit</em> <br /><br />Gaussian Process</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/GPfit/">GPfit</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">se</td>
+<td align="left">As the optimization routine assumes that the inputs are scaled to the unit hypercube [0,1]^d,              the input gets scaled for each variable by default. If this is not wanted, scale = FALSE has             to be set.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.h2o.deeplearning</strong> <br /> <em>h2o.dl</em> <br /><br />h2o.deeplearning</td>
@@ -2063,7 +2074,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">rcens</td>
-<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
+<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.       Parameter <code>s</code> (value of the regularization parameter used for predictions) is set to <code>0.1</code> by default,       but needs to be tuned by the user.</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.penalized.fusedlasso</strong> <br /> <em>fusedlasso</em> <br /><br />Fused Lasso Regression</td>

@@ -509,18 +509,21 @@ and <a href="http://rpackages.ianhowson.com/cran/mlr/man/getPredictionProbabilit
 <h2 id="performance">Performance</h2>
 <p>The performance of your prediction can be assessed via function <a href="http://rpackages.ianhowson.com/cran/mlr/man/performance.html">performance</a>.
 You can specify via the <code>measures</code> argument which <a href="../measures/index.html">measure(s)</a> to calculate.
-The default measure for multilabel classification is the Hamming loss (<a href="../measures/index.html">hamloss</a>).
+The default measure for multilabel classification is the Hamming loss (<a href="../measures/index.html">multilabel.hamloss</a>).
 All available measures for multilabel classification can be shown by <a href="http://rpackages.ianhowson.com/cran/mlr/man/listMeasures.html">listMeasures</a>.</p>
 <pre><code class="r">performance(pred)
-#&gt;   hamloss 
-#&gt; 0.2257143
+#&gt; multilabel.hamloss 
+#&gt;          0.2257143
 
-performance(pred2, measures = list(hamloss, timepredict))
-#&gt;     hamloss timepredict 
-#&gt;   0.7033217   0.0660000
+performance(pred2, measures = list(multilabel.hamloss, timepredict))
+#&gt; multilabel.hamloss        timepredict 
+#&gt;          0.7033217          0.0620000
 
 listMeasures(&quot;multilabel&quot;)
-#&gt; [1] &quot;timepredict&quot; &quot;featperc&quot;    &quot;timeboth&quot;    &quot;timetrain&quot;   &quot;hamloss&quot;
+#&gt;  [1] &quot;multilabel.ppv&quot;      &quot;timepredict&quot;         &quot;multilabel.hamloss&quot; 
+#&gt;  [4] &quot;multilabel.f1&quot;       &quot;featperc&quot;            &quot;multilabel.subset01&quot;
+#&gt;  [7] &quot;timeboth&quot;            &quot;timetrain&quot;           &quot;multilabel.tpr&quot;     
+#&gt; [10] &quot;multilabel.acc&quot;
 </code></pre>
 
 <h2 id="resampling">Resampling</h2>
@@ -534,20 +537,20 @@ r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.classif.rpart
-#&gt; hamloss.aggr: 0.23
-#&gt; hamloss.mean: 0.23
-#&gt; hamloss.sd: 0.01
-#&gt; Runtime: 5.72289
+#&gt; multilabel.hamloss.aggr: 0.23
+#&gt; multilabel.hamloss.mean: 0.23
+#&gt; multilabel.hamloss.sd: 0.01
+#&gt; Runtime: 5.40605
 
 r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.rFerns
-#&gt; hamloss.aggr: 0.47
-#&gt; hamloss.mean: 0.47
-#&gt; hamloss.sd: 0.01
-#&gt; Runtime: 0.537365
+#&gt; multilabel.hamloss.aggr: 0.47
+#&gt; multilabel.hamloss.mean: 0.47
+#&gt; multilabel.hamloss.sd: 0.01
+#&gt; Runtime: 0.491228
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>
