@@ -10,7 +10,7 @@ library(mlr)
 
 # Evaluating Hyperparameter Tuning
 
-As mentioned in the Tuning tutorial, tuning a machine learning algorithm typically involves:
+As mentioned in the [Tuning](tune.md) tutorial, tuning a machine learning algorithm typically involves:
 
 * the hyperparameter search space:
 
@@ -59,6 +59,21 @@ ctrl = makeTuneControlRandom(maxit = 100L)
 rdesc = makeResampleDesc("CV", iters = 2L)
 res = tuneParams("classif.ksvm", task = pid.task, control = ctrl, 
            measures = list(acc, mmce), resampling = rdesc, par.set = ps, 
+           show.info = F)
+generateHyperParsEffectData(res, trafo = T, include.diagnostics = F)
+```
+
+As a reminder from the [resampling](resample.md) tutorial, if we wanted to generate data on the training set as well as the validation set, we only need to make a few minor changes:
+
+```{r gen_data_train, message = FALSE, warning = FALSE}
+ps = makeParamSet(
+  makeNumericParam("C", lower = -5, upper = 5, trafo = function(x) 2^x)
+)
+ctrl = makeTuneControlRandom(maxit = 100L)
+rdesc = makeResampleDesc("CV", iters = 2L, predict = "both")
+res = tuneParams("classif.ksvm", task = pid.task, control = ctrl, 
+           measures = list(acc, setAggregation(acc, train.mean), mmce, 
+             setAggregation(mmce, train.mean)), resampling = rdesc, par.set = ps, 
            show.info = F)
 generateHyperParsEffectData(res, trafo = T, include.diagnostics = F)
 ```
@@ -240,47 +255,3 @@ plt + scale_fill_gradient2(breaks = seq(min_plt, max_plt, length.out = 5),
                            low = "red", mid = "white", high = "blue", 
                            midpoint = med_plt)
 ```
-
-
-## Visualizing the effect of more than 2 hyperparameters
-
-In the case of 2+ hyperparameters, the researcher may want to understand the relative importance of each hyperparameter or how each hyperparameter contributes to performance. By converting the hyperparameter effects data to a regression task, we can compute partial dependency and relative importance!
-
-In the example below, we tune SVM with poly kernel and 3 hyperparameters: C, offset, degree.
-
-```{r partial_dep, message = FALSE, warning = FALSE}
-ps = makeParamSet(
-  makeNumericParam("C", lower = -5, upper = 5, trafo = function(x) 2^x),
-  makeNumericParam("sigma", lower = -5, upper = 5, trafo = function(x) 2^x))
-ctrl = makeTuneControlRandom(maxit = 300L)
-rdesc = makeResampleDesc("Holdout")
-learn = makeLearner("classif.ksvm", par.vals = list(kernel = "rbfdot"))
-res = tuneParams(learn, task = pid.task, control = ctrl, measures = acc,
-                 resampling = rdesc, par.set = ps, show.info = F)
-data = generateHyperParsEffectData(res)
-```
-
-Now that we've generated the data, we convert to a regression task.
-
-```{r create_task, message = FALSE, warning = FALSE}
-data.task = data$data[, c(data$hyperparams, data$measures)]
-data.task = makeRegrTask(id = "more_2", data = data.task, target = data$measures[1])
-```
-
-Now that we have a regression task, we can compute feature importance with information gain and chi squared!
-
-```{r feat_sel, message = FALSE, warning = FALSE}
-fv2 = generateFilterValuesData(data.task, method = c("information.gain", "chi.squared"))
-plotFilterValues(fv2)
-```
-
-Maybe we calculate partial depedency
-
-```{r partial_plot, message = FALSE, warning = FALSE}
-fit.reg = train("regr.bst", data.task)
-pd.regr = generatePartialDependenceData(fit.reg, data.task)
-plotPartialDependence(pd.regr)
-```
-
-
-
