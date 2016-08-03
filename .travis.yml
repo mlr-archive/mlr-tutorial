@@ -45,13 +45,9 @@ before_install:
   - echo $LIBRARY_PATH
   - cd fakepack
 
-install:
+after_success:
   - R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr", dependencies = TRUE)'
-
-script:
-    - ./build || ./build || ./build || ./build
-
-# after_success:
+  - ./build || ./build || ./build || ./build
 #     - git checkout gh-pages
 #     - git config user.name $GIT_NAME
 #     - git config user.email $GIT_EMAIL
