@@ -35,6 +35,8 @@ before_install:
   - export PATH=$HOME/bin:$PATH
   - echo $LD_LIBRARY_PATH
   - echo $LIBRARY_PATH
+  - add-apt-repository -y ppa:marutter/rrutter
+  - add-apt-repository -y ppa:marutter/c2d4u
 
 install:
   - R --no-save <<< 'library("devtools"); install_github("berndbischl/ParamHelpers")'
