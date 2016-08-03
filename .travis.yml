@@ -59,8 +59,9 @@ before_install:
   - cd fakepack
 
 install:
-  - pip install mkdocs
-  - pip install python-markdown-math
+  - pip install --user --upgrade pip
+  - pip install --user mkdocs
+  - pip install --user python-markdown-math
   - R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr")'
 
 script:
