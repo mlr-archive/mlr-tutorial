@@ -20,12 +20,20 @@ addons:
       - g++-4.9
       - gfortran-4.9
       - libgmp-dev
-      - r-base
       - software-properties-common 
       - python-software-properties 
       - ed 
       - wget 
       - unzip
+
+r_packages:
+  - roxygen2
+  - devtools
+
+r_github_packages:
+  - berndbischl/BBmisc
+  - berndbischl/parallelMap
+  - berndbischl/ParamHelpers
 
 before_install:
   - mkdir $HOME/bin
