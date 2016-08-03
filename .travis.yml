@@ -1,14 +1,30 @@
+language: bash
 sudo: false
 cache: packages
+
+branches:
+    only:
+        - gh-pages
 
 env:
   global:
   - secure: "oZCCuJbRCV3GyGxDxAflWUKohCgNv9TtGLgdXWV4YVjIYqqSCBl0sSwv+eCE6zVDji6bTM20NK6v5l0DbpM+TCk5vQFL8cP/LKgdFMqJm88/fCMqIX5QPk0uafd0Twpni6Rm+iUECxZJS63HL7vppz2WKnnjb2ZV6avPold+E1Pn1xboAjrQ0B4yMGKpy2KjzFbfEDMfVITO6SSNc9z7Jdii9Kf17NkY8MBPUJ8CkQQcN3UfBKRx6O0P8FnA9gj3nc1Sf9EacRtovhLBQuOVGD/uTbchV2UBMdBnhVk+39qEEsBB4SPyaI4FT9t6jJoqBYpvpQU0xhJXGcERppmMsNGe8nTniAfPQsT8vQs1pyYbnahkM3AUj7/lbOjVfzE1IJ7ExxkfGVeEUQr5XA3RlD3qJgt6hU4GT04vF4zN3IHPGlc8jjv96tX7C/f6axxLuM+20aRzwc5kM2+qlWwdWDj9r0Ir9ieA4t71zbgrAPrcw+Mt8S9p3DeXgj1R6MouT/1uqSdrKTnIVQS906acb0mPh9Tpb0WX7zAWr1WScJXVpvVyiOwWyR/MpMjkLFiRS9GcdiygudFdBS3qkHkgPuhV4pzu/r03e5rbwF/FC7CiCcIYTU7VjE4/NHE+awnXU51pfbjWSBqWuDg7ClXwfxwFWvwxZDPfCt3i+rW5sqs="
 
-language: bash
-branches:
-    only:
-        - gh-pages
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.9
+      - g++-4.9
+      - gfortran-4.9
+      - libgmp-dev
+      - software-properties-common 
+      -  python-software-properties 
+      -  ed 
+      - wget 
+      - unzip
 
 before_install:
   - mkdir $HOME/bin
