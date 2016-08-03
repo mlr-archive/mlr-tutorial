@@ -1,6 +1,8 @@
 language: r
 sudo: false
-cache: packages
+cache: 
+  packages: true
+  pip: true
 
 branches:
     only:
@@ -29,6 +31,17 @@ addons:
 r_packages:
   - roxygen2
   - devtools
+  - glmnet
+  - ROCR
+  - methods
+  - parallel
+  - digest
+  - pander
+  - BBmisc
+  - knitr
+  - caret
+  - rgl
+  - stringr
 
 r_github_packages:
   - berndbischl/BBmisc
@@ -45,10 +58,19 @@ before_install:
   - echo $LIBRARY_PATH
   - cd fakepack
 
-after_success:
+install:
+  pip install mkdocs
+  pip install python-markdown-math
+  R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr")'
+
+script:
   - cd ..
-  - R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr")'
   - ./build || ./build || ./build || ./build
+
+after_success:
+  # - cd ..
+  # - R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr")'
+  # - ./build || ./build || ./build || ./build
 #     - git checkout gh-pages
 #     - git config user.name $GIT_NAME
 #     - git config user.email $GIT_EMAIL
