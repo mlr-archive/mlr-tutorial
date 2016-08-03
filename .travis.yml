@@ -37,8 +37,8 @@ before_install:
   - echo $LIBRARY_PATH
 
 install:
-  - sudo R --no-save <<< 'library("devtools"); install_github("berndbischl/ParamHelpers")'
-  - sudo R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr", dependencies = TRUE)'
+  - R --no-save <<< 'library("devtools"); install_github("berndbischl/ParamHelpers")'
+  - R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr", dependencies = TRUE)'
 
 r_packages:
   - roxygen2
