@@ -47,8 +47,7 @@ before_install:
 
 after_success:
   - cd ..
-  - R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr", dependencies = TRUE)'
-  - R --no-save <<< 'update.packages(ask = FALSE)'
+  - R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr")'
   - ./build || ./build || ./build || ./build
 #     - git checkout gh-pages
 #     - git config user.name $GIT_NAME
