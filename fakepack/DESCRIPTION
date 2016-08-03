@@ -1,0 +1,8 @@
+Package: fakepack
+Title: fakepack
+Description: fakepack is fake.
+Authors@R: c(person("Bernd", "Bischl", email = "bernd_bischl@gmx.net", role = c("aut", "cre")))
+License: GPL
+Roxygen: list(wrap = FALSE)
+Version: 1.0
+RoxygenNote: 5.0.1
