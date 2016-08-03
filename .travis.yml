@@ -28,25 +28,8 @@ addons:
       - wget 
       - unzip
 
-r_packages:
-  - roxygen2
-  - devtools
-  - glmnet
-  - ROCR
-  - methods
-  - parallel
-  - digest
-  - pander
-  - BBmisc
-  - knitr
-  - caret
-  - rgl
-  - stringr
-
-r_github_packages:
-  - berndbischl/BBmisc
-  - berndbischl/parallelMap
-  - berndbischl/ParamHelpers
+# r_packages:
+   # roxygen2, devtools, glmnet, ROCR, digest, pander, knitr, caret, rgl, stringr 
 
 before_install:
   - mkdir $HOME/bin
@@ -63,6 +46,7 @@ install:
   - pip install --user mkdocs
   - pip install --user python-markdown-math
   - R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr")'
+  - R --no-save <<< 'install.packages(c("roxygen2", "devtools", "glmnet", "ROCR", "digest", "pander", "knitr", "caret", "rgl", "stringr"))'
 
 script:
   - cd ..
