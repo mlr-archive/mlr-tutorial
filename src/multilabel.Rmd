@@ -39,9 +39,9 @@ Currently the available algorithm adaptation methods in **R** are the multivaria
 like in multiclass classification problems.
 
 ```{r}
-multilabel.lrn.rfsrc = makeLearner("multilabel.randomForestSRC")
-multilabel.lrn.rFerns = makeLearner("multilabel.rFerns")
-multilabel.lrn.rFerns
+lrn.rfsrc = makeLearner("multilabel.randomForestSRC")
+lrn.rFerns = makeLearner("multilabel.rFerns")
+lrn.rFerns
 ```
 ### Problem transformation methods
 For generating a wrapped multilabel learner first create a binary (or multiclass)
@@ -52,12 +52,12 @@ classification learner with [&makeLearner]. Afterwards apply a function like
 You can also generate a binary relevance learner directly, as you can see in the example.
 
 ```{r}
-multilabel.lrn.rpart = makeLearner("classif.rpart", predict.type = "prob")
-multilabel.lrn.rpart = makeMultilabelBinaryRelevanceWrapper(multilabel.lrn.rpart)
-multilabel.lrn.rpart
+lrn.br = makeLearner("classif.rpart", predict.type = "prob")
+lrn.br = makeMultilabelBinaryRelevanceWrapper(lrn.br)
+lrn.br
 
-multilabel.lrn.rpart2 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
-multilabel.lrn.rpart2
+lrn.br2 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
+lrn.br2
 ```
 
 The different methods are shortly described in the following. 
@@ -87,11 +87,11 @@ multilabel task as input. You can also pass ``subset`` and ``weights`` arguments
 learner supports this.
 
 ```{r}
-mod = train(multilabel.lrn.rpart, yeast.task)
-mod = train(multilabel.lrn.rpart, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
+mod = train(lrn.br, yeast.task)
+mod = train(lrn.br, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
 mod
 
-mod2 = train(multilabel.lrn.rfsrc, yeast.task, subset = 1:100)
+mod2 = train(lrn.rfsrc, yeast.task, subset = 1:100)
 mod2
 ```
 
@@ -139,10 +139,10 @@ function. Below the default measure Hamming loss is calculated.
 
 ```{r}
 rdesc = makeResampleDesc(method = "CV", stratify = FALSE, iters = 3)
-r = resample(learner = multilabel.lrn.rpart, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r = resample(learner = lrn.br, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 
-r = resample(learner = multilabel.lrn.rfsrc, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 ```
 
