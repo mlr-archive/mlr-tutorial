@@ -3,6 +3,7 @@ library(devtools)
 p = c(
   "caret", 
   "clue", 
+  "cmaes", 
   "devtools", 
   "digest", 
   "e1071",
