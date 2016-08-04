@@ -41,7 +41,7 @@ before_install:
   - echo $LIBRARY_PATH
 
 install:
-  - cd ..
+  # - cd ..
   - pip install --user --upgrade pip
   - pip install --user mkdocs
   - pip install --user python-markdown-math
