@@ -9,6 +9,7 @@ p = c(
   "glmnet", 
   "kernlab",
   "knitr", 
+  "mlbench",
   "nnet", 
   "pander", 
   "randomForest",
