@@ -23,9 +23,6 @@ addons:
       - gfortran-4.9
       - libgmp-dev
 
-# r_packages:
-   # roxygen2, devtools, glmnet, ROCR, digest, pander, knitr, caret, rgl, stringr 
-
 before_install:
   - mkdir $HOME/bin
   - ln -s $(which gcc-4.9) $HOME/bin/gcc
@@ -36,7 +33,6 @@ before_install:
   - echo $LIBRARY_PATH
 
 install:
-  - pip install --user --upgrade pip
   - pip install --user mkdocs
   - pip install --user python-markdown-math
   - Rscript r_packs_install.R
