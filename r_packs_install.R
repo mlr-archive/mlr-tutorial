@@ -7,6 +7,7 @@ p = c(
   "devtools", 
   "digest", 
   "e1071",
+  "fnn",
   "FSelector",
   "GGally", 
   "glmnet", 
