@@ -12,6 +12,7 @@ p = c(
   "mlbench",
   "nnet", 
   "pander", 
+  "PMCMR",
   "randomForest",
   "rgl", 
   "ROCR", 
