@@ -8,6 +8,8 @@ p = c(
   "e1071",
   "GGally", 
   "glmnet", 
+  "Hmisc", 
+  "irace",
   "kernlab",
   "knitr", 
   "mlbench",
