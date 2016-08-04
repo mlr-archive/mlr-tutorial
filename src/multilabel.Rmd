@@ -53,7 +53,7 @@ You can also generate a binary relevance learner directly, as you can see in the
 
 ```{r}
 multilabel.lrn.rpart = makeLearner("classif.rpart", predict.type = "prob")
-multilabel.lrn.rpart = makeMultilabelBinaryRelevanceWrapper(multilabel.lrn)
+multilabel.lrn.rpart = makeMultilabelBinaryRelevanceWrapper(multilabel.lrn.rpart)
 multilabel.lrn.rpart
 
 multilabel.lrn.rpart2 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
