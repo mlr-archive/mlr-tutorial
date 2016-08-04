@@ -648,10 +648,10 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.auc</a></strong> <br />Multiclass area under the curve</td>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.au1p</a></strong> <br />Weighted average 1 vs. 1 multiclass AUC</td>
 <td align="center"></td>
 <td align="right">1</td>
-<td align="right">0</td>
+<td align="right">0.5</td>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
@@ -660,7 +660,52 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Calls <code>pROC::multiclass.roc</code>.</td>
+<td align="left">Computes AUC of c(c - 1) binary classifiers while considering the a priori distribution of the classes. See Ferri et. al paper: https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.au1u</a></strong> <br />Average 1 vs. 1 multiclass AUC</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0.5</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Computes AUC of c(c - 1) binary classifiers (all possible pairwise combinations) while considering uniform distribution of the classes. See Ferri et. al: https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.aunp</a></strong> <br />Weighted average multiclass AUC</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0.5</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Computes the AUC treating a c-dimensional classifier as c two-dimensional classifiers, taking into account the prior probability of each class (p(j)). See Ferri et. al: https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.aunu</a></strong> <br />Average multiclass AUC</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0.5</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Computes the AUC treating a c-dimensional classifier as c two-dimensional classifiers, where classes are assumed to have uniform distribution, in order to have a measure which is independent of class distribution change. See Ferri et. al: https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.brier</a></strong> <br />Multiclass Brier score</td>
