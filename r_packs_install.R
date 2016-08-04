@@ -1,13 +1,20 @@
+library(devtools)
+
 p = c(
-  "roxygen2", 
-  "devtools", 
-  "glmnet", 
-  "ROCR", 
-  "digest", 
-  "pander", 
-  "knitr", 
   "caret", 
+  "clue", 
+  "devtools", 
+  "digest", 
+  "e1071",
+  "glmnet", 
+  "kernlab",
+  "knitr", 
+  "nnet", 
+  "pander", 
+  "randomForest",
   "rgl", 
+  "ROCR", 
+  "roxygen2", 
   "stringr"
 )
 
