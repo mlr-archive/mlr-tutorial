@@ -35,7 +35,7 @@ Multilabel classification in [%mlr] can currently be done in two ways:
 
 ### Algorithm adaptation methods
 
-Currently the available algorithm adaptation methods in **R** are the multivariate random forest in the [%randomForestSRC] package and Random Ferns multilabel algorithm in the [%rFerns] package. You can create the learner for these algorithms
+Currently the available algorithm adaptation methods in **R** are the multivariate random forest in the [%randomForestSRC] package and random ferns multilabel algorithm in the [%rFerns] package. You can create the learner for these algorithms
 like in multiclass classification problems.
 
 ```{r}
