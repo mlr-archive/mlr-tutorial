@@ -6,6 +6,7 @@ p = c(
   "devtools", 
   "digest", 
   "e1071",
+  "GGally", 
   "glmnet", 
   "kernlab",
   "knitr", 
