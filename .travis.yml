@@ -39,17 +39,15 @@ before_install:
   - export PATH=$HOME/bin:$PATH
   - echo $LD_LIBRARY_PATH
   - echo $LIBRARY_PATH
-  - cd fakepack
 
 install:
+  - cd ..
   - pip install --user --upgrade pip
   - pip install --user mkdocs
   - pip install --user python-markdown-math
-  - R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr")'
-  - R --no-save <<< 'install.packages(c("roxygen2", "devtools", "glmnet", "ROCR", "digest", "pander", "knitr", "caret", "rgl", "stringr"))'
+  - Rscript r_packs_install.R
 
 script:
-  - cd ..
   - ./build || ./build || ./build || ./build
 
 after_success:
