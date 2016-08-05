@@ -258,7 +258,7 @@ generateHyperParsEffectData(res, trafo = TRUE)
 Note that we can also generate performance on the train data along with the validation/test data, as discussed in [Resampling](resample.md) aggregating measures section:
 
 ```{r}
-rdesc2 = makeResampleDesc("CV", iters = 3L, predict = "both")
+rdesc2 = makeResampleDesc("Holdout", predict = "both")
 res2 = tuneParams("classif.ksvm", task = iris.task, resampling = rdesc2, par.set = num_ps,
   control = ctrl, measures = list(acc, setAggregation(acc, train.mean)), show.info = FALSE)
 generateHyperParsEffectData(res2)
@@ -267,9 +267,12 @@ generateHyperParsEffectData(res2)
 
 We can also easily visualize the points evaluated by using 
 [plotHyperParsEffect](&mlr::generateHyperParsEffectData). In the example below, 
-we plot the performance over iterations, using the `res` from the previous section:
+we plot the performance over iterations, using the `res` from the previous section
+but instead with 2 performance measures:
 
 ```{r}
+res = tuneParams("classif.ksvm", task = iris.task, resampling = rdesc, par.set = num_ps,
+  control = ctrl, measures = list(acc, mmce), show.info = FALSE)
 data = generateHyperParsEffectData(res)
 plotHyperParsEffect(data, x = "iteration", y = "acc.test.mean", 
                     plot.type = "line")
