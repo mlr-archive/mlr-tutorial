@@ -392,51 +392,18 @@ yeast.task
 <p>Multilabel classification in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> can currently be done in two ways:</p>
 <ul>
 <li>
-<p>Use the binary relevance method.
-This problem transformation method converts the multilabel problem to binary
-classification problems for each
-label and applies a simple binary classificator on these. In <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> this can be done by
-converting your binary learner to a wrapped binary relevance multilabel learner.</p>
+<p>Algorithm adaptation methods: Treat the whole problem with a specific algorithm.</p>
 </li>
 <li>
-<p>Apply directly an algorithm adaptation method which treats the whole
-problem with a specific algorithm.</p>
+<p>Problem transformation methods: Transform the problem, so that simple binary classification algorithms can be applied.</p>
 </li>
 </ul>
-<h3 id="binary-relevance-method">Binary relevance method</h3>
-<p>For generating a wrapped multilabel learner first create a binary (or multiclass)
-classification learner with <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">makeLearner</a>. Afterwards apply the function
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMultilabelBinaryRelevanceWrapper.html">makeMultilabelBinaryRelevanceWrapper</a> to the learner
-to convert it into a binary relevance learner.</p>
-<p>You can also generate a binary relevance learner directly, as you can see in the example.</p>
-<pre><code class="r">multilabel.lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
-multilabel.lrn = makeMultilabelBinaryRelevanceWrapper(multilabel.lrn)
-multilabel.lrn
-#&gt; Learner multilabel.classif.rpart from package rpart
-#&gt; Type: multilabel
-#&gt; Name: ; Short name: 
-#&gt; Class: MultilabelBinaryRelevanceWrapper
-#&gt; Properties: numerics,factors,ordered,missings,weights,prob,twoclass,multiclass
-#&gt; Predict-Type: prob
-#&gt; Hyperparameters: xval=0
-
-multilabel.lrn1 = makeMultilabelBinaryRelevanceWrapper(&quot;classif.rpart&quot;)
-multilabel.lrn1
-#&gt; Learner multilabel.classif.rpart from package rpart
-#&gt; Type: multilabel
-#&gt; Name: ; Short name: 
-#&gt; Class: MultilabelBinaryRelevanceWrapper
-#&gt; Properties: numerics,factors,ordered,missings,weights,prob,twoclass,multiclass
-#&gt; Predict-Type: response
-#&gt; Hyperparameters: xval=0
-</code></pre>
-
-<h3 id="algorithm-adaptation-method">Algorithm adaptation method</h3>
-<p>Currently the only available algorithm adaptation method in <strong>R</strong> is the Random Ferns
-multilabel algorithm in the <a href="http://rpackages.ianhowson.com/cran/rFerns/">rFerns</a> package. You can create the learner for this algorithm
+<h3 id="algorithm-adaptation-methods">Algorithm adaptation methods</h3>
+<p>Currently the available algorithm adaptation methods in <strong>R</strong> are the multivariate random forest in the <a href="http://rpackages.ianhowson.com/cran/randomForestSRC/">randomForestSRC</a> package and the random ferns multilabel algorithm in the <a href="http://rpackages.ianhowson.com/cran/rFerns/">rFerns</a> package. You can create the learner for these algorithms
 like in multiclass classification problems.</p>
-<pre><code class="r">multilabel.lrn2 = makeLearner(&quot;multilabel.rFerns&quot;)
-multilabel.lrn2
+<pre><code class="r">lrn.rfsrc = makeLearner(&quot;multilabel.randomForestSRC&quot;)
+lrn.rFerns = makeLearner(&quot;multilabel.rFerns&quot;)
+lrn.rFerns
 #&gt; Learner multilabel.rFerns from package rFerns
 #&gt; Type: multilabel
 #&gt; Name: Random ferns; Short name: rFerns
@@ -446,22 +413,65 @@ multilabel.lrn2
 #&gt; Hyperparameters:
 </code></pre>
 
+<h3 id="problem-transformation-methods">Problem transformation methods</h3>
+<p>For generating a wrapped multilabel learner first create a binary (or multiclass)
+classification learner with <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">makeLearner</a>. Afterwards apply a function like
+<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMultilabelBinaryRelevanceWrapper.html">makeMultilabelBinaryRelevanceWrapper</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMultilabelClassifierChainsWrapper.html">makeMultilabelClassifierChainsWrapper</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMultilabelNestedStackingWrapper.html">makeMultilabelNestedStackingWrapper</a>, 
+<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMultilabelDBRWrapper.html">makeMultilabelDBRWrapper</a> or <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMultilabelStackingWrapper.html">makeMultilabelStackingWrapper</a> on the learner to convert it to a learner that uses the respective problem transformation method.</p>
+<p>You can also generate a binary relevance learner directly, as you can see in the example.</p>
+<pre><code class="r">lrn.br = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
+lrn.br = makeMultilabelBinaryRelevanceWrapper(lrn.br)
+lrn.br
+#&gt; Learner multilabel.classif.rpart from package rpart
+#&gt; Type: multilabel
+#&gt; Name: ; Short name: 
+#&gt; Class: MultilabelBinaryRelevanceWrapper
+#&gt; Properties: numerics,factors,ordered,missings,weights,prob,twoclass,multiclass
+#&gt; Predict-Type: prob
+#&gt; Hyperparameters: xval=0
+
+lrn.br2 = makeMultilabelBinaryRelevanceWrapper(&quot;classif.rpart&quot;)
+lrn.br2
+#&gt; Learner multilabel.classif.rpart from package rpart
+#&gt; Type: multilabel
+#&gt; Name: ; Short name: 
+#&gt; Class: MultilabelBinaryRelevanceWrapper
+#&gt; Properties: numerics,factors,ordered,missings,weights,prob,twoclass,multiclass
+#&gt; Predict-Type: response
+#&gt; Hyperparameters: xval=0
+</code></pre>
+
+<p>The different methods are shortly described in the following. </p>
+<h4 id="binary-relevance">Binary relevance</h4>
+<p>This problem transformation method converts the multilabel problem to binary
+classification problems for each
+label and applies a simple binary classificator on these. In <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> this can be done by
+converting your binary learner to a wrapped binary relevance multilabel learner.</p>
+<h4 id="classifier-chains">Classifier chains</h4>
+<p>Trains consecutively the labels with the input data. The input data in each step is augmented by the already trained labels (with the real observed values). 
+Therefore a order of the labels has to be specified. At prediction time the labels are predicted in the same order as while training. The required labels in the input data are given by the previous done prediction of the respective label. </p>
+<h4 id="nested-stacking">Nested stacking</h4>
+<p>Same as Classifier Chains, but the labels in the input data are not the real ones, but estimations of the labels obtained by the already trained learners. </p>
+<h4 id="dependent-binary-relevance">Dependent binary relevance</h4>
+<p>Each label is trained with the real observed values of all other labels. In prediction phase for a label the other necessary labels are obtained in a previous step by a base learner like the binary relevance method.</p>
+<h4 id="stacking">Stacking</h4>
+<p>Same as the dependent binary relevance method, but in the training phase the labels used as input for each label are obtained by the binary relevance method. </p>
 <h2 id="train">Train</h2>
 <p>You can <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a> a model as usual with a multilabel learner and a
 multilabel task as input. You can also pass <code>subset</code> and <code>weights</code> arguments if the
 learner supports this.</p>
-<pre><code class="r">mod = train(multilabel.lrn, yeast.task)
-mod = train(multilabel.lrn, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
+<pre><code class="r">mod = train(lrn.br, yeast.task)
+mod = train(lrn.br, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
 mod
 #&gt; Model for learner.id=multilabel.classif.rpart; learner.class=MultilabelBinaryRelevanceWrapper
 #&gt; Trained on: task.id = multi; obs = 1500; features = 103
 #&gt; Hyperparameters: xval=0
 
-mod2 = train(multilabel.lrn2, yeast.task, subset = 1:100)
+mod2 = train(lrn.rfsrc, yeast.task, subset = 1:100)
 mod2
-#&gt; Model for learner.id=multilabel.rFerns; learner.class=multilabel.rFerns
+#&gt; Model for learner.id=multilabel.randomForestSRC; learner.class=multilabel.randomForestSRC
 #&gt; Trained on: task.id = multi; obs = 100; features = 103
-#&gt; Hyperparameters:
+#&gt; Hyperparameters: na.action=na.impute
 </code></pre>
 
 <h2 id="predict">Predict</h2>
@@ -510,14 +520,16 @@ and <a href="http://rpackages.ianhowson.com/cran/mlr/man/getPredictionProbabilit
 <p>The performance of your prediction can be assessed via function <a href="http://rpackages.ianhowson.com/cran/mlr/man/performance.html">performance</a>.
 You can specify via the <code>measures</code> argument which <a href="../measures/index.html">measure(s)</a> to calculate.
 The default measure for multilabel classification is the Hamming loss (<a href="../measures/index.html">multilabel.hamloss</a>).
-All available measures for multilabel classification can be shown by <a href="http://rpackages.ianhowson.com/cran/mlr/man/listMeasures.html">listMeasures</a>.</p>
+All available measures for multilabel classification can be shown by <a href="http://rpackages.ianhowson.com/cran/mlr/man/listMeasures.html">listMeasures</a> and found in the <a href="../measures/index.html">table of performance measures</a> and the <a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">measures</a> documentation page.</p>
 <pre><code class="r">performance(pred)
 #&gt; multilabel.hamloss 
 #&gt;          0.2257143
 
-performance(pred2, measures = list(multilabel.hamloss, timepredict))
-#&gt; multilabel.hamloss        timepredict 
-#&gt;          0.7033217          0.0680000
+performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc, multilabel.f1, timepredict))
+#&gt; multilabel.subset01  multilabel.hamloss      multilabel.acc 
+#&gt;           0.8663633           0.2049471           0.4637509 
+#&gt;       multilabel.f1         timepredict 
+#&gt;           0.5729926           1.4880000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt;  [1] &quot;multilabel.ppv&quot;      &quot;timepredict&quot;         &quot;multilabel.hamloss&quot; 
@@ -532,25 +544,25 @@ listMeasures(&quot;multilabel&quot;)
 via <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeResampleDesc.html">makeResampleDesc</a> or <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeResampleInstance.html">makeResampleInstance</a>. After that you can run the <a href="http://rpackages.ianhowson.com/cran/mlr/man/resample.html">resample</a>
 function. Below the default measure Hamming loss is calculated.</p>
 <pre><code class="r">rdesc = makeResampleDesc(method = &quot;CV&quot;, stratify = FALSE, iters = 3)
-r = resample(learner = multilabel.lrn, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r = resample(learner = lrn.br, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.classif.rpart
-#&gt; multilabel.hamloss.aggr: 0.23
-#&gt; multilabel.hamloss.mean: 0.23
+#&gt; multilabel.hamloss.aggr: 0.22
+#&gt; multilabel.hamloss.mean: 0.22
 #&gt; multilabel.hamloss.sd: 0.01
-#&gt; Runtime: 7.62606
+#&gt; Runtime: 5.93494
 
-r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.rFerns
 #&gt; multilabel.hamloss.aggr: 0.47
 #&gt; multilabel.hamloss.mean: 0.47
-#&gt; multilabel.hamloss.sd: 0.01
-#&gt; Runtime: 0.816899
+#&gt; multilabel.hamloss.sd: 0.00
+#&gt; Runtime: 0.629554
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>
@@ -580,19 +592,19 @@ predicted probabilities.</p>
 
 getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
 #&gt;         acc.test.mean mmce.test.mean
-#&gt; label1     0.69424907      0.3057509
-#&gt; label2     0.59288374      0.4071163
-#&gt; label3     0.70459247      0.2954075
-#&gt; label4     0.71286719      0.2871328
-#&gt; label5     0.71328093      0.2867191
-#&gt; label6     0.58709144      0.4129086
-#&gt; label7     0.54778651      0.4522135
-#&gt; label8     0.53496070      0.4650393
-#&gt; label9     0.31443939      0.6855606
-#&gt; label10    0.44807613      0.5519239
-#&gt; label11    0.45717832      0.5428217
-#&gt; label12    0.52461729      0.4753827
-#&gt; label13    0.53289201      0.4671080
+#&gt; label1     0.69383533      0.3061647
+#&gt; label2     0.58254034      0.4174597
+#&gt; label3     0.70211005      0.2978899
+#&gt; label4     0.71369466      0.2863053
+#&gt; label5     0.70831609      0.2916839
+#&gt; label6     0.60488209      0.3951179
+#&gt; label7     0.54447662      0.4555234
+#&gt; label8     0.53289201      0.4671080
+#&gt; label9     0.30906082      0.6909392
+#&gt; label10    0.44683492      0.5531651
+#&gt; label11    0.45676458      0.5432354
+#&gt; label12    0.52916839      0.4708316
+#&gt; label13    0.53702938      0.4629706
 #&gt; label14    0.01406703      0.9859330
 </code></pre></div>
             

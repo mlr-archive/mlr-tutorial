@@ -374,6 +374,8 @@ surv.lrn = makeLearner(&quot;surv.coxph&quot;, id = &quot;cph&quot;)
 
 ## K-means with 5 clusters
 cluster.lrn = makeLearner(&quot;cluster.kmeans&quot;, N = 5)
+#&gt; cluster.kmeans: couldn't find hyperparameter 'N'
+#&gt; Did you mean one of these hyperparameters instead: trace nstart centers
 #&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): cluster.kmeans: Setting parameter N without available description object!
 #&gt; You can switch off this check by using configureMlr!
 
