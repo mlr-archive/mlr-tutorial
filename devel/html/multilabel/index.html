@@ -448,14 +448,21 @@ classification problems for each
 label and applies a simple binary classificator on these. In <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> this can be done by
 converting your binary learner to a wrapped binary relevance multilabel learner.</p>
 <h4 id="classifier-chains">Classifier chains</h4>
-<p>Trains consecutively the labels with the input data. The input data in each step is augmented by the already trained labels (with the real observed values). 
-Therefore a order of the labels has to be specified. At prediction time the labels are predicted in the same order as while training. The required labels in the input data are given by the previous done prediction of the respective label. </p>
+<p>Trains consecutively the labels with the input data. The input data in each step is augmented
+by the already trained labels (with the real observed values).
+Therefore an order of the labels has to be specified. At prediction time the labels are
+predicted in the same order as while training. The required labels in the input data are
+given by the previous done prediction of the respective label.</p>
 <h4 id="nested-stacking">Nested stacking</h4>
-<p>Same as Classifier Chains, but the labels in the input data are not the real ones, but estimations of the labels obtained by the already trained learners. </p>
+<p>Same as classifier chains, but the labels in the input data are not the real ones, but
+estimations of the labels obtained by the already trained learners.</p>
 <h4 id="dependent-binary-relevance">Dependent binary relevance</h4>
-<p>Each label is trained with the real observed values of all other labels. In prediction phase for a label the other necessary labels are obtained in a previous step by a base learner like the binary relevance method.</p>
+<p>Each label is trained with the real observed values of all other labels. In prediction phase
+for a label the other necessary labels are obtained in a previous step by a base learner like
+the binary relevance method.</p>
 <h4 id="stacking">Stacking</h4>
-<p>Same as the dependent binary relevance method, but in the training phase the labels used as input for each label are obtained by the binary relevance method. </p>
+<p>Same as the dependent binary relevance method, but in the training phase the labels used as
+input for each label are obtained by the binary relevance method.</p>
 <h2 id="train">Train</h2>
 <p>You can <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a> a model as usual with a multilabel learner and a
 multilabel task as input. You can also pass <code>subset</code> and <code>weights</code> arguments if the
@@ -520,16 +527,18 @@ and <a href="http://rpackages.ianhowson.com/cran/mlr/man/getPredictionProbabilit
 <p>The performance of your prediction can be assessed via function <a href="http://rpackages.ianhowson.com/cran/mlr/man/performance.html">performance</a>.
 You can specify via the <code>measures</code> argument which <a href="../measures/index.html">measure(s)</a> to calculate.
 The default measure for multilabel classification is the Hamming loss (<a href="../measures/index.html">multilabel.hamloss</a>).
-All available measures for multilabel classification can be shown by <a href="http://rpackages.ianhowson.com/cran/mlr/man/listMeasures.html">listMeasures</a> and found in the <a href="../measures/index.html">table of performance measures</a> and the <a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">measures</a> documentation page.</p>
+All available measures for multilabel classification can be shown by <a href="http://rpackages.ianhowson.com/cran/mlr/man/listMeasures.html">listMeasures</a> and found
+in the <a href="../measures/index.html">table of performance measures</a> and the <a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">measures</a> documentation page.</p>
 <pre><code class="r">performance(pred)
 #&gt; multilabel.hamloss 
 #&gt;          0.2257143
 
-performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc, multilabel.f1, timepredict))
+performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc,
+  multilabel.f1, timepredict))
 #&gt; multilabel.subset01  multilabel.hamloss      multilabel.acc 
 #&gt;           0.8663633           0.2049471           0.4637509 
 #&gt;       multilabel.f1         timepredict 
-#&gt;           0.5729926           1.4880000
+#&gt;           0.5729926           1.5020000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt;  [1] &quot;multilabel.ppv&quot;      &quot;timepredict&quot;         &quot;multilabel.hamloss&quot; 
@@ -552,7 +561,7 @@ r
 #&gt; multilabel.hamloss.aggr: 0.22
 #&gt; multilabel.hamloss.mean: 0.22
 #&gt; multilabel.hamloss.sd: 0.01
-#&gt; Runtime: 5.93494
+#&gt; Runtime: 5.87753
 
 r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
@@ -562,7 +571,7 @@ r
 #&gt; multilabel.hamloss.aggr: 0.47
 #&gt; multilabel.hamloss.mean: 0.47
 #&gt; multilabel.hamloss.sd: 0.00
-#&gt; Runtime: 0.629554
+#&gt; Runtime: 0.569167
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>
