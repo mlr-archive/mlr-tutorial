@@ -201,7 +201,7 @@ mergeBenchmarkResultLearner(bmr, bmr3)
 
 
 ## Benchmark analysis and visualization
-[%mlr] offers several possibilities to analyze the results of a benchmark experiment.
+[%mlr] offers several ways to analyze the results of a benchmark experiment.
 This includes visualization, ranking of learning algorithms and hypothesis tests to
 assess performance differences between learners.
 
@@ -287,25 +287,55 @@ between learners.
 
 
 ### Integrated plots
-Plots are produced using [%ggplot2], as this package enables further customization,
-such as renaming plot elements or changing colors.
+Plots are generated using [%ggplot2]. Further customization, such as renaming plot elements
+or changing colors, is easily possible.
 
 
 #### Visualizing performances
-[&plotBMRBoxplots] creates box or violin plots for a [&BenchmarkResult] which show the
+[&plotBMRBoxplots] creates box or violin plots which show the
 distribution of performance values across resampling iterations for one performance measure
 and for all learners and tasks (and thus visualize the output of [&getBMRPerformances]).
 
-Below are both variants, box plots and violin plots. The first plot shows the [mmce](measures.md)
+Below are both variants, box and violin plots. The first plot shows the [mmce](measures.md)
 and the second plot the balanced error rate ([ber](measures.md)).
-The panels are arranged in two rows.
-In the second plot we color the boxes according to the learners by adding additional
-[aesthetics](&ggplot2::aes) to make them better distinguishable.
+Moreover, in the second plot we color the boxes according to the learners to make them better
+distinguishable.
 
 ```{r, fig.width=9}
 plotBMRBoxplots(bmr, measure = mmce)
-plotBMRBoxplots(bmr, measure = ber, style = "violin") +
+plotBMRBoxplots(bmr, measure = ber, style = "violin", pretty.names = FALSE) +
   aes(color = learner.id)
+```
+
+Note that by default the measure `name`s are used as labels for the y-axis.
+
+```{r}
+mmce$name
+mmce$id
+```
+
+If you prefer the shorter `id`s like mmce and ber set `pretty.names = FALSE` (as done for
+the second plot).
+Of course you can also use the [ylab](&ggplot2::labs) function to choose a completely
+different label.
+
+Another thing which probably comes up quite often is changing the panel headers (which default
+to the [&Task] IDs) and the learner names on the x-axis (which default to the
+[Learner](&makeLearner) IDs).
+For example looking at the above plots we would like to remove the "example" suffixes and the
+"mlbench" prefixes from the panel headers.
+Moreover, compared to the other learner names "randomForest" seems a little long.
+Currently, the probably simplest solution is to change the factor levels of the plotted
+data as shown below.
+
+```{r, fig.width=9}
+plt = plotBMRBoxplots(bmr, measure = mmce)
+head(plt$data)
+
+levels(plt$data$task.id) = c("Iris", "Ringnorm", "Waveform", "Diabetes", "Sonar")
+levels(plt$data$learner.id) = c("lda", "rpart", "rF")
+
+plt + ylab("Error rate")
 ```
 
 
