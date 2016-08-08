@@ -224,7 +224,7 @@ For *clustering* we also get a scatter plot of two selected features.
 The color of the points indicates the predicted cluster.
 
 ```{r}
-lrn = makeLearner("cluster.SimpleKMeans")
+lrn = makeLearner("cluster.kmeans")
 plotLearnerPrediction(lrn, task = mtcars.task, features = c("disp", "drat"), cv = 0)
 ```
 

@@ -20,7 +20,7 @@ Of course we also need a [Learner](&makeLearner) which we have to pass to
 [&makeBaggingWrapper].
 
 ```{r makeBaggingWrapper_setup}
-lrn = makeLearner("classif.PART")
+lrn = makeLearner("classif.rpart")
 bag.lrn = makeBaggingWrapper(lrn, bw.iters = 50, bw.replace = TRUE, bw.size = 0.8, bw.feats = 3/4)
 ```
 Now we can compare the performance with and without bagging.

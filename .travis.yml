@@ -1,41 +1,44 @@
+language: r
+sudo: false
+cache: 
+  packages: true
+  pip: true
+
+branches:
+    only:
+        - gh-pages
+
 env:
   global:
   - secure: "oZCCuJbRCV3GyGxDxAflWUKohCgNv9TtGLgdXWV4YVjIYqqSCBl0sSwv+eCE6zVDji6bTM20NK6v5l0DbpM+TCk5vQFL8cP/LKgdFMqJm88/fCMqIX5QPk0uafd0Twpni6Rm+iUECxZJS63HL7vppz2WKnnjb2ZV6avPold+E1Pn1xboAjrQ0B4yMGKpy2KjzFbfEDMfVITO6SSNc9z7Jdii9Kf17NkY8MBPUJ8CkQQcN3UfBKRx6O0P8FnA9gj3nc1Sf9EacRtovhLBQuOVGD/uTbchV2UBMdBnhVk+39qEEsBB4SPyaI4FT9t6jJoqBYpvpQU0xhJXGcERppmMsNGe8nTniAfPQsT8vQs1pyYbnahkM3AUj7/lbOjVfzE1IJ7ExxkfGVeEUQr5XA3RlD3qJgt6hU4GT04vF4zN3IHPGlc8jjv96tX7C/f6axxLuM+20aRzwc5kM2+qlWwdWDj9r0Ir9ieA4t71zbgrAPrcw+Mt8S9p3DeXgj1R6MouT/1uqSdrKTnIVQS906acb0mPh9Tpb0WX7zAWr1WScJXVpvVyiOwWyR/MpMjkLFiRS9GcdiygudFdBS3qkHkgPuhV4pzu/r03e5rbwF/FC7CiCcIYTU7VjE4/NHE+awnXU51pfbjWSBqWuDg7ClXwfxwFWvwxZDPfCt3i+rW5sqs="
 
-language: bash
-branches:
-    only:
-        - gh-pages
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.9
+      - g++-4.9
+      - gfortran-4.9
+      - libgmp-dev
+
+before_install:
+  - mkdir $HOME/bin
+  - ln -s $(which gcc-4.9) $HOME/bin/gcc
+  - ln -s $(which g++-4.9) $HOME/bin/g++
+  - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
+  - export PATH=$HOME/bin:$PATH
+  - echo $LD_LIBRARY_PATH
+  - echo $LIBRARY_PATH
+
 install:
-    - sudo apt-get update
-    - sudo apt-get install software-properties-common python-software-properties ed wget unzip
-    - sudo add-apt-repository -y ppa:marutter/rrutter
-    - sudo add-apt-repository -y ppa:marutter/c2d4u
-    - sudo apt-get install -y libgmp-dev
-    - sudo apt-get update
-    - sudo apt-get install r-cran-rjava python-pip
-    - sudo R CMD javareconf
-    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test -y
-    - sudo apt-get -qq update
-    - sudo apt-get -qq install gcc-4.8
-    - sudo apt-get -qq install g++-4.8
-    - sudo apt-get install -qq gfortran-4.8
-    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 90
-    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
-    - sudo update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-4.8 90
-    - sudo apt-get build-dep r-cran-rgl
-    #- sudo R --no-save <<< 'install.packages(c("devtools", "pander", "knitr", "mlr", "kknn", "mRMRe", "Hmisc"), dependencies = TRUE, Ncpus = 2, repos="http://cran.rstudio.com/")'
-    - sudo apt-get install r-cran-ada r-cran-adabag r-cran-brnn r-cran-bst r-cran-care r-cran-caret r-cran-checkmate r-cran-class r-cran-clue r-cran-cluster r-cran-clusterSim r-cran-clValid r-cran-cmaes r-cran-CoxBoost r-cran-crs r-cran-Cubist r-cran-DiceKriging r-cran-DiceOptim r-cran-DiscriMiner r-cran-deepnet r-cran-e1071 r-cran-earth r-cran-elasticnet r-cran-elmNN r-cran-emoa r-cran-fields r-cran-flare r-cran-FNN r-cran-frbs r-cran-FSelector r-cran-gbm r-cran-GenSA r-cran-ggplot2 r-cran-ggvis r-cran-glmnet r-cran-Hmisc r-cran-irace r-cran-kernlab r-cran-kknn r-cran-klaR r-cran-knitr r-cran-kohonen r-cran-laGP r-cran-LiblineaR r-cran-lqa r-cran-MASS r-cran-mboost r-cran-mco r-cran-mda r-cran-mlbench r-cran-modeltools r-cran-mRMRe r-cran-neuralnet r-cran-nnet r-cran-nodeHarvest r-cran-pamr r-cran-party r-cran-penalized r-cran-pls r-cran-plyr r-cran-pROC r-cran-randomForest r-cran-randomForestSRC r-cran-reshape2 r-cran-RCurl r-cran-RSNNS r-cran-rFerns r-cran-rjson r-cran-rmarkdown r-cran-robustbase r-cran-ROCR r-cran-rpart r-cran-rrlda r-cran-rsm r-cran-RWeka r-cran-sda r-cran-shiny r-cran-sparsediscrim r-cran-sparseLDA r-cran-stepPlr r-cran-stringi r-cran-SwarmSVM r-cran-testthat r-cran-tgp r-cran-TH.data r-cran-XML r-cran-devtools r-cran-pander
-    - sudo R --no-save <<< 'library("devtools"); install_github("berndbischl/ParamHelpers")'
-    - sudo R --no-save <<< 'library("devtools"); install_github("mlr-org/mlr", dependencies = TRUE)'
-    - curl -L https://raw.githubusercontent.com/mllg/travis-r-tools/master/update-packages.r -o /tmp/update-packages.r
-    - sudo Rscript /tmp/update-packages.r
-    - sudo pip install mkdocs
-    - wget https://github.com/mitya57/python-markdown-math/archive/master.zip
-    - unzip master.zip
-    - cd python-markdown-math-master && sudo python setup.py install && cd ..
+  - pip install --user mkdocs
+  - pip install --user python-markdown-math
+  - Rscript r_packs_install.R
+
 script:
-    - ./build || ./build || ./build || ./build
+  - ./build || ./build || ./build || ./build
 
 after_success:
     - git checkout gh-pages

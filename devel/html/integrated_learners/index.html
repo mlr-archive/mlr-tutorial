@@ -333,7 +333,7 @@
         
             <li><a href="#classification-82">Classification (82)</a></li>
         
-            <li><a href="#regression-60">Regression (60)</a></li>
+            <li><a href="#regression-61">Regression (61)</a></li>
         
             <li><a href="#survival-analysis-13">Survival analysis (13)</a></li>
         
@@ -341,7 +341,7 @@
         
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
         
-            <li><a href="#multilabel-classification-1">Multilabel classification (1)</a></li>
+            <li><a href="#multilabel-classification-3">Multilabel classification (3)</a></li>
         
     
     </ul>
@@ -632,7 +632,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left">The family parameter is set to <code>binomial</code> for two-class problems and to <code>multinomial</code> otherwise. Factors automatically get converted to dummy columns, ordered factors to integer.</td>
+<td align="left">The family parameter is set to <code>binomial</code> for two-class problems and to <code>multinomial</code> otherwise.       Factors automatically get converted to dummy columns, ordered factors to integer.       Parameter <code>s</code> (value of the regularization parameter used for predictions) is set to <code>0.1</code> by default,       but needs to be tuned by the user.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.h2o.deeplearning</strong> <br /> <em>h2o.dl</em> <br /><br />h2o.deeplearning</td>
@@ -1267,10 +1267,10 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default. <code>num_class</code> is set internally, so do not set this manually.</td>
+<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default. <code>num_class</code> is set internally, so do not set this manually. <code>missing</code> is set by default to NA, as this is how mlr expects missing values to be encoded.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.xyf</strong> <br /> <em>xyf</em> <br /><br />X-Y fused self-organising maps</td>
@@ -1285,7 +1285,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-60">Regression (60)</h3>
+<h3 id="regression-61">Regression (61)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1589,7 +1589,18 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left"></td>
-<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
+<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.       Parameter <code>s</code> (value of the regularization parameter used for predictions) is set to <code>0.1</code> by default,       but needs to be tuned by the user.</td>
+</tr>
+<tr>
+<td align="left"><strong>regr.GPfit</strong> <br /> <em>GPfit</em> <br /><br />Gaussian Process</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/GPfit/">GPfit</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">se</td>
+<td align="left">(1) As the optimization routine assumes that the inputs are scaled to the unit hypercube [0,1]^d,              the input gets scaled for each variable by default. If this is not wanted, scale = FALSE has             to be set. (2) We replace the GPfit parameter 'corr = list(type='exponential',power=1.95)' to be seperate              parameters 'type' and 'power', in the case of  corr = list(type='matern', nu = 0.5), the seperate parameters             are 'type' and 'matern_nu_k=0', and nu is computed by 'nu=(2*matern_nu_k+1)/2=0.5'</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.h2o.deeplearning</strong> <br /> <em>h2o.dl</em> <br /><br />h2o.deeplearning</td>
@@ -1952,7 +1963,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left"></td>
-<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default.</td>
+<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default. <code>missing</code> is set by default to NA, as this is how mlr expects missing values to be encoded.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.xyf</strong> <br /> <em>xyf</em> <br /><br />X-Y fused self-organising maps</td>
@@ -2063,7 +2074,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">rcens</td>
-<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
+<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.       Parameter <code>s</code> (value of the regularization parameter used for predictions) is set to <code>0.1</code> by default,       but needs to be tuned by the user.</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.penalized.fusedlasso</strong> <br /> <em>fusedlasso</em> <br /><br />Fused Lasso Regression</td>
@@ -2262,7 +2273,7 @@ ordinary regression and classification learners.
 See section <a href="../cost_sensitive_classif/index.html">cost-sensitive classification</a> and the documentation
 of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensClassifWrapper.html">makeCostSensClassifWrapper</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensRegrWrapper.html">makeCostSensRegrWrapper</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensWeightedPairsWrapper.html">makeCostSensWeightedPairsWrapper</a>
 for details.</p>
-<h3 id="multilabel-classification-1">Multilabel classification (1)</h3>
+<h3 id="multilabel-classification-3">Multilabel classification (3)</h3>
 <table>
 <thead>
 <tr>
@@ -2278,6 +2289,28 @@ for details.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td align="left"><strong>multilabel.cforest</strong> <br /> <em>cforest</em> <br /><br />Random forest based on conditional inference trees</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/party/">party</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="left">prob</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>multilabel.randomForestSRC</strong> <br /> <em>rfsrc</em> <br /><br />Random Forest</td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/randomForestSRC/">randomForestSRC</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="left">prob</td>
+<td align="left"><code>na.action</code> has been set to <code>na.impute</code> by default to allow missing data support.</td>
+</tr>
 <tr>
 <td align="left"><strong>multilabel.rFerns</strong> <br /> <em>rFerns</em> <br /><br />Random ferns</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/rFerns/">rFerns</a></td>

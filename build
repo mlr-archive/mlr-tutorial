@@ -104,10 +104,10 @@ suppressPackageStartupMessages({
   # required to build
   library(methods)
   library(parallel)
+  library(digest)
   library(pander)
   library(BBmisc)
   library(knitr)
-  library(digest)
   library(caret) # we get problems if this shadows "mlr::train"
   suppressWarnings(library(rgl)) # suppress "no X" warning on travis
   library(mlr)

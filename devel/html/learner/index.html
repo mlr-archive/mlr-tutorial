@@ -373,7 +373,11 @@ regr.lrn = makeLearner(&quot;regr.gbm&quot;, par.vals = list(n.trees = 500, inte
 surv.lrn = makeLearner(&quot;surv.coxph&quot;, id = &quot;cph&quot;)
 
 ## K-means with 5 clusters
-cluster.lrn = makeLearner(&quot;cluster.SimpleKMeans&quot;, N = 5)
+cluster.lrn = makeLearner(&quot;cluster.kmeans&quot;, N = 5)
+#&gt; cluster.kmeans: couldn't find hyperparameter 'N'
+#&gt; Did you mean one of these hyperparameters instead: trace nstart centers
+#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): cluster.kmeans: Setting parameter N without available description object!
+#&gt; You can switch off this check by using configureMlr!
 
 ## Multilabel Random Ferns classification algorithm
 multilabel.lrn = makeLearner(&quot;multilabel.rFerns&quot;)
@@ -423,6 +427,9 @@ regression and classification learners. This is explained in greater detail in t
 information regarding the hyperparameters and the type of prediction.</p>
 <pre><code class="r">## Get the configured hyperparameter settings that deviate from the defaults
 cluster.lrn$par.vals
+#&gt; $centers
+#&gt; [1] 2
+#&gt; 
 #&gt; $N
 #&gt; [1] 5
 
@@ -463,6 +470,9 @@ as well the feature selection method, have hyperparameters.
 For details see the section on <a href="../wrapper/index.html">wrapped learners</a>.</p>
 <pre><code class="r">## Get current hyperparameter settings
 getHyperPars(cluster.lrn)
+#&gt; $centers
+#&gt; [1] 2
+#&gt; 
 #&gt; $N
 #&gt; [1] 5
 
