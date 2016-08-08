@@ -29,41 +29,57 @@ yeast.task
 ## Constructing a learner
 Multilabel classification in [%mlr] can currently be done in two ways:
 
-* Use the binary relevance method.
+* Algorithm adaptation methods: Treat the whole problem with a specific algorithm.
+
+* Problem transformation methods: Transform the problem, so that simple binary classification algorithms can be applied.
+
+### Algorithm adaptation methods
+
+Currently the available algorithm adaptation methods in **R** are the multivariate random forest in the [%randomForestSRC] package and the random ferns multilabel algorithm in the [%rFerns] package. You can create the learner for these algorithms
+like in multiclass classification problems.
+
+```{r}
+lrn.rfsrc = makeLearner("multilabel.randomForestSRC")
+lrn.rFerns = makeLearner("multilabel.rFerns")
+lrn.rFerns
+```
+### Problem transformation methods
+For generating a wrapped multilabel learner first create a binary (or multiclass)
+classification learner with [&makeLearner]. Afterwards apply a function like
+[&makeMultilabelBinaryRelevanceWrapper], [&makeMultilabelClassifierChainsWrapper], [&makeMultilabelNestedStackingWrapper], 
+[&makeMultilabelDBRWrapper] or [&makeMultilabelStackingWrapper] on the learner to convert it to a learner that uses the respective problem transformation method.
+
+You can also generate a binary relevance learner directly, as you can see in the example.
+
+```{r}
+lrn.br = makeLearner("classif.rpart", predict.type = "prob")
+lrn.br = makeMultilabelBinaryRelevanceWrapper(lrn.br)
+lrn.br
+
+lrn.br2 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
+lrn.br2
+```
+
+The different methods are shortly described in the following. 
+
+#### Binary relevance
 This problem transformation method converts the multilabel problem to binary
 classification problems for each
 label and applies a simple binary classificator on these. In [%mlr] this can be done by
 converting your binary learner to a wrapped binary relevance multilabel learner.
 
-* Apply directly an algorithm adaptation method which treats the whole
-problem with a specific algorithm.
+#### Classifier chains
+Trains consecutively the labels with the input data. The input data in each step is augmented by the already trained labels (with the real observed values). 
+Therefore a order of the labels has to be specified. At prediction time the labels are predicted in the same order as while training. The required labels in the input data are given by the previous done prediction of the respective label. 
 
-### Binary relevance method
-For generating a wrapped multilabel learner first create a binary (or multiclass)
-classification learner with [&makeLearner]. Afterwards apply the function
-[&makeMultilabelBinaryRelevanceWrapper] to the learner
-to convert it into a binary relevance learner.
+#### Nested stacking
+Same as Classifier Chains, but the labels in the input data are not the real ones, but estimations of the labels obtained by the already trained learners. 
 
-You can also generate a binary relevance learner directly, as you can see in the example.
+#### Dependent binary relevance
+Each label is trained with the real observed values of all other labels. In prediction phase for a label the other necessary labels are obtained in a previous step by a base learner like the binary relevance method.
 
-```{r}
-multilabel.lrn = makeLearner("classif.rpart", predict.type = "prob")
-multilabel.lrn = makeMultilabelBinaryRelevanceWrapper(multilabel.lrn)
-multilabel.lrn
-
-multilabel.lrn1 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
-multilabel.lrn1
-```
-
-### Algorithm adaptation method
-Currently the only available algorithm adaptation method in **R** is the Random Ferns
-multilabel algorithm in the [%rFerns] package. You can create the learner for this algorithm
-like in multiclass classification problems.
-
-```{r}
-multilabel.lrn2 = makeLearner("multilabel.rFerns")
-multilabel.lrn2
-```
+#### Stacking
+Same as the dependent binary relevance method, but in the training phase the labels used as input for each label are obtained by the binary relevance method. 
 
 ## Train
 You can [&train] a model as usual with a multilabel learner and a
@@ -71,11 +87,11 @@ multilabel task as input. You can also pass ``subset`` and ``weights`` arguments
 learner supports this.
 
 ```{r}
-mod = train(multilabel.lrn, yeast.task)
-mod = train(multilabel.lrn, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
+mod = train(lrn.br, yeast.task)
+mod = train(lrn.br, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
 mod
 
-mod2 = train(multilabel.lrn2, yeast.task, subset = 1:100)
+mod2 = train(lrn.rfsrc, yeast.task, subset = 1:100)
 mod2
 ```
 
@@ -105,12 +121,12 @@ and [&getPredictionProbabilities].
 The performance of your prediction can be assessed via function [&performance].
 You can specify via the `measures` argument which [measure(s)](measures.md) to calculate.
 The default measure for multilabel classification is the Hamming loss ([multilabel.hamloss](measures.md)).
-All available measures for multilabel classification can be shown by [&listMeasures].
+All available measures for multilabel classification can be shown by [&listMeasures] and found in the [table of performance measures](measures.md) and the [&measures] documentation page.
 
 ```{r}
 performance(pred)
 
-performance(pred2, measures = list(multilabel.hamloss, timepredict))
+performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc, multilabel.f1, timepredict))
 
 listMeasures("multilabel")
 ```
@@ -123,10 +139,10 @@ function. Below the default measure Hamming loss is calculated.
 
 ```{r}
 rdesc = makeResampleDesc(method = "CV", stratify = FALSE, iters = 3)
-r = resample(learner = multilabel.lrn, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r = resample(learner = lrn.br, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 
-r = resample(learner = multilabel.lrn2, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 ```
 
