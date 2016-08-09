@@ -127,7 +127,7 @@ surv.lrn
 classif.lrn = setPredictType(classif.lrn, "response")
 
 ## Change hyperparameter values
-cluster.lrn = setHyperPars(cluster.lrn, N = 4)
+cluster.lrn = setHyperPars(cluster.lrn, centers = 4)
 
 ## Go back to default hyperparameter values
 regr.lrn = removeHyperPars(regr.lrn, c("n.trees", "interaction.depth"))
