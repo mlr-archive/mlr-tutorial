@@ -31,7 +31,7 @@ regr.lrn = makeLearner("regr.gbm", par.vals = list(n.trees = 500, interaction.de
 surv.lrn = makeLearner("surv.coxph", id = "cph")
 
 ## K-means with 5 clusters
-cluster.lrn = makeLearner("cluster.kmeans", N = 5)
+cluster.lrn = makeLearner("cluster.kmeans", centers = 5)
 
 ## Multilabel Random Ferns classification algorithm
 multilabel.lrn = makeLearner("multilabel.rFerns")
