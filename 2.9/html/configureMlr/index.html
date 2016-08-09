@@ -12,7 +12,7 @@
 	<title>Configuration - mlr tutorial</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
         <link href="../css/custom_mlr.css" rel="stylesheet">
@@ -451,16 +451,12 @@ But until then you can turn off <a href="http://rpackages.ianhowson.com/cran/mlr
 The parameter setting will then be passed to the underlying function without further ado.</p>
 <pre><code class="r">## Support Vector Machine with linear kernel and new parameter 'newParam'
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3)
-#&gt; classif.ksvm: couldn't find hyperparameter 'newParam'
-#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel
 #&gt; Error in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newParam without available description object!
 #&gt; You can switch off this check by using configureMlr!
 
 ## Turn off parameter checking completely
 configureMlr(on.par.without.desc = &quot;quiet&quot;)
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3)
-#&gt; classif.ksvm: couldn't find hyperparameter 'newParam'
-#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel
 train(lrn, iris.task)
 #&gt;  Setting default kernel parameters
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
@@ -469,8 +465,6 @@ train(lrn, iris.task)
 
 ## Option &quot;quiet&quot; also masks typos
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;)
-#&gt; classif.ksvm: couldn't find hyperparameter 'kernl'
-#&gt; Did you mean one of these hyperparameters instead: kernel nu degree
 train(lrn, iris.task)
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
 #&gt; Trained on: task.id = iris-example; obs = 150; features = 4
@@ -479,12 +473,8 @@ train(lrn, iris.task)
 ## Alternatively turn off parameter checking, but still see warnings
 configureMlr(on.par.without.desc = &quot;warn&quot;)
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newParam = 3)
-#&gt; classif.ksvm: couldn't find hyperparameter 'kernl'
-#&gt; Did you mean one of these hyperparameters instead: kernel nu degree
 #&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter kernl without available description object!
 #&gt; You can switch off this check by using configureMlr!
-#&gt; classif.ksvm: couldn't find hyperparameter 'newParam'
-#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel
 #&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newParam without available description object!
 #&gt; You can switch off this check by using configureMlr!
 
@@ -504,7 +494,7 @@ The following example shows how to prevent this:</p>
 <pre><code class="r">## This call gives an error caused by the low number of observations in class &quot;virginica&quot;
 train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
 #&gt; Error in qda.default(x, grouping, ...): some group is too small for 'qda'
-#&gt; Timing stopped at: 0.003 0 0.003
+#&gt; Timing stopped at: 0.005 0 0.005
 
 ## Turn learner errors into warnings
 configureMlr(on.learner.error = &quot;warn&quot;)

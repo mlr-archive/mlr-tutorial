@@ -12,7 +12,7 @@
 	<title>Integrated Learners - mlr tutorial</title>
 
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
         <link href="../css/custom_mlr.css" rel="stylesheet">
@@ -341,7 +341,7 @@
         
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
         
-            <li><a href="#multilabel-classification-3">Multilabel classification (3)</a></li>
+            <li><a href="#multilabel-classification-2">Multilabel classification (2)</a></li>
         
     
     </ul>
@@ -1267,10 +1267,10 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center">X</td>
+<td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default. <code>num_class</code> is set internally, so do not set this manually. <code>missing</code> is set by default to NA, as this is how mlr expects missing values to be encoded.</td>
+<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default. <code>num_class</code> is set internally, so do not set this manually.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.xyf</strong> <br /> <em>xyf</em> <br /><br />X-Y fused self-organising maps</td>
@@ -1600,7 +1600,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">se</td>
-<td align="left">(1) As the optimization routine assumes that the inputs are scaled to the unit hypercube [0,1]^d,              the input gets scaled for each variable by default. If this is not wanted, scale = FALSE has             to be set. (2) We replace the GPfit parameter 'corr = list(type='exponential',power=1.95)' to be seperate              parameters 'type' and 'power', in the case of  corr = list(type='matern', nu = 0.5), the seperate parameters             are 'type' and 'matern_nu_k=0', and nu is computed by 'nu=(2*matern_nu_k+1)/2=0.5'</td>
+<td align="left">As the optimization routine assumes that the inputs are scaled to the unit hypercube [0,1]^d,              the input gets scaled for each variable by default. If this is not wanted, scale = FALSE has             to be set.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.h2o.deeplearning</strong> <br /> <em>h2o.dl</em> <br /><br />h2o.deeplearning</td>
@@ -1963,7 +1963,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left"></td>
-<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default. <code>missing</code> is set by default to NA, as this is how mlr expects missing values to be encoded.</td>
+<td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> by default.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.xyf</strong> <br /> <em>xyf</em> <br /><br />X-Y fused self-organising maps</td>
@@ -2273,7 +2273,7 @@ ordinary regression and classification learners.
 See section <a href="../cost_sensitive_classif/index.html">cost-sensitive classification</a> and the documentation
 of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensClassifWrapper.html">makeCostSensClassifWrapper</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensRegrWrapper.html">makeCostSensRegrWrapper</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensWeightedPairsWrapper.html">makeCostSensWeightedPairsWrapper</a>
 for details.</p>
-<h3 id="multilabel-classification-3">Multilabel classification (3)</h3>
+<h3 id="multilabel-classification-2">Multilabel classification (2)</h3>
 <table>
 <thead>
 <tr>
@@ -2289,17 +2289,6 @@ for details.</p>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td align="left"><strong>multilabel.cforest</strong> <br /> <em>cforest</em> <br /><br />Random forest based on conditional inference trees</td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/party/">party</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="left">prob</td>
-<td align="left"></td>
-</tr>
 <tr>
 <td align="left"><strong>multilabel.randomForestSRC</strong> <br /> <em>rfsrc</em> <br /><br />Random Forest</td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/randomForestSRC/">randomForestSRC</a></td>
