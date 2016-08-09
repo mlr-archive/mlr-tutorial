@@ -530,11 +530,7 @@ surv.lrn
 classif.lrn = setPredictType(classif.lrn, &quot;response&quot;)
 
 ## Change hyperparameter values
-cluster.lrn = setHyperPars(cluster.lrn, N = 4)
-#&gt; cluster.kmeans: couldn't find hyperparameter 'N'
-#&gt; Did you mean one of these hyperparameters instead: trace nstart centers
-#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): cluster.kmeans: Setting parameter N without available description object!
-#&gt; You can switch off this check by using configureMlr!
+cluster.lrn = setHyperPars(cluster.lrn, centers = 4)
 
 ## Go back to default hyperparameter values
 regr.lrn = removeHyperPars(regr.lrn, c(&quot;n.trees&quot;, &quot;interaction.depth&quot;))
