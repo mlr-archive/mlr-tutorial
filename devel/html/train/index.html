@@ -413,7 +413,7 @@ mod = train(lrn, ruspini.task)
 mod
 #&gt; Model for learner.id=cluster.kmeans; learner.class=cluster.kmeans
 #&gt; Trained on: task.id = ruspini; obs = 75; features = 2
-#&gt; Hyperparameters: centers=&lt;numeric&gt;
+#&gt; Hyperparameters: centers=4
 
 ## Peak into mod
 names(mod)
@@ -427,7 +427,7 @@ mod$learner
 #&gt; Class: cluster.kmeans
 #&gt; Properties: numerics,prob
 #&gt; Predict-Type: response
-#&gt; Hyperparameters: centers=&lt;numeric&gt;
+#&gt; Hyperparameters: centers=4
 
 mod$features
 #&gt; [1] &quot;x&quot; &quot;y&quot;

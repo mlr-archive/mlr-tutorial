@@ -463,14 +463,14 @@ train(lrn, iris.task)
 #&gt;  Setting default kernel parameters
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
 #&gt; Trained on: task.id = iris-example; obs = 150; features = 4
-#&gt; Hyperparameters: fit=FALSE,kernel=vanilladot,newParam=&lt;numeric&gt;
+#&gt; Hyperparameters: fit=FALSE,kernel=vanilladot,newParam=3
 
 ## Option &quot;quiet&quot; also masks typos
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;)
 train(lrn, iris.task)
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
 #&gt; Trained on: task.id = iris-example; obs = 150; features = 4
-#&gt; Hyperparameters: fit=FALSE,kernl=&lt;character&gt;
+#&gt; Hyperparameters: fit=FALSE,kernl=vanilladot
 
 ## Alternatively turn off parameter checking, but still see warnings
 configureMlr(on.par.without.desc = &quot;warn&quot;)
@@ -487,7 +487,7 @@ lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newP
 train(lrn, iris.task)
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
 #&gt; Trained on: task.id = iris-example; obs = 150; features = 4
-#&gt; Hyperparameters: fit=FALSE,kernl=&lt;character&gt;,newParam=&lt;numeric&gt;
+#&gt; Hyperparameters: fit=FALSE,kernl=vanilladot,newParam=3
 </code></pre>
 
 <h2 id="example-handling-errors-in-an-underlying-learning-method">Example: Handling errors in an underlying learning method</h2>
@@ -500,7 +500,7 @@ The following example shows how to prevent this:</p>
 <pre><code class="r">## This call gives an error caused by the low number of observations in class &quot;virginica&quot;
 train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
 #&gt; Error in qda.default(x, grouping, ...): some group is too small for 'qda'
-#&gt; Timing stopped at: 0.003 0 0.002
+#&gt; Timing stopped at: 0.002 0 0.003
 
 ## Turn learner errors into warnings
 configureMlr(on.learner.error = &quot;warn&quot;)
