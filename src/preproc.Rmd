@@ -8,23 +8,21 @@ dummy variables for categorical data, any kind of transformation like standardiz
 or Box-Cox, dimensionality reduction and feature extraction and/or selection.
 
 [%mlr] offers several options for data preprocessing.
-Some of the following simple methods to change a [&Task] were already mentioned in the
-section about [learning tasks](task.md):
+Some of the following simple methods to change a [&Task] (or [data.frame](&base::data.frame))
+were already mentioned on the page about [learning tasks](task.md):
 
-* [&capLargeValues]: Convert large/infinite numeric values in a [data.frame](&base::data.frame)
-  or [&Task].
-* [&createDummyFeatures]: Generate dummy variables for factor features in a
-  [data.frame](&base::data.frame) or [&Task].
-* [&dropFeatures]: Remove some features from a [&Task].
-* [&joinClassLevels]: Only for classification: Merge existing classes in a [&Task] to
+* [&capLargeValues]: Convert large/infinite numeric values.
+* [&createDummyFeatures]: Generate dummy variables for factor features.
+* [&dropFeatures]: Remove selected features.
+* [&joinClassLevels]: Only for classification: Merge existing classes to
   new, larger classes.
-* [&mergeSmallFactorLevels]: Merge infrequent levels of factor features in a [&Task].
-* [&normalizeFeatures]: Normalize features in a [&Task] by different methods, e.g.,
+* [&mergeSmallFactorLevels]: Merge infrequent levels of factor features.
+* [&normalizeFeatures]: Normalize features by different methods, e.g.,
   standardization or scaling to a certain range.
-* [&removeConstantFeatures]: Remove constant features from a [&Task].
+* [&removeConstantFeatures]: Remove constant features.
 * [&subsetTask]: Remove observations and/or features from a [&Task].
 
-Moreover, there are tutorial sections devoted to
+Moreover, there are tutorial pages devoted to
 
 * [Feature selection](feature_selection.md) and
 * [Imputation of missing values](impute.md).
