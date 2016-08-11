@@ -217,7 +217,7 @@ The `depth` argument is similar to the `interaction` argument in [&generateParti
 
 ```{r}
 fa.bv = generateFunctionalANOVAData(fit.regr, bh.task, c("crim", "lstat", "age"),
-                                    depth = 2)
+  depth = 2)
 fa.bv
 
 names(table(fa.bv$data$effect)) ## interaction effects estimated
