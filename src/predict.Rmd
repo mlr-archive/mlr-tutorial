@@ -144,7 +144,7 @@ calculateConfusionMatrix(pred)
 
 We can see that correctly classified observation are on the diagonal of the matrix. Missclassifified 
 observations are on the off-diagonal. It is possible to marginalize over the classes and number of errors
-in one class is shown in the `-err.-` row and column. THe resulting object hast the class [&ConfMatrix]
+in one class is shown in the `-err.-` row and column. The resulting object hast the class [&ConfMatrix]
 where its structure is explained in detail.
 
 To get relative frequencies as well as absolute numbers we can set `relative=TRUE`.
