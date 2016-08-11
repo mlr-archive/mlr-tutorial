@@ -23,8 +23,8 @@ slots.
 
 At the core is slot `$fun` which contains the function that calculates the performance value.
 The actual work is done by function [measureMSE](&measures).
-Similar functions, adhering to the same naming scheme, i.e., `measure` followed by the all
-caps measure ID, exist for most performance measures.
+Similar functions, generally adhering to the naming scheme `measure` followed by the
+capitalized measure ID, exist for most performance measures.
 See the [&measures] help page for a complete list.
 
 Just as [&Task] and [Learner](&makeLearner) objects each [Measure](&makeMeasure) has an
