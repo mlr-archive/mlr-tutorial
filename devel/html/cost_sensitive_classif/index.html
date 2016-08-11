@@ -522,6 +522,7 @@ pred
 #&gt; 4  4  Good 0.25182703 0.7481730     Good
 #&gt; 5  5   Bad 0.75193275 0.2480673      Bad
 #&gt; 6  6  Good 0.26230149 0.7376985     Good
+#&gt; ... (1000 rows, 5 cols)
 </code></pre>
 
 <p>The default thresholds for both classes are 0.5.
@@ -560,6 +561,7 @@ pred.th
 #&gt; 4  4  Good 0.25182703 0.7481730      Bad
 #&gt; 5  5   Bad 0.75193275 0.2480673      Bad
 #&gt; 6  6  Good 0.26230149 0.7376985      Bad
+#&gt; ... (1000 rows, 5 cols)
 </code></pre>
 
 <p>In order to calculate the average costs over the entire data set we first need to create a new
@@ -612,7 +614,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.210782
+#&gt; Runtime: 0.214501
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -660,7 +662,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.194564
+#&gt; Runtime: 0.199237
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -781,7 +783,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.250561
+#&gt; Runtime: 0.251607
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -803,7 +805,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.350762
+#&gt; Runtime: 0.369829
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -886,7 +888,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.01
-#&gt; Runtime: 0.39793
+#&gt; Runtime: 0.421519
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -987,7 +989,7 @@ r
 #&gt; mmce.aggr: 0.26
 #&gt; mmce.mean: 0.26
 #&gt; mmce.sd: 0.05
-#&gt; Runtime: 0.108844
+#&gt; Runtime: 0.0753691
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1156,6 +1158,7 @@ pred
 #&gt; 4  4   setosa
 #&gt; 5  5   setosa
 #&gt; 6  6   setosa
+#&gt; ... (150 rows, 2 cols)
 
 performance(pred, measures = list(meancosts, mcp), task = costsens.task)
 #&gt; meancosts       mcp 
