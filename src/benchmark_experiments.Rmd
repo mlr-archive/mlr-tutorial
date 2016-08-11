@@ -528,7 +528,7 @@ GGally::ggpairs(df, 3:5)
   on [&BenchmarkResult] objects and allow you to compare the performance of learning
   algorithms.
   See for example the tutorial page on [ROC curves](roc_analysis.md) and functions
-  [&generateROCRCurvesData], [&plotViperCharts], and [&generateThreshVsPerfData] as well as the
+  [&generateThreshVsPerfData], [&plotROCCurves], and [&plotViperCharts] as well as the
   page about [classifier calibration](classifier_calibration.md) and function [&generateCalibrationData].
 * In the examples shown in this section we applied "raw" learning algorithms, but often things
   are more complicated.
