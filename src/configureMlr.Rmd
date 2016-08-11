@@ -1,12 +1,14 @@
 # Configuring mlr
 
-If you really know what you are doing you may think [%mlr] is limiting you in certain ways.
 [%mlr] is designed to make usage errors due to typos or invalid parameter values
 as unlikely as possible.
-But sometimes you want to break those barriers and get full access.
-For all available options, simply refer to the documentation of [&configureMlr].
+Occasionally, you might want to break those barriers and get full access, for example to
+reduce the amount of output on the console or to turn off checks.
+For all available options simply refer to the documentation of [&configureMlr].
+In the following we show some common use cases.
 
-Function [&configureMlr] permits to set options globally for your current **R** session.
+Generally, function [&configureMlr] permits to set options globally for your current **R**
+session.
 
 It is also possible to set options locally.
 
@@ -14,7 +16,7 @@ It is also possible to set options locally.
   can be set for an individual learner via the ` config` argument of [&makeLearner].
   The local precedes the global configuration.
 * Some functions like [&resample], [&benchmark], [&selectFeatures], [&tuneParams],
-  and [&tuneParamsMultiCrit] have a `show.info` flag that controls if verbose messages
+  and [&tuneParamsMultiCrit] have a `show.info` flag that controls if progress messages
   are shown. The default value of `show.info` can be set by [&configureMlr].
 
 
@@ -37,7 +39,7 @@ r = resample(lrn, iris.task, rdesc, show.info = FALSE)
 the progress messages.)
 
 To globally suppress the output for all subsequent learners and calls to [&resample],
-[&benchmark], etc. try the following:
+[&benchmark] etc. do the following:
 
 ```{r}
 configureMlr(show.learner.output = FALSE, show.info = FALSE)
@@ -64,12 +66,12 @@ getMlrOptions()
 
 
 ## Example: Turning off parameter checking
-It might happen that you want to access a new parameter of a [Learner](&makeLearner) which
-is already available in [%mlr], but the parameter is not "registered" in the learner's
-[parameter set](&ParamHelpers::makeParamSet) yet.
+It might happen that you want to set a parameter of a [Learner](&makeLearner), but the
+parameter is not registered in the learner's [parameter set](&ParamHelpers::makeParamSet)
+yet.
 In this case you might want to [contact us](https://github.com/mlr-org/mlr#get-in-touch)
 or [open an issue](https://github.com/mlr-org/mlr/issues/new) as well!
-But until then you can turn off [%mlr]'s parameter checking.
+But until the problem is fixed you can turn off [%mlr]'s parameter checking.
 The parameter setting will then be passed to the underlying function without further ado.
 
 ```{r error=TRUE}
@@ -93,19 +95,19 @@ train(lrn, iris.task)
 ```
 
 
-## Example: Handling errors in an underlying learning method
-If an underlying learning method throws an error the default behavior of [%mlr] is to
+## Example: Handling errors in a learning method
+If a learning method throws an error the default behavior of [%mlr] is to
 generate an exception as well.
-However, in some situations, for example if you conduct a [benchmark study](benchmark_experiments.md)
+However, in some situations, for example if you conduct a larger [benchmark study](benchmark_experiments.md)
 with multiple data sets and learners, you usually don't want the whole experiment stopped due
 to one error.
-The following example shows how to prevent this:
+You can prevent this using the `on.learner.error` option of [&configureMlr].
 
 ```{r error=TRUE}
 ## This call gives an error caused by the low number of observations in class "virginica"
 train("classif.qda", task = iris.task, subset = 1:104)
 
-## Turn learner errors into warnings
+## Get a warning instead of an error
 configureMlr(on.learner.error = "warn")
 mod = train("classif.qda", task = iris.task, subset = 1:104)
 
@@ -124,6 +126,7 @@ pred
 performance(pred)
 ```
 
-Instead of an exception, a warning is issued and a [&FailureModel] is created.
-Function [&getFailureModelMsg] extracts the error message.
+If `on.learner.error = "warn"` a warning is issued instead of an exception and an object
+of class [&FailureModel] is created.
+You can extract the error message using function [&getFailureModelMsg].
 All further steps like prediction and performance calculation work and return `NA's`.
