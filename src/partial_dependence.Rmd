@@ -192,9 +192,40 @@ pd.classif.der.ind = generatePartialDependenceData(fit.classif, iris.task, "Peta
 head(pd.classif.der.ind$data)
 ```
 
+## Functional ANOVA
+
+[Hooker (2004)](http://dl.acm.org/citation.cfm?id=1014122) proposed the decomposition of a learned function $\hat{f}$ as a sum of lower dimensional functions $$f(\mathbf{x}) = g_0 + \sum_{i = 1}^p g_{i}(X_i) + \sum_{i \neq j} g_{ij}(x_{ij}) + \ldots$$ where $p$ is the number of features. [&generateFunctionalANOVAData] estimates the individual $g$ functions using partial dependence. When functions depend only on one feature, they are equivalent to partial dependence, but a $g$ function which depends on more than one feature is the "effect" of only those features: lower dimensional "effects" are removed.
+
+$$\hat{g}_u(X) = \frac{1}{N} \sum_{i = 1}^N \left( \hat{f}(X) - \sum_{v \subset u} g_v(X) \right)$$
+
+Here $u$ is a subset of ${1, \ldots, p}$. When $|v| = 1$ $g_v$ can be directly computed by computing the bivariate partial dependence of $\hat{f}$ on $X_u$ and then subtracting off the univariate partial dependences of the features contained in $v$.
+
+Although this decomposition is generalizable to classification it is currently only available for regression tasks.
+
+```{r}
+lrn.regr = makeLearner("regr.ksvm")
+fit.regr = train(lrn.regr, bh.task)
+
+fa = generateFunctionalANOVAData(fit.regr, bh.task, "lstat", depth = 1, fun = median)
+fa
+
+pd.regr = generatePartialDependenceData(fit.regr, bh.task, "lstat", fun = median)
+pd.regr
+````
+
+The `depth` argument is similar to the `interaction` argument in [&generatePartialDependenceData] but instead of specifying whether all of joint "effect" of all the `features` is computed, it determines whether "effects" of all subsets of the features given the specified `depth` are computed. So, for example, with $p$ features and depth 1, the univariate partial dependence is returned. If, instead, `depth = 2`, then all possible bivariate functional ANOVA effects are returned. This is done by computing the univariate partial dependence for each feature and subtracting it from the bivariate partial dependence for each possible pair.
+
+```{r}
+fa.bv = generateFunctionalANOVAData(fit.regr, bh.task, c("crim", "lstat", "age"),
+                                    depth = 2)
+fa.bv
+
+names(table(fa.bv$data$effect)) ## interaction effects estimated
+```
+
 ## Plotting partial dependences
 
-Results from [&generatePartialDependenceData] can be visualized with [&plotPartialDependence]
+Results from [&generatePartialDependenceData] and [&generateFunctionalANOVAData] can be visualized with [&plotPartialDependence]
 and [&plotPartialDependenceGGVIS].
 
 With one feature and a regression task the output is a line plot, with a point for each point
@@ -281,5 +312,19 @@ $(1.5, 2)$ for classes "virginica" and "versicolor".
 
 ```{r, fig.width = 8, fig.height = 4}
 plotPartialDependence(pd.classif.der.ind)
+```
+
+Output from [&generateFunctionalANOVAData] can also be plotted using [&plotPartialDependence].
+
+```{r, fig.width = 8, fig.height = 4}
+fa = generateFunctionalANOVAData(fit.regr, bh.task, c("crim", "lstat"), depth = 1)
+plotPartialDependence(fa)
+````
+
+Interactions can often be more easily visualized by using functional ANOVA.
+
+```{r, fig.width = 8, fig.height = 6}
+fa.bv = generateFunctionalANOVAData(fit.regr, bh.task, c("crim", "lstat"), depth = 2)
+plotPartialDependence(fa.bv, "tile")
 ```
 
