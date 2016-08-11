@@ -374,7 +374,7 @@ filters$rank.correlation$fun
 #&gt;     y = FSelector::rank.correlation(getTaskFormula(task), data = getTaskData(task))
 #&gt;     setNames(y[[&quot;attr_importance&quot;]], getTaskFeatureNames(task))
 #&gt; }
-#&gt; &lt;bytecode: 0x1c777630&gt;
+#&gt; &lt;bytecode: 0x1bdbc388&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -440,18 +440,19 @@ in the alphabet.</p>
 
 <p>The <code>nonsense.filter</code> is now registered in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> and shown by <a href="http://rpackages.ianhowson.com/cran/mlr/man/listFilterMethods.html">listFilterMethods</a>.</p>
 <pre><code class="r">listFilterMethods()$id
-#&gt;  [1] anova.test              carscore               
-#&gt;  [3] cforest.importance      chi.squared            
-#&gt;  [5] gain.ratio              information.gain       
-#&gt;  [7] kruskal.test            linear.correlation     
-#&gt;  [9] mrmr                    nonsense.filter        
-#&gt; [11] oneR                    permutation.importance 
-#&gt; [13] rank.correlation        relief                 
-#&gt; [15] rf.accuracy             rf.importance          
-#&gt; [17] rf.impurity             rf.min.depth           
-#&gt; [19] symmetrical.uncertainty univariate             
-#&gt; [21] univariate.model.score  variance               
-#&gt; 22 Levels: anova.test carscore cforest.importance ... variance
+#&gt;  [1] anova.test                 carscore                  
+#&gt;  [3] cforest.importance         chi.squared               
+#&gt;  [5] gain.ratio                 information.gain          
+#&gt;  [7] kruskal.test               linear.correlation        
+#&gt;  [9] mrmr                       nonsense.filter           
+#&gt; [11] oneR                       permutation.importance    
+#&gt; [13] randomForest.importance    randomForestSRC.rfsrc     
+#&gt; [15] randomForestSRC.var.select rank.correlation          
+#&gt; [17] relief                     rf.importance             
+#&gt; [19] rf.min.depth               symmetrical.uncertainty   
+#&gt; [21] univariate                 univariate.model.score    
+#&gt; [23] variance                  
+#&gt; 23 Levels: anova.test carscore cforest.importance ... variance
 </code></pre>
 
 <p>You can use it like any other filter method already integrated in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> (i.e., via the
