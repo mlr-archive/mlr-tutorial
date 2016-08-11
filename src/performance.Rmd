@@ -134,7 +134,11 @@ See the help page of [Measure](&makeMeasure) for information on the individual s
 str(mmce)
 ```
 
-## Binary classification: Plot performance versus threshold
+## Binary classification
+
+For binary classification specialized techniques exist to analyize the performance. 
+
+### Plot performance versus threshold
 
 As you may recall (see the previous section on [making predictions](predict.md))
 in binary classification we can adjust the threshold used to map probabilities to class labels.
@@ -166,3 +170,21 @@ multiple measures, one of them is mapped to an interactive sidebar which selects
 ```{r, eval = FALSE}
 plotThreshVsPerfGGVIS(d)
 ```
+
+### ROC measures
+
+For binary classification a large number of specialized measures exist, which can be nicely formatted into
+one matrix, see for example the [receiver operator characteristic page on wikipedia](https://en.wikipedia.org/wiki/Receiver_operating_characteristic).
+
+We can generate a similiar table with the `calculateROCMeasures` function.
+
+```{r}
+r = calculateROCMeasures(pred)
+r
+```
+
+The topleft 2 times 2 matrix is the [confusion matrix](predict.md#Confusion_matrix), so that we can see
+the relative frequency of correctly and incorrectly classified observations. Then a large number of
+additional measures is added to the matrix that can be used to evaluate the model performance. Explainations of 
+the abbreviations is also returned as well as further common names for some measures. The printing of the
+abbreviations can be toggled in the print function with `print(r, abbreviations = FALSE)`.

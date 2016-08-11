@@ -113,11 +113,6 @@ pred = predict(mod, task = iris.task)
 pred
 ```
 
-A confusion matrix can be obtained by calling [&getConfMatrix].
-```{r}
-getConfMatrix(pred)
-```
-
 In order to get predicted posterior probabilities we have to create a [Learner](&makeLearner)
 with the appropriate ``predict.type``.
 
@@ -136,6 +131,36 @@ As mentioned above, the predicted posterior probabilities can be accessed via th
 [&getPredictionProbabilities] function.
 ```{r}
 head(getPredictionProbabilities(pred))
+```
+
+### Confusion matrix
+
+A confusion matrix can be obtained by calling [&calculateConfusionMatrix]. The columns represent
+predicted values and the rows the true labels.
+
+```{r}
+calculateConfusionMatrix(pred)
+```
+
+We can see that correctly classified observation are on the diagonal of the matrix. Missclassifified 
+observations are on the off-diagonal. It is possible to marginalize over the classes and number of errors
+in one class is shown in the `-err.-` row and column. THe resulting object hast the class [&ConfMatrix]
+where its structure is explained in detail.
+
+To get relative frequencies as well as absolute numbers we can set `relative=TRUE`.
+
+```{r}
+calculateConfusionMatrix(pred, relative = TRUE)
+```
+
+Since it is possible to normalize by row **or** column but not both at once, every element of the 
+relative confusion matrix consists of two values. The first is the relative frequency grouped by row 
+(the true label) and the second value grouped by column (the predicted label).
+
+Additionally we can also already calculate the absolute number of observations for each predicted and true label. These can be added to the matrix (both absolute and relative) with `sums=TRUE`.
+
+```{r}
+calculateConfusionMatrix(pred, relative = TRUE, sums = TRUE)
 ```
 
 
