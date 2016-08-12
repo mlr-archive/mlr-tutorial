@@ -373,8 +373,9 @@ Under these circumstances the classifier is expected to work well for a whole ra
 decision thresholds and the area under the ROC curve (AUC) provides a scalar performance
 measure for comparing and selecting classifiers.
 <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> provides the AUC for binary classification (<a href="../measures/index.html">auc</a> based on package
-<a href="http://rpackages.ianhowson.com/cran/ROCR/man/performance.html">ROCR</a>) and also a generalization of the AUC for the
-multi-class case (<a href="../measures/index.html">multiclass.auc</a> based on package <a href="http://rpackages.ianhowson.com/cran/pROC/man/multiclass.html">pROC</a>).</p>
+<a href="http://rpackages.ianhowson.com/cran/ROCR/man/performance.html">ROCR</a>) and also several generalizations of the AUC to the
+multi-class case (e.g., <a href="../measures/index.html">multiclass.au1p</a>, <a href="../measures/index.html">multiclass.au1u</a> based
+on <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf">Ferri et al. (2009)</a>).</p>
 <p><a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> offers three ways to plot ROC and other performance curves.</p>
 <ol>
 <li>Function <a href="http://rpackages.ianhowson.com/cran/mlr/man/plotROCCurves.html">plotROCCurves</a> can, based on the output of <a href="http://rpackages.ianhowson.com/cran/mlr/man/generateThreshVsPerfData.html">generateThreshVsPerfData</a>,
@@ -694,7 +695,7 @@ Below plots for the benchmark experiment (Example 2) are generated.</p>
 <pre><code class="r">z = plotViperCharts(bmr, chart = &quot;rocc&quot;, browse = FALSE)
 </code></pre>
 
-<p>You can see the plot created this way <a href="http://viper.ijs.si/chart/roc/e67ddedc-638c-4d17-8342-936085774ef3/">here</a>.
+<p>You can see the plot created this way <a href="http://viper.ijs.si/chart/roc/c833e093-7d07-4d7e-916e-91f4c617fac3/">here</a>.
 Note that besides ROC curves you get several other plots like lift charts or cost curves.
 For details, see <a href="http://rpackages.ianhowson.com/cran/mlr/man/plotViperCharts.html">plotViperCharts</a>.</p></div>
             

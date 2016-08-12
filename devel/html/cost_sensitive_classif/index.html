@@ -514,7 +514,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.50,Good=0.50
-#&gt; time: 0.01
+#&gt; time: 0.02
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -553,7 +553,7 @@ pred.th
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.17,Good=0.83
-#&gt; time: 0.01
+#&gt; time: 0.02
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -614,7 +614,7 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.214501
+#&gt; Runtime: 0.351331
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -662,7 +662,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.199237
+#&gt; Runtime: 0.33899
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -783,7 +783,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.251607
+#&gt; Runtime: 0.417209
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -805,7 +805,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.369829
+#&gt; Runtime: 0.613957
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -875,7 +875,7 @@ lrn
 #&gt; Class: OversampleWrapper
 #&gt; Properties: numerics,factors,weights,prob,twoclass,multiclass
 #&gt; Predict-Type: response
-#&gt; Hyperparameters: trace=FALSE,osw.rate=5,osw.cl=&lt;character&gt;
+#&gt; Hyperparameters: trace=FALSE,osw.rate=5,osw.cl=Bad
 
 r = resample(lrn, credit.task, rin, measures = list(credit.costs, mmce), show.info = FALSE)
 r
@@ -888,7 +888,7 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.01
-#&gt; Runtime: 0.421519
+#&gt; Runtime: 0.638951
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -989,7 +989,7 @@ r
 #&gt; mmce.aggr: 0.26
 #&gt; mmce.mean: 0.26
 #&gt; mmce.sd: 0.05
-#&gt; Runtime: 0.0753691
+#&gt; Runtime: 0.121011
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
