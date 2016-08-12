@@ -660,7 +660,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Computes AUC of c(c - 1) binary classifiers while considering the a priori distribution of the classes. See Ferri et. al paper: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</a></td>
+<td align="left">Computes AUC of c(c - 1) binary classifiers while considering the a priori distribution of the classes. See Ferri et al.: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.</a></td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.au1u</a></strong> <br />Average 1 vs. 1 multiclass AUC</td>
@@ -675,10 +675,10 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Computes AUC of c(c - 1) binary classifiers (all possible pairwise combinations) while considering uniform distribution of the classes. See Ferri et. al: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</a></td>
+<td align="left">Computes AUC of c(c - 1) binary classifiers (all possible pairwise combinations) while considering uniform distribution of the classes. See Ferri et al.: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.</a></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.aunp</a></strong> <br />Weighted average multiclass AUC</td>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.aunp</a></strong> <br />Weighted average 1 vs. rest multiclass AUC</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0.5</td>
@@ -690,10 +690,10 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Computes the AUC treating a c-dimensional classifier as c two-dimensional classifiers, taking into account the prior probability of each class (p(j)). See Ferri et. al: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</a></td>
+<td align="left">Computes the AUC treating a c-dimensional classifier as c two-dimensional classifiers, taking into account the prior probability of each class. See Ferri et al.: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.</a></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.aunu</a></strong> <br />Average multiclass AUC</td>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.aunu</a></strong> <br />Average 1 vs. rest multiclass AUC</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0.5</td>
@@ -705,7 +705,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Computes the AUC treating a c-dimensional classifier as c two-dimensional classifiers, where classes are assumed to have uniform distribution, in order to have a measure which is independent of class distribution change. See Ferri et. al: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</a></td>
+<td align="left">Computes the AUC treating a c-dimensional classifier as c two-dimensional classifiers, where classes are assumed to have uniform distribution, in order to have a measure which is independent of class distribution change. See Ferri et al.: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf.</a></td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.brier</a></strong> <br />Multiclass Brier score</td>
@@ -720,7 +720,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j. From <a href="http://docs.lib.noaa.gov/rescue/mwr/078/mwr-078-01-0001.pdf">http://docs.lib.noaa.gov/rescue/mwr/078/mwr-078-01-0001.pdf</a></td>
+<td align="left">Defined as: (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probability of observation i for class j. From <a href="http://docs.lib.noaa.gov/rescue/mwr/078/mwr-078-01-0001.pdf.">http://docs.lib.noaa.gov/rescue/mwr/078/mwr-078-01-0001.pdf.</a></td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">npv</a></strong> <br />Negative predictive value</td>
@@ -845,7 +845,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Adjusted R-squared is only defined for normal linear regression</td>
+<td align="left">Adjusted R-squared is only defined for normal linear regression.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">expvar</a></strong> <br />Explained variance</td>
@@ -859,7 +859,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Similar to measaure rsq (R-squared). Defined as explained_sum_of_squares / total_sum_of_squares.</td>
+<td align="left">Similar to measure rsq (R-squared). Defined as explained_sum_of_squares / total_sum_of_squares.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mae</a></strong> <br />Mean of absolute errors</td>
@@ -1185,7 +1185,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Mean of proportion of correctly predicted labels with respect to the total number of labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a></td>
+<td align="left">Mean of proportion of correctly predicted labels with respect to the total number of labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf.">https://journal.r-project.org/archive/2015-2/charte-charte.pdf.</a></td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.f1</a></strong> <br />F1 measure (multilabel)</td>
@@ -1199,7 +1199,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Harmonic mean of precision and recall on a per instance basis (Micro-F1),   following the definition by Montanes et al.: <a href="http://www.sciencedirect.com/science/article/pii/S0031320313004019">http://www.sciencedirect.com/science/article/pii/S0031320313004019</a></td>
+<td align="left">Harmonic mean of precision and recall on a per instance basis (Micro-F1),   following the definition by Montanes et al.: <a href="http://www.sciencedirect.com/science/article/pii/S0031320313004019.">http://www.sciencedirect.com/science/article/pii/S0031320313004019.</a></td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.hamloss</a></strong> <br />Hamming loss</td>
@@ -1213,10 +1213,10 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Proportion of labels whose relevance is incorrectly predicted,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a></td>
+<td align="left">Proportion of labels whose relevance is incorrectly predicted,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf.">https://journal.r-project.org/archive/2015-2/charte-charte.pdf.</a></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.ppv</a></strong> <br />Postive predicive value (multilabel)</td>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.ppv</a></strong> <br />Positive predictive value (multilabel)</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -1227,7 +1227,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Also called precision. Mean of ratio of truly predicted labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a></td>
+<td align="left">Also called precision. Mean of ratio of truly predicted labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf.">https://journal.r-project.org/archive/2015-2/charte-charte.pdf.</a></td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.subset01</a></strong> <br />Subset-0-1 loss</td>
@@ -1241,7 +1241,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Proportion of observations where the complete multilabel set (all 0-1-lables) is not correctly predicted,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a></td>
+<td align="left">Proportion of observations where the complete multilabel set (all 0-1-labels) is not correctly predicted,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf.">https://journal.r-project.org/archive/2015-2/charte-charte.pdf.</a></td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.tpr</a></strong> <br />TPR (multilabel)</td>
@@ -1255,7 +1255,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Also called recall. Mean of proportion of predicted labels which are relevant for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a></td>
+<td align="left">Also called recall. Mean of proportion of predicted labels which are relevant for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf.">https://journal.r-project.org/archive/2015-2/charte-charte.pdf.</a></td>
 </tr>
 </tbody>
 </table>
