@@ -33,7 +33,8 @@ linkFct = function(x, y) {
 }
 
 cn = function(x) if (is.null(x)) NA else gsub("\\n", " ", x)
-urls = function(x) if (is.na(x)) NA else gsub("(http)(\\S+)", "[\\1\\2](\\1\\2)", x)
+urls = function(x) if (is.na(x)) NA else gsub("(http)(\\S+)(\\.)", "[\\1\\2](\\1\\2)\\3", x)
+# regex is not ideal and can break
 
 getTab = function(type) {
   m = list(featperc = featperc, timeboth = timeboth, timepredict = timepredict, timetrain = timetrain)
