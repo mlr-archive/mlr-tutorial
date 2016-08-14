@@ -716,7 +716,7 @@ pd.regr
 
 <p>The <code>depth</code> argument is similar to the <code>interaction</code> argument in <a href="http://rpackages.ianhowson.com/cran/mlr/man/generatePartialDependenceData.html">generatePartialDependenceData</a> but instead of specifying whether all of joint "effect" of all the <code>features</code> is computed, it determines whether "effects" of all subsets of the features given the specified <code>depth</code> are computed. So, for example, with <script type="math/tex">p</script> features and depth 1, the univariate partial dependence is returned. If, instead, <code>depth = 2</code>, then all possible bivariate functional ANOVA effects are returned. This is done by computing the univariate partial dependence for each feature and subtracting it from the bivariate partial dependence for each possible pair.</p>
 <pre><code class="r">fa.bv = generateFunctionalANOVAData(fit.regr, bh.task, c(&quot;crim&quot;, &quot;lstat&quot;, &quot;age&quot;),
-                                    depth = 2)
+  depth = 2)
 fa.bv
 #&gt; FunctionalANOVAData
 #&gt; Task: BostonHousing-example
