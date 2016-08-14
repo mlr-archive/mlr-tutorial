@@ -465,7 +465,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">The Brier score is defined as the quadratic difference between the probability and the value (1,0) for the class.   That means we use the numeric representation 1 and 0 for our target classes. It is similiar to the mean squared error in regression.   multiclass.brier is the sum over all one vs. all comparisons and for a binary classifcation 2 * brier.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">brier.scaled</a></strong> <br />Brier scaled</td>
@@ -630,7 +630,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: mean(log(p_i)), where p_i is the predicted probability of the true class of observation i.    See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left">Defined as: mean(log(p_i)), where p_i is the predicted probability of the true class of observation i.    This scoring rule is the same as the negative logloss, self-information or surprisal.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mcc</a></strong> <br />Matthews correlation coefficient</td>
@@ -780,7 +780,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: 1 - (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left">Defined as: 1 - (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j.   This scoring rule is the same as 1 - multiclass.brier.  See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">ssr</a></strong> <br />Spherical Scoring Rule</td>

@@ -453,9 +453,8 @@ But until the problem is fixed you can turn off <a href="http://rpackages.ianhow
 The parameter setting will then be passed to the underlying function without further ado.</p>
 <pre><code class="r">## Support Vector Machine with linear kernel and new parameter 'newParam'
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3)
-#&gt; classif.ksvm: couldn't find hyperparameter 'newParam'
-#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel
-#&gt; Error in setHyperPars2.Learner(learner, insert(par.vals, args), show.info = show.info): classif.ksvm: Setting parameter newParam without available description object!
+#&gt; Error in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newParam without available description object! 
+#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel 
 #&gt; You can switch off this check by using configureMlr!
 
 ## Turn off parameter checking completely
@@ -477,13 +476,11 @@ train(lrn, iris.task)
 ## Alternatively turn off parameter checking, but still see warnings
 configureMlr(on.par.without.desc = &quot;warn&quot;)
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newParam = 3)
-#&gt; classif.ksvm: couldn't find hyperparameter 'kernl'
-#&gt; Did you mean one of these hyperparameters instead: kernel nu degree
-#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args), show.info = show.info): classif.ksvm: Setting parameter kernl without available description object!
+#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter kernl without available description object! 
+#&gt; Did you mean one of these hyperparameters instead: kernel nu degree 
 #&gt; You can switch off this check by using configureMlr!
-#&gt; classif.ksvm: couldn't find hyperparameter 'newParam'
-#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel
-#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args), show.info = show.info): classif.ksvm: Setting parameter newParam without available description object!
+#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newParam without available description object! 
+#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel 
 #&gt; You can switch off this check by using configureMlr!
 
 train(lrn, iris.task)
@@ -502,7 +499,7 @@ You can prevent this using the <code>on.learner.error</code> option of <a href="
 <pre><code class="r">## This call gives an error caused by the low number of observations in class &quot;virginica&quot;
 train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
 #&gt; Error in qda.default(x, grouping, ...): some group is too small for 'qda'
-#&gt; Timing stopped at: 0.004 0 0.004
+#&gt; Timing stopped at: 0.003 0 0.002
 
 ## Get a warning instead of an error
 configureMlr(on.learner.error = &quot;warn&quot;)
