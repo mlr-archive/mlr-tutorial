@@ -618,6 +618,21 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left">Defined as: -mean(log(p_i)), where p_i is the predicted probability of the true class of observation i. Inspired by <a href="https://www.kaggle.com/wiki/MultiClassLogLoss.">https://www.kaggle.com/wiki/MultiClassLogLoss.</a></td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">lsr</a></strong> <br />Logarithmic Scoring Rule</td>
+<td align="center"></td>
+<td align="right">0</td>
+<td align="right">-Inf</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: mean(log(p_i)), where p_i is the predicted probability of the true class of observation i.    See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mcc</a></strong> <br />Matthews correlation coefficient</td>
 <td align="center"></td>
 <td align="right">1</td>
@@ -751,6 +766,36 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
 <td align="left">Also called precision.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">qsr</a></strong> <br />Quadratic Scoring Rule</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">-1</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: 1 - (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">ssr</a></strong> <br />Spherical Scoring Rule</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: mean(p_i(sum_j(p_ij))), where p_i is the predicted probability of the true class of observation i and p_ij is the predicted probablity of observation i for class j.  See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">tn</a></strong> <br />True negatives</td>

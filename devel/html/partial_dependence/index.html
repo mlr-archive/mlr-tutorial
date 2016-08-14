@@ -685,7 +685,7 @@ fa
 #&gt; Features: lstat
 #&gt; Target: medv
 #&gt; 
-#&gt; Effects Computed: lstat
+#&gt; 
 #&gt;   effect     medv     lstat
 #&gt; 1  lstat 24.89524  1.730000
 #&gt; 2  lstat 23.76025  5.756667
@@ -723,7 +723,7 @@ fa.bv
 #&gt; Features: crim, lstat, age
 #&gt; Target: medv
 #&gt; 
-#&gt; Effects Computed: crim:lstat, crim:age, lstat:age
+#&gt; 
 #&gt;       effect      medv      crim lstat age
 #&gt; 1 crim:lstat -22.68734  0.006320  1.73  NA
 #&gt; 2 crim:lstat -23.22114  9.891862  1.73  NA
@@ -734,7 +734,7 @@ fa.bv
 #&gt; ... (300 rows, 5 cols)
 
 names(table(fa.bv$data$effect)) ## interaction effects estimated
-#&gt; [1] &quot;crim:lstat&quot; &quot;crim:age&quot;   &quot;lstat:age&quot;
+#&gt; [1] &quot;crim:age&quot;   &quot;crim:lstat&quot; &quot;lstat:age&quot;
 </code></pre>
 
 <h2 id="plotting-partial-dependences">Plotting partial dependences</h2>
