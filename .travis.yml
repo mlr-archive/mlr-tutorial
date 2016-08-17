@@ -57,6 +57,6 @@ notifications:
         - bernd_bischl@gmx.net
         - larsko@cs.ubc.ca
         - schiffner@math.uni-duesseldorf.de
-        - travis.mlr@jakob-r.de
     on_success: change
     on_failure: always
+  slack: mlr-org:jiHX1LxqUBJUCJmCioo7vUVl#buildnotifications
