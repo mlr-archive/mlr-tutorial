@@ -27,7 +27,7 @@ learner. In addition, you may provide a human-readable name, a short name and a
 note with information relevant to users of the learner.
 
 First, name your learner. The naming conventions in [%mlr] are
-``classif.<R_method_name>`` for classification, ``multilabel.<R_method_name>`` 
+``classif.<R_method_name>`` for classification, ``multilabel.<R_method_name>``
 for multilabel classification, ``regr.<R_method_name>`` for
 regression, ``surv.<R_method_name>`` for survival analysis,
 ``costsens.<R_method_name>`` for cost sensitive learning, and
@@ -369,5 +369,44 @@ trainLearner.multilabel.rFerns = function(.learner, .task, .subset, .weights = N
 ```{r, code=showFunctionDef(mlr:::predictLearner.multilabel.rFerns), eval=FALSE, tidy=TRUE}
 predictLearner.multilabel.rFerns = function(.learner, .model, .newdata, ...) {
   as.matrix(predict(.model$learner.model, .newdata, ...))
+}
+```
+
+
+## Creating a new feature importance method
+Some learners, for example decision trees and random forests, can calculate feature importance
+values, which can be extracted from a [fitted model](&makeWrappedModel) using function
+[&getFeatureImportance].
+
+If your newly integrated learner supports this you need to
+
+* add `"featimp"` to the learner properties and
+* implement a new S3 method for function [&getFeatureImportanceLearner] (which later is called
+  internally by [&getFeatureImportance]).
+
+in order to make this work.
+
+This method takes the [&Learner] `.learner`, the [WrappedModel](&makeWrappedModel) `.model`
+and potential further arguments and calculates or extracts the feature importance.
+It must return a named vector of importance values.
+
+Below are two simple examples.
+In case of `"classif.rpart"` the feature importance values can be easily extracted from the
+fitted model.
+
+```{r, code=showFunctionDef(mlr:::getFeatureImportanceLearner.classif.rpart), eval=FALSE, tidy=TRUE, tidy.opts=list(indent=2, width.cutoff=100)}
+getFeatureImportanceLearner.classif.rpart = function(.learner, .model, ...) {
+  mod = getLearnerModel(.model)
+  mod$variable.importance
+}
+```
+
+For the [random forest](&randomForestSRC::rfsrc) from package [%randomForestSRC] function
+[vimp](&randomForestSRC::vimp) is called.
+
+```{r, code=showFunctionDef(mlr:::getFeatureImportanceLearner.classif.randomForestSRC), eval=FALSE, tidy=TRUE, tidy.opts=list(indent=2, width.cutoff=100)}
+getFeatureImportanceLearner.classif.randomForestSRC = function(.learner, .model, ...) {
+  mod = getLearnerModel(.model)
+  randomForestSRC::vimp(mod, ...)$importance[, "all"]
 }
 ```
