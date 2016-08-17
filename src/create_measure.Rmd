@@ -1,4 +1,4 @@
-# Integrating another Measure
+# Integrating Another Measure
 
 In some cases, you might want to evaluate a [&Prediction] or [&ResamplePrediction] with a
 [Measure](&makeMeasure) which is not yet implemented in [%mlr]. This could be either a
