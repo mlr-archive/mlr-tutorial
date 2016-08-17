@@ -7,18 +7,18 @@ dest = "docs"
 
 ## urls for docs
 # - rdocumentation
-# urlMlrFunctions = "http://www.rdocumentation.org/packages/mlr/functions/"
-# urlContribPackages = urlBasePackages = "http://www.rdocumentation.org/packages/"
-# docs = "functions/"
-# ext = ".html"
+urlMlrFunctions = "http://www.rdocumentation.org/packages/mlr/functions/"
+urlContribPackages = urlBasePackages = "http://www.rdocumentation.org/packages/"
+docs = "functions/"
+ext = ".html"
 
 # - ianhowson (does not have base packages)
-urlMlrFunctions = "http://rpackages.ianhowson.com/cran/mlr/man/"
-urlContribPackages = "http://rpackages.ianhowson.com/cran/"
-urlBasePackages = "http://www.inside-r.org/r-doc/"
-docs = "man/"
-ext = ".html"
-baseR = c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4","tcltk", "tools", "utils")
+# urlMlrFunctions = "http://rpackages.ianhowson.com/cran/mlr/man/"
+# urlContribPackages = "http://rpackages.ianhowson.com/cran/"
+# urlBasePackages = "http://www.inside-r.org/r-doc/"
+# docs = "man/"
+# ext = ".html"
+# baseR = c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4","tcltk", "tools", "utils")
 
 # - inside-r (does have contributed packages and base/recommended packages in different places)
 # urlMlrFunctions = "http://www.inside-r.org/packages/cran/mlr/docs/"
