@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+
+	<title>Advanced Tuning - mlr tutorial</title>
+
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/custom_mlr.css" rel="stylesheet">
+        <link href="../css/custom_highlight.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../index.html">mlr tutorial</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../index.html">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../task/index.html">Tasks</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../learner/index.html">Learners</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../train/index.html">Train</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../predict/index.html">Predict</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../performance/index.html">Performance</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../resample/index.html">Resampling</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../tune/index.html">Tuning</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../benchmark_experiments/index.html">Benchmark Experiments</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../parallelization/index.html">Parallelization</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../visualization/index.html">Visualization</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../configureMlr/index.html">Configuration</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../wrapper/index.html">Wrapped Learners</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../impute/index.html">Imputation</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../bagging/index.html">Bagging</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="index.html">Advanced Tuning</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../feature_selection/index.html">Feature Selection</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../nested_resampling/index.html">Nested Resampling</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../over_and_undersampling/index.html">Imbalanced Classification Problems</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../roc_analysis/index.html">ROC Analysis</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../multilabel/index.html">Multilabel Classification</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../learning_curve/index.html">Learning Curves</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../partial_dependence/index.html">Partial Dependence Plots</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../create_learner/index.html">Create Custom Learners</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../create_measure/index.html">Create Custom Measures</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../create_imputation/index.html">Create Imputation Methods</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../create_filter/index.html">Create Custom Filters</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Appendix <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../example_tasks/index.html">Example Tasks</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../integrated_learners/index.html">Integrated Learners</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../measures/index.html">Implemented Performance Measures</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../filter_methods/index.html">Integrated Filter Methods</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../bagging/index.html">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../feature_selection/index.html">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/mlr-org/mlr/">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#advanced-tuning">Advanced Tuning</a></li>
+        
+            <li><a href="#iterated-f-racing-for-mixed-spaces-and-dependencies">Iterated F-Racing for mixed spaces and dependencies</a></li>
+        
+            <li><a href="#tuning-across-whole-model-spaces-with-modelmultiplexer">Tuning across whole model spaces with ModelMultiplexer</a></li>
+        
+            <li><a href="#multi-criteria-evaluation-and-optimization">Multi-criteria evaluation and optimization</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="advanced-tuning">Advanced Tuning</h1>
+<h2 id="iterated-f-racing-for-mixed-spaces-and-dependencies">Iterated F-Racing for mixed spaces and dependencies</h2>
+<p>The package supports a larger number of tuning algorithms, which can all be looked up and
+selected via <a href="http://www.rdocumentation.org/packages/mlr/functions/TuneControl.html">TuneControl</a>. One of the cooler algorithms is iterated F-racing from the 
+<a href="http://www.rdocumentation.org/packages/irace/">irace</a> package (technical description <a href="http://iridia.ulb.ac.be/IridiaTrSeries/link/IridiaTr2011-004.pdf">here</a>). This not only works for arbitrary parameter types (numeric, integer,
+discrete, logical), but also for so-called dependent / hierarchical parameters:</p>
+<pre><code class="r">ps = makeParamSet(
+  makeNumericParam(&quot;C&quot;, lower = -12, upper = 12, trafo = function(x) 2^x),
+  makeDiscreteParam(&quot;kernel&quot;, values = c(&quot;vanilladot&quot;, &quot;polydot&quot;, &quot;rbfdot&quot;)),
+  makeNumericParam(&quot;sigma&quot;, lower = -12, upper = 12, trafo = function(x) 2^x,
+    requires = quote(kernel == &quot;rbfdot&quot;)),
+  makeIntegerParam(&quot;degree&quot;, lower = 2L, upper = 5L,
+    requires = quote(kernel == &quot;polydot&quot;))
+)
+ctrl = makeTuneControlIrace(maxExperiments = 200L)
+rdesc = makeResampleDesc(&quot;Holdout&quot;)
+res = tuneParams(&quot;classif.ksvm&quot;, iris.task, rdesc, par.set = ps, control = ctrl, show.info = FALSE)
+print(head(as.data.frame(res$opt.path)))
+#&gt;            C     kernel    sigma degree mmce.test.mean dob eol
+#&gt; 1   8.838138     rbfdot 3.947862     NA           0.18   1  NA
+#&gt; 2  -5.598352 vanilladot       NA     NA           0.12   1  NA
+#&gt; 3  -7.488611 vanilladot       NA     NA           0.36   1  NA
+#&gt; 4   4.267949    polydot       NA      3           0.08   1  NA
+#&gt; 5 -10.079158    polydot       NA      5           0.06   1  NA
+#&gt; 6 -10.643475 vanilladot       NA     NA           0.36   1  NA
+#&gt;   error.message exec.time
+#&gt; 1          &lt;NA&gt;     0.040
+#&gt; 2          &lt;NA&gt;     0.024
+#&gt; 3          &lt;NA&gt;     0.025
+#&gt; 4          &lt;NA&gt;     0.025
+#&gt; 5          &lt;NA&gt;     0.024
+#&gt; 6          &lt;NA&gt;     0.024
+</code></pre>
+
+<p>See how we made the kernel parameters like <code>sigma</code> and <code>degree</code> dependent on the <code>kernel</code>
+selection parameters? This approach allows you to tune parameters of multiple kernels at once, 
+efficiently concentrating on the ones which work best for your given data set.</p>
+<h2 id="tuning-across-whole-model-spaces-with-modelmultiplexer">Tuning across whole model spaces with ModelMultiplexer</h2>
+<p>We can now take the following example even one step further. If we use the
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeModelMultiplexer.html">ModelMultiplexer</a> we can tune over different model classes at once,
+just as we did with the SVM kernels above.</p>
+<pre><code class="r">base.learners = list(
+  makeLearner(&quot;classif.ksvm&quot;),
+  makeLearner(&quot;classif.randomForest&quot;)
+)
+lrn = makeModelMultiplexer(base.learners)
+</code></pre>
+
+<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeModelMultiplexerParamSet.html">makeModelMultiplexerParamSet</a> offers a simple way to contruct parameter set for tuning:
+The parameter names are prefixed automatically and the <code>requires</code> element is set, too,
+to make all paramaters subordinate to <code>selected.learner</code>.</p>
+<pre><code class="r">ps = makeModelMultiplexerParamSet(lrn,
+  makeNumericParam(&quot;sigma&quot;, lower = -12, upper = 12, trafo = function(x) 2^x),
+  makeIntegerParam(&quot;ntree&quot;, lower = 1L, upper = 500L)
+)
+print(ps)
+#&gt;                                Type len Def
+#&gt; selected.learner           discrete   -   -
+#&gt; classif.ksvm.sigma          numeric   -   -
+#&gt; classif.randomForest.ntree  integer   -   -
+#&gt;                                                       Constr Req Tunable
+#&gt; selected.learner           classif.ksvm,classif.randomForest   -    TRUE
+#&gt; classif.ksvm.sigma                                 -12 to 12   Y    TRUE
+#&gt; classif.randomForest.ntree                          1 to 500   Y    TRUE
+#&gt;                            Trafo
+#&gt; selected.learner               -
+#&gt; classif.ksvm.sigma             Y
+#&gt; classif.randomForest.ntree     -
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 2L)
+ctrl = makeTuneControlIrace(maxExperiments = 200L)
+res = tuneParams(lrn, iris.task, rdesc, par.set = ps, control = ctrl, show.info = FALSE)
+print(head(as.data.frame(res$opt.path)))
+#&gt;       selected.learner classif.ksvm.sigma classif.randomForest.ntree
+#&gt; 1         classif.ksvm           8.511120                         NA
+#&gt; 2         classif.ksvm           2.601238                         NA
+#&gt; 3 classif.randomForest                 NA                        435
+#&gt; 4 classif.randomForest                 NA                         18
+#&gt; 5         classif.ksvm          -1.884101                         NA
+#&gt; 6         classif.ksvm           4.388728                         NA
+#&gt;   mmce.test.mean dob eol error.message exec.time
+#&gt; 1      0.6466667   1  NA          &lt;NA&gt;     0.058
+#&gt; 2      0.1400000   1  NA          &lt;NA&gt;     0.075
+#&gt; 3      0.0400000   1  NA          &lt;NA&gt;     0.064
+#&gt; 4      0.0400000   1  NA          &lt;NA&gt;     0.056
+#&gt; 5      0.0400000   1  NA          &lt;NA&gt;     0.073
+#&gt; 6      0.3333333   1  NA          &lt;NA&gt;     0.071
+</code></pre>
+
+<h2 id="multi-criteria-evaluation-and-optimization">Multi-criteria evaluation and optimization</h2>
+<p>During tuning you might want to optimize multiple, potentially conflicting, performance measures
+simultaneously.</p>
+<p>In the following example we aim to minimize both, the false positive and the false negative rates
+(<a href="../measures/index.html">fpr</a> and <a href="../measures/index.html">fnr</a>).
+We again tune the hyperparameters of an SVM (function <a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a>) with a radial
+basis kernel and use the <a href="http://www.rdocumentation.org/packages/mlr/functions/sonar.task.html">sonar classification task</a> for illustration.
+As search strategy we choose a random search.</p>
+<p>For all available multi-criteria tuning algorithms see <a href="http://www.rdocumentation.org/packages/mlr/functions/TuneMultiCritControl.html">TuneMultiCritControl</a>.</p>
+<pre><code class="r">ps = makeParamSet(
+  makeNumericParam(&quot;C&quot;, lower = -12, upper = 12, trafo = function(x) 2^x),
+  makeNumericParam(&quot;sigma&quot;, lower = -12, upper = 12, trafo = function(x) 2^x)
+)
+ctrl = makeTuneMultiCritControlRandom(maxit = 30L)
+rdesc = makeResampleDesc(&quot;Holdout&quot;)
+res = tuneParamsMultiCrit(&quot;classif.ksvm&quot;, task = sonar.task, resampling = rdesc, par.set = ps,
+  measures = list(fpr, fnr), control = ctrl, show.info = FALSE)
+res
+#&gt; Tune multicrit result:
+#&gt; Points on front: 3
+head(as.data.frame(trafoOptPath(res$opt.path)))
+#&gt;              C        sigma fpr.test.mean fnr.test.mean dob eol
+#&gt; 1 6.731935e+01 1.324673e+03     1.0000000     0.0000000   1  NA
+#&gt; 2 4.719282e-02 7.660068e-04     1.0000000     0.0000000   2  NA
+#&gt; 3 7.004097e+00 1.211249e+01     1.0000000     0.0000000   3  NA
+#&gt; 4 1.207932e+00 6.096186e+00     1.0000000     0.0000000   4  NA
+#&gt; 5 5.203364e+00 2.781734e-03     0.1515152     0.1621622   5  NA
+#&gt; 6 5.638243e-04 7.956946e+02     1.0000000     0.0000000   6  NA
+#&gt;   error.message exec.time
+#&gt; 1          &lt;NA&gt;     0.069
+#&gt; 2          &lt;NA&gt;     0.078
+#&gt; 3          &lt;NA&gt;     0.077
+#&gt; 4          &lt;NA&gt;     0.065
+#&gt; 5          &lt;NA&gt;     0.057
+#&gt; 6          &lt;NA&gt;     0.059
+</code></pre>
+
+<p>The results can be visualized with function <a href="http://www.rdocumentation.org/packages/mlr/functions/plotTuneMultiCritResult.html">plotTuneMultiCritResult</a>.
+The plot shows the false positive and false negative rates for all parameter settings evaluated
+during tuning. Points on the Pareto front are slightly increased.</p>
+<pre><code class="r">plotTuneMultiCritResult(res)
+</code></pre>
+
+<p><img alt="plot of chunk unnamed-chunk-5" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTA0cHQiIGhlaWdodD0iNTA0cHQiIHZpZXdCb3g9IjAgMCA1MDQgNTA0IiB2ZXJzaW9uPSIxLjEiPgo8ZGVmcz4KPGc+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDAtMCI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9Ik0gMi40MjE4NzUgLTYuMjM0Mzc1IEMgMS44NDM3NSAtNi4yMzQzNzUgMS4zMTI1IC01Ljk4NDM3NSAwLjk4NDM3NSAtNS41NDY4NzUgQyAwLjU3ODEyNSAtNSAwLjM3NSAtNC4xNzE4NzUgMC4zNzUgLTMuMDE1NjI1IEMgMC4zNzUgLTAuOTIxODc1IDEuMDc4MTI1IDAuMjAzMTI1IDIuNDIxODc1IDAuMjAzMTI1IEMgMy43MzQzNzUgMC4yMDMxMjUgNC40NTMxMjUgLTAuOTIxODc1IDQuNDUzMTI1IC0yLjk2ODc1IEMgNC40NTMxMjUgLTQuMTcxODc1IDQuMjY1NjI1IC00Ljk4NDM3NSAzLjg1OTM3NSAtNS41NDY4NzUgQyAzLjUzMTI1IC01Ljk4NDM3NSAzLjAxNTYyNSAtNi4yMzQzNzUgMi40MjE4NzUgLTYuMjM0Mzc1IFogTSAyLjQyMTg3NSAtNS41NDY4NzUgQyAzLjI1IC01LjU0Njg3NSAzLjY3MTg3NSAtNC43MDMxMjUgMy42NzE4NzUgLTMuMDMxMjUgQyAzLjY3MTg3NSAtMS4yNjU2MjUgMy4yNjU2MjUgLTAuNDM3NSAyLjQwNjI1IC0wLjQzNzUgQyAxLjU3ODEyNSAtMC40Mzc1IDEuMTcxODc1IC0xLjI5Njg3NSAxLjE3MTg3NSAtMy4wMTU2MjUgQyAxLjE3MTg3NSAtNC43MTg3NSAxLjU3ODEyNSAtNS41NDY4NzUgMi40MjE4NzUgLTUuNTQ2ODc1IFogTSAyLjQyMTg3NSAtNS41NDY4NzUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgwLTEiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIDEuNjg3NSAtMC45MjE4NzUgTCAwLjc2NTYyNSAtMC45MjE4NzUgTCAwLjc2NTYyNSAwIEwgMS42ODc1IDAgWiBNIDEuNjg3NSAtMC45MjE4NzUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgwLTIiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIDQuMTg3NSAtNi4yMzQzNzUgTCAwLjk2ODc1IC02LjIzNDM3NSBMIDAuNSAtMi44NDM3NSBMIDEuMjE4NzUgLTIuODQzNzUgQyAxLjU3ODEyNSAtMy4yNjU2MjUgMS44NzUgLTMuNDIxODc1IDIuMzU5Mzc1IC0zLjQyMTg3NSBDIDMuMTg3NSAtMy40MjE4NzUgMy43MTg3NSAtMi44NDM3NSAzLjcxODc1IC0xLjkyMTg3NSBDIDMuNzE4NzUgLTEuMDMxMjUgMy4yMDMxMjUgLTAuNDg0Mzc1IDIuMzU5Mzc1IC0wLjQ4NDM3NSBDIDEuNjg3NSAtMC40ODQzNzUgMS4yNjU2MjUgLTAuODI4MTI1IDEuMDc4MTI1IC0xLjUzMTI1IEwgMC4zMTI1IC0xLjUzMTI1IEMgMC40MDYyNSAtMS4wMTU2MjUgMC41IC0wLjc4MTI1IDAuNjg3NSAtMC41NDY4NzUgQyAxLjAzMTI1IC0wLjA3ODEyNSAxLjY3MTg3NSAwLjIwMzEyNSAyLjM3NSAwLjIwMzEyNSBDIDMuNjQwNjI1IDAuMjAzMTI1IDQuNTE1NjI1IC0wLjcxODc1IDQuNTE1NjI1IC0yLjAzMTI1IEMgNC41MTU2MjUgLTMuMjY1NjI1IDMuNjg3NSAtNC4xMDkzNzUgMi41IC00LjEwOTM3NSBDIDIuMDYyNSAtNC4xMDkzNzUgMS43MDMxMjUgLTQgMS4zNDM3NSAtMy43MzQzNzUgTCAxLjU5Mzc1IC01LjQ2ODc1IEwgNC4xODc1IC01LjQ2ODc1IFogTSA0LjE4NzUgLTYuMjM0Mzc1ICIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMC0zIj4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iTSAyLjI4MTI1IC00LjQzNzUgTCAyLjI4MTI1IDAgTCAzLjA0Njg3NSAwIEwgMy4wNDY4NzUgLTYuMjM0Mzc1IEwgMi41NDY4NzUgLTYuMjM0Mzc1IEMgMi4yNjU2MjUgLTUuMjgxMjUgMi4wOTM3NSAtNS4xNDA2MjUgMC44OTA2MjUgLTUgTCAwLjg5MDYyNSAtNC40Mzc1IFogTSAyLjI4MTI1IC00LjQzNzUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgwLTQiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIDQuNDUzMTI1IC0wLjc2NTYyNSBMIDEuMTcxODc1IC0wLjc2NTYyNSBDIDEuMjUgLTEuMjgxMjUgMS41MzEyNSAtMS41OTM3NSAyLjI5Njg3NSAtMi4wNDY4NzUgTCAzLjE3MTg3NSAtMi41MzEyNSBDIDQuMDQ2ODc1IC0zIDQuNSAtMy42NDA2MjUgNC41IC00LjQwNjI1IEMgNC41IC00LjkyMTg3NSA0LjI4MTI1IC01LjQwNjI1IDMuOTIxODc1IC01Ljc1IEMgMy41NDY4NzUgLTYuMDc4MTI1IDMuMDkzNzUgLTYuMjM0Mzc1IDIuNSAtNi4yMzQzNzUgQyAxLjcwMzEyNSAtNi4yMzQzNzUgMS4xMjUgLTUuOTUzMTI1IDAuNzgxMjUgLTUuNDIxODc1IEMgMC41NDY4NzUgLTUuMDkzNzUgMC40NTMxMjUgLTQuNzAzMTI1IDAuNDM3NSAtNC4wNzgxMjUgTCAxLjIxODc1IC00LjA3ODEyNSBDIDEuMjM0Mzc1IC00LjUgMS4yOTY4NzUgLTQuNzUgMS40MDYyNSAtNC45NTMxMjUgQyAxLjU5Mzc1IC01LjMyODEyNSAyIC01LjU2MjUgMi40Njg3NSAtNS41NjI1IEMgMy4xNzE4NzUgLTUuNTYyNSAzLjcwMzEyNSAtNS4wNjI1IDMuNzAzMTI1IC00LjM5MDYyNSBDIDMuNzAzMTI1IC0zLjg5MDYyNSAzLjQwNjI1IC0zLjQ2ODc1IDIuODU5Mzc1IC0zLjE1NjI1IEwgMi4wNDY4NzUgLTIuNzAzMTI1IEMgMC43NSAtMS45Njg3NSAwLjM3NSAtMS4zNzUgMC4yOTY4NzUgMCBMIDQuNDUzMTI1IDAgWiBNIDQuNDUzMTI1IC0wLjc2NTYyNSAiLz4KPC9zeW1ib2w+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDAtNSI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9Ik0gNC41NzgxMjUgLTYuMjM0Mzc1IEwgMC40MDYyNSAtNi4yMzQzNzUgTCAwLjQwNjI1IC01LjQ2ODc1IEwgMy43ODEyNSAtNS40Njg3NSBDIDIuMjgxMjUgLTMuMzU5Mzc1IDEuNjg3NSAtMi4wNDY4NzUgMS4yMTg3NSAwIEwgMi4wNDY4NzUgMCBDIDIuMzkwNjI1IC0yIDMuMTcxODc1IC0zLjcxODc1IDQuNTc4MTI1IC01LjU5Mzc1IFogTSA0LjU3ODEyNSAtNi4yMzQzNzUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgxLTAiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIDIuODQzNzUgLTUuNzY1NjI1IEwgMS44NzUgLTUuNzY1NjI1IEwgMS44NzUgLTYuNjcxODc1IEMgMS44NzUgLTcuMDQ2ODc1IDIuMDkzNzUgLTcuMjUgMi41MTU2MjUgLTcuMjUgQyAyLjU5Mzc1IC03LjI1IDIuNjI1IC03LjI1IDIuODQzNzUgLTcuMjM0Mzc1IEwgMi44NDM3NSAtOCBDIDIuNjI1IC04LjA0Njg3NSAyLjUxNTYyNSAtOC4wNDY4NzUgMi4zMjgxMjUgLTguMDQ2ODc1IEMgMS40Njg3NSAtOC4wNDY4NzUgMC45Njg3NSAtNy41NjI1IDAuOTY4NzUgLTYuNzUgTCAwLjk2ODc1IC01Ljc2NTYyNSBMIDAuMjAzMTI1IC01Ljc2NTYyNSBMIDAuMjAzMTI1IC01LjAxNTYyNSBMIDAuOTY4NzUgLTUuMDE1NjI1IEwgMC45Njg3NSAwIEwgMS44NzUgMCBMIDEuODc1IC01LjAxNTYyNSBMIDIuODQzNzUgLTUuMDE1NjI1IFogTSAyLjg0Mzc1IC01Ljc2NTYyNSAiLz4KPC9zeW1ib2w+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDEtMSI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9Ik0gMC41OTM3NSAyLjM5MDYyNSBMIDEuNTE1NjI1IDIuMzkwNjI1IEwgMS41MTU2MjUgLTAuNjA5Mzc1IEMgMiAtMC4wMTU2MjUgMi41NDY4NzUgMC4yNSAzLjI4MTI1IDAuMjUgQyA0Ljc4MTI1IDAuMjUgNS43NSAtMC45NTMxMjUgNS43NSAtMi43ODEyNSBDIDUuNzUgLTQuNzE4NzUgNC44MTI1IC01LjkyMTg3NSAzLjI4MTI1IC01LjkyMTg3NSBDIDIuNSAtNS45MjE4NzUgMS44NzUgLTUuNTc4MTI1IDEuNDM3NSAtNC44OTA2MjUgTCAxLjQzNzUgLTUuNzY1NjI1IEwgMC41OTM3NSAtNS43NjU2MjUgWiBNIDMuMTI1IC01LjA3ODEyNSBDIDQuMTQwNjI1IC01LjA3ODEyNSA0Ljc5Njg3NSAtNC4xODc1IDQuNzk2ODc1IC0yLjgxMjUgQyA0Ljc5Njg3NSAtMS41IDQuMTI1IC0wLjYwOTM3NSAzLjEyNSAtMC42MDkzNzUgQyAyLjE1NjI1IC0wLjYwOTM3NSAxLjUxNTYyNSAtMS40ODQzNzUgMS41MTU2MjUgLTIuODQzNzUgQyAxLjUxNTYyNSAtNC4xODc1IDIuMTU2MjUgLTUuMDc4MTI1IDMuMTI1IC01LjA3ODEyNSBaIE0gMy4xMjUgLTUuMDc4MTI1ICIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMS0yIj4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iTSAwLjc2NTYyNSAtNS43NjU2MjUgTCAwLjc2NTYyNSAwIEwgMS42ODc1IDAgTCAxLjY4NzUgLTIuOTg0Mzc1IEMgMS42ODc1IC0zLjgxMjUgMS44OTA2MjUgLTQuMzU5Mzc1IDIuMzI4MTI1IC00LjY3MTg3NSBDIDIuNjI1IC00Ljg5MDYyNSAyLjg5MDYyNSAtNC45NTMxMjUgMy41MzEyNSAtNC45Njg3NSBMIDMuNTMxMjUgLTUuODkwNjI1IEMgMy4zNzUgLTUuOTIxODc1IDMuMjk2ODc1IC01LjkyMTg3NSAzLjE3MTg3NSAtNS45MjE4NzUgQyAyLjU3ODEyNSAtNS45MjE4NzUgMi4xNDA2MjUgLTUuNTc4MTI1IDEuNjA5Mzc1IC00LjcxODc1IEwgMS42MDkzNzUgLTUuNzY1NjI1IFogTSAwLjc2NTYyNSAtNS43NjU2MjUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgyLTAiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIC01Ljc2NTYyNSAtMi44NDM3NSBMIC01Ljc2NTYyNSAtMS44NzUgTCAtNi42NzE4NzUgLTEuODc1IEMgLTcuMDQ2ODc1IC0xLjg3NSAtNy4yNSAtMi4wOTM3NSAtNy4yNSAtMi41MTU2MjUgQyAtNy4yNSAtMi41OTM3NSAtNy4yNSAtMi42MjUgLTcuMjM0Mzc1IC0yLjg0Mzc1IEwgLTggLTIuODQzNzUgQyAtOC4wNDY4NzUgLTIuNjI1IC04LjA0Njg3NSAtMi41MTU2MjUgLTguMDQ2ODc1IC0yLjMyODEyNSBDIC04LjA0Njg3NSAtMS40Njg3NSAtNy41NjI1IC0wLjk2ODc1IC02Ljc1IC0wLjk2ODc1IEwgLTUuNzY1NjI1IC0wLjk2ODc1IEwgLTUuNzY1NjI1IC0wLjIwMzEyNSBMIC01LjAxNTYyNSAtMC4yMDMxMjUgTCAtNS4wMTU2MjUgLTAuOTY4NzUgTCAwIC0wLjk2ODc1IEwgMCAtMS44NzUgTCAtNS4wMTU2MjUgLTEuODc1IEwgLTUuMDE1NjI1IC0yLjg0Mzc1IFogTSAtNS43NjU2MjUgLTIuODQzNzUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgyLTEiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIC01Ljc2NTYyNSAtMC43NjU2MjUgTCAwIC0wLjc2NTYyNSBMIDAgLTEuNjg3NSBMIC0zLjE3MTg3NSAtMS42ODc1IEMgLTQuMzU5Mzc1IC0xLjY4NzUgLTUuMTI1IC0yLjMxMjUgLTUuMTI1IC0zLjI1IEMgLTUuMTI1IC0zLjk4NDM3NSAtNC42ODc1IC00LjQzNzUgLTQgLTQuNDM3NSBMIDAgLTQuNDM3NSBMIDAgLTUuMzU5Mzc1IEwgLTQuMzU5Mzc1IC01LjM1OTM3NSBDIC01LjMxMjUgLTUuMzU5Mzc1IC01LjkyMTg3NSAtNC42NDA2MjUgLTUuOTIxODc1IC0zLjUzMTI1IEMgLTUuOTIxODc1IC0yLjY3MTg3NSAtNS41OTM3NSAtMi4xMjUgLTQuNzk2ODc1IC0xLjYwOTM3NSBMIC01Ljc2NTYyNSAtMS42MDkzNzUgWiBNIC01Ljc2NTYyNSAtMC43NjU2MjUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgyLTIiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIC01Ljc2NTYyNSAtMC43NjU2MjUgTCAwIC0wLjc2NTYyNSBMIDAgLTEuNjg3NSBMIC0yLjk4NDM3NSAtMS42ODc1IEMgLTMuODEyNSAtMS42ODc1IC00LjM1OTM3NSAtMS44OTA2MjUgLTQuNjcxODc1IC0yLjMyODEyNSBDIC00Ljg5MDYyNSAtMi42MjUgLTQuOTUzMTI1IC0yLjg5MDYyNSAtNC45Njg3NSAtMy41MzEyNSBMIC01Ljg5MDYyNSAtMy41MzEyNSBDIC01LjkyMTg3NSAtMy4zNzUgLTUuOTIxODc1IC0zLjI5Njg3NSAtNS45MjE4NzUgLTMuMTcxODc1IEMgLTUuOTIxODc1IC0yLjU3ODEyNSAtNS41NzgxMjUgLTIuMTQwNjI1IC00LjcxODc1IC0xLjYwOTM3NSBMIC01Ljc2NTYyNSAtMS42MDkzNzUgWiBNIC01Ljc2NTYyNSAtMC43NjU2MjUgIi8+Cjwvc3ltYm9sPgo8L2c+CjxjbGlwUGF0aCBpZD0iY2xpcDEiPgogIDxwYXRoIGQ9Ik0gNDMuOTg0Mzc1IDUuNDgwNDY5IEwgNDk5LjUxOTUzMSA1LjQ4MDQ2OSBMIDQ5OS41MTk1MzEgNDcyLjAxNTYyNSBMIDQzLjk4NDM3NSA0NzIuMDE1NjI1IFogTSA0My45ODQzNzUgNS40ODA0NjkgIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPGcgaWQ9InN1cmZhY2UxIj4KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjUwNCIgaGVpZ2h0PSI1MDQiIHN0eWxlPSJmaWxsOnJnYigxMDAlLDEwMCUsMTAwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Ii8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI1MDQiIGhlaWdodD0iNTA0IiBzdHlsZT0iZmlsbDpyZ2IoMTAwJSwxMDAlLDEwMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lOyIvPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDoxLjA2Njk3ODtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMCA1MDQgTCA1MDQgNTA0IEwgNTA0IDAgTCAwIDAgWiBNIDAgNTA0ICIvPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDEpIiBjbGlwLXJ1bGU9Im5vbnplcm8iPgo8cGF0aCBzdHlsZT0iIHN0cm9rZTpub25lO2ZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDkyLjE1Njg2MyUsOTIuMTU2ODYzJSw5Mi4xNTY4NjMlKTtmaWxsLW9wYWNpdHk6MTsiIGQ9Ik0gNDMuOTg0Mzc1IDQ3MS4wMTU2MjUgTCA0OTguNTE5NTMxIDQ3MS4wMTU2MjUgTCA0OTguNTE5NTMxIDUuNDgwNDY5IEwgNDMuOTg0Mzc1IDUuNDgwNDY5IFogTSA0My45ODQzNzUgNDcxLjAxNTYyNSAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MC41MzM0ODk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDMuOTg0Mzc1IDM4NC42MDkzNzUgTCA0OTguNTE5NTMxIDM4NC42MDkzNzUgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNTMzNDg5O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMTAwJSwxMDAlLDEwMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQzLjk4NDM3NSAyNTQuMTE3MTg4IEwgNDk4LjUxOTUzMSAyNTQuMTE3MTg4ICIvPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDowLjUzMzQ4OTtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDEwMCUsMTAwJSwxMDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0My45ODQzNzUgMTIzLjYyNSBMIDQ5OC41MTk1MzEgMTIzLjYyNSAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MC41MzM0ODk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNTEuNzM0Mzc1IDQ3MS4wMTU2MjUgTCA1MS43MzQzNzUgNS40ODA0NjkgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNTMzNDg5O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMTAwJSwxMDAlLDEwMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDE3My40ODQzNzUgNDcxLjAxNTYyNSBMIDE3My40ODQzNzUgNS40ODA0NjkgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNTMzNDg5O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMTAwJSwxMDAlLDEwMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDI5NS4yMzQzNzUgNDcxLjAxNTYyNSBMIDI5NS4yMzQzNzUgNS40ODA0NjkgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNTMzNDg5O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMTAwJSwxMDAlLDEwMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQxNi45ODQzNzUgNDcxLjAxNTYyNSBMIDQxNi45ODQzNzUgNS40ODA0NjkgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMTAwJSwxMDAlLDEwMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQzLjk4NDM3NSA0NDkuODUxNTYyIEwgNDk4LjUxOTUzMSA0NDkuODUxNTYyICIvPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDoxLjA2Njk3ODtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDEwMCUsMTAwJSwxMDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0My45ODQzNzUgMzE5LjM2MzI4MSBMIDQ5OC41MTk1MzEgMzE5LjM2MzI4MSAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDMuOTg0Mzc1IDE4OC44NzEwOTQgTCA0OTguNTE5NTMxIDE4OC44NzEwOTQgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMTAwJSwxMDAlLDEwMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQzLjk4NDM3NSA1OC4zODI4MTIgTCA0OTguNTE5NTMxIDU4LjM4MjgxMiAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMTEyLjYwOTM3NSA0NzEuMDE1NjI1IEwgMTEyLjYwOTM3NSA1LjQ4MDQ2OSAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMjM0LjM1OTM3NSA0NzEuMDE1NjI1IEwgMjM0LjM1OTM3NSA1LjQ4MDQ2OSAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMzU2LjEwOTM3NSA0NzEuMDE1NjI1IEwgMzU2LjEwOTM3NSA1LjQ4MDQ2OSAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDc3Ljg1OTM3NSA0NzEuMDE1NjI1IEwgNDc3Ljg1OTM3NSA1LjQ4MDQ2OSAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgQyA0ODAuMzQ3NjU2IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDQ5Ljg1MTU2MiBDIDQ3NS4zNzEwOTQgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDkuODUxNTYyICIvPgo8cGF0aCBzdHlsZT0iZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjcwODY2MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigwJSwwJSwwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDgwLjM0NzY1NiA0NDkuODUxNTYyIEMgNDgwLjM0NzY1NiA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ0OS44NTE1NjIgQyA0NzUuMzcxMDk0IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA2Ny4xMzY3MTkgMjYuNjQwNjI1IEMgNjcuMTM2NzE5IDI5Ljk1NzAzMSA2Mi4xNjAxNTYgMjkuOTU3MDMxIDYyLjE2MDE1NiAyNi42NDA2MjUgQyA2Mi4xNjAxNTYgMjMuMzI0MjE5IDY3LjEzNjcxOSAyMy4zMjQyMTkgNjcuMTM2NzE5IDI2LjY0MDYyNSAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA5Ni42NTIzNDQgMjM4LjI0NjA5NCBDIDk2LjY1MjM0NCAyNDEuNTYyNSA5MS42NzU3ODEgMjQxLjU2MjUgOTEuNjc1NzgxIDIzOC4yNDYwOTQgQyA5MS42NzU3ODEgMjM0LjkyOTY4OCA5Ni42NTIzNDQgMjM0LjkyOTY4OCA5Ni42NTIzNDQgMjM4LjI0NjA5NCAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgQyA0ODAuMzQ3NjU2IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDQ5Ljg1MTU2MiBDIDQ3NS4zNzEwOTQgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDkuODUxNTYyICIvPgo8cGF0aCBzdHlsZT0iZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjcwODY2MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigwJSwwJSwwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDgwLjM0NzY1NiA0NDkuODUxNTYyIEMgNDgwLjM0NzY1NiA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ0OS44NTE1NjIgQyA0NzUuMzcxMDk0IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgQyA0ODAuMzQ3NjU2IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDQ5Ljg1MTU2MiBDIDQ3NS4zNzEwOTQgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDkuODUxNTYyICIvPgo8cGF0aCBzdHlsZT0iZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjcwODY2MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigwJSwwJSwwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDgwLjM0NzY1NiA0NDkuODUxNTYyIEMgNDgwLjM0NzY1NiA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ0OS44NTE1NjIgQyA0NzUuMzcxMDk0IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQyMS4zMTY0MDYgNDQ5Ljg1MTU2MiBDIDQyMS4zMTY0MDYgNDUzLjE3MTg3NSA0MTYuMzM5ODQ0IDQ1My4xNzE4NzUgNDE2LjMzOTg0NCA0NDkuODUxNTYyIEMgNDE2LjMzOTg0NCA0NDYuNTM1MTU2IDQyMS4zMTY0MDYgNDQ2LjUzNTE1NiA0MjEuMzE2NDA2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgQyA0ODAuMzQ3NjU2IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDQ5Ljg1MTU2MiBDIDQ3NS4zNzEwOTQgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDkuODUxNTYyICIvPgo8cGF0aCBzdHlsZT0iZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjcwODY2MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigwJSwwJSwwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDgwLjM0NzY1NiA0NDkuODUxNTYyIEMgNDgwLjM0NzY1NiA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ0OS44NTE1NjIgQyA0NzUuMzcxMDk0IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgQyA0ODAuMzQ3NjU2IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDQ5Ljg1MTU2MiBDIDQ3NS4zNzEwOTQgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDkuODUxNTYyICIvPgo8cGF0aCBzdHlsZT0iZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjcwODY2MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigwJSwwJSwwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDgwLjM0NzY1NiA0NDkuODUxNTYyIEMgNDgwLjM0NzY1NiA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ0OS44NTE1NjIgQyA0NzUuMzcxMDk0IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgQyA0ODAuMzQ3NjU2IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDQ5Ljg1MTU2MiBDIDQ3NS4zNzEwOTQgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDkuODUxNTYyICIvPgo8cGF0aCBzdHlsZT0iZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjcwODY2MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigwJSwwJSwwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDgwLjM0NzY1NiA0NDkuODUxNTYyIEMgNDgwLjM0NzY1NiA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ0OS44NTE1NjIgQyA0NzUuMzcxMDk0IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSAxMjYuMTY0MDYyIDk3LjE3NTc4MSBDIDEyNi4xNjQwNjIgMTAwLjQ5MjE4OCAxMjEuMTg3NSAxMDAuNDkyMTg4IDEyMS4xODc1IDk3LjE3NTc4MSBDIDEyMS4xODc1IDkzLjg1OTM3NSAxMjYuMTY0MDYyIDkzLjg1OTM3NSAxMjYuMTY0MDYyIDk3LjE3NTc4MSAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgQyA0ODAuMzQ3NjU2IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDQ5Ljg1MTU2MiBDIDQ3NS4zNzEwOTQgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDkuODUxNTYyICIvPgo8cGF0aCBzdHlsZT0iZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjcwODY2MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigwJSwwJSwwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDgwLjM0NzY1NiA0NDkuODUxNTYyIEMgNDgwLjM0NzY1NiA0NTMuMTcxODc1IDQ3NS4zNzEwOTQgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ0OS44NTE1NjIgQyA0NzUuMzcxMDk0IDQ0Ni41MzUxNTYgNDgwLjM0NzY1NiA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSAxNzAuNDM3NSA0NDkuODUxNTYyIEMgMTcwLjQzNzUgNDUzLjE3MTg3NSAxNjUuNDYwOTM4IDQ1My4xNzE4NzUgMTY1LjQ2MDkzOCA0NDkuODUxNTYyIEMgMTY1LjQ2MDkzOCA0NDYuNTM1MTU2IDE3MC40Mzc1IDQ0Ni41MzUxNTYgMTcwLjQzNzUgNDQ5Ljg1MTU2MiAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ4MC4zNDc2NTYgNDQ5Ljg1MTU2MiBDIDQ4MC4zNDc2NTYgNDUzLjE3MTg3NSA0NzUuMzcxMDk0IDQ1My4xNzE4NzUgNDc1LjM3MTA5NCA0NDkuODUxNTYyIEMgNDc1LjM3MTA5NCA0NDYuNTM1MTU2IDQ4MC4zNDc2NTYgNDQ2LjUzNTE1NiA0ODAuMzQ3NjU2IDQ0OS44NTE1NjIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsLXJ1bGU6bm9uemVybztmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlLXdpZHRoOjAuNzA4NjYxO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA2OC4yMDMxMjUgMjYuNjQwNjI1IEMgNjguMjAzMTI1IDMxLjM3ODkwNiA2MS4wODk4NDQgMzEuMzc4OTA2IDYxLjA4OTg0NCAyNi42NDA2MjUgQyA2MS4wODk4NDQgMjEuODk4NDM4IDY4LjIwMzEyNSAyMS44OTg0MzggNjguMjAzMTI1IDI2LjY0MDYyNSAiLz4KPHBhdGggc3R5bGU9ImZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTtzdHJva2Utd2lkdGg6MC43MDg2NjE7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMCUsMCUsMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDk3LjcxODc1IDIzOC4yNDYwOTQgQyA5Ny43MTg3NSAyNDIuOTg4MjgxIDkwLjYwNTQ2OSAyNDIuOTg4MjgxIDkwLjYwNTQ2OSAyMzguMjQ2MDk0IEMgOTAuNjA1NDY5IDIzMy41MDc4MTIgOTcuNzE4NzUgMjMzLjUwNzgxMiA5Ny43MTg3NSAyMzguMjQ2MDk0ICIvPgo8cGF0aCBzdHlsZT0iZmlsbC1ydWxlOm5vbnplcm87ZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZS13aWR0aDowLjcwODY2MTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigwJSwwJSwwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMTcxLjUwMzkwNiA0NDkuODUxNTYyIEMgMTcxLjUwMzkwNiA0NTQuNTkzNzUgMTY0LjM5NDUzMSA0NTQuNTkzNzUgMTY0LjM5NDUzMSA0NDkuODUxNTYyIEMgMTY0LjM5NDUzMSA0NDUuMTEzMjgxIDE3MS41MDM5MDYgNDQ1LjExMzI4MSAxNzEuNTAzOTA2IDQ0OS44NTE1NjIgIi8+CjwvZz4KPGcgc3R5bGU9ImZpbGw6cmdiKDMwLjE5NjA3OCUsMzAuMTk2MDc4JSwzMC4xOTYwNzglKTtmaWxsLW9wYWNpdHk6MTsiPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0wIiB4PSIyMS4wNTQ2ODgiIHk9IjQ1Mi43MzczMDUiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMSIgeD0iMjUuOTQ1MzEyIiB5PSI0NTIuNzM3MzA1Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTAiIHg9IjI4LjM5MDYyNSIgeT0iNDUyLjczNzMwNSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0wIiB4PSIzMy4yODEyNSIgeT0iNDUyLjczNzMwNSIvPgo8L2c+CjxnIHN0eWxlPSJmaWxsOnJnYigzMC4xOTYwNzglLDMwLjE5NjA3OCUsMzAuMTk2MDc4JSk7ZmlsbC1vcGFjaXR5OjE7Ij4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMCIgeD0iMjEuMDU0Njg4IiB5PSIzMjIuMjQ5MDIzIi8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTEiIHg9IjI1Ljk0NTMxMiIgeT0iMzIyLjI0OTAyMyIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0wIiB4PSIyOC4zOTA2MjUiIHk9IjMyMi4yNDkwMjMiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMiIgeD0iMzMuMjgxMjUiIHk9IjMyMi4yNDkwMjMiLz4KPC9nPgo8ZyBzdHlsZT0iZmlsbDpyZ2IoMzAuMTk2MDc4JSwzMC4xOTYwNzglLDMwLjE5NjA3OCUpO2ZpbGwtb3BhY2l0eToxOyI+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTAiIHg9IjIxLjA1NDY4OCIgeT0iMTkxLjc1NjgzNiIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0xIiB4PSIyNS45NDUzMTIiIHk9IjE5MS43NTY4MzYiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMyIgeD0iMjguMzkwNjI1IiB5PSIxOTEuNzU2ODM2Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTAiIHg9IjMzLjI4MTI1IiB5PSIxOTEuNzU2ODM2Ii8+CjwvZz4KPGcgc3R5bGU9ImZpbGw6cmdiKDMwLjE5NjA3OCUsMzAuMTk2MDc4JSwzMC4xOTYwNzglKTtmaWxsLW9wYWNpdHk6MTsiPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0wIiB4PSIyMS4wNTQ2ODgiIHk9IjYxLjI2ODU1NSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0xIiB4PSIyNS45NDUzMTIiIHk9IjYxLjI2ODU1NSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0zIiB4PSIyOC4zOTA2MjUiIHk9IjYxLjI2ODU1NSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0yIiB4PSIzMy4yODEyNSIgeT0iNjEuMjY4NTU1Ii8+CjwvZz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigyMCUsMjAlLDIwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDEuMjQ2MDk0IDQ0OS44NTE1NjIgTCA0My45ODQzNzUgNDQ5Ljg1MTU2MiAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigyMCUsMjAlLDIwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDEuMjQ2MDk0IDMxOS4zNjMyODEgTCA0My45ODQzNzUgMzE5LjM2MzI4MSAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigyMCUsMjAlLDIwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDEuMjQ2MDk0IDE4OC44NzEwOTQgTCA0My45ODQzNzUgMTg4Ljg3MTA5NCAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigyMCUsMjAlLDIwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDEuMjQ2MDk0IDU4LjM4MjgxMiBMIDQzLjk4NDM3NSA1OC4zODI4MTIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMjAlLDIwJSwyMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDExMi42MDkzNzUgNDczLjc1MzkwNiBMIDExMi42MDkzNzUgNDcxLjAxNTYyNSAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigyMCUsMjAlLDIwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMjM0LjM1OTM3NSA0NzMuNzUzOTA2IEwgMjM0LjM1OTM3NSA0NzEuMDE1NjI1ICIvPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDoxLjA2Njk3ODtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDIwJSwyMCUsMjAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSAzNTYuMTA5Mzc1IDQ3My43NTM5MDYgTCAzNTYuMTA5Mzc1IDQ3MS4wMTU2MjUgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMjAlLDIwJSwyMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ3Ny44NTkzNzUgNDczLjc1MzkwNiBMIDQ3Ny44NTkzNzUgNDcxLjAxNTYyNSAiLz4KPGcgc3R5bGU9ImZpbGw6cmdiKDMwLjE5NjA3OCUsMzAuMTk2MDc4JSwzMC4xOTYwNzglKTtmaWxsLW9wYWNpdHk6MTsiPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0wIiB4PSIxMDMuNjA5Mzc1IiB5PSI0ODIuMzMxMDU1Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTEiIHg9IjEwOC41IiB5PSI0ODIuMzMxMDU1Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTQiIHg9IjExMC45NDUzMTIiIHk9IjQ4Mi4zMzEwNTUiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMiIgeD0iMTE1LjgzNTkzOCIgeT0iNDgyLjMzMTA1NSIvPgo8L2c+CjxnIHN0eWxlPSJmaWxsOnJnYigzMC4xOTYwNzglLDMwLjE5NjA3OCUsMzAuMTk2MDc4JSk7ZmlsbC1vcGFjaXR5OjE7Ij4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMCIgeD0iMjI1LjM1OTM3NSIgeT0iNDgyLjMzMTA1NSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0xIiB4PSIyMzAuMjUiIHk9IjQ4Mi4zMzEwNTUiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMiIgeD0iMjMyLjY5NTMxMiIgeT0iNDgyLjMzMTA1NSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0wIiB4PSIyMzcuNTg1OTM4IiB5PSI0ODIuMzMxMDU1Ii8+CjwvZz4KPGcgc3R5bGU9ImZpbGw6cmdiKDMwLjE5NjA3OCUsMzAuMTk2MDc4JSwzMC4xOTYwNzglKTtmaWxsLW9wYWNpdHk6MTsiPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0wIiB4PSIzNDcuMTA5Mzc1IiB5PSI0ODIuMzMxMDU1Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTEiIHg9IjM1MiIgeT0iNDgyLjMzMTA1NSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC01IiB4PSIzNTQuNDQ1MzEyIiB5PSI0ODIuMzMxMDU1Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTIiIHg9IjM1OS4zMzU5MzgiIHk9IjQ4Mi4zMzEwNTUiLz4KPC9nPgo8ZyBzdHlsZT0iZmlsbDpyZ2IoMzAuMTk2MDc4JSwzMC4xOTYwNzglLDMwLjE5NjA3OCUpO2ZpbGwtb3BhY2l0eToxOyI+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTMiIHg9IjQ2OC44NTkzNzUiIHk9IjQ4Mi4zMzEwNTUiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMSIgeD0iNDczLjc1IiB5PSI0ODIuMzMxMDU1Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTAiIHg9IjQ3Ni4xOTUzMTIiIHk9IjQ4Mi4zMzEwNTUiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMCIgeD0iNDgxLjA4NTkzOCIgeT0iNDgyLjMzMTA1NSIvPgo8L2c+CjxnIHN0eWxlPSJmaWxsOnJnYigwJSwwJSwwJSk7ZmlsbC1vcGFjaXR5OjE7Ij4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDEtMCIgeD0iMjY0Ljc1MzkwNiIgeT0iNDk1LjgxMTUyMyIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMS0xIiB4PSIyNjcuODExNTIzIiB5PSI0OTUuODExNTIzIi8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgxLTIiIHg9IjI3My45Mjc3MzQiIHk9IjQ5NS44MTE1MjMiLz4KPC9nPgo8ZyBzdHlsZT0iZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxOyI+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgyLTAiIHg9IjE2LjE1NTI3MyIgeT0iMjQ0Ljc0NjA5NCIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMi0xIiB4PSIxNi4xNTUyNzMiIHk9IjI0MS42ODg0NzciLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDItMiIgeD0iMTYuMTU1MjczIiB5PSIyMzUuNTcyMjY2Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K" /></p></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

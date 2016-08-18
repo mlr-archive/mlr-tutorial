@@ -48,6 +48,12 @@
     </url>
         
     <url>
+     <loc>None/tune/index.html</loc>
+     <lastmod>2016-08-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>None/benchmark_experiments/index.html</loc>
      <lastmod>2016-08-18</lastmod>
      <changefreq>daily</changefreq>
@@ -100,7 +106,7 @@
     </url>
         
     <url>
-     <loc>None/tune/index.html</loc>
+     <loc>None/advanced_tune/index.html</loc>
      <lastmod>2016-08-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -155,6 +161,12 @@
         
     <url>
      <loc>None/classifier_calibration/index.html</loc>
+     <lastmod>2016-08-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>None/hyperpar_tuning_effects/index.html</loc>
      <lastmod>2016-08-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
