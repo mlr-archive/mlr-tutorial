@@ -329,7 +329,7 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#integrating-another-measure">Integrating another Measure</a></li>
+        <li class="main active"><a href="#integrating-another-measure">Integrating Another Measure</a></li>
         
             <li><a href="#performance-measures-and-aggregation-schemes">Performance measures and aggregation schemes</a></li>
         
@@ -344,13 +344,13 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="integrating-another-measure">Integrating another Measure</h1>
-<p>In some cases, you might want to evaluate a <a href="http://rpackages.ianhowson.com/cran/mlr/man/Prediction.html">Prediction</a> or <a href="http://rpackages.ianhowson.com/cran/mlr/man/ResamplePrediction.html">ResamplePrediction</a> with a
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> which is not yet implemented in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a>. This could be either a
+<h1 id="integrating-another-measure">Integrating Another Measure</h1>
+<p>In some cases, you might want to evaluate a <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> or <a href="http://www.rdocumentation.org/packages/mlr/functions/ResamplePrediction.html">ResamplePrediction</a> with a
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> which is not yet implemented in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>. This could be either a
 performance measure which is not listed in the <a href="../measures/index.html">Appendix</a> or a measure that
 uses a misclassification cost matrix.</p>
 <h2 id="performance-measures-and-aggregation-schemes">Performance measures and aggregation schemes</h2>
-<p>Performance measures in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> are objects of class <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a>.
+<p>Performance measures in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> are objects of class <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a>.
 For example the <a href="../measures/index.html">mse</a> (mean squared error) looks as follows.</p>
 <pre><code class="r">str(mse)
 #&gt; List of 10
@@ -375,7 +375,7 @@ mse$fun
 #&gt; {
 #&gt;     measureMSE(pred$data$truth, pred$data$response)
 #&gt; }
-#&gt; &lt;bytecode: 0x1528de58&gt;
+#&gt; &lt;bytecode: 0xc541d18&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 
 measureMSE
@@ -383,32 +383,32 @@ measureMSE
 #&gt; {
 #&gt;     mean((response - truth)^2)
 #&gt; }
-#&gt; &lt;bytecode: 0x1a9afc08&gt;
+#&gt; &lt;bytecode: 0x115b2740&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
-<p>See the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> documentation page for a detailed description of the object
+<p>See the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> documentation page for a detailed description of the object
 slots.</p>
 <p>At the core is slot <code>$fun</code> which contains the function that calculates the performance value.
-The actual work is done by function <a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">measureMSE</a>.
+The actual work is done by function <a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">measureMSE</a>.
 Similar functions, generally adhering to the naming scheme <code>measure</code> followed by the
 capitalized measure ID, exist for most performance measures.
-See the <a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">measures</a> help page for a complete list.</p>
-<p>Just as <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> objects each <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> has an
+See the <a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">measures</a> help page for a complete list.</p>
+<p>Just as <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> objects each <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> has an
 identifier <code>$id</code> which is for example used to annotate results and plots.
 For plots there is also the option to use the longer measure <code>$name</code> instead. See the
 tutorial page on <a href="../visualization/index.html">Visualization</a> for more information.</p>
-<p>Moreover, a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> includes a number of <code>$properties</code> that indicate for
+<p>Moreover, a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> includes a number of <code>$properties</code> that indicate for
 which types of learning problems it is suitable and what information is required to
 calculate it.
-Obviously, most measures need the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Prediction.html">Prediction</a> object (<code>"req.pred"</code>) and, for supervised
+Obviously, most measures need the <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> object (<code>"req.pred"</code>) and, for supervised
 problems, the true values of the target variable(s) (<code>"req.truth"</code>).</p>
-<p>For <a href="../tune/index.html">tuning</a> each <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> knows its extreme values <code>$best</code> and
+<p>For <a href="../tune/index.html">tuning</a> each <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> knows its extreme values <code>$best</code> and
 <code>$worst</code> and if it wants to be minimized or maximized (<code>$minimize</code>).</p>
 <p>For resampling slot <code>$aggr</code> specifies how the overall performance across all resampling
 iterations is calculated. Typically, this is just a matter of aggregating the performance
 values obtained on the test sets <code>perf.test</code> or the training sets <code>perf.train</code> by a simple
-function. The by far most common scheme is <a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a>, i.e., the unweighted
+function. The by far most common scheme is <a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a>, i.e., the unweighted
 mean of the performances on the test sets.</p>
 <pre><code class="r">str(test.mean)
 #&gt; List of 3
@@ -420,29 +420,29 @@ mean of the performances on the test sets.</p>
 test.mean$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; mean(perf.test)
-#&gt; &lt;bytecode: 0x62964d8&gt;
+#&gt; &lt;bytecode: 0x7167ae0&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
-<p>All aggregation schemes are objects of class <a href="http://rpackages.ianhowson.com/cran/mlr/man/Aggregation.html">Aggregation</a> with the function in slot
+<p>All aggregation schemes are objects of class <a href="http://www.rdocumentation.org/packages/mlr/functions/Aggregation.html">Aggregation</a> with the function in slot
 <code>$fun</code> doing the actual work.</p>
-<p>You can change the aggregation scheme of a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> via function
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/setAggregation.html">setAggregation</a>. See the tutorial page on <a href="../resample/index.html">resampling</a> for some examples
-and the <a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">aggregations</a> help page for all available aggregation schemes.</p>
-<p>You can construct your own <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/Aggregation.html">Aggregation</a> objects via functions
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">makeMeasure</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostMeasure.html">makeCostMeasure</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCustomResampledMeasure.html">makeCustomResampledMeasure</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeAggregation.html">makeAggregation</a>.
+<p>You can change the aggregation scheme of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> via function
+<a href="http://www.rdocumentation.org/packages/mlr/functions/setAggregation.html">setAggregation</a>. See the tutorial page on <a href="../resample/index.html">resampling</a> for some examples
+and the <a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">aggregations</a> help page for all available aggregation schemes.</p>
+<p>You can construct your own <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/Aggregation.html">Aggregation</a> objects via functions
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">makeMeasure</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostMeasure.html">makeCostMeasure</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCustomResampledMeasure.html">makeCustomResampledMeasure</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeAggregation.html">makeAggregation</a>.
 Some examples are shown in the following.</p>
 <h2 id="constructing-a-performance-measure">Constructing a performance measure</h2>
-<p>Function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">makeMeasure</a> provides a simple way to construct your own performance measure.</p>
+<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">makeMeasure</a> provides a simple way to construct your own performance measure.</p>
 <p>Below this is exemplified by re-implementing the mean misclassification error
 (<a href="../measures/index.html">mmce</a>).
 We first write a function that computes the measure on the basis of the true and predicted
 class labels.
 Note that this function must have certain formal arguments listed in the documentation of
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">makeMeasure</a>.
-Then the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a> object is created and we work with it as usual with the
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/performance.html">performance</a> function.</p>
-<p>See the <strong>R</strong> documentation of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">makeMeasure</a> for more details on the various parameters.</p>
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">makeMeasure</a>.
+Then the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> object is created and we work with it as usual with the
+<a href="http://www.rdocumentation.org/packages/mlr/functions/performance.html">performance</a> function.</p>
+<p>See the <strong>R</strong> documentation of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">makeMeasure</a> for more details on the various parameters.</p>
 <pre><code class="r">## Define a function that calculates the misclassification rate
 my.mmce.fun = function(task, model, pred, feats, extra.args) {
   tb = table(getPredictionResponse(pred), getPredictionTruth(pred))
@@ -476,11 +476,11 @@ performance(pred, measures = mmce)
 <p>For in depth explanations and details see the tutorial page on
 <a href="../cost_sensitive_classif/index.html">cost-sensitive classification</a>.</p>
 <p>To create a measure that involves ordinary, i.e., class-dependent misclassification costs
-you can use function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostMeasure.html">makeCostMeasure</a>. You first need to define the cost matrix. The rows
+you can use function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostMeasure.html">makeCostMeasure</a>. You first need to define the cost matrix. The rows
 indicate true and the columns predicted classes and the rows and columns have to be named
-by the class labels. The cost matrix can then be wrapped in a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a>
-object and predictions can be evaluated as usual with the <a href="http://rpackages.ianhowson.com/cran/mlr/man/performance.html">performance</a> function.</p>
-<p>See the <strong>R</strong> documentation of function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostMeasure.html">makeCostMeasure</a> for details on the various
+by the class labels. The cost matrix can then be wrapped in a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a>
+object and predictions can be evaluated as usual with the <a href="http://www.rdocumentation.org/packages/mlr/functions/performance.html">performance</a> function.</p>
+<p>See the <strong>R</strong> documentation of function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostMeasure.html">makeCostMeasure</a> for details on the various
 parameters.</p>
 <pre><code class="r">## Create the cost matrix
 costs = matrix(c(0, 2, 2, 3, 0, 2, 1, 1, 0), ncol = 3)
@@ -504,17 +504,17 @@ performance(pred, measures = my.costs)
 </code></pre>
 
 <h2 id="creating-an-aggregation-scheme">Creating an aggregation scheme</h2>
-<p>It is possible to create your own aggregation scheme by calling the <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> function
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeAggregation.html">makeAggregation</a>.
+<p>It is possible to create your own aggregation scheme by calling the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeAggregation.html">makeAggregation</a>.
 You need to specify an identifier <code>id</code> and optionally a <code>name</code> and, most importantly, write
 a function that does the actual aggregation. Note that this function must have a certain
-signature detailed in the documentation of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeAggregation.html">makeAggregation</a>.
+signature detailed in the documentation of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeAggregation.html">makeAggregation</a>.
 Usually, you will only need the performance values on the test sets <code>perf.test</code> or
-the training sets <code>perf.train</code>. In rare cases, e.g., the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Prediction.html">Prediction</a> object <code>pred</code> or
-information stored in the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> object might be required to obtain the aggregated performance.
+the training sets <code>perf.train</code>. In rare cases, e.g., the <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> object <code>pred</code> or
+information stored in the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> object might be required to obtain the aggregated performance.
 For an example have a look at the
 <a href="https://github.com/mlr-org/mlr/blob/master/R/aggregations.R#L211">definition</a> of function
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.join</a>.</p>
+<a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.join</a>.</p>
 <h3 id="example-evaluating-the-range-of-measures">Example: Evaluating the range of measures</h3>
 <p>Let's say you are interested in the range of the performance values obtained on individual
 test sets.</p>
@@ -528,7 +528,7 @@ test sets.</p>
 the train and test data sets.
 Usually (e.g., cross validation), the <code>perf.train</code> vector is empty.</p>
 <p>Now we can run a feature selection based on the first measure in the provided
-<a href="http://www.inside-r.org/r-doc/base/list">list</a> and see how the other measures turn out.</p>
+<a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a> and see how the other measures turn out.</p>
 <pre><code class="r">## mmce with default aggregation scheme test.mean
 ms1 = mmce
 

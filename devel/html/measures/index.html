@@ -353,7 +353,7 @@
 <h1 id="implemented-performance-measures">Implemented Performance Measures</h1>
 <p>This page shows the performance measures available for the different types of
 learning problems as well as general performance measures in alphabetical order.
-(See also the documentation about <a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">measures</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">makeMeasure</a> for available measures and
+(See also the documentation about <a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">measures</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">makeMeasure</a> for available measures and
 their properties.)</p>
 <p>If you find that a measure is missing, you can either <a href="https://github.com/mlr-org/mlr/issues">open an issue</a>
 or try <a href="../create_measure/index.html">to implement a measure yourself</a>.</p>
@@ -364,14 +364,14 @@ For <em>classification</em>, column <strong>Multi</strong> indicates if a measur
 multi-class problems. If not, the measure can only be used for binary classification problems.</p>
 <p>The next six columns refer to information required to calculate the performance measure.</p>
 <ul>
-<li><strong>Pred.</strong>: The <a href="http://rpackages.ianhowson.com/cran/mlr/man/Prediction.html">Prediction</a> object.</li>
+<li><strong>Pred.</strong>: The <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> object.</li>
 <li><strong>Truth</strong>: The true values of the response variable(s) (for supervised learning).</li>
 <li><strong>Probs</strong>: The predicted probabilities (might be needed for classification).</li>
-<li><strong>Model</strong>: The <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeWrappedModel.html">WrappedModel</a> (e.g., for calculating the training time).</li>
-<li><strong>Task</strong>: The <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> (relevant for cost-sensitive classification).</li>
+<li><strong>Model</strong>: The <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWrappedModel.html">WrappedModel</a> (e.g., for calculating the training time).</li>
+<li><strong>Task</strong>: The <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> (relevant for cost-sensitive classification).</li>
 <li><strong>Feats</strong>: The predicted data (relevant for clustering).</li>
 </ul>
-<p><strong>Aggr.</strong> shows the default <a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">aggregation method</a> tied to the measure.</p>
+<p><strong>Aggr.</strong> shows the default <a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">aggregation method</a> tied to the measure.</p>
 <h3 id="classification">Classification</h3>
 <table>
 <thead>
@@ -393,7 +393,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">acc</a></strong> <br />Accuracy</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">acc</a></strong> <br />Accuracy</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -404,11 +404,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">auc</a></strong> <br />Area under the curve</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">auc</a></strong> <br />Area under the curve</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -419,11 +419,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">bac</a></strong> <br />Balanced accuracy</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">bac</a></strong> <br />Balanced accuracy</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -434,11 +434,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Mean of true positive rate and true negative rate.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">ber</a></strong> <br />Balanced error rate</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">ber</a></strong> <br />Balanced error rate</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -449,11 +449,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Mean of misclassification error rates on all individual classes.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">brier</a></strong> <br />Brier score</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">brier</a></strong> <br />Brier score</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -464,11 +464,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">The Brier score is defined as the quadratic difference between the probability and the value (1,0) for the class.   That means we use the numeric representation 1 and 0 for our target classes. It is similiar to the mean squared error in regression.   multiclass.brier is the sum over all one vs. all comparisons and for a binary classifcation 2 * brier.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">brier.scaled</a></strong> <br />Brier scaled</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">brier.scaled</a></strong> <br />Brier scaled</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -479,11 +479,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Brier score scaled to [0,1], see <a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3575184/">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3575184/</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">f1</a></strong> <br />F1 measure</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">f1</a></strong> <br />F1 measure</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -494,11 +494,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">fdr</a></strong> <br />False discovery rate</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fdr</a></strong> <br />False discovery rate</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -509,11 +509,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">fn</a></strong> <br />False negatives</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fn</a></strong> <br />False negatives</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -524,11 +524,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called misses.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">fnr</a></strong> <br />False negative rate</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fnr</a></strong> <br />False negative rate</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -539,11 +539,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">fp</a></strong> <br />False positives</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fp</a></strong> <br />False positives</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -554,11 +554,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called false alarms.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">fpr</a></strong> <br />False positive rate</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fpr</a></strong> <br />False positive rate</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -569,11 +569,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called false alarm rate or fall-out.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">gmean</a></strong> <br />G-mean</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">gmean</a></strong> <br />G-mean</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -584,11 +584,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Geometric mean of recall and specificity.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">gpr</a></strong> <br />Geometric mean of precision and recall</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">gpr</a></strong> <br />Geometric mean of precision and recall</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -599,11 +599,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">logloss</a></strong> <br />Logarithmic loss</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">logloss</a></strong> <br />Logarithmic loss</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -614,11 +614,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Defined as: -mean(log(p_i)), where p_i is the predicted probability of the true class of observation i. Inspired by <a href="https://www.kaggle.com/wiki/MultiClassLogLoss">https://www.kaggle.com/wiki/MultiClassLogLoss</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">lsr</a></strong> <br />Logarithmic Scoring Rule</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">lsr</a></strong> <br />Logarithmic Scoring Rule</td>
 <td align="center"></td>
 <td align="right">0</td>
 <td align="right">-Inf</td>
@@ -629,11 +629,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: mean(log(p_i)), where p_i is the predicted probability of the true class of observation i.    This scoring rule is the same as the negative logloss, self-information or surprisal.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: mean(log(p_i)), where p_i is the predicted probability of the true class of observation i.  This scoring rule is the same as the negative logloss, self-information or surprisal.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mcc</a></strong> <br />Matthews correlation coefficient</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mcc</a></strong> <br />Matthews correlation coefficient</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">-1</td>
@@ -644,11 +644,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mmce</a></strong> <br />Mean misclassification error</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mmce</a></strong> <br />Mean misclassification error</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -659,11 +659,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.au1p</a></strong> <br />Weighted average 1 vs. 1 multiclass AUC</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multiclass.au1p</a></strong> <br />Weighted average 1 vs. 1 multiclass AUC</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0.5</td>
@@ -674,11 +674,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Computes AUC of c(c - 1) binary classifiers while considering the a priori distribution of the classes. See Ferri et al.: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.au1u</a></strong> <br />Average 1 vs. 1 multiclass AUC</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multiclass.au1u</a></strong> <br />Average 1 vs. 1 multiclass AUC</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0.5</td>
@@ -689,11 +689,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Computes AUC of c(c - 1) binary classifiers (all possible pairwise combinations) while considering uniform distribution of the classes. See Ferri et al.: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.aunp</a></strong> <br />Weighted average 1 vs. rest multiclass AUC</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multiclass.aunp</a></strong> <br />Weighted average 1 vs. rest multiclass AUC</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0.5</td>
@@ -704,11 +704,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Computes the AUC treating a c-dimensional classifier as c two-dimensional classifiers, taking into account the prior probability of each class. See Ferri et al.: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.aunu</a></strong> <br />Average 1 vs. rest multiclass AUC</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multiclass.aunu</a></strong> <br />Average 1 vs. rest multiclass AUC</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0.5</td>
@@ -719,11 +719,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Computes the AUC treating a c-dimensional classifier as c two-dimensional classifiers, where classes are assumed to have uniform distribution, in order to have a measure which is independent of class distribution change. See Ferri et al.: <a href="https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf">https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multiclass.brier</a></strong> <br />Multiclass Brier score</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multiclass.brier</a></strong> <br />Multiclass Brier score</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">2</td>
@@ -734,11 +734,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Defined as: (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probability of observation i for class j. From <a href="http://docs.lib.noaa.gov/rescue/mwr/078/mwr-078-01-0001.pdf">http://docs.lib.noaa.gov/rescue/mwr/078/mwr-078-01-0001.pdf</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">npv</a></strong> <br />Negative predictive value</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">npv</a></strong> <br />Negative predictive value</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -749,11 +749,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">ppv</a></strong> <br />Positive predictive value</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">ppv</a></strong> <br />Positive predictive value</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -764,11 +764,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called precision.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">qsr</a></strong> <br />Quadratic Scoring Rule</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">qsr</a></strong> <br />Quadratic Scoring Rule</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">-1</td>
@@ -779,11 +779,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: 1 - (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j.   This scoring rule is the same as 1 - multiclass.brier.  See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: 1 - (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j.   This scoring rule is the same as 1 - multiclass.brier.    See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">ssr</a></strong> <br />Spherical Scoring Rule</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">ssr</a></strong> <br />Spherical Scoring Rule</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -794,11 +794,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: mean(p_i(sum_j(p_ij))), where p_i is the predicted probability of the true class of observation i and p_ij is the predicted probablity of observation i for class j.  See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: mean(p_i(sum_j(p_ij))), where p_i is the predicted probability of the true class of observation i and p_ij is the predicted probablity of observation i for class j.    See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">tn</a></strong> <br />True negatives</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tn</a></strong> <br />True negatives</td>
 <td align="center"></td>
 <td align="right">Inf</td>
 <td align="right">0</td>
@@ -809,11 +809,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called correct rejections.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">tnr</a></strong> <br />True negative rate</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tnr</a></strong> <br />True negative rate</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -824,11 +824,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called specificity.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">tp</a></strong> <br />True positives</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tp</a></strong> <br />True positives</td>
 <td align="center"></td>
 <td align="right">Inf</td>
 <td align="right">0</td>
@@ -839,11 +839,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">tpr</a></strong> <br />True positive rate</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tpr</a></strong> <br />True positive rate</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -854,7 +854,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called hit rate or recall.</td>
 </tr>
 </tbody>
@@ -879,7 +879,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">adjrsq</a></strong> <br />Adjusted coefficient of determination</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">adjrsq</a></strong> <br />Adjusted coefficient of determination</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -889,11 +889,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Adjusted R-squared is only defined for normal linear regression.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">expvar</a></strong> <br />Explained variance</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">expvar</a></strong> <br />Explained variance</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -903,11 +903,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Similar to measure rsq (R-squared). Defined as explained_sum_of_squares / total_sum_of_squares.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mae</a></strong> <br />Mean of absolute errors</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mae</a></strong> <br />Mean of absolute errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -917,11 +917,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">medae</a></strong> <br />Median of absolute errors</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">medae</a></strong> <br />Median of absolute errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -931,11 +931,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">medse</a></strong> <br />Median of squared errors</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">medse</a></strong> <br />Median of squared errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -945,11 +945,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mse</a></strong> <br />Mean of squared errors</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mse</a></strong> <br />Mean of squared errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -959,11 +959,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">rmse</a></strong> <br />Root mean square error</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rmse</a></strong> <br />Root mean square error</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -973,11 +973,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.rmse</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.rmse</a></td>
 <td align="left">The RMSE is aggregated as sqrt(mean(rmse.vals.on.test.sets^2)). If you don't want that, you could also use <code>test.mean</code>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">rsq</a></strong> <br />Coefficient of determination</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rsq</a></strong> <br />Coefficient of determination</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">-Inf</td>
@@ -987,11 +987,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called R-squared, which is 1 - residual_sum_of_squares / total_sum_of_squares.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">sae</a></strong> <br />Sum of absolute errors</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">sae</a></strong> <br />Sum of absolute errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -1001,11 +1001,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">sse</a></strong> <br />Sum of squared errors</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">sse</a></strong> <br />Sum of squared errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -1015,7 +1015,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -1040,7 +1040,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">cindex</a></strong> <br />Concordance index</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">cindex</a></strong> <br />Concordance index</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -1050,7 +1050,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -1075,7 +1075,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">db</a></strong> <br />Davies-Bouldin cluster separation measure</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">db</a></strong> <br />Davies-Bouldin cluster separation measure</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -1085,11 +1085,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">See <code>?clusterSim::index.DB</code>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">dunn</a></strong> <br />Dunn index</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">dunn</a></strong> <br />Dunn index</td>
 <td align="center"></td>
 <td align="right">Inf</td>
 <td align="right">0</td>
@@ -1099,11 +1099,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">See <code>?clValid::dunn</code>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">G1</a></strong> <br />Calinski-Harabasz pseudo F statistic</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">G1</a></strong> <br />Calinski-Harabasz pseudo F statistic</td>
 <td align="center"></td>
 <td align="right">Inf</td>
 <td align="right">0</td>
@@ -1113,11 +1113,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">See <code>?clusterSim::index.G1</code>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">G2</a></strong> <br />Baker and Hubert adaptation of Goodman-Kruskal's gamma statistic</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">G2</a></strong> <br />Baker and Hubert adaptation of Goodman-Kruskal's gamma statistic</td>
 <td align="center"></td>
 <td align="right">Inf</td>
 <td align="right">0</td>
@@ -1127,11 +1127,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">See <code>?clusterSim::index.G2</code>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">silhouette</a></strong> <br />Rousseeuw's silhouette internal cluster quality index</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">silhouette</a></strong> <br />Rousseeuw's silhouette internal cluster quality index</td>
 <td align="center"></td>
 <td align="right">Inf</td>
 <td align="right">0</td>
@@ -1141,7 +1141,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">See <code>?clusterSim::index.S</code>.</td>
 </tr>
 </tbody>
@@ -1166,7 +1166,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">mcp</a></strong> <br />Misclassification penalty</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mcp</a></strong> <br />Misclassification penalty</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -1176,11 +1176,11 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Average difference between costs of oracle and model prediction.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">meancosts</a></strong> <br />Mean costs of the predicted choices</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">meancosts</a></strong> <br />Mean costs of the predicted choices</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -1190,13 +1190,13 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 </tbody>
 </table>
 <p>Note that in case of <em>ordinary misclassification costs</em> you can also generate performance
-measures from cost matrices by function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostMeasure.html">makeCostMeasure</a>.
+measures from cost matrices by function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostMeasure.html">makeCostMeasure</a>.
 For details see the tutorial page on <a href="../cost_sensitive_classif/index.html">cost-sensitive classification</a>
 and also the page on <a href="../create_measure/index.html">custom performance measures</a>.</p>
 <h3 id="multilabel-classification">Multilabel classification</h3>
@@ -1219,7 +1219,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.acc</a></strong> <br />Accuracy (multilabel)</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.acc</a></strong> <br />Accuracy (multilabel)</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -1229,11 +1229,11 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Mean of proportion of correctly predicted labels with respect to the total number of labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.f1</a></strong> <br />F1 measure (multilabel)</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.f1</a></strong> <br />F1 measure (multilabel)</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -1243,11 +1243,11 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Harmonic mean of precision and recall on a per instance basis (Micro-F1),   following the definition by Montanes et al.: <a href="http://www.sciencedirect.com/science/article/pii/S0031320313004019">http://www.sciencedirect.com/science/article/pii/S0031320313004019</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.hamloss</a></strong> <br />Hamming loss</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.hamloss</a></strong> <br />Hamming loss</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -1257,11 +1257,11 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Proportion of labels whose relevance is incorrectly predicted,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.ppv</a></strong> <br />Positive predictive value (multilabel)</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.ppv</a></strong> <br />Positive predictive value (multilabel)</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -1271,11 +1271,11 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called precision. Mean of ratio of truly predicted labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.subset01</a></strong> <br />Subset-0-1 loss</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.subset01</a></strong> <br />Subset-0-1 loss</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -1285,11 +1285,11 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Proportion of observations where the complete multilabel set (all 0-1-labels) is not correctly predicted,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">multilabel.tpr</a></strong> <br />TPR (multilabel)</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.tpr</a></strong> <br />TPR (multilabel)</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -1299,7 +1299,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called recall. Mean of proportion of predicted labels which are relevant for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.</td>
 </tr>
 </tbody>
@@ -1324,7 +1324,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">featperc</a></strong> <br />Percentage of original features used for model</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">featperc</a></strong> <br />Percentage of original features used for model</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">1</td>
@@ -1334,11 +1334,11 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Useful for feature selection.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">timeboth</a></strong> <br />timetrain + timepredict</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">timeboth</a></strong> <br />timetrain + timepredict</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -1348,11 +1348,11 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">timepredict</a></strong> <br />Time of predicting test set</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">timepredict</a></strong> <br />Time of predicting test set</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -1362,11 +1362,11 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://rpackages.ianhowson.com/cran/mlr/man/measures.html">timetrain</a></strong> <br />Time of fitting the model</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">timetrain</a></strong> <br />Time of fitting the model</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -1376,7 +1376,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left"><a href="http://rpackages.ianhowson.com/cran/mlr/man/aggregations.html">test.mean</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left"></td>
 </tr>
 </tbody>

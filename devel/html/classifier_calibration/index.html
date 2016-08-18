@@ -338,14 +338,14 @@
 
 <h1 id="classifier-calibration">Classifier Calibration</h1>
 <p>A classifier is "calibrated" when the predicted probability of a class matches the expected
-frequency of that class. <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> can visualize this by plotting estimated class probabilities
+frequency of that class. <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> can visualize this by plotting estimated class probabilities
 (which are discretized) against the observed frequency of said class in the data using
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/generateCalibrationData.html">generateCalibrationData</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/plotCalibration.html">plotCalibration</a>.</p>
-<p><a href="http://rpackages.ianhowson.com/cran/mlr/man/generateCalibrationData.html">generateCalibrationData</a> takes as input <a href="http://rpackages.ianhowson.com/cran/mlr/man/Prediction.html">Prediction</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/ResampleResult.html">ResampleResult</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/BenchmarkResult.html">BenchmarkResult</a>,
-or a named list of <a href="http://rpackages.ianhowson.com/cran/mlr/man/Prediction.html">Prediction</a> or <a href="http://rpackages.ianhowson.com/cran/mlr/man/ResampleResult.html">ResampleResult</a> objects on a classification (multiclass
+<a href="http://www.rdocumentation.org/packages/mlr/functions/generateCalibrationData.html">generateCalibrationData</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/plotCalibration.html">plotCalibration</a>.</p>
+<p><a href="http://www.rdocumentation.org/packages/mlr/functions/generateCalibrationData.html">generateCalibrationData</a> takes as input <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/ResampleResult.html">ResampleResult</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/BenchmarkResult.html">BenchmarkResult</a>,
+or a named list of <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> or <a href="http://www.rdocumentation.org/packages/mlr/functions/ResampleResult.html">ResampleResult</a> objects on a classification (multiclass
 or binary) task with learner(s) that are capable of outputting probabiliites (i.e., learners
 must be constructed with <code>predict.type = TRUE</code>). The result is an object of class
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/generateCalibrationData.html">CalibrationData</a> which has elements <code>proportion</code>, <code>data</code>, and
+<a href="http://www.rdocumentation.org/packages/mlr/functions/generateCalibrationData.html">CalibrationData</a> which has elements <code>proportion</code>, <code>data</code>, and
 <code>task</code>. <code>proportion</code> gives the proportion of observations labelled with a given class for
 each predicted probability bin (e.g., for observations which are predicted to have class "A"
 with probability <script type="math/tex">(0, 0.1]</script>, what is the proportion of said observations which have class "A"?).</p>
@@ -367,11 +367,11 @@ cal$proportion
 
 <p>The manner in which the predicted probabilities are discretized is controlled by two arguments:
 <code>breaks</code> and <code>groups</code>. By default <code>breaks = "Sturges"</code> which uses the Sturges algorithm in
-<a href="http://www.inside-r.org/r-doc/graphics/hist">hist</a>. This argument can specify other algorithms available in
-<a href="http://www.inside-r.org/r-doc/graphics/hist">hist</a>, it can be a numeric vector specifying breakpoints for <a href="http://www.inside-r.org/r-doc/base/cut">cut</a>,
+<a href="http://www.rdocumentation.org/packages/graphics/functions/hist.html">hist</a>. This argument can specify other algorithms available in
+<a href="http://www.rdocumentation.org/packages/graphics/functions/hist.html">hist</a>, it can be a numeric vector specifying breakpoints for <a href="http://www.rdocumentation.org/packages/base/functions/cut.html">cut</a>,
 or a single integer specifying the number of bins to create (which are evenly spaced).
 Alternatively, <code>groups</code> can be set to a positive integer value (by default <code>groups = NULL</code>)
-in which case <a href="http://rpackages.ianhowson.com/cran/Hmisc/man/cut2.html">cut2</a> is used to create bins with an approximately equal number
+in which case <a href="http://www.rdocumentation.org/packages/Hmisc/functions/cut2.html">cut2</a> is used to create bins with an approximately equal number
 of observations in each bin.</p>
 <pre><code class="r">cal = generateCalibrationData(pred, groups = 3)
 cal$proportion
@@ -381,8 +381,8 @@ cal$proportion
 #&gt; 3 prediction [0.925,1.000]     M 0.93333333
 </code></pre>
 
-<p><a href="http://rpackages.ianhowson.com/cran/mlr/man/generateCalibrationData.html">CalibrationData</a> objects can be plotted using <a href="http://rpackages.ianhowson.com/cran/mlr/man/plotCalibration.html">plotCalibration</a>.
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/plotCalibration.html">plotCalibration</a> by default plots a reference line which shows perfect calibration and a
+<p><a href="http://www.rdocumentation.org/packages/mlr/functions/generateCalibrationData.html">CalibrationData</a> objects can be plotted using <a href="http://www.rdocumentation.org/packages/mlr/functions/plotCalibration.html">plotCalibration</a>.
+<a href="http://www.rdocumentation.org/packages/mlr/functions/plotCalibration.html">plotCalibration</a> by default plots a reference line which shows perfect calibration and a
 "rag" plot, which is a rug plot on the top and bottom of the graph, where the top pertains
 to "positive" cases, where the predicted class matches the observed class, and the bottom
 pertains to "negative" cases, where the predicted class does not match the observed class.

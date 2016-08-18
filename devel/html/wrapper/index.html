@@ -339,7 +339,7 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="wrapper">Wrapper</h1>
-<p>Wrappers can be employed to extend integrated <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">learners</a> with new functionality.
+<p>Wrappers can be employed to extend integrated <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">learners</a> with new functionality.
 The broad scope of operations and methods which are implemented as wrappers underline the flexibility of the wrapping approach:</p>
 <ul>
 <li><a href="../preproc/index.html">Data preprocessing</a></li>
@@ -349,23 +349,23 @@ The broad scope of operations and methods which are implemented as wrappers unde
 <li><a href="../feature_selection/index.html">Feature selection</a></li>
 <li><a href="../cost_sensitive_classif/index.html">Cost-sensitive classification</a></li>
 <li><a href="../over_and_undersampling/index.html">Over- and undersampling</a> for imbalanced classification problems</li>
-<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMulticlassWrapper.html">Multiclass extension</a> for binary-class learners</li>
-<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMultilabelBinaryRelevanceWrapper.html">Multilabel binary relevance wrapper</a> for multilabel
+<li><a href="http://www.rdocumentation.org/packages/mlr/functions/makeMulticlassWrapper.html">Multiclass extension</a> for binary-class learners</li>
+<li><a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelBinaryRelevanceWrapper.html">Multilabel binary relevance wrapper</a> for multilabel
 classification with the binary relevance method</li>
 </ul>
 <p>All these operations and methods have a few things in common:
-First, they all wrap around <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">learners</a> and they return a new learner.
+First, they all wrap around <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">learners</a> and they return a new learner.
 Therefore learners can be wrapped multiple times.
 Second, they are implemented using a <em>train</em> (pre-model hook) and <em>predict</em> (post-model hook) method.</p>
 <h2 id="example-bagging-wrapper">Example: Bagging wrapper</h2>
 <p>In this section we exemplary describe the bagging wrapper to create a random forest which supports weights.
-To achieve that we combine several decision trees from the <a href="http://rpackages.ianhowson.com/cran/rpart/">rpart</a> package to create our own custom random forest.</p>
+To achieve that we combine several decision trees from the <a href="http://www.rdocumentation.org/packages/rpart/">rpart</a> package to create our own custom random forest.</p>
 <p>First, we create a weighted toy task.</p>
 <pre><code class="r">data(iris)
 task = makeClassifTask(data = iris, target = &quot;Species&quot;, weights = as.integer(iris$Species))
 </code></pre>
 
-<p>Next, we use <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeBaggingWrapper.html">makeBaggingWrapper</a> to create the base learners and the bagged learner.
+<p>Next, we use <a href="http://www.rdocumentation.org/packages/mlr/functions/makeBaggingWrapper.html">makeBaggingWrapper</a> to create the base learners and the bagged learner.
 We choose to set equivalents of <code>ntree</code> (100 base learners) and <code>mtry</code> (proportion of randomly selected features).</p>
 <pre><code class="r">base.lrn = makeLearner(&quot;classif.rpart&quot;)
 wrapped.lrn = makeBaggingWrapper(base.lrn, bw.iters = 100, bw.feats = 0.5)
@@ -380,7 +380,7 @@ print(wrapped.lrn)
 </code></pre>
 
 <p>As we can see in the output, the wrapped learner inherited all properties from the base learner, especially the "weights" attribute is still present.
-We can use this newly constructed learner like all base learners, i.e. we can use it in <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/benchmark.html">benchmark</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/resample.html">resample</a>, etc.</p>
+We can use this newly constructed learner like all base learners, i.e. we can use it in <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/benchmark.html">benchmark</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a>, etc.</p>
 <pre><code class="r">benchmark(tasks = task, learners = list(base.lrn, wrapped.lrn))
 #&gt; Task: iris, Learner: classif.rpart
 #&gt; [Resample] cross-validation iter: 1
@@ -432,7 +432,7 @@ Let's have a look at the available hyperparameters of the fused learner:</p>
 #&gt; parms           untyped   -     -        -   -    TRUE     -
 </code></pre>
 
-<p>We choose to tune the parameters <code>minsplit</code> and <code>bw.feats</code> for the <a href="../measures/index.html">mmce</a> using a <a href="http://rpackages.ianhowson.com/cran/mlr/man/TuneControl.html">random search</a> in a 3-fold CV:</p>
+<p>We choose to tune the parameters <code>minsplit</code> and <code>bw.feats</code> for the <a href="../measures/index.html">mmce</a> using a <a href="http://www.rdocumentation.org/packages/mlr/functions/TuneControl.html">random search</a> in a 3-fold CV:</p>
 <pre><code class="r">ctrl = makeTuneControlRandom(maxit = 10)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 par.set = makeParamSet(

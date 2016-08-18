@@ -341,16 +341,16 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="integrating-another-filter-method">Integrating Another Filter Method</h1>
-<p>A lot of feature filter methods are already integrated in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> and a complete list is given
-in the <a href="../filter_methods/index.html">Appendix</a> or can be obtained using <a href="http://rpackages.ianhowson.com/cran/mlr/man/listFilterMethods.html">listFilterMethods</a>.
+<p>A lot of feature filter methods are already integrated in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> and a complete list is given
+in the <a href="../filter_methods/index.html">Appendix</a> or can be obtained using <a href="http://www.rdocumentation.org/packages/mlr/functions/listFilterMethods.html">listFilterMethods</a>.
 You can easily add another filter, be it a brand new one or a method which is already
-implemented in another package, via function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeFilter.html">makeFilter</a>.</p>
+implemented in another package, via function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeFilter.html">makeFilter</a>.</p>
 <h2 id="filter-objects">Filter objects</h2>
-<p>In <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> all filter methods are objects of class <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeFilter.html">Filter</a> and are registered
+<p>In <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> all filter methods are objects of class <a href="http://www.rdocumentation.org/packages/mlr/functions/makeFilter.html">Filter</a> and are registered
 in an environment called <code>.FilterRegister</code>
-(where <a href="http://rpackages.ianhowson.com/cran/mlr/man/listFilterMethods.html">listFilterMethods</a> looks them up to compile the list of available methods).
+(where <a href="http://www.rdocumentation.org/packages/mlr/functions/listFilterMethods.html">listFilterMethods</a> looks them up to compile the list of available methods).
 To get to know their structure let's have a closer look at the <code>"rank.correlation"</code> filter
-which interfaces function <a href="http://rpackages.ianhowson.com/cran/FSelector/man/correlation.html">rank.correlation</a> in package <a href="http://rpackages.ianhowson.com/cran/FSelector/">FSelector</a>.</p>
+which interfaces function <a href="http://www.rdocumentation.org/packages/FSelector/functions/correlation.html">rank.correlation</a> in package <a href="http://www.rdocumentation.org/packages/FSelector/">FSelector</a>.</p>
 <pre><code class="r">filters = as.list(mlr:::.FilterRegister)
 filters$rank.correlation
 #&gt; Filter: 'rank.correlation'
@@ -374,36 +374,36 @@ filters$rank.correlation$fun
 #&gt;     y = FSelector::rank.correlation(getTaskFormula(task), data = getTaskData(task))
 #&gt;     setNames(y[[&quot;attr_importance&quot;]], getTaskFeatureNames(task))
 #&gt; }
-#&gt; &lt;bytecode: 0xd179f78&gt;
+#&gt; &lt;bytecode: 0xe903cd0&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
 <p>The core element is <code>$fun</code> which calculates the feature importance.
 For the <code>"rank.correlation"</code> filter it just extracts the data and formula from the <code>task</code>
-and passes them on to the <a href="http://rpackages.ianhowson.com/cran/FSelector/man/correlation.html">rank.correlation</a> function.</p>
-<p>Additionally, each <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeFilter.html">Filter</a> object has a <code>$name</code>, which should be short and is
-for example used to annotate graphics (cp. <a href="http://rpackages.ianhowson.com/cran/mlr/man/plotFilterValues.html">plotFilterValues</a>), and a slightly more detailed
+and passes them on to the <a href="http://www.rdocumentation.org/packages/FSelector/functions/correlation.html">rank.correlation</a> function.</p>
+<p>Additionally, each <a href="http://www.rdocumentation.org/packages/mlr/functions/makeFilter.html">Filter</a> object has a <code>$name</code>, which should be short and is
+for example used to annotate graphics (cp. <a href="http://www.rdocumentation.org/packages/mlr/functions/plotFilterValues.html">plotFilterValues</a>), and a slightly more detailed
 description in slot <code>$desc</code>.
 If the filter method is implemented by another package its name is given in the <code>$pkg</code> member.
 Moreover, the supported task types and feature types are listed.</p>
 <h2 id="writing-a-new-filter-method">Writing a new filter method</h2>
-<p>You can integrate your own filter method using <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeFilter.html">makeFilter</a>. This function generates a
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeFilter.html">Filter</a> object and also registers it in the <code>.FilterRegister</code> environment.</p>
-<p>The arguments of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeFilter.html">makeFilter</a> correspond to the slot names of the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeFilter.html">Filter</a>
+<p>You can integrate your own filter method using <a href="http://www.rdocumentation.org/packages/mlr/functions/makeFilter.html">makeFilter</a>. This function generates a
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeFilter.html">Filter</a> object and also registers it in the <code>.FilterRegister</code> environment.</p>
+<p>The arguments of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeFilter.html">makeFilter</a> correspond to the slot names of the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeFilter.html">Filter</a>
 object above.
 Currently, feature filtering is only supported for supervised learning tasks and possible
 values for <code>supported.tasks</code> are <code>"regr"</code>, <code>"classif"</code> and <code>"surv"</code>.
 <code>supported.features</code> can be <code>"numerics"</code>, <code>"factors"</code> and <code>"ordered"</code>.</p>
-<p><code>fun</code> must be a <a href="http://www.inside-r.org/r-doc/base/function">function</a> with at least the following formal arguments:</p>
+<p><code>fun</code> must be a <a href="http://www.rdocumentation.org/packages/base/functions/function.html">function</a> with at least the following formal arguments:</p>
 <ul>
-<li><code>task</code> is a <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> learning <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>.</li>
-<li><code>nselect</code> corresponds to the argument of <a href="http://rpackages.ianhowson.com/cran/mlr/man/generateFilterValuesData.html">generateFilterValuesData</a> of the same name and
+<li><code>task</code> is a <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> learning <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.</li>
+<li><code>nselect</code> corresponds to the argument of <a href="http://www.rdocumentation.org/packages/mlr/functions/generateFilterValuesData.html">generateFilterValuesData</a> of the same name and
   specifies the number of features for which to calculate importance scores.
   Some filter methods have the option to stop after a certain number of top-ranked features
   have been found, in order to save time and ressources when the number of features is high.
-  The majority of filter methods integrated in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> doesn't support this and thus
+  The majority of filter methods integrated in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> doesn't support this and thus
   <code>nselect</code> is ignored in most cases.
-  An exception is the minimum redundancy maximum relevance filter from package <a href="http://rpackages.ianhowson.com/cran/mRMRe/">mRMRe</a>.</li>
+  An exception is the minimum redundancy maximum relevance filter from package <a href="http://www.rdocumentation.org/packages/mRMRe/">mRMRe</a>.</li>
 <li><code>...</code> for additional arguments.</li>
 </ul>
 <p><code>fun</code> must return a named vector of feature importance values.
@@ -411,9 +411,9 @@ By convention the most important features receive the highest scores.</p>
 <p>If <code>nselect</code> is actively used <code>fun</code> can either return a vector of <code>nselect</code> scores or
 a vector as long as the numbers of features in the task that contains <code>NAs</code> for all
 features whose scores weren't calculated.</p>
-<p>For writing <code>fun</code> many of the getter functions for <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>s come in handy,
-particularly <a href="http://rpackages.ianhowson.com/cran/mlr/man/getTaskData.html">getTaskData</a>, <a href="http://rpackages.ianhowson.com/cran/mlr/man/getTaskFormula.html">getTaskFormula</a> and <a href="http://rpackages.ianhowson.com/cran/mlr/man/getTaskFeatureNames.html">getTaskFeatureNames</a>.
-It's worth having a closer look at <a href="http://rpackages.ianhowson.com/cran/mlr/man/getTaskData.html">getTaskData</a> which provides many options for
+<p>For writing <code>fun</code> many of the getter functions for <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s come in handy,
+particularly <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskFormula.html">getTaskFormula</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskFeatureNames.html">getTaskFeatureNames</a>.
+It's worth having a closer look at <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a> which provides many options for
 formatting the data and recoding the target variable.</p>
 <p>As a short demonstration we write a totally meaningless filter that determines the
 importance of features according to alphabetical order, i.e., giving highest scores to
@@ -438,7 +438,7 @@ in the alphabet.</p>
 #&gt; Supported features: numerics,factors,ordered
 </code></pre>
 
-<p>The <code>nonsense.filter</code> is now registered in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> and shown by <a href="http://rpackages.ianhowson.com/cran/mlr/man/listFilterMethods.html">listFilterMethods</a>.</p>
+<p>The <code>nonsense.filter</code> is now registered in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> and shown by <a href="http://www.rdocumentation.org/packages/mlr/functions/listFilterMethods.html">listFilterMethods</a>.</p>
 <pre><code class="r">listFilterMethods()$id
 #&gt;  [1] anova.test                 carscore                  
 #&gt;  [3] cforest.importance         chi.squared               
@@ -455,9 +455,9 @@ in the alphabet.</p>
 #&gt; 23 Levels: anova.test carscore cforest.importance ... variance
 </code></pre>
 
-<p>You can use it like any other filter method already integrated in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> (i.e., via the
-<code>method</code> argument of <a href="http://rpackages.ianhowson.com/cran/mlr/man/generateFilterValuesData.html">generateFilterValuesData</a> or the <code>fw.method</code> argument of
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeFilterWrapper.html">makeFilterWrapper</a>; see also the page on <a href="../feature_selection/index.html">feature selection</a>).</p>
+<p>You can use it like any other filter method already integrated in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> (i.e., via the
+<code>method</code> argument of <a href="http://www.rdocumentation.org/packages/mlr/functions/generateFilterValuesData.html">generateFilterValuesData</a> or the <code>fw.method</code> argument of
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeFilterWrapper.html">makeFilterWrapper</a>; see also the page on <a href="../feature_selection/index.html">feature selection</a>).</p>
 <pre><code class="r">d = generateFilterValuesData(iris.task, method = c(&quot;nonsense.filter&quot;, &quot;anova.test&quot;))
 d
 #&gt; FilterValues:
@@ -495,7 +495,7 @@ getTaskFeatureNames(iris.task.filtered)
 
 <p>You might also want to have a look at the
 <a href="https://github.com/mlr-org/mlr/blob/master/R/Filter.R#L95">source code</a>
-of the filter methods already integrated in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> for some more complex and meaningful
+of the filter methods already integrated in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> for some more complex and meaningful
 examples.</p></div>
             
         </div>

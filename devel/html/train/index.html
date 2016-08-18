@@ -342,10 +342,10 @@
 
 <h1 id="training-a-learner">Training a Learner</h1>
 <p>Training a learner means fitting a model to a given data set.
-In <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> this can be done by calling function <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a>
-on a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> and a suitable <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>.</p>
-<p>We start with a classification example and perform a <a href="http://rpackages.ianhowson.com/cran/MASS/man/lda.html">linear discriminant analysis</a>
-on the <a href="http://www.inside-r.org/r-doc/datasets/iris">iris</a> data set.</p>
+In <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> this can be done by calling function <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a>
+on a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> and a suitable <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.</p>
+<p>We start with a classification example and perform a <a href="http://www.rdocumentation.org/packages/MASS/functions/lda.html">linear discriminant analysis</a>
+on the <a href="http://www.rdocumentation.org/packages/datasets/functions/iris.html">iris</a> data set.</p>
 <pre><code class="r">## Generate the task
 task = makeClassifTask(data = iris, target = &quot;Species&quot;)
 
@@ -360,11 +360,11 @@ mod
 #&gt; Hyperparameters:
 </code></pre>
 
-<p>In the above example creating the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> explicitly is not absolutely necessary.
-As a general rule, you have to generate the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> yourself if you want
+<p>In the above example creating the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> explicitly is not absolutely necessary.
+As a general rule, you have to generate the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> yourself if you want
 to change any defaults, e.g., setting hyperparameter values or altering the predict type.
-Otherwise, <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a> and many other functions also accept the class name of the learner and
-call <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">makeLearner</a> internally with default settings.</p>
+Otherwise, <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a> and many other functions also accept the class name of the learner and
+call <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a> internally with default settings.</p>
 <pre><code class="r">mod = train(&quot;classif.lda&quot;, task)
 mod
 #&gt; Model for learner.id=classif.lda; learner.class=classif.lda
@@ -374,10 +374,10 @@ mod
 
 <p>Training a learner works the same way for every type of learning problem.
 Below is a survival analysis example where a
-<a href="http://rpackages.ianhowson.com/cran/survival/man/coxph.html">Cox proportional hazards model</a> is fitted to the <a href="http://rpackages.ianhowson.com/cran/survival/man/lung.html">lung</a>
+<a href="http://www.rdocumentation.org/packages/survival/functions/coxph.html">Cox proportional hazards model</a> is fitted to the <a href="http://www.rdocumentation.org/packages/survival/functions/lung.html">lung</a>
 data set.
-Note that we use the corresponding <a href="http://rpackages.ianhowson.com/cran/mlr/man/lung.task.html">lung.task</a> provided by <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a>.
-All available <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>s are listed in the <a href="../example_tasks/index.html">Appendix</a>.</p>
+Note that we use the corresponding <a href="http://www.rdocumentation.org/packages/mlr/functions/lung.task.html">lung.task</a> provided by <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.
+All available <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s are listed in the <a href="../example_tasks/index.html">Appendix</a>.</p>
 <pre><code class="r">mod = train(&quot;surv.coxph&quot;, lung.task)
 mod
 #&gt; Model for learner.id=surv.coxph; learner.class=surv.coxph
@@ -386,17 +386,17 @@ mod
 </code></pre>
 
 <h2 id="accessing-learner-models">Accessing learner models</h2>
-<p>Function <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a> returns an object of class <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeWrappedModel.html">WrappedModel</a>, which encapsulates
+<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a> returns an object of class <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWrappedModel.html">WrappedModel</a>, which encapsulates
 the fitted model, i.e., the output of the underlying <strong>R</strong> learning method. Additionally,
-it contains some information about the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a>, the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>, the features and
+it contains some information about the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>, the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>, the features and
 observations used for training, and the training time.
-A <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeWrappedModel.html">WrappedModel</a> can subsequently be used to make a
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/predict.WrappedModel.html">prediction</a> for new observations.</p>
-<p>The fitted model in slot <code>$learner.model</code> of the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeWrappedModel.html">WrappedModel</a> object
-can be accessed using function <a href="http://rpackages.ianhowson.com/cran/mlr/man/getLearnerModel.html">getLearnerModel</a>.</p>
-<p>In the following example we cluster the <a href="http://rpackages.ianhowson.com/cran/cluster/man/ruspini.html">Ruspini</a> data set (which has
+A <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWrappedModel.html">WrappedModel</a> can subsequently be used to make a
+<a href="http://www.rdocumentation.org/packages/mlr/functions/predict.WrappedModel.html">prediction</a> for new observations.</p>
+<p>The fitted model in slot <code>$learner.model</code> of the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWrappedModel.html">WrappedModel</a> object
+can be accessed using function <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerModel.html">getLearnerModel</a>.</p>
+<p>In the following example we cluster the <a href="http://www.rdocumentation.org/packages/cluster/functions/ruspini.html">Ruspini</a> data set (which has
 four groups and two features) by <script type="math/tex">K</script>-means with <script type="math/tex">K = 4</script> and extract the output of the
-underlying <a href="http://www.inside-r.org/r-doc/stats/kmeans">kmeans</a> function.</p>
+underlying <a href="http://www.rdocumentation.org/packages/stats/functions/kmeans.html">kmeans</a> function.</p>
 <pre><code class="r">data(ruspini, package = &quot;cluster&quot;)
 plot(y ~ x, ruspini)
 </code></pre>
@@ -466,12 +466,12 @@ getLearnerModel(mod)
 </code></pre>
 
 <h2 id="further-options-and-comments">Further options and comments</h2>
-<p>By default, the whole data set in the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> is used for training.
-The <code>subset</code> argument of <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a> takes a logical or integer vector that indicates which
+<p>By default, the whole data set in the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> is used for training.
+The <code>subset</code> argument of <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a> takes a logical or integer vector that indicates which
 observations to use, for example if you want to split your data into a training and a test
 set or if you want to fit separate models to different subgroups in the data.</p>
-<p>Below we fit a <a href="http://www.inside-r.org/r-doc/stats/lm">linear regression model</a> to the <a href="http://rpackages.ianhowson.com/cran/mlbench/man/BostonHousing.html">BostonHousing</a>
-data set (<a href="http://rpackages.ianhowson.com/cran/mlr/man/bh.task.html">bh.task</a>) and randomly select 1/3 of the data set for training.</p>
+<p>Below we fit a <a href="http://www.rdocumentation.org/packages/stats/functions/lm.html">linear regression model</a> to the <a href="http://www.rdocumentation.org/packages/mlbench/functions/BostonHousing.html">BostonHousing</a>
+data set (<a href="http://www.rdocumentation.org/packages/mlr/functions/bh.task.html">bh.task</a>) and randomly select 1/3 of the data set for training.</p>
 <pre><code class="r">## Get the number of observations
 n = getTaskSize(bh.task)
 
@@ -495,7 +495,7 @@ observations, reduce the influence of outliers or, if the data were collected ov
 time period, increase the influence of recent data.
 In supervised classification weights can be used to incorporate misclassification costs or
 account for class imbalance.</p>
-<p>For example in the <a href="http://rpackages.ianhowson.com/cran/mlbench/man/BreastCancer.html">BreastCancer</a> data set class <code>benign</code> is almost
+<p>For example in the <a href="http://www.rdocumentation.org/packages/mlbench/functions/BreastCancer.html">BreastCancer</a> data set class <code>benign</code> is almost
 twice as frequent as class <code>malignant</code>.
 In order to grant both classes equal importance in training the classifier we can weight the
 examples according to the inverse class frequencies in the data set as shown in the following
@@ -511,16 +511,16 @@ train(&quot;classif.rpart&quot;, task = bc.task, weights = w)
 #&gt; Hyperparameters: xval=0
 </code></pre>
 
-<p>Note, for later, that <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> offers much more functionality to deal with
+<p>Note, for later, that <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> offers much more functionality to deal with
 <a href="../over_and_undersampling/index.html">imbalanced classification problems</a>.</p>
 <p>As another side remark for more advanced readers:
-By varying the weights in the calls to <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a>, you could also implement your own variant of
-a general boosting type algorithm on arbitrary <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> base learners.</p>
+By varying the weights in the calls to <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a>, you could also implement your own variant of
+a general boosting type algorithm on arbitrary <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> base learners.</p>
 <p>As you may recall, it is also possible to set observation weights when creating the
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>. As a general rule, you should specify them in <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">make*Task</a> if the weights
+<a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>. As a general rule, you should specify them in <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">make*Task</a> if the weights
 really "belong" to the task and always should be used.
-Otherwise, pass them to <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a>.
-The weights in <a href="http://rpackages.ianhowson.com/cran/mlr/man/train.html">train</a> take precedence over the weights in <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>.</p></div>
+Otherwise, pass them to <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a>.
+The weights in <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a> take precedence over the weights in <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>.</p></div>
             
         </div>
 

@@ -361,31 +361,31 @@ cost vectors.
 Moreover, given the cost vector, the expected costs do not depend on the true class label <script type="math/tex">y</script>.
 The classification problem is therefore completely defined by the feature values <script type="math/tex">x</script> and the
 corresponding cost vectors.</p>
-<p>In the following we show ways to handle cost-sensitive classification problems in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a>.
+<p>In the following we show ways to handle cost-sensitive classification problems in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.
 Some of the functionality is currently experimental, and there may be changes in the future.</p>
 <h2 id="class-dependent-misclassification-costs">Class-dependent misclassification costs</h2>
 <p>There are some classification methods that can accomodate misclassification costs
 directly.
-One example is <a href="http://rpackages.ianhowson.com/cran/rpart/man/rpart.html">rpart</a>.</p>
+One example is <a href="http://www.rdocumentation.org/packages/rpart/functions/rpart.html">rpart</a>.</p>
 <p>Alternatively, we can use cost-insensitive methods and manipulate the predictions or the
 training data in order to take misclassification costs into account.
-<a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> supports <em>thresholding</em> and <em>rebalancing</em>.</p>
+<a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> supports <em>thresholding</em> and <em>rebalancing</em>.</p>
 <ol>
 <li>
 <p><strong>Thresholding</strong>:
   The thresholds used to turn posterior probabilities into class labels are chosen such that
   the costs are minimized.
-  This requires a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> that can predict posterior probabilities.
+  This requires a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> that can predict posterior probabilities.
   During training the costs are not taken into account.</p>
 </li>
 <li>
 <p><strong>Rebalancing</strong>:
   The idea is to change the proportion of the classes in the training data set in order to
   account for costs during training, either by <em>weighting</em> or by <em>sampling</em>.
-  Rebalancing does not require that the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> can predict probabilities.</p>
-<p>i. For <em>weighting</em> we need a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> that supports class weights or observation
+  Rebalancing does not require that the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> can predict probabilities.</p>
+<p>i. For <em>weighting</em> we need a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> that supports class weights or observation
      weights.</p>
-<p>ii. If the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> cannot deal with weights the proportion of classes can
+<p>ii. If the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> cannot deal with weights the proportion of classes can
      be changed by <em>over-</em> and <em>undersampling</em>.</p>
 </li>
 </ol>
@@ -438,7 +438,7 @@ following cost matrix where the rows indicate true classes and the columns predi
 <p>Often, the diagonal entries are zero or the cost matrix is rescaled to achieve zeros in the diagonal
 (see for example <a href="http://machinelearning.org/archive/icml2008/papers/150.pdf">O'Brien et al, 2008</a>).</p>
 <p>A well-known cost-sensitive classification problem is posed by the
-<a href="http://rpackages.ianhowson.com/cran/caret/man/GermanCredit.html">German Credit data set</a>
+<a href="http://www.rdocumentation.org/packages/caret/functions/GermanCredit.html">German Credit data set</a>
 (see also the <a href="https://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data)">UCI Machine Learning Repository</a>).
 The corresponding cost matrix (though <a href="http://www.cs.iastate.edu/~honavar/elkan.pdf">Elkan (2001)</a>
 argues that this matrix is economically unreasonable) is given as:</p>
@@ -469,9 +469,9 @@ argues that this matrix is economically unreasonable) is given as:</p>
 </tbody>
 </table>
 <p>As in the table above, the rows indicate true and the columns predicted classes.</p>
-<p>In case of class-dependent costs it is sufficient to generate an ordinary <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">ClassifTask</a>.
-A <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">CostSensTask</a> is only needed if the costs are example-dependent.
-In the <strong>R</strong> code below we create the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">ClassifTask</a>, remove two constant features from the
+<p>In case of class-dependent costs it is sufficient to generate an ordinary <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">ClassifTask</a>.
+A <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">CostSensTask</a> is only needed if the costs are example-dependent.
+In the <strong>R</strong> code below we create the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">ClassifTask</a>, remove two constant features from the
 data set and generate the cost matrix.
 Per default, Bad is the positive class.</p>
 <pre><code class="r">data(GermanCredit, package = &quot;caret&quot;)
@@ -504,8 +504,8 @@ costs
 </code></pre>
 
 <h4 id="1-thresholding">1. Thresholding</h4>
-<p>We start by fitting a <a href="http://rpackages.ianhowson.com/cran/nnet/man/multinom.html">logistic regression model</a> to the
-<a href="http://rpackages.ianhowson.com/cran/caret/man/GermanCredit.html">German credit data set</a> and predict posterior probabilities.</p>
+<p>We start by fitting a <a href="http://www.rdocumentation.org/packages/nnet/functions/multinom.html">logistic regression model</a> to the
+<a href="http://www.rdocumentation.org/packages/caret/functions/GermanCredit.html">German credit data set</a> and predict posterior probabilities.</p>
 <pre><code class="r">## Train and predict posterior probabilities
 lrn = makeLearner(&quot;classif.multinom&quot;, predict.type = &quot;prob&quot;, trace = FALSE)
 mod = train(lrn, credit.task)
@@ -533,7 +533,7 @@ threshold for class Bad.</p>
 <p>The theoretical threshold for the <em>positive</em> class can be calculated from the cost matrix as
 <script type="math/tex; mode=display">t^* = \frac{c(+1,-1) - c(-1,-1)}{c(+1,-1) - c(+1,+1) + c(-1,+1) - c(-1,-1)}.</script>
 For more details see <a href="http://www.cs.iastate.edu/~honavar/elkan.pdf">Elkan (2001)</a>.</p>
-<p>Below the theoretical threshold for the <a href="http://rpackages.ianhowson.com/cran/caret/man/GermanCredit.html">German credit example</a>
+<p>Below the theoretical threshold for the <a href="http://www.rdocumentation.org/packages/caret/functions/GermanCredit.html">German credit example</a>
 is calculated and used to predict class labels.
 Since the diagonal of the cost matrix is zero the formula given above simplifies accordingly.</p>
 <pre><code class="r">## Calculate the theoretical threshold for the positive class
@@ -542,11 +542,11 @@ th
 #&gt; [1] 0.1666667
 </code></pre>
 
-<p>As you may recall you can change thresholds in <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> either before training by using the
-<code>predict.threshold</code> option of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">makeLearner</a> or after prediction by calling <a href="http://rpackages.ianhowson.com/cran/mlr/man/setThreshold.html">setThreshold</a>
-on the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Prediction.html">Prediction</a> object.</p>
-<p>As we already have a prediction we use the <a href="http://rpackages.ianhowson.com/cran/mlr/man/setThreshold.html">setThreshold</a> function. It returns an altered
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/Prediction.html">Prediction</a> object with class predictions for the theoretical threshold.</p>
+<p>As you may recall you can change thresholds in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> either before training by using the
+<code>predict.threshold</code> option of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a> or after prediction by calling <a href="http://www.rdocumentation.org/packages/mlr/functions/setThreshold.html">setThreshold</a>
+on the <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> object.</p>
+<p>As we already have a prediction we use the <a href="http://www.rdocumentation.org/packages/mlr/functions/setThreshold.html">setThreshold</a> function. It returns an altered
+<a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> object with class predictions for the theoretical threshold.</p>
 <pre><code class="r">## Predict class labels according to the theoretical threshold
 pred.th = setThreshold(pred, th)
 pred.th
@@ -565,7 +565,7 @@ pred.th
 </code></pre>
 
 <p>In order to calculate the average costs over the entire data set we first need to create a new
-performance <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeMeasure.html">Measure</a>. This can be done through function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostMeasure.html">makeCostMeasure</a>.
+performance <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a>. This can be done through function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostMeasure.html">makeCostMeasure</a>.
 It is expected that the rows of the cost matrix indicate true and the columns predicted
 class labels.</p>
 <pre><code class="r">credit.costs = makeCostMeasure(id = &quot;credit.costs&quot;, name = &quot;Credit costs&quot;, costs = costs,
@@ -580,7 +580,7 @@ credit.costs
 #&gt; Note:
 </code></pre>
 
-<p>Then the average costs can be computed by function <a href="http://rpackages.ianhowson.com/cran/mlr/man/performance.html">performance</a>.
+<p>Then the average costs can be computed by function <a href="http://www.rdocumentation.org/packages/mlr/functions/performance.html">performance</a>.
 Below we compare the average costs and the error rate (<a href="../measures/index.html">mmce</a>) of the learning algorithm
 with both default thresholds 0.5 and theoretical thresholds.</p>
 <pre><code class="r">## Performance with default thresholds 0.5
@@ -596,9 +596,9 @@ performance(pred.th, measures = list(credit.costs, mmce))
 
 <p>These performance values may be overly optimistic as we used the same data set for training
 and prediction, and resampling strategies should be preferred.
-In the <strong>R</strong> code below we make use of the <code>predict.threshold</code> argument of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">makeLearner</a> to set
-the threshold before doing a 3-fold cross-validation on the <a href="http://rpackages.ianhowson.com/cran/mlr/man/credit.task.html">credit.task</a>.
-Note that we create a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeResampleInstance.html">ResampleInstance</a> (<code>rin</code>) that is used throughout
+In the <strong>R</strong> code below we make use of the <code>predict.threshold</code> argument of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a> to set
+the threshold before doing a 3-fold cross-validation on the <a href="http://www.rdocumentation.org/packages/mlr/functions/credit.task.html">credit.task</a>.
+Note that we create a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeResampleInstance.html">ResampleInstance</a> (<code>rin</code>) that is used throughout
 the next several code chunks to get comparable performance values.</p>
 <pre><code class="r">## Cross-validated performance with theoretical thresholds
 rin = makeResampleInstance(&quot;CV&quot;, iters = 3, task = credit.task)
@@ -614,11 +614,11 @@ r
 #&gt; mmce.aggr: 0.36
 #&gt; mmce.mean: 0.36
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.20541
+#&gt; Runtime: 0.203488
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
-we can call <a href="http://rpackages.ianhowson.com/cran/mlr/man/setThreshold.html">setThreshold</a> on the <a href="http://rpackages.ianhowson.com/cran/mlr/man/ResamplePrediction.html">resample prediction</a> <code>r$pred</code>.</p>
+we can call <a href="http://www.rdocumentation.org/packages/mlr/functions/setThreshold.html">setThreshold</a> on the <a href="http://www.rdocumentation.org/packages/mlr/functions/ResamplePrediction.html">resample prediction</a> <code>r$pred</code>.</p>
 <pre><code class="r">## Cross-validated performance with default thresholds
 performance(setThreshold(r$pred, 0.5), measures = list(credit.costs, mmce))
 #&gt; credit.costs         mmce 
@@ -627,9 +627,9 @@ performance(setThreshold(r$pred, 0.5), measures = list(credit.costs, mmce))
 
 <p>Theoretical thresholding is only reliable if the predicted posterior probabilities are correct.
 If there is bias the thresholds have to be shifted accordingly.</p>
-<p>Useful in this regard is function <a href="http://rpackages.ianhowson.com/cran/mlr/man/plotThreshVsPerf.html">plotThreshVsPerf</a> that you can use to plot the average costs
+<p>Useful in this regard is function <a href="http://www.rdocumentation.org/packages/mlr/functions/plotThreshVsPerf.html">plotThreshVsPerf</a> that you can use to plot the average costs
 as well as any other performance measure versus possible threshold values for the positive
-class in <script type="math/tex">[0,1]</script>. The underlying data is generated by <a href="http://rpackages.ianhowson.com/cran/mlr/man/generateThreshVsPerfData.html">generateThreshVsPerfData</a>.</p>
+class in <script type="math/tex">[0,1]</script>. The underlying data is generated by <a href="http://www.rdocumentation.org/packages/mlr/functions/generateThreshVsPerfData.html">generateThreshVsPerfData</a>.</p>
 <p>The following plots show the cross-validated costs and error rate (<a href="../measures/index.html">mmce</a>).
 The theoretical threshold <code>th</code> calculated above is indicated by the vertical line.
 As you can see from the left-hand plot the theoretical threshold seems a bit large.</p>
@@ -643,10 +643,10 @@ plotThreshVsPerf(d, mark.th = th)
 is to select cost-optimal threshold values for a given learning method based on the training data.
 In contrast to <em>theoretical thresholding</em> it suffices if the estimated posterior probabilities
 are order-correct.</p>
-<p>In order to determine optimal threshold values you can use <a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a>'s function <a href="http://rpackages.ianhowson.com/cran/mlr/man/tuneThreshold.html">tuneThreshold</a>.
+<p>In order to determine optimal threshold values you can use <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s function <a href="http://www.rdocumentation.org/packages/mlr/functions/tuneThreshold.html">tuneThreshold</a>.
 As tuning the threshold on the complete training data set can lead to overfitting, you should
 use resampling strategies.
-Below we perform 3-fold cross-validation and use <a href="http://rpackages.ianhowson.com/cran/mlr/man/tuneThreshold.html">tuneThreshold</a> to calculate threshold values
+Below we perform 3-fold cross-validation and use <a href="http://www.rdocumentation.org/packages/mlr/functions/tuneThreshold.html">tuneThreshold</a> to calculate threshold values
 with lowest average costs over the 3 test data sets.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.multinom&quot;, predict.type = &quot;prob&quot;, trace = FALSE)
 
@@ -662,7 +662,7 @@ r
 #&gt; mmce.aggr: 0.25
 #&gt; mmce.mean: 0.25
 #&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.208656
+#&gt; Runtime: 0.215269
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -675,7 +675,7 @@ tune.res
 #&gt;     0.507004
 </code></pre>
 
-<p><a href="http://rpackages.ianhowson.com/cran/mlr/man/tuneThreshold.html">tuneThreshold</a> returns the optimal threshold value for the positive class and the corresponding
+<p><a href="http://www.rdocumentation.org/packages/mlr/functions/tuneThreshold.html">tuneThreshold</a> returns the optimal threshold value for the positive class and the corresponding
 performance.
 As expected the tuned threshold is smaller than the theoretical threshold.</p>
 <h4 id="2-rebalancing">2. Rebalancing</h4>
@@ -684,7 +684,7 @@ given higher importance during training.
 This can be achieved by <em>weighting</em> the classes, provided that the learner under consideration
 has a 'class weights' or an 'observation weights' argument.
 To find out which learning methods support either type of weights have a look at the
-<a href="../integrated_learners/index.html">list of integrated learners</a> in the Appendix or use <a href="http://rpackages.ianhowson.com/cran/mlr/man/listLearners.html">listLearners</a>.</p>
+<a href="../integrated_learners/index.html">list of integrated learners</a> in the Appendix or use <a href="http://www.rdocumentation.org/packages/mlr/functions/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## Learners that accept observation weights
 listLearners(&quot;classif&quot;, properties = &quot;weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
 #&gt;                         class         package
@@ -748,16 +748,16 @@ w
 #&gt; [1] 5
 </code></pre>
 
-<p>A unified and convenient way to assign class weights to a <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> (and tune
-them) is provided by function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a>. The class weights are specified
+<p>A unified and convenient way to assign class weights to a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> (and tune
+them) is provided by function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a>. The class weights are specified
 using argument <code>wcw.weight</code>.
 For learners that support observation weights a suitable weight vector is then generated
 internally during training or resampling.
 If the learner can deal with class weights, the weights are basically passed on to the
 appropriate learner parameter. The advantage of using the wrapper in this case is the unified
 way to specify the class weights.</p>
-<p>Below is an example using learner <code>"classif.multinom"</code> (<a href="http://rpackages.ianhowson.com/cran/nnet/man/multinom.html">multinom</a> from
-package <a href="http://rpackages.ianhowson.com/cran/nnet/">nnet</a>) which accepts observation weights.
+<p>Below is an example using learner <code>"classif.multinom"</code> (<a href="http://www.rdocumentation.org/packages/nnet/functions/multinom.html">multinom</a> from
+package <a href="http://www.rdocumentation.org/packages/nnet/">nnet</a>) which accepts observation weights.
 For binary classification problems it is sufficient to specify the weight <code>w</code> for the positive
 class. The negative class then automatically receives weight 1.</p>
 <pre><code class="r">## Weighted learner
@@ -783,16 +783,16 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.254781
+#&gt; Runtime: 0.252766
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
-<a href="http://rpackages.ianhowson.com/cran/kernlab/man/ksvm.html">ksvm</a> in package <a href="http://rpackages.ianhowson.com/cran/kernlab/">kernlab</a>) that support class weights you can pass them
+<a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a> in package <a href="http://www.rdocumentation.org/packages/kernlab/">kernlab</a>) that support class weights you can pass them
 directly.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.ksvm&quot;, class.weights = c(Bad = w, Good = 1))
 </code></pre>
 
-<p>Or, more conveniently, you can again use <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a>.</p>
+<p>Or, more conveniently, you can again use <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a>.</p>
 <pre><code class="r">lrn = makeWeightedClassesWrapper(&quot;classif.ksvm&quot;, wcw.weight = w)
 r = resample(lrn, credit.task, rin, measures = list(credit.costs, mmce), show.info = FALSE)
 r
@@ -805,7 +805,7 @@ r
 #&gt; mmce.aggr: 0.31
 #&gt; mmce.mean: 0.31
 #&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.354575
+#&gt; Runtime: 0.34868
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -844,12 +844,12 @@ as.data.frame(tune.res$opt.path)[1:3]
 </code></pre>
 
 <h5 id="ii-over-and-undersampling">ii. Over- and undersampling</h5>
-<p>If the <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> supports neither observation nor class weights the proportions
+<p>If the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> supports neither observation nor class weights the proportions
 of the classes in the training data can be changed by over- or undersampling.</p>
-<p>In the <a href="http://rpackages.ianhowson.com/cran/caret/man/GermanCredit.html">GermanCredit data set</a> the positive class Bad should receive
+<p>In the <a href="http://www.rdocumentation.org/packages/caret/functions/GermanCredit.html">GermanCredit data set</a> the positive class Bad should receive
 a theoretical weight of <code>w = (1 - th)/th = 5</code>.
 This can be achieved by oversampling class Bad with a <code>rate</code> of 5 or by undersampling
-class Good with a <code>rate</code> of 1/5 (using functions <a href="http://rpackages.ianhowson.com/cran/mlr/man/oversample.html">oversample</a> or <a href="http://rpackages.ianhowson.com/cran/mlr/man/oversample.html">undersample</a>).</p>
+class Good with a <code>rate</code> of 1/5 (using functions <a href="http://www.rdocumentation.org/packages/mlr/functions/oversample.html">oversample</a> or <a href="http://www.rdocumentation.org/packages/mlr/functions/oversample.html">undersample</a>).</p>
 <pre><code class="r">credit.task.over = oversample(credit.task, rate = w, cl = &quot;Bad&quot;)
 lrn = makeLearner(&quot;classif.multinom&quot;, trace = FALSE)
 mod = train(lrn, credit.task.over)
@@ -861,11 +861,11 @@ performance(pred, measures = list(credit.costs, mmce))
 
 <p>Note that in the above example the learner was trained on the oversampled task <code>credit.task.over</code>.
 In order to get the training performance on the original task predictions were calculated for <code>credit.task</code>.</p>
-<p>We usually prefer resampled performance values, but simply calling <a href="http://rpackages.ianhowson.com/cran/mlr/man/resample.html">resample</a> on the oversampled
+<p>We usually prefer resampled performance values, but simply calling <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> on the oversampled
 task does not work since predictions have to be based on the original task.
-The solution is to create a wrapped <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a> via function
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeUndersampleWrapper.html">makeOversampleWrapper</a>.
-Internally, <a href="http://rpackages.ianhowson.com/cran/mlr/man/oversample.html">oversample</a> is called before training, but predictions are done on the original data.</p>
+The solution is to create a wrapped <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> via function
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeUndersampleWrapper.html">makeOversampleWrapper</a>.
+Internally, <a href="http://www.rdocumentation.org/packages/mlr/functions/oversample.html">oversample</a> is called before training, but predictions are done on the original data.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.multinom&quot;, trace = FALSE)
 lrn = makeOversampleWrapper(lrn, osw.rate = w, osw.cl = &quot;Bad&quot;)
 lrn
@@ -888,12 +888,12 @@ r
 #&gt; mmce.aggr: 0.35
 #&gt; mmce.mean: 0.35
 #&gt; mmce.sd: 0.01
-#&gt; Runtime: 0.403537
+#&gt; Runtime: 0.406893
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
-an <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeUndersampleWrapper.html">OversampleWrapper</a>.
-Optimal values for parameter <code>osw.rate</code> can be obtained using function <a href="http://rpackages.ianhowson.com/cran/mlr/man/tuneParams.html">tuneParams</a>.</p>
+an <a href="http://www.rdocumentation.org/packages/mlr/functions/makeUndersampleWrapper.html">OversampleWrapper</a>.
+Optimal values for parameter <code>osw.rate</code> can be obtained using function <a href="http://www.rdocumentation.org/packages/mlr/functions/tuneParams.html">tuneParams</a>.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.multinom&quot;, trace = FALSE)
 lrn = makeOversampleWrapper(lrn, osw.cl = &quot;Bad&quot;)
 ps = makeParamSet(makeDiscreteParam(&quot;osw.rate&quot;, seq(3, 7, 0.25)))
@@ -907,7 +907,7 @@ tune.res
 </code></pre>
 
 <h3 id="multi-class-problems">Multi-class problems</h3>
-<p>We consider the <a href="http://rpackages.ianhowson.com/cran/mlbench/man/mlbench.waveform.html">waveform</a> data set from package <a href="http://rpackages.ianhowson.com/cran/mlbench/">mlbench</a> and
+<p>We consider the <a href="http://www.rdocumentation.org/packages/mlbench/functions/mlbench.waveform.html">waveform</a> data set from package <a href="http://www.rdocumentation.org/packages/mlbench/">mlbench</a> and
 add an artificial cost matrix:</p>
 <table>
 <thead>
@@ -945,7 +945,7 @@ add an artificial cost matrix:</p>
 </tr>
 </tbody>
 </table>
-<p>We start by creating the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a>, the cost matrix and the corresponding performance measure.</p>
+<p>We start by creating the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>, the cost matrix and the corresponding performance measure.</p>
 <pre><code class="r">## Task
 df = mlbench::mlbench.waveform(500)
 wf.task = makeClassifTask(id = &quot;waveform&quot;, data = as.data.frame(df), target = &quot;classes&quot;)
@@ -973,8 +973,8 @@ probabilities for all classes are adjusted by dividing them by the corresponding
 Then the class with the highest adjusted probability is predicted.
 This way, as in the binary case, classes with a low threshold are preferred to classes
 with a larger threshold.</p>
-<p>Again this can be done by function <a href="http://rpackages.ianhowson.com/cran/mlr/man/setThreshold.html">setThreshold</a> as shown in the following example (or
-alternatively by the <code>predict.threshold</code> option of <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">makeLearner</a>).
+<p>Again this can be done by function <a href="http://www.rdocumentation.org/packages/mlr/functions/setThreshold.html">setThreshold</a> as shown in the following example (or
+alternatively by the <code>predict.threshold</code> option of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a>).
 Note that the threshold vector needs to have names that correspond to the class labels.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
 rin = makeResampleInstance(&quot;CV&quot;, iters = 3, task = wf.task)
@@ -989,7 +989,7 @@ r
 #&gt; mmce.aggr: 0.26
 #&gt; mmce.mean: 0.26
 #&gt; mmce.sd: 0.05
-#&gt; Runtime: 0.0654085
+#&gt; Runtime: 0.0749941
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1012,9 +1012,9 @@ above with off-diagonal elements <script type="math/tex">c(2,1) = c(3,1) = 55</s
 This threshold vector may be not optimal but leads to smaller total costs on the data set than
 the default.</p>
 <h5 id="ii-empirical-thresholding_1">ii. Empirical thresholding</h5>
-<p>As in the binary case it is possible to tune the threshold vector using function <a href="http://rpackages.ianhowson.com/cran/mlr/man/tuneThreshold.html">tuneThreshold</a>.
+<p>As in the binary case it is possible to tune the threshold vector using function <a href="http://www.rdocumentation.org/packages/mlr/functions/tuneThreshold.html">tuneThreshold</a>.
 Since the scaling of the threshold vector does not change the predicted class labels
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/tuneThreshold.html">tuneThreshold</a> returns threshold values that lie in [0,1] and sum to unity.</p>
+<a href="http://www.rdocumentation.org/packages/mlr/functions/tuneThreshold.html">tuneThreshold</a> returns threshold values that lie in [0,1] and sum to unity.</p>
 <pre><code class="r">tune.res = tuneThreshold(pred = r$pred, measure = wf.costs)
 tune.res
 #&gt; $th
@@ -1035,8 +1035,8 @@ vector chosen above.</p>
 <h4 id="2-rebalancing_1">2. Rebalancing</h4>
 <h5 id="i-weighting_1">i. Weighting</h5>
 <p>In the multi-class case you have to pass a vector of weights as long as the number of classes
-<script type="math/tex">K</script> to function <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a>.
-The weight vector can be tuned using function <a href="http://rpackages.ianhowson.com/cran/mlr/man/tuneParams.html">tuneParams</a>.</p>
+<script type="math/tex">K</script> to function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a>.
+The weight vector can be tuned using function <a href="http://www.rdocumentation.org/packages/mlr/functions/tuneParams.html">tuneParams</a>.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.multinom&quot;, trace = FALSE)
 lrn = makeWeightedClassesWrapper(lrn)
 
@@ -1052,12 +1052,12 @@ tune.res
 </code></pre>
 
 <h2 id="example-dependent-misclassification-costs">Example-dependent misclassification costs</h2>
-<p>In case of example-dependent costs we have to create a special <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> via function
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensTask.html">makeCostSensTask</a>.
+<p>In case of example-dependent costs we have to create a special <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> via function
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostSensTask.html">makeCostSensTask</a>.
 For this purpose the feature values <script type="math/tex">x</script> and an <script type="math/tex">n \times K</script>
 <code>cost</code> matrix that contains
 the cost vectors for all <script type="math/tex">n</script> examples in the data set are required.</p>
-<p>We use the <a href="http://www.inside-r.org/r-doc/datasets/iris">iris</a> data and generate an artificial cost matrix
+<p>We use the <a href="http://www.rdocumentation.org/packages/datasets/functions/iris.html">iris</a> data and generate an artificial cost matrix
 (see <a href="http://dx.doi.org/10.1145/1102351.1102358">Beygelzimer et al., 2005</a>).</p>
 <pre><code class="r">df = iris
 cost = matrix(runif(150 * 3, 0, 2000), 150) * (1 - diag(3))[df$Species,] + runif(150, 0, 10)
@@ -1079,18 +1079,18 @@ costsens.task
 #&gt; setosa, versicolor, virginica
 </code></pre>
 
-<p><a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> provides several <a href="../wrapper/index.html">wrappers</a> to turn regular classification or regression methods
-into <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a>s that can deal with example-dependent costs.</p>
+<p><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides several <a href="../wrapper/index.html">wrappers</a> to turn regular classification or regression methods
+into <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>s that can deal with example-dependent costs.</p>
 <ul>
-<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensClassifWrapper.html">makeCostSensClassifWrapper</a> (wraps a classification <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a>):
+<li><a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostSensClassifWrapper.html">makeCostSensClassifWrapper</a> (wraps a classification <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>):
   This is a naive approach where the costs are coerced into class labels by choosing the
   class label with minimum cost for each example. Then a regular classification method is
   used.</li>
-<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensRegrWrapper.html">makeCostSensRegrWrapper</a> (wraps a regression <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a>):
+<li><a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostSensRegrWrapper.html">makeCostSensRegrWrapper</a> (wraps a regression <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>):
   An individual regression model is fitted for the costs of each class.
   In the prediction step first the costs are predicted for all classes and then the class with
   the lowest predicted costs is selected.</li>
-<li><a href="http://rpackages.ianhowson.com/cran/mlr/man/makeCostSensWeightedPairsWrapper.html">makeCostSensWeightedPairsWrapper</a> (wraps a classification <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a>):
+<li><a href="http://www.rdocumentation.org/packages/mlr/functions/makeCostSensWeightedPairsWrapper.html">makeCostSensWeightedPairsWrapper</a> (wraps a classification <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>):
   This is also known as <em>cost-sensitive one-vs-one</em> (CS-OVO) and the most sophisticated of
   the currently supported methods.
   For each pair of classes, a binary classifier is fitted.
@@ -1098,8 +1098,8 @@ into <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Lear
   During fitting, the observations are weighted with the absolute difference in costs.
   Prediction is performed by simple voting.</li>
 </ul>
-<p>In the following example we use the third method. We create the wrapped <a href="http://rpackages.ianhowson.com/cran/mlr/man/makeLearner.html">Learner</a>
-and train it on the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">CostSensTask</a> defined above.</p>
+<p>In the following example we use the third method. We create the wrapped <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>
+and train it on the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">CostSensTask</a> defined above.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.multinom&quot;, trace = FALSE)
 lrn = makeCostSensWeightedPairsWrapper(lrn)
 lrn
@@ -1119,7 +1119,7 @@ mod
 </code></pre>
 
 <p>The models corresponding to the individual pairs can be accessed by function
-<a href="http://rpackages.ianhowson.com/cran/mlr/man/getLearnerModel.html">getLearnerModel</a>.</p>
+<a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerModel.html">getLearnerModel</a>.</p>
 <pre><code class="r">getLearnerModel(mod)
 #&gt; [[1]]
 #&gt; Model for learner.id=classif.multinom; learner.class=classif.multinom
@@ -1137,14 +1137,14 @@ mod
 #&gt; Hyperparameters: trace=FALSE
 </code></pre>
 
-<p><a href="http://rpackages.ianhowson.com/cran/mlr/">mlr</a> provides some performance measures for example-specific cost-sensitive classification.
+<p><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides some performance measures for example-specific cost-sensitive classification.
 In the following example we calculate the mean costs of the predicted class labels
 (<a href="../measures/index.html">meancosts</a>) and the misclassification penalty (<a href="../measures/index.html">mcp</a>).
 The latter measure is the average difference between the costs caused by the predicted
 class labels, i.e., <a href="../measures/index.html">meancosts</a>, and the costs resulting from choosing the
 class with lowest cost for each observation.
 In order to compute these measures the costs for the test observations are required and
-therefore the <a href="http://rpackages.ianhowson.com/cran/mlr/man/Task.html">Task</a> has to be passed to <a href="http://rpackages.ianhowson.com/cran/mlr/man/performance.html">performance</a>.</p>
+therefore the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> has to be passed to <a href="http://www.rdocumentation.org/packages/mlr/functions/performance.html">performance</a>.</p>
 <pre><code class="r">pred = predict(mod, task = costsens.task)
 pred
 #&gt; Prediction: 150 observations
