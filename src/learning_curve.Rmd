@@ -60,8 +60,8 @@ lrns = list(
 )
 rin = makeResampleDesc(method = "CV", iters = 5)
 lc = generateLearningCurveData(learners = lrns, task = sonar.task,
-                               percs = seq(0.1, 1, by = 0.1), measures = acc,
-                               resampling = rin, show.info = FALSE)
+  percs = seq(0.1, 1, by = 0.1), measures = acc,
+  resampling = rin, show.info = FALSE)
 plotLearningCurve(lc)
 ```
 
@@ -69,10 +69,10 @@ We can display performance on the train set as well as the test set:
 
 ```{r}
 rin2 = makeResampleDesc(method = "CV", iters = 5, predict = "both")
-lc2 = generateLearningCurveData(learners = lrns, task = sonar.task,
-                               percs = seq(0.1, 1, by = 0.1), 
-                               measures = list(acc,setAggregation(acc, train.mean)), 
-                               resampling = rin2, show.info = FALSE)
+lc2 = generateLearningCurveData(learners = lrns, task = sonar.task, 
+  percs = seq(0.1, 1, by = 0.1), 
+  measures = list(acc,setAggregation(acc, train.mean)), resampling = rin2, 
+  show.info = FALSE)
 plotLearningCurve(lc2, facet = "learner")
 ```
 

@@ -12,7 +12,7 @@ that is automatically identify values that lead to the best performance.
 In order to tune a machine learning algorithm, you have to specify:
 
 * the search space
-* the optimization algorithm
+* the optimization algorithm (aka tuning method)
 * an evaluation method, i.e., a resampling strategy and a performance measure
 
 An example of the search space could be searching values of the `C` parameter for 
@@ -64,7 +64,7 @@ define a space from 10^-10 to 10^10 and let the optimization algorithm decide
 which points to choose.
 
 In order to define a search space, we create a [ParamSet](&ParamHelpers::makeParamSet) object, which describes the
-parameter space we wish to search. This is done via function [makeParamSet](&ParamHelpers::makeParamSet).
+parameter space we wish to search. This is done via the function [makeParamSet](&ParamHelpers::makeParamSet).
 
 For example, we could define a search space with just the values 0.5, 1.0, 1.5, 2.0 
 for both `C` and `gamma`. Notice how we name each parameter as it's defined in 
@@ -75,11 +75,12 @@ discrete_ps = makeParamSet(
   makeDiscreteParam("C", values = c(0.5, 1.0, 1.5, 2.0)),
   makeDiscreteParam("sigma", values = c(0.5, 1.0, 1.5, 2.0))
 )
+print(discrete_ps)
 ```
 
-We could also define a search space from 10^-10 to 10^10 for both parameters through the use of `trafo` 
-arg. Trafos work like this: All optimizers basically see the parameters on their
-original scale (from -12 to 12) in this case and produce values on this scale during the search.
+We could also define a continuous search space (using [makeNumericParam](&ParamHelpers::makeNumericParam) instead of [makeDiscreteParam](&ParamHelpers::makeDiscreteParam)) from 10^-10 to 10^10 for both parameters through the use of the `trafo` 
+argument (trafo is short for transformation). Transformations work like this: All optimizers basically see the parameters on their
+original scale (from -12 to 12 in this case) and produce values on this scale during the search.
 Right before they are passed to the learning algorithm, the transformation function is applied.
 
 Notice this time we use `makeNumericParam`:
@@ -120,7 +121,7 @@ ctrl = makeTuneControlGrid()
 In the case of `num_ps` above, since we have only specified the upper and lower bounds 
 for the search space, grid search will create a grid using equally-sized steps. By default, 
 grid search will span the space in 10 equal-sized steps. The number of steps can be changed 
-with the `resolution` arg. Here we change to 15 equal-sized steps in the space defined within the 
+with the `resolution` argument. Here we change to 15 equal-sized steps in the space defined within the 
 [ParamSet](&ParamHelpers::makeParamSet) object. For `num_ps`, this means 15 steps in the form of
 `10 ^ seq(-10, 10, length.out = 15)`:
 
@@ -133,7 +134,7 @@ for some examples.
 
 Since grid search is normally too slow in practice, we'll also examine random search. 
 In the case of `discrete_ps`, random search will randomly choose from the specified values. The 
-`maxit` arg controls the amount of iterations.
+`maxit` argument controls the amount of iterations.
 
 ```{r}
 ctrl = makeTuneControlRandom(maxit = 10L)
@@ -249,7 +250,7 @@ generateHyperParsEffectData(res)
 ```
 
 Note that the result of `generateHyperParsEffectData` contains the parameter values *on the original scale*. 
-In order to get the *transformed* parameter values instead, use the `trafo` arg:
+In order to get the *transformed* parameter values instead, use the `trafo` argument:
 
 ```{r}
 generateHyperParsEffectData(res, trafo = TRUE)
@@ -279,7 +280,7 @@ plotHyperParsEffect(data, x = "iteration", y = "acc.test.mean",
 ```
 
 Note that by default, we only plot the current global optima. This can be changed with 
-the `global.only` arg.
+the `global.only` argument.
 
 For an in-depth exploration of generating hyperparameter tuning effects and plotting the data, check out [Hyperparameter Tuning Effects](hyperpar_tuning_effects.md)
 
