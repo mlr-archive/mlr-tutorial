@@ -3,7 +3,7 @@
 ## Iterated F-Racing for mixed spaces and dependencies
 
 The package supports a larger number of tuning algorithms, which can all be looked up and
-selected via [&TuneControl]. One of the cooler algorithms is iterated F-racing from the 
+selected via [&TuneControl]. One of the cooler algorithms is iterated F-racing from the
 [%irace] package (technical description [here](http://iridia.ulb.ac.be/IridiaTrSeries/link/IridiaTr2011-004.pdf)). This not only works for arbitrary parameter types (numeric, integer,
 discrete, logical), but also for so-called dependent / hierarchical parameters:
 
@@ -23,7 +23,7 @@ print(head(as.data.frame(res$opt.path)))
 ```
 
 See how we made the kernel parameters like `sigma` and `degree` dependent on the `kernel`
-selection parameters? This approach allows you to tune parameters of multiple kernels at once, 
+selection parameters? This approach allows you to tune parameters of multiple kernels at once,
 efficiently concentrating on the ones which work best for your given data set.
 
 
@@ -41,9 +41,9 @@ base.learners = list(
 lrn = makeModelMultiplexer(base.learners)
 ```
 
-Function [&makeModelMultiplexerParamSet] offers a simple way to contruct parameter set for tuning:
+Function [&makeModelMultiplexerParamSet] offers a simple way to construct a parameter set for tuning:
 The parameter names are prefixed automatically and the `requires` element is set, too,
-to make all paramaters subordinate to `selected.learner`.
+to make all parameters subordinate to `selected.learner`.
 
 ```{r}
 ps = makeModelMultiplexerParamSet(lrn,
@@ -51,6 +51,7 @@ ps = makeModelMultiplexerParamSet(lrn,
   makeIntegerParam("ntree", lower = 1L, upper = 500L)
 )
 print(ps)
+
 rdesc = makeResampleDesc("CV", iters = 2L)
 ctrl = makeTuneControlIrace(maxExperiments = 200L)
 res = tuneParams(lrn, iris.task, rdesc, par.set = ps, control = ctrl, show.info = FALSE)
@@ -81,6 +82,7 @@ rdesc = makeResampleDesc("Holdout")
 res = tuneParamsMultiCrit("classif.ksvm", task = sonar.task, resampling = rdesc, par.set = ps,
   measures = list(fpr, fnr), control = ctrl, show.info = FALSE)
 res
+
 head(as.data.frame(trafoOptPath(res$opt.path)))
 ```
 
