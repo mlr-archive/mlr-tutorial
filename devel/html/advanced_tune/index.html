@@ -357,7 +357,7 @@
 <h1 id="advanced-tuning">Advanced Tuning</h1>
 <h2 id="iterated-f-racing-for-mixed-spaces-and-dependencies">Iterated F-Racing for mixed spaces and dependencies</h2>
 <p>The package supports a larger number of tuning algorithms, which can all be looked up and
-selected via <a href="http://www.rdocumentation.org/packages/mlr/functions/TuneControl.html">TuneControl</a>. One of the cooler algorithms is iterated F-racing from the 
+selected via <a href="http://www.rdocumentation.org/packages/mlr/functions/TuneControl.html">TuneControl</a>. One of the cooler algorithms is iterated F-racing from the
 <a href="http://www.rdocumentation.org/packages/irace/">irace</a> package (technical description <a href="http://iridia.ulb.ac.be/IridiaTrSeries/link/IridiaTr2011-004.pdf">here</a>). This not only works for arbitrary parameter types (numeric, integer,
 discrete, logical), but also for so-called dependent / hierarchical parameters:</p>
 <pre><code class="r">ps = makeParamSet(
@@ -380,16 +380,16 @@ print(head(as.data.frame(res$opt.path)))
 #&gt; 5 -10.079158    polydot       NA      5           0.06   1  NA
 #&gt; 6 -10.643475 vanilladot       NA     NA           0.36   1  NA
 #&gt;   error.message exec.time
-#&gt; 1          &lt;NA&gt;     0.040
-#&gt; 2          &lt;NA&gt;     0.024
-#&gt; 3          &lt;NA&gt;     0.025
-#&gt; 4          &lt;NA&gt;     0.025
-#&gt; 5          &lt;NA&gt;     0.024
-#&gt; 6          &lt;NA&gt;     0.024
+#&gt; 1          &lt;NA&gt;     0.044
+#&gt; 2          &lt;NA&gt;     0.035
+#&gt; 3          &lt;NA&gt;     0.027
+#&gt; 4          &lt;NA&gt;     0.033
+#&gt; 5          &lt;NA&gt;     0.033
+#&gt; 6          &lt;NA&gt;     0.030
 </code></pre>
 
 <p>See how we made the kernel parameters like <code>sigma</code> and <code>degree</code> dependent on the <code>kernel</code>
-selection parameters? This approach allows you to tune parameters of multiple kernels at once, 
+selection parameters? This approach allows you to tune parameters of multiple kernels at once,
 efficiently concentrating on the ones which work best for your given data set.</p>
 <h2 id="tuning-across-whole-model-spaces-with-modelmultiplexer">Tuning across whole model spaces with ModelMultiplexer</h2>
 <p>We can now take the following example even one step further. If we use the
@@ -402,9 +402,9 @@ just as we did with the SVM kernels above.</p>
 lrn = makeModelMultiplexer(base.learners)
 </code></pre>
 
-<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeModelMultiplexerParamSet.html">makeModelMultiplexerParamSet</a> offers a simple way to contruct parameter set for tuning:
+<p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeModelMultiplexerParamSet.html">makeModelMultiplexerParamSet</a> offers a simple way to construct a parameter set for tuning:
 The parameter names are prefixed automatically and the <code>requires</code> element is set, too,
-to make all paramaters subordinate to <code>selected.learner</code>.</p>
+to make all parameters subordinate to <code>selected.learner</code>.</p>
 <pre><code class="r">ps = makeModelMultiplexerParamSet(lrn,
   makeNumericParam(&quot;sigma&quot;, lower = -12, upper = 12, trafo = function(x) 2^x),
   makeIntegerParam(&quot;ntree&quot;, lower = 1L, upper = 500L)
@@ -422,6 +422,7 @@ print(ps)
 #&gt; selected.learner               -
 #&gt; classif.ksvm.sigma             Y
 #&gt; classif.randomForest.ntree     -
+
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 2L)
 ctrl = makeTuneControlIrace(maxExperiments = 200L)
 res = tuneParams(lrn, iris.task, rdesc, par.set = ps, control = ctrl, show.info = FALSE)
@@ -434,12 +435,12 @@ print(head(as.data.frame(res$opt.path)))
 #&gt; 5         classif.ksvm          -1.884101                         NA
 #&gt; 6         classif.ksvm           4.388728                         NA
 #&gt;   mmce.test.mean dob eol error.message exec.time
-#&gt; 1      0.6466667   1  NA          &lt;NA&gt;     0.058
-#&gt; 2      0.1400000   1  NA          &lt;NA&gt;     0.075
-#&gt; 3      0.0400000   1  NA          &lt;NA&gt;     0.064
-#&gt; 4      0.0400000   1  NA          &lt;NA&gt;     0.056
-#&gt; 5      0.0400000   1  NA          &lt;NA&gt;     0.073
-#&gt; 6      0.3333333   1  NA          &lt;NA&gt;     0.071
+#&gt; 1      0.6466667   1  NA          &lt;NA&gt;     0.059
+#&gt; 2      0.1400000   1  NA          &lt;NA&gt;     0.063
+#&gt; 3      0.0400000   1  NA          &lt;NA&gt;     0.094
+#&gt; 4      0.0400000   1  NA          &lt;NA&gt;     0.048
+#&gt; 5      0.0400000   1  NA          &lt;NA&gt;     0.062
+#&gt; 6      0.3333333   1  NA          &lt;NA&gt;     0.064
 </code></pre>
 
 <h2 id="multi-criteria-evaluation-and-optimization">Multi-criteria evaluation and optimization</h2>
@@ -462,6 +463,7 @@ res = tuneParamsMultiCrit(&quot;classif.ksvm&quot;, task = sonar.task, resamplin
 res
 #&gt; Tune multicrit result:
 #&gt; Points on front: 3
+
 head(as.data.frame(trafoOptPath(res$opt.path)))
 #&gt;              C        sigma fpr.test.mean fnr.test.mean dob eol
 #&gt; 1 6.731935e+01 1.324673e+03     1.0000000     0.0000000   1  NA
@@ -471,12 +473,12 @@ head(as.data.frame(trafoOptPath(res$opt.path)))
 #&gt; 5 5.203364e+00 2.781734e-03     0.1515152     0.1621622   5  NA
 #&gt; 6 5.638243e-04 7.956946e+02     1.0000000     0.0000000   6  NA
 #&gt;   error.message exec.time
-#&gt; 1          &lt;NA&gt;     0.069
-#&gt; 2          &lt;NA&gt;     0.078
-#&gt; 3          &lt;NA&gt;     0.077
-#&gt; 4          &lt;NA&gt;     0.065
-#&gt; 5          &lt;NA&gt;     0.057
-#&gt; 6          &lt;NA&gt;     0.059
+#&gt; 1          &lt;NA&gt;     0.060
+#&gt; 2          &lt;NA&gt;     0.059
+#&gt; 3          &lt;NA&gt;     0.062
+#&gt; 4          &lt;NA&gt;     0.058
+#&gt; 5          &lt;NA&gt;     0.068
+#&gt; 6          &lt;NA&gt;     0.061
 </code></pre>
 
 <p>The results can be visualized with function <a href="http://www.rdocumentation.org/packages/mlr/functions/plotTuneMultiCritResult.html">plotTuneMultiCritResult</a>.
