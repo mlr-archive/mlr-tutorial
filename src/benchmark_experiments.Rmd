@@ -48,6 +48,16 @@ measure for classification, on the test data set.
 The result `bmr` is an object of class [&BenchmarkResult]. Basically, it contains a [list](&base::list)
 of lists of [&ResampleResult] objects, first ordered by [&Task] and then by [Learner](&makeLearner).
 
+### Making experiments reproducible
+
+Typically, we would want our experiment results to be reproducible. [%mlr] obeys 
+the `set.seed` function, so make sure to use `set.seed` at the beginning of your 
+script if you would like your results to be reproducible. 
+
+Note that if you are using parallel computing, you probably need to use 
+`set.seed(123, "L'Ecuyer")` in order to ensure the results are reproducible for 
+each child process. See the documentation for [mccollect](&parallel:mccollect) 
+for more information on reproducibility and parallel computing.
 
 ## Accessing benchmark results
 [%mlr] provides several accessor functions, named `getBMR<WhatToExtract>`, that permit
