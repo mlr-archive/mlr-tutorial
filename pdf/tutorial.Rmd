@@ -1,0 +1,53 @@
+---
+title: "mlr"
+author: "bla"
+output: 
+  pdf_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+suppressPackageStartupMessages({
+  # namespace conflicts
+  library(glmnet)   # auc
+  library(ROCR)
+
+  # required to build
+  library(methods)
+  library(parallel)
+  library(digest)
+  library(pander)
+  library(BBmisc)
+  library(knitr)
+  library(caret) # we get problems if this shadows "mlr::train"
+  suppressWarnings(library(rgl)) # suppress "no X" warning on travis
+  library(mlr)
+  library(stringr)
+})
+```
+
+```{r, child="../src/task.Rmd"}
+```
+
+%```{r, child="../src/learner.Rmd"}
+%```
+
+```{r, child="../src/train.Rmd"}
+```
+```{r, child="../src/predict.Rmd"}
+```
+```{r, child="../src/performance.Rmd"}
+```
+```{r, child="../src/resample.Rmd"}
+```
+```{r, child="../src/tune.Rmd"}
+```
+%```{r, child="../src/benchmark_experiments.Rmd"}
+%```
+```{r, child="../src/parallelization.Rmd"}
+```
+```{r, child="../src/visualization.Rmd"}
+```
+
+
