@@ -84,7 +84,7 @@ knitIt = function(f, dev) {
     lines = str_replace_all(lines, macro$pattern, macro$replacement)
 
   cache.path = paste0(file.path("cache", f), .Platform$file.sep)
-  opts_chunk$set(cache = TRUE, cache.path = cache.path, dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
+  opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = paste0(file.path("figure", str_replace(f, "\\.Rmd", "")), .Platform$file.sep), dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
   setSeed(f)
   knit(
     text = lines,
@@ -117,7 +117,7 @@ suppressPackageStartupMessages({
 # turn warnings to errors, we don't want to miss them
 options(warn = 2L)
 # number of spaces to indent the code is 2 (for chunks with tidy=TRUE)
-opts_chunk$set(tidy.opts=list(indent=2, width.cutoff=80))
+opts_chunk$set(tidy.opts = list(indent = 2, width.cutoff = 80))
 
 # create output directory
 if (!isDirectory("docs"))
