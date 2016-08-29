@@ -375,10 +375,11 @@ For example the <a href="../measures/index.html">mse</a> (mean squared error) lo
 #&gt;  $ worst     : num Inf
 #&gt;  $ name      : chr &quot;Mean of squared errors&quot;
 #&gt;  $ note      : chr &quot;&quot;
-#&gt;  $ aggr      :List of 3
-#&gt;   ..$ id  : chr &quot;test.mean&quot;
-#&gt;   ..$ name: chr &quot;Test mean&quot;
-#&gt;   ..$ fun :function (task, perf.test, perf.train, measure, group, pred)  
+#&gt;  $ aggr      :List of 4
+#&gt;   ..$ id        : chr &quot;test.mean&quot;
+#&gt;   ..$ name      : chr &quot;Test mean&quot;
+#&gt;   ..$ fun       :function (task, perf.test, perf.train, measure, group, pred)  
+#&gt;   ..$ properties: chr &quot;req.test&quot;
 #&gt;   ..- attr(*, &quot;class&quot;)= chr &quot;Aggregation&quot;
 #&gt;  - attr(*, &quot;class&quot;)= chr &quot;Measure&quot;
 
@@ -387,7 +388,7 @@ mse$fun
 #&gt; {
 #&gt;     measureMSE(pred$data$truth, pred$data$response)
 #&gt; }
-#&gt; &lt;bytecode: 0xc834138&gt;
+#&gt; &lt;bytecode: 0x8903630&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 
 measureMSE
@@ -395,7 +396,7 @@ measureMSE
 #&gt; {
 #&gt;     mean((response - truth)^2)
 #&gt; }
-#&gt; &lt;bytecode: 0xbb3e9c8&gt;
+#&gt; &lt;bytecode: 0x82938b0&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -415,29 +416,32 @@ which types of learning problems it is suitable and what information is required
 calculate it.
 Obviously, most measures need the <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> object (<code>"req.pred"</code>) and, for supervised
 problems, the true values of the target variable(s) (<code>"req.truth"</code>).</p>
-<p>For <a href="../tune/index.html">tuning</a> each <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> knows its extreme values <code>$best</code> and
-<code>$worst</code> and if it wants to be minimized or maximized (<code>$minimize</code>).</p>
+<p>For <a href="../tune/index.html">tuning</a> or <a href="../feature_selection/index.html">feature selection</a> each <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> knows
+its extreme values <code>$best</code> and <code>$worst</code> and if it wants to be minimized or maximized (<code>$minimize</code>).</p>
 <p>For resampling slot <code>$aggr</code> specifies how the overall performance across all resampling
 iterations is calculated. Typically, this is just a matter of aggregating the performance
 values obtained on the test sets <code>perf.test</code> or the training sets <code>perf.train</code> by a simple
 function. The by far most common scheme is <a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a>, i.e., the unweighted
 mean of the performances on the test sets.</p>
 <pre><code class="r">str(test.mean)
-#&gt; List of 3
-#&gt;  $ id  : chr &quot;test.mean&quot;
-#&gt;  $ name: chr &quot;Test mean&quot;
-#&gt;  $ fun :function (task, perf.test, perf.train, measure, group, pred)  
+#&gt; List of 4
+#&gt;  $ id        : chr &quot;test.mean&quot;
+#&gt;  $ name      : chr &quot;Test mean&quot;
+#&gt;  $ fun       :function (task, perf.test, perf.train, measure, group, pred)  
+#&gt;  $ properties: chr &quot;req.test&quot;
 #&gt;  - attr(*, &quot;class&quot;)= chr &quot;Aggregation&quot;
 
 test.mean$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; mean(perf.test)
-#&gt; &lt;bytecode: 0xa2bcb78&gt;
+#&gt; &lt;bytecode: 0x586c648&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
 <p>All aggregation schemes are objects of class <a href="http://www.rdocumentation.org/packages/mlr/functions/Aggregation.html">Aggregation</a> with the function in slot
-<code>$fun</code> doing the actual work.</p>
+<code>$fun</code> doing the actual work.
+The <code>$properties</code> member indicates if predictions (or performance values) on the training
+or test data sets are required to calculate the aggregation.</p>
 <p>You can change the aggregation scheme of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMeasure.html">Measure</a> via function
 <a href="http://www.rdocumentation.org/packages/mlr/functions/setAggregation.html">setAggregation</a>. See the tutorial page on <a href="../resample/index.html">resampling</a> for some examples
 and the <a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">aggregations</a> help page for all available aggregation schemes.</p>
@@ -516,10 +520,13 @@ performance(pred, measures = my.costs)
 </code></pre>
 
 <h2 id="creating-an-aggregation-scheme">Creating an aggregation scheme</h2>
-<p>It is possible to create your own aggregation scheme by calling the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function
-<a href="http://www.rdocumentation.org/packages/mlr/functions/makeAggregation.html">makeAggregation</a>.
-You need to specify an identifier <code>id</code> and optionally a <code>name</code> and, most importantly, write
-a function that does the actual aggregation. Note that this function must have a certain
+<p>It is possible to create your own aggregation scheme using function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeAggregation.html">makeAggregation</a>.
+You need to specify an identifier <code>id</code>, the <code>properties</code>, and write a function that does
+the actual aggregation. Optionally, you can <code>name</code> your aggregation scheme.</p>
+<p>Possible settings for <code>properties</code> are <code>"req.test"</code> and <code>"req.train"</code> if predictions
+on either the training or test sets are required, and the vector <code>c("req.train", "req.test")</code>
+if both are needed.</p>
+<p>The aggregation function must have a certain
 signature detailed in the documentation of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeAggregation.html">makeAggregation</a>.
 Usually, you will only need the performance values on the test sets <code>perf.test</code> or
 the training sets <code>perf.train</code>. In rare cases, e.g., the <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> object <code>pred</code> or
@@ -531,6 +538,7 @@ For an example have a look at the
 <p>Let's say you are interested in the range of the performance values obtained on individual
 test sets.</p>
 <pre><code class="r">my.range.aggr = makeAggregation(id = &quot;test.range&quot;, name = &quot;Test Range&quot;,
+  properties = &quot;req.test&quot;,
   fun = function (task, perf.test, perf.train, measure, group, pred)
     diff(range(perf.test))
 )
@@ -538,7 +546,8 @@ test sets.</p>
 
 <p><code>perf.train</code> and <code>perf.test</code> are both numerical vectors containing the performances on
 the train and test data sets.
-Usually (e.g., cross validation), the <code>perf.train</code> vector is empty.</p>
+In most cases (unless you are using bootstrap as resampling strategy or have set
+<code>predict = "both"</code> in <a href="http://www.rdocumentation.org/packages/mlr/functions/makeResampleDesc.html">makeResampleDesc</a>) the <code>perf.train</code> vector is empty.</p>
 <p>Now we can run a feature selection based on the first measure in the provided
 <a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a> and see how the other measures turn out.</p>
 <pre><code class="r">## mmce with default aggregation scheme test.mean
