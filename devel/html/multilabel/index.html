@@ -550,13 +550,13 @@ performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, mult
 #&gt; multilabel.subset01  multilabel.hamloss      multilabel.acc 
 #&gt;           0.8663633           0.2049471           0.4637509 
 #&gt;       multilabel.f1         timepredict 
-#&gt;           0.5729926           1.0810000
+#&gt;           0.5729926           1.0940000
 
 listMeasures(&quot;multilabel&quot;)
-#&gt;  [1] &quot;multilabel.ppv&quot;      &quot;timepredict&quot;         &quot;multilabel.hamloss&quot; 
-#&gt;  [4] &quot;multilabel.f1&quot;       &quot;featperc&quot;            &quot;multilabel.subset01&quot;
-#&gt;  [7] &quot;timeboth&quot;            &quot;timetrain&quot;           &quot;multilabel.tpr&quot;     
-#&gt; [10] &quot;multilabel.acc&quot;
+#&gt;  [1] &quot;multilabel.f1&quot;       &quot;multilabel.subset01&quot; &quot;multilabel.tpr&quot;     
+#&gt;  [4] &quot;multilabel.ppv&quot;      &quot;multilabel.acc&quot;      &quot;timeboth&quot;           
+#&gt;  [7] &quot;timepredict&quot;         &quot;multilabel.hamloss&quot;  &quot;featperc&quot;           
+#&gt; [10] &quot;timetrain&quot;
 </code></pre>
 
 <h2 id="resampling">Resampling</h2>
@@ -570,20 +570,16 @@ r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.classif.rpart
-#&gt; multilabel.hamloss.aggr: 0.22
-#&gt; multilabel.hamloss.mean: 0.22
-#&gt; multilabel.hamloss.sd: 0.01
-#&gt; Runtime: 4.37393
+#&gt; Aggr perf: multilabel.hamloss.test.mean=0.225
+#&gt; Runtime: 4.47715
 
 r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.rFerns
-#&gt; multilabel.hamloss.aggr: 0.47
-#&gt; multilabel.hamloss.mean: 0.47
-#&gt; multilabel.hamloss.sd: 0.00
-#&gt; Runtime: 0.404812
+#&gt; Aggr perf: multilabel.hamloss.test.mean=0.473
+#&gt; Runtime: 0.388441
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>

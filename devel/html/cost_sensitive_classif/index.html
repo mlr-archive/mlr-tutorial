@@ -620,13 +620,8 @@ r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
-#&gt; credit.costs.aggr: 0.56
-#&gt; credit.costs.mean: 0.56
-#&gt; credit.costs.sd: 0.03
-#&gt; mmce.aggr: 0.36
-#&gt; mmce.mean: 0.36
-#&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.162546
+#&gt; Aggr perf: credit.costs.test.mean=0.558,mmce.test.mean=0.362
+#&gt; Runtime: 0.160311
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -668,13 +663,8 @@ r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
-#&gt; credit.costs.aggr: 0.85
-#&gt; credit.costs.mean: 0.85
-#&gt; credit.costs.sd: 0.17
-#&gt; mmce.aggr: 0.25
-#&gt; mmce.mean: 0.25
-#&gt; mmce.sd: 0.03
-#&gt; Runtime: 0.161572
+#&gt; Aggr perf: credit.costs.test.mean=0.852,mmce.test.mean=0.248
+#&gt; Runtime: 0.164438
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -789,13 +779,8 @@ r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
-#&gt; credit.costs.aggr: 0.53
-#&gt; credit.costs.mean: 0.53
-#&gt; credit.costs.sd: 0.04
-#&gt; mmce.aggr: 0.35
-#&gt; mmce.mean: 0.35
-#&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.19297
+#&gt; Aggr perf: credit.costs.test.mean=0.526,mmce.test.mean=0.346
+#&gt; Runtime: 0.187443
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -811,13 +796,8 @@ r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
-#&gt; credit.costs.aggr: 0.58
-#&gt; credit.costs.mean: 0.58
-#&gt; credit.costs.sd: 0.04
-#&gt; mmce.aggr: 0.31
-#&gt; mmce.mean: 0.31
-#&gt; mmce.sd: 0.02
-#&gt; Runtime: 0.264516
+#&gt; Aggr perf: credit.costs.test.mean=0.575,mmce.test.mean=0.311
+#&gt; Runtime: 0.26707
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -894,13 +874,8 @@ r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
-#&gt; credit.costs.aggr: 0.53
-#&gt; credit.costs.mean: 0.53
-#&gt; credit.costs.sd: 0.05
-#&gt; mmce.aggr: 0.35
-#&gt; mmce.mean: 0.35
-#&gt; mmce.sd: 0.01
-#&gt; Runtime: 0.331527
+#&gt; Aggr perf: credit.costs.test.mean=0.535,mmce.test.mean=0.351
+#&gt; Runtime: 0.334459
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -995,13 +970,8 @@ r
 #&gt; Resample Result
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
-#&gt; wf.costs.aggr: 7.02
-#&gt; wf.costs.mean: 7.02
-#&gt; wf.costs.sd: 2.34
-#&gt; mmce.aggr: 0.26
-#&gt; mmce.mean: 0.26
-#&gt; mmce.sd: 0.05
-#&gt; Runtime: 0.03965
+#&gt; Aggr perf: wf.costs.test.mean=7.02,mmce.test.mean=0.262
+#&gt; Runtime: 0.0401316
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)

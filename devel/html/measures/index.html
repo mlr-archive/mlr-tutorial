@@ -933,6 +933,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mape</a></strong> <br />Mean absolute percentage error</td>
+<td align="center">X</td>
+<td align="right">0</td>
+<td align="right">Inf</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as the abs(truth_i - response_i)/truth_i. Won't work if any truth value is equal to zero. In this case the output will be NA.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">medae</a></strong> <br />Median of absolute errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
@@ -975,6 +989,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rae</a></strong> <br />Relative absolute error</td>
+<td align="center">X</td>
+<td align="right">0</td>
+<td align="right">Inf</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as sum_of_absolute_errors / mean_absolute_deviation. Undefined for single instances and when every truth value is identical. In this case the output will be NA.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rmse</a></strong> <br />Root mean square error</td>
 <td align="center">X</td>
 <td align="right">0</td>
@@ -987,6 +1015,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.rmse</a></td>
 <td align="left">The RMSE is aggregated as sqrt(mean(rmse.vals.on.test.sets^2)). If you don't want that, you could also use <code>test.mean</code>.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rrse</a></strong> <br />Root relative squared error</td>
+<td align="center">X</td>
+<td align="right">0</td>
+<td align="right">Inf</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as sqrt (sum_of_squared_errors / total_sum_of_squares). Undefined for single instances and when every truth value is identical. In this case the output will be NA.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rsq</a></strong> <br />Coefficient of determination</td>
