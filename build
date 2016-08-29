@@ -77,14 +77,14 @@ setSeed = function(x, algo = "crc32") {
 }
 
 # worker function
-knitIt = function(f) {
+knitIt = function(f, dev) {
   messagef("Knitting file '%s' ...", f)
   lines = readLines(file.path(src, f))
   for (macro in macros)
     lines = str_replace_all(lines, macro$pattern, macro$replacement)
 
   cache.path = paste0(file.path("cache", f), .Platform$file.sep)
-  opts_chunk$set(cache = TRUE, cache.path = cache.path, dev = "svg", error = FALSE, comment = "#>", collapse = TRUE)
+  opts_chunk$set(cache = TRUE, cache.path = cache.path, dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
   setSeed(f)
   knit(
     text = lines,
@@ -116,8 +116,6 @@ suppressPackageStartupMessages({
 
 # turn warnings to errors, we don't want to miss them
 options(warn = 2L)
-# embed images in HTML
-opts_knit$set(upload.fun = image_uri)
 # number of spaces to indent the code is 2 (for chunks with tidy=TRUE)
 opts_chunk$set(tidy.opts=list(indent=2, width.cutoff=80))
 
@@ -126,18 +124,20 @@ if (!isDirectory("docs"))
   dir.create("docs")
 
 # do lapply for now. with mclapply it seems unclear how to stop best on error. this was 100% broken before
-dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt)
-
-# build docs with mkdocs
-ok = system3("mkdocs", "build")
+dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "pdf")
+message("Building PDF version...")
+ok = system3("./build-pdf.py")
 if (ok$exit.code == 0L) {
-  message("Build successfull!")
+  # embed images in HTML
+  opts_knit$set(upload.fun = image_uri)
+  message("Building HTML version...")
+  dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "svg")
+  ok = system3("mkdocs", "build")
+  message("Build successful!")
   message("Now zip everything!")
   setwd("devel/html/")
   suppressAll(zip("../mlr_tutorial.zip", files = "."))
-  setwd("../")
-  # clean up
-  unlink("figure", recursive = TRUE)
+  setwd("../../")
   exit(0L)
 }
 

@@ -34,10 +34,10 @@ Install dependencies:
 * Add the new section to the pages configuration in `mkdocs.yml`.
 
 ### Include images
-If you want to include an additional image in file `pic.png`:
-* Put this file in subfolder `images/`.
-* Add a symlink in directory `custom_theme/img/`: `pic.png -> ../../images/pic.png`.
-* When including the image in the R markdown link to `img/pic.png`:
+If you want to include an additional image in file `pic.png`:  
+* Put this file in subfolder `img/`.
+* Add a symlink in directory `custom_theme/img/`: `pic.png -> ../../img/pic.png`.
+* When including the image in the R markdown link to `img/pic.png`:  
   `![alt text](img/pic.png "Image Title")`
 
 ### Commit your changes
