@@ -7,20 +7,47 @@ os.chdir("docs")
 with open(os.path.join("..", "mlr-tutorial.md"), "w") as fd:
   fd.write("""
 ---
+documentclass: article
+classoption:
+  - twoside
 title: mlr Tutorial
+title-meta: mlr Tutorial
 author:
   - Julia Schiffner
-  - Lars Kotthoff
   - Bernd Bischl
+  - Michel Lang
   - Jakob Richter
   - Zachary M. Jones
   - IcedragonP
   - Florian Pfisterer
   - Mason Gallo
   - Philipp Probst
+  - Dominik Kirchhoff
+  - Tobias Kühn
+  - Lars Kotthoff
 ---
 """)
-os.system("for f in `grep -B 10000 Appendix ../mkdocs.yml | grep -o \"[^']\+\.md\"`; do (cat \"${f}\"; echo) >> ../mlr-tutorial.md; done")
+  with open(os.path.join("..", "mkdocs.yml"), "r") as fd2:
+    line = fd2.readline()
+    while line:
+      if('Appendix' in line):
+        break
+      elif('.md' in line):
+        m = re.search("[^']+\.md", line)
+        fname = m.group(0)
+        with open(fname, "r") as fd3:
+          for lin in fd3:
+            if fname != "index.md":
+              lin = re.sub(r'^(#+ [A-Za-z0-9])', '#\g<1>', lin)
+            fd.write(lin)
+          fd.write("\n")
+        if('index.md' in line):
+          fd.write("\n\n# Basics\n\n")
+        if('visualization.md' in line):
+          fd.write("\n\n# Advanced\n\n")
+        if('hyperpar_tuning_effects.md' in line):
+          fd.write("\n\n# Extend\n\n")
+      line = fd2.readline()
 os.chdir("..")
 
 def link_fixer(match):

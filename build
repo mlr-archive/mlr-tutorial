@@ -119,6 +119,9 @@ options(warn = 2L)
 # number of spaces to indent the code is 2 (for chunks with tidy=TRUE)
 opts_chunk$set(tidy.opts = list(indent = 2, width.cutoff = 80))
 
+# make figure labels more readable in PDF version
+opts_chunk$set(fig.width = 8, fig.height = 5)
+
 # create output directory
 if (!isDirectory("docs"))
   dir.create("docs")
