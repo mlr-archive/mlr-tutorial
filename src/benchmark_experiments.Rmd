@@ -179,7 +179,7 @@ a different training/test set pair than [random forest](&randomForest::randomFor
 Differing training/test set pairs across learners pose an additional source of variation in
 the results, which can make it harder to detect actual performance differences between learners.
 Therefore, if you suspect that you will have to extend your benchmark experiment by another
-[Learner](&makeLearner) later on it's probably easiest to work with 
+[Learner](&makeLearner) later on it's probably easiest to work with
 [ResampleInstance](&makeResampleInstance)s from the start. These can be stored and used for
 any additional experiments.
 
@@ -301,10 +301,11 @@ and the second plot the balanced error rate ([ber](measures.md)).
 Moreover, in the second plot we color the boxes according to the learners to make them better
 distinguishable.
 
-```{r, fig.width=9}
+```{r, fig.asp=7/9}
 plotBMRBoxplots(bmr, measure = mmce)
 plotBMRBoxplots(bmr, measure = ber, style = "violin", pretty.names = FALSE) +
-  aes(color = learner.id)
+  aes(color = learner.id) +
+  theme(strip.text.x = element_text(size = 8))
 ```
 
 Note that by default the measure `name`s are used as labels for the y-axis.
@@ -328,7 +329,7 @@ Moreover, compared to the other learner names "randomForest" seems a little long
 Currently, the probably simplest solution is to change the factor levels of the plotted
 data as shown below.
 
-```{r, fig.width=9}
+```{r, fig.asp = 7/9}
 plt = plotBMRBoxplots(bmr, measure = mmce)
 head(plt$data)
 
@@ -347,7 +348,7 @@ By default, the first measure in the [list](&base::list) of [Measure](&makeMeasu
 to [&benchmark] is used, in our example [mmce](measures.md).
 Moreover, a small vertical jitter is added to prevent overplotting.
 
-```{r}
+```{r, fig.asp = 7/9}
 plotBMRSummary(bmr)
 ```
 
@@ -374,14 +375,14 @@ tasks.
 [&plotBMRRanksAsBarChart] with option `pos = "tile"` shows a corresponding heat map. The
 ranks are displayed on the x-axis and the learners are color-coded.
 
-```{r}
+```{r, fig.asp = 7/9}
 plotBMRRanksAsBarChart(bmr, pos = "tile")
 ```
 
 A similar plot can also be obtained via [&plotBMRSummary]. With option `trafo = "rank"` the
 ranks are displayed instead of the aggregated performances.
 
-```{r}
+```{r, fig.asp = 7/9}
 plotBMRSummary(bmr, trafo = "rank", jitter = 0)
 ```
 
@@ -389,7 +390,7 @@ Alternatively, you can draw stacked bar charts (the default) or bar charts with 
 bars (`pos = "dodge"`) that are better suited to compare the frequencies of learners within
 and across ranks.
 
-```{r, fig.show = "hold", out.width = 412}
+```{r, fig.show = "hold", out.width = '50%'}
 plotBMRRanksAsBarChart(bmr)
 plotBMRRanksAsBarChart(bmr, pos = "dodge")
 ```
@@ -450,8 +451,8 @@ The mean rank of learners is displayed on the x-axis.
   baseline can be considered better or worse than a given learner which is outside of the
   interval.
 
-The critical difference $CD$ is calculated by
-$$CD = q_\alpha \cdot \sqrt{\frac{k(k+1)}{6N}},$$
+The critical difference $\mathit{CD}$ is calculated by
+$$\mathit{CD} = q_\alpha \cdot \sqrt{\frac{k(k+1)}{6N}},$$
 where $N$ denotes the number of tasks, $k$ is the number of learners, and
 $q_\alpha$ comes from the studentized range statistic divided by $\sqrt{2}$.
 For details see [Demsar (2006)](http://www.jmlr.org/papers/volume7/demsar06a/demsar06a.pdf).
@@ -460,7 +461,7 @@ Function [&generateCritDifferencesData] does all necessary calculations while fu
 [&plotCritDifferences] draws the plot. See the tutorial page about [visualization](visualization.md)
 for details on data generation and plotting functions.
 
-```{r, fig.height=4, fig.width=8}
+```{r, fig.asp = 0.5}
 ## Nemenyi test
 g = generateCritDifferencesData(bmr, p.value = 0.1, test = "nemenyi")
 plotCritDifferences(g) + coord_cartesian(xlim = c(-1,5), ylim = c(0,2))
@@ -479,19 +480,20 @@ returned by [&getBMRPerformances] or [&getBMRAggrPerformances]. Here are some ex
 Instead of boxplots (as in [&plotBMRBoxplots]) we could create density plots
 to show the performance values resulting from individual resampling iterations.
 
-```{r, fig.width=8, fig.height=4}
+```{r, fig.asp = 0.5}
 perf = getBMRPerformances(bmr, as.df = TRUE)
 
 ## Density plots for two tasks
 qplot(mmce, colour = learner.id, facets = . ~ task.id,
-  data = perf[perf$task.id %in% c("iris-example", "Sonar-example"),], geom = "density")
+  data = perf[perf$task.id %in% c("iris-example", "Sonar-example"),], geom = "density") +
+  theme(strip.text.x = element_text(size = 8))
 ```
 
 In order to plot multiple performance measures in parallel, `perf` is reshaped to long format.
 Below we generate grouped boxplots showing the error rate ([mmce](measures.md)) and the
 training time [timetrain](measures.md).
 
-```{r, fig.width=9}
+```{r, fig.asp = 2/3}
 ## Compare mmce and timetrain
 df = reshape2::melt(perf, id.vars = c("task.id", "learner.id", "iter"))
 df = df[df$variable != "ber",]
