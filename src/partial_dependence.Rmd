@@ -231,34 +231,34 @@ and [&plotPartialDependenceGGVIS].
 With one feature and a regression task the output is a line plot, with a point for each point
 in the corresponding feature's grid.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.regr)
 ```
 
 With a classification task, a line is drawn for each class, which gives the estimated partial
 probability of that class for a particular point in the feature grid.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.classif)
 ```
 
 For regression tasks, when the `fun` argument of [&generatePartialDependenceData] is used,
 the bounds will automatically be displayed using a gray ribbon.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.ci)
 ```
 
 The same goes for plots of partial dependences where the learner has `predict.type = "se"`.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.se)
 ```
 
 When multiple features are passed to [&generatePartialDependenceData] but `interaction = FALSE`,
 facetting is used to display each estimated bivariate relationship.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.lst)
 ```
 
@@ -267,7 +267,7 @@ be chosen to be used for facetting, and a subplot for each value in the chosen f
 is created, wherein the other feature's partial dependences within the facetting feature's
 value are shown. Note that this type of plot is limited to two features.
 
-```{r, fig.width = 8, fig.height = 8}
+```{r}
 plotPartialDependence(pd.int, facet = "Petal.Length")
 ```
 
@@ -281,7 +281,7 @@ plotPartialDependenceGGVIS(pd.int, interact = "Petal.Length")
 
 When `individual = TRUE` each individual conditional expectation curve is plotted.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.ind.regr)
 ```
 
@@ -289,7 +289,7 @@ When the individual curves are centered by subtracting the individual conditiona
 estimated at a particular value of $X_s$ this results in a fixed intercept which aids in
 visualizing variation in predictions made by $\hat{f}^{(i)}_{X_s}$.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.ind.classif)
 ```
 
@@ -297,33 +297,33 @@ Plotting partial derivative functions works the same as partial dependence. Belo
 of the derivative of the mean aggregated partial dependence function, and the individual
 partial dependence functions for a regression and a classification task respectively.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.regr.der)
 ```
 
 This suggests that $\hat{f}$ is not additive in `lstat` except in the neighborhood of $25$.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.regr.der.ind)
 ```
 
 This suggests that `Petal.Width` interacts with some other feature in the neighborhood of
 $(1.5, 2)$ for classes "virginica" and "versicolor".
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotPartialDependence(pd.classif.der.ind)
 ```
 
 Output from [&generateFunctionalANOVAData] can also be plotted using [&plotPartialDependence].
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 fa = generateFunctionalANOVAData(fit.regr, bh.task, c("crim", "lstat"), depth = 1)
 plotPartialDependence(fa)
 ````
 
 Interactions can often be more easily visualized by using functional ANOVA.
 
-```{r, fig.width = 8, fig.height = 6}
+```{r, fig.asp = 3/4}
 fa.bv = generateFunctionalANOVAData(fit.regr, bh.task, c("crim", "lstat"), depth = 2)
 plotPartialDependence(fa.bv, "tile")
 ```
