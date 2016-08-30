@@ -46,7 +46,7 @@ Perfect classifier performance would result in all the positive cases clustering
 right (i.e., the correct classes are predicted with high probability) and the negative cases
 clustering in the bottom left.
 
-```{r, fig.width = 8, fig.height = 6}
+```{r, fig.asp = 3/4}
 plotCalibration(cal)
 ```
 
@@ -54,14 +54,14 @@ Because of the discretization of the probabilities, sometimes it is advantageous
 the calibration plot. Though `smooth = FALSE` by default, setting this option to `TRUE`
 replaces the estimated proportions with a loess smoother.
 
-```{r, fig.width = 8, fig.height = 6}
+```{r, fig.asp = 3/4}
 cal = generateCalibrationData(pred)
 plotCalibration(cal, smooth = TRUE)
 ```
 
 All of the above functionality works with multi-class classification as well.
 
-```{r, fig.width = 10, fig.height = 6}
+```{r, , fig.asp = 3/4}
 lrns = list(
   makeLearner("classif.randomForest", predict.type = "prob"),
   makeLearner("classif.nnet", predict.type = "prob", trace = FALSE)
