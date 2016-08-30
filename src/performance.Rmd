@@ -146,7 +146,7 @@ In the following example we consider the [Sonar](&mlbench::Sonar) data set and
 plot the false positive rate ([fpr](measures.md)), the false negative rate ([fnr](measures.md))
 as well as the misclassification rate ([mmce](measures.md)) for all possible threshold values.
 
-```{r, fig.width=8, fig.height=4}
+```{r, fig.asp = 0.5}
 lrn = makeLearner("classif.lda", predict.type = "prob")
 n = getTaskSize(sonar.task)
 mod = train(lrn, task = sonar.task, subset = seq(1, n, by = 2))
