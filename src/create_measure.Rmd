@@ -181,7 +181,7 @@ In most cases (unless you are using bootstrap as resampling strategy or have set
 Now we can run a feature selection based on the first measure in the provided
 [list](&base::list) and see how the other measures turn out.
 
-```{r, fig.width=9}
+```{r, fig.asp = 7/9}
 ## mmce with default aggregation scheme test.mean
 ms1 = mmce
 
