@@ -26,7 +26,7 @@ With [&plotLearningCurve] the result of [&generateLearningCurveData] can be plot
 `facet = "measure"` and facetted subplots are created for each measure input to [&generateLearningCurveData].
 If `facet = "measure"` learners are mapped to color, and vice versa.
 
-```{r LearningCurveTPFP}
+```{r LearningCurveTPFP, fig.asp = 7/9}
 r = generateLearningCurveData(
   learners = list("classif.rpart", "classif.knn"),
   task = sonar.task,
@@ -52,7 +52,7 @@ sufficient to give the *name*.
 It is also possible to create a learner the usual way and even to mix it.
 Make sure to give different `id`s in this case.
 
-```{r LearningCurveACCx, fig.width = 8, fig.height = 6}
+```{r LearningCurveACCx, fig.asp = 3/4}
 lrns = list(
   makeLearner(cl = "classif.ksvm", id = "ksvm1" , sigma = 0.2, C = 2),
   makeLearner(cl = "classif.ksvm", id = "ksvm2" , sigma = 0.1, C = 1),
@@ -67,11 +67,11 @@ plotLearningCurve(lc)
 
 We can display performance on the train set as well as the test set:
 
-```{r}
+```{r, fig.asp = 2/3}
 rin2 = makeResampleDesc(method = "CV", iters = 5, predict = "both")
-lc2 = generateLearningCurveData(learners = lrns, task = sonar.task, 
-  percs = seq(0.1, 1, by = 0.1), 
-  measures = list(acc,setAggregation(acc, train.mean)), resampling = rin2, 
+lc2 = generateLearningCurveData(learners = lrns, task = sonar.task,
+  percs = seq(0.1, 1, by = 0.1),
+  measures = list(acc,setAggregation(acc, train.mean)), resampling = rin2,
   show.info = FALSE)
 plotLearningCurve(lc2, facet = "learner")
 ```
