@@ -40,7 +40,7 @@ head(d$data)
 
 For plotting we can use the built-in [%mlr] function [&plotThreshVsPerf].
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plotThreshVsPerf(d)
 ```
 
@@ -74,7 +74,7 @@ Imagine you want to change the order of the panels and also are not satisfied wi
 panel names, for example you find that "Mean misclassification error" is too long and you
 prefer "Error rate" instead. Moreover, you want the error rate to be displayed first.
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 plt = plotThreshVsPerf(d, pretty.names = FALSE)
 
 ## Reshaped version of the underlying data d
@@ -113,7 +113,7 @@ Instead of using the built-in function [&plotThreshVsPerf] we could also manuall
 the plot based on the output of [&generateThreshVsPerfData]: in this case to plot only one
 measure.
 
-```{r, fig.width = 6, fig.height = 4}
+```{r, fig.asp = 2/3}
 ggplot(d$data, aes(threshold, fpr)) + geom_line()
 ```
 
@@ -121,10 +121,11 @@ The decoupling of generation and plotting functions is especially practical if y
 prefer traditional [%graphics] or [%lattice]. Here is a [%lattice] plot which gives a
 result similar to that of [&plotThreshVsPerf].
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.asp = 0.5}
 lattice::xyplot(fpr + fnr + mmce ~ threshold, data = d$data, type = "l", ylab = "performance",
   outer = TRUE, scales = list(relation = "free"),
-  strip = strip.custom(factor.levels = sapply(d$measures, function(x) x$name)))
+  strip = strip.custom(factor.levels = sapply(d$measures, function(x) x$name),
+    par.strip.text = list(cex = 0.8)))
 ```
 
 Let's conclude with a brief look on a second example.
@@ -132,7 +133,7 @@ Here we use [&plotPartialDependence] but extract the data from the [ggplot](&ggp
 object `plt`and use it to create a traditional [&graphics::plot], additional to the [%ggplot2]
 plot.
 
-```{r, fig.width = 6, fig.height = 4}
+```{r, fig.asp = 2/3}
 sonar = getTaskData(sonar.task)
 pd = generatePartialDependenceData(mod, sonar, "V11")
 plt = plotPartialDependence(pd)
@@ -141,7 +142,7 @@ head(plt$data)
 plt
 ```
 
-```{r, fig.width = 6, fig.height = 5}
+```{r, fig.asp = 5/6}
 plot(Probability ~ Value, data = plt$data, type = "b", xlab = plt$data$Feature[1])
 ```
 
