@@ -127,7 +127,7 @@ head(opt.paths, 10)
 
 Below we visualize the `opt.path`s for the 3 outer resampling iterations.
 
-```{r fig.width = 8, fig.height = 4}
+```{r fig.asp = 0.5}
 g = ggplot(opt.paths, aes(x = C, y = sigma, fill = mmce.test.mean))
 g + geom_tile() + facet_wrap(~ iter)
 ```
