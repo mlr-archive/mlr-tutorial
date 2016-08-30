@@ -210,7 +210,7 @@ The following plots show the cross-validated costs and error rate ([mmce](measur
 The theoretical threshold ``th`` calculated above is indicated by the vertical line.
 As you can see from the left-hand plot the theoretical threshold seems a bit large.
 
-```{r, fig.width=8, fig.height=4}
+```{r, fig.asp = 0.5}
 d = generateThreshVsPerfData(r, measures = list(credit.costs, mmce))
 plotThreshVsPerf(d, mark.th = th)
 ```
