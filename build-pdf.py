@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import os
 import re
 import sys
@@ -18,10 +19,9 @@ author:
   - Michel Lang
   - Jakob Richter
   - Zachary M. Jones
-  - IcedragonP
+  - Philipp Probst
   - Florian Pfisterer
   - Mason Gallo
-  - Philipp Probst
   - Dominik Kirchhoff
   - Tobias Kühn
   - Lars Kotthoff
