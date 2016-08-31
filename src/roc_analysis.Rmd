@@ -96,7 +96,7 @@ to [&generateThreshVsPerfData]. The first is shown on the x-axis, the second on 
 Moreover, a diagonal line that represents the performance of a random classifier is added.
 You can remove the diagonal by setting `diagonal = FALSE`.
 
-```{r, fig.width = 5, fig.height = 5}
+```{r, out.width = '75%'}
 plotROCCurves(df)
 ```
 
@@ -112,7 +112,7 @@ each other.
 If you want to plot individual measures versus the decision threshold you can use function
 [&plotThreshVsPerf].
 
-```{r, fig.width = 10}
+```{r, fig.asp = 7/10}
 plotThreshVsPerf(df)
 ```
 
@@ -129,7 +129,7 @@ In order to compare the performance of the two learners you might want to displa
 corresponding ROC curves in one plot.
 For this purpose just pass a named [list](&base::list) of [&Prediction]s to [&generateThreshVsPerfData].
 
-```{r, fig.width = 10}
+```{r, fig.asp = 7/10}
 df = generateThreshVsPerfData(list(lda = pred1, ksvm = pred2), measures = list(fpr, tpr))
 plotROCCurves(df)
 ```
@@ -144,7 +144,7 @@ performance(pred2, auc)
 Based on the `$data` member of `df` you can easily generate custom plots.
 Below the curves for the two learners are superposed.
 
-```{r, fig.width = 5, fig.height = 5}
+```{r, out.width = '75%'}
 qplot(x = fpr, y = tpr, color = learner, data = df$data, geom = "path")
 ```
 
@@ -153,13 +153,13 @@ performance measures to [&generateThreshVsPerfData] and [&plotROCCurves].
 Below, we generate a *precision/recall graph* (precision = positive predictive value = ppv,
 recall = tpr) and a *sensitivity/specificity plot* (sensitivity = tpr, specificity = tnr).
 
-```{r, fig.show = "hold", out.width = 412}
+```{r, fig.show = "hold", out.width = '50%'}
 df = generateThreshVsPerfData(list(lda = pred1, ksvm = pred2), measures = list(ppv, tpr, tnr))
 
-# precision/recall graph
+## Precision/recall graph
 plotROCCurves(df, measures = list(tpr, ppv), diagonal = FALSE)
 
-# sensitivity/specificity plot
+## Sensitivity/specificity plot
 plotROCCurves(df, measures = list(tnr, tpr), diagonal = FALSE)
 ```
 
@@ -207,7 +207,7 @@ bmr
 Calling [&generateThreshVsPerfData] and [&plotROCCurves] on the [benchmark result](&BenchmarkResult)
 produces a plot with ROC curves for all learners in the experiment.
 
-```{r, fig.width = 10}
+```{r, fig.asp = 7/10}
 df = generateThreshVsPerfData(bmr, measures = list(fpr, tpr, mmce))
 plotROCCurves(df)
 ```
@@ -219,15 +219,16 @@ This way we get *threshold-averaged* ROC curves.
 
 If you want to plot the individual ROC curves for each resample iteration set `aggregate = FALSE`.
 
-```{r, fig.width = 10}
+```{r, fig.asp = 7/10}
 df = generateThreshVsPerfData(bmr, measures = list(fpr, tpr, mmce), aggregate = FALSE)
 plotROCCurves(df)
 ```
 
 The same applies for [&plotThreshVsPerf].
 
-```{r, fig.width = 10}
-plotThreshVsPerf(df)
+```{r, fig.asp = 0.5}
+plotThreshVsPerf(df) +
+  theme(strip.text.x = element_text(size = 7))
 ```
 
 An alternative to averaging is to just merge the 5 test folds and draw a single ROC curve.
@@ -242,7 +243,7 @@ Averaging methods are normally preferred
 as they permit to assess the variability, which is needed to properly compare classifier
 performance.
 
-```{r, fig.width = 10}
+```{r, fig.asp = 7/10}
 ## Extract predictions
 preds = getBMRPredictions(bmr)[[1]]
 
@@ -294,7 +295,7 @@ pred1 = predict(mod1, task = sonar.task, subset = test.set)
 Below we use [&asROCRPrediction] to convert the lda prediction, let [%ROCR] calculate the
 true and false positive rate and plot the ROC curve.
 
-```{r, fig.width = 5, fig.height = 5}
+```{r, out.width = '75%'}
 ## Convert prediction
 ROCRpred1 = asROCRPrediction(pred1)
 
@@ -309,7 +310,7 @@ Below is the same ROC curve, but we make use of some more graphical parameters:
 The ROC curve is color-coded by the threshold and selected threshold values are printed on
 the curve. Additionally, the convex hull (black broken line) of the ROC curve is drawn.
 
-```{r, fig.width = 5, fig.height = 5}
+```{r, out.width = '75%'}
 ## Draw ROC curve
 ROCR::plot(ROCRperf1, colorize = TRUE, print.cutoffs.at = seq(0.1, 0.9, 0.1), lwd = 2)
 
@@ -341,7 +342,7 @@ the individual resampling iterations (broken lines).
 Moreover, standard error bars are plotted for selected true positive rates (0.1, 0.2, ..., 0.9).
 See [%ROCR]'s [plot](&ROCR::plot-methods) function for details.
 
-```{r, fig.width = 5, fig.height = 5}
+```{r, out.width = '75%'}
 ## lda average ROC curve
 plot(ROCRperfs[[1]], col = "blue", avg = "vertical", spread.estimate = "stderror",
   show.spread.at = seq(0.1, 0.8, 0.1), plotCI.col = "blue", plotCI.lwd = 2, lwd = 2)
@@ -362,7 +363,7 @@ change the performance measures when calling [&ROCR::performance].
 (Note that you have to use the measures provided by [%ROCR] listed [here](&ROCR::performance)
 and not [%mlr]'s performance measures.)
 
-```{r, fig.width = 5, fig.height = 5}
+```{r, out.width = '75%'}
 ## Extract and convert predictions
 preds = getBMRPredictions(bmr)[[1]]
 ROCRpreds = lapply(preds, asROCRPrediction)
@@ -381,7 +382,7 @@ calling [&ROCR::performance].
 Below the average accuracy over the 5 cross-validation iterations is plotted against the
 threshold. Moreover, boxplots for certain threshold values (0.1, 0.2, ..., 0.9) are drawn.
 
-```{r, fig.width = 5, fig.height = 5}
+```{r, out.width = '75%'}
 ## Extract and convert predictions
 preds = getBMRPredictions(bmr)[[1]]
 ROCRpreds = lapply(preds, asROCRPrediction)
