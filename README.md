@@ -2,7 +2,7 @@
 URL: http://mlr-org.github.io/mlr-tutorial/devel/html/
 
 ## First steps
-Install dependencies:  
+Install dependencies:
 * `pip install --user mkdocs` or `easy_install --user mkdocs`.
 * Install the [math extension for Python-Markdown](https://github.com/mitya57/python-markdown-math):
   After download `chmod a+x setup.py`, edit the first line in the file if you use `python2`, type `python setup.py build` and `python setup.py install`.
@@ -16,6 +16,12 @@ Install dependencies:
   * Basic Markdown: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
   * RStudio Support: https://support.rstudio.com/hc/en-us/articles/200552086-Using-R-Markdown
   * Knitr options: http://yihui.name/knitr/options
+* Link to another tutorial page in file `tutorial_page.md`: `[clever text](tutorial_page.md)`
+* Link to a certain section on a tutorial page:
+  If you want to link e.g. to section `### Confusion matrix` on the prediction page in file
+  `predict.md` write: [clever text](predict.md#confusion-matrix)
+  (i.e. use only one `#`, section title all lower case and words separated by hyphens).
+  Use this sparingly because links break if the section title changes!
 * Link to mlr manual: `[&function]` and `[name](&function)`.
 * Link to other manuals: `[&pkg::function]` and `[name](&pkg::function)`.
 * Links will only work properly if they point to the *base name* of the help file:
@@ -28,10 +34,10 @@ Install dependencies:
 * Add the new section to the pages configuration in `mkdocs.yml`.
 
 ### Include images
-If you want to include an additional image in file `pic.png`:  
+If you want to include an additional image in file `pic.png`:
 * Put this file in subfolder `images/`.
 * Add a symlink in directory `custom_theme/img/`: `pic.png -> ../../images/pic.png`.
-* When including the image in the R markdown link to `img/pic.png`:  
+* When including the image in the R markdown link to `img/pic.png`:
   `![alt text](img/pic.png "Image Title")`
 
 ### Commit your changes
@@ -52,4 +58,4 @@ If you want to include an additional image in file `pic.png`:
 
   This particularily means: If you encounter an error in building the tutorial
   due to your R setup (e.g. outdated/missing packages) you **have to** delete
-  the cache (after updating said packages) to get rid of the error. 
+  the cache (after updating said packages) to get rid of the error.
