@@ -351,7 +351,7 @@
         
             <li><a href="#access-a-performance-measure">Access a performance measure</a></li>
         
-            <li><a href="#binary-classification-plot-performance-versus-threshold">Binary classification: Plot performance versus threshold</a></li>
+            <li><a href="#binary-classification">Binary classification</a></li>
         
     
     </ul>
@@ -466,7 +466,7 @@ works in the same way.</p>
 model has to be passed.</p>
 <pre><code class="r">performance(pred, measures = timetrain, model = mod)
 #&gt; timetrain 
-#&gt;     0.112
+#&gt;     0.086
 </code></pre>
 
 <p>For many performance measures in cluster analysis the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> is required.</p>
@@ -521,7 +521,9 @@ str(mmce)
 #&gt;  - attr(*, &quot;class&quot;)= chr &quot;Measure&quot;
 </code></pre>
 
-<h2 id="binary-classification-plot-performance-versus-threshold">Binary classification: Plot performance versus threshold</h2>
+<h2 id="binary-classification">Binary classification</h2>
+<p>For binary classification specialized techniques exist to analyze the performance.</p>
+<h3 id="plot-performance-versus-threshold">Plot performance versus threshold</h3>
 <p>As you may recall (see the previous section on <a href="../predict/index.html">making predictions</a>)
 in binary classification we can adjust the threshold used to map probabilities to class labels.
 Helpful in this regard is are the functions <a href="http://www.rdocumentation.org/packages/mlr/functions/generateThreshVsPerfData.html">generateThreshVsPerfData</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/plotThreshVsPerf.html">plotThreshVsPerf</a>, which generate and plot, respectively, the learner performance versus the threshold.</p>
@@ -548,7 +550,43 @@ plotThreshVsPerf(d)
 to <a href="http://www.rdocumentation.org/packages/mlr/functions/plotThreshVsPerf.html">plotThreshVsPerf</a> but instead of creating facetted subplots to visualize multiple learners and/or
 multiple measures, one of them is mapped to an interactive sidebar which selects what to display.</p>
 <pre><code class="r">plotThreshVsPerfGGVIS(d)
-</code></pre></div>
+</code></pre>
+
+<h3 id="roc-measures">ROC measures</h3>
+<p>For binary classification a large number of specialized measures exist, which can be nicely formatted into
+one matrix, see for example the <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">receiver operating characteristic page on wikipedia</a>.</p>
+<p>We can generate a similiar table with the <a href="http://www.rdocumentation.org/packages/mlr/functions/calculateROCMeasures.html">calculateROCMeasures</a> function.</p>
+<pre><code class="r">r = calculateROCMeasures(pred)
+r
+#&gt;     predicted
+#&gt; true M         R                            
+#&gt;    M 0.7       0.3       tpr: 0.7  fnr: 0.3 
+#&gt;    R 0.25      0.75      fpr: 0.25 tnr: 0.75
+#&gt;      ppv: 0.76 for: 0.32 lrp: 2.79 acc: 0.72
+#&gt;      fdr: 0.24 npv: 0.68 lrm: 0.4  dor: 6.88
+#&gt; 
+#&gt; 
+#&gt; Abbreviations:
+#&gt; tpr - True positive rate (Sensitivity, Recall)
+#&gt; fpr - False positive rate (Fall-out)
+#&gt; fnr - False negative rate (Miss rate)
+#&gt; tnr - True negative rate (Specificity)
+#&gt; ppv - Positive predictive value (Precision)
+#&gt; for - False omission rate
+#&gt; lrp - Positive likelihood ratio (LR+)
+#&gt; fdr - False discovery rate
+#&gt; npv - Negative predictive value
+#&gt; acc - Accuracy
+#&gt; lrm - Negative likelihood ratio (LR-)
+#&gt; dor - Diagnostic odds ratio
+</code></pre>
+
+<p>The top left <script type="math/tex">2 \times 2</script> matrix is the <a href="../predict/index.html#confusion-matrix">confusion matrix</a>, which shows
+the relative frequency of correctly and incorrectly classified observations. Below and to the right a large number of
+performance measures that can be inferred from the confusion matrix are added. By default some
+additional info about the measures is printed.
+You can turn this off using the <code>abbreviations</code> argument of the <a href="http://www.rdocumentation.org/packages/mlr/functions/calculateROCMeasures.html">print</a> method:
+<code>print(r, abbreviations = FALSE)</code>.</p></div>
             
         </div>
 
