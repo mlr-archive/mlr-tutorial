@@ -16,7 +16,7 @@ Install dependencies:
   * Basic Markdown: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
   * RStudio Support: https://support.rstudio.com/hc/en-us/articles/200552086-Using-R-Markdown
   * Knitr options: http://yihui.name/knitr/options
-* Link to another tutorial page in file `tutorial_page.md`: `[clever text](tutorial_page.md)`
+* Link to another tutorial page in file `tutorial_page.md`: `[clever text](tutorial_page.md)`.
 * Link to a certain section on a tutorial page:
   If you want to link e.g. to section `### Confusion matrix` on the prediction page in file
   `predict.md` write: [clever text](predict.md#confusion-matrix)
