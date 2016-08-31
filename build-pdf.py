@@ -8,9 +8,6 @@ os.chdir("docs")
 with open(os.path.join("..", "mlr-tutorial.md"), "w") as fd:
   fd.write("""
 ---
-documentclass: article
-classoption:
-  - twoside
 title: mlr Tutorial
 title-meta: mlr Tutorial
 author:
