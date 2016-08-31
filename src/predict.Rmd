@@ -136,32 +136,42 @@ head(getPredictionProbabilities(pred))
 ### Confusion matrix
 
 A confusion matrix can be obtained by calling [&calculateConfusionMatrix]. The columns represent
-predicted values and the rows the true labels.
+predicted and the rows true class labels.
 
 ```{r}
 calculateConfusionMatrix(pred)
 ```
 
-We can see that correctly classified observation are on the diagonal of the matrix. Missclassifified 
-observations are on the off-diagonal. It is possible to marginalize over the classes and number of errors
-in one class is shown in the `-err.-` row and column. The resulting object hast the class [&ConfMatrix]
-where its structure is explained in detail.
+You can see the number of correctly classified observations on the diagonal of the matrix. Misclassified
+observations are on the off-diagonal. The total number of errors for single (true and predicted)
+classes is shown in the `-err.-` row and column, respectively.
 
-To get relative frequencies as well as absolute numbers we can set `relative=TRUE`.
+To get relative frequencies additional to the absolute numbers we can set `relative = TRUE`.
 
 ```{r}
-calculateConfusionMatrix(pred, relative = TRUE)
+conf.matrix = calculateConfusionMatrix(pred, relative = TRUE)
+conf.matrix
 ```
 
-Since it is possible to normalize by row **or** column but not both at once, every element of the 
-relative confusion matrix consists of two values. The first is the relative frequency grouped by row 
+It is possible to normalize by either row or column, therefore every element of the above
+relative confusion matrix contains two values. The first is the relative frequency grouped by row
 (the true label) and the second value grouped by column (the predicted label).
 
-Additionally we can also already calculate the absolute number of observations for each predicted and true label. These can be added to the matrix (both absolute and relative) with `sums=TRUE`.
+If you want to access the relative values directly you can do this through the `$relative.row`
+and `$relative.col` members of the returned object `conf.matrix`.
+For more details see the [&ConfusionMatrix] documentation page.
+
+```{r}
+conf.matrix$relative.row
+```
+
+Finally, we can also add the absolute number of observations for each predicted
+and true class label to the matrix (both absolute and relative) by setting `sums = TRUE`.
 
 ```{r}
 calculateConfusionMatrix(pred, relative = TRUE, sums = TRUE)
 ```
+
 
 
 ## Adjusting the threshold
@@ -186,11 +196,13 @@ pred1$threshold
 ## Set the threshold value for the positive class
 pred2 = setThreshold(pred1, 0.9)
 pred2$threshold
+
 pred2
 
 ## We can also set the effect in the confusion matrix
-getConfMatrix(pred1)
-getConfMatrix(pred2)
+calculateConfusionMatrix(pred1)
+
+calculateConfusionMatrix(pred2)
 ```
 
 Note that in the binary case [&getPredictionProbabilities] by default extracts the posterior

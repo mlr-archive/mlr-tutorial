@@ -136,7 +136,7 @@ str(mmce)
 
 ## Binary classification
 
-For binary classification specialized techniques exist to analyize the performance. 
+For binary classification specialized techniques exist to analyze the performance.
 
 ### Plot performance versus threshold
 
@@ -174,17 +174,18 @@ plotThreshVsPerfGGVIS(d)
 ### ROC measures
 
 For binary classification a large number of specialized measures exist, which can be nicely formatted into
-one matrix, see for example the [receiver operator characteristic page on wikipedia](https://en.wikipedia.org/wiki/Receiver_operating_characteristic).
+one matrix, see for example the [receiver operating characteristic page on wikipedia](https://en.wikipedia.org/wiki/Receiver_operating_characteristic).
 
-We can generate a similiar table with the `calculateROCMeasures` function.
+We can generate a similiar table with the [&calculateROCMeasures] function.
 
 ```{r}
 r = calculateROCMeasures(pred)
 r
 ```
 
-The top left 2 times 2 matrix is the [confusion matrix](predict.md#Confusion matrix), so that we can see
-the relative frequency of correctly and incorrectly classified observations. Then a large number of
-additional measures is added to the matrix that can be used to evaluate the model performance. Explainations of 
-the abbreviations is also returned as well as further common names for some measures. The printing of the
-abbreviations can be toggled in the print function with `print(r, abbreviations = FALSE)`.
+The top left $2 \times 2$ matrix is the [confusion matrix](predict.md#confusion-matrix), which shows
+the relative frequency of correctly and incorrectly classified observations. Below and to the right a large number of
+performance measures that can be inferred from the confusion matrix are added. By default some
+additional info about the measures is printed.
+You can turn this off using the `abbreviations` argument of the [print](&calculateROCMeasures) method:
+`print(r, abbreviations = FALSE)`.
