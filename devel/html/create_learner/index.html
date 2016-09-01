@@ -357,6 +357,8 @@
         
             <li><a href="#creating-a-new-feature-importance-method">Creating a new feature importance method</a></li>
         
+            <li><a href="#registering-your-learner">Registering your learner</a></li>
+        
     
     </ul>
 </div></div>
@@ -754,6 +756,20 @@ fitted model.</p>
   mod = getLearnerModel(.model)
   randomForestSRC::vimp(mod, ...)$importance[, &quot;all&quot;]
 }
+</code></pre>
+
+<h2 id="registering-your-learner">Registering your learner</h2>
+<p>If your interface code to a new learning algorithm exists only locally, i.e., it is not (yet)
+merged into <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> or does not live in an extra package with a proper namespace you might want
+to register the new S3 methods to make sure that these are found by, e.g., <a href="http://www.rdocumentation.org/packages/mlr/functions/listLearners.html">listLearners</a>.
+You can do this as follows:</p>
+<pre><code class="r">registerS3method(&quot;makeRLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, makeRLearner.&lt;awesome_new_learner_class&gt;)
+registerS3method(&quot;trainLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, trainLearner.&lt;awesome_new_learner_class&gt;)
+registerS3method(&quot;predictLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, predictLearner.&lt;awesome_new_learner_class&gt;)
+
+## And if you also have written a method to extract the feature importance
+registerS3method(&quot;getFeatureImportanceLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;,
+  getFeatureImportanceLearner.&lt;awesome_new_learner_class&gt;)
 </code></pre></div>
             
         </div>

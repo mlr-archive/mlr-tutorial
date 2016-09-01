@@ -504,7 +504,7 @@ You can also select manually which columns to use.
 Note that <a href="http://www.rdocumentation.org/packages/rpart/functions/rpart.html">rpart</a> can deal with missing feature values, therefore the <code>NA's</code> in column <code>Solar.R</code>
 do not pose a problem.</p>
 <pre><code class="r">imp = impute(airq.train, target = &quot;Ozone&quot;, cols = list(Solar.R = imputeHist(),
-  Wind = imputeLearner(makeLearner(&quot;classif.rpart&quot;))), dummy.cols = c(&quot;Solar.R&quot;, &quot;Wind&quot;))
+  Wind = imputeLearner(&quot;classif.rpart&quot;)), dummy.cols = c(&quot;Solar.R&quot;, &quot;Wind&quot;))
 summary(imp$data)
 #&gt;      Ozone           Solar.R            Wind         Temp      
 #&gt;  Min.   :  1.00   Min.   :  7.00   (0,8]  :34   Min.   :56.00  
@@ -554,7 +554,7 @@ has the same formal arguments as <a href="http://www.rdocumentation.org/packages
 Like in the example above we impute <code>Solar.R</code> by random numbers from its empirical distribution,
 <code>Wind</code> by the predictions of a classification tree and generate dummy variables for both features.</p>
 <pre><code class="r">lrn = makeImputeWrapper(&quot;regr.lm&quot;, cols = list(Solar.R = imputeHist(),
-  Wind = imputeLearner(makeLearner(&quot;classif.rpart&quot;))), dummy.cols = c(&quot;Solar.R&quot;, &quot;Wind&quot;))
+  Wind = imputeLearner(&quot;classif.rpart&quot;)), dummy.cols = c(&quot;Solar.R&quot;, &quot;Wind&quot;))
 lrn
 #&gt; Learner regr.lm.preproc from package stats
 #&gt; Type: regr
