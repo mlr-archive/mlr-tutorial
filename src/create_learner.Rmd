@@ -462,3 +462,20 @@ getFeatureImportanceLearner.classif.randomForestSRC = function(.learner, .model,
   randomForestSRC::vimp(mod, ...)$importance[, "all"]
 }
 ```
+
+
+## Registering your learner
+If your interface code to a new learning algorithm exists only locally, i.e., it is not (yet)
+merged into [%mlr] or does not live in an extra package with a proper namespace you might want
+to register the new S3 methods to make sure that these are found by, e.g., [&listLearners].
+You can do this as follows:
+
+```{r, eval=FALSE}
+registerS3method("makeRLearner", "<awesome_new_learner_class>", makeRLearner.<awesome_new_learner_class>)
+registerS3method("trainLearner", "<awesome_new_learner_class>", trainLearner.<awesome_new_learner_class>)
+registerS3method("predictLearner", "<awesome_new_learner_class>", predictLearner.<awesome_new_learner_class>)
+
+## And if you also have written a method to extract the feature importance
+registerS3method("getFeatureImportanceLearner", "<awesome_new_learner_class>",
+  getFeatureImportanceLearner.<awesome_new_learner_class>)
+```
