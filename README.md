@@ -19,7 +19,7 @@ Install dependencies:
 * Link to another tutorial page in file `tutorial_page.md`: `[clever text](tutorial_page.md)`.
 * Link to a certain section on a tutorial page:
   If you want to link e.g. to section `### Confusion matrix` on the prediction page in file
-  `predict.md` write: [clever text](predict.md#confusion-matrix)
+  `predict.md` write: `[clever text](predict.md#confusion-matrix)`
   (i.e. use only one `#`, section title all lower case and words separated by hyphens).
   Use this sparingly because links break if the section title changes!
 * Link to mlr manual: `[&function]` and `[name](&function)`.
