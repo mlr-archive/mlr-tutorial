@@ -252,7 +252,7 @@ its parameters, its training performance and its cross-validation performance.
 See the sections on [performance](performance.md) and
 [resampling](resample.md) for further explanations.
 
-```{r}
+```{r, fig.asp = 5/8}
 lrn = makeLearner("classif.rpart", id = "CART")
 plotLearnerPrediction(lrn, task = iris.task)
 ```
@@ -260,7 +260,7 @@ plotLearnerPrediction(lrn, task = iris.task)
 For *clustering* we also get a scatter plot of two selected features.
 The color of the points indicates the predicted cluster.
 
-```{r}
+```{r, fig.asp = 5/8}
 lrn = makeLearner("cluster.kmeans")
 plotLearnerPrediction(lrn, task = mtcars.task, features = c("disp", "drat"), cv = 0)
 ```
@@ -269,7 +269,7 @@ For *regression*, there are two types of plots.
 The 1D plot shows the target values in relation to a single feature, the regression curve and,
 if the chosen learner supports this, the estimated standard error.
 
-```{r}
+```{r, fig.asp = 5/8}
 plotLearnerPrediction("regr.lm", features = "lstat", task = bh.task)
 ```
 
@@ -278,6 +278,6 @@ The fill color of the dots illustrates the value of the target variable ``"medv"
 background colors show the estimated mean.
 The plot does not represent the estimated standard error.
 
-```{r}
+```{r, fig.asp = 5/8}
 plotLearnerPrediction("regr.lm", features = c("lstat", "rm"), task = bh.task)
 ```
