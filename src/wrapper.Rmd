@@ -11,8 +11,7 @@ The broad scope of operations and methods which are implemented as wrappers unde
 * [Cost-sensitive classification](cost_sensitive_classif.md)
 * [Over- and undersampling](over_and_undersampling.md) for imbalanced classification problems
 * [Multiclass extension](&makeMulticlassWrapper) for binary-class learners
-* [Multilabel binary relevance wrapper](&makeMultilabelBinaryRelevanceWrapper) for multilabel
-classification with the binary relevance method
+* [Multilabel classification](multilabel.md)
 
 All these operations and methods have a few things in common:
 First, they all wrap around [%mlr] [learners](&makeLearner) and they return a new learner.
