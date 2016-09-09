@@ -120,7 +120,7 @@ Here are some examples.
 
 ```{r}
 ## Change the ID
-surv.lrn = setId(surv.lrn, "CoxModel")
+surv.lrn = setLearnerId(surv.lrn, "CoxModel")
 surv.lrn
 
 ## Change the prediction type, predict a factor with class labels instead of probabilities

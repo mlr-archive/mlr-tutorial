@@ -1,0 +1,20 @@
+# Learner Properties
+
+| Property      | Description                       | classif | regr | surv | cluster | multilabel |
+| ------------- | --------------------------------- |:-------:|:----:|:----:|:-------:|:----------:|
+| numeric       | numeric features can be handeled  | X       | X    | X    | X       | X          |
+| factor        | factor features                   | X       | X    | X    | X       | X          |
+| ordered       | ordered factor                    | X       | X    | X    | X       | X          |
+| missings      | missing values in the features    | X       | X    | X    | X       | X          |
+|               |                                   |         |      |      |         |            |
+| prob          | Probabilities can be predicted    | X       |      | X    | X       | X          |
+| se            | Standard errors can be predicted  |         | X    |      |         |            |
+|               |                                   |         |      |      |         |            |
+| oneclass      | one-class classification problems | X       |      |      |         |            |
+| twoclass      | binary classification problems    | X       |      |      |         |            |
+| multiclass    | multi-class classification problems | X       |      |      |         |            |
+| class.weights | Class weights                     | X       |      |      |         |            |
+|               |                                   |         |      |      |         |            |
+| rcens         | Right censored data               |         |      | X    |         |            |
+| lcens         | Left censored data                |         |      | X    |         |            |
+| icens         | Interval censored data            |         |      | X    |         |            |

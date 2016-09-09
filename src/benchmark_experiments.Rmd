@@ -102,7 +102,7 @@ head(getBMRPredictions(bmr, learner.ids = "classif.rpart", as.df = TRUE))
 
 If you don't like the default IDs, you can set the IDs of learners and tasks via the `id` option of
 [&makeLearner] and [make*Task](&Task).
-Moreover, you can conveniently change the ID of a [Learner](&makeLearner) via function [&setId].
+Moreover, you can conveniently change the ID of a [Learner](&makeLearner) via function [&setLearnerId].
 
 
 ### IDs
