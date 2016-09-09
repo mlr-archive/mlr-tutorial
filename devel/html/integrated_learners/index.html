@@ -345,9 +345,9 @@
         
             <li><a href="#classification-82">Classification (82)</a></li>
         
-            <li><a href="#regression-61">Regression (61)</a></li>
+            <li><a href="#regression-62">Regression (62)</a></li>
         
-            <li><a href="#survival-analysis-13">Survival analysis (13)</a></li>
+            <li><a href="#survival-analysis-14">Survival analysis (14)</a></li>
         
             <li><a href="#cluster-analysis-9">Cluster analysis (9)</a></li>
         
@@ -1297,7 +1297,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-61">Regression (61)</h3>
+<h3 id="regression-62">Regression (62)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1492,6 +1492,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left"></td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>regr.cvglmnet</strong> <br /> <em>cvglmnet</em> <br /><br />GLM with Lasso or Elasticnet Regularization (Cross Validated Lambda)</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/glmnet/">glmnet</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left"></td>
+<td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.earth</strong> <br /> <em>earth</em> <br /><br />Multivariate Adaptive Regression Splines</td>
@@ -1990,7 +2001,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="survival-analysis-13">Survival analysis (13)</h3>
+<h3 id="survival-analysis-14">Survival analysis (14)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>prob</em>: Probabilities can be predicted,</li>
@@ -2065,6 +2076,17 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="left">rcens</td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
+</tr>
+<tr>
+<td align="left"><strong>surv.gbm</strong> <br /> <em>gbm</em> <br /><br />Gradient Boosting Machine</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/gbm/">gbm</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="left">prob<br />featimp<br />rcens</td>
+<td align="left"><code>keep.data</code> is set to FALSE to reduce memory requirements.</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.glmboost</strong> <br /> <em>glmboost</em> <br /><br />Gradient Boosting with Componentwise Linear Models</td>
