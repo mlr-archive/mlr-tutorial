@@ -556,7 +556,7 @@ Like in the example above we impute <code>Solar.R</code> by random numbers from 
 <pre><code class="r">lrn = makeImputeWrapper(&quot;regr.lm&quot;, cols = list(Solar.R = imputeHist(),
   Wind = imputeLearner(&quot;classif.rpart&quot;)), dummy.cols = c(&quot;Solar.R&quot;, &quot;Wind&quot;))
 lrn
-#&gt; Learner regr.lm.preproc from package stats
+#&gt; Learner regr.lm.imputed from package stats
 #&gt; Type: regr
 #&gt; Name: ; Short name: 
 #&gt; Class: ImputeWrapper
