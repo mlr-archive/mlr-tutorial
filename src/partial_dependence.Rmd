@@ -1,18 +1,18 @@
 # Exploring Learner Predictions
 
-Learners use features to make predictions but how those features are used is often not apparent.
-[%mlr] can estimate the dependence of a learned function on a subset of the feature space using
+Learners use features to learn a prediction function and make predictions, but the effect of those features is often not apparent.
+[%mlr] can estimate the partial dependence of a learned function on a subset of the feature space using
 [&generatePartialDependenceData].
 
 Partial dependence plots reduce the potentially high dimensional function estimated by the
 learner, and display a marginalized version of this function in a lower dimensional space.
 For example suppose $Y = f(X) + \epsilon$, where $\mathbb{E}[\epsilon|X] = 0$. With $(X, Y)$
 pairs drawn independently from this statistical model, a learner may estimate $\hat{f}$, which,
-if $X$ is high dimensional can be uninterpretable. Suppose we want to approximate the relationship
+if $X$ is high dimensional, can be uninterpretable. Suppose we want to approximate the relationship
 between some subset of $X$. We partition $X$ into two sets, $X_s$ and $X_c$ such that
 $X = X_s \cup X_c$, where $X_s$ is a subset of $X$ of interest.
 
-The partial dependence of $f$ on $X_c$ is
+The partial dependence of $f$ on $X_s$ is
 
 $$f_{X_s} = \mathbb{E}_{X_c}f(X_s, X_c).$$
 
