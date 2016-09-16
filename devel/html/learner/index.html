@@ -528,10 +528,7 @@ and defaults of a learning method without explicitly constructing it (by calling
 of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> without needing to create a new <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> from scratch.
 Here are some examples.</p>
 <pre><code class="r">## Change the ID
-surv.lrn = setId(surv.lrn, &quot;CoxModel&quot;)
-#&gt; Warning: 'setId' is deprecated.
-#&gt; Use 'setLearnerId' instead.
-#&gt; See help(&quot;Deprecated&quot;)
+surv.lrn = setLearnerId(surv.lrn, &quot;CoxModel&quot;)
 surv.lrn
 #&gt; Learner CoxModel from package survival
 #&gt; Type: surv
