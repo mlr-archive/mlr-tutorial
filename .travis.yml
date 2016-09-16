@@ -22,6 +22,7 @@ addons:
       - g++-4.9
       - gfortran-4.9
       - libgmp-dev
+      - pandoc
 
 before_install:
   - mkdir $HOME/bin
@@ -38,7 +39,7 @@ install:
   - Rscript r_packs_install.R
 
 script:
-  - ./build || ./build || ./build || ./build
+  - ./build
 
 after_success:
     - git checkout gh-pages
@@ -48,6 +49,7 @@ after_success:
     - echo "https://$GH_TOKEN:@github.com" >> .git/credentials
     - git config push.default matching
     - git add devel
+    - git add mlr-tutorial.pdf
     - git commit -a -m "update auto-generated tutorial pages [ci skip]"
     - git push
 

@@ -64,7 +64,7 @@ following cost matrix where the rows indicate true classes and the columns predi
 
 |            |            |            |
 |:----------:|:----------:|:----------:|
-| true\pred. | $+1$       | $-1$       |
+| true/pred. | $+1$       | $-1$       |
 | $+1$       | $c(+1,+1)$ | $c(-1,+1)$ |
 | $-1$       | $c(+1,-1)$ | $c(-1,-1)$ |
 
@@ -79,7 +79,7 @@ argues that this matrix is economically unreasonable) is given as:
 
 |               |      |      |
 | ------------- |:----:|:----:|
-| true\pred.    | Bad  | Good |
+| true/pred.    | Bad  | Good |
 | Bad           | 0    | 5    |
 | Good          | 1    | 0    |
 
@@ -403,7 +403,7 @@ add an artificial cost matrix:
 
 |            |     |    |    |
 | ---------- |:---:|:--:|:--:|
-| true\pred. | 1   | 2  | 3  |
+| true/pred. | 1   | 2  | 3  |
 | 1          | 0   | 30 | 80 |
 | 2          | 5   | 0  | 4  |
 | 3          | 10  | 8  | 0  |

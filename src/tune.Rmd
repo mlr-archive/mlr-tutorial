@@ -310,7 +310,7 @@ where we embed the whole model selection process into an outer resampling loop.
 
 
 <!--(
-.. |tune-varsel_processing| image:: /_images/tune-varsel_processing.png
+.. |tune-varsel_processing| image:: /_img/tune-varsel_processing.png
      :align: middle
      :width: 50em
      :alt: Variable selection as a tuning.
