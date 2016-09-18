@@ -21,6 +21,7 @@ author:
   - Mason Gallo
   - Dominik Kirchhoff
   - Tobias Kühn
+  - Janek Thomas
   - Lars Kotthoff
 ---
 """)
