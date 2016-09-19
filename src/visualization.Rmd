@@ -148,24 +148,63 @@ plot(Probability ~ Value, data = plt$data, type = "b", xlab = plt$data$Feature[1
 
 
 ## Available generation and plotting functions
-The table shows the currently available generation and plotting functions.
-It also references tutorial pages that provide in depth descriptions of the listed functions.
+Below the currently available generation and plotting functions are listed and tutorial
+pages that provide in depth descriptions of the listed functions are referenced.
 
-Note that some plots, e.g., [&plotTuneMultiCritResult] are not described here since they lack
+Note that some plots, e.g., [&plotTuneMultiCritResult] are not mentioned here since they lack
 a generation function.
 Both [&plotThreshVsPerf] and [&plotROCCurves] operate on the result of [&generateThreshVsPerfData].
+Functions [&plotPartialDependence] and [&plotPartialDependenceGGVIS] can be applied to the
+results of both [&generatePartialDependenceData] and [&generateFunctionalANOVAData].
 
 The [%ggvis] functions are experimental and are subject to change, though they should work.
 Most generate interactive [%shiny] applications, that automatically start and run locally.
 
-| generation function              | ggplot2 plotting function | ggvis plotting function       | tutorial page                                             |
-| -------------------------------- | ------------------------- | ----------------------------- | --------------------------------------------------------- |
-| [&generateThreshVsPerfData]      | [&plotThresVsPerf]        | [&plotThreshVsPerfGGVIS]      | [Performance](performance.md)                             |
-|                                  | [&plotROCCurves]          | --                            | [ROC Analysis](roc_analysis.md)                           |
-| [&generateCritDifferencesData]   | [&plotCritDifferences]    | --                            | [Benchmark Experiments](benchmark_experiments.md)         |
-| [&generateHyperParsEffectData]   | [&plotHyperParsEffect]    |                               | [Tuning](tune.md)                                         |
-| [&generateFilterValuesData]      | [&plotFilterValues]       | [&plotFilterValuesGGVIS]      | [Feature Selection](feature_selection.md)                 |
-| [&generateLearningCurveData]     | [&plotLearningCurve]      | [&plotLearningCurveGGVIS]     | [Learning Curves](learning_curve.md)                      |
-| [&generatePartialDependenceData] | [&plotPartialDependence]  | [&plotPartialDependenceGGVIS] | [Partial Dependence Plots](partial_dependence.md)         |
-| [&generateFunctionalANOVAData]   |                           |                               |                                                           |
-| [&generateCalibrationData]       | [&plotCalibration]        | --                            | [Classifier Calibration Plots](classifier_calibration.md) |
+`r if (dev == "pdf") {
+"[Performance evaluation](performance.md) and [ROC analysis](roc_analysis.md):
+
+* [&generateThreshVsPerfData]
+* [&plotThresVsPerf], [&plotThreshVsPerfGGVIS]
+* [&plotROCCurves]
+
+[Benchmark experiments](benchmark_experiments.md):
+
+* [&generateCritDifferencesData]
+* [&plotCritDifferences]
+
+[Tuning](tune.md) and [hyperparameter tuning effects](hyperpar_tuning_effects.md):
+
+* [&generateHyperParsEffectData]
+* [&plotHyperParsEffect]
+
+[Feature selection](feature_selection.md):
+
+* [&generateFilterValuesData]
+* [&plotFilterValues]
+* [&plotFilterValuesGGVIS]
+
+[Learning curves](learning_curve.md):
+
+* [&generatePartialDependenceData], [&generateFunctionalANOVAData]
+* [&plotPartialDependence]
+* [&plotPartialDependenceGGVIS]
+
+[Classifier calibration](classifier_calibration.md):
+
+* [&generateCalibrationData]
+* [&plotCalibration]"
+
+} else {
+
+"| generation function              | ggplot2 plotting function | ggvis plotting function       | tutorial pages                                                                |
+| -------------------------------- | ------------------------- | ----------------------------- | ------------------------------------------------------------------------------ |
+| [&generateThreshVsPerfData]      | [&plotThresVsPerf]        | [&plotThreshVsPerfGGVIS]      | [Performance](performance.md)                                                  |
+|                                  | [&plotROCCurves]          | --                            | [ROC Analysis](roc_analysis.md)                                                |
+| [&generateCritDifferencesData]   | [&plotCritDifferences]    | --                            | [Benchmark Experiments](benchmark_experiments.md)                              |
+| [&generateHyperParsEffectData]   | [&plotHyperParsEffect]    |                               | [Tuning](tune.md), [Hyperparameter Tuning Effects](hyperpar_tuning_effects.md) |
+| [&generateFilterValuesData]      | [&plotFilterValues]       | [&plotFilterValuesGGVIS]      | [Feature Selection](feature_selection.md)                                      |
+| [&generateLearningCurveData]     | [&plotLearningCurve]      | [&plotLearningCurveGGVIS]     | [Learning Curves](learning_curve.md)                                           |
+| [&generatePartialDependenceData] | [&plotPartialDependence]  | [&plotPartialDependenceGGVIS] | [Partial Dependence Plots](partial_dependence.md)                              |
+| [&generateFunctionalANOVAData]   |                           |                               |                                                                                |
+| [&generateCalibrationData]       | [&plotCalibration]        | --                            | [Classifier Calibration Plots](classifier_calibration.md)                      |"
+}`
