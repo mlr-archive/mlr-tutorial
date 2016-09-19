@@ -1,10 +1,10 @@
+# Resampling
+
 ```{r include=FALSE}
 # Not strictly necessary, but otherwise we might get NAs later on
 ## if 'rpart' is not installed.
 library("rpart")
 ```
-
-# Resampling
 
 In order to assess the performance of a learning algorithm, resampling
 strategies are usually used.

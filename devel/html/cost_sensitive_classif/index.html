@@ -415,7 +415,7 @@ following cost matrix where the rows indicate true classes and the columns predi
 </thead>
 <tbody>
 <tr>
-<td align="center">true\pred.</td>
+<td align="center">true/pred.</td>
 <td align="center">
 <script type="math/tex">+1</script>
 </td>
@@ -464,7 +464,7 @@ argues that this matrix is economically unreasonable) is given as:</p>
 </thead>
 <tbody>
 <tr>
-<td>true\pred.</td>
+<td>true/pred.</td>
 <td align="center">Bad</td>
 <td align="center">Good</td>
 </tr>
@@ -526,7 +526,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.50,Good=0.50
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -565,7 +565,7 @@ pred.th
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.17,Good=0.83
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -621,7 +621,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.558,mmce.test.mean=0.362
-#&gt; Runtime: 0.32453
+#&gt; Runtime: 0.208486
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -664,7 +664,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.852,mmce.test.mean=0.248
-#&gt; Runtime: 0.216535
+#&gt; Runtime: 0.211361
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -780,7 +780,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.526,mmce.test.mean=0.346
-#&gt; Runtime: 0.25333
+#&gt; Runtime: 0.253334
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -797,7 +797,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
 #&gt; Aggr perf: credit.costs.test.mean=0.575,mmce.test.mean=0.311
-#&gt; Runtime: 0.334372
+#&gt; Runtime: 0.348067
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -875,7 +875,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
 #&gt; Aggr perf: credit.costs.test.mean=0.535,mmce.test.mean=0.351
-#&gt; Runtime: 0.589696
+#&gt; Runtime: 0.406009
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -907,7 +907,7 @@ add an artificial cost matrix:</p>
 </thead>
 <tbody>
 <tr>
-<td>true\pred.</td>
+<td>true/pred.</td>
 <td align="center">1</td>
 <td align="center">2</td>
 <td align="center">3</td>
@@ -971,7 +971,7 @@ r
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
 #&gt; Aggr perf: wf.costs.test.mean=7.02,mmce.test.mean=0.262
-#&gt; Runtime: 0.0690875
+#&gt; Runtime: 0.0609014
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1132,7 +1132,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.04
+#&gt; time: 0.05
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa
