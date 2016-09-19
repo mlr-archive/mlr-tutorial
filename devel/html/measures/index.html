@@ -615,6 +615,21 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">kappa</a></strong> <br />Cohen's kappa</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">-1</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: 1 - (1 - p0) / (1 - pe). With: p0 = 'observed frequency of     agreement' and pe = 'expected agremeent frequency under independence</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">logloss</a></strong> <br />Logarithmic loss</td>
 <td align="center">X</td>
 <td align="right">0</td>
@@ -868,6 +883,21 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Also called hit rate or recall.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">wkappa</a></strong> <br />Mean quadratic weighted kappa</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">-1</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: 1 - sum(weights * conf.mat) / sum(weights * expected.mat),     the weight matrix measures seriousness of disagreement with the squared euclidean metric.</td>
 </tr>
 </tbody>
 </table>
