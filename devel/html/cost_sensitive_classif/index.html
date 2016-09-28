@@ -621,7 +621,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.558,mmce.test.mean=0.362
-#&gt; Runtime: 0.335959
+#&gt; Runtime: 0.347315
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -664,7 +664,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.852,mmce.test.mean=0.248
-#&gt; Runtime: 0.338458
+#&gt; Runtime: 0.309798
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -689,42 +689,25 @@ To find out which learning methods support either type of weights have a look at
 <a href="../integrated_learners/index.html">list of integrated learners</a> in the Appendix or use <a href="http://www.rdocumentation.org/packages/mlr/functions/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## Learners that accept observation weights
 listLearners(&quot;classif&quot;, properties = &quot;weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
-#&gt;                         class         package
-#&gt; 1              classif.avNNet            nnet
-#&gt; 2            classif.binomial           stats
-#&gt; 3          classif.blackboost    mboost,party
-#&gt; 4                 classif.C50             C50
-#&gt; 5             classif.cforest           party
-#&gt; 6               classif.ctree           party
-#&gt; 7            classif.cvglmnet          glmnet
-#&gt; 8          classif.extraTrees      extraTrees
-#&gt; 9                 classif.gbm             gbm
-#&gt; 10           classif.glmboost          mboost
-#&gt; 11             classif.glmnet          glmnet
-#&gt; 12   classif.h2o.deeplearning             h2o
-#&gt; 13            classif.h2o.glm             h2o
-#&gt; 14             classif.logreg           stats
-#&gt; 15           classif.multinom            nnet
-#&gt; 16               classif.nnet            nnet
-#&gt; 17                classif.plr         stepPlr
-#&gt; 18             classif.probit           stats
-#&gt; 19    classif.randomForestSRC randomForestSRC
-#&gt; 20 classif.randomForestSRCSyn randomForestSRC
-#&gt; 21              classif.rpart           rpart
-#&gt; 22            classif.xgboost         xgboost
+#&gt;                class      package
+#&gt; 1     classif.avNNet         nnet
+#&gt; 2   classif.binomial        stats
+#&gt; 3 classif.blackboost mboost,party
+#&gt; 4        classif.C50          C50
+#&gt; 5    classif.cforest        party
+#&gt; 6      classif.ctree        party
+#&gt; ... (22 rows, 2 cols)
 
 ## Learners that can deal with class weights
 listLearners(&quot;classif&quot;, properties = &quot;class.weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
-#&gt;                            class      package
-#&gt; 1                   classif.ksvm      kernlab
-#&gt; 2       classif.LiblineaRL1L2SVC    LiblineaR
-#&gt; 3      classif.LiblineaRL1LogReg    LiblineaR
-#&gt; 4       classif.LiblineaRL2L1SVC    LiblineaR
-#&gt; 5      classif.LiblineaRL2LogReg    LiblineaR
-#&gt; 6         classif.LiblineaRL2SVC    LiblineaR
-#&gt; 7 classif.LiblineaRMultiClassSVC    LiblineaR
-#&gt; 8           classif.randomForest randomForest
-#&gt; 9                    classif.svm        e1071
+#&gt;                       class   package
+#&gt; 1              classif.ksvm   kernlab
+#&gt; 2  classif.LiblineaRL1L2SVC LiblineaR
+#&gt; 3 classif.LiblineaRL1LogReg LiblineaR
+#&gt; 4  classif.LiblineaRL2L1SVC LiblineaR
+#&gt; 5 classif.LiblineaRL2LogReg LiblineaR
+#&gt; 6    classif.LiblineaRL2SVC LiblineaR
+#&gt; ... (9 rows, 2 cols)
 </code></pre>
 
 <p>Alternatively, <em>over- and undersampling</em> techniques can be used.</p>
@@ -780,7 +763,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.526,mmce.test.mean=0.346
-#&gt; Runtime: 0.398839
+#&gt; Runtime: 0.429103
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -797,7 +780,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
 #&gt; Aggr perf: credit.costs.test.mean=0.575,mmce.test.mean=0.311
-#&gt; Runtime: 0.586017
+#&gt; Runtime: 0.600727
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -875,7 +858,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
 #&gt; Aggr perf: credit.costs.test.mean=0.535,mmce.test.mean=0.351
-#&gt; Runtime: 0.665939
+#&gt; Runtime: 0.671461
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -971,7 +954,7 @@ r
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
 #&gt; Aggr perf: wf.costs.test.mean=7.02,mmce.test.mean=0.262
-#&gt; Runtime: 0.103384
+#&gt; Runtime: 0.103109
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1132,7 +1115,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.07
+#&gt; time: 0.06
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa
