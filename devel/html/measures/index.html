@@ -417,7 +417,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: mean(response == truth)</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">auc</a></strong> <br />Area under the curve</td>
@@ -432,7 +432,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Integral over the graph that results from computing fpr and tpr for many different thresholds.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">bac</a></strong> <br />Balanced accuracy</td>
@@ -507,7 +507,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: 2 * tp/ (sum(truth == positive) + sum(response == positive))</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fdr</a></strong> <br />False discovery rate</td>
@@ -522,7 +522,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: (fp) / (tn + fn).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fn</a></strong> <br />False negatives</td>
@@ -537,7 +537,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called misses.</td>
+<td align="left">Sum of misclassified observations in the negative class. Also called misses.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fnr</a></strong> <br />False negative rate</td>
@@ -552,7 +552,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Percentage of misclassified observations in the negative class.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fp</a></strong> <br />False positives</td>
@@ -567,7 +567,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called false alarms.</td>
+<td align="left">Sum of misclassified observations in the positive class. Also called false alarms.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fpr</a></strong> <br />False positive rate</td>
@@ -582,7 +582,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called false alarm rate or fall-out.</td>
+<td align="left">Percentage of misclassified observations in the positive class. Also called false alarm rate or fall-out.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">gmean</a></strong> <br />G-mean</td>
@@ -600,7 +600,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left">Geometric mean of recall and specificity.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">gpr</a></strong> <br />Geometric mean of precision and recall</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">gpr</a></strong> <br />Geometric mean of precision and recall.</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -612,7 +612,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: sqrt(ppv * tpr)</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">kappa</a></strong> <br />Cohen's kappa</td>
@@ -672,7 +672,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mmce</a></strong> <br />Mean misclassification error</td>
@@ -687,7 +687,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: mean(response != truth)</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multiclass.au1p</a></strong> <br />Weighted average 1 vs. 1 multiclass AUC</td>
@@ -777,7 +777,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: (tn) / (tn + fn).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">ppv</a></strong> <br />Positive predictive value</td>
@@ -792,7 +792,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called precision.</td>
+<td align="left">Defined as: tp / (tp + number of fp). Also called precision.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">qsr</a></strong> <br />Quadratic Scoring Rule</td>
@@ -837,7 +837,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called correct rejections.</td>
+<td align="left">Sum of correctly classified observations in the negative class. Also called correct rejections.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tnr</a></strong> <br />True negative rate</td>
@@ -852,7 +852,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called specificity.</td>
+<td align="left">Percentage of correctly classified observations in the negative class. Also called specificity.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tp</a></strong> <br />True positives</td>
@@ -867,7 +867,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Sum of all correctly classified observations in the positive class.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tpr</a></strong> <br />True positive rate</td>
@@ -882,7 +882,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called hit rate or recall.</td>
+<td align="left">Percentage of correctly classified observations in the positive class. Also called hit rate or recall.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">wkappa</a></strong> <br />Mean quadratic weighted kappa</td>
@@ -932,7 +932,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Adjusted R-squared is only defined for normal linear regression.</td>
+<td align="left">Defined as: 1 - (1 - rsq) * (p / (n - p - 1L)). Adjusted R-squared is only defined for normal linear regression.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">expvar</a></strong> <br />Explained variance</td>
@@ -960,7 +960,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: mean(abs(response - truth))</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mape</a></strong> <br />Mean absolute percentage error</td>
@@ -974,7 +974,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as the abs(truth_i - response_i)/truth_i. Won't work if any truth value is equal to zero. In this case the output will be NA.</td>
+<td align="left">Defined as the abs(truth_i - response_i) / truth_i. Won't work if any truth value is equal to zero. In this case the output will be NA.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">medae</a></strong> <br />Median of absolute errors</td>
@@ -988,7 +988,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: median(abs(response - truth)).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">medse</a></strong> <br />Median of squared errors</td>
@@ -1002,7 +1002,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: median((response - truth)^2).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mse</a></strong> <br />Mean of squared errors</td>
@@ -1016,7 +1016,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: mean((response - truth)^2)</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rae</a></strong> <br />Relative absolute error</td>
@@ -1033,7 +1033,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left">Defined as sum_of_absolute_errors / mean_absolute_deviation. Undefined for single instances and when every truth value is identical. In this case the output will be NA.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rmse</a></strong> <br />Root mean square error</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rmse</a></strong> <br />Root mean squared error</td>
 <td align="center">X</td>
 <td align="right">0</td>
 <td align="right">Inf</td>
@@ -1086,7 +1086,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: sum(abs(response - truth))</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">sse</a></strong> <br />Sum of squared errors</td>
@@ -1100,7 +1100,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: sum((response - truth)^2)</td>
 </tr>
 </tbody>
 </table>
@@ -1135,7 +1135,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Fraction of all pairs of subjects whose predicted survival times are correctly ordered among all subjects that can actually be ordered. In other words, it is the probability of concordance between the predicted and the observed survival.</td>
 </tr>
 </tbody>
 </table>
@@ -1170,7 +1170,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">See <code>?clusterSim::index.DB</code>.</td>
+<td align="left">Ratio of the within cluster scatter, to the between cluster separation, averaged over the clusters. See <code>?clusterSim::index.DB</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">dunn</a></strong> <br />Dunn index</td>
@@ -1184,7 +1184,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">See <code>?clValid::dunn</code>.</td>
+<td align="left">Defined as the ratio of the smallest distance between observations not in the same cluster to the largest intra-cluster distance. See <code>?clValid::dunn</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">G1</a></strong> <br />Calinski-Harabasz pseudo F statistic</td>
@@ -1198,7 +1198,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">See <code>?clusterSim::index.G1</code>.</td>
+<td align="left">Defined as ratio of between-cluster variance to within cluster variance. See <code>?clusterSim::index.G1</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">G2</a></strong> <br />Baker and Hubert adaptation of Goodman-Kruskal's gamma statistic</td>
@@ -1212,7 +1212,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">See <code>?clusterSim::index.G2</code>.</td>
+<td align="left">Defined as: (number of concordant comparisons - number of discordant comparisons) / (number of concordant comparisons + number of discordant comparisons). See <code>?clusterSim::index.G2</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">silhouette</a></strong> <br />Rousseeuw's silhouette internal cluster quality index</td>
@@ -1226,7 +1226,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">See <code>?clusterSim::index.S</code>.</td>
+<td align="left">Silhouette value of an observation is a measure of how similar an object is to its own cluster compared to other clusters. The measure is calculated as the average of all silhouette values. See <code>?clusterSim::index.S</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -1275,7 +1275,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center">X</td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left"></td>
+<td align="left">Defined as: mean(y), where y is the vector of costs for the predicted classes.</td>
 </tr>
 </tbody>
 </table>

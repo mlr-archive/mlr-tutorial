@@ -409,7 +409,7 @@ r
 #&gt; Task: lung-example
 #&gt; Learner: surv.coxph
 #&gt; Aggr perf: cindex.test.mean=0.627
-#&gt; Runtime: 0.043803
+#&gt; Runtime: 0.0466888
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;measures.train&quot; &quot;measures.test&quot; 
@@ -770,7 +770,7 @@ b632.mmce
 #&gt; Minimize: TRUE
 #&gt; Best: 0; Worst: 1
 #&gt; Aggregated by: b632
-#&gt; Note:
+#&gt; Note: Defined as: mean(response != truth)
 
 r = resample(&quot;classif.rpart&quot;, iris.task, rdesc,
     measures = list(mmce, b632.mmce, b632plus.mmce), show.info = FALSE)
