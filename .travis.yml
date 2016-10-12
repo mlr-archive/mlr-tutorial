@@ -22,6 +22,7 @@ addons:
       - g++-4.9
       - gfortran-4.9
       - libgmp-dev
+      - libgsl0-dev
       - pandoc
 
 before_install:
