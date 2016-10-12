@@ -1,6 +1,7 @@
-# mlr Tutorial
-This web page provides an in-depth introduction on how to
-use the [%mlr] framework for machine learning experiments in **R**.
+# [Machine Learning in R: mlr](https://github.com/mlr-org/mlr) Tutorial
+This `r if (dev == "pdf") "document" else "web page"` provides an in-depth introduction on
+how to use the [Machine Lerning in R: mlr](https://github.com/mlr-org/mlr) framework for
+machine learning experiments in **R**.
 
 We focus on the comprehension of the basic functions and applications.
 More detailed technical information can be found in the [manual pages](%mlr) which
@@ -9,8 +10,8 @@ are regularly updated and reflect the documentation of the [current package vers
 An offline version of this tutorial is available for download
 
 * [here](https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip) for the
-  current mlr release on CRAN
-* and [here](https://mlr-org.github.io/mlr-tutorial/devel/mlr_tutorial.zip) for
+  current mlr release on CRAN and
+* [here](https://mlr-org.github.io/mlr-tutorial/devel/mlr_tutorial.zip) for
   the mlr devel version on Github.
 
 The tutorial explains the basic analysis of a data set step by step.
