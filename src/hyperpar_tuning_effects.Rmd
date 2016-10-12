@@ -275,3 +275,44 @@ med_plt = mean(c(min_plt, max_plt))
 plt + scale_fill_gradient2(breaks = seq(min_plt, max_plt, length.out = 5),
   low = "red", mid = "white", high = "blue", midpoint = med_plt)
 ```
+
+
+## Visualizing the effects of more than 2 hyperparameters
+
+In order to visualize the result when tuning 3 or more hyperparameters simultaneously we
+can take advantage of [partial dependence plots](partial_dependence.md) to show how the
+performance depends on a one- or two-dimensional subset of the hyperparameters.
+Below we tune three hyperparameters `C`, `sigma`, and `degree` of an SVM with Bessel kernel
+and set the `partial.dep` flag to `TRUE` to indicate that we intent to calculate partial
+dependences.
+
+```{r}
+ps = makeParamSet(
+  makeNumericParam("C", lower = -5, upper = 5, trafo = function(x) 2^x),
+  makeNumericParam("sigma", lower = -5, upper = 5, trafo = function(x) 2^x),
+  makeDiscreteParam("degree", values = 2:5))
+ctrl = makeTuneControlRandom(maxit = 100L)
+rdesc = makeResampleDesc("Holdout", predict = "both")
+learn = makeLearner("classif.ksvm", par.vals = list(kernel = "besseldot"))
+res = tuneParams(learn, task = pid.task, control = ctrl,
+  measures = list(acc, setAggregation(acc, train.mean)), resampling = rdesc,
+  par.set = ps, show.info = FALSE)
+data = generateHyperParsEffectData(res, partial.dep = TRUE)
+```
+
+You can generate a plot for a single hyperparameter like `C` as shown below.
+The `partial.dep.learn` can be any regression [Learner](&makeLearner) in [%mlr] and is used
+to regress the attained performance values on the values of the 3 hyperparameters visited
+during tuning. The fitted model serves as basis for calculating partial dependences.
+
+```{r}
+plotHyperParsEffect(data, x = "C", y = "acc.test.mean", plot.type = "line",
+  partial.dep.learn = "regr.randomForest")
+```
+
+We can also look at two hyperparameters simultaneously, for example `C` and `sigma`.
+
+```{r}
+plotHyperParsEffect(data, x = "C", y = "sigma", z = "acc.test.mean",
+  plot.type = "heat map", partial.dep.learn = "regr.randomForest")
+```
