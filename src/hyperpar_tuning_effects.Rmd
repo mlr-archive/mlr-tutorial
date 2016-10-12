@@ -314,5 +314,5 @@ We can also look at two hyperparameters simultaneously, for example `C` and `sig
 
 ```{r}
 plotHyperParsEffect(data, x = "C", y = "sigma", z = "acc.test.mean",
-  plot.type = "heat map", partial.dep.learn = "regr.randomForest")
+  plot.type = "heatmap", partial.dep.learn = "regr.randomForest")
 ```
