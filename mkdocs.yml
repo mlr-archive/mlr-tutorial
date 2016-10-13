@@ -1,5 +1,6 @@
 site_name: mlr tutorial
 site_dir: devel/html
+docs_dir: svg/docs
 repo_url: https://github.com/mlr-org/mlr/
 use_directory_urls: False
 theme: 'mkdocs'
