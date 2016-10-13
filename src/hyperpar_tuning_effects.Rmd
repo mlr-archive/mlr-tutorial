@@ -283,7 +283,7 @@ In order to visualize the result when tuning 3 or more hyperparameters simultane
 can take advantage of [partial dependence plots](partial_dependence.md) to show how the
 performance depends on a one- or two-dimensional subset of the hyperparameters.
 Below we tune three hyperparameters `C`, `sigma`, and `degree` of an SVM with Bessel kernel
-and set the `partial.dep` flag to `TRUE` to indicate that we intent to calculate partial
+and set the `partial.dep` flag to `TRUE` to indicate that we intend to calculate partial
 dependences.
 
 ```{r}
