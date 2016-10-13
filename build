@@ -5,7 +5,7 @@ src = "src"
 dest = "docs"
 
 
-## urls for docs
+## urls for manual pages
 # - rdocumentation
 urlMlrFunctions = "http://www.rdocumentation.org/packages/mlr/functions/"
 urlContribPackages = urlBasePackages = "http://www.rdocumentation.org/packages/"
@@ -29,7 +29,7 @@ ext = ".html"
 # baseR = c("base", "boot", "class", "cluster", "codetools", "compiler", "datasets", "foreign", "graphics", "grDevices", "grid", "KernSmooth", "lattice", "MASS", "Matrix", "methods", "mgcv", "nlme", "nnet", "parallel", "rpart", "spatial", "splines", "stats", "stats4", "survival", "tcltk", "tools", "utils")
 
 
-# macros to link to docs:
+# macros to link to manual pages:
 # - [NAME](&PACKAGE::FUNCTION)
 # - [NAME](&FUNCTION) (mlr documentation)
 # - [&PACKAGE::FUNCTION]
@@ -83,12 +83,12 @@ knitIt = function(f, dev) {
   for (macro in macros)
     lines = str_replace_all(lines, macro$pattern, macro$replacement)
 
-  cache.path = paste0(file.path("cache", f), .Platform$file.sep)
-  opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = paste0(file.path("figure", str_replace(f, "\\.Rmd", "")), .Platform$file.sep), dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
+  cache.path = paste0(file.path(dev, "cache", f), .Platform$file.sep)
+  opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = paste0(file.path(dev, "figure", str_replace(f, "\\.Rmd", "")), .Platform$file.sep), dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
   setSeed(f)
   knit(
     text = lines,
-    output = file.path(dest, str_replace(f, "\\.Rmd$", "\\.md")),
+    output = file.path(dev, dest, str_replace(f, "\\.Rmd$", "\\.md")),
     quiet = TRUE
   )
 }
@@ -119,13 +119,15 @@ options(warn = 2L)
 # number of spaces to indent the code is 2 (for chunks with tidy=TRUE)
 opts_chunk$set(tidy.opts = list(indent = 2, width.cutoff = 80))
 
-# create output directory
-if (!isDirectory("docs"))
-  dir.create("docs")
+# create output directories for pdf and svg devices
+if (!isDirectory("svg") | !isDirectory(file.path("svg", "docs")))
+  dir.create(file.path("svg", "docs"), recursive = TRUE)
+if (!isDirectory("pdf") | !isDirectory(file.path("pdf", "docs")))
+  dir.create(file.path("pdf", "docs"), recursive = TRUE)
 
 # do lapply for now. with mclapply it seems unclear how to stop best on error. this was 100% broken before
-dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "pdf")
 message("Building PDF version...")
+dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "pdf")
 ok = system3("./build-pdf.py")
 if (ok$exit.code == 0L) {
   # embed images in HTML

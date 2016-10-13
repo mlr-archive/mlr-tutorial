@@ -4,8 +4,8 @@ import os
 import re
 import sys
 
-os.chdir("docs")
-with open(os.path.join("..", "mlr-tutorial.md"), "w") as fd:
+os.chdir(os.path.join("pdf", "docs"))
+with open(os.path.join("..", "..", "mlr-tutorial.md"), "w") as fd:
   fd.write("""
 ---
 title: mlr Tutorial
@@ -25,7 +25,7 @@ author:
   - Lars Kotthoff
 ---
 """)
-  with open(os.path.join("..", "mkdocs.yml"), "r") as fd2:
+  with open(os.path.join("..", "..", "mkdocs.yml"), "r") as fd2:
     line = fd2.readline()
     while line:
       if('Appendix' in line):
@@ -46,11 +46,11 @@ author:
         if('hyperpar_tuning_effects.md' in line):
           fd.write("\n\n# Extend\n\n")
       line = fd2.readline()
-os.chdir("..")
+os.chdir(os.path.join("..", ".."))
 
 def link_fixer(match):
   file = match.group(1)
-  with open(os.path.join("docs", file), 'r') as fd:
+  with open(os.path.join("pdf", "docs", file), 'r') as fd:
     return "(" + re.sub(' ', '-', re.sub(' ', '', fd.readline().rstrip(), 1)).lower() + ")"
 
 with open('mlr-tutorial.md', 'r+') as fd:
