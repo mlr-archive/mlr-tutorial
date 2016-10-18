@@ -1019,6 +1019,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left">Defined as: mean((response - truth)^2)</td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">msle</a></strong> <br />Mean squared logarithmic error</td>
+<td align="center">X</td>
+<td align="right">0</td>
+<td align="right">Inf</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: mean((log(response + 1, exp(1)) - log(truth + 1, exp(1)))^2).   This measure is mostly used for count data, note that all predicted and actual target values must be greater or equal '-1'   to compute the measure.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rae</a></strong> <br />Relative absolute error</td>
 <td align="center">X</td>
 <td align="right">0</td>
@@ -1045,6 +1059,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.rmse</a></td>
 <td align="left">The RMSE is aggregated as sqrt(mean(rmse.vals.on.test.sets^2)). If you don't want that, you could also use <code>test.mean</code>.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rmsle</a></strong> <br />Root mean squared logarithmic error</td>
+<td align="center">X</td>
+<td align="right">0</td>
+<td align="right">Inf</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: sqrt(msle). Definition taken from:   Definition taken from: <a href="https://www.kaggle.com/wiki/RootMeanSquaredLogarithmicError">https://www.kaggle.com/wiki/RootMeanSquaredLogarithmicError</a>.   This measure is mostly used for count data, note that all predicted and actual target values   must be greater or equal '-1' to compute the measure.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rrse</a></strong> <br />Root relative squared error</td>

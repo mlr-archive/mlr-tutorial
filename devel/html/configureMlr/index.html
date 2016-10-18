@@ -511,7 +511,7 @@ You can prevent this using the <code>on.learner.error</code> option of <a href="
 <pre><code class="r">## This call gives an error caused by the low number of observations in class &quot;virginica&quot;
 train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
 #&gt; Error in qda.default(x, grouping, ...): some group is too small for 'qda'
-#&gt; Timing stopped at: 0.004 0 0.005
+#&gt; Timing stopped at: 0.004 0 0.004
 
 ## Get a warning instead of an error
 configureMlr(on.learner.error = &quot;warn&quot;)
