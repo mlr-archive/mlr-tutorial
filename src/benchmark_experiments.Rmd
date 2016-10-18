@@ -41,7 +41,24 @@ bmr = benchmark(lrns, sonar.task, rdesc)
 bmr
 ```
 
-In the printed table every row corresponds to one pair of [&Task] and [Learner](&makeLearner).
+For convenience, if you don't want to pass any additional arguments to [&makeLearner], you
+don't need to generate the [Learner](&makeLearner)s explicitly, but it's sufficient to
+provide the learner name.
+In the above example we could also have written:
+
+```{r}
+## Vector of strings
+lrns = c("classif.lda", "classif.rpart")
+
+## A mixed list of Learner objects and strings works, too
+lrns = list(makeLearner("classif.lda", predict.type = "prob"), "classif.rpart")
+
+bmr = benchmark(lrns, sonar.task, rdesc)
+
+bmr
+```
+
+In the printed summary table every row corresponds to one pair of [&Task] and [Learner](&makeLearner).
 The entries show the mean misclassification error ([mmce](measures.md)), the default performance
 measure for classification, on the test data set.
 

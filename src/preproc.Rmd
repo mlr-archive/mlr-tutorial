@@ -156,7 +156,7 @@ small number of observations from either class.
 
 ```{r}
 rin = makeResampleInstance("CV", iters = 3, stratify = TRUE, task = sonar.task)
-res = benchmark(list(makeLearner("classif.qda"), lrn), sonar.task, rin, show.info = FALSE)
+res = benchmark(list("classif.qda", lrn), sonar.task, rin, show.info = FALSE)
 res
 ```
 
@@ -305,7 +305,7 @@ predictfun = function(data, target, args, control) {
   x = as.matrix(data[, nums, drop = FALSE])
   x = scale(x, center = control$center, scale = control$scale)
   ## Recombine the data
-  data = data[, setdiff(cns, nums), drop = FALSE]  
+  data = data[, setdiff(cns, nums), drop = FALSE]
   data = cbind(data, as.data.frame(x))
   return(data)
 }
@@ -421,7 +421,7 @@ makePreprocWrapperScale = function(learner, center = TRUE, scale = TRUE) {
     nums = cns[sapply(data, is.numeric)]
     x = as.matrix(data[, nums, drop = FALSE])
     x = scale(x, center = control$center, scale = control$scale)
-    data = data[, setdiff(cns, nums), drop = FALSE]  
+    data = data[, setdiff(cns, nums), drop = FALSE]
     data = cbind(data, as.data.frame(x))
     return(data)
   }

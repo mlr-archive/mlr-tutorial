@@ -390,7 +390,7 @@ inner = makeResampleDesc("Subsample", iters = 2)
 lrn = makeFeatSelWrapper("regr.lm", resampling = inner, control = ctrl, show.info = FALSE)
 
 ## Learners
-lrns = list(makeLearner("regr.rpart"), lrn)
+lrns = list("regr.rpart", lrn)
 
 ## Outer resampling loop
 outer = makeResampleDesc("Subsample", iters = 2)
@@ -445,7 +445,7 @@ lrn = makeTuneWrapper(lrn, resampling = inner, par.set = ps, control = ctrl,
   show.info = FALSE)
 
 ## Learners
-lrns = list(makeLearner("regr.rpart"), lrn)
+lrns = list("regr.rpart", lrn)
 
 ## Outer resampling loop
 outer = makeResampleDesc("Subsample", iter = 3)
