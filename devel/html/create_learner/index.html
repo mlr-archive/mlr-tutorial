@@ -359,6 +359,8 @@
         
             <li><a href="#registering-your-learner">Registering your learner</a></li>
         
+            <li><a href="#further-information-for-developers">Further information for developers</a></li>
+        
     
     </ul>
 </div></div>
@@ -770,7 +772,125 @@ registerS3method(&quot;predictLearner&quot;, &quot;&lt;awesome_new_learner_class
 ## And if you also have written a method to extract the feature importance
 registerS3method(&quot;getFeatureImportanceLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;,
   getFeatureImportanceLearner.&lt;awesome_new_learner_class&gt;)
-</code></pre></div>
+</code></pre>
+
+<h2 id="further-information-for-developers">Further information for developers</h2>
+<p>If you haven't written a learner interface for private use only, but intend to send a pull
+request to have it included in the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> package there are a few things to take care of,
+most importantly unit testing!</p>
+<p>For general information about contributing to the package, unit testing, version control setup
+and the like please also read the
+<a href="https://github.com/mlr-org/mlr/wiki/mlr-Coding-Guidelines">coding guidelines in the mlr Wiki</a>.</p>
+<ul>
+<li>
+<p>The R file containing the interface code should adhere to the naming convention
+<code>RLearner_&lt;awesome_new_learner_class&gt;.R</code>, e.g., <code>RLearner_classif.lda.R</code>, see for example
+[https://github.com/mlr-org/mlr/blob/master/R/RLearner_classif_lda.R] and contain the
+necessary roxygen tags.</p>
+</li>
+<li>
+<p>The learner interfaces should work out of the box without requiring any parameters to be set,
+e.g., <code>train("classif.lda", iris.task)</code> should work.
+Sometimes, this makes it necessary to change or set some additional defaults as explained above
+and -- very important -- informing the user about this in the <code>note</code>.</p>
+</li>
+<li>
+<p>The parameter set of the learner should be as complete as possible.</p>
+</li>
+<li>
+<p>Every learner interface must be unit tested.</p>
+</li>
+</ul>
+<h3 id="unit-testing">Unit testing</h3>
+<p>The tests make sure that we get the same results when the learner is invoked through the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>
+interface and when using the original functions.
+If you are not familiar or want to learn more about unit testing and package <a href="http://www.rdocumentation.org/packages/testthat/">testthat</a>
+have a look at <a href="http://r-pkgs.had.co.nz/tests.html">the Testing chapter in R packages</a>.</p>
+<p>In <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> all unit tests are in the following directory:
+[https://github.com/mlr-org/mlr/tree/master/tests/testthat].
+For each learner interface there is an individual file whose name follows the scheme
+<code>test_&lt;type&gt;_&lt;learner_name&gt;.R</code>, for example
+[https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R].</p>
+<p>Below is a snippet from the tests of the lda interface
+[https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R].</p>
+<pre><code class="r">test_that(&quot;classif_lda&quot;, {
+  requirePackagesOrSkip(&quot;MASS&quot;, default.method = &quot;load&quot;)
+
+  set.seed(getOption(&quot;mlr.debug.seed&quot;))
+  m = MASS::lda(formula = multiclass.formula, data = multiclass.train)
+  set.seed(getOption(&quot;mlr.debug.seed&quot;))
+  p = predict(m, newdata = multiclass.test)
+
+  testSimple(&quot;classif.lda&quot;, multiclass.df, multiclass.target, multiclass.train.inds, p$class)
+  testProb(&quot;classif.lda&quot;, multiclass.df, multiclass.target, multiclass.train.inds, p$posterior)
+})
+</code></pre>
+
+<p>The tests make use of numerous helper objects and helper functions.
+All of these are defined in the <code>helper_</code> files in
+[https://github.com/mlr-org/mlr/blob/master/tests/testthat/].</p>
+<p>In the above code the first line just loads package <a href="http://www.rdocumentation.org/packages/MASS/">MASS</a> or skips the test if the package is
+not available.
+The objects <code>multiclass.formula</code>, <code>multiclass.train</code>, <code>multiclass.test</code> etc. are defined
+in [https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_objects.R].
+We tried to choose fairly self-explanatory names:
+For example <code>multiclass</code> indicates a multi-class classification problem, <code>multiclass.train</code>
+contains a training data set, <code>multiclass.formula</code> a <a href="http://www.rdocumentation.org/packages/stats/functions/formula.html">formula</a> object etc.</p>
+<p>The test fits an lda model to the training set and makes predictions on the test set
+using the original functions <a href="http://www.rdocumentation.org/packages/MASS/functions/lda.html">lda</a> and <a href="http://www.rdocumentation.org/packages/MASS/functions/predict.lda.html">predict.lda</a>.
+The helper functions <code>testSimple</code> and <code>testProb</code> perform training and prediction on the same
+data using the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> interface -- <code>testSimple</code> for <code>predict.type = "response</code> and <code>testProbs</code> for
+<code>predict.type = "prob"</code> -- and check if the predicted class labels and probabilities coincide
+with the outcomes <code>p$class</code> and <code>p$posterior</code>.</p>
+<p>In order to get reproducible results seeding is required for many learners.
+The <code>"mlr.debug.seed"</code> works as follows:
+When invoking the tests the option <code>"mlr.debug.seed"</code> is set
+(see [https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_zzz.R]), and
+<code>set.seed(getOption("mlr.debug.seed"))</code> is used to specify the seed.
+Internally, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s
+<a href="https://github.com/mlr-org/mlr/blob/master/R/train.R#L73">train</a> and
+<a href="https://github.com/mlr-org/mlr/blob/master/R/predict.R#L100">predict.WrappedModel</a>
+functions also check if the <code>"mlr.debug.seed"</code> option is set and if yes, also specify the seed.</p>
+<p>Note that the option <code>"mlr.debug.seed"</code> is only set for testing, so no seeding happens in
+normal usage of <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.</p>
+<p>Let's look at a second example.
+Many learners have parameters that are commonly changed or tuned and it is prudent to make
+sure that these are passed through correctly.
+Below is a snippet from [https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_regr_randomForest.R].</p>
+<pre><code class="r">test_that(&quot;regr_randomForest&quot;, {
+  requirePackagesOrSkip(&quot;randomForest&quot;, default.method = &quot;load&quot;)
+
+  parset.list = list(
+    list(),
+    list(ntree = 5, mtry = 2),
+    list(ntree = 5, mtry = 4),
+    list(proximity = TRUE, oob.prox = TRUE),
+    list(nPerm = 3)
+  )
+
+  old.predicts.list = list()
+
+  for (i in 1:length(parset.list)) {
+    parset = parset.list[[i]]
+    pars = list(formula = regr.formula, data = regr.train)
+    pars = c(pars, parset)
+    set.seed(getOption(&quot;mlr.debug.seed&quot;))
+    m = do.call(randomForest::randomForest, pars)
+    set.seed(getOption(&quot;mlr.debug.seed&quot;))
+    p = predict(m, newdata = regr.test, type = &quot;response&quot;)
+    old.predicts.list[[i]] = p
+  }
+
+  testSimpleParsets(&quot;regr.randomForest&quot;, regr.df, regr.target,
+    regr.train.inds, old.predicts.list, parset.list)
+})
+</code></pre>
+
+<p>All tested parameter configurations are collected in the <code>parset.list</code>.
+Then we simply loop over all parameter settings and store the resulting predictions in
+<code>old.predicts.list</code>.
+Again the helper function <code>testSimpleParsets</code> does the same using the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> interface
+and compares the outcomes.</p></div>
             
         </div>
 
