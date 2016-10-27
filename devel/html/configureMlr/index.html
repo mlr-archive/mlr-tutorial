@@ -412,20 +412,20 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 <h2 id="accessing-and-resetting-the-configuration">Accessing and resetting the configuration</h2>
 <p>Function <a href="http://www.rdocumentation.org/packages/mlr/functions/getMlrOptions.html">getMlrOptions</a> returns a <a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a> with the current configuration.</p>
 <pre><code class="r">getMlrOptions()
+#&gt; $show.info
+#&gt; [1] FALSE
+#&gt; 
 #&gt; $on.learner.error
 #&gt; [1] &quot;warn&quot;
 #&gt; 
 #&gt; $on.learner.warning
 #&gt; [1] &quot;warn&quot;
 #&gt; 
-#&gt; $on.par.out.of.bounds
-#&gt; [1] &quot;stop&quot;
-#&gt; 
 #&gt; $on.par.without.desc
 #&gt; [1] &quot;warn&quot;
 #&gt; 
-#&gt; $show.info
-#&gt; [1] FALSE
+#&gt; $on.par.out.of.bounds
+#&gt; [1] &quot;stop&quot;
 #&gt; 
 #&gt; $show.learner.output
 #&gt; [1] FALSE
@@ -436,20 +436,20 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 </code></pre>
 
 <pre><code class="r">getMlrOptions()
+#&gt; $show.info
+#&gt; [1] TRUE
+#&gt; 
 #&gt; $on.learner.error
 #&gt; [1] &quot;stop&quot;
 #&gt; 
 #&gt; $on.learner.warning
 #&gt; [1] &quot;warn&quot;
 #&gt; 
-#&gt; $on.par.out.of.bounds
-#&gt; [1] &quot;stop&quot;
-#&gt; 
 #&gt; $on.par.without.desc
 #&gt; [1] &quot;stop&quot;
 #&gt; 
-#&gt; $show.info
-#&gt; [1] TRUE
+#&gt; $on.par.out.of.bounds
+#&gt; [1] &quot;stop&quot;
 #&gt; 
 #&gt; $show.learner.output
 #&gt; [1] TRUE
@@ -465,8 +465,8 @@ But until the problem is fixed you can turn off <a href="http://www.rdocumentati
 The parameter setting will then be passed to the underlying function without further ado.</p>
 <pre><code class="r">## Support Vector Machine with linear kernel and new parameter 'newParam'
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3)
-#&gt; Error in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newParam without available description object! 
-#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel 
+#&gt; Error in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newParam without available description object!
+#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel
 #&gt; You can switch off this check by using configureMlr!
 
 ## Turn off parameter checking completely
@@ -488,11 +488,11 @@ train(lrn, iris.task)
 ## Alternatively turn off parameter checking, but still see warnings
 configureMlr(on.par.without.desc = &quot;warn&quot;)
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newParam = 3)
-#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter kernl without available description object! 
-#&gt; Did you mean one of these hyperparameters instead: kernel nu degree 
+#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter kernl without available description object!
+#&gt; Did you mean one of these hyperparameters instead: kernel nu degree
 #&gt; You can switch off this check by using configureMlr!
-#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newParam without available description object! 
-#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel 
+#&gt; Warning in setHyperPars2.Learner(learner, insert(par.vals, args)): classif.ksvm: Setting parameter newParam without available description object!
+#&gt; Did you mean one of these hyperparameters instead: degree scaled kernel
 #&gt; You can switch off this check by using configureMlr!
 
 train(lrn, iris.task)
