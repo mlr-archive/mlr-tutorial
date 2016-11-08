@@ -5,11 +5,11 @@ repo_url: https://github.com/mlr-org/mlr/
 use_directory_urls: False
 theme: 'mkdocs'
 theme_dir: custom_theme
-extra_css: ['css/custom_mlr.css', 'css/custom_highlight.css']
+extra_css: ['css/custom_mlr.css', 'css/custom_highlight.css', 'https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css']
 markdown_extensions:
   - mdx_math:
       enable_dollar_delimiter: True
-extra_javascript: ['https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML']
+extra_javascript: ['https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML', 'https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js', 'js/tables.js']
 pages:
 - Home: 'index.md'
 - Basics:
