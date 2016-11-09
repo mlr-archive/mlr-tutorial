@@ -8,23 +8,22 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-
-	<title>Preprocessing - mlr tutorial</title>
-
+        <title>Preprocessing - mlr tutorial</title>
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
         <link href="../css/custom_mlr.css" rel="stylesheet">
         <link href="../css/custom_highlight.css" rel="stylesheet">
-
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-
-        
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
     </head>
 
     <body>
@@ -34,7 +33,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -42,266 +40,173 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
-
-            <!-- Main title -->
             <a class="navbar-brand" href="../index.html">mlr tutorial</a>
         </div>
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
-            
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
-                
-                
                     <li >
                         <a href="../index.html">Home</a>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../task/index.html">Tasks</a>
 </li>
-
-                        
                             
 <li >
     <a href="../learner/index.html">Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../train/index.html">Train</a>
 </li>
-
-                        
                             
 <li >
     <a href="../predict/index.html">Predict</a>
 </li>
-
-                        
                             
 <li >
     <a href="../performance/index.html">Performance</a>
 </li>
-
-                        
                             
 <li >
     <a href="../resample/index.html">Resampling</a>
 </li>
-
-                        
                             
 <li >
     <a href="../tune/index.html">Tuning</a>
 </li>
-
-                        
                             
 <li >
     <a href="../benchmark_experiments/index.html">Benchmark Experiments</a>
 </li>
-
-                        
                             
 <li >
     <a href="../parallelization/index.html">Parallelization</a>
 </li>
-
-                        
                             
 <li >
     <a href="../visualization/index.html">Visualization</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../configureMlr/index.html">Configuration</a>
 </li>
-
-                        
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
 </li>
-
-                        
                             
 <li class="active">
     <a href="index.html">Preprocessing</a>
 </li>
-
-                        
                             
 <li >
     <a href="../impute/index.html">Imputation</a>
 </li>
-
-                        
                             
 <li >
     <a href="../bagging/index.html">Bagging</a>
 </li>
-
-                        
                             
 <li >
     <a href="../advanced_tune/index.html">Advanced Tuning</a>
 </li>
-
-                        
                             
 <li >
     <a href="../feature_selection/index.html">Feature Selection</a>
 </li>
-
-                        
                             
 <li >
     <a href="../nested_resampling/index.html">Nested Resampling</a>
 </li>
-
-                        
                             
 <li >
     <a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>
 </li>
-
-                        
                             
 <li >
     <a href="../over_and_undersampling/index.html">Imbalanced Classification Problems</a>
 </li>
-
-                        
                             
 <li >
     <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
-
-                        
                             
 <li >
     <a href="../multilabel/index.html">Multilabel Classification</a>
 </li>
-
-                        
                             
 <li >
     <a href="../learning_curve/index.html">Learning Curves</a>
 </li>
-
-                        
                             
 <li >
     <a href="../partial_dependence/index.html">Partial Dependence Plots</a>
 </li>
-
-                        
                             
 <li >
     <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
 </li>
-
-                        
                             
 <li >
     <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../create_learner/index.html">Create Custom Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../create_measure/index.html">Create Custom Measures</a>
 </li>
-
-                        
                             
 <li >
     <a href="../create_imputation/index.html">Create Imputation Methods</a>
 </li>
-
-                        
                             
 <li >
     <a href="../create_filter/index.html">Create Custom Filters</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Appendix <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../example_tasks/index.html">Example Tasks</a>
 </li>
-
-                        
                             
 <li >
     <a href="../integrated_learners/index.html">Integrated Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../measures/index.html">Implemented Performance Measures</a>
 </li>
-
-                        
                             
 <li >
     <a href="../filter_methods/index.html">Integrated Filter Methods</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
                 </ul>
-            
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -309,7 +214,6 @@
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
-                
                     <li >
                         <a rel="next" href="../wrapper/index.html">
                             <i class="fa fa-arrow-left"></i> Previous
@@ -320,36 +224,23 @@
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
-                
-                
                     <li>
                         <a href="https://github.com/mlr-org/mlr/">
-                            
-                                <i class="fa fa-github"></i>
-                            
-                            GitHub
+                                <i class="fa fa-github"></i>GitHub
                         </a>
                     </li>
-                
             </ul>
         </div>
     </div>
 </div>
 
         <div class="container">
-            
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-    
         <li class="main active"><a href="#data-preprocessing">Data Preprocessing</a></li>
-        
             <li><a href="#fusing-learners-with-preprocessing">Fusing learners with preprocessing</a></li>
-        
             <li><a href="#preprocessing-with-makepreprocwrappercaret">Preprocessing with makePreprocWrapperCaret</a></li>
-        
             <li><a href="#writing-a-custom-preprocessing-wrapper">Writing a custom preprocessing wrapper</a></li>
-        
-    
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -765,7 +656,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.nnet.preproc
 #&gt; Aggr perf: mse.test.mean=20.6
-#&gt; Runtime: 0.135759
+#&gt; Runtime: 0.204617
 
 lrn = makeLearner(&quot;regr.nnet&quot;, trace = FALSE, decay = 1e-02)
 r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
@@ -774,7 +665,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.nnet
 #&gt; Aggr perf: mse.test.mean=55.1
-#&gt; Runtime: 0.0977275
+#&gt; Runtime: 0.161921
 </code></pre>
 
 <h3 id="joint-tuning-of-preprocessing-and-learner-parameters">Joint tuning of preprocessing and learner parameters</h3>
@@ -844,18 +735,18 @@ res
 
 as.data.frame(res$opt.path)
 #&gt;    decay center scale mse.test.mean dob eol error.message exec.time
-#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.040
-#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.047
-#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.047
-#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.025
-#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.051
-#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.044
-#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.046
-#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.045
-#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.048
-#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.024
-#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.048
-#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.053
+#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.066
+#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.076
+#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.075
+#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.042
+#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.081
+#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.072
+#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.076
+#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.074
+#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.075
+#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.040
+#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.076
+#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.074
 </code></pre>
 
 <h3 id="preprocessing-wrapper-functions">Preprocessing wrapper functions</h3>
@@ -905,47 +796,39 @@ train(lrn, iris.task)
 #&gt; Trained on: task.id = iris-example; obs = 150; features = 4
 #&gt; Hyperparameters: center=TRUE,scale=TRUE
 </code></pre></div>
-            
         </div>
 
         <footer class="col-md-12">
             <hr>
-            
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
         <script>var base_url = '..';</script>
         <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
                     </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
+    </div>
+</div>
 
     </body>
 </html>

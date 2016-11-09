@@ -3,8 +3,8 @@
 
     
     <url>
-     <loc>None/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,162 +12,62 @@
     
         
     <url>
-     <loc>None/task/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/task/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/learner/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/learner/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/train/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/train/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/predict/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/predict/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/performance/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/performance/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/resample/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/resample/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/tune/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/tune/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/benchmark_experiments/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/benchmark_experiments/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/parallelization/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/parallelization/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/visualization/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    
-
-    
-        
-    <url>
-     <loc>None/configureMlr/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/wrapper/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/preproc/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/impute/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/bagging/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/advanced_tune/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/feature_selection/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/nested_resampling/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/cost_sensitive_classif/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/over_and_undersampling/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/roc_analysis/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/multilabel/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/learning_curve/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/partial_dependence/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/classifier_calibration/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>None/hyperpar_tuning_effects/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/visualization/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -176,26 +76,98 @@
     
         
     <url>
-     <loc>None/create_learner/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/configureMlr/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/create_measure/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/wrapper/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/create_imputation/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/preproc/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/create_filter/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/impute/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/bagging/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/advanced_tune/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/feature_selection/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/nested_resampling/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/cost_sensitive_classif/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/over_and_undersampling/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/roc_analysis/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/multilabel/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/learning_curve/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/partial_dependence/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/classifier_calibration/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/hyperpar_tuning_effects/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -204,26 +176,54 @@
     
         
     <url>
-     <loc>None/example_tasks/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/create_learner/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/integrated_learners/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/create_measure/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/measures/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/create_imputation/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/filter_methods/index.html</loc>
-     <lastmod>2016-10-31</lastmod>
+     <loc>/create_filter/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+        
+    <url>
+     <loc>/example_tasks/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/integrated_learners/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/measures/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/filter_methods/index.html</loc>
+     <lastmod>2016-11-09</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

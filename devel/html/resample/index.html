@@ -8,23 +8,22 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-
-	<title>Resampling - mlr tutorial</title>
-
+        <title>Resampling - mlr tutorial</title>
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
         <link href="../css/custom_mlr.css" rel="stylesheet">
         <link href="../css/custom_highlight.css" rel="stylesheet">
-
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-
-        
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
     </head>
 
     <body>
@@ -34,7 +33,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -42,266 +40,173 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
-
-            <!-- Main title -->
             <a class="navbar-brand" href="../index.html">mlr tutorial</a>
         </div>
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
-            
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
-                
-                
                     <li >
                         <a href="../index.html">Home</a>
                     </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../task/index.html">Tasks</a>
 </li>
-
-                        
                             
 <li >
     <a href="../learner/index.html">Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../train/index.html">Train</a>
 </li>
-
-                        
                             
 <li >
     <a href="../predict/index.html">Predict</a>
 </li>
-
-                        
                             
 <li >
     <a href="../performance/index.html">Performance</a>
 </li>
-
-                        
                             
 <li class="active">
     <a href="index.html">Resampling</a>
 </li>
-
-                        
                             
 <li >
     <a href="../tune/index.html">Tuning</a>
 </li>
-
-                        
                             
 <li >
     <a href="../benchmark_experiments/index.html">Benchmark Experiments</a>
 </li>
-
-                        
                             
 <li >
     <a href="../parallelization/index.html">Parallelization</a>
 </li>
-
-                        
                             
 <li >
     <a href="../visualization/index.html">Visualization</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../configureMlr/index.html">Configuration</a>
 </li>
-
-                        
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../preproc/index.html">Preprocessing</a>
 </li>
-
-                        
                             
 <li >
     <a href="../impute/index.html">Imputation</a>
 </li>
-
-                        
                             
 <li >
     <a href="../bagging/index.html">Bagging</a>
 </li>
-
-                        
                             
 <li >
     <a href="../advanced_tune/index.html">Advanced Tuning</a>
 </li>
-
-                        
                             
 <li >
     <a href="../feature_selection/index.html">Feature Selection</a>
 </li>
-
-                        
                             
 <li >
     <a href="../nested_resampling/index.html">Nested Resampling</a>
 </li>
-
-                        
                             
 <li >
     <a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>
 </li>
-
-                        
                             
 <li >
     <a href="../over_and_undersampling/index.html">Imbalanced Classification Problems</a>
 </li>
-
-                        
                             
 <li >
     <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
-
-                        
                             
 <li >
     <a href="../multilabel/index.html">Multilabel Classification</a>
 </li>
-
-                        
                             
 <li >
     <a href="../learning_curve/index.html">Learning Curves</a>
 </li>
-
-                        
                             
 <li >
     <a href="../partial_dependence/index.html">Partial Dependence Plots</a>
 </li>
-
-                        
                             
 <li >
     <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
 </li>
-
-                        
                             
 <li >
     <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../create_learner/index.html">Create Custom Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../create_measure/index.html">Create Custom Measures</a>
 </li>
-
-                        
                             
 <li >
     <a href="../create_imputation/index.html">Create Imputation Methods</a>
 </li>
-
-                        
                             
 <li >
     <a href="../create_filter/index.html">Create Custom Filters</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Appendix <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../example_tasks/index.html">Example Tasks</a>
 </li>
-
-                        
                             
 <li >
     <a href="../integrated_learners/index.html">Integrated Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../measures/index.html">Implemented Performance Measures</a>
 </li>
-
-                        
                             
 <li >
     <a href="../filter_methods/index.html">Integrated Filter Methods</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
                 </ul>
-            
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -309,7 +214,6 @@
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
-                
                     <li >
                         <a rel="next" href="../performance/index.html">
                             <i class="fa fa-arrow-left"></i> Previous
@@ -320,40 +224,25 @@
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
-                
-                
                     <li>
                         <a href="https://github.com/mlr-org/mlr/">
-                            
-                                <i class="fa fa-github"></i>
-                            
-                            GitHub
+                                <i class="fa fa-github"></i>GitHub
                         </a>
                     </li>
-                
             </ul>
         </div>
     </div>
 </div>
 
         <div class="container">
-            
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-    
         <li class="main active"><a href="#resampling">Resampling</a></li>
-        
             <li><a href="#stratified-resampling">Stratified resampling</a></li>
-        
             <li><a href="#accessing-individual-learner-models">Accessing individual learner models</a></li>
-        
             <li><a href="#resample-descriptions-and-resample-instances">Resample descriptions and resample instances</a></li>
-        
             <li><a href="#aggregating-performance-values">Aggregating performance values</a></li>
-        
             <li><a href="#convenience-functions">Convenience functions</a></li>
-        
-    
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -400,16 +289,19 @@ rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 
 ## Calculate the performance
 r = resample(&quot;surv.coxph&quot;, lung.task, rdesc)
-#&gt; [Resample] cross-validation iter: 1
-#&gt; [Resample] cross-validation iter: 2
-#&gt; [Resample] cross-validation iter: 3
+#&gt; [Resample] Start cross-validation iter: 1
+#&gt; [Resample] Result: cindex = 0.578303
+#&gt; [Resample] Start cross-validation iter: 2
+#&gt; [Resample] Result: cindex = 0.632407
+#&gt; [Resample] Start cross-validation iter: 3
+#&gt; [Resample] Result: cindex = 0.670644
 #&gt; [Resample] Result: cindex.test.mean=0.627
 r
 #&gt; Resample Result
 #&gt; Task: lung-example
 #&gt; Learner: surv.coxph
 #&gt; Aggr perf: cindex.test.mean=0.627
-#&gt; Runtime: 0.0371671
+#&gt; Runtime: 0.0650599
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;task.desc&quot;      &quot;measures.train&quot;
@@ -478,15 +370,30 @@ rdesc = makeResampleDesc(&quot;Subsample&quot;, iters = 5, split = 4/5)
 
 ## Calculate the three performance measures
 r = resample(&quot;cluster.kmeans&quot;, task, rdesc, measures = list(dunn, db, timetrain))
-#&gt; [Resample] subsampling iter: 1
-#&gt; [Resample] subsampling iter: 2
-#&gt; [Resample] subsampling iter: 3
-#&gt; [Resample] subsampling iter: 4
-#&gt; [Resample] subsampling iter: 5
-#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.001
+#&gt; [Resample] Start subsampling iter: 1
+#&gt; [Resample] Result: dunn = 0.191107
+#&gt; [Resample] Result: db = 0.516883
+#&gt; [Resample] Result: timetrain = 0.001000
+#&gt; [Resample] Start subsampling iter: 2
+#&gt; [Resample] Result: dunn = 0.076506
+#&gt; [Resample] Result: db = 0.588266
+#&gt; [Resample] Result: timetrain = 0.001000
+#&gt; [Resample] Start subsampling iter: 3
+#&gt; [Resample] Result: dunn = 0.520857
+#&gt; [Resample] Result: db = 0.429973
+#&gt; [Resample] Result: timetrain = 0.002000
+#&gt; [Resample] Start subsampling iter: 4
+#&gt; [Resample] Result: dunn = 0.337838
+#&gt; [Resample] Result: db = 0.504705
+#&gt; [Resample] Result: timetrain = 0.002000
+#&gt; [Resample] Start subsampling iter: 5
+#&gt; [Resample] Result: dunn = 0.243139
+#&gt; [Resample] Result: db = 0.512001
+#&gt; [Resample] Result: timetrain = 0.001000
+#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.0014
 r$aggr
 #&gt;      dunn.test.mean        db.test.mean timetrain.test.mean 
-#&gt;           0.2738893           0.5103655           0.0010000
+#&gt;           0.2738893           0.5103655           0.0014000
 </code></pre>
 
 <h2 id="stratified-resampling">Stratified resampling</h2>
@@ -499,9 +406,12 @@ In order to conduct stratified resampling, set <code>stratify = TRUE</code> when
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, stratify = TRUE)
 
 r = resample(&quot;classif.lda&quot;, iris.task, rdesc)
-#&gt; [Resample] cross-validation iter: 1
-#&gt; [Resample] cross-validation iter: 2
-#&gt; [Resample] cross-validation iter: 3
+#&gt; [Resample] Start cross-validation iter: 1
+#&gt; [Resample] Result: mmce = 0.020000
+#&gt; [Resample] Start cross-validation iter: 2
+#&gt; [Resample] Result: mmce = 0.000000
+#&gt; [Resample] Start cross-validation iter: 3
+#&gt; [Resample] Result: mmce = 0.040000
 #&gt; [Resample] Result: mmce.test.mean=0.02
 </code></pre>
 
@@ -511,9 +421,12 @@ Here the stratification balances the censoring rate.</p>
 To stratify on the input columns, specify factor columns of your task data via <code>stratify.cols</code></p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, stratify.cols = &quot;chas&quot;)
 r = resample(&quot;regr.rpart&quot;, bh.task, rdesc)
-#&gt; [Resample] cross-validation iter: 1
-#&gt; [Resample] cross-validation iter: 2
-#&gt; [Resample] cross-validation iter: 3
+#&gt; [Resample] Start cross-validation iter: 1
+#&gt; [Resample] Result: mse = 24.518985
+#&gt; [Resample] Start cross-validation iter: 2
+#&gt; [Resample] Result: mse = 18.739729
+#&gt; [Resample] Start cross-validation iter: 3
+#&gt; [Resample] Result: mse = 26.320608
 #&gt; [Resample] Result: mse.test.mean=23.2
 </code></pre>
 
@@ -525,9 +438,12 @@ If you want to keep them, set <code>models = TRUE</code> when calling <a href="h
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 
 r = resample(&quot;classif.lda&quot;, iris.task, rdesc, models = TRUE)
-#&gt; [Resample] cross-validation iter: 1
-#&gt; [Resample] cross-validation iter: 2
-#&gt; [Resample] cross-validation iter: 3
+#&gt; [Resample] Start cross-validation iter: 1
+#&gt; [Resample] Result: mmce = 0.040000
+#&gt; [Resample] Start cross-validation iter: 2
+#&gt; [Resample] Result: mmce = 0.000000
+#&gt; [Resample] Start cross-validation iter: 3
+#&gt; [Resample] Result: mmce = 0.020000
 #&gt; [Resample] Result: mmce.test.mean=0.02
 r$models
 #&gt; [[1]]
@@ -556,9 +472,12 @@ rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 ## Extract the variable importance in a regression tree
 r = resample(&quot;regr.rpart&quot;, bh.task, rdesc,
     extract = function(x) x$learner.model$variable.importance)
-#&gt; [Resample] cross-validation iter: 1
-#&gt; [Resample] cross-validation iter: 2
-#&gt; [Resample] cross-validation iter: 3
+#&gt; [Resample] Start cross-validation iter: 1
+#&gt; [Resample] Result: mse = 45.868414
+#&gt; [Resample] Start cross-validation iter: 2
+#&gt; [Resample] Result: mse = 24.053872
+#&gt; [Resample] Start cross-validation iter: 3
+#&gt; [Resample] Result: mse = 20.858783
 #&gt; [Resample] Result: mse.test.mean=30.3
 r$extract
 #&gt; [[1]]
@@ -716,9 +635,15 @@ m1 = mmce
 m2 = setAggregation(tpr, test.median)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 r = resample(&quot;classif.rpart&quot;, sonar.task, rdesc, measures = list(m1, m2))
-#&gt; [Resample] cross-validation iter: 1
-#&gt; [Resample] cross-validation iter: 2
-#&gt; [Resample] cross-validation iter: 3
+#&gt; [Resample] Start cross-validation iter: 1
+#&gt; [Resample] Result: mmce = 0.328571
+#&gt; [Resample] Result: tpr = 0.666667
+#&gt; [Resample] Start cross-validation iter: 2
+#&gt; [Resample] Result: mmce = 0.318841
+#&gt; [Resample] Result: tpr = 0.735294
+#&gt; [Resample] Start cross-validation iter: 3
+#&gt; [Resample] Result: mmce = 0.231884
+#&gt; [Resample] Result: tpr = 0.829268
 #&gt; [Resample] Result: mmce.test.mean=0.293,tpr.test.median=0.735
 r$aggr
 #&gt;  mmce.test.mean tpr.test.median 
@@ -732,9 +657,15 @@ in order to get predictions on both data sets, training and test.</p>
 <pre><code class="r">mmce.train.mean = setAggregation(mmce, train.mean)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, predict = &quot;both&quot;)
 r = resample(&quot;classif.rpart&quot;, iris.task, rdesc, measures = list(mmce, mmce.train.mean))
-#&gt; [Resample] cross-validation iter: 1
-#&gt; [Resample] cross-validation iter: 2
-#&gt; [Resample] cross-validation iter: 3
+#&gt; [Resample] Start cross-validation iter: 1
+#&gt; [Resample] Result: mmce = 0.040000
+#&gt; [Resample] Result: mmce = 0.040000
+#&gt; [Resample] Start cross-validation iter: 2
+#&gt; [Resample] Result: mmce = 0.060000
+#&gt; [Resample] Result: mmce = 0.060000
+#&gt; [Resample] Start cross-validation iter: 3
+#&gt; [Resample] Result: mmce = 0.040000
+#&gt; [Resample] Result: mmce = 0.040000
 #&gt; [Resample] Result: mmce.test.mean=0.0467,mmce.train.mean=0.0367
 r$measures.train
 #&gt;   iter mmce mmce
@@ -798,47 +729,39 @@ description or instance.</p>
 <pre><code class="r">holdout(&quot;regr.lm&quot;, bh.task, measures = list(mse, mae))
 crossval(&quot;classif.lda&quot;, iris.task, iters = 3, measures = list(mmce, ber))
 </code></pre></div>
-            
         </div>
 
         <footer class="col-md-12">
             <hr>
-            
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
         <script>var base_url = '..';</script>
         <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
                     </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
+    </div>
+</div>
 
     </body>
 </html>

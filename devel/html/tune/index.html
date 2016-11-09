@@ -8,23 +8,22 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-
-	<title>Tuning - mlr tutorial</title>
-
+        <title>Tuning - mlr tutorial</title>
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/highlight.css">
         <link href="../css/custom_mlr.css" rel="stylesheet">
         <link href="../css/custom_highlight.css" rel="stylesheet">
-
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-
-        
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
     </head>
 
     <body>
@@ -34,7 +33,6 @@
 
         <!-- Collapsed navigation -->
         <div class="navbar-header">
-            
             <!-- Expander button -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -42,266 +40,173 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            
-
-            <!-- Main title -->
             <a class="navbar-brand" href="../index.html">mlr tutorial</a>
         </div>
 
         <!-- Expanded navigation -->
         <div class="navbar-collapse collapse">
-            
                 <!-- Main navigation -->
                 <ul class="nav navbar-nav">
-                
-                
                     <li >
                         <a href="../index.html">Home</a>
                     </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../task/index.html">Tasks</a>
 </li>
-
-                        
                             
 <li >
     <a href="../learner/index.html">Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../train/index.html">Train</a>
 </li>
-
-                        
                             
 <li >
     <a href="../predict/index.html">Predict</a>
 </li>
-
-                        
                             
 <li >
     <a href="../performance/index.html">Performance</a>
 </li>
-
-                        
                             
 <li >
     <a href="../resample/index.html">Resampling</a>
 </li>
-
-                        
                             
 <li class="active">
     <a href="index.html">Tuning</a>
 </li>
-
-                        
                             
 <li >
     <a href="../benchmark_experiments/index.html">Benchmark Experiments</a>
 </li>
-
-                        
                             
 <li >
     <a href="../parallelization/index.html">Parallelization</a>
 </li>
-
-                        
                             
 <li >
     <a href="../visualization/index.html">Visualization</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../configureMlr/index.html">Configuration</a>
 </li>
-
-                        
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../preproc/index.html">Preprocessing</a>
 </li>
-
-                        
                             
 <li >
     <a href="../impute/index.html">Imputation</a>
 </li>
-
-                        
                             
 <li >
     <a href="../bagging/index.html">Bagging</a>
 </li>
-
-                        
                             
 <li >
     <a href="../advanced_tune/index.html">Advanced Tuning</a>
 </li>
-
-                        
                             
 <li >
     <a href="../feature_selection/index.html">Feature Selection</a>
 </li>
-
-                        
                             
 <li >
     <a href="../nested_resampling/index.html">Nested Resampling</a>
 </li>
-
-                        
                             
 <li >
     <a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>
 </li>
-
-                        
                             
 <li >
     <a href="../over_and_undersampling/index.html">Imbalanced Classification Problems</a>
 </li>
-
-                        
                             
 <li >
     <a href="../roc_analysis/index.html">ROC Analysis</a>
 </li>
-
-                        
                             
 <li >
     <a href="../multilabel/index.html">Multilabel Classification</a>
 </li>
-
-                        
                             
 <li >
     <a href="../learning_curve/index.html">Learning Curves</a>
 </li>
-
-                        
                             
 <li >
     <a href="../partial_dependence/index.html">Partial Dependence Plots</a>
 </li>
-
-                        
                             
 <li >
     <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
 </li>
-
-                        
                             
 <li >
     <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../create_learner/index.html">Create Custom Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../create_measure/index.html">Create Custom Measures</a>
 </li>
-
-                        
                             
 <li >
     <a href="../create_imputation/index.html">Create Imputation Methods</a>
 </li>
-
-                        
                             
 <li >
     <a href="../create_filter/index.html">Create Custom Filters</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Appendix <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
                             
 <li >
     <a href="../example_tasks/index.html">Example Tasks</a>
 </li>
-
-                        
                             
 <li >
     <a href="../integrated_learners/index.html">Integrated Learners</a>
 </li>
-
-                        
                             
 <li >
     <a href="../measures/index.html">Implemented Performance Measures</a>
 </li>
-
-                        
                             
 <li >
     <a href="../filter_methods/index.html">Integrated Filter Methods</a>
 </li>
-
-                        
                         </ul>
                     </li>
-                
-                
                 </ul>
-            
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -309,7 +214,6 @@
                         <i class="fa fa-search"></i> Search
                     </a>
                 </li>
-                
                     <li >
                         <a rel="next" href="../resample/index.html">
                             <i class="fa fa-arrow-left"></i> Previous
@@ -320,34 +224,22 @@
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
-                
-                
                     <li>
                         <a href="https://github.com/mlr-org/mlr/">
-                            
-                                <i class="fa fa-github"></i>
-                            
-                            GitHub
+                                <i class="fa fa-github"></i>GitHub
                         </a>
                     </li>
-                
             </ul>
         </div>
     </div>
 </div>
 
         <div class="container">
-            
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-    
         <li class="main active"><a href="#tuning-hyperparameters">Tuning Hyperparameters</a></li>
-        
             <li><a href="#basics">Basics</a></li>
-        
             <li><a href="#further-comments">Further comments</a></li>
-        
-    
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -496,37 +388,37 @@ res = tuneParams(&quot;classif.ksvm&quot;, task = iris.task, resampling = rdesc,
 #&gt; With control class: TuneControlGrid
 #&gt; Imputation value: 1
 #&gt; [Tune-x] 1: C=0.5; sigma=0.5
-#&gt; [Tune-y] 1: mmce.test.mean=0.04; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 1: mmce.test.mean=0.04; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 2: C=1; sigma=0.5
-#&gt; [Tune-y] 2: mmce.test.mean=0.04; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 2: mmce.test.mean=0.04; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 3: C=1.5; sigma=0.5
-#&gt; [Tune-y] 3: mmce.test.mean=0.0467; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 3: mmce.test.mean=0.0467; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 4: C=2; sigma=0.5
-#&gt; [Tune-y] 4: mmce.test.mean=0.0467; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 4: mmce.test.mean=0.0467; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 5: C=0.5; sigma=1
-#&gt; [Tune-y] 5: mmce.test.mean=0.04; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 5: mmce.test.mean=0.04; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 6: C=1; sigma=1
-#&gt; [Tune-y] 6: mmce.test.mean=0.0467; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 6: mmce.test.mean=0.0467; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 7: C=1.5; sigma=1
-#&gt; [Tune-y] 7: mmce.test.mean=0.0467; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 7: mmce.test.mean=0.0467; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 8: C=2; sigma=1
-#&gt; [Tune-y] 8: mmce.test.mean=0.0467; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 8: mmce.test.mean=0.0467; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 9: C=0.5; sigma=1.5
-#&gt; [Tune-y] 9: mmce.test.mean=0.0333; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 9: mmce.test.mean=0.0333; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 10: C=1; sigma=1.5
-#&gt; [Tune-y] 10: mmce.test.mean=0.04; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 10: mmce.test.mean=0.04; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 11: C=1.5; sigma=1.5
-#&gt; [Tune-y] 11: mmce.test.mean=0.04; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 11: mmce.test.mean=0.04; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 12: C=2; sigma=1.5
-#&gt; [Tune-y] 12: mmce.test.mean=0.0467; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 12: mmce.test.mean=0.0467; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 13: C=0.5; sigma=2
-#&gt; [Tune-y] 13: mmce.test.mean=0.04; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 13: mmce.test.mean=0.04; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 14: C=1; sigma=2
-#&gt; [Tune-y] 14: mmce.test.mean=0.0333; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 14: mmce.test.mean=0.0333; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 15: C=1.5; sigma=2
-#&gt; [Tune-y] 15: mmce.test.mean=0.04; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 15: mmce.test.mean=0.04; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune-x] 16: C=2; sigma=2
-#&gt; [Tune-y] 16: mmce.test.mean=0.04; time: 0.0 min; memory: 159Mb use, 725Mb max
+#&gt; [Tune-y] 16: mmce.test.mean=0.04; time: 0.0 min; memory: 160Mb use, 734Mb max
 #&gt; [Tune] Result: C=0.5; sigma=1.5 : mmce.test.mean=0.0333
 
 res
@@ -628,12 +520,12 @@ predict(m, task = iris.task)
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;            C      sigma acc.test.mean acc.test.sd iteration exec.time
-#&gt; 1 -9.9783231  1.0531818     0.2733333  0.02309401         1     0.055
-#&gt; 2 -0.5292817  3.2214785     0.2733333  0.02309401         2     0.054
-#&gt; 3 -0.3544567  4.1644832     0.2733333  0.02309401         3     0.061
-#&gt; 4  0.6341910  7.8640461     0.2866667  0.03055050         4     0.063
-#&gt; 5  5.7640748 -3.3159251     0.9533333  0.03055050         5     0.064
-#&gt; 6 -6.5880397  0.4600323     0.2733333  0.02309401         6     0.063
+#&gt; 1 -9.9783231  1.0531818     0.2733333  0.02309401         1     0.054
+#&gt; 2 -0.5292817  3.2214785     0.2733333  0.02309401         2     0.053
+#&gt; 3 -0.3544567  4.1644832     0.2733333  0.02309401         3     0.058
+#&gt; 4  0.6341910  7.8640461     0.2866667  0.03055050         4     0.062
+#&gt; 5  5.7640748 -3.3159251     0.9533333  0.03055050         5     0.063
+#&gt; 6 -6.5880397  0.4600323     0.2733333  0.02309401         6     0.066
 </code></pre>
 
 <p>Note that the result of <a href="http://www.rdocumentation.org/packages/mlr/functions/generateHyperParsEffectData.html">generateHyperParsEffectData</a>
@@ -647,12 +539,12 @@ In order to get the <em>transformed</em> parameter values instead, use the <code
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;              C        sigma acc.test.mean acc.test.sd iteration exec.time
-#&gt; 1 1.051180e-10 1.130269e+01     0.2733333  0.02309401         1     0.055
-#&gt; 2 2.956095e-01 1.665246e+03     0.2733333  0.02309401         2     0.054
-#&gt; 3 4.421232e-01 1.460438e+04     0.2733333  0.02309401         3     0.061
-#&gt; 4 4.307159e+00 7.312168e+07     0.2866667  0.03055050         4     0.063
-#&gt; 5 5.808644e+05 4.831421e-04     0.9533333  0.03055050         5     0.064
-#&gt; 6 2.582024e-07 2.884246e+00     0.2733333  0.02309401         6     0.063
+#&gt; 1 1.051180e-10 1.130269e+01     0.2733333  0.02309401         1     0.054
+#&gt; 2 2.956095e-01 1.665246e+03     0.2733333  0.02309401         2     0.053
+#&gt; 3 4.421232e-01 1.460438e+04     0.2733333  0.02309401         3     0.058
+#&gt; 4 4.307159e+00 7.312168e+07     0.2866667  0.03055050         4     0.062
+#&gt; 5 5.808644e+05 4.831421e-04     0.9533333  0.03055050         5     0.063
+#&gt; 6 2.582024e-07 2.884246e+00     0.2733333  0.02309401         6     0.066
 </code></pre>
 
 <p>Note that we can also generate performance on the train data along with the validation/test
@@ -669,12 +561,12 @@ generateHyperParsEffectData(res2)
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;           C      sigma acc.test.mean acc.train.mean iteration exec.time
-#&gt; 1  9.457202 -4.0536025          0.98           0.97         1     0.041
-#&gt; 2  9.900523  1.8815923          0.40           1.00         2     0.032
-#&gt; 3  2.363975  5.3202458          0.26           1.00         3     0.036
-#&gt; 4 -1.530251  4.7579424          0.26           0.37         4     0.030
-#&gt; 5 -7.837476  2.4352698          0.26           0.37         5     0.030
-#&gt; 6  8.782931 -0.4143757          0.92           1.00         6     0.029
+#&gt; 1  9.457202 -4.0536025          0.98           0.97         1     0.039
+#&gt; 2  9.900523  1.8815923          0.40           1.00         2     0.036
+#&gt; 3  2.363975  5.3202458          0.26           1.00         3     0.028
+#&gt; 4 -1.530251  4.7579424          0.26           0.37         4     0.028
+#&gt; 5 -7.837476  2.4352698          0.26           0.37         5     0.028
+#&gt; 6  8.782931 -0.4143757          0.92           1.00         6     0.028
 </code></pre>
 
 <p>We can also easily visualize the points evaluated by using <a href="http://www.rdocumentation.org/packages/mlr/functions/plotHyperParsEffect.html">plotHyperParsEffect</a>. In the
@@ -718,47 +610,39 @@ where we embed the whole model selection process into an outer resampling loop.<
      :alt: Variable selection as a tuning.
 
 )--></div>
-            
         </div>
 
         <footer class="col-md-12">
             <hr>
-            
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
         <script>var base_url = '..';</script>
         <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
                     </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
             </div>
         </div>
+    </div>
+</div>
 
     </body>
 </html>
