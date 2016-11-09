@@ -434,7 +434,7 @@ If your newly integrated learner supports this you need to
 
 * add `"featimp"` to the learner properties and
 * implement a new S3 method for function [&getFeatureImportanceLearner] (which later is called
-  internally by [&getFeatureImportance]).
+  internally by [&getFeatureImportance])
 
 in order to make this work.
 
@@ -482,7 +482,6 @@ registerS3method("getFeatureImportanceLearner", "<awesome_new_learner_class>",
 
 
 ## Further information for developers
-
 If you haven't written a learner interface for private use only, but intend to send a pull
 request to have it included in the [%mlr] package there are a few things to take care of,
 most importantly unit testing!
@@ -493,12 +492,12 @@ and the like please also read the
 
 
 * The R file containing the interface code should adhere to the naming convention
-`RLearner_<awesome_new_learner_class>.R`, e.g., `RLearner_classif.lda.R`, see for example
-[https://github.com/mlr-org/mlr/blob/master/R/RLearner_classif_lda.R] and contain the
-necessary roxygen tags.
+`RLearner_<type>_<learner_name>.R`, e.g., `RLearner_classif_lda.R`, see for example
+<https://github.com/mlr-org/mlr/blob/master/R/RLearner_classif_lda.R> and contain the
+necessary roxygen `@export` tags to register the S3 methods in the NAMESPACE.
 
 * The learner interfaces should work out of the box without requiring any parameters to be set,
-e.g., `train("classif.lda", iris.task)` should work.
+e.g., `train("classif.lda", iris.task)` should run.
 Sometimes, this makes it necessary to change or set some additional defaults as explained above
 and -- very important -- informing the user about this in the `note`.
 
@@ -508,20 +507,19 @@ and -- very important -- informing the user about this in the `note`.
 
 
 ### Unit testing
-
 The tests make sure that we get the same results when the learner is invoked through the [%mlr]
 interface and when using the original functions.
 If you are not familiar or want to learn more about unit testing and package [%testthat]
-have a look at [the Testing chapter in R packages](http://r-pkgs.had.co.nz/tests.html).
+have a look at [the Testing chapter in Hadley Wickham's R packages](http://r-pkgs.had.co.nz/tests.html).
 
 In [%mlr] all unit tests are in the following directory:
-[https://github.com/mlr-org/mlr/tree/master/tests/testthat].
+<https://github.com/mlr-org/mlr/tree/master/tests/testthat>.
 For each learner interface there is an individual file whose name follows the scheme
 `test_<type>_<learner_name>.R`, for example
-[https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R].
+<https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R>.
 
 Below is a snippet from the tests of the lda interface
-[https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R].
+<https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R>.
 
 ```{r, eval = FALSE}
 test_that("classif_lda", {
@@ -539,17 +537,17 @@ test_that("classif_lda", {
 
 The tests make use of numerous helper objects and helper functions.
 All of these are defined in the `helper_` files in
-[https://github.com/mlr-org/mlr/blob/master/tests/testthat/].
+<https://github.com/mlr-org/mlr/blob/master/tests/testthat/>.
 
 In the above code the first line just loads package [%MASS] or skips the test if the package is
 not available.
 The objects `multiclass.formula`, `multiclass.train`, `multiclass.test` etc. are defined
-in [https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_objects.R].
+in <https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_objects.R>.
 We tried to choose fairly self-explanatory names:
 For example `multiclass` indicates a multi-class classification problem, `multiclass.train`
-contains a training data set, `multiclass.formula` a [formula](&stats::formula) object etc.
+contains data for training, `multiclass.formula` a [formula](&stats::formula) object etc.
 
-The test fits an lda model to the training set and makes predictions on the test set
+The test fits an lda model on the training set and makes predictions on the test set
 using the original functions [lda](&MASS::lda) and [predict.lda](&MASS::predict.lda).
 The helper functions `testSimple` and `testProb` perform training and prediction on the same
 data using the [%mlr] interface -- `testSimple` for `predict.type = "response` and `testProbs` for
@@ -559,20 +557,20 @@ with the outcomes `p$class` and `p$posterior`.
 In order to get reproducible results seeding is required for many learners.
 The `"mlr.debug.seed"` works as follows:
 When invoking the tests the option `"mlr.debug.seed"` is set
-(see [https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_zzz.R]), and
+(see <https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_zzz.R>), and
 `set.seed(getOption("mlr.debug.seed"))` is used to specify the seed.
 Internally, [%mlr]'s
 [train](https://github.com/mlr-org/mlr/blob/master/R/train.R#L73) and
 [predict.WrappedModel](https://github.com/mlr-org/mlr/blob/master/R/predict.R#L100)
-functions also check if the `"mlr.debug.seed"` option is set and if yes, also specify the seed.
+functions check if the `"mlr.debug.seed"` option is set and if yes, also specify the seed.
 
 Note that the option `"mlr.debug.seed"` is only set for testing, so no seeding happens in
 normal usage of [%mlr].
 
 Let's look at a second example.
-Many learners have parameters that are commonly changed or tuned and it is prudent to make
+Many learners have parameters that are commonly changed or tuned and it is important to make
 sure that these are passed through correctly.
-Below is a snippet from [https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_regr_randomForest.R].
+Below is a snippet from <https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_regr_randomForest.R>.
 
 ```{r, eval = FALSE}
 test_that("regr_randomForest", {
@@ -605,7 +603,31 @@ test_that("regr_randomForest", {
 ```
 
 All tested parameter configurations are collected in the `parset.list`.
+In order to make sure that the default parameter configuration is tested the first element
+of the `parset.list` is an empty [list](base::list).
 Then we simply loop over all parameter settings and store the resulting predictions in
 `old.predicts.list`.
 Again the helper function `testSimpleParsets` does the same using the [%mlr] interface
 and compares the outcomes.
+
+Additional to tests for individual learners we also have general tests that loop through all
+integrated learners and make for example sure that learners have the correct properties
+(e.g. a learner with property `"factors"` can cope with [factor](base::factor) features,
+a learner with property `"weights"` takes observation weights into account properly etc.).
+For example <https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_learners_all_classif.R>
+runs through all classification learners.
+Similar tests exist for all types of learning methods like regression, cluster and survival analysis
+as well as multilabel classification.
+
+In order to run all tests for, e.g., classification learners on your machine you can invoke
+the tests from within **R** by
+
+```{r, eval = FALSE}
+devtools::test("mlr", filter = "classif")
+```
+
+or from the command line using [Michel's rt tool](https://github.com/rdatsci/rt)
+
+```
+rtest --filter=classif
+```
