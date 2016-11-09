@@ -622,7 +622,7 @@ values, which can be extracted from a <a href="http://www.rdocumentation.org/pac
 <ul>
 <li>add <code>"featimp"</code> to the learner properties and</li>
 <li>implement a new S3 method for function <a href="http://www.rdocumentation.org/packages/mlr/functions/getFeatureImportanceLearner.html">getFeatureImportanceLearner</a> (which later is called
-  internally by <a href="http://www.rdocumentation.org/packages/mlr/functions/getFeatureImportance.html">getFeatureImportance</a>).</li>
+  internally by <a href="http://www.rdocumentation.org/packages/mlr/functions/getFeatureImportance.html">getFeatureImportance</a>)</li>
 </ul>
 <p>in order to make this work.</p>
 <p>This method takes the <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a> <code>.learner</code>, the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWrappedModel.html">WrappedModel</a> <code>.model</code>
@@ -669,13 +669,13 @@ and the like please also read the
 <ul>
 <li>
 <p>The R file containing the interface code should adhere to the naming convention
-<code>RLearner_&lt;awesome_new_learner_class&gt;.R</code>, e.g., <code>RLearner_classif.lda.R</code>, see for example
-[https://github.com/mlr-org/mlr/blob/master/R/RLearner_classif_lda.R] and contain the
-necessary roxygen tags.</p>
+<code>RLearner_&lt;type&gt;_&lt;learner_name&gt;.R</code>, e.g., <code>RLearner_classif_lda.R</code>, see for example
+<a href="https://github.com/mlr-org/mlr/blob/master/R/RLearner_classif_lda.R">https://github.com/mlr-org/mlr/blob/master/R/RLearner_classif_lda.R</a> and contain the
+necessary roxygen <code>@export</code> tags to register the S3 methods in the NAMESPACE.</p>
 </li>
 <li>
 <p>The learner interfaces should work out of the box without requiring any parameters to be set,
-e.g., <code>train("classif.lda", iris.task)</code> should work.
+e.g., <code>train("classif.lda", iris.task)</code> should run.
 Sometimes, this makes it necessary to change or set some additional defaults as explained above
 and -- very important -- informing the user about this in the <code>note</code>.</p>
 </li>
@@ -690,14 +690,14 @@ and -- very important -- informing the user about this in the <code>note</code>.
 <p>The tests make sure that we get the same results when the learner is invoked through the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>
 interface and when using the original functions.
 If you are not familiar or want to learn more about unit testing and package <a href="http://www.rdocumentation.org/packages/testthat/">testthat</a>
-have a look at <a href="http://r-pkgs.had.co.nz/tests.html">the Testing chapter in R packages</a>.</p>
+have a look at <a href="http://r-pkgs.had.co.nz/tests.html">the Testing chapter in Hadley Wickham's R packages</a>.</p>
 <p>In <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> all unit tests are in the following directory:
-[https://github.com/mlr-org/mlr/tree/master/tests/testthat].
+<a href="https://github.com/mlr-org/mlr/tree/master/tests/testthat">https://github.com/mlr-org/mlr/tree/master/tests/testthat</a>.
 For each learner interface there is an individual file whose name follows the scheme
 <code>test_&lt;type&gt;_&lt;learner_name&gt;.R</code>, for example
-[https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R].</p>
+<a href="https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R">https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R</a>.</p>
 <p>Below is a snippet from the tests of the lda interface
-[https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R].</p>
+<a href="https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R">https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_classif_lda.R</a>.</p>
 <pre><code class="r">test_that(&quot;classif_lda&quot;, {
   requirePackagesOrSkip(&quot;MASS&quot;, default.method = &quot;load&quot;)
 
@@ -713,15 +713,15 @@ For each learner interface there is an individual file whose name follows the sc
 
 <p>The tests make use of numerous helper objects and helper functions.
 All of these are defined in the <code>helper_</code> files in
-[https://github.com/mlr-org/mlr/blob/master/tests/testthat/].</p>
+<a href="https://github.com/mlr-org/mlr/blob/master/tests/testthat/">https://github.com/mlr-org/mlr/blob/master/tests/testthat/</a>.</p>
 <p>In the above code the first line just loads package <a href="http://www.rdocumentation.org/packages/MASS/">MASS</a> or skips the test if the package is
 not available.
 The objects <code>multiclass.formula</code>, <code>multiclass.train</code>, <code>multiclass.test</code> etc. are defined
-in [https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_objects.R].
+in <a href="https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_objects.R">https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_objects.R</a>.
 We tried to choose fairly self-explanatory names:
 For example <code>multiclass</code> indicates a multi-class classification problem, <code>multiclass.train</code>
-contains a training data set, <code>multiclass.formula</code> a <a href="http://www.rdocumentation.org/packages/stats/functions/formula.html">formula</a> object etc.</p>
-<p>The test fits an lda model to the training set and makes predictions on the test set
+contains data for training, <code>multiclass.formula</code> a <a href="http://www.rdocumentation.org/packages/stats/functions/formula.html">formula</a> object etc.</p>
+<p>The test fits an lda model on the training set and makes predictions on the test set
 using the original functions <a href="http://www.rdocumentation.org/packages/MASS/functions/lda.html">lda</a> and <a href="http://www.rdocumentation.org/packages/MASS/functions/predict.lda.html">predict.lda</a>.
 The helper functions <code>testSimple</code> and <code>testProb</code> perform training and prediction on the same
 data using the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> interface -- <code>testSimple</code> for <code>predict.type = "response</code> and <code>testProbs</code> for
@@ -730,18 +730,18 @@ with the outcomes <code>p$class</code> and <code>p$posterior</code>.</p>
 <p>In order to get reproducible results seeding is required for many learners.
 The <code>"mlr.debug.seed"</code> works as follows:
 When invoking the tests the option <code>"mlr.debug.seed"</code> is set
-(see [https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_zzz.R]), and
+(see <a href="https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_zzz.R">https://github.com/mlr-org/mlr/blob/master/tests/testthat/helper_zzz.R</a>), and
 <code>set.seed(getOption("mlr.debug.seed"))</code> is used to specify the seed.
 Internally, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s
 <a href="https://github.com/mlr-org/mlr/blob/master/R/train.R#L73">train</a> and
 <a href="https://github.com/mlr-org/mlr/blob/master/R/predict.R#L100">predict.WrappedModel</a>
-functions also check if the <code>"mlr.debug.seed"</code> option is set and if yes, also specify the seed.</p>
+functions check if the <code>"mlr.debug.seed"</code> option is set and if yes, also specify the seed.</p>
 <p>Note that the option <code>"mlr.debug.seed"</code> is only set for testing, so no seeding happens in
 normal usage of <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.</p>
 <p>Let's look at a second example.
-Many learners have parameters that are commonly changed or tuned and it is prudent to make
+Many learners have parameters that are commonly changed or tuned and it is important to make
 sure that these are passed through correctly.
-Below is a snippet from [https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_regr_randomForest.R].</p>
+Below is a snippet from <a href="https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_regr_randomForest.R">https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_regr_randomForest.R</a>.</p>
 <pre><code class="r">test_that(&quot;regr_randomForest&quot;, {
   requirePackagesOrSkip(&quot;randomForest&quot;, default.method = &quot;load&quot;)
 
@@ -772,10 +772,28 @@ Below is a snippet from [https://github.com/mlr-org/mlr/blob/master/tests/testth
 </code></pre>
 
 <p>All tested parameter configurations are collected in the <code>parset.list</code>.
+In order to make sure that the default parameter configuration is tested the first element
+of the <code>parset.list</code> is an empty <a href="base::list">list</a>.
 Then we simply loop over all parameter settings and store the resulting predictions in
 <code>old.predicts.list</code>.
 Again the helper function <code>testSimpleParsets</code> does the same using the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> interface
-and compares the outcomes.</p></div>
+and compares the outcomes.</p>
+<p>Additional to tests for individual learners we also have general tests that loop through all
+integrated learners and make for example sure that learners have the correct properties
+(e.g. a learner with property <code>"factors"</code> can cope with <a href="base::factor">factor</a> features,
+a learner with property <code>"weights"</code> takes observation weights into account properly etc.).
+For example <a href="https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_learners_all_classif.R">https://github.com/mlr-org/mlr/blob/master/tests/testthat/test_learners_all_classif.R</a>
+runs through all classification learners.
+Similar tests exist for all types of learning methods like regression, cluster and survival analysis
+as well as multilabel classification.</p>
+<p>In order to run all tests for, e.g., classification learners on your machine you can invoke
+the tests from within <strong>R</strong> by</p>
+<pre><code class="r">devtools::test(&quot;mlr&quot;, filter = &quot;classif&quot;)
+</code></pre>
+
+<p>or from the command line using <a href="https://github.com/rdatsci/rt">Michel's rt tool</a></p>
+<pre><code>rtest --filter=classif
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
