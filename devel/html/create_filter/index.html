@@ -254,7 +254,7 @@ implemented in another package, via function <a href="http://www.rdocumentation.
 in an environment called <code>.FilterRegister</code>
 (where <a href="http://www.rdocumentation.org/packages/mlr/functions/listFilterMethods.html">listFilterMethods</a> looks them up to compile the list of available methods).
 To get to know their structure let's have a closer look at the <code>"rank.correlation"</code> filter
-which interfaces function <a href="http://www.rdocumentation.org/packages/FSelector/functions/correlation.html">rank.correlation</a> in package <a href="http://www.rdocumentation.org/packages/FSelector/">FSelector</a>.</p>
+which interfaces function <a href="http://www.rdocumentation.org/packages/Rfast/functions/correls.html">correls</a> in package <a href="http://www.rdocumentation.org/packages/Rfast/">Rfast</a>.</p>
 <pre><code class="r">filters = as.list(mlr:::.FilterRegister)
 filters$rank.correlation
 #&gt; Filter: 'rank.correlation'
@@ -279,13 +279,13 @@ filters$rank.correlation$fun
 #&gt;     y = Rfast::correls(d$target, d$data, type = &quot;spearman&quot;)
 #&gt;     setNames(abs(y[, &quot;correlation&quot;]), getTaskFeatureNames(task))
 #&gt; }
-#&gt; &lt;bytecode: 0x17e651e8&gt;
+#&gt; &lt;bytecode: 0x2f4e4a8&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
 <p>The core element is <code>$fun</code> which calculates the feature importance.
 For the <code>"rank.correlation"</code> filter it just extracts the data and formula from the <code>task</code>
-and passes them on to the <a href="http://www.rdocumentation.org/packages/FSelector/functions/correlation.html">rank.correlation</a> function.</p>
+and passes them on to the <a href="http://www.rdocumentation.org/packages/Rfast/functions/correls.html">correls</a> function.</p>
 <p>Additionally, each <a href="http://www.rdocumentation.org/packages/mlr/functions/makeFilter.html">Filter</a> object has a <code>$name</code>, which should be short and is
 for example used to annotate graphics (cp. <a href="http://www.rdocumentation.org/packages/mlr/functions/plotFilterValues.html">plotFilterValues</a>), and a slightly more detailed
 description in slot <code>$desc</code>.
@@ -305,7 +305,7 @@ values for <code>supported.tasks</code> are <code>"regr"</code>, <code>"classif"
 <li><code>nselect</code> corresponds to the argument of <a href="http://www.rdocumentation.org/packages/mlr/functions/generateFilterValuesData.html">generateFilterValuesData</a> of the same name and
   specifies the number of features for which to calculate importance scores.
   Some filter methods have the option to stop after a certain number of top-ranked features
-  have been found, in order to save time and ressources when the number of features is high.
+  have been found in order to save time and ressources when the number of features is high.
   The majority of filter methods integrated in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> doesn't support this and thus
   <code>nselect</code> is ignored in most cases.
   An exception is the minimum redundancy maximum relevance filter from package <a href="http://www.rdocumentation.org/packages/mRMRe/">mRMRe</a>.</li>
@@ -313,10 +313,10 @@ values for <code>supported.tasks</code> are <code>"regr"</code>, <code>"classif"
 </ul>
 <p><code>fun</code> must return a named vector of feature importance values.
 By convention the most important features receive the highest scores.</p>
-<p>If <code>nselect</code> is actively used <code>fun</code> can either return a vector of <code>nselect</code> scores or
-a vector as long as the numbers of features in the task that contains <code>NAs</code> for all
-features whose scores weren't calculated.</p>
-<p>For writing <code>fun</code> many of the getter functions for <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s come in handy,
+<p>If you are making use of the <code>nselect</code> option <code>fun</code> can either return a vector of <code>nselect</code>
+scores or a vector as long as the total numbers of features in the task filled with <code>NAs</code>
+for all features whose scores weren't calculated.</p>
+<p>When writing <code>fun</code> many of the getter functions for <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s come in handy,
 particularly <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskFormula.html">getTaskFormula</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskFeatureNames.html">getTaskFeatureNames</a>.
 It's worth having a closer look at <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a> which provides many options for
 formatting the data and recoding the target variable.</p>
