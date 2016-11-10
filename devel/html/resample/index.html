@@ -301,7 +301,7 @@ r
 #&gt; Task: lung-example
 #&gt; Learner: surv.coxph
 #&gt; Aggr perf: cindex.test.mean=0.627
-#&gt; Runtime: 0.0650599
+#&gt; Runtime: 0.0393269
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;task.desc&quot;      &quot;measures.train&quot;
@@ -381,19 +381,19 @@ r = resample(&quot;cluster.kmeans&quot;, task, rdesc, measures = list(dunn, db, 
 #&gt; [Resample] Start subsampling iter: 3
 #&gt; [Resample] Result: dunn = 0.520857
 #&gt; [Resample] Result: db = 0.429973
-#&gt; [Resample] Result: timetrain = 0.002000
+#&gt; [Resample] Result: timetrain = 0.001000
 #&gt; [Resample] Start subsampling iter: 4
 #&gt; [Resample] Result: dunn = 0.337838
 #&gt; [Resample] Result: db = 0.504705
-#&gt; [Resample] Result: timetrain = 0.002000
+#&gt; [Resample] Result: timetrain = 0.000000
 #&gt; [Resample] Start subsampling iter: 5
 #&gt; [Resample] Result: dunn = 0.243139
 #&gt; [Resample] Result: db = 0.512001
 #&gt; [Resample] Result: timetrain = 0.001000
-#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.0014
+#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.0008
 r$aggr
 #&gt;      dunn.test.mean        db.test.mean timetrain.test.mean 
-#&gt;           0.2738893           0.5103655           0.0014000
+#&gt;           0.2738893           0.5103655           0.0008000
 </code></pre>
 
 <h2 id="stratified-resampling">Stratified resampling</h2>
