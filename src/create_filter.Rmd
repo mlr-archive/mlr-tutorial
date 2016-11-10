@@ -11,7 +11,7 @@ In [%mlr] all filter methods are objects of class [Filter](&makeFilter) and are 
 in an environment called `.FilterRegister`
 (where [&listFilterMethods] looks them up to compile the list of available methods).
 To get to know their structure let's have a closer look at the `"rank.correlation"` filter
-which interfaces function [rank.correlation](&FSelector::correlation) in package [%FSelector].
+which interfaces function [correls](&Rfast::correls) in package [%Rfast].
 
 ```{r}
 filters = as.list(mlr:::.FilterRegister)
@@ -24,7 +24,7 @@ filters$rank.correlation$fun
 
 The core element is `$fun` which calculates the feature importance.
 For the `"rank.correlation"` filter it just extracts the data and formula from the `task`
-and passes them on to the [rank.correlation](&FSelector::correlation) function.
+and passes them on to the [correls](&Rfast::correls) function.
 
 Additionally, each [Filter](&makeFilter) object has a `$name`, which should be short and is
 for example used to annotate graphics (cp. [&plotFilterValues]), and a slightly more detailed
@@ -49,7 +49,7 @@ values for `supported.tasks` are `"regr"`, `"classif"` and `"surv"`.
 * `nselect` corresponds to the argument of [&generateFilterValuesData] of the same name and
   specifies the number of features for which to calculate importance scores.
   Some filter methods have the option to stop after a certain number of top-ranked features
-  have been found, in order to save time and ressources when the number of features is high.
+  have been found in order to save time and ressources when the number of features is high.
   The majority of filter methods integrated in [%mlr] doesn't support this and thus
   `nselect` is ignored in most cases.
   An exception is the minimum redundancy maximum relevance filter from package [%mRMRe].
@@ -58,11 +58,11 @@ values for `supported.tasks` are `"regr"`, `"classif"` and `"surv"`.
 `fun` must return a named vector of feature importance values.
 By convention the most important features receive the highest scores.
 
-If `nselect` is actively used `fun` can either return a vector of `nselect` scores or
-a vector as long as the numbers of features in the task that contains `NAs` for all
-features whose scores weren't calculated.
+If you are making use of the `nselect` option `fun` can either return a vector of `nselect`
+scores or a vector as long as the total numbers of features in the task filled with `NAs`
+for all features whose scores weren't calculated.
 
-For writing `fun` many of the getter functions for [&Task]s come in handy,
+When writing `fun` many of the getter functions for [&Task]s come in handy,
 particularly [&getTaskData], [&getTaskFormula] and [&getTaskFeatureNames].
 It's worth having a closer look at [&getTaskData] which provides many options for
 formatting the data and recoding the target variable.
