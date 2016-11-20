@@ -289,19 +289,19 @@ rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 
 ## Calculate the performance
 r = resample(&quot;surv.coxph&quot;, lung.task, rdesc)
-#&gt; [Resample] Start cross-validation iter: 1
-#&gt; [Resample] Result: cindex = 0.578303
-#&gt; [Resample] Start cross-validation iter: 2
-#&gt; [Resample] Result: cindex = 0.632407
-#&gt; [Resample] Start cross-validation iter: 3
-#&gt; [Resample] Result: cindex = 0.670644
-#&gt; [Resample] Result: cindex.test.mean=0.627
+#&gt; [Resample] cross-validation iter 1:
+#&gt; cindex.test.mean=0.578
+#&gt; [Resample] cross-validation iter 2:
+#&gt; cindex.test.mean=0.632
+#&gt; [Resample] cross-validation iter 3:
+#&gt; cindex.test.mean=0.671
+#&gt; [Resample] Aggr. Result: cindex.test.mean=0.627
 r
 #&gt; Resample Result
 #&gt; Task: lung-example
 #&gt; Learner: surv.coxph
 #&gt; Aggr perf: cindex.test.mean=0.627
-#&gt; Runtime: 0.0351429
+#&gt; Runtime: 0.0411437
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;task.desc&quot;      &quot;measures.train&quot;
@@ -370,27 +370,17 @@ rdesc = makeResampleDesc(&quot;Subsample&quot;, iters = 5, split = 4/5)
 
 ## Calculate the three performance measures
 r = resample(&quot;cluster.kmeans&quot;, task, rdesc, measures = list(dunn, db, timetrain))
-#&gt; [Resample] Start subsampling iter: 1
-#&gt; [Resample] Result: dunn = 0.191107
-#&gt; [Resample] Result: db = 0.516883
-#&gt; [Resample] Result: timetrain = 0.001000
-#&gt; [Resample] Start subsampling iter: 2
-#&gt; [Resample] Result: dunn = 0.076506
-#&gt; [Resample] Result: db = 0.588266
-#&gt; [Resample] Result: timetrain = 0.001000
-#&gt; [Resample] Start subsampling iter: 3
-#&gt; [Resample] Result: dunn = 0.520857
-#&gt; [Resample] Result: db = 0.429973
-#&gt; [Resample] Result: timetrain = 0.001000
-#&gt; [Resample] Start subsampling iter: 4
-#&gt; [Resample] Result: dunn = 0.337838
-#&gt; [Resample] Result: db = 0.504705
-#&gt; [Resample] Result: timetrain = 0.001000
-#&gt; [Resample] Start subsampling iter: 5
-#&gt; [Resample] Result: dunn = 0.243139
-#&gt; [Resample] Result: db = 0.512001
-#&gt; [Resample] Result: timetrain = 0.001000
-#&gt; [Resample] Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.001
+#&gt; [Resample] subsampling iter 1:
+#&gt; dunn.test.mean=0.191,db.test.mean=0.517,timetrain.test.mean=0.002
+#&gt; [Resample] subsampling iter 2:
+#&gt; dunn.test.mean=0.0765,db.test.mean=0.588,timetrain.test.mean=   0
+#&gt; [Resample] subsampling iter 3:
+#&gt; dunn.test.mean=0.521,db.test.mean=0.43,timetrain.test.mean=0.001
+#&gt; [Resample] subsampling iter 4:
+#&gt; dunn.test.mean=0.338,db.test.mean=0.505,timetrain.test.mean=0.001
+#&gt; [Resample] subsampling iter 5:
+#&gt; dunn.test.mean=0.243,db.test.mean=0.512,timetrain.test.mean=0.001
+#&gt; [Resample] Aggr. Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.001
 r$aggr
 #&gt;      dunn.test.mean        db.test.mean timetrain.test.mean 
 #&gt;           0.2738893           0.5103655           0.0010000
@@ -406,13 +396,13 @@ In order to conduct stratified resampling, set <code>stratify = TRUE</code> when
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, stratify = TRUE)
 
 r = resample(&quot;classif.lda&quot;, iris.task, rdesc)
-#&gt; [Resample] Start cross-validation iter: 1
-#&gt; [Resample] Result: mmce = 0.020000
-#&gt; [Resample] Start cross-validation iter: 2
-#&gt; [Resample] Result: mmce = 0.000000
-#&gt; [Resample] Start cross-validation iter: 3
-#&gt; [Resample] Result: mmce = 0.040000
-#&gt; [Resample] Result: mmce.test.mean=0.02
+#&gt; [Resample] cross-validation iter 1:
+#&gt; mmce.test.mean=0.02
+#&gt; [Resample] cross-validation iter 2:
+#&gt; mmce.test.mean=   0
+#&gt; [Resample] cross-validation iter 3:
+#&gt; mmce.test.mean=0.04
+#&gt; [Resample] Aggr. Result: mmce.test.mean=0.02
 </code></pre>
 
 <p>Stratification is also available for survival tasks.
@@ -421,13 +411,13 @@ Here the stratification balances the censoring rate.</p>
 To stratify on the input columns, specify factor columns of your task data via <code>stratify.cols</code></p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, stratify.cols = &quot;chas&quot;)
 r = resample(&quot;regr.rpart&quot;, bh.task, rdesc)
-#&gt; [Resample] Start cross-validation iter: 1
-#&gt; [Resample] Result: mse = 24.518985
-#&gt; [Resample] Start cross-validation iter: 2
-#&gt; [Resample] Result: mse = 18.739729
-#&gt; [Resample] Start cross-validation iter: 3
-#&gt; [Resample] Result: mse = 26.320608
-#&gt; [Resample] Result: mse.test.mean=23.2
+#&gt; [Resample] cross-validation iter 1:
+#&gt; mse.test.mean=24.5
+#&gt; [Resample] cross-validation iter 2:
+#&gt; mse.test.mean=18.7
+#&gt; [Resample] cross-validation iter 3:
+#&gt; mse.test.mean=26.3
+#&gt; [Resample] Aggr. Result: mse.test.mean=23.2
 </code></pre>
 
 <h2 id="accessing-individual-learner-models">Accessing individual learner models</h2>
@@ -438,13 +428,13 @@ If you want to keep them, set <code>models = TRUE</code> when calling <a href="h
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 
 r = resample(&quot;classif.lda&quot;, iris.task, rdesc, models = TRUE)
-#&gt; [Resample] Start cross-validation iter: 1
-#&gt; [Resample] Result: mmce = 0.040000
-#&gt; [Resample] Start cross-validation iter: 2
-#&gt; [Resample] Result: mmce = 0.000000
-#&gt; [Resample] Start cross-validation iter: 3
-#&gt; [Resample] Result: mmce = 0.020000
-#&gt; [Resample] Result: mmce.test.mean=0.02
+#&gt; [Resample] cross-validation iter 1:
+#&gt; mmce.test.mean=0.04
+#&gt; [Resample] cross-validation iter 2:
+#&gt; mmce.test.mean=   0
+#&gt; [Resample] cross-validation iter 3:
+#&gt; mmce.test.mean=0.02
+#&gt; [Resample] Aggr. Result: mmce.test.mean=0.02
 r$models
 #&gt; [[1]]
 #&gt; Model for learner.id=classif.lda; learner.class=classif.lda
@@ -472,13 +462,13 @@ rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 ## Extract the variable importance in a regression tree
 r = resample(&quot;regr.rpart&quot;, bh.task, rdesc,
     extract = function(x) x$learner.model$variable.importance)
-#&gt; [Resample] Start cross-validation iter: 1
-#&gt; [Resample] Result: mse = 45.868414
-#&gt; [Resample] Start cross-validation iter: 2
-#&gt; [Resample] Result: mse = 24.053872
-#&gt; [Resample] Start cross-validation iter: 3
-#&gt; [Resample] Result: mse = 20.858783
-#&gt; [Resample] Result: mse.test.mean=30.3
+#&gt; [Resample] cross-validation iter 1:
+#&gt; mse.test.mean=45.9
+#&gt; [Resample] cross-validation iter 2:
+#&gt; mse.test.mean=24.1
+#&gt; [Resample] cross-validation iter 3:
+#&gt; mse.test.mean=20.9
+#&gt; [Resample] Aggr. Result: mse.test.mean=30.3
 r$extract
 #&gt; [[1]]
 #&gt;         rm      lstat       crim      indus        age    ptratio 
@@ -635,16 +625,13 @@ m1 = mmce
 m2 = setAggregation(tpr, test.median)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 r = resample(&quot;classif.rpart&quot;, sonar.task, rdesc, measures = list(m1, m2))
-#&gt; [Resample] Start cross-validation iter: 1
-#&gt; [Resample] Result: mmce = 0.328571
-#&gt; [Resample] Result: tpr = 0.666667
-#&gt; [Resample] Start cross-validation iter: 2
-#&gt; [Resample] Result: mmce = 0.318841
-#&gt; [Resample] Result: tpr = 0.735294
-#&gt; [Resample] Start cross-validation iter: 3
-#&gt; [Resample] Result: mmce = 0.231884
-#&gt; [Resample] Result: tpr = 0.829268
-#&gt; [Resample] Result: mmce.test.mean=0.293,tpr.test.median=0.735
+#&gt; [Resample] cross-validation iter 1:
+#&gt; mmce.test.mean=0.329,tpr.test.median=0.667
+#&gt; [Resample] cross-validation iter 2:
+#&gt; mmce.test.mean=0.319,tpr.test.median=0.735
+#&gt; [Resample] cross-validation iter 3:
+#&gt; mmce.test.mean=0.232,tpr.test.median=0.829
+#&gt; [Resample] Aggr. Result: mmce.test.mean=0.293,tpr.test.median=0.735
 r$aggr
 #&gt;  mmce.test.mean tpr.test.median 
 #&gt;       0.2930987       0.7352941
@@ -657,16 +644,13 @@ in order to get predictions on both data sets, training and test.</p>
 <pre><code class="r">mmce.train.mean = setAggregation(mmce, train.mean)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, predict = &quot;both&quot;)
 r = resample(&quot;classif.rpart&quot;, iris.task, rdesc, measures = list(mmce, mmce.train.mean))
-#&gt; [Resample] Start cross-validation iter: 1
-#&gt; [Resample] Result: mmce = 0.040000
-#&gt; [Resample] Result: mmce = 0.040000
-#&gt; [Resample] Start cross-validation iter: 2
-#&gt; [Resample] Result: mmce = 0.060000
-#&gt; [Resample] Result: mmce = 0.060000
-#&gt; [Resample] Start cross-validation iter: 3
-#&gt; [Resample] Result: mmce = 0.040000
-#&gt; [Resample] Result: mmce = 0.040000
-#&gt; [Resample] Result: mmce.test.mean=0.0467,mmce.train.mean=0.0367
+#&gt; [Resample] cross-validation iter 1:
+#&gt; mmce.test.mean=0.04,mmce.train.mean=0.04
+#&gt; [Resample] cross-validation iter 2:
+#&gt; mmce.test.mean=0.06,mmce.train.mean=0.06
+#&gt; [Resample] cross-validation iter 3:
+#&gt; mmce.test.mean=0.04,mmce.train.mean=0.04
+#&gt; [Resample] Aggr. Result: mmce.test.mean=0.0467,mmce.train.mean=0.0367
 r$measures.train
 #&gt;   iter mmce mmce
 #&gt; 1    1 0.04 0.04

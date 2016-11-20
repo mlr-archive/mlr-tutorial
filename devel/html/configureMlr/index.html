@@ -268,7 +268,7 @@ session.</p>
 <p>You are bothered by all the output on the console like in this example?</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;Holdout&quot;)
 r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
-#&gt; [Resample] Start holdout iter: 1
+#&gt; [Resample] holdout iter 1:
 #&gt; # weights:  18 (10 variable)
 #&gt; initial  value 109.861229 
 #&gt; iter  10 value 12.256619
@@ -283,8 +283,8 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 #&gt; iter 100 value 2.360602
 #&gt; final  value 2.360602 
 #&gt; stopped after 100 iterations
-#&gt; [Resample] Result: mmce = 0.020000
-#&gt; [Resample] Result: mmce.test.mean=0.02
+#&gt; mmce.test.mean=0.02
+#&gt; [Resample] Aggr. Result: mmce.test.mean=0.02
 </code></pre>
 
 <p>You can suppress the output for this <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> and this <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> call as follows:</p>
