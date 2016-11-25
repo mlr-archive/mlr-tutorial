@@ -315,8 +315,7 @@ and for all learners and tasks (and thus visualize the output of [&getBMRPerform
 
 Below are both variants, box and violin plots. The first plot shows the [mmce](measures.md)
 and the second plot the balanced error rate ([ber](measures.md)).
-Moreover, in the second plot we color the boxes according to the learners to make them better
-distinguishable.
+Moreover, in the second plot we color the boxes according to the `learner.id`s.
 
 ```{r, fig.asp=7/9}
 plotBMRBoxplots(bmr, measure = mmce)
@@ -325,24 +324,29 @@ plotBMRBoxplots(bmr, measure = ber, style = "violin", pretty.names = FALSE) +
   theme(strip.text.x = element_text(size = 8))
 ```
 
-Note that by default the measure `name`s are used as labels for the y-axis.
+Note that by default the measure `name`s and the learner `short.name`s are used as axis
+labels.
 
 ```{r}
 mmce$name
+
 mmce$id
+
+getBMRLearnerIds(bmr)
+
+getBMRLearnerShortNames(bmr)
 ```
 
-If you prefer the shorter `id`s like mmce and ber set `pretty.names = FALSE` (as done for
+If you prefer the `id`s like, e.g., mmce and ber set `pretty.names = FALSE` (as done for
 the second plot).
-Of course you can also use the [ylab](&ggplot2::labs) function to choose a completely
-different label.
+Of course you can also use the [%ggplot2] functionality like the [ylab](&ggplot2::labs)
+function to choose completely different labels.
 
-Another thing which probably comes up quite often is changing the panel headers (which default
-to the [&Task] IDs) and the learner names on the x-axis (which default to the
-[Learner](&makeLearner) IDs).
+One question which comes up quite often is how to change the panel headers (which default
+to the [&Task] IDs) and the learner names on the x-axis.
 For example looking at the above plots we would like to remove the "example" suffixes and the
 "mlbench" prefixes from the panel headers.
-Moreover, compared to the other learner names "randomForest" seems a little long.
+Moreover, we want uppercase learner labels.
 Currently, the probably simplest solution is to change the factor levels of the plotted
 data as shown below.
 
@@ -351,7 +355,7 @@ plt = plotBMRBoxplots(bmr, measure = mmce)
 head(plt$data)
 
 levels(plt$data$task.id) = c("Iris", "Ringnorm", "Waveform", "Diabetes", "Sonar")
-levels(plt$data$learner.id) = c("lda", "rpart", "rF")
+levels(plt$data$learner.id) = c("LDA", "CART", "RGF)
 
 plt + ylab("Error rate")
 ```
