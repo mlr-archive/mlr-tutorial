@@ -355,7 +355,7 @@ plt = plotBMRBoxplots(bmr, measure = mmce)
 head(plt$data)
 
 levels(plt$data$task.id) = c("Iris", "Ringnorm", "Waveform", "Diabetes", "Sonar")
-levels(plt$data$learner.id) = c("LDA", "CART", "RGF)
+levels(plt$data$learner.id) = c("LDA", "CART", "RF")
 
 plt + ylab("Error rate")
 ```
