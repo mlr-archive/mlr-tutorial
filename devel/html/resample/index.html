@@ -301,7 +301,7 @@ r
 #&gt; Task: lung-example
 #&gt; Learner: surv.coxph
 #&gt; Aggr perf: cindex.test.mean=0.627
-#&gt; Runtime: 0.0412898
+#&gt; Runtime: 0.0408077
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;task.desc&quot;      &quot;measures.train&quot;
@@ -373,9 +373,9 @@ r = resample(&quot;cluster.kmeans&quot;, task, rdesc, measures = list(dunn, db, 
 #&gt; [Resample] subsampling iter 1:
 #&gt; dunn.test.mean=0.191,db.test.mean=0.517,timetrain.test.mean=0.001
 #&gt; [Resample] subsampling iter 2:
-#&gt; dunn.test.mean=0.0765,db.test.mean=0.588,timetrain.test.mean=0.001
+#&gt; dunn.test.mean=0.0765,db.test.mean=0.588,timetrain.test.mean=   0
 #&gt; [Resample] subsampling iter 3:
-#&gt; dunn.test.mean=0.521,db.test.mean=0.43,timetrain.test.mean=   0
+#&gt; dunn.test.mean=0.521,db.test.mean=0.43,timetrain.test.mean=0.001
 #&gt; [Resample] subsampling iter 4:
 #&gt; dunn.test.mean=0.338,db.test.mean=0.505,timetrain.test.mean=0.001
 #&gt; [Resample] subsampling iter 5:
@@ -645,11 +645,11 @@ in order to get predictions on both data sets, training and test.</p>
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, predict = &quot;both&quot;)
 r = resample(&quot;classif.rpart&quot;, iris.task, rdesc, measures = list(mmce, mmce.train.mean))
 #&gt; [Resample] cross-validation iter 1:
-#&gt; mmce.test.mean=0.04,mmce.train.mean=0.04
+#&gt; mmce.train.mean=0.04,mmce.test.mean=0.04
 #&gt; [Resample] cross-validation iter 2:
-#&gt; mmce.test.mean=0.06,mmce.train.mean=0.06
+#&gt; mmce.train.mean=0.03,mmce.test.mean=0.06
 #&gt; [Resample] cross-validation iter 3:
-#&gt; mmce.test.mean=0.04,mmce.train.mean=0.04
+#&gt; mmce.train.mean=0.04,mmce.test.mean=0.04
 #&gt; [Resample] Aggr. Result: mmce.test.mean=0.0467,mmce.train.mean=0.0367
 r$measures.train
 #&gt;   iter mmce mmce
