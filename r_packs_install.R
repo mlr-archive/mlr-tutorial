@@ -13,6 +13,7 @@ print("INSTALLED PACKAGES:")
 print(ip2)
 
 p = parse_deps(ip["mlr", "Suggests"])[, "name"]
+p = c(p, "pander")
 
 pmiss = setdiff(p, ip2)
 print("MISSING PACKAGES:")
