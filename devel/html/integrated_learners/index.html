@@ -238,10 +238,10 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
-            <li><a href="#classification-84">Classification (84)</a></li>
-            <li><a href="#regression-64">Regression (64)</a></li>
+            <li><a href="#classification-85">Classification (85)</a></li>
+            <li><a href="#regression-65">Regression (65)</a></li>
             <li><a href="#survival-analysis-15">Survival analysis (15)</a></li>
-            <li><a href="#cluster-analysis-8">Cluster analysis (8)</a></li>
+            <li><a href="#cluster-analysis-9">Cluster analysis (9)</a></li>
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
             <li><a href="#multilabel-classification-3">Multilabel classification (3)</a></li>
     </ul>
@@ -257,7 +257,7 @@ weights are supported.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods specific to the
 type of learning task.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-84">Classification (84)</h3>
+<h3 id="classification-85">Classification (85)</h3>
 <p>For classification the following additional learner properties are relevant and shown in
 column <strong>Props</strong>:</p>
 <ul>
@@ -476,6 +476,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>classif.featureless</strong> <br /> <em>featureless</em> <br /><br />Featureless classifier</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
 <td align="left"></td>
 </tr>
@@ -1207,7 +1218,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-64">Regression (64)</h3>
+<h3 id="regression-65">Regression (65)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1466,6 +1477,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>regr.featureless</strong> <br /> <em>featureless</em> <br /><br />Featureless regression</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
@@ -2121,7 +2143,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="cluster-analysis-8">Cluster analysis (8)</h3>
+<h3 id="cluster-analysis-9">Cluster analysis (9)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>prob</em>: Probabilities can be predicted.</li>
@@ -2228,6 +2250,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left"></td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>cluster.XMeans</strong> <br /> <em>xmeans</em> <br /><br />XMeans (k-means with automatic determination of k)</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/RWeka/">RWeka</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left">You may have to install the XMeans Weka package: <code>WPM('install-package', 'XMeans')</code>.</td>
 </tr>
 </tbody>
 </table>
