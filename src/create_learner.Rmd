@@ -464,6 +464,34 @@ getFeatureImportanceLearner.classif.randomForestSRC = function(.learner, .model,
 ```
 
 
+## Integrating out-of-bag predictions in the [%mlr] framework
+
+Some learners like random forest use bagging. Bagging means that the learner consists of a ensemble of several base learners and each base learner is trained with a different subsample or bootstrap sample from all observations. For predicting an observation, 
+that was used in the training process, one can predict the observation with all base learners, where this observation was not used 
+for training, because it was not sampled. These predictions are called out-of-bag (OOB) predictions and are not prone to 
+overfitting, as the predictions where not made with learners that used the observation for training. 
+
+Many methods provide these OOB predictions automatically. [%mlr] provides the function [getOOBPreds](&getOOBPreds)
+to incorporate these predictions in the [%mlr] framework. 
+
+If your newly integrated learner provides OOB prediction and you want to incorporate this in [%mlr] you need to
+
+* add `"oobpreds"` to the learner properties and
+* implement a new S3 method for function [&getOOBPreds] (which later is called
+  internally by [&getOOBPreds]). 
+
+This method takes the [&Learner] `.learner` and the [WrappedModel](&makeWrappedModel) `.model` and extracts the OOB predictions.
+It must return the predictions in the same format as the predictLearner function. 
+
+```{r, code=showFunctionDef(mlr:::getOOBPredsLearner.classif.randomForest = function(.learner, .model) {
+  if (.learner$predict.type == "response") {
+    unname(.model$learner.model$predicted)
+  } else {
+   .model$learner.model$votes
+  }
+}
+
+
 ## Registering your learner
 If your interface code to a new learning algorithm exists only locally, i.e., it is not (yet)
 merged into [%mlr] or does not live in an extra package with a proper namespace you might want

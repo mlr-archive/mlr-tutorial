@@ -1,0 +1,26 @@
+# Out-of-bag predictions
+
+Some learners like random forest use bagging. Bagging means that the learner consists of a ensemble of several base learners and each base learner is trained with a different random subsample or bootstrap sample from all observations. For predicting an observation, 
+that was used in the training process, one can predict the observation with all base learners, where this observation was not used 
+for training, because it was not sampled. These predictions are called out-of-bag (OOB) predictions and are not prone to 
+overfitting, as the predictions where not made with learners that used the observation for training. 
+
+To get the list of learners that provide OOB predictions, you can call listLearners(obj = NA, properties = "oobpreds"). 
+```{r}
+listLearners(obj = NA, properties = "oobpreds")[c("class", "package")]
+```
+
+In [%mlr] the function [getOOBPreds](&getOOBPreds) can be used to extract these observations of the trained models. 
+These predictions can be used to evaluate the performance of a given learner like in the following example.
+
+```{r}
+lrn = makeLearner("classif.ranger", predict.type = "prob", predict.threshold = 0.6)
+mod = train(lrn, sonar.task)
+oob = getOOBPreds(mod, sonar.task)
+oob
+performance(oob, measures = list(auc, mmce))
+```
+
+As the predictions that are used are out-of-bag, this evaluation strategy is very similar to common resampling strategies like 10-fold cross-validation, but much faster, as only one training instance of the model is necessary. 
+
+
