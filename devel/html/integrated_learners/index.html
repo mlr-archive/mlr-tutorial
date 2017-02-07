@@ -334,7 +334,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass</td>
-<td align="left">Delegates to <code>glm</code> with freely choosable binomial link function via learner parameter <code>link</code>.</td>
+<td align="left">Delegates to <code>glm</code> with freely choosable binomial link function via learner parameter <code>link</code>. The default for 'model' in the original learner is FALSE, due to memory reasons.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.blackboost</strong> <br /> <em>blackboost</em> <br /><br />Gradient Boosting With Regression Trees</td>
@@ -1048,7 +1048,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left">prob<br />twoclass<br />multiclass<br />class.weights<br />featimp</td>
+<td align="left">prob<br />twoclass<br />multiclass<br />class.weights<br />featimp<br />oobpreds</td>
 <td align="left">Note that the rf can freeze the R process if trained on a task with 1 feature which is constant. This can happen in feature forward selection, also due to resampling, and you need to remove such features with removeConstantFeatures.</td>
 </tr>
 <tr>
@@ -1059,7 +1059,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">prob<br />twoclass<br />multiclass<br />featimp</td>
+<td align="left">prob<br />twoclass<br />multiclass<br />featimp<br />oobpreds</td>
 <td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.</td>
 </tr>
 <tr>
@@ -1070,7 +1070,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">prob<br />twoclass<br />multiclass<br />featimp</td>
+<td align="left">prob<br />twoclass<br />multiclass<br />featimp<br />oobpreds</td>
 <td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable.</td>
 </tr>
 <tr>
@@ -1092,7 +1092,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left">twoclass<br />multiclass</td>
+<td align="left">twoclass<br />multiclass<br />oobpreds</td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -1829,7 +1829,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left">featimp<br />se</td>
+<td align="left">featimp<br />oobpreds<br />se</td>
 <td align="left">See <code>?regr.randomForest</code> for information about se estimation. Note that the rf can freeze the R process if trained on a task with 1 feature which is constant. This can happen in feature forward selection, also due to resampling, and you need to remove such features with removeConstantFeatures.</td>
 </tr>
 <tr>
@@ -1840,7 +1840,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">featimp</td>
+<td align="left">featimp<br />oobpreds</td>
 <td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.</td>
 </tr>
 <tr>
@@ -1851,7 +1851,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left">featimp</td>
+<td align="left">featimp<br />oobpreds</td>
 <td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable.</td>
 </tr>
 <tr>
@@ -2116,7 +2116,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">featimp<br />rcens</td>
+<td align="left">featimp<br />oobpreds<br />rcens</td>
 <td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.</td>
 </tr>
 <tr>
