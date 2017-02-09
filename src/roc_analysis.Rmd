@@ -32,8 +32,8 @@ because it's hard to quantify the costs or because costs and class priors vary o
 Under these circumstances the classifier is expected to work well for a whole range of
 decision thresholds and the area under the ROC curve (AUC) provides a scalar performance
 measure for comparing and selecting classifiers.
-[%mlr] provides the AUC for binary classification ([auc](measures.md) based on package
-[ROCR](&ROCR::performance)) and also several generalizations of the AUC to the
+[%mlr] provides the AUC for binary classification ([auc](measures.md)) and also several
+generalizations of the AUC to the
 multi-class case (e.g., [multiclass.au1p](measures.md), [multiclass.au1u](measures.md) based
 on [Ferri et al. (2009)](https://www.math.ucdavis.edu/~saito/data/roc/ferri-class-perf-metrics.pdf)).
 
