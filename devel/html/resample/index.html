@@ -257,9 +257,9 @@ Then the individual performance values are aggregated, typically by calculating 
 There exist various different resampling strategies, for example
 cross-validation and bootstrap, to mention just two popular approaches.</p>
 <p><img alt="Resampling Figure" src="../img/resampling.png" title="Resampling Figure" /></p>
-<p>If you want to read up further details, the paper
+<p>If you want to read up on further details, the paper
 <a href="http://link.springer.com/chapter/10.1007%2F978-0-387-47509-7_8">Resampling Strategies for Model Assessment and Selection</a>
-by Simon is proabably not a bad choice.
+by Simon is probably not a bad choice.
 Bernd has also published a paper
 <a href="http://www.mitpressjournals.org/doi/pdf/10.1162/EVCO_a_00069">Resampling methods for meta-model validation with recommendations for evolutionary computation</a>
 which contains detailed descriptions and lots of statistical background information on resampling methods.</p>
@@ -270,7 +270,7 @@ The supported resampling strategies are:</p>
 <li>Leave-one-out cross-validation (<code>"LOO""</code>),</li>
 <li>Repeated cross-validation (<code>"RepCV"</code>),</li>
 <li>Out-of-bag bootstrap and other variants (<code>"Bootstrap"</code>),</li>
-<li>Subsampling, also called Monte-Carlo cross-validaton (<code>"Subsample"</code>),</li>
+<li>Subsampling, also called Monte-Carlo cross-validation (<code>"Subsample"</code>),</li>
 <li>Holdout (training/test) (<code>"Holdout"</code>).</li>
 </ul>
 <p>The <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> function evaluates the performance of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> using
@@ -296,25 +296,30 @@ r = resample(&quot;surv.coxph&quot;, lung.task, rdesc)
 #&gt; [Resample] cross-validation iter 3:
 #&gt; cindex.test.mean=0.671
 #&gt; [Resample] Aggr. Result: cindex.test.mean=0.627
+
 r
 #&gt; Resample Result
 #&gt; Task: lung-example
 #&gt; Learner: surv.coxph
 #&gt; Aggr perf: cindex.test.mean=0.627
-#&gt; Runtime: 0.0404446
+#&gt; Runtime: 0.0443316
+
 ## peak a little bit into r
 names(r)
 #&gt;  [1] &quot;learner.id&quot;     &quot;task.id&quot;        &quot;task.desc&quot;      &quot;measures.train&quot;
 #&gt;  [5] &quot;measures.test&quot;  &quot;aggr&quot;           &quot;pred&quot;           &quot;models&quot;        
 #&gt;  [9] &quot;err.msgs&quot;       &quot;extract&quot;        &quot;runtime&quot;
+
 r$aggr
 #&gt; cindex.test.mean 
 #&gt;        0.6271182
+
 r$measures.test
 #&gt;   iter    cindex
 #&gt; 1    1 0.5783027
 #&gt; 2    2 0.6324074
 #&gt; 3    3 0.6706444
+
 r$measures.train
 #&gt;   iter cindex
 #&gt; 1    1     NA
@@ -335,7 +340,7 @@ in <a href="http://www.rdocumentation.org/packages/mlr/functions/makeResampleDes
 we will see some examples later on.</p>
 <p><code>r$pred</code> is an object of class <a href="http://www.rdocumentation.org/packages/mlr/functions/ResamplePrediction.html">ResamplePrediction</a>.
 Just as a <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> object (see the section on <a href="../predict/index.html">making predictions</a>)
-<code>r$pred</code> has an element called <code>"data"</code> which is a <code>data.frame</code> that contains the
+<code>r$pred</code> has an element called <code>"data"</code> which is a <a href="base::data.frame">data.frame</a> that contains the
 predictions and in case of a supervised learning problem the true values of the target
 variable.</p>
 <pre><code class="r">head(r$pred$data)
@@ -381,6 +386,7 @@ r = resample(&quot;cluster.kmeans&quot;, task, rdesc, measures = list(dunn, db, 
 #&gt; [Resample] subsampling iter 5:
 #&gt; dunn.test.mean=0.243,db.test.mean=0.512,timetrain.test.mean=0.001
 #&gt; [Resample] Aggr. Result: dunn.test.mean=0.274,db.test.mean=0.51,timetrain.test.mean=0.001
+
 r$aggr
 #&gt;      dunn.test.mean        db.test.mean timetrain.test.mean 
 #&gt;           0.2738893           0.5103655           0.0010000
@@ -407,7 +413,7 @@ r = resample(&quot;classif.lda&quot;, iris.task, rdesc)
 
 <p>Stratification is also available for survival tasks.
 Here the stratification balances the censoring rate.</p>
-<p>Sometimes it is required to also stratify on the input data, e.g. to ensure that all subgroups are represented in all training and test sets.
+<p>Sometimes it is required to also stratify on the input data, e.g., to ensure that all subgroups are represented in all training and test sets.
 To stratify on the input columns, specify factor columns of your task data via <code>stratify.cols</code></p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, stratify.cols = &quot;chas&quot;)
 r = resample(&quot;regr.rpart&quot;, bh.task, rdesc)
@@ -435,6 +441,7 @@ r = resample(&quot;classif.lda&quot;, iris.task, rdesc, models = TRUE)
 #&gt; [Resample] cross-validation iter 3:
 #&gt; mmce.test.mean=0.02
 #&gt; [Resample] Aggr. Result: mmce.test.mean=0.02
+
 r$models
 #&gt; [[1]]
 #&gt; Model for learner.id=classif.lda; learner.class=classif.lda
@@ -469,6 +476,7 @@ r = resample(&quot;regr.rpart&quot;, bh.task, rdesc,
 #&gt; [Resample] cross-validation iter 3:
 #&gt; mse.test.mean=20.9
 #&gt; [Resample] Aggr. Result: mse.test.mean=30.3
+
 r$extract
 #&gt; [[1]]
 #&gt;         rm      lstat       crim      indus        age    ptratio 
@@ -574,6 +582,7 @@ r.rpart = resample(&quot;classif.rpart&quot;, iris.task, rin, show.info = FALSE)
 r.lda$aggr
 #&gt; mmce.test.mean 
 #&gt;     0.02666667
+
 r.rpart$aggr
 #&gt; mmce.test.mean 
 #&gt;           0.06
@@ -632,6 +641,7 @@ r = resample(&quot;classif.rpart&quot;, sonar.task, rdesc, measures = list(m1, m
 #&gt; [Resample] cross-validation iter 3:
 #&gt; mmce.test.mean=0.232,tpr.test.median=0.829
 #&gt; [Resample] Aggr. Result: mmce.test.mean=0.293,tpr.test.median=0.735
+
 r$aggr
 #&gt;  mmce.test.mean tpr.test.median 
 #&gt;       0.2930987       0.7352941
@@ -651,11 +661,13 @@ r = resample(&quot;classif.rpart&quot;, iris.task, rdesc, measures = list(mmce, 
 #&gt; [Resample] cross-validation iter 3:
 #&gt; mmce.train.mean=0.04,mmce.test.mean=0.04
 #&gt; [Resample] Aggr. Result: mmce.test.mean=0.0467,mmce.train.mean=0.0367
+
 r$measures.train
 #&gt;   iter mmce mmce
 #&gt; 1    1 0.04 0.04
 #&gt; 2    2 0.03 0.03
 #&gt; 3    3 0.04 0.04
+
 r$aggr
 #&gt;  mmce.test.mean mmce.train.mean 
 #&gt;      0.04666667      0.03666667
@@ -688,7 +700,7 @@ b632.mmce
 #&gt; Note: Defined as: mean(response != truth)
 
 r = resample(&quot;classif.rpart&quot;, iris.task, rdesc,
-    measures = list(mmce, b632.mmce, b632plus.mmce), show.info = FALSE)
+  measures = list(mmce, b632.mmce, b632plus.mmce), show.info = FALSE)
 head(r$measures.train)
 #&gt;   iter        mmce        mmce        mmce
 #&gt; 1    1 0.026666667 0.026666667 0.026666667
@@ -697,6 +709,7 @@ head(r$measures.train)
 #&gt; 4    4 0.026666667 0.026666667 0.026666667
 #&gt; 5    5 0.033333333 0.033333333 0.033333333
 #&gt; 6    6 0.013333333 0.013333333 0.013333333
+
 r$aggr
 #&gt; mmce.test.mean      mmce.b632  mmce.b632plus 
 #&gt;     0.07051905     0.05389071     0.05496489

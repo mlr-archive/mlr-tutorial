@@ -244,7 +244,7 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="learning-curve-analysis">Learning Curve Analysis</h1>
-<p>To analyse how the increase of observations in the training set improves the performance of
+<p>To analyze how the increase of observations in the training set improves the performance of
 a learner the <em>learning curve</em> is an appropriate visual tool.
 The experiment is conducted with an increasing subsample size and the performance is measured.
 In the plot the x-axis represents the relative subsample size whereas the y-axis represents
@@ -262,11 +262,11 @@ step of increasing the number of observations.</p>
 for multiple <a href="../integrated_learners/index.html">learners</a> and multiple <a href="../measures/index.html">performance measures</a>
 at once.
 With <a href="http://www.rdocumentation.org/packages/mlr/functions/plotLearningCurve.html">plotLearningCurve</a> the result of <a href="http://www.rdocumentation.org/packages/mlr/functions/generateLearningCurveData.html">generateLearningCurveData</a> can be plotted using <a href="http://www.rdocumentation.org/packages/ggplot2/">ggplot2</a>.
-<a href="http://www.rdocumentation.org/packages/mlr/functions/plotLearningCurve.html">plotLearningCurve</a> has an argument <code>facet</code> which can be either "measure" or "learner". By default
+<a href="http://www.rdocumentation.org/packages/mlr/functions/plotLearningCurve.html">plotLearningCurve</a> has an argument <code>facet</code> which can be either <code>"measure"</code> or <code>"learner"</code>. By default
 <code>facet = "measure"</code> and facetted subplots are created for each measure input to <a href="http://www.rdocumentation.org/packages/mlr/functions/generateLearningCurveData.html">generateLearningCurveData</a>.
 If <code>facet = "measure"</code> learners are mapped to color, and vice versa.</p>
 <pre><code class="r">r = generateLearningCurveData(
-  learners = list(&quot;classif.rpart&quot;, &quot;classif.knn&quot;),
+  learners = c(&quot;classif.rpart&quot;, &quot;classif.knn&quot;),
   task = sonar.task,
   percs = seq(0.1, 1, by = 0.2),
   measures = list(tp, fp, tn, fn),
@@ -285,13 +285,14 @@ and used to train the learner.
 The performance will be measured on the <em>complete test set</em>.
 These steps will be repeated as defined by the given <em>resampling method</em> and for each value
 of <code>percs</code>.</p>
-<p>In the first example a simplified usage of the <code>learners</code> argument was used, so that it's
-sufficient to give the <em>name</em>.
-It is also possible to create a learner the usual way and even to mix it.
-Make sure to give different <code>id</code>s in this case.</p>
+<p>In the first example we simply passed a vector of learner names to [generateLearningCurveData].
+As usual, you can also create the learners beforehand and provide a <a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a>
+of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> objects, or even pass a mixed <a href="http://www.rdocumentation.org/packages/base/functions/list.html">list</a> of <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>
+objects and strings.
+Make sure that all learners have unique <code>id</code>s.</p>
 <pre><code class="r">lrns = list(
-  makeLearner(cl = &quot;classif.ksvm&quot;, id = &quot;ksvm1&quot; , sigma = 0.2, C = 2),
-  makeLearner(cl = &quot;classif.ksvm&quot;, id = &quot;ksvm2&quot; , sigma = 0.1, C = 1),
+  makeLearner(cl = &quot;classif.ksvm&quot;, id = &quot;ksvm1&quot;, sigma = 0.2, C = 2),
+  makeLearner(cl = &quot;classif.ksvm&quot;, id = &quot;ksvm2&quot;, sigma = 0.1, C = 1),
   &quot;classif.randomForest&quot;
 )
 rin = makeResampleDesc(method = &quot;CV&quot;, iters = 5)
