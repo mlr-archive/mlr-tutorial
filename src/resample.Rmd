@@ -17,9 +17,9 @@ cross-validation and bootstrap, to mention just two popular approaches.
 
 ![Resampling Figure](img/resampling.png "Resampling Figure")
 
-If you want to read up further details, the paper
+If you want to read up on further details, the paper
 [Resampling Strategies for Model Assessment and Selection](http://link.springer.com/chapter/10.1007%2F978-0-387-47509-7_8)
-by Simon is proabably not a bad choice.
+by Simon is probably not a bad choice.
 Bernd has also published a paper
 [Resampling methods for meta-model validation with recommendations for evolutionary computation](http://www.mitpressjournals.org/doi/pdf/10.1162/EVCO_a_00069)
 which contains detailed descriptions and lots of statistical background information on resampling methods.
@@ -31,7 +31,7 @@ The supported resampling strategies are:
 * Leave-one-out cross-validation (``"LOO""``),
 * Repeated cross-validation (``"RepCV"``),
 * Out-of-bag bootstrap and other variants (``"Bootstrap"``),
-* Subsampling, also called Monte-Carlo cross-validaton (``"Subsample"``),
+* Subsampling, also called Monte-Carlo cross-validation (``"Subsample"``),
 * Holdout (training/test) (``"Holdout"``).
 
 The [&resample] function evaluates the performance of a [Learner](&makeLearner) using
@@ -53,11 +53,16 @@ rdesc = makeResampleDesc("CV", iters = 3)
 
 ## Calculate the performance
 r = resample("surv.coxph", lung.task, rdesc)
+
 r
+
 ## peak a little bit into r
 names(r)
+
 r$aggr
+
 r$measures.test
+
 r$measures.train
 ```
 
@@ -76,7 +81,7 @@ we will see some examples later on.
 
 ``r$pred`` is an object of class [&ResamplePrediction].
 Just as a [&Prediction] object (see the section on [making predictions](predict.md))
-``r$pred`` has an element called ``"data"`` which is a ``data.frame`` that contains the
+``r$pred`` has an element called ``"data"`` which is a [data.frame](base::data.frame) that contains the
 predictions and in case of a supervised learning problem the true values of the target
 variable.
 
@@ -111,6 +116,7 @@ rdesc = makeResampleDesc("Subsample", iters = 5, split = 4/5)
 
 ## Calculate the three performance measures
 r = resample("cluster.kmeans", task, rdesc, measures = list(dunn, db, timetrain))
+
 r$aggr
 ```
 
@@ -132,7 +138,7 @@ r = resample("classif.lda", iris.task, rdesc)
 Stratification is also available for survival tasks.
 Here the stratification balances the censoring rate.
 
-Sometimes it is required to also stratify on the input data, e.g. to ensure that all subgroups are represented in all training and test sets.
+Sometimes it is required to also stratify on the input data, e.g., to ensure that all subgroups are represented in all training and test sets.
 To stratify on the input columns, specify factor columns of your task data via ``stratify.cols``
 ```{r}
 rdesc = makeResampleDesc("CV", iters = 3, stratify.cols = "chas")
@@ -151,6 +157,7 @@ If you want to keep them, set ``models = TRUE`` when calling [&resample].
 rdesc = makeResampleDesc("CV", iters = 3)
 
 r = resample("classif.lda", iris.task, rdesc, models = TRUE)
+
 r$models
 ```
 
@@ -166,6 +173,7 @@ rdesc = makeResampleDesc("CV", iters = 3)
 ## Extract the variable importance in a regression tree
 r = resample("regr.rpart", bh.task, rdesc,
     extract = function(x) x$learner.model$variable.importance)
+
 r$extract
 ```
 
@@ -228,6 +236,7 @@ rin = makeResampleInstance(rdesc, task = iris.task)
 r.lda = resample("classif.lda", iris.task, rin, show.info = FALSE)
 r.rpart = resample("classif.rpart", iris.task, rin, show.info = FALSE)
 r.lda$aggr
+
 r.rpart$aggr
 ```
 
@@ -282,6 +291,7 @@ m1 = mmce
 m2 = setAggregation(tpr, test.median)
 rdesc = makeResampleDesc("CV", iters = 3)
 r = resample("classif.rpart", sonar.task, rdesc, measures = list(m1, m2))
+
 r$aggr
 ```
 
@@ -295,7 +305,9 @@ in order to get predictions on both data sets, training and test.
 mmce.train.mean = setAggregation(mmce, train.mean)
 rdesc = makeResampleDesc("CV", iters = 3, predict = "both")
 r = resample("classif.rpart", iris.task, rdesc, measures = list(mmce, mmce.train.mean))
+
 r$measures.train
+
 r$aggr
 ```
 
@@ -325,8 +337,9 @@ b632plus.mmce = setAggregation(mmce, b632plus)
 b632.mmce
 
 r = resample("classif.rpart", iris.task, rdesc,
-    measures = list(mmce, b632.mmce, b632plus.mmce), show.info = FALSE)
+  measures = list(mmce, b632.mmce, b632plus.mmce), show.info = FALSE)
 head(r$measures.train)
+
 r$aggr
 ```
 
