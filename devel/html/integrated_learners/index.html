@@ -334,7 +334,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass</td>
-<td align="left">Delegates to <code>glm</code> with freely choosable binomial link function via learner parameter <code>link</code>. The default for 'model' in the original learner is FALSE, due to memory reasons.</td>
+<td align="left">Delegates to <code>glm</code> with freely choosable binomial link function via learner parameter <code>link</code>. We set 'model' to FALSE by default to save memory.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.blackboost</strong> <br /> <em>blackboost</em> <br /><br />Gradient Boosting With Regression Trees</td>
@@ -796,7 +796,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass</td>
-<td align="left">Delegates to <code>glm</code> with <code>family = binomial(link = "logit")</code>.</td>
+<td align="left">Delegates to <code>glm</code> with <code>family = binomial(link = 'logit')</code>. We set 'model' to FALSE by default to save memory.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.lqa</strong> <br /> <em>lqa</em> <br /><br />Fitting penalized Generalized Linear Models with the LQA algorithm</td>
@@ -1016,7 +1016,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass</td>
-<td align="left">Delegates to <code>glm</code> with <code>family = binomial(link = "probit")</code>.</td>
+<td align="left">Delegates to <code>glm</code> with <code>family = binomial(link = 'probit')</code>. We set 'model' to FALSE by default to save memory.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.qda</strong> <br /> <em>qda</em> <br /><br />Quadratic Discriminant Analysis</td>
@@ -1555,7 +1555,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">se</td>
-<td align="left">'family' must be a character and every family has its own link, i.e. family = 'gaussian', link.gaussian = 'identity', which is also the default.</td>
+<td align="left">'family' must be a character and every family has its own link, i.e. family = 'gaussian', link.gaussian = 'identity', which is also the default. We set 'model' to FALSE by default to save memory.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.glmboost</strong> <br /> <em>glmboost</em> <br /><br />Boosting for GLMs</td>
