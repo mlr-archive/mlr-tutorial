@@ -1,6 +1,6 @@
 # Learning Curve Analysis
 
-To analyse how the increase of observations in the training set improves the performance of
+To analyze how the increase of observations in the training set improves the performance of
 a learner the *learning curve* is an appropriate visual tool.
 The experiment is conducted with an increasing subsample size and the performance is measured.
 In the plot the x-axis represents the relative subsample size whereas the y-axis represents
@@ -22,13 +22,13 @@ The [%mlr] function [&generateLearningCurveData] can generate the data for *lear
 for multiple [learners](integrated_learners.md) and multiple [performance measures](measures.md)
 at once.
 With [&plotLearningCurve] the result of [&generateLearningCurveData] can be plotted using [%ggplot2].
-[&plotLearningCurve] has an argument `facet` which can be either "measure" or "learner". By default
+[&plotLearningCurve] has an argument `facet` which can be either `"measure"` or `"learner"`. By default
 `facet = "measure"` and facetted subplots are created for each measure input to [&generateLearningCurveData].
 If `facet = "measure"` learners are mapped to color, and vice versa.
 
 ```{r LearningCurveTPFP, fig.asp = 7/9}
 r = generateLearningCurveData(
-  learners = list("classif.rpart", "classif.knn"),
+  learners = c("classif.rpart", "classif.knn"),
   task = sonar.task,
   percs = seq(0.1, 1, by = 0.2),
   measures = list(tp, fp, tn, fn),
@@ -47,15 +47,16 @@ The performance will be measured on the *complete test set*.
 These steps will be repeated as defined by the given *resampling method* and for each value
 of `percs`.
 
-In the first example a simplified usage of the `learners` argument was used, so that it's
-sufficient to give the *name*.
-It is also possible to create a learner the usual way and even to mix it.
-Make sure to give different `id`s in this case.
+In the first example we simply passed a vector of learner names to [generateLearningCurveData].
+As usual, you can also create the learners beforehand and provide a [list](&base::list)
+of [Learner](&makeLearner) objects, or even pass a mixed [list](&base::list) of [Learner](&makeLearner)
+objects and strings.
+Make sure that all learners have unique `id`s.
 
 ```{r LearningCurveACCx, fig.asp = 3/4}
 lrns = list(
-  makeLearner(cl = "classif.ksvm", id = "ksvm1" , sigma = 0.2, C = 2),
-  makeLearner(cl = "classif.ksvm", id = "ksvm2" , sigma = 0.1, C = 1),
+  makeLearner(cl = "classif.ksvm", id = "ksvm1", sigma = 0.2, C = 2),
+  makeLearner(cl = "classif.ksvm", id = "ksvm2", sigma = 0.1, C = 1),
   "classif.randomForest"
 )
 rin = makeResampleDesc(method = "CV", iters = 5)
