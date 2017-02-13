@@ -447,33 +447,33 @@ lrns = listLearners()
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;                 class      package
 #&gt; 1         classif.ada          ada
-#&gt; 2      classif.avNNet         nnet
-#&gt; 3 classif.bartMachine  bartMachine
-#&gt; 4         classif.bdk      kohonen
-#&gt; 5    classif.binomial        stats
-#&gt; 6  classif.blackboost mboost,party
+#&gt; 2 classif.bartMachine  bartMachine
+#&gt; 3         classif.bdk      kohonen
+#&gt; 4    classif.binomial        stats
+#&gt; 5  classif.blackboost mboost,party
+#&gt; 6    classif.boosting adabag,rpart
 
 ## List classifiers that can output probabilities
 lrns = listLearners(&quot;classif&quot;, properties = &quot;prob&quot;)
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;                 class      package
 #&gt; 1         classif.ada          ada
-#&gt; 2      classif.avNNet         nnet
-#&gt; 3 classif.bartMachine  bartMachine
-#&gt; 4         classif.bdk      kohonen
-#&gt; 5    classif.binomial        stats
-#&gt; 6  classif.blackboost mboost,party
+#&gt; 2 classif.bartMachine  bartMachine
+#&gt; 3         classif.bdk      kohonen
+#&gt; 4    classif.binomial        stats
+#&gt; 5  classif.blackboost mboost,party
+#&gt; 6    classif.boosting adabag,rpart
 
 ## List classifiers that can be applied to iris (i.e., multiclass) and output probabilities
 lrns = listLearners(iris.task, properties = &quot;prob&quot;)
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;              class      package
-#&gt; 1   classif.avNNet         nnet
-#&gt; 2      classif.bdk      kohonen
-#&gt; 3 classif.boosting adabag,rpart
-#&gt; 4      classif.C50          C50
-#&gt; 5  classif.cforest        party
-#&gt; 6    classif.ctree        party
+#&gt; 1      classif.bdk      kohonen
+#&gt; 2 classif.boosting adabag,rpart
+#&gt; 3      classif.C50          C50
+#&gt; 4  classif.cforest        party
+#&gt; 5    classif.ctree        party
+#&gt; 6 classif.cvglmnet       glmnet
 
 ## The calls above return character vectors, but you can also create learner objects
 head(listLearners(&quot;cluster&quot;, create = TRUE), 2)
