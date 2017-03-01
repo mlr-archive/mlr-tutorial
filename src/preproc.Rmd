@@ -21,7 +21,7 @@ were already mentioned on the page about [learning tasks](task.md):
   standardization or scaling to a certain range.
 * [&removeConstantFeatures]: Remove constant features.
 * [&subsetTask]: Remove observations and/or features from a [&Task].
-
+* [&makePreprocWrapperLambert]: Wrapping learners inside of lambert $W\times F$ transforms
 Moreover, there are tutorial pages devoted to
 
 * [Feature selection](feature_selection.md) and

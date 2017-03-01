@@ -1,0 +1,288 @@
+# Cost-Sensitive Classification
+
+The standard objective in forecasting is, at time period $t$, make predictions for $t+h$ periods into the future. Forecasting tasks are most suitable when past patterns in the data will continue on into the future. The purpose of this package extension is to give users of mlr the opportunity to safely and productively train, optimize, and deploy forecasting models.
+
+In the following we show ways to handle forecasting problems in [%mlr].
+Some of the functionality is currently experimental, and there may be changes in the future.
+
+
+## Forecasting Tasks
+
+For our purposes we will simulate some data.
+
+```{r makedata}
+set.seed(1234)
+dat = arima.sim(model = list(ar = c(.5,.2), ma = c(.4), order = c(2,0,1)), n = 200)
+times = (as.POSIXlt("1992-01-14")) + lubridate::days(1:200)
+dat = xts::xts(dat,order.by = times)
+colnames(dat) = c("arma_test")
+dat.train = dat[1:190,]
+dat.test = dat[191:200,]
+```
+
+To specify a forecast task we must pass an `xts` object containing the data, a `target`, and the `frequency` of the data. The frequency of the data can be thought of as the seasonality. For example, a frequency of seven on daily data would be a weekly seasonality. A frequency of fifty-two on weekly data would indicate a yearly seasonality.
+
+```{r makeTask}
+library(mlr)
+fcregr.task = makeForecastRegrTask(id = "test", data = dat.train, target = "arma_test",
+                                     frequency = 7L)
+fcregr.task
+```
+
+
+Like a regression task, the [makeForecastRegrTask](&Task) records the type of the learning problem and basic information about the data set. This task also returns the start and end dates of the time series as well as the frequency.
+
+## Multivariate Forecasting Tasks
+
+One common problem with forecasting is that it is difficult to use additional explanatory variables or forecast multiple targets that are dependent on one another. If we are at time $t$ and want to forecast 10 periods in the future, we need to know the values of the explanatory variables at time $t+10$, which is often not possible. A new set of models which treats explanatory variables endogenously instead of exogenously allows us to forecast not only our target, but additional explanatory variables. This is done by treating all the variables as targets, making them endogenous to the model. To use these models, we create a multivariate forecasting task using the [EuStockMarkets](&datasets::EuStockMarkets)
+
+```{r EuStockData}
+data("EuStockMarkets")
+EuStockMarkets.time = lubridate::date_decimal(as.numeric(time(EuStockMarkets)))
+EuStockMarkets  = xts::xts(as.data.frame(EuStockMarkets), order.by = EuStockMarkets.time)
+EuStockMarkets.train = EuStockMarkets[1:1850,]
+EuStockMarets.test = EuStockMarkets[1851:1860,]
+mfcregr.task = makeMultiForecastRegrTask(id = "bigvar", data = EuStockMarkets.train, target = "all", frequency = 7L)
+mfcregr.task
+```
+
+The [makeMultiForecastRegrTask](&Task) prints the same information as a univariate forecast task.
+
+If we would like to specify a target variable while still forecasting the rest of the data in an endogenous manner, we change our target to one of the variables.
+
+```{r EuStockDataSingle}
+mfcregr.task = makeMultiForecastRegrTask(id = "bigvar", data = EuStockMarkets.train, target = "DAX", frequency = 7L)
+mfcregr.task
+```
+
+## Making Learners for Forecasting
+
+Several new models have been included from the `forecast` package and well as `rugarch`:
+
+1. Exponential smoothing state space model with Box-Cox transformation ([bats](&forecast::bats))
+2. Exponential smoothing state space model with Box-Cox transformation, ARMA errors, Trend and Seasonal Fourier components ([tbats](&forecast::tbats))
+3. Exponential smoothing state space model ([ets](&forecast::ets))
+4. Neural Network Autoregressive model ([nnetar](&forecast::nnetar))
+5. Automated Arima (auto.arima)
+6. General Autoregressive Conditional Heteroskedasticity models ([GARCH](&rugarch::ugarchfit))
+7. BigVar for multivariate time series ([BigVar](&BigVAR::constructModel))
+
+These all operate the same as the other models in [%mlr], with a very important parameter. Models will either have an `h` or `n.ahead` parameter, which is the number of periods you want to forecast into the future. Note that this should be equal to the horizon you set in your growing or fixed window resampling strategy. 
+
+We create a [GARCH](&rugarch::ugarchfit) model using [makeLearner](&makeLearner) by calling the learner class `fcregr.garch`. An important parameter is `n.ahead`, which is used to specify that we are forecasting 10 periods into the future. We can view all of the possible parameters that can be tuned with [getLearnerParamSet](&getLearnerParamSet).
+
+```{r makeArima}
+getLearnerParamSet("fcregr.garch")
+garch.mod = makeLearner("fcregr.garch",
+                        model = "sGARCH", garchOrder = c(2,1),
+                        n.ahead = 10L, include.mean = FALSE)
+garch.mod
+```
+
+Once we set up our task and model [train](&train), [predict](&predict), and [performance](&performance) can be called to build and evaluate the model.
+
+```{r garchMod}
+garch.train = train(garch.mod, fcregr.task)
+garch.pred = predict(garch.train, newdata = dat.test)
+performance(garch.pred, measure = mase, task = fcregr.task)
+```
+
+This standard evaluation method is user friendly and in addition, we can now use `mlr`'s built in resampling and tuning methods to tune a garch model for the data.
+
+## Resampling
+
+mlr now has two new cross validation resampling strategies, `GrowingCV` and `FixedCV`. They are both rolling forecasting origin techniques established in Hyndman and Athanasopoulos (2013) and first widely available for machine learning in R by the `caret` package’s [createTimeSlices](&caret::createTimeSlices) function. We specify:
+
+1. horizon - the number of periods to forecast
+2. initial.window - The proportion of data that will be used in the initial window
+3. size - The number of rows in the training set
+4. skip - the proportion of windows to skip over, which can be used to save time
+
+```{r resampleDescSimp}
+resamp.desc = makeResampleDesc("GrowingCV", horizon = 10L,
+                               initial.window = .90,
+                               size = nrow(getTaskData(fcregr.task)), skip = 0)
+resamp.desc
+
+```
+
+Note that we should not specify stratification, as it does not really make sense in the context of time series to stratify our data (unless a future implementation can somehow use this for panel data). The wonderful graphic posted below comes from the `caret` package's website and gives an intuitive idea of the sliding windows for both the growing and fixed options.
+
+![Resampling](img/windowing.png "The top is fixed window and bottom is growing window")
+
+Using the resampling strategy we can do a windowing cross-validation with our previous GARCH model to evaluate the general performance of the created GARCH model.
+
+```{r resampleGarch}
+garch.resample = resample(learner = garch.mod, task = fcregr.task,
+                          resampling = resamp.desc, measures = mase)
+garch.resample
+```
+
+## Tuning
+
+The forecasting features fully integrate into mlr, allowing us to also make a parameter set to tune over. Here we tune a GARCH model with F1-racing used to tune our parameters. In addition, we can tune the model in parallel using `parallelMap`.
+
+```{r tuneArima}
+par_set = makeParamSet(
+  makeDiscreteParam(id = "model", values = c("sGARCH")),
+  makeIntegerVectorParam(id = "garchOrder", len = 2L, lower = 1, upper = 3)
+  )
+
+#Specify tune by grid estimation
+ctrl = makeTuneControlIrace(maxExperiments = 100L)
+
+
+configureMlr(on.learner.error = "warn")
+res = tuneParams(garch.mod, task = fcregr.task,
+                 resampling = resamp.desc, par.set = par_set,
+                 control = ctrl, measures = mase)
+res
+```
+
+
+Once we have tuned the model we get back the hyperparameters of the best model through `setHyperPars()` and then train the model like any other.
+
+```{r bestArima}
+garch.hyp  = setHyperPars(makeLearner("fcregr.garch", n.ahead = 10L),
+                          par.vals = res$x)
+garch.best = train(garch.hyp, fcregr.task)
+garch.pred = predict(garch.best, newdata = dat.test)
+performance(garch.pred, measures = mase, task = fcregr.task)
+
+```
+
+## Updating Models
+
+A new function [updateModel](&updateModel) has been implemented that updates the model given new data. This function is currently only implemented for ets, Arima, auto.arima, bats, tbats, and nnetar.
+
+```{r updateArima}
+fcregr.task = makeForecastRegrTask(id = "test", data = dat.train,
+                                   target = "arma_test", frequency = 7L)
+arm = makeLearner("fcregr.Arima", order = c(2L,0L,1L),
+                  h = 10L, include.mean = FALSE)
+arm
+armMod = train(arm, fcregr.task)
+updateArmMod = updateModel(armMod, fcregr.task, newdata = dat.test)
+updateArmMod
+
+```
+
+[predict](&predict) now forcasts the next 10 periods.
+
+```{r armaUpdatePred, cache = TRUE}
+
+predict(updateArmMod, task = fcregr.task)
+```
+
+## Pre-processing
+### Creating Lags and Differences
+
+The function [createLagDiffFeatures](&createLagDiffFeatures) allows users to create arbitrary lags and differences that allow for the creation of $AR(p,d)$ style machine learning models to be used with forecasting. This method requires passing a data frame with the row names being POSIXct compatable.
+
+```{r createlagdiff, cache = TRUE}
+dat.train.reg = as.data.frame(dat.train, row.names = index(dat.train))
+regr.task = makeRegrTask(data = dat.train.reg, target = "arma_test")
+regr.task.lag = createLagDiffFeatures(regr.task,lag = 2L:4L, difference = 1L, 
+                                          seasonal.lag = 1L:2L, frequency = 5)
+regr.task.lag
+
+```
+
+This can be used with any task type as long as the row names of the task data can be converted to `POSIXct` format. 
+
+As an example, we will build and train a gradient boosting machine using lagged data.
+
+```{r gdmLags, cache = TRUE}
+regrGbm <- makeLearner("regr.gbm", par.vals = list(n.trees = 100))
+gbmMod = train(regrGbm, regr.task.lag)
+
+```
+
+To forecast with a regression model whose task is manipulated by `createLagDiffFeatures()` use the function `forecast()`.
+
+```{r forecastgbm, cache = TRUE}
+gbm.fore = forecast(gbmMod, h = 10, newdata = dat.test)
+performance(gbm.fore, measures = mase, task = regr.task.lag)
+```
+
+
+## Classification Forecasting Example
+
+For developing trading strategies, we normally have a discrete set of choices such as to buy, sell, or hold onto a stock. Using forecasting in mlr we can now train classification models that forecast these choices. He we try to predict whether a 'stock' will go up 5%, down 5%, or neither. Below we simulate data from an ARIMA process, take the percentage change, and descritize the data into either a 'buy', 'sell', or 'hold'.
+
+```{r binaryforecast, cache = TRUE}
+library(xts)
+library(lubridate)
+set.seed(1234)
+# Generate an ARIMA based data set
+dat = arima.sim(model = list(ar = c(.5,.2,.1), ma = c(.5,.3), order = c(3,0,2)), n = 500)
+dat = dat/lag(dat,-1) - 1 
+jump = data.frame(jump = ifelse(diff(dat) > .5, "Buy",ifelse(diff(dat) < -.5, "Sell","Hold")))
+times = (as.POSIXct("1992-01-14")) + lubridate::days(1:498)
+rownames(jump) = times
+jump.train = jump[1:488,,drop = FALSE]
+jump.test  = jump[489:498,,drop = FALSE]
+
+# Make the classif task
+classif.task = makeClassifTask(data = jump.train,target = "jump")
+classif.task.lag = createLagDiffFeatures(classif.task, lag = 1L:15L, 
+                                     na.pad = FALSE)
+
+classif.learn = makeLearner("classif.boosting")
+classif.train = train(classif.learn,classif.task.lag)
+classif.fore = forecast(classif.train, h = 10, newdata = jump.test)
+performance(classif.fore)
+```
+
+# Multivariate Forecasting with ML stacking
+
+One difficulty in the integration of machine learning and forecasting is that most machine learning models rely on a large amount of exogenous data to derive good answers. As stated before, since we can't forecast these exogenous variables it becomes difficult to fully use the power of machine learning models. One workaround to this is to use mlr's ensembling method to build a multivariate forecaster, targeting a specific variable, and then training a machine learning model on the forecasts of all variables. It works as the following
+
+1. Make a multivariate task, targeting the chosen variable
+2. Create a stacked learner, whose base learner is a `mfcregr.BigVAR` model
+3. Create a super learner, which will be trained on the 'stacked' learner
+4. Tune and train the [stacked learner](&makeStackedLearner)
+5. Tune and train the super learner on the forecasts produced by the stacked learner
+
+And now your final model you use for prediction will first forecast your extra variables and then use those forecasts to forecast the final values for the target variable.
+
+```{r multivarStack, cache = TRUE}
+EuStockMarkets.train = EuStockMarkets[1:1855,]
+EuStockMarkets.test = EuStockMarkets[1856:1860,]
+multfore.task = makeMultiForecastRegrTask(id = "bigvar", data = EuStockMarkets.train, target = "FTSE")
+
+resamp.sub = makeResampleDesc("GrowingCV",
+                              horizon = 5L,
+                              initial.window = .97,
+                              size = nrow(getTaskData(multfore.task)),
+                              skip = .01
+)
+
+lrns = list(makeLearner("mfcregr.BigVar", par.vals = list(p = 2, struct = "Basic", gran = c(5,5), h = 5, n.ahead = 5 )))
+stack.forecast = makeStackedLearner(base.learners = lrns,
+                                    predict.type = "response",
+                                    super.learner = makeLearner("regr.earth", penalty = 2),
+                                    method = "growing.cv",
+                                    resampling = resamp.sub)
+
+ps = makeParamSet(
+  makeDiscreteParam("mfcregr.BigVAR.p", values = 5),
+  makeDiscreteParam("mfcregr.BigVAR.struct", values = "Basic"),
+  makeNumericVectorParam("mfcregr.BigVAR.gran", len = 2L, lower = 25, upper = 26),
+  makeDiscreteParam("mfcregr.BigVAR.h", values = 5),
+  makeDiscreteParam("mfcregr.BigVAR.n.ahead", values = 5)
+)
+
+## tuning
+multfore.tune = tuneParams(stack.forecast, multfore.task, resampling = resamp.sub,
+                   par.set = ps, control = makeTuneControlGrid(),
+                   measures = multivar.mase, show.info = FALSE)
+multfore.tune
+stack.forecast.f  = setHyperPars2(stack.forecast,multfore.tune$x)
+multfore.train = train(stack.forecast.f,multfore.task)
+multfore.train
+multfore.pred = predict(multfore.train, newdata = EuStockMarkets.test)
+multfore.pred
+performance(multfore.pred, mase, task = multfore.task)
+
+```
