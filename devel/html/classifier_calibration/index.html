@@ -250,7 +250,7 @@ frequency of that class. <a href="http://www.rdocumentation.org/packages/mlr/">m
 <p><a href="http://www.rdocumentation.org/packages/mlr/functions/generateCalibrationData.html">generateCalibrationData</a> takes as input <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/ResampleResult.html">ResampleResult</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/BenchmarkResult.html">BenchmarkResult</a>,
 or a named list of <a href="http://www.rdocumentation.org/packages/mlr/functions/Prediction.html">Prediction</a> or <a href="http://www.rdocumentation.org/packages/mlr/functions/ResampleResult.html">ResampleResult</a> objects on a classification (multiclass
 or binary) task with learner(s) that are capable of outputting probabiliites (i.e., learners
-must be constructed with <code>predict.type = TRUE</code>). The result is an object of class
+must be constructed with <code>predict.type = "prob"</code>). The result is an object of class
 <a href="http://www.rdocumentation.org/packages/mlr/functions/generateCalibrationData.html">CalibrationData</a> which has elements <code>proportion</code>, <code>data</code>, and
 <code>task</code>. <code>proportion</code> gives the proportion of observations labelled with a given class for
 each predicted probability bin (e.g., for observations which are predicted to have class "A"
