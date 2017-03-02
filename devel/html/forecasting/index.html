@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Forecasting - mlr tutorial</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/custom_mlr.css" rel="stylesheet">
+        <link href="../css/custom_highlight.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../index.html">mlr tutorial</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../task/index.html">Tasks</a>
+</li>
+                            
+<li >
+    <a href="../learner/index.html">Learners</a>
+</li>
+                            
+<li >
+    <a href="../train/index.html">Train</a>
+</li>
+                            
+<li >
+    <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../performance/index.html">Performance</a>
+</li>
+                            
+<li >
+    <a href="../resample/index.html">Resampling</a>
+</li>
+                            
+<li >
+    <a href="../tune/index.html">Tuning</a>
+</li>
+                            
+<li >
+    <a href="../benchmark_experiments/index.html">Benchmark Experiments</a>
+</li>
+                            
+<li >
+    <a href="../parallelization/index.html">Parallelization</a>
+</li>
+                            
+<li >
+    <a href="../visualization/index.html">Visualization</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../configureMlr/index.html">Configuration</a>
+</li>
+                            
+<li >
+    <a href="../wrapper/index.html">Wrapped Learners</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
+</li>
+                            
+<li >
+    <a href="../impute/index.html">Imputation</a>
+</li>
+                            
+<li >
+    <a href="../bagging/index.html">Bagging</a>
+</li>
+                            
+<li >
+    <a href="../advanced_tune/index.html">Advanced Tuning</a>
+</li>
+                            
+<li >
+    <a href="../feature_selection/index.html">Feature Selection</a>
+</li>
+                            
+<li >
+    <a href="../nested_resampling/index.html">Nested Resampling</a>
+</li>
+                            
+<li >
+    <a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>
+</li>
+                            
+<li >
+    <a href="../over_and_undersampling/index.html">Imbalanced Classification Problems</a>
+</li>
+                            
+<li >
+    <a href="../roc_analysis/index.html">ROC Analysis</a>
+</li>
+                            
+<li >
+    <a href="../multilabel/index.html">Multilabel Classification</a>
+</li>
+                            
+<li >
+    <a href="../learning_curve/index.html">Learning Curves</a>
+</li>
+                            
+<li >
+    <a href="../partial_dependence/index.html">Partial Dependence Plots</a>
+</li>
+                            
+<li >
+    <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
+</li>
+                            
+<li >
+    <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
+</li>
+                            
+<li class="active">
+    <a href="index.html">Forecasting</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../create_learner/index.html">Create Custom Learners</a>
+</li>
+                            
+<li >
+    <a href="../create_measure/index.html">Create Custom Measures</a>
+</li>
+                            
+<li >
+    <a href="../create_imputation/index.html">Create Imputation Methods</a>
+</li>
+                            
+<li >
+    <a href="../create_filter/index.html">Create Custom Filters</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Appendix <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../example_tasks/index.html">Example Tasks</a>
+</li>
+                            
+<li >
+    <a href="../integrated_learners/index.html">Integrated Learners</a>
+</li>
+                            
+<li >
+    <a href="../measures/index.html">Implemented Performance Measures</a>
+</li>
+                            
+<li >
+    <a href="../filter_methods/index.html">Integrated Filter Methods</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../hyperpar_tuning_effects/index.html">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../create_learner/index.html">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/mlr-org/mlr/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#forecasting">Forecasting</a></li>
+            <li><a href="#forecasting-tasks">Forecasting Tasks</a></li>
+            <li><a href="#multivariate-forecasting-tasks">Multivariate Forecasting Tasks</a></li>
+            <li><a href="#making-learners-for-forecasting">Making Learners for Forecasting</a></li>
+            <li><a href="#resampling">Resampling</a></li>
+            <li><a href="#tuning">Tuning</a></li>
+            <li><a href="#updating-models">Updating Models</a></li>
+            <li><a href="#pre-processing">Pre-processing</a></li>
+            <li><a href="#classification-forecasting-example">Classification Forecasting Example</a></li>
+        <li class="main "><a href="#multivariate-forecasting-with-ml-stacking">Multivariate Forecasting with ML stacking</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="forecasting">Forecasting</h1>
+<p>The standard objective in forecasting is, at time period <script type="math/tex">t</script>, make predictions for <script type="math/tex">t+h</script> periods into the future. Forecasting tasks are most suitable when past patterns in the data will continue on into the future. The purpose of this package extension is to give users of mlr the opportunity to safely and productively train, optimize, and deploy forecasting models.</p>
+<p>The following tutorial describes how to handle forecasting problems in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.
+Some of the functionality is currently experimental, and there may be changes in the future.</p>
+<h2 id="forecasting-tasks">Forecasting Tasks</h2>
+<p>Univariate tasks will use the DAX from <a href="http://www.rdocumentation.org/packages/datasets/functions/EuStockMarkets.html">EuStockMarkets</a> while multivariate models will use the entire data set.</p>
+<pre><code class="r">data(&quot;EuStockMarkets&quot;)
+EuStockMarkets.time = lubridate::date_decimal(as.numeric(time(EuStockMarkets)))
+EuStockMarkets  = xts::xts(as.data.frame(EuStockMarkets), order.by = EuStockMarkets.time)
+train.set = 1:1850
+test.set  = 1851:1860
+EuStockMarkets.train = EuStockMarkets[train.set,]
+EuStockMarkets.test = EuStockMarkets[test.set,]
+EuStockMarkets.DAX.train = EuStockMarkets[train.set,&quot;DAX&quot;]
+EuStockMarkets.DAX.test = EuStockMarkets[test.set,&quot;DAX&quot;]
+</code></pre>
+
+<p>A forecasting task takes an <code>xts</code> object containing the data, a <code>target</code>, and optionally <code>frequency</code> of the data. The frequency of the data can be thought of as the seasonality. For example, a frequency of seven on daily data would be weekly seasonality. A frequency of fifty-two on weekly data would indicate a yearly seasonality.</p>
+<pre><code class="r">library(mlr)
+fcregr.task = makeForecastRegrTask(id = &quot;test&quot;, data = EuStockMarkets.DAX.train, target = &quot;DAX&quot;,
+                                     frequency = 7L)
+fcregr.task
+#&gt; Task: test
+#&gt; Type: fcregr
+#&gt; Target: DAX
+#&gt; Observations: 1850
+#&gt; Dates:
+#&gt;  Start: 1991-07-01 02:18:27 
+#&gt;  End:   1998-08-10 19:23:04
+#&gt; Frequency: 7
+#&gt; Features:
+#&gt; numerics  factors  ordered 
+#&gt;        0        0        0 
+#&gt; Missings: FALSE
+#&gt; Has weights: FALSE
+#&gt; Has blocking: FALSE
+</code></pre>
+
+<p>Like a regression task, the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">makeForecastRegrTask</a> records the type of the learning problem and basic information about the data set. This task also returns the start and end dates of the time series as well as the frequency.</p>
+<h2 id="multivariate-forecasting-tasks">Multivariate Forecasting Tasks</h2>
+<p>One common problem with forecasting is that it is difficult to use additional explanatory variables or forecast multiple targets that are dependent on one another. If the process is at time <script type="math/tex">t</script> and the forecaster would like to forecast 10 periods in the future, they must know the values of the explanatory variables at time <script type="math/tex">t+10</script>, which is often not possible. A new set of models which treats explanatory variables endogenously instead of exogenously allows us to forecast not only the target, but additional explanatory variables. This is done by treating all the variables as targets, making them endogenous to the model. To use these models, a multivariate forecasting task is created.</p>
+<pre><code class="r">mfcregr.task = makeMultiForecastRegrTask(id = &quot;bigvar&quot;, data = EuStockMarkets.train, target = &quot;all&quot;, frequency = 7L)
+mfcregr.task
+#&gt; Task: bigvar
+#&gt; Type: mfcregr
+#&gt; Target: DAX SMI CAC FTSE
+#&gt; Observations: 1850
+#&gt; Dates:
+#&gt;  Start: 1991-07-01 02:18:27 
+#&gt;  End:   1998-08-10 19:23:04
+#&gt; Frequency: 7
+#&gt; Features:
+#&gt; numerics  factors  ordered 
+#&gt;        0        0        0 
+#&gt; Missings: FALSE
+#&gt; Has weights: FALSE
+#&gt; Has blocking: FALSE
+</code></pre>
+
+<p>The <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">makeMultiForecastRegrTask</a> prints the same information as a univariate forecast task.</p>
+<p>To specify a target variable while still forecasting the rest of the data in an endogenous manner, simply change the target to one of the variables.</p>
+<pre><code class="r">mfcregr.task = makeMultiForecastRegrTask(id = &quot;bigvar&quot;, data = EuStockMarkets.train, target = &quot;DAX&quot;, frequency = 7L)
+mfcregr.task
+#&gt; Task: bigvar
+#&gt; Type: mfcregr
+#&gt; Target: DAX
+#&gt; Observations: 1850
+#&gt; Dates:
+#&gt;  Start: 1991-07-01 02:18:27 
+#&gt;  End:   1998-08-10 19:23:04
+#&gt; Frequency: 7
+#&gt; Features:
+#&gt; numerics  factors  ordered 
+#&gt;        3        0        0 
+#&gt; Missings: FALSE
+#&gt; Has weights: FALSE
+#&gt; Has blocking: FALSE
+</code></pre>
+
+<h2 id="making-learners-for-forecasting">Making Learners for Forecasting</h2>
+<p>Several new models have been included from the <code>forecast</code> package and well as <code>rugarch</code>:</p>
+<ol>
+<li>Exponential smoothing state space model with Box-Cox transformation (<a href="http://www.rdocumentation.org/packages/forecast/functions/bats.html">bats</a>)</li>
+<li>Exponential smoothing state space model with Box-Cox transformation, ARMA errors, Trend and Seasonal Fourier components (<a href="http://www.rdocumentation.org/packages/forecast/functions/tbats.html">tbats</a>)</li>
+<li>Exponential smoothing state space model (<a href="http://www.rdocumentation.org/packages/forecast/functions/ets.html">ets</a>)</li>
+<li>Neural Network Autoregressive model (<a href="http://www.rdocumentation.org/packages/forecast/functions/nnetar.html">nnetar</a>)</li>
+<li>Automated Arima (auto.arima)</li>
+<li>General Autoregressive Conditional Heteroskedasticity models (<a href="http://www.rdocumentation.org/packages/rugarch/functions/ugarchfit.html">GARCH</a>)</li>
+<li>BigVar for multivariate time series (<a href="http://www.rdocumentation.org/packages/BigVAR/functions/constructModel.html">BigVar</a>)</li>
+</ol>
+<p>These all operate the same as the other models in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>, with a very important parameter. Models will either have an <code>h</code> or <code>n.ahead</code> parameter, which is the number of periods you want to forecast into the future. Note that this should be equal to the horizon you set in your growing or fixed window resampling strategy. </p>
+<p>To create a <a href="http://www.rdocumentation.org/packages/rugarch/functions/ugarchfit.html">GARCH</a> model using <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a>, call the learner class <code>fcregr.garch</code>. An important parameter is <code>n.ahead</code>, which is used to specify that the model is forecasting 10 periods into the future. All of the possible parameters that can be tuned can be viewed by calling <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerParamSet.html">getLearnerParamSet</a>.</p>
+<pre><code class="r">getLearnerParamSet(&quot;fcregr.garch&quot;)
+#&gt;                              Type len       Def
+#&gt; model                    discrete   -    sGARCH
+#&gt; garchOrder          integervector   2       1,1
+#&gt; submodel                 discrete   -         -
+#&gt; external.regressors       untyped   -    &lt;NULL&gt;
+#&gt; variance.targeting        logical   -     FALSE
+#&gt; armaOrder           integervector   2       1,1
+#&gt; include.mean              logical   -      TRUE
+#&gt; archm                     logical   -     FALSE
+#&gt; archpow                  discrete   -         1
+#&gt; arfima                    logical   -     FALSE
+#&gt; archex                    logical   -     FALSE
+#&gt; distribution.model       discrete   -      norm
+#&gt; solver                   discrete   -     solnp
+#&gt; solver.control            untyped   -    &lt;list&gt;
+#&gt; numderiv.control          untyped   -    &lt;list&gt;
+#&gt; stationarity             discrete   -         1
+#&gt; fixed.se                 discrete   -         0
+#&gt; scale                    discrete   -         0
+#&gt; rec.init                  numeric   -         -
+#&gt; n.ahead                   integer   -        10
+#&gt; n.roll                    integer   -         0
+#&gt; probs                     untyped   - 0.05,0.95
+#&gt;                                                       Constr Req Tunable
+#&gt; model               sGARCH,fGARCH,eGARCH,gjrGARCH,apARCH,...   -    TRUE
+#&gt; garchOrder                                          1 to Inf   -    TRUE
+#&gt; submodel            GARCH,TGARCH,AVGARCH,NGARCH,NAGARCH,A...   Y    TRUE
+#&gt; external.regressors                                        -   -    TRUE
+#&gt; variance.targeting                                         -   -    TRUE
+#&gt; armaOrder                                           1 to Inf   -    TRUE
+#&gt; include.mean                                               -   -    TRUE
+#&gt; archm                                                      -   -    TRUE
+#&gt; archpow                                                  1,2   -    TRUE
+#&gt; arfima                                                     -   -    TRUE
+#&gt; archex                                                     -   -    TRUE
+#&gt; distribution.model  norm,snorm,std,sstd,ged,sged,nig,ghyp...   -    TRUE
+#&gt; solver              nlminb,solnp,lbfgs,gosolnp,nloptr,hybrid   -    TRUE
+#&gt; solver.control                                             -   -    TRUE
+#&gt; numderiv.control                                           -   -    TRUE
+#&gt; stationarity                                             0,1   -    TRUE
+#&gt; fixed.se                                                 0,1   -    TRUE
+#&gt; scale                                                    0,1   -    TRUE
+#&gt; rec.init                                        1e-10 to Inf   -    TRUE
+#&gt; n.ahead                                             1 to Inf   -    TRUE
+#&gt; n.roll                                              0 to Inf   -    TRUE
+#&gt; probs                                                      -   -    TRUE
+#&gt;                     Trafo
+#&gt; model                   -
+#&gt; garchOrder              -
+#&gt; submodel                -
+#&gt; external.regressors     -
+#&gt; variance.targeting      -
+#&gt; armaOrder               -
+#&gt; include.mean            -
+#&gt; archm                   -
+#&gt; archpow                 -
+#&gt; arfima                  -
+#&gt; archex                  -
+#&gt; distribution.model      -
+#&gt; solver                  -
+#&gt; solver.control          -
+#&gt; numderiv.control        -
+#&gt; stationarity            -
+#&gt; fixed.se                -
+#&gt; scale                   -
+#&gt; rec.init                -
+#&gt; n.ahead                 -
+#&gt; n.roll                  -
+#&gt; probs                   -
+garch.mod = makeLearner(&quot;fcregr.garch&quot;,
+                        model = &quot;sGARCH&quot;, garchOrder = c(1,1),
+                        n.ahead = 10L, include.mean = FALSE, solver = &quot;hybrid&quot;)
+garch.mod
+#&gt; Learner fcregr.garch from package rugarch
+#&gt; Type: fcregr
+#&gt; Name: Generalized AutoRegressive Conditional Heteroskedasticity; Short name: garch
+#&gt; Class: fcregr.garch
+#&gt; Properties: numerics,quantile
+#&gt; Predict-Type: response
+#&gt; Hyperparameters: model=sGARCH,garchOrder=1,1,n.ahead=10,include.mean=FALSE,solver=hybrid
+</code></pre>
+
+<p>Once the task and model have been throguh <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/predict.html">predict</a>, and <a href="http://www.rdocumentation.org/packages/mlr/functions/performance.html">performance</a> can be called to build and evaluate the model.</p>
+<pre><code class="r">garch.train = train(garch.mod, fcregr.task)
+garch.pred = predict(garch.train, newdata = EuStockMarkets.DAX.test)
+performance(garch.pred, measure = mase, task = fcregr.task)
+#&gt;     mase 
+#&gt; 6.157059
+</code></pre>
+
+<p>This standard evaluation method is user friendly. In addition, forecasters can now use <code>mlr</code>'s built in resampling and tuning methods to tune a garch model for the data.</p>
+<h2 id="resampling">Resampling</h2>
+<p>mlr now has two new cross validation resampling strategies, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeResampleDesc.html">GrowingCV</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeResampleDesc.html">FixedCV</a>. They are both rolling forecasting origin techniques established in Hyndman and Athanasopoulos (2013) and first widely available for machine learning in R by the <code>caret</code> package’s <a href="http://www.rdocumentation.org/packages/caret/functions/createTimeSlices.html">createTimeSlices</a> function. <a href="http://www.rdocumentation.org/packages/mlr/functions/makeResampleDesc.html">GrowingCV</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeResampleDesc.html">FixedCV</a> need to specify:</p>
+<ol>
+<li>horizon - the number of periods to forecast</li>
+<li>initial.window - The proportion of data that will be used in the initial window</li>
+<li>size - The number of rows in the training set</li>
+<li>skip - the proportion of windows to skip over, which can be used to save time</li>
+</ol>
+<pre><code class="r">resamp.desc = makeResampleDesc(&quot;GrowingCV&quot;, horizon = 10L,
+                               initial.window = .90,
+                               size = nrow(getTaskData(fcregr.task)), skip = 0.05)
+resamp.desc
+#&gt; Window description:
+#&gt;  growing with 2 iterations:
+#&gt;  171 observations in initial window and 10 horizon.
+#&gt; Predict: test
+#&gt; Stratification: FALSE
+</code></pre>
+
+<p>The wonderful graphic posted below comes from the <code>caret</code> package's website and gives an intuitive idea of the sliding windows for both the growing and fixed options.</p>
+<p><img alt="Resampling" src="../img/windowing_resample.png" title="The top is fixed window and bottom is growing window" /></p>
+<p>Using the resampling strategy, a windowing cross-validation with the previous GARCH model is performed to evaluate the general performance of the created GARCH model.</p>
+<pre><code class="r">garch.resample = resample(learner = garch.mod, task = fcregr.task,
+                          resampling = resamp.desc, measures = mase)
+garch.resample
+#&gt; Resample Result
+#&gt; Task: test
+#&gt; Learner: fcregr.garch
+#&gt; Aggr perf: mase.test.mean= 2.9
+#&gt; Runtime: 1.13837
+</code></pre>
+
+<h2 id="tuning">Tuning</h2>
+<p>The forecasting features fully integrate into mlr, allowing us to also make a parameter set to tune over. Here, tune a GARCH model with F1-racing used to tune the parameters. </p>
+<pre><code class="r">par_set = makeParamSet(
+  makeDiscreteParam(id = &quot;model&quot;, values = c(&quot;sGARCH&quot;)),
+  makeIntegerVectorParam(id = &quot;garchOrder&quot;, len = 2L, lower = 1, upper = 3)
+  )
+
+#Specify tune by grid estimation
+ctrl = makeTuneControlIrace(maxExperiments = 96L)
+
+
+configureMlr(on.learner.error = &quot;warn&quot;)
+res = tuneParams(garch.mod, task = fcregr.task,
+                 resampling = resamp.desc, par.set = par_set,
+                 control = ctrl, measures = mase)
+res
+#&gt; Tune result:
+#&gt; Op. pars: model=sGARCH; garchOrder=3,3
+#&gt; mase.test.mean=2.89
+</code></pre>
+
+<p>Once the model is tuned, the final model can be set by taking the best hyper parameters from <code>res</code> and making a new learner with <a href="http://www.rdocumentation.org/packages/mlr/functions/setHyperPars.html">setHyperPars</a> the final model is trained on the whole time series.</p>
+<pre><code class="r">garch.hyp  = setHyperPars(makeLearner(&quot;fcregr.garch&quot;, n.ahead = 10L, solver = &quot;hybrid&quot;),
+                          par.vals = res$x)
+garch.best = train(garch.hyp, fcregr.task)
+garch.pred = predict(garch.best, newdata = EuStockMarkets.DAX.test)
+performance(garch.pred, measures = mase, task = fcregr.task)
+#&gt;     mase 
+#&gt; 6.188999
+</code></pre>
+
+<h2 id="updating-models">Updating Models</h2>
+<p>A new function, <a href="http://www.rdocumentation.org/packages/mlr/functions/updateModel.html">updateModel</a>, has been implemented that updates the model given new data. This function is currently only implemented for ets, Arima, auto.arima, bats, tbats, and nnetar.</p>
+<pre><code class="r"># Make an arima learner
+arm = makeLearner(&quot;fcregr.Arima&quot;, order = c(2L,1L,1L),
+                  h = 10L, include.mean = FALSE)
+
+## Train the learner
+arm.mod = train(arm, fcregr.task)
+
+## Update the trained learner with new data
+update.arm.mod = updateModel(arm.mod, fcregr.task, newdata = EuStockMarkets.DAX.test)
+update.arm.mod
+#&gt; Model for learner.id=fcregr.Arima; learner.class=fcregr.Arima
+#&gt; Trained on: task.id = test; obs = 10; features = 0
+#&gt; Hyperparameters: order=2,1,1,h=10,include.mean=FALSE
+</code></pre>
+
+<p><a href="http://www.rdocumentation.org/packages/mlr/functions/predict.html">predict</a> now forcasts the next 10 periods.</p>
+<pre><code class="r">predict(update.arm.mod, task = fcregr.task)
+#&gt; Prediction: 10 observations
+#&gt; predict.type: response
+#&gt; threshold: 
+#&gt; time: 0.00
+#&gt;                     response
+#&gt; 1998-08-12 05:06:09 5474.238
+#&gt; 1998-08-13 14:49:15 5472.774
+#&gt; 1998-08-15 00:32:21 5472.766
+#&gt; 1998-08-16 10:15:27 5472.784
+#&gt; 1998-08-17 19:58:32 5472.785
+#&gt; 1998-08-19 05:41:38 5472.784
+#&gt; ... (10 rows, 1 cols)
+</code></pre>
+
+<h2 id="pre-processing">Pre-processing</h2>
+<h3 id="creating-lags-and-differences">Creating Lags and Differences</h3>
+<p>The function <a href="http://www.rdocumentation.org/packages/mlr/functions/createLagDiffFeatures.html">createLagDiffFeatures</a> allows users to create arbitrary lags and differences that allow for the creation of <script type="math/tex">AR(p,d)</script> style machine learning models to be used with forecasting. This method requires passing a data frame with the row names being POSIXct compatable.</p>
+<pre><code class="r">EuStockMarkets.train.reg = as.data.frame(EuStockMarkets.DAX.train, row.names = index(EuStockMarkets.train))
+regr.task = makeRegrTask(data = EuStockMarkets.train.reg, target = &quot;DAX&quot;)
+regr.task.lag = createLagDiffFeatures(regr.task,lag = 1L:2L, seasonal.lag = 1:2, frequency = 5)
+regr.task.lag
+#&gt; Supervised task: EuStockMarkets.train.reg
+#&gt; Type: regr
+#&gt; Target: DAX
+#&gt; Observations: 1850
+#&gt; Features:
+#&gt; numerics  factors  ordered 
+#&gt;        4        0        0 
+#&gt; Missings: TRUE
+#&gt; Has weights: FALSE
+#&gt; Has blocking: FALSE
+</code></pre>
+
+<p>This can be used with any task type as long as the row names of the task data can be converted to <code>POSIXct</code> format. </p>
+<p>As an example, a gradient boosting machine is built to forecast using lagged data.</p>
+<pre><code class="r">regrGbm = makeLearner(&quot;regr.gbm&quot;, par.vals = list(n.trees = 100))
+gbmMod = train(regrGbm, regr.task.lag)
+</code></pre>
+
+<p>To forecast with a regression model whose task is manipulated by <code>createLagDiffFeatures()</code> use the function <code>forecast()</code>.</p>
+<pre><code class="r">gbm.fore = forecast(gbmMod, h = 10, newdata = EuStockMarkets.DAX.test)
+#&gt; Warning in forecast.WrappedModel(gbmMod, h = 10, newdata =
+#&gt; EuStockMarkets.DAX.test): Provided data for prediction is not a pure
+#&gt; data.frame but from class xts, hence it will be converted.
+gbm.fore
+#&gt; Prediction: 10 observations
+#&gt; predict.type: response
+#&gt; threshold: 
+#&gt; time: 0.12
+#&gt;     truth response
+#&gt; 1 5774.38 2692.428
+#&gt; 2 5718.70 2662.406
+#&gt; 3 5614.77 2651.098
+#&gt; 4 5528.12 2651.098
+#&gt; 5 5598.32 2651.098
+#&gt; 6 5460.43 2618.043
+#&gt; ... (10 rows, 2 cols)
+## Get performance
+performance(gbm.fore, measures = mase, task = regr.task.lag)
+#&gt;     mase 
+#&gt; 145.3921
+</code></pre>
+
+<h2 id="classification-forecasting-example">Classification Forecasting Example</h2>
+<p>For developing trading strategies, a discrete set of choices are made such as to buy, sell, or hold onto a stock. The forecasting extension in mlr can now train classification models that forecast these choices. The goal is to predict whether a 'stock' will go up 5%, down 5%, or neither. As exampled below, data is generated from an ARIMA process, the percentage change is taken, and it is then descritized into either a 'buy', 'sell', or 'hold'.</p>
+<pre><code class="r">library(xts)
+library(lubridate)
+set.seed(1234)
+# Generate an ARIMA based data set
+dat = arima.sim(model = list(ar = c(.5,.2,.1), ma = c(.5,.3), order = c(3,0,2)), n = 500)
+dat = dat/lag(dat,-1) - 1 
+jump = data.frame(jump = ifelse(diff(dat) &gt; .5, &quot;Buy&quot;,ifelse(diff(dat) &lt; -.5, &quot;Sell&quot;,&quot;Hold&quot;)))
+times = (as.POSIXct(&quot;1992-01-14&quot;)) + lubridate::days(1:498)
+rownames(jump) = times
+jump.train = jump[1:488,,drop = FALSE]
+jump.test  = jump[489:498,,drop = FALSE]
+
+# Make the classif task
+classif.task = makeClassifTask(data = jump.train,target = &quot;jump&quot;)
+classif.task.lag = createLagDiffFeatures(classif.task, lag = 1L:15L, 
+                                     na.pad = FALSE)
+
+classif.learn = makeLearner(&quot;classif.boosting&quot;)
+classif.train = train(classif.learn,classif.task.lag)
+classif.fore = forecast(classif.train, h = 10, newdata = jump.test)
+performance(classif.fore)
+#&gt; mmce 
+#&gt;  0.8
+</code></pre>
+
+<h1 id="multivariate-forecasting-with-ml-stacking">Multivariate Forecasting with ML stacking</h1>
+<p>One difficulty in the integration of machine learning and forecasting is that most machine learning models rely on a large amount of exogenous data to derive good answers. As stated before, since the exogeneous variables are unknown, it becomes difficult to fully use the power of machine learning models. One workaround to this is to use mlr's ensembling method to build a multivariate forecaster, targeting a specific variable, and then training a machine learning model on the forecasts of all variables. It works as the following</p>
+<ol>
+<li>Make a multivariate task, targeting the chosen variable</li>
+<li>Create a stacked learner, whose base learner is a <code>mfcregr.BigVAR</code> model</li>
+<li>Create a super learner, which will be trained on the 'stacked' learner</li>
+<li>Tune and train the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeStackedLearner.html">stacked learner</a></li>
+<li>Tune and train the super learner on the forecasts produced by the stacked learner</li>
+</ol>
+<p>And now your final model you use for prediction will first forecast your extra variables and then use those forecasts to forecast the final values for the target variable.</p>
+<pre><code class="r">multfore.task = makeMultiForecastRegrTask(id = &quot;bigvar&quot;, data = EuStockMarkets.train, target = &quot;DAX&quot;)
+
+resamp.sub = makeResampleDesc(&quot;GrowingCV&quot;,
+                              horizon = 10L,
+                              initial.window = .97,
+                              size = nrow(getTaskData(multfore.task)),
+                              skip = .015
+)
+
+lrns = list(makeLearner(&quot;mfcregr.BigVAR&quot;,p = 5, struct = &quot;Basic&quot;,
+                        h = 10, n.ahead = 10, verbose = FALSE))
+stack.forecast = makeStackedLearner(base.learners = lrns,
+                                    predict.type = &quot;response&quot;,
+                                    super.learner = makeLearner(&quot;regr.earth&quot;, penalty = 2),
+                                    method = &quot;growing.cv&quot;,
+                                    resampling = resamp.sub)
+
+ps = makeParamSet(
+  makeNumericVectorParam(&quot;mfcregr.BigVAR.gran&quot;, len = 2L, lower = 5, upper = 6)
+)
+
+## tuning
+multfore.tune = tuneParams(stack.forecast, multfore.task, resampling = resamp.sub,
+                   par.set = ps, control = makeTuneControlGrid(resolution = 1L),
+                   measures = multivar.mase, show.info = FALSE)
+multfore.tune
+#&gt; Tune result:
+#&gt; Op. pars: mfcregr.BigVAR.gran=5,5
+#&gt; multivar.mase.test.mean=  17
+stack.forecast.f  = setHyperPars2(stack.forecast,multfore.tune$x)
+multfore.train = train(stack.forecast.f,multfore.task)
+multfore.train
+#&gt; Model for learner.id=stack; learner.class=StackedLearner
+#&gt; Trained on: task.id = bigvar; obs = 1850; features = 3
+#&gt; Hyperparameters: mfcregr.BigVAR.p=5,mfcregr.BigVAR.struct=Basic,mfcregr.BigVAR.h=10,mfcregr.BigVAR.n.ahead=10,mfcregr.BigVAR.verbose=FALSE,mfcregr.BigVAR.gran=5,5
+multfore.pred = predict(multfore.train, newdata = as.data.frame(EuStockMarkets.test))
+multfore.pred
+#&gt; Prediction: 10 observations
+#&gt; predict.type: response
+#&gt; threshold: 
+#&gt; time: 0.00
+#&gt;                       truth response
+#&gt; 1998-08-12 05:04:36 5774.38 6909.350
+#&gt; 1998-08-13 14:46:09 5718.70 6045.544
+#&gt; 1998-08-15 00:27:41 5614.77 5877.665
+#&gt; 1998-08-16 10:09:13 5528.12 5869.731
+#&gt; 1998-08-17 19:50:46 5598.32 5902.929
+#&gt; 1998-08-19 05:32:18 5460.43 5950.397
+#&gt; ... (10 rows, 2 cols)
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
