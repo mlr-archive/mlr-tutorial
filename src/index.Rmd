@@ -23,17 +23,33 @@ survival analysis to illustrate the main features of the package.
 Enjoy reading!
 
 ## Quick start
-A simple stratified cross-validation of [linear discriminant analysis](&MASS::lda) with [%mlr].
+Applying a statistical algorithm with [%mlr] has a basic structure of 3 steps not depending on the specific model. 
+
 ```{r}
 library(mlr)
 data(iris)
 
-## Define the task
+## 1) Define the task
+## specify the type of the analysis (e.g. classification)
 task = makeClassifTask(id = "tutorial", data = iris, target = "Species")
 
-## Define the learner
+## 2) Define the learner
+## choose a specific algorithm.
 lrn = makeLearner("classif.lda")
 
+n = nrow(iris)
+training.set = iris[seq(1, n, by = 2),]
+
+## 3) Fit the model 
+model = train(lrn, task, training.set)
+```
+
+```{r}
+test.set = iris[seq(2, n, by = 2),]
+pred = predict(model, task = task, subset = test.set)
+```
+
+```{r}
 ## Define the resampling strategy
 rdesc = makeResampleDesc(method = "CV", stratify = TRUE)
 
@@ -42,4 +58,6 @@ r = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE)
 
 ## Get the mean misclassification error
 r$aggr
+#> mmce.test.mean 
+#>           0.02
 ```
