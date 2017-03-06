@@ -308,12 +308,12 @@ generateHyperParsEffectData(res, trafo = T, include.diagnostics = FALSE)
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;            C acc.test.mean mmce.test.mean iteration exec.time
-#&gt; 1  0.3770897     0.7695312      0.2304688         1     0.063
-#&gt; 2  3.4829323     0.7526042      0.2473958         2     0.065
-#&gt; 3  2.2050176     0.7630208      0.2369792         3     0.064
+#&gt; 1  0.3770897     0.7695312      0.2304688         1     0.062
+#&gt; 2  3.4829323     0.7526042      0.2473958         2     0.062
+#&gt; 3  2.2050176     0.7630208      0.2369792         3     0.061
 #&gt; 4 24.9285221     0.7070312      0.2929688         4     0.068
-#&gt; 5  0.2092395     0.7539062      0.2460938         5     0.071
-#&gt; 6  0.1495099     0.7395833      0.2604167         6     0.061
+#&gt; 5  0.2092395     0.7539062      0.2460938         5     0.077
+#&gt; 6  0.1495099     0.7395833      0.2604167         6     0.091
 </code></pre>
 
 <p>As a reminder from the <a href="../resample/index.html">resampling</a> tutorial, if we wanted to generate data on
@@ -341,12 +341,12 @@ generateHyperParsEffectData(res, trafo = T, include.diagnostics = FALSE)
 #&gt; 5 1.28168692     0.7500000      0.8476562      0.2500000       0.1523438
 #&gt; 6 7.36607693     0.7239583      0.8932292      0.2760417       0.1067708
 #&gt;   iteration exec.time
-#&gt; 1         1     0.098
-#&gt; 2         2     0.088
-#&gt; 3         3     0.095
-#&gt; 4         4     0.084
-#&gt; 5         5     0.082
-#&gt; 6         6     0.087
+#&gt; 1         1     0.096
+#&gt; 2         2     0.105
+#&gt; 3         3     0.088
+#&gt; 4         4     0.090
+#&gt; 5         5     0.083
+#&gt; 6         6     0.094
 </code></pre>
 
 <p>In the example below, we perform grid search on the <code>C</code> parameter for SVM on the Pima Indians
@@ -370,11 +370,11 @@ generateHyperParsEffectData(res)
 #&gt; Nested CV Used: TRUE
 #&gt; Snapshot of data:
 #&gt;            C acc.test.mean mmce.test.mean iteration exec.time
-#&gt; 1 -5.0000000     0.6640625      0.3359375         1     0.045
-#&gt; 2 -3.8888889     0.6640625      0.3359375         2     0.046
-#&gt; 3 -2.7777778     0.6822917      0.3177083         3     0.046
+#&gt; 1 -5.0000000     0.6640625      0.3359375         1     0.044
+#&gt; 2 -3.8888889     0.6640625      0.3359375         2     0.044
+#&gt; 3 -2.7777778     0.6822917      0.3177083         3     0.045
 #&gt; 4 -1.6666667     0.7473958      0.2526042         4     0.045
-#&gt; 5 -0.5555556     0.7708333      0.2291667         5     0.044
+#&gt; 5 -0.5555556     0.7708333      0.2291667         5     0.043
 #&gt; 6  0.5555556     0.7682292      0.2317708         6     0.044
 #&gt;   nested_cv_run
 #&gt; 1             1
