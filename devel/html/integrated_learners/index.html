@@ -1808,7 +1808,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">featimp<br />oobpreds<br />se</td>
-<td align="left">See <code>?regr.randomForest</code> for information about se estimation. Note that the rf can freeze the R process if trained on a task with 1 feature which is constant. This can happen in feature forward selection, also due to resampling, and you need to remove such features with removeConstantFeatures.</td>
+<td align="left">See <code>?regr.randomForest</code> for information about se estimation. Note that the rf can freeze the R process if trained on a task with 1 feature which is constant. This can happen in feature forward selection, also due to resampling, and you need to remove such features with removeConstantFeatures. keep.inbag is NULL by default but if predict.type = 'se' and se.method = 'jackknife' (the default) then it is automatically set to TRUE.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.randomForestSRC</strong> <br /> <em>rfsrc</em> <br /><br />Random Forest</td>
