@@ -464,6 +464,27 @@ getFeatureImportanceLearner.classif.randomForestSRC = function(.learner, .model,
 ```
 
 
+## Integrating out-of-bag predictions in the [%mlr] framework
+
+Many methods provide out-of-bag predictions (OOB predictions) automatically. [%mlr] provides the function [getOOBPreds](&getOOBPreds) to access these predictions in the [%mlr] framework. 
+
+If your newly integrated learner provides OOB predictions and you want to access them in [%mlr] via [&getOOBPreds] you need to
+
+* add `"oobpreds"` to the learner properties and
+* implement a new S3 method for function [&getOOBPredsLearner] (which later is called
+  internally by [&getOOBPreds]). 
+
+This method takes the [&Learner] `.learner` and the [WrappedModel](&makeWrappedModel) `.model` and extracts the OOB predictions.
+It must return the predictions in the same format as the [&predictLearner] function. 
+
+```{r, code=showFunctionDef(mlr:::getOOBPredsLearner.classif.randomForest)}
+  if (.learner$predict.type == "response") {
+    unname(.model$learner.model$predicted)
+  } else {
+   .model$learner.model$votes
+  }
+```
+
 ## Registering your learner
 If your interface code to a new learning algorithm exists only locally, i.e., it is not (yet)
 merged into [%mlr] or does not live in an extra package with a proper namespace you might want
