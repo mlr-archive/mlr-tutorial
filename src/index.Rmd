@@ -25,39 +25,42 @@ Enjoy reading!
 ## Quick start
 Applying a statistical algorithm with [%mlr] has a basic structure of 3 steps not depending on the specific model. 
 
-```{r}
+```{r,results='hide',warning=FALSE,message=FALSE}
+
 library(mlr)
 data(iris)
 
 ## 1) Define the task
-## specify the type of the analysis (e.g. classification)
-task = makeClassifTask(id = "tutorial", data = iris, target = "Species")
+## specify the type of the analysis (e.g. classification), data and response 
+task = makeClassifTask(data = iris, target = "Species")
 
 ## 2) Define the learner
-## choose a specific algorithm.
+## choose a specific algorithm (e.g.linear discriminant analysis)
 lrn = makeLearner("classif.lda")
 
 n = nrow(iris)
-training.set = iris[seq(1, n, by = 2),]
 
-## 3) Fit the model 
-model = train(lrn, task, training.set)
+## 3) Fit the model
+## by combining learner and task 
+model = train(lrn, task, subset = seq(1, n, by = 2))
+
 ```
 
+The following steps show how you can proceed with your fitted model.
+
+Predicting the target values of new observations by the trained model: 
+
 ```{r}
-test.set = iris[seq(2, n, by = 2),]
-pred = predict(model, task = task, subset = test.set)
+
+pred = predict(model, task = task, subset = seq(2, n, by = 2))
+
 ```
 
+Evaluating the performance of the model:
+
 ```{r}
-## Define the resampling strategy
-rdesc = makeResampleDesc(method = "CV", stratify = TRUE)
 
-## Do the resampling
-r = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE)
+## Calculating performance measures 
+performance(pred, measures = list(mmce, acc))
 
-## Get the mean misclassification error
-r$aggr
-#> mmce.test.mean 
-#>           0.02
 ```
