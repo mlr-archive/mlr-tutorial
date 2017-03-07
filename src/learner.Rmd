@@ -90,7 +90,7 @@ It contains, among others, the type of hyperparameters (e.g., numeric, logical),
 default values and the range of allowed values.
 
 Moreover, [%mlr] provides function [&getHyperPars] to access the current hyperparameter setting
-of a [Learner](&makeLearner) and [&getParamSet] to get a description of all possible settings.
+of a [Learner](&makeLearner), [&getParamSet] or [&getLearnerParamSet] to get a description of all possible settings and [&getLearnerParVals] to get the configured hyperparameters.
 These are particularly useful in case of wrapped [Learner](&makeLearner)s,
 for example if a learner is fused with a feature selection strategy, and both, the learner
 as well the feature selection method, have hyperparameters.
@@ -111,6 +111,21 @@ and defaults of a learning method without explicitly constructing it (by calling
 getParamSet("classif.randomForest")
 ```
 
+Functions for accessing Learner's meta information are available in [%mlr]. We can use ``getLearnerId``,``getLearnerShortName`` and  ``getLearnerType`` to get Learner's id, short name and class, respectively. Moreover, in order to show the required packages for the Learner, one can call ``getLearnerPackages``.
+
+```{r}
+## Get object's id
+getLearnerId(surv.lrn)
+
+## Get the short name
+getLearnerShortName(classif.lrn)
+
+## Get the class
+getLearnerType(multilabel.lrn)
+
+## Get required packages
+getLearnerPackages(cluster.lrn)
+```
 
 ## Modifying a learner
 
