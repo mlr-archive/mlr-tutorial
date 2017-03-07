@@ -256,6 +256,11 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="forecasting">Forecasting</h1>
+<p>As of March 8th, 2017, the forecasting extension of mlr is under code review and is a branch of the development version of mlr. You can download this branch through the <code>githubinstall</code> package.</p>
+<pre><code class="r">library(githubinstall)
+gh_install_packages(&quot;mlr-org/mlr&quot;, ref = &quot;forecasting&quot;)
+</code></pre>
+
 <p>The standard objective in forecasting is, at time period <script type="math/tex">t</script>, make predictions for <script type="math/tex">t+h</script> periods into the future. Forecasting tasks are most suitable when past patterns in the data will continue on into the future. The purpose of this package extension is to give users of mlr the opportunity to safely and productively train, optimize, and deploy forecasting models.</p>
 <p>The following tutorial describes how to handle forecasting problems in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.
 Some of the functionality is currently experimental, and there may be changes in the future.</p>
@@ -569,7 +574,7 @@ gbm.fore
 #&gt; Prediction: 10 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.12
+#&gt; time: 0.13
 #&gt;     truth response
 #&gt; 1 5774.38 2692.428
 #&gt; 2 5718.70 2662.406

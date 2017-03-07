@@ -10543,6 +10543,15 @@ plotHyperParsEffect(data, x = "C", y = "sigma", z = "acc.test.mean",
 
 ## Forecasting
 
+
+As of March 8th, 2017, the forecasting extension of mlr is under code review and is a branch of the development version of mlr. You can download this branch through the `githubinstall` package.
+
+
+```r
+library(githubinstall)
+gh_install_packages("mlr-org/mlr", ref = "forecasting")
+```
+
 The standard objective in forecasting is, at time period $t$, make predictions for $t+h$ periods into the future. Forecasting tasks are most suitable when past patterns in the data will continue on into the future. The purpose of this package extension is to give users of mlr the opportunity to safely and productively train, optimize, and deploy forecasting models.
 
 The following tutorial describes how to handle forecasting problems in [mlr](http://www.rdocumentation.org/packages/mlr/).
@@ -10919,7 +10928,7 @@ gbm.fore
 #> Prediction: 10 observations
 #> predict.type: response
 #> threshold: 
-#> time: 0.16
+#> time: 0.14
 #>     truth response
 #> 1 5774.38 2692.428
 #> 2 5718.70 2662.406
@@ -11032,7 +11041,7 @@ multfore.pred
 #> Prediction: 10 observations
 #> predict.type: response
 #> threshold: 
-#> time: 0.00
+#> time: 0.01
 #>                       truth response
 #> 1998-08-12 05:04:36 5774.38 6909.350
 #> 1998-08-13 14:46:09 5718.70 6045.544

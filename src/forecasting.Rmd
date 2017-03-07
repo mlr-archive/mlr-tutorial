@@ -1,5 +1,13 @@
 # Forecasting
 
+
+As of March 8th, 2017, the forecasting extension of mlr is under code review and is a branch of the development version of mlr. You can download this branch through the `githubinstall` package.
+
+```{r getforemlr, eval = FALSE}
+library(githubinstall)
+gh_install_packages("mlr-org/mlr", ref = "forecasting")
+```
+
 The standard objective in forecasting is, at time period $t$, make predictions for $t+h$ periods into the future. Forecasting tasks are most suitable when past patterns in the data will continue on into the future. The purpose of this package extension is to give users of mlr the opportunity to safely and productively train, optimize, and deploy forecasting models.
 
 The following tutorial describes how to handle forecasting problems in [%mlr].
