@@ -135,19 +135,19 @@ head(getPredictionProbabilities(pred))
 
 ### Extract Standard Errors
 
-Some Learners provide standard errors for predictions, which can be accessed in mlr. An overview is given [&listLearners].
+Some Learners provide standard errors for predictions, which can be accessed in mlr. An overview is given by calling the function[&listLearners]. In order to include learners from packages which are not installed in the overview, one has to set ``check.packages``  as ``FALSE``.
 
-```{r, results='hide'}
+```{r, results='hide', warning=FALSE}
 listLearners("regr", check.packages = FALSE)
 ```
 
-In this example we train a Gaussian Process Regression on the Boston Housing dataset. For the learner, the ``predict.type`` has to be specified as correctly:
+In this example we train a Gaussian Process Regression on the Boston Housing dataset. Since the Gaussian Process, ``regr.km``, does not allow factor data, we have to use only numerical variables  for the training. For the learner, the ``predict.type`` has to be specified as correctly:
 
 ```{r, results='hide'}
-# Select only numeric variables
+## Select only numeric variables
 bh.task.part = subsetTask(bh.task, features = 5:13)
 
-# Create Learner, specify predict.type
+## Create Learner, specify predict.type
 lrn.km = makeLearner("regr.km", predict.type = 'se')
 mod.km = train(lrn.km, bh.task.part, subset = train.set)
 task.pred.km = predict(mod.km, task = bh.task.part, subset = test.set)
