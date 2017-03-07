@@ -37,9 +37,17 @@ which types of learning problems it is suitable and what information is required
 calculate it.
 Obviously, most measures need the [&Prediction] object (`"req.pred"`) and, for supervised
 problems, the true values of the target variable(s) (`"req.truth"`).
+You can use functions [getMeasureProperties](&MeasureProperties) and
+[hasMeasureProperties](&MeasureProperties) to determine the properties of a [Measure](&makeMeasure).
+Moreover, [&listMeasureProperties] shows all measure properties currently available in [%mlr].
 
-For [tuning](tune.md) or [feature selection](feature_selection.md) each [Measure](&makeMeasure) knows
-its extreme values `$best` and `$worst` and if it wants to be minimized or maximized (`$minimize`).
+```{r}
+listMeasureProperties()
+```
+
+Additional to its properties, each [Measure](&makeMeasure) knows its extreme values `$best`
+and `$worst` and if it wants to be minimized or maximized (`$minimize`) during [tuning](tune.md)
+or [feature selection](feature_selection.md).
 
 For resampling slot `$aggr` specifies how the overall performance across all resampling
 iterations is calculated. Typically, this is just a matter of aggregating the performance
