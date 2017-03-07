@@ -162,6 +162,10 @@
 <li >
     <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
 </li>
+                            
+<li >
+    <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -342,7 +346,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.test.mean=24.2
-#&gt; Runtime: 0.0641737
+#&gt; Runtime: 0.0433767
 </code></pre>
 
 <p>The result <code>r</code> is an object of class <a href="http://www.rdocumentation.org/packages/mlr/functions/ResampleResult.html">ResampleResult</a>.
@@ -396,23 +400,23 @@ lrn = makeLearner(&quot;classif.rpart&quot;, parms = list(split = &quot;informat
 ## Calculate the performance measures
 r = resample(lrn, sonar.task, rdesc, measures = list(mmce, fpr, fnr, timetrain))
 #&gt; [Resample] subsampling iter 1:
-#&gt; mmce.test.mean=0.262,fpr.test.mean=0.235,fnr.test.mean=0.28,timetrain.test.mean=0.022
+#&gt; mmce.test.mean=0.262,fpr.test.mean=0.235,fnr.test.mean=0.28,timetrain.test.mean=0.019
 #&gt; [Resample] subsampling iter 2:
-#&gt; mmce.test.mean=0.286,fpr.test.mean=0.286,fnr.test.mean=0.286,timetrain.test.mean=0.02
+#&gt; mmce.test.mean=0.286,fpr.test.mean=0.286,fnr.test.mean=0.286,timetrain.test.mean=0.018
 #&gt; [Resample] subsampling iter 3:
-#&gt; mmce.test.mean=0.262,fpr.test.mean=0.286,fnr.test.mean=0.238,timetrain.test.mean=0.02
+#&gt; mmce.test.mean=0.262,fpr.test.mean=0.286,fnr.test.mean=0.238,timetrain.test.mean=0.018
 #&gt; [Resample] subsampling iter 4:
-#&gt; mmce.test.mean=0.333,fpr.test.mean=0.35,fnr.test.mean=0.318,timetrain.test.mean=0.019
+#&gt; mmce.test.mean=0.333,fpr.test.mean=0.35,fnr.test.mean=0.318,timetrain.test.mean=0.018
 #&gt; [Resample] subsampling iter 5:
-#&gt; mmce.test.mean=0.333,fpr.test.mean=0.167,fnr.test.mean=0.458,timetrain.test.mean=0.019
-#&gt; [Resample] Aggr. Result: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.02
+#&gt; mmce.test.mean=0.333,fpr.test.mean=0.167,fnr.test.mean=0.458,timetrain.test.mean=0.02
+#&gt; [Resample] Aggr. Result: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.0186
 
 r
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.02
-#&gt; Runtime: 0.176041
+#&gt; Aggr perf: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.0186
+#&gt; Runtime: 0.165865
 </code></pre>
 
 <p>If you want to add further measures afterwards, use <a href="http://www.rdocumentation.org/packages/mlr/functions/addRRMeasure.html">addRRMeasure</a>.</p>
@@ -421,8 +425,8 @@ addRRMeasure(r, list(ber, timepredict))
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.02,ber.test.mean=0.29,timepredict.test.mean=0.0068
-#&gt; Runtime: 0.176041
+#&gt; Aggr perf: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.0186,ber.test.mean=0.29,timepredict.test.mean=0.0066
+#&gt; Runtime: 0.165865
 </code></pre>
 
 <p>By default, <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> prints progress messages and intermediate results. You can turn this off by setting
@@ -438,8 +442,8 @@ r
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.305,fpr.test.mean=0.279,fnr.test.mean=0.309,timetrain.test.mean=0.0232
-#&gt; Runtime: 0.19557
+#&gt; Aggr perf: mmce.test.mean=0.305,fpr.test.mean=0.279,fnr.test.mean=0.309,timetrain.test.mean=0.0188
+#&gt; Runtime: 0.163226
 </code></pre>
 
 <h2 id="accessing-resample-results">Accessing resample results</h2>
@@ -532,7 +536,7 @@ r
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.02
-#&gt; Runtime: 0.0161366
+#&gt; Runtime: 0.0157511
 
 r$measures.train
 #&gt;   iter mmce
@@ -737,7 +741,7 @@ r
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.0132
-#&gt; Runtime: 0.0407474
+#&gt; Runtime: 0.0316229
 </code></pre>
 
 <p>Stratification is also available for survival tasks.
@@ -755,7 +759,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.rpart
 #&gt; Aggr perf: mse.test.mean=21.2
-#&gt; Runtime: 0.0706594
+#&gt; Runtime: 0.0448365
 </code></pre>
 
 <h3 id="blocking">Blocking</h3>
@@ -938,7 +942,7 @@ mmce$aggr
 mmce$aggr$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; mean(perf.test)
-#&gt; &lt;bytecode: 0x7f18db8&gt;
+#&gt; &lt;bytecode: 0x778f8d0&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 
 ## Root mean square error
@@ -948,7 +952,7 @@ rmse$aggr
 rmse$aggr$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; sqrt(mean(perf.test^2))
-#&gt; &lt;bytecode: 0x1955b788&gt;
+#&gt; &lt;bytecode: 0x191198a0&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -986,7 +990,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.test.mean=23.6,mse.test.median=  25,mse.test.min=17.6,mse.test.max=28.2
-#&gt; Runtime: 0.050878
+#&gt; Runtime: 0.0408118
 
 r$aggr
 #&gt;   mse.test.mean mse.test.median    mse.test.min    mse.test.max 
@@ -1087,7 +1091,7 @@ for example <a href="http://www.rdocumentation.org/packages/mlr/functions/resamp
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.02,ber.test.mean=0.0191
-#&gt; Runtime: 0.0410874
+#&gt; Runtime: 0.0367427
 
 bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, mae))
 #&gt; [Resample] OOB bootstrapping iter 1:
@@ -1101,7 +1105,7 @@ bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, 
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.b632plus=23.9,mae.b632plus=3.49
-#&gt; Runtime: 0.0867198
+#&gt; Runtime: 0.0592871
 </code></pre></div>
         </div>
 

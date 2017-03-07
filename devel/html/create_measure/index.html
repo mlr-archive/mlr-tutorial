@@ -162,6 +162,10 @@
 <li >
     <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
 </li>
+                            
+<li >
+    <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown active">
@@ -278,7 +282,7 @@ mse$fun
 #&gt; {
 #&gt;     measureMSE(pred$data$truth, pred$data$response)
 #&gt; }
-#&gt; &lt;bytecode: 0xd529b70&gt;
+#&gt; &lt;bytecode: 0x8c50398&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 
 measureMSE
@@ -286,7 +290,7 @@ measureMSE
 #&gt; {
 #&gt;     mean((response - truth)^2)
 #&gt; }
-#&gt; &lt;bytecode: 0xc0b5230&gt;
+#&gt; &lt;bytecode: 0x776d160&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -324,7 +328,7 @@ mean of the performances on the test sets.</p>
 test.mean$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; mean(perf.test)
-#&gt; &lt;bytecode: 0x7ef6990&gt;
+#&gt; &lt;bytecode: 0x776c690&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 

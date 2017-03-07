@@ -162,6 +162,10 @@
 <li >
     <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
 </li>
+                            
+<li >
+    <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown active">
@@ -215,7 +219,7 @@
                     </a>
                 </li>
                     <li >
-                        <a rel="next" href="../hyperpar_tuning_effects/index.html">
+                        <a rel="next" href="../out_of_bag_predictions/index.html">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -244,7 +248,8 @@
             <li><a href="#survival-analysis">Survival analysis</a></li>
             <li><a href="#clustering">Clustering</a></li>
             <li><a href="#multilabel-classification">Multilabel classification</a></li>
-            <li><a href="#creating-a-new-feature-importance-method">Creating a new feature importance method</a></li>
+            <li><a href="#creating-a-new-method-for-extracting-feature-importance-values">Creating a new method for extracting feature importance values</a></li>
+            <li><a href="#creating-a-new-method-for-extracting-out-of-bag-predictions">Creating a new method for extracting out-of-bag predictions</a></li>
             <li><a href="#registering-your-learner">Registering your learner</a></li>
             <li><a href="#further-information-for-developers">Further information for developers</a></li>
     </ul>
@@ -614,7 +619,7 @@ probabilities.</p>
 }
 </code></pre>
 
-<h2 id="creating-a-new-feature-importance-method">Creating a new feature importance method</h2>
+<h2 id="creating-a-new-method-for-extracting-feature-importance-values">Creating a new method for extracting feature importance values</h2>
 <p>Some learners, for example decision trees and random forests, can calculate feature importance
 values, which can be extracted from a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWrappedModel.html">fitted model</a> using function
 <a href="http://www.rdocumentation.org/packages/mlr/functions/getFeatureImportance.html">getFeatureImportance</a>.</p>
@@ -645,6 +650,28 @@ fitted model.</p>
 }
 </code></pre>
 
+<h2 id="creating-a-new-method-for-extracting-out-of-bag-predictions">Creating a new method for extracting out-of-bag predictions</h2>
+<p>Many ensemble learners generate out-of-bag predictions (OOB predictions) automatically.
+<a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides the function <a href="http://www.rdocumentation.org/packages/mlr/functions/getOOBPreds.html">getOOBPreds</a> to access these predictions in the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> framework.</p>
+<p>If your newly integrated learner is able to calculate OOB predictions and you want to be
+able to access them in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> via <a href="http://www.rdocumentation.org/packages/mlr/functions/getOOBPreds.html">getOOBPreds</a> you need to</p>
+<ul>
+<li>add <code>"oobpreds"</code> to the learner properties and</li>
+<li>implement a new S3 method for function <a href="http://www.rdocumentation.org/packages/mlr/functions/getOOBPredsLearner.html">getOOBPredsLearner</a> (which later is called
+  internally by <a href="http://www.rdocumentation.org/packages/mlr/functions/getOOBPreds.html">getOOBPreds</a>).</li>
+</ul>
+<p>This method takes the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> <code>.learner</code> and the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWrappedModel.html">WrappedModel</a>
+<code>.model</code> and extracts the OOB predictions.
+It must return the predictions in the same format as the <a href="http://www.rdocumentation.org/packages/mlr/functions/predictLearner.html">predictLearner</a> function.</p>
+<pre><code class="r">getOOBPredsLearner.classif.randomForest = function(.learner, .model) {
+  if (.learner$predict.type == &quot;response&quot;) {
+    unname(.model$learner.model$predicted)
+  } else {
+    .model$learner.model$votes
+  }
+}
+</code></pre>
+
 <h2 id="registering-your-learner">Registering your learner</h2>
 <p>If your interface code to a new learning algorithm exists only locally, i.e., it is not (yet)
 merged into <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> or does not live in an extra package with a proper namespace you might want
@@ -653,9 +680,11 @@ You can do this as follows:</p>
 <pre><code class="r">registerS3method(&quot;makeRLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, makeRLearner.&lt;awesome_new_learner_class&gt;)
 registerS3method(&quot;trainLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, trainLearner.&lt;awesome_new_learner_class&gt;)
 registerS3method(&quot;predictLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, predictLearner.&lt;awesome_new_learner_class&gt;)
+</code></pre>
 
-## And if you also have written a method to extract the feature importance
-registerS3method(&quot;getFeatureImportanceLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;,
+<p>If you have written more methods, for example in order to extract feature importance values
+or out-of-bag predictions these also need to be registered in the same manner, for example:</p>
+<pre><code class="r">registerS3method(&quot;getFeatureImportanceLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;,
   getFeatureImportanceLearner.&lt;awesome_new_learner_class&gt;)
 </code></pre>
 

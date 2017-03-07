@@ -171,6 +171,12 @@
      <changefreq>daily</changefreq>
     </url>
         
+    <url>
+     <loc>/out_of_bag_predictions/index.html</loc>
+     <lastmod>2017-03-07</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
     
 
     

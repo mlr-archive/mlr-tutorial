@@ -162,6 +162,10 @@
 <li >
     <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
 </li>
+                            
+<li >
+    <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -513,7 +517,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.558,mmce.test.mean=0.362
-#&gt; Runtime: 0.213608
+#&gt; Runtime: 0.232658
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -556,7 +560,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.852,mmce.test.mean=0.248
-#&gt; Runtime: 0.230765
+#&gt; Runtime: 0.200954
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -655,7 +659,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.526,mmce.test.mean=0.346
-#&gt; Runtime: 0.294452
+#&gt; Runtime: 0.261403
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -672,7 +676,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
 #&gt; Aggr perf: credit.costs.test.mean=0.575,mmce.test.mean=0.311
-#&gt; Runtime: 0.406413
+#&gt; Runtime: 0.388791
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -750,7 +754,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
 #&gt; Aggr perf: credit.costs.test.mean=0.535,mmce.test.mean=0.351
-#&gt; Runtime: 0.448706
+#&gt; Runtime: 0.430612
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -846,7 +850,7 @@ r
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
 #&gt; Aggr perf: wf.costs.test.mean=7.02,mmce.test.mean=0.262
-#&gt; Runtime: 0.0667756
+#&gt; Runtime: 0.0672665
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)

@@ -162,6 +162,10 @@
 <li class="active">
     <a href="index.html">Hyperparameter Tuning Effects</a>
 </li>
+                            
+<li >
+    <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -220,7 +224,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../create_learner/index.html">
+                        <a rel="prev" href="../out_of_bag_predictions/index.html">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -308,12 +312,12 @@ generateHyperParsEffectData(res, trafo = T, include.diagnostics = FALSE)
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;            C acc.test.mean mmce.test.mean iteration exec.time
-#&gt; 1  0.3770897     0.7695312      0.2304688         1     0.064
-#&gt; 2  3.4829323     0.7526042      0.2473958         2     0.062
+#&gt; 1  0.3770897     0.7695312      0.2304688         1     0.069
+#&gt; 2  3.4829323     0.7526042      0.2473958         2     0.072
 #&gt; 3  2.2050176     0.7630208      0.2369792         3     0.063
-#&gt; 4 24.9285221     0.7070312      0.2929688         4     0.069
-#&gt; 5  0.2092395     0.7539062      0.2460938         5     0.065
-#&gt; 6  0.1495099     0.7395833      0.2604167         6     0.078
+#&gt; 4 24.9285221     0.7070312      0.2929688         4     0.067
+#&gt; 5  0.2092395     0.7539062      0.2460938         5     0.063
+#&gt; 6  0.1495099     0.7395833      0.2604167         6     0.075
 </code></pre>
 
 <p>As a reminder from the <a href="../resample/index.html">resampling</a> tutorial, if we wanted to generate data on
@@ -341,12 +345,12 @@ generateHyperParsEffectData(res, trafo = T, include.diagnostics = FALSE)
 #&gt; 5 1.28168692     0.7500000      0.8476562      0.2500000       0.1523438
 #&gt; 6 7.36607693     0.7239583      0.8932292      0.2760417       0.1067708
 #&gt;   iteration exec.time
-#&gt; 1         1     0.088
-#&gt; 2         2     0.088
-#&gt; 3         3     0.092
-#&gt; 4         4     0.084
-#&gt; 5         5     0.093
-#&gt; 6         6     0.092
+#&gt; 1         1     0.161
+#&gt; 2         2     0.162
+#&gt; 3         3     0.154
+#&gt; 4         4     0.160
+#&gt; 5         5     0.096
+#&gt; 6         6     0.110
 </code></pre>
 
 <p>In the example below, we perform grid search on the <code>C</code> parameter for SVM on the Pima Indians
@@ -370,12 +374,12 @@ generateHyperParsEffectData(res)
 #&gt; Nested CV Used: TRUE
 #&gt; Snapshot of data:
 #&gt;            C acc.test.mean mmce.test.mean iteration exec.time
-#&gt; 1 -5.0000000     0.6640625      0.3359375         1     0.040
-#&gt; 2 -3.8888889     0.6640625      0.3359375         2     0.043
-#&gt; 3 -2.7777778     0.6822917      0.3177083         3     0.042
-#&gt; 4 -1.6666667     0.7473958      0.2526042         4     0.041
-#&gt; 5 -0.5555556     0.7708333      0.2291667         5     0.041
-#&gt; 6  0.5555556     0.7682292      0.2317708         6     0.052
+#&gt; 1 -5.0000000     0.6640625      0.3359375         1     0.077
+#&gt; 2 -3.8888889     0.6640625      0.3359375         2     0.077
+#&gt; 3 -2.7777778     0.6822917      0.3177083         3     0.079
+#&gt; 4 -1.6666667     0.7473958      0.2526042         4     0.084
+#&gt; 5 -0.5555556     0.7708333      0.2291667         5     0.078
+#&gt; 6  0.5555556     0.7682292      0.2317708         6     0.084
 #&gt;   nested_cv_run
 #&gt; 1             1
 #&gt; 2             1
