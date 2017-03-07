@@ -425,7 +425,7 @@ predictLearner.multilabel.rFerns = function(.learner, .model, .newdata, ...) {
 ```
 
 
-## Creating a new feature importance method
+## Creating a new method for extracting feature importance values
 Some learners, for example decision trees and random forests, can calculate feature importance
 values, which can be extracted from a [fitted model](&makeWrappedModel) using function
 [&getFeatureImportance].
@@ -464,26 +464,24 @@ getFeatureImportanceLearner.classif.randomForestSRC = function(.learner, .model,
 ```
 
 
-## Integrating out-of-bag predictions in the [%mlr] framework
+## Creating a new method for extracting out-of-bag predictions
+Many ensemble learners generate out-of-bag predictions (OOB predictions) automatically.
+[%mlr] provides the function [&getOOBPreds] to access these predictions in the [%mlr] framework.
 
-Many methods provide out-of-bag predictions (OOB predictions) automatically. [%mlr] provides the function [getOOBPreds](&getOOBPreds) to access these predictions in the [%mlr] framework. 
-
-If your newly integrated learner provides OOB predictions and you want to access them in [%mlr] via [&getOOBPreds] you need to
+If your newly integrated learner is able to calculate OOB predictions and you want to be
+able to access them in [%mlr] via [&getOOBPreds] you need to
 
 * add `"oobpreds"` to the learner properties and
 * implement a new S3 method for function [&getOOBPredsLearner] (which later is called
-  internally by [&getOOBPreds]). 
+  internally by [&getOOBPreds]).
 
-This method takes the [&Learner] `.learner` and the [WrappedModel](&makeWrappedModel) `.model` and extracts the OOB predictions.
-It must return the predictions in the same format as the [&predictLearner] function. 
+This method takes the [Learner](&makeLearner) `.learner` and the [WrappedModel](&makeWrappedModel)
+`.model` and extracts the OOB predictions.
+It must return the predictions in the same format as the [&predictLearner] function.
 
-```{r, code=showFunctionDef(mlr:::getOOBPredsLearner.classif.randomForest)}
-  if (.learner$predict.type == "response") {
-    unname(.model$learner.model$predicted)
-  } else {
-   .model$learner.model$votes
-  }
+```{r, code=showFunctionDef(mlr:::getOOBPredsLearner.classif.randomForest), eval=FALSE, tidy=TRUE, tidy.opts=list(indent=2, width.cutoff=100)}
 ```
+
 
 ## Registering your learner
 If your interface code to a new learning algorithm exists only locally, i.e., it is not (yet)
@@ -495,8 +493,11 @@ You can do this as follows:
 registerS3method("makeRLearner", "<awesome_new_learner_class>", makeRLearner.<awesome_new_learner_class>)
 registerS3method("trainLearner", "<awesome_new_learner_class>", trainLearner.<awesome_new_learner_class>)
 registerS3method("predictLearner", "<awesome_new_learner_class>", predictLearner.<awesome_new_learner_class>)
+```
 
-## And if you also have written a method to extract the feature importance
+If you have written more methods, for example in order to extract feature importance values
+or out-of-bag predictions these also need to be registered in the same manner, for example:
+```{r, eval=FALSE}
 registerS3method("getFeatureImportanceLearner", "<awesome_new_learner_class>",
   getFeatureImportanceLearner.<awesome_new_learner_class>)
 ```
