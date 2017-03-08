@@ -1,0 +1,165 @@
+# Functional Data
+
+Functional data provides information about curves varying over a continuum, such as time.
+There are two commonly used approaches for analysing functional data.
+
+* Directly analyse the functional data using a [learner](&Learner.md) that is suitable for functional data on a [FDATask](&makeFDATask). Those learners have the prefixes __FDAClassif.__ and __FDARegr.__.
+
+* Transform the task into a format suitable for standard __classification__ or __regression__ [learners](&Learner.md). 
+This is done by [extracting](functional_data.Rmd#feature-extraction) non-temporal/non-functional features from the curves.
+
+
+## Creating a FDATask
+
+The first step is to get the data in the right format. [%mlr] expects a  [data.frame](&base::data.frame) which consists of the functional features and the target variable as input.
+After that a [FDATask](&makeFDATask) that contains the data in a well-defined format is created. [FDATasks](&makeFDATask), just like normal [Tasks](&Task.md) come in different flavours, such as [FDAClassifTask](&makeFDAClassifTask) and [FDARegrTask](&makeFDARegrTask), which can be used according to the class of the target variable.
+
+In the following example, this is done for the [fuelSubset](fuelSubset.task) data from package [%FDboost].
+The data is provided in the following structure:
+
+```{r}
+library(FDboost)
+data(fuelSubset)
+str(fuelSubset)
+```
+
+* __heatan__ is the target variable, in this case a numeric value.
+* __h2o__ is an additional scalar variable.
+* __NIR__ and __UVVIS__ are matricies containing the curve data. Each column corresponds to a single time point the data was sampled at. Each row indicates a single curve. __NIR__ was measured at $231$ time points, while __UVVIS__ was measured at $129$ time points.
+* __nir.lambda__ and __uvvis.lambda__ are vectors of length $231$ indicate the time points the data was measured at. Each entry corresponds to one column of __h2o__ and __UVVIS__ respectively.
+
+```{r}
+# Plot NIR curve for first observarion
+library(ggplot2)
+df = data.frame("NIR_obs_1" = fuelSubset$NIR[1, ],
+                "lambda" = fuelSubset$nir.lambda)
+ggplot(df) + 
+  geom_line(aes(y = NIR_obs_1, x = lambda))
+```
+
+The [FDATask](&makeFDATask) can then be constructed as follows:
+
+* __fd.features__ is a list of functional features and the associated column indices.
+* __fd.grids__ is a list of the functional features' time points, i.e when they were measured. 
+
+```{r}
+# Put all values into a data.frame
+df = data.frame(fuelSubset[c("heatan", "h2o", "UVVIS", "NIR")])
+# Change row names to V1 to V367
+colnames(df) = stri_paste("V", 1:367)
+
+# Create a regression task, classification tasks behave analogously
+tsk = makeFDARegrTask(data = df, target = "V1", 
+  fd.features = list("UVVIS" = 3:136, "NIR" = 137:367),
+  fd.grids = list("UVVIS" = fuelSubset$uvvis.lambda,
+    "NIR" = fuelSubset$nir.lambda))
+tsk
+```
+
+
+
+## Constructing a learner
+
+For functional data, [learners](&Learner.md) are constructed using 
+`makeLearner("<fdaclassif.<R_method_name>")` or 
+`makeLearner("<fdaregr.<R_method_name>")` depending on the target variable.
+
+Applying learners to a [FDATask](&makeFDATask) works in two ways:
+
+* Use a [learner](&Learner.md)
+that supports functional features, those learners have prefixes  __fdaclassif.__ or __fdaregr.__
+
+  + For regression: 
+```{r}
+#The following learners can be used for the task.
+# head(listLearners(tsk))
+# Create a FDboost learner
+fdalrn = makeLearner("fdaregr.FDboost")
+```
+
+  + And for classification:
+```{r}
+## knn learner
+knn.lrn = makeLearner("fdaclassif.knn")
+```
+
+* Use a _standard_ [learner](&Learner.md): 
+In this case the temporal structure is disregarded
+
+* Alternatively, transform the functional data into a non-temporal/non-functional space by [extracting](functional_data.Rmd#feature-extraction) features before training.
+In this case, a normal regression- or classification- [learner](&Learner.md) 
+can be applied. 
+This is explained in more detail in the [feature extraction](functional_data.Rmd#feature-extraction)
+section below.
+
+## Train the learner
+
+The resulting learner can now be trained on the task created in section [Creating a FDATask](functional_data.Rmd#creating-a-fdatask) above. 
+
+```{r}
+# Train the fdalrn on the FDATask
+m = train(learner = fdalrn, task = tsk)
+```
+
+Alternatively, learners that do not specifically treat functional covariates can
+be applied. In this case the temporal structure is completely disregarded, and all
+columns are treated as independent.
+
+```{r}
+# Train a normal learner on the FDATask
+lrn = makeLearner("regr.rpart")
+m = train(learner = lrn, task = tsk)
+
+# Or simply resample instead
+resample(lrn, tsk, resampling = cv3, measures =  mse)
+```
+
+### Feature Extraction
+
+In contrast to applying a learner that works on a [FDATask](&makeFDATask), the [FDATask](&makeFDATask) can be converted to a normal [&Task.md].
+This works by transforming the functional features into a 
+non-functional domain, e.g by extracting wavelets.
+
+The currently supported preprocessing functions are:
+* discrete wavelet transform
+* fast fourier transform
+* functional linear array model
+
+The basic structure is `convertFDATaskToNormalTask(task, method, pars)` where the method argument specifies the preprocessing method. This is detailed for wavelets and fourier transfrom in the following sections.
+
+### Wavelets
+
+In this case, discrete wavelet feature transformation is applied.
+We can specify which feature extraction method is used via _method = "wavelets"_ and add additional parameters (i.e. the filter and the boundary) in the pars argument. 
+This functions returns a regression task of type regr since the raw data contained temporal structure but the transformed data does not inherit temporal structure anymore.
+```{r}
+## Specify the feature extraction method and generate new task.
+## Here, we use the Haar filter:
+taskW = convertFDATaskToNormalTask(task = tsk, method = "wavelets", pars = list(filter = "haar"))
+print(taskW)
+
+# Use the Daubechie wavelet with filter length 4.
+taskWD4 = convertFDATaskToNormalTask(task = taskCl, method = "wavelets", pars = list(filter = "d4"))
+print(taskWD4)
+```
+The transformation calls the function [&getFDAWaveletFeatures].
+
+
+### Fourier transformation
+
+Now, we use the fourier feature transformation. Either the amplitude or the phase of the complex fourier coefficients can be used for analysis. This can be specified in the additional _fft.coeff_ argument:
+
+```{r}
+# Specify the feature extraction method and generate new task.
+# We use the fourier features and the amplitude:
+taskFa = convertFDATaskToNormalTask(task = taskCl, method = "fourier", 
+  pars = list(fft.coeff = "amplitude"))
+print(taskFa)
+# ... or we prefer the phase:
+taskFp = convertFDATaskToNormalTask(task = taskCl, method = "fourier", 
+  pars = list(fft.coeff = "phase"))
+print(taskFp)
+```
+
+This transformation uses the function [&getFDAFourierFeatures].
+
