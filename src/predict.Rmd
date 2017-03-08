@@ -86,6 +86,30 @@ head(getPredictionResponse(task.pred))
 ```
 
 
+### Extract Standard Errors
+Some learners provide standard errors for predictions, which can be accessed in mlr. An overview is given by calling the function [&listLearners] and setting ``properties = "se"``. By assigning ``FALSE`` to ``check.packages`` learners from packages which are not installed will be included in the overview.
+
+```{r}
+listLearners("regr", check.packages = FALSE, properties = "se")
+```
+
+In this example we train a linear regression model on the Boston Housing dataset. In order to calculate standard errors set the ``predict.type`` to ``"se"``:
+
+```{r}
+## Create Learner, specify predict.type
+lrn.lm = makeLearner("regr.lm", predict.type = 'se')
+mod.lm = train(lrn.lm, bh.task, subset = train.set)
+task.pred.lm = predict(mod.lm, task = bh.task, subset = test.set)
+task.pred.lm
+```
+
+The standard errors can then be extracted using [&getPredictionSE].
+
+```{r}
+head(getPredictionSE(task.pred.lm))
+```
+
+
 ### Extract Probabilities
 The predicted probabilities can be extracted from the [&Prediction] using the function
 [&getPredictionProbabilities].
@@ -132,6 +156,7 @@ As mentioned above, the predicted posterior probabilities can be accessed via th
 ```{r}
 head(getPredictionProbabilities(pred))
 ```
+
 
 ### Confusion matrix
 
