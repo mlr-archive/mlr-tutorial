@@ -242,6 +242,8 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#integrated-filter-methods">Integrated Filter Methods</a></li>
+            <li><a href="#current-methods">Current methods</a></li>
+            <li><a href="#deprecated-methods">Deprecated methods</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -250,8 +252,10 @@
 <p>The following table shows the available methods for calculating the feature importance.
 Columns <strong>Classif</strong>, <strong>Regr</strong> and <strong>Surv</strong> indicate if classification, regression or survival
 analysis problems are supported.
-Columns <strong>Fac.</strong>, <strong>Num.</strong> and <strong>Ord.</strong> show if a particular method can deal with <a href="http://www.rdocumentation.org/packages/base/functions/factor.html">factor</a>,
-<a href="http://www.rdocumentation.org/packages/base/functions/numeric.html">numeric</a> and <a href="http://www.rdocumentation.org/packages/base/functions/factor.html">ordered factor</a> features.</p>
+Columns <strong>Fac.</strong>, <strong>Num.</strong> and <strong>Ord.</strong> show if a particular method can deal with
+<a href="http://www.rdocumentation.org/packages/base/functions/factor.html">factor</a>, <a href="http://www.rdocumentation.org/packages/base/functions/numeric.html">numeric</a> and <a href="http://www.rdocumentation.org/packages/base/functions/factor.html">ordered factor</a>
+features.</p>
+<h2 id="current-methods">Current methods</h2>
 <table>
 <thead>
 <tr>
@@ -475,6 +479,57 @@ Columns <strong>Fac.</strong>, <strong>Num.</strong> and <strong>Ord.</strong> s
 <td align="center"></td>
 <td align="center">X</td>
 <td align="center"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="deprecated-methods">Deprecated methods</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Method</th>
+<th align="left">Package</th>
+<th align="left">Description</th>
+<th align="center">Classif</th>
+<th align="center">Regr</th>
+<th align="center">Surv</th>
+<th align="center">Fac.</th>
+<th align="center">Num.</th>
+<th align="center">Ord.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">rf.importance</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/randomForestSRC/">randomForestSRC</a></td>
+<td align="left">Importance of random forests fitted in package 'randomForestSRC'. Importance is calculated using argument 'permute'. (DEPRECATED)</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="left">rf.min.depth</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/randomForestSRC/">randomForestSRC</a></td>
+<td align="left">Minimal depth of random forest fitted in package 'randomForestSRC. (DEPRECATED)</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+</tr>
+<tr>
+<td align="left">univariate</td>
+<td align="left"></td>
+<td align="left">Resamples an mlr learner for each input feature individually. The resampling performance is used as filter score, with rpart as default learner. (DEPRECATED)</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center">X</td>
 </tr>
 </tbody>
 </table></div>
