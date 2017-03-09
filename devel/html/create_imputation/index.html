@@ -271,6 +271,9 @@ The <em>learn</em> and <em>impute</em> functions both have at least the followin
   if (is.na(const)) 
     stopf(&quot;Error imputing column '%s'. Maybe all input data was missing?&quot;, col)
   x = data[[col]]
+  if (is.logical(x) &amp;&amp; !is.logical(const)) {
+    x = as.factor(x)
+  }
   if (is.factor(x) &amp;&amp; const %nin% levels(x)) {
     levels(x) = c(levels(x), as.character(const))
   }

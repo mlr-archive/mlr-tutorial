@@ -361,7 +361,7 @@ regr.lrn$predict.type
 <p>Slot <code>$par.set</code> is an object of class <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/makeParamSet.html">ParamSet</a>.
 It contains, among others, the type of hyperparameters (e.g., numeric, logical), potential
 default values and the range of allowed values.</p>
-<p>Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides function <a href="http://www.rdocumentation.org/packages/mlr/functions/getHyperPars.html">getHyperPars</a> to access the current hyperparameter setting
+<p>Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides function <a href="http://www.rdocumentation.org/packages/mlr/functions/getHyperPars.html">getHyperPars</a> or its alternative <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerParVals.html">getLearnerParVals</a> to access the current hyperparameter setting
 of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html">getParamSet</a> to get a description of all possible settings.
 These are particularly useful in case of wrapped <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>s,
 for example if a learner is fused with a feature selection strategy, and both, the learner
@@ -394,7 +394,7 @@ getParamSet(classif.lrn)
 #&gt; keep.inbag        logical    - FALSE        -   -   FALSE     -
 </code></pre>
 
-<p>We can also use <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html">getParamSet</a> to get a quick overview about the available hyperparameters
+<p>We can also use <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html">getParamSet</a> or its alias <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerParamSet.html">getLearnerParamSet</a> to get a quick overview about the available hyperparameters
 and defaults of a learning method without explicitly constructing it (by calling <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a>).</p>
 <pre><code class="r">getParamSet(&quot;classif.randomForest&quot;)
 #&gt;                      Type  len   Def   Constr Req Tunable Trafo
@@ -415,6 +415,24 @@ and defaults of a learning method without explicitly constructing it (by calling
 #&gt; do.trace          logical    - FALSE        -   -   FALSE     -
 #&gt; keep.forest       logical    -  TRUE        -   -   FALSE     -
 #&gt; keep.inbag        logical    - FALSE        -   -   FALSE     -
+</code></pre>
+
+<p>Functions for accessing a Learner's meta information are available in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>. We can use <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerId.html">getLearnerId</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerShortName.html">getLearnerShortName</a> and  <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerType.html">getLearnerType</a> to get Learner's ID, short name and type, respectively. Moreover, in order to show the required packages for the Learner, one can call <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerPackages.html">getLearnerPackages</a>.</p>
+<pre><code class="r">## Get object's id
+getLearnerId(surv.lrn)
+#&gt; [1] &quot;cph&quot;
+
+## Get the short name
+getLearnerShortName(classif.lrn)
+#&gt; [1] &quot;rf&quot;
+
+## Get the type of the learner
+getLearnerType(multilabel.lrn)
+#&gt; [1] &quot;multilabel&quot;
+
+## Get required packages
+getLearnerPackages(cluster.lrn)
+#&gt; [1] &quot;stats&quot; &quot;clue&quot;
 </code></pre>
 
 <h2 id="modifying-a-learner">Modifying a learner</h2>
