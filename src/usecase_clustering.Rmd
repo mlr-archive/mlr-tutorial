@@ -1,0 +1,77 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+## Clustering
+
+This is a use case for clustering with the [%mlr] package. We consider the \texttt{mtcars} dataset that contains technical information for 32 automobiles. We aim to group the observations into clusters that contain similar objects. We will 
+
+* preprocess the data, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/preproc/index.html) and [here](http://mlr-org.github.io/mlr-tutorial/devel/html/impute/index.html)
+* define a task,[here](http://mlr-org.github.io/mlr-tutorial/devel/html/task/index.html)
+* create a learner, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/learner/index.html)
+* traine the model, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/train/index.html)
+* predict the survival chance, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/predict/index.html)
+* validate the model,[here](http://mlr-org.github.io/mlr-tutorial/devel/html/performance/index.html) and [here](http://mlr-org.github.io/mlr-tutorial/devel/html/resample/index.html)
+
+#### Preprocessing
+
+
+We will have a look at the data and will prepare it for our purposes. Since the variables \texttt{cyl}, \texttt{vs}, \texttt{am}, \texttt{gear} and \texttt{carb} seem to be categorical variables, we will transform them to factors.
+
+```{r message=FALSE, cache=FALSE}
+library(mlr)
+data(mtcars, package = "datasets")
+
+str(mtcars)
+
+mtcars[, c("cyl", "vs", "am", "gear", "carb")] = lapply(mtcars[, c("cyl", "vs", "am", 
+                                                                   "gear", "carb")], as.factor)
+```
+
+### Defining a task
+
+We now have to define a clustering task using the \texttt{makeClusterTask} command. Notice that a clustering task doesn't have a target variable. 
+
+```{r}
+cluster.task = makeClusterTask(data = mtcars)
+cluster.task
+```
+
+Calling the task again shows us some basic informations as the number of observations, the data types of the features or if there are still some missing values, that should be preprocessed.
+
+### Defining a learner
+
+We generate the learner by calling ``makeLearner`` and specifying the learning method, and, if needed, hyperparamters, an ID or specifications for the later output. 
+
+An overview over all learners can be found  [here](http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html). You can also call the \texttt{listLearners} command for clustering tasks.
+
+
+```{r, warning=FALSE, eval = FALSE}
+listLearners(obj = "cluster")
+```
+
+We will apply the $k$-means algorithm with 
+
+```{r}
+kmeans.lrn = makeLearner("cluster.kmeans", centers = 5)
+kmeans.lrn
+```
+### Fit the model
+
+
+To fit the model - and afterwards predict - the data set is split into a training and a test data set.
+
+```{r}
+n = getTaskSize(task)
+trainSet = seq(1, n, by = 2)
+testSet = seq(2, n, by = 2)
+```
+
+```{r}
+mod = train(learner = lrn, task = task, subset = trainSet)
+```
+
+
+
