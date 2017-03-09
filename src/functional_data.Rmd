@@ -47,9 +47,10 @@ The [FDATask](&makeFDATask) can then be constructed as follows:
 df = data.frame(fuelSubset[c("heatan", "h2o", "UVVIS", "NIR")])
 # Change row names to V1 to V367
 colnames(df) = stri_paste("V", 1:367)
+df$V1 = as.factor(df$V1 > 27)
 
 # Create a regression task, classification tasks behave analogously
-tsk = makeFDARegrTask(data = df, target = "V1", 
+tsk = makeFDAClassifTask(data = df, target = "V1", 
   fd.features = list("UVVIS" = 3:136, "NIR" = 137:367),
   fd.grids = list("UVVIS" = fuelSubset$uvvis.lambda,
     "NIR" = fuelSubset$nir.lambda))
@@ -99,6 +100,11 @@ The resulting learner can now be trained on the task created in section [Creatin
 ```{r}
 # Train the fdalrn on the FDATask
 m = train(learner = fdalrn, task = tsk)
+p = predict(m, tsk)
+performance(p, rmse)
+
+# Or simply resample (3-fold CV) instead
+resample(fdalrn, tsk, resampling = cv3, measures =  mse)
 ```
 
 Alternatively, learners that do not specifically treat functional covariates can
@@ -107,11 +113,8 @@ columns are treated as independent.
 
 ```{r}
 # Train a normal learner on the FDATask
-lrn = makeLearner("regr.rpart")
+rpart.lrn = makeLearner("regr.rpart")
 m = train(learner = lrn, task = tsk)
-
-# Or simply resample instead
-resample(lrn, tsk, resampling = cv3, measures =  mse)
 ```
 
 ### Feature Extraction
@@ -135,12 +138,12 @@ This functions returns a regression task of type regr since the raw data contain
 ```{r}
 ## Specify the feature extraction method and generate new task.
 ## Here, we use the Haar filter:
-taskW = convertFDATaskToNormalTask(task = tsk, method = "wavelets", pars = list(filter = "haar"))
-print(taskW)
+task.w = convertFDATaskToNormalTask(task = tsk, method = "wavelets", pars = list(filter = "haar"))
+print(task.w)
 
 # Use the Daubechie wavelet with filter length 4.
-taskWD4 = convertFDATaskToNormalTask(task = taskCl, method = "wavelets", pars = list(filter = "d4"))
-print(taskWD4)
+task.wd4 = convertFDATaskToNormalTask(task = tsk, method = "wavelets", pars = list(filter = "d4"))
+print(task.wd4)
 ```
 The transformation calls the function [&getFDAWaveletFeatures].
 
@@ -152,13 +155,13 @@ Now, we use the fourier feature transformation. Either the amplitude or the phas
 ```{r}
 # Specify the feature extraction method and generate new task.
 # We use the fourier features and the amplitude:
-taskFa = convertFDATaskToNormalTask(task = taskCl, method = "fourier", 
+task.fa = convertFDATaskToNormalTask(task = tsk, method = "fourier", 
   pars = list(fft.coeff = "amplitude"))
-print(taskFa)
+print(task.fa)
 # ... or we prefer the phase:
-taskFp = convertFDATaskToNormalTask(task = taskCl, method = "fourier", 
+task.fp = convertFDATaskToNormalTask(task = tsk, method = "fourier", 
   pars = list(fft.coeff = "phase"))
-print(taskFp)
+print(task.fp)
 ```
 
 This transformation uses the function [&getFDAFourierFeatures].
