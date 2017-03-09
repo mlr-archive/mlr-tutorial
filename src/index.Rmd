@@ -23,44 +23,33 @@ survival analysis to illustrate the main features of the package.
 Enjoy reading!
 
 ## Quick start
-Applying a statistical algorithm with [%mlr] has a basic structure of 3 steps not depending on the specific model. 
+Here we show the [%mlr] workflow to train, make predictions, and evaluate a learner on a classification problem. It consists of 5 basic steps that are independent of the particular learning problem and method. 
 
-```{r,results='hide',warning=FALSE,message=FALSE}
+```{r}
 
 library(mlr)
 data(iris)
 
 ## 1) Define the task
-## specify the type of the analysis (e.g. classification), data and response 
+## Specify the type of the analysis (e.g. classification), provide data and response variable.  
 task = makeClassifTask(data = iris, target = "Species")
 
 ## 2) Define the learner
-## choose a specific algorithm (e.g.linear discriminant analysis)
+## Choose a specific algorithm (e.g. linear discriminant analysis).
 lrn = makeLearner("classif.lda")
 
 n = nrow(iris)
 
 ## 3) Fit the model
-## by combining learner and task 
+## Train the learner on the task. 
 model = train(lrn, task, subset = seq(1, n, by = 2))
 
-```
-
-The following steps show how you can proceed with your fitted model.
-
-Predicting the target values of new observations by the trained model: 
-
-```{r}
-
+## 4) Prediction 
+## Predicting the target values of new observations by the trained model.
 pred = predict(model, task = task, subset = seq(2, n, by = 2))
 
-```
-
-Evaluating the performance of the model:
-
-```{r}
-
-## Calculating performance measures 
+## 5) Performance evaluation
 performance(pred, measures = list(mmce, acc))
+
 
 ```
