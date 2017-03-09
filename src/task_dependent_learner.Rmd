@@ -1,0 +1,76 @@
+# Task Dependent Learners
+
+As shown in the [learner](learner.md) section, learners are allowed to contain expressions,
+which will be evaluated right before the usage of the learner. Per default, [%mlr] comes
+with a built-in dictionary of task dependent *keys* for the expressions (including the `task`
+itself). For convenience, some of them can be accessed directly:
+
+* `task`: the [&Task] itself (allowing to access any of its elements)
+* `p`: number of features in the [&Task]
+* `n`: number of observations in the [&Task]
+* `type`: type of the [&Task] (`"classif"`, `"regr"`, `"surv"`, `"cluster"`, `"costcens"`,
+  `"multilabel"`)
+* `k`: number of classes of the target variable (only available for classification tasks)
+
+This way, one could for instance create a classification tree, whose minimum number of
+observations within a node (`minsplit`) equals approximately `10%` of the number of available
+observations (`n`).
+
+```{r}
+lrn = makeLearner("classif.rpart", minsplit = expression(round(0.1 * n)))
+```
+
+```{r, echo=FALSE}
+lrn = removeHyperPars(lrn, "xval")
+```
+
+Let's have a look at the following example, which uses the `iris` and `Sonar` data sets to
+create two classification tasks. These two tasks are then used to evaluate the task dependent
+expression within `lrn` (by using `evaluateLearner`).
+
+```{r}
+lrn.iris = evaluateLearner(lrn, iris.task)
+getHyperPars(lrn.iris)
+
+lrn.sonar = evaluateLearner(lrn, sonar.task)
+getHyperPars(lrn.sonar)
+```
+
+Similarly, a model that is based on a learner with task dependent expressions can be trained
+as follows:
+
+```{r}
+lrn = makeLearner("classif.ksvm", sigma = expression(5 / n))
+mod = train(task = iris.task, learner = lrn)
+print(mod)
+```
+
+Note that in case of task dependent expressions, [%mlr] creates the built-in dictionary on
+its own, based on the provided [&Task].
+
+
+## Task dependent tuning
+In the following example, we'll combine tuning, feature selection and task dependent learners.
+To be more precise, we will run four iterations of a random feature selection using an SVM.
+For each of those iterations, we try out two random configurations of the SVM's two parameters
+`"sigma"` and `"C"`. Note that the lower and upper bound of the feasible values of `"sigma"`
+depend on the number of features and therefore, these bounds can vary for each feature
+selection step.
+
+```{r}
+## define the setup of the inner (tuning) loop
+ps = makeParamSet(
+  makeNumericLearnerParam("sigma", lower = expression(0.2 * p), upper = expression(2.5 * p)),
+  makeDiscreteLearnerParam("C", values = 2^c(-1, 1)),
+  keys = "a"
+)
+inner.rdesc = makeResampleDesc("Subsample")
+ctrl.tune = makeTuneControlRandom(maxit = 2L)
+wrapped.lrn = makeTuneWrapper("classif.ksvm", par.set = ps, control = ctrl.tune,
+  resampling = inner.rdesc)
+
+## define the setup of the outer (feature selection) loop
+ctrl.sf = makeFeatSelControlRandom(maxit = 4L)
+outer.rdesc = makeResampleDesc("Holdout")
+sf = selectFeatures(learner = wrapped.lrn, task = sonar.task, resampling = outer.rdesc, control = ctrl.sf)
+```
