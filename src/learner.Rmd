@@ -111,7 +111,7 @@ and defaults of a learning method without explicitly constructing it (by calling
 getParamSet("classif.randomForest")
 ```
 
-Functions for accessing a Learner's meta information are available in [%mlr]. We can use [%getLearnerId], [%getLearnerShortName] and  [%getLearnerType] to get Learner's id, short name and type, respectively. Moreover, in order to show the required packages for the Learner, one can call [%getLearnerPackages].
+Functions for accessing a Learner's meta information are available in [%mlr]. We can use [&getLearnerId], [&getLearnerShortName] and  [&getLearnerType] to get Learner's id, short name and type, respectively. Moreover, in order to show the required packages for the Learner, one can call [&getLearnerPackages].
 
 ```{r}
 ## Get object's id
