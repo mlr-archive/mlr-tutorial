@@ -6,28 +6,34 @@ output:
 
 ## Clustering
 
-This is a use case for clustering with the [%mlr] package. We consider the \texttt{mtcars} dataset that contains technical information for 32 automobiles. We aim to group the observations into clusters that contain similar objects. We will 
+This is a use case for clustering with the [%mlr] package. We consider the \texttt{agriculture} dataset that contains observations about $n=12$ countries about  
+
+* \texttt{x} GNP (Gross National Product) per head, 
+* \texttt{y} percentage in agriculture.
+
+```{r}
+library("cluster")
+data(agriculture)
+
+plot(y ~ x, data = agriculture)
+```
+
+
+We aim to group the observations into clusters that contain similar objects. We will 
 
 * preprocess the data, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/preproc/index.html) and [here](http://mlr-org.github.io/mlr-tutorial/devel/html/impute/index.html)
 * define a task,[here](http://mlr-org.github.io/mlr-tutorial/devel/html/task/index.html)
 * create a learner, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/learner/index.html)
-* traine the model, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/train/index.html)
-* predict the survival chance, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/predict/index.html)
-* validate the model,[here](http://mlr-org.github.io/mlr-tutorial/devel/html/performance/index.html) and [here](http://mlr-org.github.io/mlr-tutorial/devel/html/resample/index.html)
+* train the model, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/train/index.html)
+* evaluate the performance of the model,[here](http://mlr-org.github.io/mlr-tutorial/devel/html/performance/index.html) 
 
 #### Preprocessing
 
 
-We will have a look at the data and will prepare it for our purposes. Since the variables \texttt{cyl}, \texttt{vs}, \texttt{am}, \texttt{gear} and \texttt{carb} seem to be categorical variables, we will transform them to factors.
+We will have a look at the data. It already looks quite good and no further preprocessing is necessary.
 
 ```{r message=FALSE, cache=FALSE}
-library(mlr)
-data(mtcars, package = "datasets")
-
-str(mtcars)
-
-mtcars[, c("cyl", "vs", "am", "gear", "carb")] = lapply(mtcars[, c("cyl", "vs", "am", 
-                                                                   "gear", "carb")], as.factor)
+str(agriculture)
 ```
 
 ### Defining a task
@@ -35,11 +41,12 @@ mtcars[, c("cyl", "vs", "am", "gear", "carb")] = lapply(mtcars[, c("cyl", "vs", 
 We now have to define a clustering task using the \texttt{makeClusterTask} command. Notice that a clustering task doesn't have a target variable. 
 
 ```{r}
-cluster.task = makeClusterTask(data = mtcars)
-cluster.task
+library(mlr)
+agri.task = makeClusterTask(data = agriculture)
+agri.task
 ```
 
-Calling the task again shows us some basic informations as the number of observations, the data types of the features or if there are still some missing values, that should be preprocessed.
+Calling the task again shows us some basic informations as the number of observations, the data types of the features or if there are still some missing values, that should have been preprocessed.
 
 ### Defining a learner
 
@@ -49,29 +56,60 @@ An overview over all learners can be found  [here](http://mlr-org.github.io/mlr-
 
 
 ```{r, warning=FALSE, eval = FALSE}
-listLearners(obj = "cluster")
+listLearners(obj = agri.task)
 ```
 
-We will apply the $k$-means algorithm with 
+We will apply the $k$-means algorithm with $2$ centers for the moment
 
 ```{r}
-kmeans.lrn = makeLearner("cluster.kmeans", centers = 5)
+kmeans.lrn = makeLearner("cluster.kmeans", centers = 2)
 kmeans.lrn
 ```
-### Fit the model
+### Train the model
 
-
-To fit the model - and afterwards predict - the data set is split into a training and a test data set.
-
-```{r}
-n = getTaskSize(task)
-trainSet = seq(1, n, by = 2)
-testSet = seq(2, n, by = 2)
-```
+We will train the model.
 
 ```{r}
-mod = train(learner = lrn, task = task, subset = trainSet)
+agri.mod = train(learner = kmeans.lrn, task = agri.task)
 ```
+
+We can extract the model and have a look at it. 
+
+```{r}
+getLearnerModel(agri.mod)
+```
+
+### Prediction
+
+we will predict the clusters. 
+
+```{r}
+pred = predict(agri.mod, task = agri.task)
+pred
+```
+
+
+### Performance 
+
+Since the data given to the learner are unlabeled, there is no objective evaluation of the accuracy of our model. We have to consider other criterions in unsupervised learning. 
+
+Especially the question about how the hyperparameter $k$, the number of clusters, should be chosen, should be evaluated here.
+
+```{r}
+listMeasures(agri.task)
+```
+
+Let's have a look at the silhouette coefficient and compare it to other values of $k$.
+
+```{r}
+library("clValid")
+
+# doesn't work here
+# performance(pred, measures = dunn, task = agri.task)
+```
+
+
+
 
 
 
