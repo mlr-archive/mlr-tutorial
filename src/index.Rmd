@@ -41,14 +41,16 @@ lrn = makeLearner("classif.lda")
 n = nrow(iris)
 
 ## 3) Fit the model
-## Train the learner on the task. 
+## Train the learner on the task using a subset of the data as training data. 
 model = train(lrn, task, subset = seq(1, n, by = 2))
 
 ## 4) Prediction 
-## Predicting the target values of new observations by the trained model.
+## Predicting the target values of new observations by the trained model
+## using the other part of the data as test data.
 pred = predict(model, task = task, subset = seq(2, n, by = 2))
 
 ## 5) Performance evaluation
+## Calculating the Mean Classification Error and Accuracy 
 performance(pred, measures = list(mmce, acc))
 
 
