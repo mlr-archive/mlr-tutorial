@@ -89,7 +89,7 @@ Slot ``$par.set`` is an object of class [ParamSet](&ParamHelpers::makeParamSet).
 It contains, among others, the type of hyperparameters (e.g., numeric, logical), potential
 default values and the range of allowed values.
 
-Moreover, [%mlr] provides function [&getHyperPars] to access the current hyperparameter setting
+Moreover, [%mlr] provides function [&getHyperPars] or its alternative [&getLearnerParVals] to access the current hyperparameter setting
 of a [Learner](&makeLearner) and [&getParamSet] to get a description of all possible settings.
 These are particularly useful in case of wrapped [Learner](&makeLearner)s,
 for example if a learner is fused with a feature selection strategy, and both, the learner
@@ -104,13 +104,28 @@ getHyperPars(cluster.lrn)
 getParamSet(classif.lrn)
 ```
 
-We can also use [&getParamSet] to get a quick overview about the available hyperparameters
+We can also use [&getParamSet] or its alias [&getLearnerParamSet] to get a quick overview about the available hyperparameters
 and defaults of a learning method without explicitly constructing it (by calling [&makeLearner]).
 
 ```{r}
 getParamSet("classif.randomForest")
 ```
 
+Functions for accessing a Learner's meta information are available in [%mlr]. We can use [&getLearnerId], [&getLearnerShortName] and  [&getLearnerType] to get Learner's ID, short name and type, respectively. Moreover, in order to show the required packages for the Learner, one can call [&getLearnerPackages].
+
+```{r}
+## Get object's id
+getLearnerId(surv.lrn)
+
+## Get the short name
+getLearnerShortName(classif.lrn)
+
+## Get the type of the learner
+getLearnerType(multilabel.lrn)
+
+## Get required packages
+getLearnerPackages(cluster.lrn)
+```
 
 ## Modifying a learner
 
