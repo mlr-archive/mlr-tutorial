@@ -10,7 +10,7 @@ output:
 set.seed(1234)
 ```
 
-This is a use case for clustering with the [%mlr] package. We consider the \texttt{agriculture} dataset that contains observations about $n=12$ countries about  
+This is a use case for clustering with the [%mlr] package. We consider the [agriculture](https://www.rdocumentation.org/packages/cluster/versions/1.10.0/topics/agriculture) dataset that contains observations about $n=12$ countries including  
 
 * the GNP (Gross National Product) per head (\texttt{x}) ,
 * the percentage in agriculture (\texttt{y}).
