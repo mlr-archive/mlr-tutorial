@@ -27,21 +27,11 @@ plot(y ~ x, data = agriculture)
 
 We aim to group the observations into clusters that contain similar objects. We will 
 
-* preprocess the data ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/preproc/index.html) and [here](http://mlr-org.github.io/mlr-tutorial/devel/html/impute/index.html)),
 * define the learning task  ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/task/index.html)),
 * select a learning method ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/learner/index.html)),
 * train the learner with data ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/train/index.html)), 
 * evaluate the performance of the model ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/performance/index.html)) and
 * tune the model ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/tune/index.html)).
-
-#### Preprocessing
-
-
-We will have a look at the data. It already looks quite good and no further preprocessing is necessary.
-
-```{r message=FALSE, cache=FALSE}
-str(agriculture)
-```
 
 ### Defining a task
 
