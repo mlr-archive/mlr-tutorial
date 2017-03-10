@@ -4,14 +4,20 @@ output:
   html_document: default
 ---
 
-## Clustering
+# Clustering
+
+```{r echo = FALSE}
+set.seed(1234)
+```
 
 This is a use case for clustering with the [%mlr] package. We consider the \texttt{agriculture} dataset that contains observations about $n=12$ countries about  
 
-* \texttt{x} GNP (Gross National Product) per head, 
-* \texttt{y} percentage in agriculture.
+* the GNP (Gross National Product) per head (\texttt{x}) ,
+* the percentage in agriculture (\texttt{y}).
 
-```{r}
+So let's have a look at the data first.
+
+```{r, fig.width = 5}
 library("cluster")
 data(agriculture)
 
@@ -21,11 +27,12 @@ plot(y ~ x, data = agriculture)
 
 We aim to group the observations into clusters that contain similar objects. We will 
 
-* preprocess the data, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/preproc/index.html) and [here](http://mlr-org.github.io/mlr-tutorial/devel/html/impute/index.html)
-* define a task,[here](http://mlr-org.github.io/mlr-tutorial/devel/html/task/index.html)
-* create a learner, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/learner/index.html)
-* train the model, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/train/index.html)
-* evaluate the performance of the model,[here](http://mlr-org.github.io/mlr-tutorial/devel/html/performance/index.html) 
+* preprocess the data ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/preproc/index.html) and [here](http://mlr-org.github.io/mlr-tutorial/devel/html/impute/index.html)),
+* define the learning task  ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/task/index.html)),
+* select a learning method ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/learner/index.html)),
+* train the learner with data ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/train/index.html)), 
+* evaluate the performance of the model ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/performance/index.html)) and
+* tune the model ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/tune/index.html)).
 
 #### Preprocessing
 
@@ -38,9 +45,9 @@ str(agriculture)
 
 ### Defining a task
 
-We now have to define a clustering task using the \texttt{makeClusterTask} command. Notice that a clustering task doesn't have a target variable. 
+We now have to define a clustering task. Notice that a clustering task doesn't have a target variable. 
 
-```{r}
+```{r message = FALSE}
 library(mlr)
 agri.task = makeClusterTask(data = agriculture)
 agri.task
@@ -50,27 +57,27 @@ Calling the task again shows us some basic informations as the number of observa
 
 ### Defining a learner
 
-We generate the learner by calling ``makeLearner`` and specifying the learning method, and, if needed, hyperparamters, an ID or specifications for the later output. 
+We generate the learner by calling ``makeLearner`` and specifying the learning method, and, if needed, hyperparameters.
 
-An overview over all learners can be found  [here](http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html). You can also call the \texttt{listLearners} command for clustering tasks.
+An overview over all learners can be found  [here](http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html). You can also call the \texttt{listLearners} command for our specific task.
 
 
 ```{r, warning=FALSE, eval = FALSE}
 listLearners(obj = agri.task)
 ```
 
-We will apply the $k$-means algorithm with $2$ centers for the moment
+We will apply the $k$-means algorithm with $3$ centers for the moment
 
 ```{r}
-kmeans.lrn = makeLearner("cluster.kmeans", centers = 2)
-kmeans.lrn
+cluster.lrn = makeLearner("cluster.kmeans", centers = 3)
+cluster.lrn
 ```
 ### Train the model
 
-We will train the model.
+The next step is to train our learner by feeding it with our data.
 
 ```{r}
-agri.mod = train(learner = kmeans.lrn, task = agri.task)
+agri.mod = train(learner = cluster.lrn, task = agri.task)
 ```
 
 We can extract the model and have a look at it. 
@@ -81,32 +88,70 @@ getLearnerModel(agri.mod)
 
 ### Prediction
 
-we will predict the clusters. 
+Now, we can predict the target values, our cluster labels.  
 
 ```{r}
-pred = predict(agri.mod, task = agri.task)
-pred
+agri.pred = predict(agri.mod, task = agri.task)
+agri.pred
 ```
 
 
 ### Performance 
 
-Since the data given to the learner are unlabeled, there is no objective evaluation of the accuracy of our model. We have to consider other criterions in unsupervised learning. 
+Since the data given to the learner is unlabeled, there is no objective evaluation of the accuracy of our model. We have to consider other criterions in unsupervised learning. 
 
-Especially the question about how the hyperparameter $k$, the number of clusters, should be chosen, should be evaluated here.
+An overview over all performance measures can be found  [here](http://mlr-org.github.io/mlr-tutorial/devel/html/measures/index.html). You can also call the \texttt{listMeasures} command for our specific task.
 
 ```{r}
 listMeasures(agri.task)
 ```
 
-Let's have a look at the silhouette coefficient and compare it to other values of $k$.
+Let's have a look at the silhouette coefficient and the Davies-Boulding index.
 
-```{r}
+```{r message = FALSE}
 library("clValid")
 
-# doesn't work here
-# performance(pred, measures = dunn, task = agri.task)
+performance(agri.pred, measures = list(silhouette, db), task = agri.task)
 ```
+
+### Tuning
+
+It's hard to say if our clustering is good since up to now we have nothing to compare to. Could we have done better by choosing another parameter for the number of centers? 
+
+Tuning will address the question of choosing the best hyperparameters for our problem.
+
+We first create a search space for the number of clusters $k$, e. g. $k \in \lbrace 2, 3, 4, 5 \rbrace$. Further we define an optimization algorithm and a [resampling strategy](http://mlr-org.github.io/mlr-tutorial/devel/html/resample/index.html).
+
+Finally, by combining all the previous pieces, we can tune the parameter $k$ by calling \texttt{tuneParams}. We will use discrete_ps with grid search and the silhouette coefficient as optimization criterion:
+
+```{r}
+discrete_ps = makeParamSet(makeDiscreteParam("centers", values = c(2, 3, 4, 5)))
+ctrl = makeTuneControlGrid()
+rdesc = makeResampleDesc("CV", iters = 2)
+res = tuneParams(cluster.lrn, agri.task, measures = silhouette, rdesc, 
+                 par.set = discrete_ps, control = ctrl)
+```
+
+Setting $k=2$ yields the best results for our clustering problem. 
+So let's generate a learner with the optimal hyperparameter $k=2$. 
+
+```{r}
+tuned.lrn = setHyperPars(cluster.lrn, par.vals = res$x)
+```
+
+We have to train the tuned learner again and predict the results.
+```{r}
+tuned.mod = train(tuned.lrn, agri.task)
+tuned.pred = predict(tuned.mod, task = agri.task)
+tuned.pred
+```
+
+This is our final clustering for our problem.
+
+```{r, fig.width= 5}
+plot(y ~ x, col = tuned.pred$data$response, data = agriculture)
+```
+
 
 
 
