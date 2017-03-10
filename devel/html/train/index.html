@@ -326,7 +326,7 @@ mod
 ## Peak into mod
 names(mod)
 #&gt; [1] &quot;learner&quot;       &quot;learner.model&quot; &quot;task.desc&quot;     &quot;subset&quot;       
-#&gt; [5] &quot;features&quot;      &quot;factor.levels&quot; &quot;time&quot;
+#&gt; [5] &quot;features&quot;      &quot;factor.levels&quot; &quot;time&quot;          &quot;dump&quot;
 
 mod$learner
 #&gt; Learner cluster.kmeans from package stats,clue
@@ -341,7 +341,7 @@ mod$features
 #&gt; [1] &quot;x&quot; &quot;y&quot;
 
 mod$time
-#&gt; [1] 0.002
+#&gt; [1] 0.001
 
 ## Extract the fitted model
 getLearnerModel(mod)

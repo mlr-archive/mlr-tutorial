@@ -683,7 +683,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: tp / (tp + number of fp). Also called precision.</td>
+<td align="left">Defined as: tp / (tp + number of fp). Also called precision. If the denominator is 0, PPV is set to be either 1 or 0 depending on whether the highest probability prediction is positive (1) or negative (0).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">qsr</a></strong> <br />Quadratic Scoring Rule</td>
