@@ -1,0 +1,80 @@
+# Use Cases
+## Regression
+For the regression use case we take the well-known Boston Housing dataset.
+* define the learning task  ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/task/index.html)),
+* conduct a benchmark experiment ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/benchmark_experiments/index.html)),
+* train the learner with data ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/train/index.html)), 
+* tune the model ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/tune/index.html)) and
+* evaluate the performance of the model ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/performance/index.html)).
+
+Let's look at the data.
+
+```{r}
+set.seed(6789)
+data(BostonHousing, package = "mlbench")
+head(BostonHousing)
+```
+We have 14 numeric variables and as before ``medv`` is chosen to be the response variable for the regression model. 
+
+### Define a task
+So let's define the regression task.
+
+```{r}
+library(mlr)
+regr.task = makeRegrTask(data = BostonHousing, target = "medv")
+regr.task$task.desc$n.feat
+```
+With ``regr.task$task.desc$n.feat`` the type of variables can be accessed. 
+
+### Tuning
+By calling `listLearners("regr")` one can see which learners are available for the regression task. Regarding our task we would like to compare the classical linear regression model ``regr.lm`` and ridge regression ``regr.penalized.ridge``. Before setting up the [benchmark experiment](benchmark_experiments.md) the ridge model hyperparameter can be tuned. The [%mlr] package possesses powerful tuning algorithms. See [Advanced Tuning](advanced_tune.md) for more information.
+
+First we define the search space for ``lambda2``. Note that for ridge regression the parameter should be positive. Afterwards we choose $10$-fold cross validation to be our resampling strategy. Finally, mean square error (``mse``) and mean absolute percentage error (``mape``) as [resampling strategies](resample.md) are set to be the performance measures which should be optimized.
+
+```{r}
+## Tune parameters for ridge
+ps = makeParamSet(
+  makeNumericParam("lambda2", lower = 0L, upper = 10L, trafo = function(x) 2^x)
+)
+## Choose the resampling strategy
+rdesc = makeResampleDesc("CV", iters = 10L)
+## Choose performance measures
+meas = list(mse, mape)
+ctrl = makeTuneMultiCritControlRandom(maxit = 100L)
+
+res.ridge = tuneParamsMultiCrit("regr.penalized.ridge", task = regr.task, resampling = rdesc, par.set = ps,
+                                measures = meas, control = ctrl, show.info = FALSE)
+## Plot the results 
+plotTuneMultiCritResultGGVIS(res.ridge)
+```
+We look at the points which are on the Pareto frontier (colored in blue), which are candidates for ``lambda1``. Since the ``mse`` and ``mape`` evaluated at the lambdas from the frontier differ only numerically, we can pick a random parameter from the multiple tuning output. Now we are ready to define the ridge regression learner!
+
+### Benchmark Experiment
+In order to conduct a [benchmark experiment](benchmark_experiments.md), one has to choose a resampling strategy and comparing measures. These have been already defined in the Tuning section.
+
+```{r}
+## Conduct the benchmark experiment
+
+## Two learners to be compared
+lrns = list(makeLearner("regr.lm"), makeLearner("regr.penalized.ridge", par.vals = res.ridge$x[[1]]))
+
+## Conduct the benchmark experiment with the same resampling strategy and performance measures as before
+bmr = benchmark(lrns, regr.task, rdesc, meas, show.info = FALSE)
+```
+
+
+### Performance
+
+Now we want to evaluate the results!
+```{r}
+head(getBMRPerformances(bmr, as.df = TRUE))
+
+```
+
+A closer look to the results reveals that ridge outperforms the classical linear regression according to ``mape``.
+
+```{r}
+plotBMRBoxplots(bmr, measure = mse)
+plotBMRBoxplots(bmr, measure = mape)
+```
+
