@@ -85,7 +85,6 @@ agri.pred = predict(agri.mod, task = agri.task)
 agri.pred
 ```
 
-
 ### Performance 
 
 Since the data given to the learner is unlabeled, there is no objective evaluation of the accuracy of our model. We have to consider other criterions in unsupervised learning. 
@@ -117,8 +116,7 @@ Finally, by combining all the previous pieces, we can tune the parameter $k$ by 
 ```{r}
 discrete_ps = makeParamSet(makeDiscreteParam("centers", values = c(2, 3, 4, 5)))
 ctrl = makeTuneControlGrid()
-rdesc = makeResampleDesc("CV", iters = 2)
-res = tuneParams(cluster.lrn, agri.task, measures = silhouette, rdesc, 
+res = tuneParams(cluster.lrn, agri.task, measures = silhouette, resampling = cv3, 
                  par.set = discrete_ps, control = ctrl)
 ```
 
