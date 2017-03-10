@@ -454,7 +454,7 @@ This would indicate that some observations "belong together" and should
 not be separated when splitting the data into training and test sets for <a href="../resample/index.html">resampling</a>.</p>
 <p>Another option is to assign <code>weights</code> to observations.
 These can simply indicate observation frequencies or result from the sampling
-scheme used to collect the data.<br />
+scheme used to collect the data.
 Note that you should use this option only if the weights really belong to the task.
 If you plan to train some learning algorithms with different weights on the same <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>,
 <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> offers several other ways to set observation or class weights (for supervised
@@ -465,7 +465,7 @@ classification). See for example the tutorial page about <a href="../train/index
 The most important ones are listed in the documentation of <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a>.</p>
 <p>To access the <a href="http://www.rdocumentation.org/packages/mlr/functions/TaskDesc.html">task description</a> that contains basic information about
 the task you can use:</p>
-<pre><code class="r">getTaskDescription(classif.task)
+<pre><code class="r">getTaskDesc(classif.task)
 #&gt; $id
 #&gt; [1] &quot;BreastCancer&quot;
 #&gt; 
@@ -564,6 +564,13 @@ head(getTaskTargets(surv.task))
 
 ## Get the cost matrix in costsens.task
 head(getTaskCosts(costsens.task))
+#&gt; Warning: 'getTaskDescription' is deprecated.
+#&gt; Use 'getTaskDesc' instead.
+#&gt; See help(&quot;Deprecated&quot;)
+
+#&gt; Warning: 'getTaskDescription' is deprecated.
+#&gt; Use 'getTaskDesc' instead.
+#&gt; See help(&quot;Deprecated&quot;)
 #&gt;      y1        y2         y3
 #&gt; [1,]  0 1589.5664  674.44434
 #&gt; [2,]  0 1173.4364  828.40682

@@ -288,21 +288,7 @@ Currently the following levels are supported:</p>
 #&gt; mlr: mlr.benchmark, mlr.resample, mlr.selectFeatures, mlr.tuneParams, mlr.ensemble
 </code></pre>
 
-<p>Here is a brief explanation of what these levels do:</p>
-<ul>
-<li><code>"mlr.resample"</code>: Each resampling iteration (a train / test step) is a parallel job.</li>
-<li><code>"mlr.benchmark"</code>: Each experiment "run this learner on this data set" is a parallel job.</li>
-<li><code>"mlr.tuneParams"</code>: Each evaluation in hyperparameter space "resample with these parameter
-  settings" is a parallel job.
-  How many of these can be run independently in parallel, depends on the tuning algorithm.
-  For grid search or random search this is
-  no problem, but for other tuners it depends on how many points are produced in each iteration
-  of the optimization. If a tuner works in a purely sequential fashion, we cannot work magic and the
-  hyperparameter evaluation will also run sequentially. But note that you can still parallelize the
-  underlying resampling.</li>
-<li><code>"mlr.selectFeatures"</code>: Each evaluation in feature space "resample with this feature subset" is a parallel job.
-  The same comments as for <code>"mlr.tuneParams"</code> apply here.</li>
-</ul>
+<p>For further details please see the <a href="http://www.rdocumentation.org/packages/mlr/functions/parallelization.html">parallelization</a> documentation page.</p>
 <h2 id="custom-learners-and-parallelization">Custom learners and parallelization</h2>
 <p>If you have <a href="../create_learner/index.html">implemented a custom learner yourself</a>, locally, you currently
 need to export this to the slave.

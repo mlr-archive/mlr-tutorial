@@ -840,6 +840,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left">Similar to measure rsq (R-squared). Defined as explained_sum_of_squares / total_sum_of_squares.</td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">kendalltau</a></strong> <br />Kendall's tau</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">-1</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: Kendall's tau correlation between truth and response. Only looks at the order.   See Rosset et al.: <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf</a>.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mae</a></strong> <br />Mean of absolute errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
@@ -938,20 +952,6 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left">Defined as sum_of_absolute_errors / mean_absolute_deviation. Undefined for single instances and when every truth value is identical. In this case the output will be NA.</td>
 </tr>
 <tr>
-<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rho</a></strong> <br />Spearman's rho</td>
-<td align="center"></td>
-<td align="right">1</td>
-<td align="right">-1</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: Spearman's rho correlation between truth and response. Only looks at the order.    See Rosset et al.: <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf</a>.</td>
-</tr>
-<tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rmse</a></strong> <br />Root mean squared error</td>
 <td align="center">X</td>
 <td align="right">0</td>
@@ -1022,6 +1022,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left">Defined as: sum(abs(response - truth))</td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">spearmanrho</a></strong> <br />Spearman's rho</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">-1</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: Spearman's rho correlation between truth and response. Only looks at the order.   See Rosset et al.: <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf</a>.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">sse</a></strong> <br />Sum of squared errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
@@ -1034,20 +1048,6 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Defined as: sum((response - truth)^2)</td>
-</tr>
-<tr>
-<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tau</a></strong> <br />Kendall's tau</td>
-<td align="center"></td>
-<td align="right">1</td>
-<td align="right">-1</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: Kendall's tau correlation between truth and response. Only looks at the order.   See Rosset et al.: <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf</a>.</td>
 </tr>
 </tbody>
 </table>

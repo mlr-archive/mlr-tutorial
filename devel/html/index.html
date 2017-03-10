@@ -253,7 +253,8 @@ the <a href="https://github.com/mlr-org/mlr">Machine Learning in R: mlr</a> fram
 learning experiments in <strong>R</strong>.</p>
 <p>We focus on the comprehension of the basic functions and applications.
 More detailed technical information can be found in the <a href="http://www.rdocumentation.org/packages/mlr/">manual pages</a> which
-are regularly updated and reflect the documentation of the <a href="http://cran.r-project.org/web/packages/mlr/index.html">current package version on CRAN</a>.</p>
+are regularly updated and reflect the documentation of the
+<a href="http://cran.r-project.org/web/packages/mlr/index.html">current package version on CRAN</a>.</p>
 <p>An offline version of this tutorial is available for download</p>
 <ul>
 <li><a href="https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip">here</a> for the
@@ -267,26 +268,39 @@ Please refer to sections of the menu above: Basics, Advanced, Extend and Appendi
 survival analysis to illustrate the main features of the package.</p>
 <p>Enjoy reading!</p>
 <h2 id="quick-start">Quick start</h2>
-<p>A simple stratified cross-validation of <a href="http://www.rdocumentation.org/packages/MASS/functions/lda.html">linear discriminant analysis</a> with <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.</p>
+<p>Here we show the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> workflow to train, make predictions, and evaluate a learner on a
+classification problem. We walk through 5 basic steps that work on any learning problem or
+method supported by <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.</p>
 <pre><code class="r">library(mlr)
 data(iris)
 
-## Define the task
-task = makeClassifTask(id = &quot;tutorial&quot;, data = iris, target = &quot;Species&quot;)
+## 1) Define the task
+## Specify the type of analysis (e.g. classification) and provide data and response variable
+task = makeClassifTask(data = iris, target = &quot;Species&quot;)
 
-## Define the learner
+## 2) Define the learner
+## Choose a specific algorithm (e.g. linear discriminant analysis)
 lrn = makeLearner(&quot;classif.lda&quot;)
 
-## Define the resampling strategy
-rdesc = makeResampleDesc(method = &quot;CV&quot;, stratify = TRUE)
+n = nrow(iris)
+train.set = sample(2/3 * n)
+test.set = setdiff(1:n, train.set)
 
-## Do the resampling
-r = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE)
+## 3) Fit the model
+## Train the learner on the task using a random subset of the data as training set
+model = train(lrn, task, subset = train.set)
+#&gt; Warning in lda.default(x, grouping, ...): group virginica is empty
 
-## Get the mean misclassification error
-r$aggr
-#&gt; mmce.test.mean 
-#&gt;           0.02
+## 4) Make predictions
+## Predict values of the response variable for new observations by the trained model
+## using the other part of the data as test set
+pred = predict(model, task = task, subset = test.set)
+
+## 5) Evaluate the learner
+## Calculate the mean misclassification error and accuracy
+performance(pred, measures = list(mmce, acc))
+#&gt; mmce  acc 
+#&gt;    1    0
 </code></pre></div>
         </div>
 
@@ -327,5 +341,5 @@ r$aggr
 
 <!--
 MkDocs version : 0.16.1
-Build Date UTC : 2017-03-10 14:23:35
+Build Date UTC : 2017-03-10 19:15:51
 -->
