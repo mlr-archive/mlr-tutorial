@@ -1,0 +1,147 @@
+# Use Cases
+
+## Classification
+
+One popular example regarding a classification task is the "Titanic" showcase. We have different passenger information - like name, age or fare - available with the aim to predict which kind of people would have survived the titanic sinking.
+
+Therefore we load the titanic dataset and other libraries that are needed for this use case.
+
+```{r, results='hide', message=FALSE, warning=FALSE}
+library(titanic)
+library(mlr)
+library(BBmisc)
+```
+
+
+```{r}
+data = titanic_train
+head(data)
+```
+
+Our aim - as mentioned before - is to predict which kind of people would have survided.
+
+Therefore we will work off the following steps:
+
+* preprocessing, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/preproc/index.html) and [here](http://mlr-org.github.io/mlr-tutorial/devel/html/impute/index.html)
+* create a task,[here](http://mlr-org.github.io/mlr-tutorial/devel/html/task/index.html)
+* provide a learner, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/learner/index.html)
+* train the model, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/train/index.html)
+* predict the survival chance, [here](http://mlr-org.github.io/mlr-tutorial/devel/html/predict/index.html)
+* validate the model,[here](http://mlr-org.github.io/mlr-tutorial/devel/html/performance/index.html) and [here](http://mlr-org.github.io/mlr-tutorial/devel/html/resample/index.html)
+
+#### Preprocessing
+
+The data set is corrected regarding their data types.
+
+```{r}
+data[, c("Survived", "Pclass", "Sex", "SibSp", "Embarked")] = lapply(data[,  c("Survived", "Pclass", "Sex", "SibSp", "Embarked")], as.factor)
+```
+
+Next, unuseful columns will be dropped.
+
+```{r}
+data = dropNamed(data, c("Cabin","PassengerId", "Ticket", "Name"))
+```
+
+And missing values will be imputed, in this case Age and Fare.
+
+```{r}
+data$Embarked[data$Embarked == ""] = NA
+data$Embarked = droplevels(data$Embarked)
+data = impute(data, cols = list(Age = imputeMedian(), Fare = imputeMedian(), Embarked = imputeMode()))
+data = data$data
+```
+
+### Create a task
+
+In the "task" the data set and the target column is specified. People who survived are labelled with "1".
+
+```{r}
+task = makeClassifTask(data = data, target = "Survived", positive = "1")
+```
+
+### Define a learner
+
+A classification learner is selected. You can find an overview of all learners [here](http://mlr-org.github.io/mlr-tutorial/devel/html/integrated_learners/index.html)
+
+```{r}
+lrn = makeLearner("classif.randomForest", predict.type = "prob")
+```
+
+### Fit the model
+
+To fit the model - and afterwards predict - the data set is split into a training and a test data set.
+
+```{r}
+n = getTaskSize(task)
+trainSet = seq(1, n, by = 2)
+testSet = seq(2, n, by = 2)
+```
+
+```{r}
+mod = train(learner = lrn, task = task, subset = trainSet)
+```
+
+### Predict
+
+Predicting the target values for new observations is implemented the same way as most of the other predict methods in R. In general, all you need to do is call predict on the object returned by train and pass the data you want predictions for.
+
+```{r}
+pred = predict(mod, task, subset = testSet)
+```
+
+The quality of the predictions of a model in mlr can be assessed with respect to a number of different performance measures. In order to calculate the performance measures, call performance on the object returned by predict and specify the desired performance measures.
+
+```{r}
+calculateConfusionMatrix(pred)
+performance(pred, measures = list(acc, fpr, tpr))
+df = generateThreshVsPerfData(pred, list(fpr, tpr, acc))
+plotThreshVsPerf(df)
+plotROCCurves(df)
+```
+
+### Extension of the original use case
+
+As you might have seen the titanic library also provides a second dataset.
+
+```{r}
+test = titanic_test
+head(test)
+```
+
+This one does not contain any survival information, but we now can use our fitted model and predict the survival probability for this data set.
+
+The same preprocessing steps - as for the "data" data set - have to be applied
+
+```{r}
+test[, c("Pclass", "Sex", "SibSp", "Embarked")] = lapply(test[,  c("Pclass", "Sex", "SibSp", "Embarked")], as.factor)
+
+test = dropNamed(test, c("Cabin","PassengerId", "Ticket", "Name"))
+
+test = impute(test, cols = list(Age = imputeMedian(), Fare = imputeMedian()))
+test = test$data
+
+summarizeColumns(test)
+```
+
+You can use the task and learner that you have already created.
+
+```{r}
+task
+lrn
+```
+
+The training step will be different now. We don't use a subset to fit the model, but use all data.
+
+```{r}
+mod = train(learner = lrn, task = task)
+```
+
+For the prediction part, we will use the new test data set.
+
+```{r}
+pred = predict(mod, newdata = test)
+pred
+```
+
+
