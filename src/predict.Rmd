@@ -212,7 +212,7 @@ lrn = makeLearner("classif.rpart", predict.type = "prob")
 mod = train(lrn, task = sonar.task)
 
 ## Label of the positive class
-getTaskDescription(sonar.task)$positive
+getTaskDesc(sonar.task)$positive
 
 ## Default threshold
 pred1 = predict(mod, sonar.task)
