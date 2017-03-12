@@ -38,7 +38,7 @@ Currently the following levels are supported:
 parallelGetRegisteredLevels()
 ```
 
-For further details please see the [&parallelize] documentation page.
+For further details please see the [&parallelization] documentation page.
 
 
 ## Custom learners and parallelization
