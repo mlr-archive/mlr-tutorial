@@ -11,7 +11,7 @@ First, we have a look at a part of the data.
 data(BostonHousing, package = "mlbench")
 head(BostonHousing)
 ```
-We have 14 numeric variables and as before ``medv`` is chosen to be the response variable for the regression model. 
+We have 14 variables. As before, ``medv`` is chosen to be the response variable. 
 
 ### Define a task
 Let's define the regression [task](task.md).
@@ -24,9 +24,9 @@ regr.task$task.desc$n.feat
 With the command ``regr.task$task.desc$n.feat`` the type of all variables in the data can be accessed. 
 
 ### Tuning
-By calling ``listLearners("regr")`` we can see which learners are available for the regression task. We picked the classical linear regression model (``regr.lm``), the [Lasso](https://www.rdocumentation.org/packages/penalized/versions/0.9-50) regression model (``regr.glmnet``), [SVM](https://www.rdocumentation.org/packages/kernlab/versions/0.9-25) with a radial basis kernel (``regr.ksvm``) and random forest from the [ranger](https://www.rdocumentation.org/packages/ranger/versions/0.6.0) package (``regr.ranger``), which we would like to compare. Before setting up the [benchmark experiment](benchmark_experiments.md) some of the models' hyperparameters can be tuned. The [%mlr] package provides powerful tuning algorithms. See [Tuning](tuning.md) and [Advanced Tuning](advanced_tune.md) for more details.
+By calling ``listLearners("regr")`` we can see which learners are available for the regression task. We picked the classical linear regression model (``regr.lm``), the [Lasso](https://www.rdocumentation.org/packages/penalized/versions/0.9-50) regression model (``regr.glmnet``), [SVM](https://www.rdocumentation.org/packages/kernlab/versions/0.9-25) with a radial basis kernel (``regr.ksvm``) and random forest from the [ranger](https://www.rdocumentation.org/packages/ranger/versions/0.6.0) package (``regr.ranger``), which we would like to compare. Before setting up a [benchmark experiment](benchmark_experiments.md) some of the models' hyperparameters can be tuned. The [%mlr] package provides powerful tuning algorithms. See [Tuning](tuning.md) and [Advanced Tuning](advanced_tune.md) for more details.
 
-We start with specifying the search space for each parameter. Note that for all learners the hyperparameters, which will be tuned, should be positive. With [&makeTuneControlRandom] we set the tuning method to be random search. Afterwards we take $10$-fold cross validation as our [resampling strategy](resample.md) and root mean squared error (``rmse``) as the optimization criterion.
+We start with specifying a search space for each parameter. Note that for all learners the hyperparameters, which will be tuned, should be positive. With [&makeTuneControlRandom] we set the tuning method to be random search. Afterwards we take $10$-fold cross validation as our [resampling strategy](resample.md) and root mean squared error (``rmse``) as optimization criterion.
 
 ```{r}
 set.seed(1234)
@@ -98,7 +98,7 @@ head(getBMRPerformances(bmr, as.df = TRUE))
 
 ```
 
-A closer look at the first boxplot reveals that random forest outperforms the other learners for this specific task. However, the SVM model using the measure ``mae`` seems to perform better than the other models. Moreover, in both cases the benchmark experiment for the linear regression and lasso regression models yield similar but poor results.
+A closer look at the first boxplot reveals that random forest outperforms the other learners for this specific task. However, the SVM model using the measure ``mae`` seems to perform better than the other models. In both cases the benchmark experiment for linear and lasso regression yields similar but poor results.
 
 ```{r}
 plotBMRBoxplots(bmr, measure = rmse)
