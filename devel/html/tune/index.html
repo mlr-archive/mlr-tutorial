@@ -242,7 +242,11 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#tuning-hyperparameters">Tuning Hyperparameters</a></li>
-            <li><a href="#basics">Basics</a></li>
+            <li><a href="#specifying-the-search-space">Specifying the search space</a></li>
+            <li><a href="#specifying-the-optimization-algorithm">Specifying the optimization algorithm</a></li>
+            <li><a href="#performing-the-tuning">Performing the tuning</a></li>
+            <li><a href="#accessing-the-tuning-result">Accessing the tuning result</a></li>
+            <li><a href="#investigating-hyperparameter-tuning-effects">Investigating hyperparameter tuning effects</a></li>
             <li><a href="#further-comments">Further comments</a></li>
     </ul>
 </div></div>
@@ -254,7 +258,6 @@ If selected by the user they can be specified as explained on the tutorial page 
 <a href="../learner/index.html">Learners</a> -- simply pass them to <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a>.
 Often suitable parameter values are not obvious and it is preferable to tune the hyperparameters,
 that is automatically identify values that lead to the best performance.</p>
-<h2 id="basics">Basics</h2>
 <p>In order to tune a machine learning algorithm, you have to specify:</p>
 <ul>
 <li>the search space</li>
@@ -292,7 +295,7 @@ problems, you can follow the same process analogously.</p>
 hyperparameters of an SVM (function <a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a> from the <a href="http://www.rdocumentation.org/packages/kernlab/">kernlab</a> package)
 with a radial basis kernel. The following examples tune the cost parameter <code>C</code> and
 the RBF kernel parameter <code>sigma</code> of the <a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a> function.</p>
-<h3 id="specifying-the-search-space">Specifying the search space</h3>
+<h2 id="specifying-the-search-space">Specifying the search space</h2>
 <p>We first must define a space to search when tuning our learner. For example, maybe
 we want to tune several specific values of a hyperparameter or perhaps we want to
 define a space from <script type="math/tex">10^{-10}</script> to <script type="math/tex">10^{10}</script> and let the optimization algorithm decide
@@ -331,7 +334,7 @@ passed in a <a href="http://www.rdocumentation.org/packages/base/functions/list.
 each parameter and get rid of the list structure!</p>
 <p>This is the case with the <code>kpar</code> argument of <a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a> which is a list of kernel parameters like <code>sigma</code>.
 This allows us to interface with learners from different packages in the same way when defining parameters to tune!</p>
-<h3 id="specifying-the-optimization-algorithm">Specifying the optimization algorithm</h3>
+<h2 id="specifying-the-optimization-algorithm">Specifying the optimization algorithm</h2>
 <p>Now that we have specified the search space, we need to choose an optimization algorithm for our
 parameters to pass to the <a href="http://www.rdocumentation.org/packages/kernlab/functions/ksvm.html">ksvm</a> learner. Optimization algorithms are considered
 <a href="http://www.rdocumentation.org/packages/mlr/functions/TuneControl.html">TuneControl</a> objects in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.</p>
@@ -366,7 +369,7 @@ ensure we adequately cover the space:</p>
 <pre><code class="r">ctrl = makeTuneControlRandom(maxit = 200L)
 </code></pre>
 
-<h3 id="performing-the-tuning">Performing the tuning</h3>
+<h2 id="performing-the-tuning">Performing the tuning</h2>
 <p>Now that we have specified a search space and the optimization algorithm, it's time to
 perform the tuning. We will need to define a resampling strategy and make note of our performance measure.</p>
 <p>We will use 3-fold cross-validation to assess the quality of a specific parameter setting.
@@ -466,7 +469,7 @@ res
 #&gt; acc.test.mean=0.987,acc.test.sd=0.0231
 </code></pre>
 
-<h3 id="accessing-the-tuning-result">Accessing the tuning result</h3>
+<h2 id="accessing-the-tuning-result">Accessing the tuning result</h2>
 <p>The result object <a href="http://www.rdocumentation.org/packages/mlr/functions/TuneResult.html">TuneResult</a> allows you to access the best found settings <code>$x</code> and their
 estimated performance <code>$y</code>.</p>
 <pre><code class="r">res$x
@@ -501,7 +504,7 @@ predict(m, task = iris.task)
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.00
+#&gt; time: 0.01
 #&gt;   id  truth response
 #&gt; 1  1 setosa   setosa
 #&gt; 2  2 setosa   setosa
@@ -513,7 +516,7 @@ predict(m, task = iris.task)
 </code></pre>
 
 <p>But what if you wanted to inspect the other points on the search path, not just the optimal?</p>
-<h3 id="investigating-hyperparameter-tuning-effects">Investigating hyperparameter tuning effects</h3>
+<h2 id="investigating-hyperparameter-tuning-effects">Investigating hyperparameter tuning effects</h2>
 <p>We can inspect all points evaluated during the search by using
 <a href="http://www.rdocumentation.org/packages/mlr/functions/generateHyperParsEffectData.html">generateHyperParsEffectData</a>:</p>
 <pre><code class="r">generateHyperParsEffectData(res)
@@ -524,12 +527,12 @@ predict(m, task = iris.task)
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;            C      sigma acc.test.mean acc.test.sd iteration exec.time
-#&gt; 1 -9.9783231  1.0531818     0.2733333  0.02309401         1     0.068
-#&gt; 2 -0.5292817  3.2214785     0.2733333  0.02309401         2     0.058
-#&gt; 3 -0.3544567  4.1644832     0.2733333  0.02309401         3     0.057
-#&gt; 4  0.6341910  7.8640461     0.2866667  0.03055050         4     0.058
-#&gt; 5  5.7640748 -3.3159251     0.9533333  0.03055050         5     0.060
-#&gt; 6 -6.5880397  0.4600323     0.2733333  0.02309401         6     0.061
+#&gt; 1 -9.9783231  1.0531818     0.2733333  0.02309401         1     0.062
+#&gt; 2 -0.5292817  3.2214785     0.2733333  0.02309401         2     0.083
+#&gt; 3 -0.3544567  4.1644832     0.2733333  0.02309401         3     0.059
+#&gt; 4  0.6341910  7.8640461     0.2866667  0.03055050         4     0.060
+#&gt; 5  5.7640748 -3.3159251     0.9533333  0.03055050         5     0.056
+#&gt; 6 -6.5880397  0.4600323     0.2733333  0.02309401         6     0.059
 </code></pre>
 
 <p>Note that the result of <a href="http://www.rdocumentation.org/packages/mlr/functions/generateHyperParsEffectData.html">generateHyperParsEffectData</a>
@@ -543,12 +546,12 @@ In order to get the <em>transformed</em> parameter values instead, use the <code
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;              C        sigma acc.test.mean acc.test.sd iteration exec.time
-#&gt; 1 1.051180e-10 1.130269e+01     0.2733333  0.02309401         1     0.068
-#&gt; 2 2.956095e-01 1.665246e+03     0.2733333  0.02309401         2     0.058
-#&gt; 3 4.421232e-01 1.460438e+04     0.2733333  0.02309401         3     0.057
-#&gt; 4 4.307159e+00 7.312168e+07     0.2866667  0.03055050         4     0.058
-#&gt; 5 5.808644e+05 4.831421e-04     0.9533333  0.03055050         5     0.060
-#&gt; 6 2.582024e-07 2.884246e+00     0.2733333  0.02309401         6     0.061
+#&gt; 1 1.051180e-10 1.130269e+01     0.2733333  0.02309401         1     0.062
+#&gt; 2 2.956095e-01 1.665246e+03     0.2733333  0.02309401         2     0.083
+#&gt; 3 4.421232e-01 1.460438e+04     0.2733333  0.02309401         3     0.059
+#&gt; 4 4.307159e+00 7.312168e+07     0.2866667  0.03055050         4     0.060
+#&gt; 5 5.808644e+05 4.831421e-04     0.9533333  0.03055050         5     0.056
+#&gt; 6 2.582024e-07 2.884246e+00     0.2733333  0.02309401         6     0.059
 </code></pre>
 
 <p>Note that we can also generate performance on the train data along with the validation/test
@@ -565,10 +568,10 @@ generateHyperParsEffectData(res2)
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;           C      sigma acc.test.mean acc.train.mean iteration exec.time
-#&gt; 1  9.457202 -4.0536025          0.98           0.97         1     0.043
-#&gt; 2  9.900523  1.8815923          0.40           1.00         2     0.033
+#&gt; 1  9.457202 -4.0536025          0.98           0.97         1     0.051
+#&gt; 2  9.900523  1.8815923          0.40           1.00         2     0.032
 #&gt; 3  2.363975  5.3202458          0.26           1.00         3     0.032
-#&gt; 4 -1.530251  4.7579424          0.26           0.37         4     0.033
+#&gt; 4 -1.530251  4.7579424          0.26           0.37         4     0.030
 #&gt; 5 -7.837476  2.4352698          0.26           0.37         5     0.031
 #&gt; 6  8.782931 -0.4143757          0.92           1.00         6     0.030
 </code></pre>
