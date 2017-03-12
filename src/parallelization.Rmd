@@ -3,7 +3,7 @@
 **R** by default does not make use of parallelization.
 With the integration of [%parallelMap] into [%mlr], it becomes easy to activate the parallel
 computing capabilities already supported by [%mlr].
-[%parallelMap] supports all major parallelization backends: local multicore execution using
+[%parallelMap] works with all major parallelization backends: local multicore execution using
 [%parallel], socket and MPI clusters using [%snow], makeshift SSH-clusters using [%BatchJobs]
 and high performance computing clusters (managed by a scheduler like SLURM, Torque/PBS, SGE or LSF)
 also using [%BatchJobs].
@@ -38,7 +38,7 @@ Currently the following levels are supported:
 parallelGetRegisteredLevels()
 ```
 
-For further details please see the [&parallelization] documentation page.
+For further details please see the [&parallelize] documentation page.
 
 
 ## Custom learners and parallelization
