@@ -6,12 +6,12 @@ returned by [&train] and pass the data you want predictions for.
 
 There are two ways to pass the data:
 
-* Either pass the [&Task] via the ``task`` argument or
-* pass a [data frame](&base::data.frame) via the ``newdata`` argument.
+* Either pass the [&Task] via the `task` argument or
+* pass a [data.frame](&base::data.frame) via the `newdata` argument.
 
 The first way is preferable if you want predictions for data already included in a [&Task].
 
-Just as [&train], the [predict](&predict.WrappedModel) function has a ``subset`` argument,
+Just as [&train], the [predict](&predict.WrappedModel) function has a `subset` argument,
 so you can set aside different portions of the data in [&Task] for training and prediction
 (more advanced methods for splitting the data in train and test set are described in the
 [section on resampling](resample.md)).
@@ -33,7 +33,7 @@ task.pred
 
 The second way is useful if you want to predict data not included in the [&Task].
 
-Here we cluster the ``iris`` data set without the target variable.
+Here we cluster the `iris` data set without the target variable.
 All observations with an odd index are included in the [&Task] and used for training.
 Predictions are made for the remaining observations.
 
@@ -49,12 +49,12 @@ newdata.pred
 ```
 
 Note that for supervised learning you do not have to remove the target columns from the data.
-These columns are automatically removed prior to calling the underlying ``predict`` method of the learner.
+These columns are automatically removed prior to calling the underlying `predict` method of the learner.
 
 
 ## Accessing the prediction
 Function [&predict] returns a named [list](&base::list) of class [&Prediction].
-Its most important element is ``$data`` which is a [data frame](&base::data.frame) that contains
+Its most important element is `$data` which is a [data.frame](&base::data.frame) that contains
 columns with the true values of the target variable (in case of supervised learning problems)
 and the predictions.
 Use [as.data.frame](&Prediction) for direct access.
@@ -62,7 +62,7 @@ Use [as.data.frame](&Prediction) for direct access.
 In the following the predictions on the [BostonHousing](&mlbench::BostonHousing) and the
 [iris](&datasets::iris) data sets are shown.
 As you may recall, the predictions in the first case were made from a [&Task] and in the
-second case from a [data frame](&base::data.frame).
+second case from a [data.frame](&base::data.frame).
 
 ```{r}
 ## Result of predict with data passed via task argument
@@ -72,8 +72,8 @@ head(as.data.frame(task.pred))
 head(as.data.frame(newdata.pred))
 ```
 
-As you can see when predicting from a [&Task], the resulting [data frame](&base::data.frame)
-contains an additional column, called ``id``, which tells us which element in the original data set
+As you can see when predicting from a [&Task], the resulting [data.frame](&base::data.frame)
+contains an additional column, called `id`, which tells us which element in the original data set
 the prediction corresponds to.
 
 A direct way to access the true and predicted values of the target variable(s) is provided by
@@ -86,17 +86,21 @@ head(getPredictionResponse(task.pred))
 ```
 
 
-### Extract Standard Errors
-Some learners provide standard errors for predictions, which can be accessed in mlr. An overview is given by calling the function [&listLearners] and setting ``properties = "se"``. By assigning ``FALSE`` to ``check.packages`` learners from packages which are not installed will be included in the overview.
+### Regression: Extracting standard errors
+Some learners provide standard errors for predictions, which can be accessed in [%mlr].
+An overview is given by calling the function [&listLearners] and setting `properties = "se"`.
+By assigning `FALSE` to `check.packages` learners from packages which are not installed
+will be included in the overview.
 
 ```{r}
-listLearners("regr", check.packages = FALSE, properties = "se")
+listLearners("regr", check.packages = FALSE, properties = "se")[c("class", "name")]
 ```
 
-In this example we train a linear regression model on the Boston Housing dataset. In order to calculate standard errors set the ``predict.type`` to ``"se"``:
+In this example we train a [linear regression model](&stats::lm) on the [Boston Housing](&bh.task)
+dataset. In order to calculate standard errors set the `predict.type` to `"se"`:
 
 ```{r}
-## Create Learner, specify predict.type
+## Create learner and specify predict.type
 lrn.lm = makeLearner("regr.lm", predict.type = 'se')
 mod.lm = train(lrn.lm, bh.task, subset = train.set)
 task.pred.lm = predict(mod.lm, task = bh.task, subset = test.set)
@@ -110,11 +114,9 @@ head(getPredictionSE(task.pred.lm))
 ```
 
 
-### Extract Probabilities
-The predicted probabilities can be extracted from the [&Prediction] using the function
+### Classification and clustering: Extracting probabilities
+The predicted probabilities can be extracted from the [&Prediction] using function
 [&getPredictionProbabilities].
-(Function [&getProbabilities] has been deprecated in favor of [&getPredictionProbabilities]
-in [%mlr] version 2.5.)
 Here is another cluster analysis example. We use [fuzzy c-means clustering](&e1071::cmeans)
 on the [mtcars](&datasets::mtcars) data set.
 
@@ -126,7 +128,7 @@ pred = predict(mod, task = mtcars.task)
 head(getPredictionProbabilities(pred))
 ```
 
-For classification problems there are some more things worth mentioning.
+For *classification problems* there are some more things worth mentioning.
 By default, class labels are predicted.
 
 ```{r}
@@ -138,7 +140,7 @@ pred
 ```
 
 In order to get predicted posterior probabilities we have to create a [Learner](&makeLearner)
-with the appropriate ``predict.type``.
+with the appropriate `predict.type`.
 
 ```{r}
 lrn = makeLearner("classif.rpart", predict.type = "prob")
@@ -158,7 +160,7 @@ head(getPredictionProbabilities(pred))
 ```
 
 
-### Confusion matrix
+### Classification: Confusion matrix
 
 A confusion matrix can be obtained by calling [&calculateConfusionMatrix]. The columns represent
 predicted and the rows true class labels.
@@ -198,8 +200,7 @@ calculateConfusionMatrix(pred, relative = TRUE, sums = TRUE)
 ```
 
 
-
-## Adjusting the threshold
+## Classification: Adjusting the decision threshold
 We can set the threshold value that is used to map the predicted posterior probabilities to class labels.
 Note that for this purpose we need to create a [Learner](&makeLearner) that predicts probabilities.
 For binary classification, the threshold determines when the *positive* class is predicted.
@@ -299,7 +300,7 @@ plotLearnerPrediction("regr.lm", features = "lstat", task = bh.task)
 ```
 
 The 2D variant, as in the classification case, generates a scatter plot of 2 features.
-The fill color of the dots illustrates the value of the target variable ``"medv"``, the
+The fill color of the dots illustrates the value of the target variable `"medv"`, the
 background colors show the estimated mean.
 The plot does not represent the estimated standard error.
 
