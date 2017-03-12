@@ -1,80 +1,107 @@
-# Use Cases
-## Regression
-For the regression use case we take the well-known Boston Housing dataset.
+# Regression
+For the regression use case we use the well-known [Boston Housing](https://www.rdocumentation.org/packages/mlbench/versions/0.4-1/topics/BostonHousing) dataset. The road map is as follows:
+
 * define the learning task  ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/task/index.html)),
-* conduct a benchmark experiment ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/benchmark_experiments/index.html)),
-* train the learner with data ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/train/index.html)), 
-* tune the model ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/tune/index.html)) and
+* tune the model ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/tune/index.html)),
+* conduct a benchmark experiment ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/benchmark_experiments/index.html)) and
 * evaluate the performance of the model ([here](http://mlr-org.github.io/mlr-tutorial/devel/html/performance/index.html)).
 
-Let's look at the data.
-
+First, we have a look at a part of the data.
 ```{r}
-set.seed(6789)
 data(BostonHousing, package = "mlbench")
 head(BostonHousing)
 ```
 We have 14 numeric variables and as before ``medv`` is chosen to be the response variable for the regression model. 
 
 ### Define a task
-So let's define the regression task.
+Let's define the regression [task](task.md).
 
 ```{r}
-library(mlr)
+## Make a task
 regr.task = makeRegrTask(data = BostonHousing, target = "medv")
 regr.task$task.desc$n.feat
 ```
-With ``regr.task$task.desc$n.feat`` the type of variables can be accessed. 
+With the command ``regr.task$task.desc$n.feat`` the type of all variables in the data can be accessed. 
 
 ### Tuning
-By calling `listLearners("regr")` one can see which learners are available for the regression task. Regarding our task we would like to compare the classical linear regression model ``regr.lm`` and ridge regression ``regr.penalized.ridge``. Before setting up the [benchmark experiment](benchmark_experiments.md) the ridge model hyperparameter can be tuned. The [%mlr] package possesses powerful tuning algorithms. See [Advanced Tuning](advanced_tune.md) for more information.
+By calling ``listLearners("regr")`` we can see which learners are available for the regression task. We picked the classical linear regression model (``regr.lm``), the [Lasso](https://www.rdocumentation.org/packages/penalized/versions/0.9-50) regression model (``regr.glmnet``), [SVM](https://www.rdocumentation.org/packages/kernlab/versions/0.9-25) with a radial basis kernel (``regr.ksvm``) and random forest from the [ranger](https://www.rdocumentation.org/packages/ranger/versions/0.6.0) package (``regr.ranger``), which we would like to compare. Before setting up the [benchmark experiment](benchmark_experiments.md) some of the models' hyperparameters can be tuned. The [%mlr] package provides powerful tuning algorithms. See [Tuning](tuning.md) and [Advanced Tuning](advanced_tune.md) for more details.
 
-First we define the search space for ``lambda2``. Note that for ridge regression the parameter should be positive. Afterwards we choose $10$-fold cross validation to be our resampling strategy. Finally, mean square error (``mse``) and mean absolute percentage error (``mape``) as [resampling strategies](resample.md) are set to be the performance measures which should be optimized.
+We start with specifying the search space for each parameter. Note that for all learners the hyperparameters, which will be tuned, should be positive. With [&makeTuneControlRandom] we set the tuning method to be random search. Afterwards we take $10$-fold cross validation as our [resampling strategy](resample.md) and root mean squared error (``rmse``) as the optimization criterion.
 
 ```{r}
-## Tune parameters for ridge
-ps = makeParamSet(
-  makeNumericParam("lambda2", lower = 0L, upper = 10L, trafo = function(x) 2^x)
-)
-## Choose the resampling strategy
-rdesc = makeResampleDesc("CV", iters = 10L)
-## Choose performance measures
-meas = list(mse, mape)
-ctrl = makeTuneMultiCritControlRandom(maxit = 100L)
+set.seed(1234)
 
-res.ridge = tuneParamsMultiCrit("regr.penalized.ridge", task = regr.task, resampling = rdesc, par.set = ps,
+## Define the learners for the tuning
+base.learners = list(
+  makeLearner("regr.ksvm"),
+  makeLearner("regr.ranger"),
+  makeLearner("regr.penalized.lasso")
+)
+lrn = makeModelMultiplexer(base.learners)
+
+## Define a search space for each parameter
+ps = makeModelMultiplexerParamSet(lrn,
+  makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x),
+  makeIntegerParam("num.trees", lower = 1L, upper = 700L),
+  makeNumericParam("lambda1",  lower = 0, upper = 20)
+  
+)
+
+## Choose a resampling strategy
+rdesc = makeResampleDesc("CV", iters = 10L)
+
+## Choose a performance measure
+meas = rmse
+
+## Choose a tuning method
+ctrl = makeTuneControlRandom(maxit = 300L)
+
+## Tune the parameters
+res = tuneParams(lrn, task = regr.task, resampling = rdesc, par.set = ps,
                                 measures = meas, control = ctrl, show.info = FALSE)
-## Plot the results 
-plotTuneMultiCritResultGGVIS(res.ridge)
+## Extract the results
+res.df = as.data.frame(trafoOptPath(res$opt.path))
+head(res.df)
+
+## Extract the optimal parameter values for each learner
+res.lasso = res.df[(res.df$selected.learner=="regr.penalized.lasso"), c("regr.penalized.lasso.lambda1", "rmse.test.rmse")]
+lambda1 = list("lambda1" = res.lasso$regr.penalized.lasso.lambda1[which.min(res.lasso[, 2])])
+
+res.svm = res.df[(res.df$selected.learner=="regr.ksvm"), c("regr.ksvm.sigma", "rmse.test.rmse")]
+sigma = list("sigma" = res.svm$regr.ksvm.sigma[which.min(res.svm[, 2])])
+
+res.rf = res.df[(res.df$selected.learner=="regr.ranger"), c("regr.ranger.num.trees", "rmse.test.rmse")]
+num.trees = list("num.trees" = res.rf$regr.ranger.num.trees[which.min(res.rf[, 2])])
 ```
-We look at the points which are on the Pareto frontier (colored in blue), which are candidates for ``lambda1``. Since the ``mse`` and ``mape`` evaluated at the lambdas from the frontier differ only numerically, we can pick a random parameter from the multiple tuning output. Now we are ready to define the ridge regression learner!
+Finally, we extracted the optimal parameter value for each learner. Now we are ready to proceed with the benchmark experiment!
 
 ### Benchmark Experiment
-In order to conduct a [benchmark experiment](benchmark_experiments.md), one has to choose a resampling strategy and comparing measures. These have been already defined in the Tuning section.
+In order to conduct a [benchmark experiment](benchmark_experiments.md), it is necessary to choose an evaluation method. We will use the resampling strategy from the previous section and two performance measures - root mean squared error (``rmse``) and mean of absolute error (``mae``).
 
 ```{r}
+## Four learners to be compared
+lrns = list(makeLearner("regr.lm"), 
+            makeLearner("regr.ksvm", par.vals = sigma),
+            makeLearner("regr.ranger", par.vals = num.trees),
+            makeLearner("regr.penalized.lasso", par.vals = lambda1))
+
 ## Conduct the benchmark experiment
-
-## Two learners to be compared
-lrns = list(makeLearner("regr.lm"), makeLearner("regr.penalized.ridge", par.vals = res.ridge$x[[1]]))
-
-## Conduct the benchmark experiment with the same resampling strategy and performance measures as before
-bmr = benchmark(lrns, regr.task, rdesc, meas, show.info = FALSE)
+bmr = benchmark(lrns, regr.task, rdesc, measures = list(rmse, mae), show.info = FALSE)
 ```
 
 
 ### Performance
 
-Now we want to evaluate the results!
+Now we want to evaluate the results.
 ```{r}
 head(getBMRPerformances(bmr, as.df = TRUE))
 
 ```
 
-A closer look to the results reveals that ridge outperforms the classical linear regression according to ``mape``.
+A closer look at the first boxplot reveals that random forest outperforms the other learners for this specific task. However, the SVM model using the measure ``mae`` seems to perform better than the other models. Moreover, in both cases the benchmark experiment for the linear regression and lasso regression models yield similar but poor results.
 
 ```{r}
-plotBMRBoxplots(bmr, measure = mse)
-plotBMRBoxplots(bmr, measure = mape)
+plotBMRBoxplots(bmr, measure = rmse)
+plotBMRBoxplots(bmr, measure = mae)
 ```
 
