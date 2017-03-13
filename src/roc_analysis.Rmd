@@ -245,7 +245,7 @@ performance.
 
 ```{r, fig.asp = 7/10}
 ## Extract predictions
-preds = getBMRPredictions(bmr)[[1]]
+preds = getBMRPredictions(bmr, drop = TRUE)
 
 ## Change the class attribute
 preds2 = lapply(preds, function(x) {class(x) = "Prediction"; return(x)})
@@ -328,7 +328,7 @@ We first extract the predictions by [&getBMRPredictions] and then convert them v
 
 ```{r}
 ## Extract predictions
-preds = getBMRPredictions(bmr)[[1]]
+preds = getBMRPredictions(bmr, drop = TRUE)
 
 ## Convert predictions
 ROCRpreds = lapply(preds, asROCRPrediction)
@@ -365,7 +365,7 @@ and not [%mlr]'s performance measures.)
 
 ```{r, out.width = '75%'}
 ## Extract and convert predictions
-preds = getBMRPredictions(bmr)[[1]]
+preds = getBMRPredictions(bmr, drop = TRUE)
 ROCRpreds = lapply(preds, asROCRPrediction)
 
 ## Calculate precision and recall
@@ -384,7 +384,7 @@ threshold. Moreover, boxplots for certain threshold values (0.1, 0.2, ..., 0.9) 
 
 ```{r, out.width = '75%'}
 ## Extract and convert predictions
-preds = getBMRPredictions(bmr)[[1]]
+preds = getBMRPredictions(bmr, drop = TRUE)
 ROCRpreds = lapply(preds, asROCRPrediction)
 
 ## Calculate accuracy
