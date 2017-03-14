@@ -517,7 +517,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.583,mmce.test.mean=0.363
-#&gt; Runtime: 0.215997
+#&gt; Runtime: 0.257456
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -560,7 +560,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.86,mmce.test.mean=0.252
-#&gt; Runtime: 0.212548
+#&gt; Runtime: 0.222504
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -659,7 +659,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.585,mmce.test.mean=0.353
-#&gt; Runtime: 0.27381
+#&gt; Runtime: 0.241674
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -676,7 +676,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
 #&gt; Aggr perf: credit.costs.test.mean=0.652,mmce.test.mean=0.336
-#&gt; Runtime: 0.41127
+#&gt; Runtime: 0.403881
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -754,7 +754,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
 #&gt; Aggr perf: credit.costs.test.mean=0.568,mmce.test.mean=0.336
-#&gt; Runtime: 0.418968
+#&gt; Runtime: 0.416561
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -850,7 +850,7 @@ r
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
 #&gt; Aggr perf: wf.costs.test.mean=7.96,mmce.test.mean=0.318
-#&gt; Runtime: 0.0715425
+#&gt; Runtime: 0.0658441
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -973,21 +973,6 @@ lrn
 #&gt; Hyperparameters: trace=FALSE
 
 mod = train(lrn, costsens.task)
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
-
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
-
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
-
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
 mod
 #&gt; Model for learner.id=costsens.classif.multinom; learner.class=CostSensWeightedPairsWrapper
 #&gt; Trained on: task.id = iris; obs = 150; features = 4
@@ -1037,29 +1022,6 @@ pred
 #&gt; ... (150 rows, 2 cols)
 
 performance(pred, measures = list(meancosts, mcp), task = costsens.task)
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
-
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
-
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
-
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
-
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
-
-#&gt; Warning: 'getTaskDescription' is deprecated.
-#&gt; Use 'getTaskDesc' instead.
-#&gt; See help(&quot;Deprecated&quot;)
 #&gt; meancosts       mcp 
 #&gt;  151.0839  146.2973
 </code></pre></div>
