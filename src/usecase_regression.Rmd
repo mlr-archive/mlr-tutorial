@@ -24,9 +24,13 @@ regr.task
 In order to get an overview of the features type, we can print out the ``regr.task``. This shows that there are $12$ numeric and one factor variables in the data set.
 
 ### Tuning
-By calling ``listLearners("regr")`` we can see which learners are available for the regression task. We picked the classical linear regression model (``regr.lm``), the [Lasso](&penalized::penalized) regression model (``regr.penalized.lasso``), [SVM](&kernlab::ksvm) with a radial basis kernel (``regr.ksvm``) and random forest from the [ranger](&ranger::ranger) package (``regr.ranger``), which we would like to compare. Before setting up a [benchmark experiment](benchmark_experiments.md) we can specify which hyperparameters are going to be tuned. The [%mlr] package provides powerful tuning algorithms. See [Tuning](tuning.md) and [Advanced Tuning](advanced_tune.md) for more details.
+By calling ``listLearners("regr")`` we can see which learners are available for the regression task.
 
-For each learner one hyperparameter will be tuned, i.e. the Lasso penalty parameter ``lambda1``, kernel parameter ``sigma`` for SVM model and the number of trees (``num.trees``) in the random forest model. We start with specifying a search space for each of these parameters. With [&makeTuneControlRandom] we set the tuning method to be random search. Afterwards we take $5$-fold cross validation as our [resampling strategy](resample.md) and root mean squared error (``rmse``) as optimization criterion. Finally, we make tuning wrapper for each learner.
+With so many learners it is difficult to choose which one would be optimal for this specific task. As such we will choose a sample of these learners and compare their results. This analysis uses the classical linear regression model (``regr.lm``), the [Lasso](&penalized::penalized) regression model (``regr.penalized.lasso``), [SVM](&kernlab::ksvm) with a radial basis kernel (``regr.ksvm``) and random forest from the [ranger](&ranger::ranger) package (``regr.ranger``). In order to get a quick overview of all learner-specific tunable parameters you can call [&getLearnerParamSet] or its alias [&getParamset], which will list learner's hyperparameters and their properties.
+
+Before setting up a [benchmark experiment](benchmark_experiments.md) we can specify which hyperparameters are going to be tuned. The [%mlr] package provides powerful tuning algorithms, such as iterated [F-racing](&irace::irace), [CMA Evolution Strategy](&cmaes::cma_es), [model-based / Bayesian optimization](&mlrMBO::mbo) and [generalized simulated annealing](&GenSA::GenSA). See [Tuning](tuning.md) and [Advanced Tuning](advanced_tune.md) for more details.
+
+For each learner one hyperparameter will be tuned, i.e. the Lasso penalty parameter ``lambda1``, kernel parameter ``sigma`` for SVM model and the number of trees (``num.trees``) in the random forest model. We start with specifying a search space for each of these parameters. With [&makeTuneControlCMAES] we set the tuning method to be [CMA Evolution Strategy](&cmaes::cma_es). Afterwards we take $5$-fold cross validation as our [resampling strategy](resample.md) and root mean squared error (``rmse``) as optimization criterion. Finally, we make tuning wrapper for each learner.
 
 ```{r}
 set.seed(1234)
@@ -51,12 +55,15 @@ rdesc = makeResampleDesc("CV", iters = 5L)
 meas = rmse
 
 ## Choose a tuning method
-ctrl = makeTuneControlRandom(maxit = 100L)
+ctrl = makeTuneControlCMAES(budget = 100L)
 
 ## Make tuning wrappers
-tuned.lasso = makeTuneWrapper("regr.penalized.lasso", rdesc, meas, ps_lasso, ctrl)
-tuned.ksvm = makeTuneWrapper("regr.ksvm", rdesc, meas, ps_ksvm, ctrl)
-tuned.rf = makeTuneWrapper("regr.ranger", rdesc, meas, ps_rf, ctrl)
+tuned.lasso = makeTuneWrapper(learner = "regr.penalized.lasso", resampling = rdesc, measures = meas,
+  par.set = ps_lasso, control = ctrl, show.info = FALSE)
+tuned.ksvm = makeTuneWrapper(learner = "regr.ksvm", resampling = rdesc, measures = meas,
+  par.set = ps_ksvm, control = ctrl, show.info = FALSE)
+tuned.rf = makeTuneWrapper(learner = "regr.ranger", resampling = rdesc, measures = meas,
+  par.set = ps_rf, control = ctrl, show.info = FALSE)
 ```
 
 ### Benchmark Experiment
@@ -68,7 +75,7 @@ lrns = list(makeLearner("regr.lm"), tuned.ksvm, tuned.lasso, tuned.rf)
 
 
 ## Conduct the benchmark experiment
-bmr = benchmark(lrns, regr.task, rdesc, measures = rmse, show.info = FALSE)
+bmr = benchmark(learners = lrns, tasks = regr.task, resamplings = rdesc, measures = rmse, show.info = FALSE)
 ```
 
 
