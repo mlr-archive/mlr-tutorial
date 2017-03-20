@@ -283,13 +283,12 @@ task = makeClassifTask(data = iris, target = &quot;Species&quot;)
 lrn = makeLearner(&quot;classif.lda&quot;)
 
 n = nrow(iris)
-train.set = sample(2/3 * n)
+train.set = sample(n, size = 2/3*n)
 test.set = setdiff(1:n, train.set)
 
 ## 3) Fit the model
 ## Train the learner on the task using a random subset of the data as training set
 model = train(lrn, task, subset = train.set)
-#&gt; Warning in lda.default(x, grouping, ...): group virginica is empty
 
 ## 4) Make predictions
 ## Predict values of the response variable for new observations by the trained model
@@ -300,7 +299,7 @@ pred = predict(model, task = task, subset = test.set)
 ## Calculate the mean misclassification error and accuracy
 performance(pred, measures = list(mmce, acc))
 #&gt; mmce  acc 
-#&gt;    1    0
+#&gt; 0.04 0.96
 </code></pre></div>
         </div>
 
@@ -341,5 +340,5 @@ performance(pred, measures = list(mmce, acc))
 
 <!--
 MkDocs version : 0.16.2
-Build Date UTC : 2017-03-19 20:48:30
+Build Date UTC : 2017-03-20 08:28:56
 -->
