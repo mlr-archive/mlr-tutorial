@@ -68,8 +68,6 @@ The [FDATask](&makeFDATask) can then be constructed as follows:
 ```{r}
 ## Put all values into a data.frame
 df = data.frame(fuelSubset[c("heatan", "h2o", "UVVIS", "NIR")])
-## Change row names to V1 to V367
-colnames(df) = stri_paste("V", 1:367)
 
 ## Create a regression task, classification tasks behave analogously
 ## In this case we use column indices
