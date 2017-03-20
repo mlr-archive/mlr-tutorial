@@ -41,7 +41,7 @@ task = makeClassifTask(data = iris, target = "Species")
 lrn = makeLearner("classif.lda")
 
 n = nrow(iris)
-train.set = sample(2/3 * n)
+train.set = sample(n, size = 2/3*n)
 test.set = setdiff(1:n, train.set)
 
 ## 3) Fit the model
