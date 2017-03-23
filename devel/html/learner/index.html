@@ -468,18 +468,18 @@ certain learning <a href="http://www.rdocumentation.org/packages/mlr/functions/T
 lrns = listLearners()
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;                 class      package
-#&gt; 1         classif.ada          ada
+#&gt; 1         classif.ada    ada,rpart
 #&gt; 2 classif.bartMachine  bartMachine
 #&gt; 3    classif.binomial        stats
 #&gt; 4  classif.blackboost mboost,party
 #&gt; 5    classif.boosting adabag,rpart
-#&gt; 6         classif.bst          bst
+#&gt; 6         classif.bst    bst,rpart
 
 ## List classifiers that can output probabilities
 lrns = listLearners(&quot;classif&quot;, properties = &quot;prob&quot;)
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;                 class      package
-#&gt; 1         classif.ada          ada
+#&gt; 1         classif.ada    ada,rpart
 #&gt; 2 classif.bartMachine  bartMachine
 #&gt; 3    classif.binomial        stats
 #&gt; 4  classif.blackboost mboost,party
