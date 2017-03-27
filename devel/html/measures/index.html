@@ -548,7 +548,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: mean(log(p_i)), where p_i is the predicted probability of the true class of observation i.  This scoring rule is the same as the negative logloss, self-information or surprisal.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left">Defined as: mean(log(p_i)), where p_i is the predicted probability of the true class of observation i.   This scoring rule is the same as the negative logloss, self-information or surprisal.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mcc</a></strong> <br />Matthews correlation coefficient</td>
@@ -698,7 +698,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: 1 - (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j.   This scoring rule is the same as 1 - multiclass.brier.    See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left">Defined as: 1 - (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j.   This scoring rule is the same as 1 - multiclass.brier.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">ssr</a></strong> <br />Spherical Scoring Rule</td>
@@ -713,7 +713,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: mean(p_i(sum_j(p_ij))), where p_i is the predicted probability of the true class of observation i and p_ij is the predicted probablity of observation i for class j.    See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left">Defined as: mean(p_i(sum_j(p_ij))), where p_i is the predicted probability of the true class of observation i and p_ij is the predicted probablity of observation i for class j.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tn</a></strong> <br />True negatives</td>
@@ -977,7 +977,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: sqrt(msle). Definition taken from:   Definition taken from: <a href="https://www.kaggle.com/wiki/RootMeanSquaredLogarithmicError">https://www.kaggle.com/wiki/RootMeanSquaredLogarithmicError</a>.   This measure is mostly used for count data, note that all predicted and actual target values   must be greater or equal '-1' to compute the measure.</td>
+<td align="left">Defined as: sqrt(msle). Definition taken from:   Definition taken from: https: / /www.kaggle.com / wiki / RootMeanSquaredLogarithmicError.   This measure is mostly used for count data, note that all predicted and actual target values   must be greater or equal '-1' to compute the measure.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rrse</a></strong> <br />Root relative squared error</td>
@@ -1261,7 +1261,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Averaged proportion of correctly predicted labels with respect to the total number of labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.</td>
+<td align="left">Averaged proportion of correctly predicted labels with respect to the total number of labels for each instance,   following the definition by Charte and Charte: https: / /journal.r-project.org / archive / 2015 - 2 / charte-charte.pdf.   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.f1</a></strong> <br />F1 measure (multilabel)</td>
@@ -1275,7 +1275,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Harmonic mean of precision and recall on a per instance basis (Micro-F1), following the   definition by Montanes et al.: <a href="http://www.sciencedirect.com/science/article/pii/S0031320313004019">http://www.sciencedirect.com/science/article/pii/S0031320313004019</a>.   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.</td>
+<td align="left">Harmonic mean of precision and recall on a per instance basis (Micro-F1), following the   definition by Montanes et al.: http: / /www.sciencedirect.com / science / article / pii / S0031320313004019.   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.hamloss</a></strong> <br />Hamming loss</td>
@@ -1303,7 +1303,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called precision. Averaged ratio of correctly predicted labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.   Fractions where the denominator becomes 0 are ignored in the average calculation.</td>
+<td align="left">Also called precision. Averaged ratio of correctly predicted labels for each instance,   following the definition by Charte and Charte: https: / /journal.r-project.org / archive / 2015 - 2 / charte-charte.pdf.   Fractions where the denominator becomes 0 are ignored in the average calculation.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.subset01</a></strong> <br />Subset-0-1 loss</td>
@@ -1331,7 +1331,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called recall. Averaged proportion of predicted labels which are relevant for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.   Fractions where the denominator becomes 0 are ignored in the average calculation.</td>
+<td align="left">Also called recall. Averaged proportion of predicted labels which are relevant for each instance,   following the definition by Charte and Charte: https: / /journal.r-project.org / archive / 2015 - 2 / charte-charte.pdf.   Fractions where the denominator becomes 0 are ignored in the average calculation.</td>
 </tr>
 </tbody>
 </table>
