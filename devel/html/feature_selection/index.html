@@ -419,12 +419,12 @@ res
 <pre><code class="r">as.data.frame(res$opt.path)
 #&gt;   fw.perc mse.test.mean dob eol error.message exec.time
 #&gt; 1     0.2      40.59578   1  NA          &lt;NA&gt;     0.241
-#&gt; 2    0.25      40.59578   2  NA          &lt;NA&gt;     0.228
+#&gt; 2    0.25      40.59578   2  NA          &lt;NA&gt;     0.231
 #&gt; 3     0.3      37.05592   3  NA          &lt;NA&gt;     0.242
 #&gt; 4    0.35      35.83712   4  NA          &lt;NA&gt;     0.235
-#&gt; 5     0.4      35.83712   5  NA          &lt;NA&gt;     0.242
-#&gt; 6    0.45      27.39955   6  NA          &lt;NA&gt;     0.235
-#&gt; 7     0.5      27.39955   7  NA          &lt;NA&gt;     0.243
+#&gt; 5     0.4      35.83712   5  NA          &lt;NA&gt;     0.246
+#&gt; 6    0.45      27.39955   6  NA          &lt;NA&gt;     0.237
+#&gt; 7     0.5      27.39955   7  NA          &lt;NA&gt;     0.300
 </code></pre>
 
 <p>The optimal percentage and the corresponding performance can be accessed as follows:</p>
@@ -467,12 +467,12 @@ res
 #&gt; Points on front: 13
 head(as.data.frame(res$opt.path))
 #&gt;   fw.threshold fpr.test.mean fnr.test.mean dob eol error.message exec.time
-#&gt; 1    0.4892321     0.3092818     0.2639033   1  NA          &lt;NA&gt;     2.197
-#&gt; 2    0.2481696     0.2045499     0.2319697   2  NA          &lt;NA&gt;     2.429
-#&gt; 3    0.7691875     0.5128000     0.3459740   3  NA          &lt;NA&gt;     2.097
-#&gt; 4    0.1470133     0.2045499     0.2319697   4  NA          &lt;NA&gt;     2.208
-#&gt; 5    0.5958241     0.5028216     0.5239538   5  NA          &lt;NA&gt;     2.107
-#&gt; 6    0.6892421     0.6323959     0.4480808   6  NA          &lt;NA&gt;     2.354
+#&gt; 1    0.4892321     0.3092818     0.2639033   1  NA          &lt;NA&gt;     2.137
+#&gt; 2    0.2481696     0.2045499     0.2319697   2  NA          &lt;NA&gt;     2.265
+#&gt; 3    0.7691875     0.5128000     0.3459740   3  NA          &lt;NA&gt;     2.192
+#&gt; 4    0.1470133     0.2045499     0.2319697   4  NA          &lt;NA&gt;     2.263
+#&gt; 5    0.5958241     0.5028216     0.5239538   5  NA          &lt;NA&gt;     2.074
+#&gt; 6    0.6892421     0.6323959     0.4480808   6  NA          &lt;NA&gt;     2.440
 </code></pre>
 
 <p>The results can be visualized with function <a href="http://www.rdocumentation.org/packages/mlr/functions/plotTuneMultiCritResult.html">plotTuneMultiCritResult</a>.
