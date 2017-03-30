@@ -22,6 +22,9 @@ author:
   - Dominik Kirchhoff
   - Tobias Kühn
   - Janek Thomas
+  - Kira Engelhardt
+  - Teodora Pandeva
+  - Gunnar König
   - Lars Kotthoff
 ---
 """)
