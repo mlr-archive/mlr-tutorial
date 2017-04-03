@@ -517,7 +517,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.583,mmce.test.mean=0.363
-#&gt; Runtime: 0.204852
+#&gt; Runtime: 0.206352
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -560,7 +560,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.86,mmce.test.mean=0.252
-#&gt; Runtime: 0.206161
+#&gt; Runtime: 0.206969
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -659,7 +659,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.585,mmce.test.mean=0.353
-#&gt; Runtime: 0.24385
+#&gt; Runtime: 0.238709
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -676,7 +676,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
 #&gt; Aggr perf: credit.costs.test.mean=0.652,mmce.test.mean=0.336
-#&gt; Runtime: 0.393894
+#&gt; Runtime: 0.389691
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -754,7 +754,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
 #&gt; Aggr perf: credit.costs.test.mean=0.568,mmce.test.mean=0.336
-#&gt; Runtime: 0.418548
+#&gt; Runtime: 0.419096
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -850,7 +850,7 @@ r
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
 #&gt; Aggr perf: wf.costs.test.mean=7.96,mmce.test.mean=0.318
-#&gt; Runtime: 0.070384
+#&gt; Runtime: 0.074513
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1011,7 +1011,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.05
+#&gt; time: 0.04
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa
