@@ -72,8 +72,8 @@ exit = function(status, msg, ...) {
 
 # set seed depending on file name
 setSeed = function(x, algo = "crc32") {
- hash = digest(x, algo = algo)
- set.seed(strtoi(sprintf("0x%s", substr(hash, 1L, 7L))))
+  hash = digest(x, algo = algo)
+  set.seed(strtoi(sprintf("0x%s", substr(hash, 1L, 7L))))
 }
 
 # worker function
@@ -82,7 +82,10 @@ knitIt = function(f, dev) {
   lines = readLines(file.path(src, f))
   for (macro in macros)
     lines = str_replace_all(lines, macro$pattern, macro$replacement)
-
+  lines = c(lines, "## Full code",
+    "```{r, purl=FALSE, echo = FALSE, comment=''}",
+    paste0("cat(readLines('./",file.path("full_code_src", str_replace(f, "\\.Rmd$", "\\.R")),"'),fill = 2)"),
+    "```")
   cache.path = paste0(file.path(dev, "cache", f), .Platform$file.sep)
   opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = paste0(file.path(dev, "figure", str_replace(f, "\\.Rmd", "")), .Platform$file.sep), dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
   setSeed(f)
@@ -93,6 +96,16 @@ knitIt = function(f, dev) {
   )
 }
 
+purlIt = function(f, dev) {
+  messagef("Purling file '%s' ...", f)
+  setSeed(f)
+  purl(
+    input = file.path(src,f),
+    output = file.path(dev, str_replace(f, "\\.Rmd$", "\\.R")),
+    quiet = TRUE,
+    documentation = 0
+  )
+}
 
 # start #######################################################################
 message("Loading required packages ...")
@@ -124,6 +137,8 @@ if (!isDirectory("svg") | !isDirectory(file.path("svg", "docs")))
   dir.create(file.path("svg", "docs"), recursive = TRUE)
 if (!isDirectory("pdf") | !isDirectory(file.path("pdf", "docs")))
   dir.create(file.path("pdf", "docs"), recursive = TRUE)
+if (!isDirectory("full_code_src"))
+  dir.create(file.path("full_code_src"))
 
 ## Handle mlr Versions ####
 
@@ -155,6 +170,8 @@ if (is.na(link)) {
 ## Do the building ####
 
 # do lapply for now. with mclapply it seems unclear how to stop best on error. this was 100% broken before
+message("Building purl version...")
+dummy = lapply(list.files(src, pattern = "\\.Rmd$"), purlIt, "full_code_src")
 message("Building PDF version...")
 dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "pdf")
 ok = system3("./build-pdf.py")
@@ -178,3 +195,4 @@ messagef("Build failed!")
 exit(ok$exit.code)
 
 # vim: set ft=r:
+

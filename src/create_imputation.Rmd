@@ -13,7 +13,7 @@ The *learn* and *impute* functions both have at least the following formal argum
 ## Example: Imputation using the mean
 Let's have a look at function [imputeMean](&imputations).
 
-```{r, include=FALSE}
+```{r, include=FALSE, purl= FALSE}
 showFunctionDef = function(fun, name = sub("^[^:]*:+", "", deparse(substitute(fun)))) {
   l = deparse(fun)
   l[1] = paste(name, l[1], sep = " = ")
