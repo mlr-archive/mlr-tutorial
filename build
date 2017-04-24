@@ -79,13 +79,24 @@ setSeed = function(x, algo = "crc32") {
 # worker function
 knitIt = function(f, dev) {
   messagef("Knitting file '%s' ...", f)
-  lines = readLines(file.path(src, f))
+  lines = readLines(f)
+
+  # apply replacement macros
   for (macro in macros)
     lines = str_replace_all(lines, macro$pattern, macro$replacement)
-  lines = c(lines, "## Full code",
+
+  # should we append the full source code at the end?
+  # to opt out add this to the yaml front matter
+  # params:
+  #  full.code: FALSE
+  knit.params = knit_params(lines)
+  if (!isFALSE(knit.params$full.code$value)) {
+    lines = c(lines, "## Full code",
     "```{r, purl=FALSE, echo = FALSE, comment=''}",
     paste0("cat(readLines('./",file.path("full_code_src", str_replace(f, "\\.Rmd$", "\\.R")),"'),fill = 2)"),
     "```")
+  }
+
   cache.path = paste0(file.path(dev, "cache", f), .Platform$file.sep)
   opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = paste0(file.path(dev, "figure", str_replace(f, "\\.Rmd", "")), .Platform$file.sep), dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
   setSeed(f)
@@ -96,11 +107,12 @@ knitIt = function(f, dev) {
   )
 }
 
+# helper function to extract the source code
 purlIt = function(f, dev) {
   messagef("Purling file '%s' ...", f)
   setSeed(f)
   purl(
-    input = file.path(src,f),
+    input = f
     output = file.path(dev, str_replace(f, "\\.Rmd$", "\\.R")),
     quiet = TRUE,
     documentation = 0
@@ -171,9 +183,9 @@ if (is.na(link)) {
 
 # do lapply for now. with mclapply it seems unclear how to stop best on error. this was 100% broken before
 message("Building purl version...")
-dummy = lapply(list.files(src, pattern = "\\.Rmd$"), purlIt, "full_code_src")
+dummy = lapply(list.files(src, pattern = "\\.Rmd$", full.names = TRUE), purlIt, "full_code_src")
 message("Building PDF version...")
-dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "pdf")
+dummy = lapply(list.files(src, pattern = "\\.Rmd$", full.names = TRUE), knitIt, "pdf")
 ok = system3("./build-pdf.py")
 if (ok$exit.code == 0L) {
   # copy pdf to devel
