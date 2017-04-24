@@ -1,3 +1,7 @@
+---
+params:
+  full.code: FALSE
+---
 # Integrated Filter Methods
 
 The following table shows the available methods for calculating the feature importance.

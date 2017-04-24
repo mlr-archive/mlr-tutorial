@@ -1,3 +1,7 @@
+---
+params:
+  full.code: FALSE
+---
 # Example Tasks
 
 For your convenience [%mlr] provides pre-defined [&Task]s for each type of learning problem.

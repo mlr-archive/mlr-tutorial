@@ -90,8 +90,8 @@ knitIt = function(f, dev) {
   # params:
   #  full.code: FALSE
   knit.params = knit_params(lines)
-  if (!isFALSE(knit.params$full.code$value)) {
-    lines = c(lines, "## Full code",
+  if (!isFALSE(knit.params$full.code$value) && dev != "pdf") {
+    lines = c(lines, "\n", "## Full code",
     "```{r, purl=FALSE, echo = FALSE, comment=''}",
     paste0("cat(readLines('./",file.path("full_code_src", str_replace(f, "\\.Rmd$", "\\.R")),"'),fill = 2)"),
     "```")
@@ -108,12 +108,12 @@ knitIt = function(f, dev) {
 }
 
 # helper function to extract the source code
-purlIt = function(f, dev) {
+purlIt = function(f, dest) {
   messagef("Purling file '%s' ...", f)
   setSeed(f)
   purl(
     input = file.path(src, f),
-    output = file.path(dev, str_replace(f, "\\.Rmd$", "\\.R")),
+    output = file.path(dest, str_replace(f, "\\.Rmd$", "\\.R")),
     quiet = TRUE,
     documentation = 0
   )
