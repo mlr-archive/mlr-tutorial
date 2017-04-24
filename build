@@ -79,7 +79,7 @@ setSeed = function(x, algo = "crc32") {
 # worker function
 knitIt = function(f, dev) {
   messagef("Knitting file '%s' ...", f)
-  lines = readLines(f)
+  lines = readLines(file.path(src, f))
 
   # apply replacement macros
   for (macro in macros)
@@ -112,7 +112,7 @@ purlIt = function(f, dev) {
   messagef("Purling file '%s' ...", f)
   setSeed(f)
   purl(
-    input = f
+    input = file.path(src, f),
     output = file.path(dev, str_replace(f, "\\.Rmd$", "\\.R")),
     quiet = TRUE,
     documentation = 0
@@ -183,9 +183,9 @@ if (is.na(link)) {
 
 # do lapply for now. with mclapply it seems unclear how to stop best on error. this was 100% broken before
 message("Building purl version...")
-dummy = lapply(list.files(src, pattern = "\\.Rmd$", full.names = TRUE), purlIt, "full_code_src")
+dummy = lapply(list.files(src, pattern = "\\.Rmd$"), purlIt, "full_code_src")
 message("Building PDF version...")
-dummy = lapply(list.files(src, pattern = "\\.Rmd$", full.names = TRUE), knitIt, "pdf")
+dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "pdf")
 ok = system3("./build-pdf.py")
 if (ok$exit.code == 0L) {
   # copy pdf to devel
