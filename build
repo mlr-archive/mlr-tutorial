@@ -125,11 +125,42 @@ if (!isDirectory("svg") | !isDirectory(file.path("svg", "docs")))
 if (!isDirectory("pdf") | !isDirectory(file.path("pdf", "docs")))
   dir.create(file.path("pdf", "docs"), recursive = TRUE)
 
+## Handle mlr Versions ####
+
+# if we have a new mlr version move old devel files into version directory
+mlr.version = as.character(packageVersion("mlr"))
+link = Sys.readlink(mlr.version)
+if (is.na(link)) {
+  # find the directory that linked to devel before and copy devel content to it.
+  old.version = names(which(sapply(list.files(".", pattern = "\\d\\..*", include.dirs = TRUE), Sys.readlink) == "devel"))
+  file.remove(old.version)
+  dir.create(old.version)
+  system(sprintf("cp -r devel/* %s", old.version))
+  # this old.version is probably the latest release so change this link to
+  file.remove("release")
+  file.symlink(old.version, "release")
+  # No directory or link for the new version exists so we create one
+  file.symlink("devel", mlr.version)
+  # Take care of github on Travis
+  if (identical(Sys.getenv("TRAVIS"), "true")) {
+    system(sprintf("git add %s", paste(mlr.version, old.version, "devel", "release")))
+  }
+} else if (link == "") {
+  # The directory exists but is not a link
+  warning("You are building the tutorial with an outdated mlr version! Please use the github version!")
+} else if (link != "devel") {
+  stopf("The directory %s should link to devel and not to %s", mlr.version, link)
+}
+
+## Do the building ####
+
 # do lapply for now. with mclapply it seems unclear how to stop best on error. this was 100% broken before
 message("Building PDF version...")
 dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "pdf")
 ok = system3("./build-pdf.py")
 if (ok$exit.code == 0L) {
+  # copy pdf to devel
+  file.copy("mlr-tutorial.pdf", "devel", overwrite = TRUE)
   # embed images in HTML
   opts_knit$set(upload.fun = image_uri)
   message("Building HTML version...")
