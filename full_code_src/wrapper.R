@@ -1,0 +1,17 @@
+data(iris)
+task = makeClassifTask(data = iris, target = "Species", weights = as.integer(iris$Species))
+base.lrn = makeLearner("classif.rpart")
+wrapped.lrn = makeBaggingWrapper(base.lrn, bw.iters = 100, bw.feats = 0.5)
+print(wrapped.lrn)
+benchmark(tasks = task, learners = list(base.lrn, wrapped.lrn))
+getParamSet(wrapped.lrn)
+ctrl = makeTuneControlRandom(maxit = 10)
+rdesc = makeResampleDesc("CV", iters = 3)
+par.set = makeParamSet(
+  makeIntegerParam("minsplit", lower = 1, upper = 10),
+  makeNumericParam("bw.feats", lower = 0.25, upper = 1)
+)
+tuned.lrn = makeTuneWrapper(wrapped.lrn, rdesc, mmce, par.set, ctrl)
+print(tuned.lrn)
+lrn = train(tuned.lrn, task = task)
+print(lrn)

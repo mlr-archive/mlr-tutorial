@@ -20,12 +20,12 @@ showFunctionDef = function(fun, name = sub("^[^:]*:+", "", deparse(substitute(fu
   l
 }
 ```
-```{r, code=showFunctionDef(imputeMean), eval=FALSE, tidy=TRUE}
+```{r, code=showFunctionDef(imputeMean), eval=FALSE, tidy=TRUE, purl = FALSE}
 ```
 
 [imputeMean](&imputations) calls the unexported [%mlr] function `simpleImpute` which is defined as follows.
 
-```{r, code=showFunctionDef(mlr:::simpleImpute), eval=FALSE, tidy = TRUE}
+```{r, code=showFunctionDef(mlr:::simpleImpute), eval=FALSE, tidy = TRUE, purl= FALSE}
 ```
 
 The *learn* function calculates the mean of the non-missing observations in column ``col``.
