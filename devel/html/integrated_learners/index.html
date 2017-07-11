@@ -244,7 +244,7 @@
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
             <li><a href="#classification-79">Classification (79)</a></li>
             <li><a href="#regression-60">Regression (60)</a></li>
-            <li><a href="#survival-analysis-13">Survival analysis (13)</a></li>
+            <li><a href="#survival-analysis-12">Survival analysis (12)</a></li>
             <li><a href="#cluster-analysis-9">Cluster analysis (9)</a></li>
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
             <li><a href="#multilabel-classification-3">Multilabel classification (3)</a></li>
@@ -1838,7 +1838,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="survival-analysis-13">Survival analysis (13)</h3>
+<h3 id="survival-analysis-12">Survival analysis (12)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>prob</em>: Probabilities can be predicted,</li>
@@ -1867,7 +1867,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">featimp<br />rcens</td>
+<td align="left">featimp</td>
 <td align="left">See <code>?ctree_control</code> for possible breakage for nominal features with missingness.</td>
 </tr>
 <tr>
@@ -1878,7 +1878,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
 </tr>
 <tr>
@@ -1889,7 +1889,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -1900,7 +1900,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
 </tr>
 <tr>
@@ -1911,7 +1911,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
 </tr>
 <tr>
@@ -1922,7 +1922,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left"><code>family</code> has been set to <code>CoxPH()</code> by default.</td>
 </tr>
 <tr>
@@ -1933,7 +1933,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">prob<br />featimp<br />rcens</td>
+<td align="left">featimp</td>
 <td align="left"><code>keep.data</code> is set to FALSE to reduce memory requirements.</td>
 </tr>
 <tr>
@@ -1944,7 +1944,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left"><code>family</code> has been set to <code>CoxPH()</code> by default.</td>
 </tr>
 <tr>
@@ -1955,19 +1955,8 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.       Parameter <code>s</code> (value of the regularization parameter used for predictions) is set to <code>0.1</code> by default,       but needs to be tuned by the user.       glmnet uses a global control object for its parameters. mlr resets all control parameters to their defaults       before setting the specified parameters and after training.       If you are setting glmnet.control parameters through glmnet.control,       you need to save and re-set them after running the glmnet learner.</td>
-</tr>
-<tr>
-<td align="left"><strong>surv.penalized</strong> <br /> <em>penalized</em> <br /><br />Penalized Cox Regression</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">rcens</td>
-<td align="left">trace=FALSE was set by default to disable logging output.</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.randomForestSRC</strong> <br /> <em>rfsrc</em> <br /><br />Random Forest</td>
@@ -1977,7 +1966,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">featimp<br />oobpreds<br />rcens</td>
+<td align="left">featimp<br />oobpreds</td>
 <td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.</td>
 </tr>
 <tr>
@@ -1988,7 +1977,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left">featimp<br />rcens</td>
+<td align="left">featimp</td>
 <td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable.</td>
 </tr>
 <tr>
@@ -1999,7 +1988,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">featimp<br />rcens</td>
+<td align="left">featimp</td>
 <td align="left"><code>xval</code> has been set to <code>0</code> by default for speed.</td>
 </tr>
 </tbody>

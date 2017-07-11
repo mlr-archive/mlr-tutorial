@@ -524,18 +524,15 @@ into the survival learner <code>surv.coxph</code> in <a href="http://www.rdocume
   f = getTaskFormula(.task)
   data = getTaskData(.task, subset = .subset)
   if (is.null(.weights)) {
-    mod = survival::coxph(formula = f, data = data, ...)
+    survival::coxph(formula = f, data = data, ...)
   } else {
-    mod = survival::coxph(formula = f, data = data, weights = .weights, ...)
+    survival::coxph(formula = f, data = data, weights = .weights, ...)
   }
-  mod
 }
 </code></pre>
 
 <pre><code class="r">predictLearner.surv.coxph = function(.learner, .model, .newdata, ...) {
-  if (.learner$predict.type == &quot;response&quot;) {
-    predict(.model$learner.model, newdata = .newdata, type = &quot;lp&quot;, ...)
-  }
+  predict(.model$learner.model, newdata = .newdata, type = &quot;lp&quot;, ...)
 }
 </code></pre>
 
