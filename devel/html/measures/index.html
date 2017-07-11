@@ -1071,7 +1071,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">cindex</a></strong> <br />Concordance index</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">cindex</a></strong> <br />Harrell's Concordance index</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -1083,6 +1083,34 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Fraction of all pairs of subjects whose predicted survival times are correctly ordered among all subjects that can actually be ordered. In other words, it is the probability of concordance between the predicted and the observed survival.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">cindex.uno</a></strong> <br />Uno's Concordance index</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Fraction of all pairs of subjects whose predicted survival times are correctly ordered among all subjects that can actually be ordered. In other words, it is the probability of concordance between the predicted and the observed survival. Corrected by weighting with IPCW as suggested by Uno. Implemented in survAUC::UnoC.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">iauc.uno</a></strong> <br />Uno's estimator of cumulative AUC for right censored time-to-event data</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">To set an upper time limit, set argument max.time (defaults to max time in complete task). Implemented in survAUC::AUC.uno.</td>
 </tr>
 </tbody>
 </table>
