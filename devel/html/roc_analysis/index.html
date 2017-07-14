@@ -421,6 +421,40 @@ lrns = list(lrn1, lrn2)
 rdesc.outer = makeResampleDesc(&quot;CV&quot;, iters = 5)
 
 bmr = benchmark(lrns, tasks = sonar.task, resampling = rdesc.outer, measures = ms, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             auc       mmce
 bmr
 #&gt;         task.id         learner.id auc.test.mean mmce.test.mean
 #&gt; 1 Sonar-example        classif.lda     0.7835442      0.2592334
@@ -602,7 +636,7 @@ Below plots for the benchmark experiment (Example 2) are generated.</p>
 <pre><code class="r">z = plotViperCharts(bmr, chart = &quot;rocc&quot;, browse = FALSE)
 </code></pre>
 
-<p>You can see the plot created this way <a href="http://viper.ijs.si/chart/roc/a4e11700-bc94-41c6-bd87-909b3638f8f2/">here</a>.
+<p>You can see the plot created this way <a href="http://viper.ijs.si/chart/roc/849ab9cd-7883-4754-b38c-dc407f7a3388/">here</a>.
 Note that besides ROC curves you get several other plots like lift charts or cost curves.
 For details, see <a href="http://www.rdocumentation.org/packages/mlr/functions/plotViperCharts.html">plotViperCharts</a>.</p></div>
         </div>

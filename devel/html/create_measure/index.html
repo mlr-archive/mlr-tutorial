@@ -282,7 +282,7 @@ mse$fun
 #&gt; {
 #&gt;     measureMSE(pred$data$truth, pred$data$response)
 #&gt; }
-#&gt; &lt;bytecode: 0xa97a668&gt;
+#&gt; &lt;bytecode: 0xebd45a8&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 
 measureMSE
@@ -290,7 +290,7 @@ measureMSE
 #&gt; {
 #&gt;     mean((response - truth)^2)
 #&gt; }
-#&gt; &lt;bytecode: 0xa26cee0&gt;
+#&gt; &lt;bytecode: 0xea61f48&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -339,7 +339,7 @@ mean of the performances on the test sets.</p>
 test.mean$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; mean(perf.test)
-#&gt; &lt;bytecode: 0xae7ba28&gt;
+#&gt; &lt;bytecode: 0xabdc910&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -469,6 +469,38 @@ ms1max = setAggregation(ms1, test.max)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 res = selectFeatures(&quot;classif.rpart&quot;, iris.task, rdesc, measures = list(ms1, ms2, ms1min, ms1max),
   control = makeFeatSelControlExhaustive(), show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      mmce      mmce      mmce
 
 ## Optimization path, i.e., performances for the 16 possible feature subsets
 perf.data = as.data.frame(res$opt.path)

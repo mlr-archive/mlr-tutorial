@@ -513,12 +513,14 @@ the next several code chunks to get comparable performance values.</p>
 rin = makeResampleInstance(&quot;CV&quot;, iters = 3, task = credit.task)
 lrn = makeLearner(&quot;classif.multinom&quot;, predict.type = &quot;prob&quot;, predict.threshold = th, trace = FALSE)
 r = resample(lrn, credit.task, resampling = rin, measures = list(credit.costs, mmce), show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
 r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
-#&gt; Aggr perf: credit.costs.test.mean=0.583,mmce.test.mean=0.363
-#&gt; Runtime: 0.221016
+#&gt; Aggr perf: credit.costs.test.mean=0.5831280,mmce.test.mean=0.3630397
+#&gt; Runtime: 0.192746
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -556,12 +558,14 @@ with lowest average costs over the 3 test data sets.</p>
 
 ## 3-fold cross-validation
 r = resample(lrn, credit.task, resampling = rin, measures = list(credit.costs, mmce), show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
 r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
-#&gt; Aggr perf: credit.costs.test.mean=0.86,mmce.test.mean=0.252
-#&gt; Runtime: 0.232082
+#&gt; Aggr perf: credit.costs.test.mean=0.8600427,mmce.test.mean=0.2520215
+#&gt; Runtime: 0.191478
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -655,12 +659,14 @@ lrn
 #&gt; Hyperparameters: trace=FALSE,wcw.weight=5
 
 r = resample(lrn, credit.task, rin, measures = list(credit.costs, mmce), show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
 r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
-#&gt; Aggr perf: credit.costs.test.mean=0.585,mmce.test.mean=0.353
-#&gt; Runtime: 0.272858
+#&gt; Aggr perf: credit.costs.test.mean=0.5851031,mmce.test.mean=0.3530387
+#&gt; Runtime: 0.220668
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -672,12 +678,14 @@ directly.</p>
 <p>Or, more conveniently, you can again use <a href="http://www.rdocumentation.org/packages/mlr/functions/makeWeightedClassesWrapper.html">makeWeightedClassesWrapper</a>.</p>
 <pre><code class="r">lrn = makeWeightedClassesWrapper(&quot;classif.ksvm&quot;, wcw.weight = w)
 r = resample(lrn, credit.task, rin, measures = list(credit.costs, mmce), show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
 r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
-#&gt; Aggr perf: credit.costs.test.mean=0.652,mmce.test.mean=0.336
-#&gt; Runtime: 0.409119
+#&gt; Aggr perf: credit.costs.test.mean=0.6520802,mmce.test.mean=0.3360276
+#&gt; Runtime: 0.360476
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -689,10 +697,44 @@ ps = makeParamSet(makeDiscreteParam(&quot;wcw.weight&quot;, seq(4, 12, 0.5)))
 ctrl = makeTuneControlGrid()
 tune.res = tuneParams(lrn, credit.task, resampling = rin, par.set = ps,
   measures = list(credit.costs, mmce), control = ctrl, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
 tune.res
 #&gt; Tune result:
 #&gt; Op. pars: wcw.weight=7.5
-#&gt; credit.costs.test.mean=0.559,mmce.test.mean=0.395
+#&gt; credit.costs.test.mean=0.5590681,mmce.test.mean=0.3950118
 
 as.data.frame(tune.res$opt.path)[1:3]
 #&gt;    wcw.weight credit.costs.test.mean mmce.test.mean
@@ -750,12 +792,14 @@ lrn
 #&gt; Hyperparameters: trace=FALSE,osw.rate=5,osw.cl=Bad
 
 r = resample(lrn, credit.task, rin, measures = list(credit.costs, mmce), show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
 r
 #&gt; Resample Result
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
-#&gt; Aggr perf: credit.costs.test.mean=0.568,mmce.test.mean=0.336
-#&gt; Runtime: 0.408721
+#&gt; Aggr perf: credit.costs.test.mean=0.5681190,mmce.test.mean=0.3360426
+#&gt; Runtime: 0.387162
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -767,10 +811,44 @@ ps = makeParamSet(makeDiscreteParam(&quot;osw.rate&quot;, seq(3, 7, 0.25)))
 ctrl = makeTuneControlGrid()
 tune.res = tuneParams(lrn, credit.task, rin, par.set = ps, measures = list(credit.costs, mmce),
   control = ctrl, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             credit.costs   mmce
 tune.res
 #&gt; Tune result:
 #&gt; Op. pars: osw.rate=6.75
-#&gt; credit.costs.test.mean=0.57,mmce.test.mean=0.386
+#&gt; credit.costs.test.mean=0.5700821,mmce.test.mean=0.3860178
 </code></pre>
 
 <h3 id="multi-class-problems">Multi-class problems</h3>
@@ -846,12 +924,14 @@ Note that the threshold vector needs to have names that correspond to the class 
 <pre><code class="r">lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
 rin = makeResampleInstance(&quot;CV&quot;, iters = 3, task = wf.task)
 r = resample(lrn, wf.task, rin, measures = list(wf.costs, mmce), show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
 r
 #&gt; Resample Result
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: wf.costs.test.mean=7.96,mmce.test.mean=0.318
-#&gt; Runtime: 0.0697262
+#&gt; Aggr perf: wf.costs.test.mean=7.9568814,mmce.test.mean=0.3180386
+#&gt; Runtime: 0.0562401
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -907,10 +987,210 @@ ctrl = makeTuneControlRandom()
 
 tune.res = tuneParams(lrn, wf.task, resampling = rin, par.set = ps,
   measures = list(wf.costs, mmce), control = ctrl, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
+#&gt; Resampling: cross-validation
+#&gt; Measures:             wf.costs   mmce
 tune.res
 #&gt; Tune result:
 #&gt; Op. pars: wcw.weight=0.673,0.0513,0.114
-#&gt; wf.costs.test.mean=3.26,mmce.test.mean=0.218
+#&gt; wf.costs.test.mean=3.2633889,mmce.test.mean=0.2179496
 </code></pre>
 
 <h2 id="example-dependent-misclassification-costs">Example-dependent misclassification costs</h2>
@@ -1012,7 +1292,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.04
+#&gt; time: 0.05
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa

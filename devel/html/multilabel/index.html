@@ -441,7 +441,7 @@ performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, mult
 #&gt; multilabel.subset01  multilabel.hamloss      multilabel.acc 
 #&gt;           0.8663633           0.2049471           0.4637509 
 #&gt;       multilabel.f1         timepredict 
-#&gt;           0.5729926           2.4960000
+#&gt;           0.5729926           2.2130000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt;  [1] &quot;multilabel.f1&quot;       &quot;multilabel.subset01&quot; &quot;multilabel.tpr&quot;     
@@ -457,20 +457,24 @@ via <a href="http://www.rdocumentation.org/packages/mlr/functions/makeResampleDe
 function. Below the default measure Hamming loss is calculated.</p>
 <pre><code class="r">rdesc = makeResampleDesc(method = &quot;CV&quot;, stratify = FALSE, iters = 3)
 r = resample(learner = lrn.br, task = yeast.task, resampling = rdesc, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             multilabel.hamloss
 r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.classif.rpart
-#&gt; Aggr perf: multilabel.hamloss.test.mean=0.225
-#&gt; Runtime: 5.86505
+#&gt; Aggr perf: multilabel.hamloss.test.mean=0.2248054
+#&gt; Runtime: 5.79894
 
 r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             multilabel.hamloss
 r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.rFerns
-#&gt; Aggr perf: multilabel.hamloss.test.mean=0.473
-#&gt; Runtime: 0.558038
+#&gt; Aggr perf: multilabel.hamloss.test.mean=0.4731658
+#&gt; Runtime: 0.539335
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>
