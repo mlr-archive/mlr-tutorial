@@ -450,6 +450,8 @@ on the specific learner as shown in the following example.</p>
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 5)
 r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE,
   measures = list(mmce, ber, auc))
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      ber       auc
 r1$aggr
 #&gt; mmce.test.mean  ber.test.mean  auc.test.mean 
 #&gt;     0.01960784     0.50000000     0.50000000
@@ -457,6 +459,8 @@ r1$aggr
 obw.lrn = setPredictType(obw.lrn, &quot;prob&quot;)
 r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,
   measures = list(mmce, ber, auc))
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      ber       auc
 r2$aggr
 #&gt; mmce.test.mean  ber.test.mean  auc.test.mean 
 #&gt;     0.04470588     0.43611719     0.58535862
@@ -469,6 +473,8 @@ obw.lrn = makeOverBaggingWrapper(lrn, obw.rate = 8, obw.iters = 3)
 lrn = setPredictType(lrn, &quot;prob&quot;)
 r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE,
   measures = list(mmce, ber, auc))
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      ber       auc
 r1$aggr
 #&gt; mmce.test.mean  ber.test.mean  auc.test.mean 
 #&gt;     0.03509804     0.46089748     0.58514212
@@ -476,6 +482,8 @@ r1$aggr
 obw.lrn = setPredictType(obw.lrn, &quot;prob&quot;)
 r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,
   measures = list(mmce, ber, auc))
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce      ber       auc
 r2$aggr
 #&gt; mmce.test.mean  ber.test.mean  auc.test.mean 
 #&gt;     0.04098039     0.45961754     0.54926842

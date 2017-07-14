@@ -357,6 +357,8 @@ data set before fitting the learner.</p>
 <pre><code class="r">lrn = makeFilterWrapper(learner = &quot;classif.fnn&quot;, fw.method = &quot;information.gain&quot;, fw.abs = 2)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 10)
 r = resample(learner = lrn, task = iris.task, resampling = rdesc, show.info = FALSE, models = TRUE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce
 r$aggr
 #&gt; mmce.test.mean 
 #&gt;           0.04
@@ -395,36 +397,50 @@ res = tuneParams(lrn, task = bh.task, resampling = rdesc, par.set = ps,
 #&gt; With control class: TuneControlGrid
 #&gt; Imputation value: Inf
 #&gt; [Tune-x] 1: fw.perc=0.2
-#&gt; [Tune-y] 1: mse.test.mean=40.6; time: 0.0 min
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; [Tune-y] 1: mse.test.mean=40.5957841; time: 0.0 min
 #&gt; [Tune-x] 2: fw.perc=0.25
-#&gt; [Tune-y] 2: mse.test.mean=40.6; time: 0.0 min
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; [Tune-y] 2: mse.test.mean=40.5957841; time: 0.0 min
 #&gt; [Tune-x] 3: fw.perc=0.3
-#&gt; [Tune-y] 3: mse.test.mean=37.1; time: 0.0 min
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; [Tune-y] 3: mse.test.mean=37.0559228; time: 0.0 min
 #&gt; [Tune-x] 4: fw.perc=0.35
-#&gt; [Tune-y] 4: mse.test.mean=35.8; time: 0.0 min
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; [Tune-y] 4: mse.test.mean=35.8371232; time: 0.0 min
 #&gt; [Tune-x] 5: fw.perc=0.4
-#&gt; [Tune-y] 5: mse.test.mean=35.8; time: 0.0 min
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; [Tune-y] 5: mse.test.mean=35.8371232; time: 0.0 min
 #&gt; [Tune-x] 6: fw.perc=0.45
-#&gt; [Tune-y] 6: mse.test.mean=27.4; time: 0.0 min
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; [Tune-y] 6: mse.test.mean=27.3995509; time: 0.0 min
 #&gt; [Tune-x] 7: fw.perc=0.5
-#&gt; [Tune-y] 7: mse.test.mean=27.4; time: 0.0 min
-#&gt; [Tune] Result: fw.perc=0.5 : mse.test.mean=27.4
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; [Tune-y] 7: mse.test.mean=27.3995509; time: 0.0 min
+#&gt; [Tune] Result: fw.perc=0.5 : mse.test.mean=27.3995509
 res
 #&gt; Tune result:
 #&gt; Op. pars: fw.perc=0.5
-#&gt; mse.test.mean=27.4
+#&gt; mse.test.mean=27.3995509
 </code></pre>
 
 <p>The performance of all percentage values visited during tuning is:</p>
 <pre><code class="r">as.data.frame(res$opt.path)
 #&gt;   fw.perc mse.test.mean dob eol error.message exec.time
-#&gt; 1     0.2      40.59578   1  NA          &lt;NA&gt;     0.930
-#&gt; 2    0.25      40.59578   2  NA          &lt;NA&gt;     0.198
-#&gt; 3     0.3      37.05592   3  NA          &lt;NA&gt;     0.198
-#&gt; 4    0.35      35.83712   4  NA          &lt;NA&gt;     0.244
-#&gt; 5     0.4      35.83712   5  NA          &lt;NA&gt;     0.204
-#&gt; 6    0.45      27.39955   6  NA          &lt;NA&gt;     0.440
-#&gt; 7     0.5      27.39955   7  NA          &lt;NA&gt;     0.239
+#&gt; 1     0.2      40.59578   1  NA          &lt;NA&gt;     0.193
+#&gt; 2    0.25      40.59578   2  NA          &lt;NA&gt;     0.180
+#&gt; 3     0.3      37.05592   3  NA          &lt;NA&gt;     0.181
+#&gt; 4    0.35      35.83712   4  NA          &lt;NA&gt;     0.193
+#&gt; 5     0.4      35.83712   5  NA          &lt;NA&gt;     0.182
+#&gt; 6    0.45      27.39955   6  NA          &lt;NA&gt;     0.184
+#&gt; 7     0.5      27.39955   7  NA          &lt;NA&gt;     0.197
 </code></pre>
 
 <p>The optimal percentage and the corresponding performance can be accessed as follows:</p>
@@ -462,17 +478,117 @@ rdesc = makeResampleDesc(&quot;CV&quot;, iters = 10)
 res = tuneParamsMultiCrit(lrn, task = sonar.task, resampling = rdesc, par.set = ps,
   measures = list(fpr, fnr), control = makeTuneMultiCritControlRandom(maxit = 50L),
   show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
+#&gt; Resampling: cross-validation
+#&gt; Measures:             fpr       fnr
 res
 #&gt; Tune multicrit result:
 #&gt; Points on front: 13
 head(as.data.frame(res$opt.path))
 #&gt;   fw.threshold fpr.test.mean fnr.test.mean dob eol error.message exec.time
-#&gt; 1    0.4892321     0.3092818     0.2639033   1  NA          &lt;NA&gt;     2.092
-#&gt; 2    0.2481696     0.2045499     0.2319697   2  NA          &lt;NA&gt;     1.904
-#&gt; 3    0.7691875     0.5128000     0.3459740   3  NA          &lt;NA&gt;     1.833
-#&gt; 4    0.1470133     0.2045499     0.2319697   4  NA          &lt;NA&gt;     1.826
-#&gt; 5    0.5958241     0.5028216     0.5239538   5  NA          &lt;NA&gt;     1.760
-#&gt; 6    0.6892421     0.6323959     0.4480808   6  NA          &lt;NA&gt;     1.758
+#&gt; 1    0.4892321     0.3092818     0.2639033   1  NA          &lt;NA&gt;     1.633
+#&gt; 2    0.2481696     0.2045499     0.2319697   2  NA          &lt;NA&gt;     1.738
+#&gt; 3    0.7691875     0.5128000     0.3459740   3  NA          &lt;NA&gt;     1.584
+#&gt; 4    0.1470133     0.2045499     0.2319697   4  NA          &lt;NA&gt;     1.664
+#&gt; 5    0.5958241     0.5028216     0.5239538   5  NA          &lt;NA&gt;     1.579
+#&gt; 6    0.6892421     0.6323959     0.4480808   6  NA          &lt;NA&gt;     1.572
 </code></pre>
 
 <p>The results can be visualized with function <a href="http://www.rdocumentation.org/packages/mlr/functions/plotTuneMultiCritResult.html">plotTuneMultiCritResult</a>.
@@ -530,10 +646,50 @@ rdesc = makeResampleDesc(&quot;Holdout&quot;)
 ## Select features
 sfeats = selectFeatures(learner = &quot;surv.coxph&quot;, task = wpbc.task, resampling = rdesc,
   control = ctrl, show.info = FALSE)
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
+#&gt; Resampling: holdout
+#&gt; Measures:             cindex
 sfeats
 #&gt; FeatSel result:
 #&gt; Features (17): mean_radius, mean_area, mean_smoothness, mean_concavepoints, mean_symmetry, mean_fractaldim, SE_texture, SE_perimeter, SE_smoothness, SE_compactness, SE_concavity, SE_concavepoints, worst_area, worst_compactness, worst_concavepoints, tsize, pnodes
-#&gt; cindex.test.mean=0.714
+#&gt; cindex.test.mean=0.7137990
 </code></pre>
 
 <p><code>sfeats</code>is a <a href="http://www.rdocumentation.org/packages/mlr/functions/selectFeatures.html">FeatSelResult</a> object.
@@ -565,17 +721,199 @@ ctrl = makeFeatSelControlSequential(method = &quot;sfs&quot;, alpha = 0.02)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 10)
 sfeats = selectFeatures(learner = &quot;regr.lm&quot;, task = bh.task, resampling = rdesc, control = ctrl,
   show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
 sfeats
 #&gt; FeatSel result:
 #&gt; Features (11): crim, zn, chas, nox, rm, dis, rad, tax, ptratio, b, lstat
-#&gt; mse.test.mean=23.7
+#&gt; mse.test.mean=23.7319094
 </code></pre>
 
 <p>Further information about the sequential feature selection process can be obtained by
 function <a href="http://www.rdocumentation.org/packages/mlr/functions/analyzeFeatSelResult.html">analyzeFeatSelResult</a>.</p>
 <pre><code class="r">analyzeFeatSelResult(sfeats)
 #&gt; Features         : 11
-#&gt; Performance      : mse.test.mean=23.7
+#&gt; Performance      : mse.test.mean=23.7319094
 #&gt; crim, zn, chas, nox, rm, dis, rad, tax, ptratio, b, lstat
 #&gt; 
 #&gt; Path to optimum:
@@ -604,6 +942,26 @@ learner is trained on the selected feature subset.</p>
 lrn = makeFeatSelWrapper(&quot;surv.coxph&quot;, resampling = rdesc,
   control = makeFeatSelControlRandom(maxit = 10), show.info = FALSE)
 mod = train(lrn, task = wpbc.task)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
 mod
 #&gt; Model for learner.id=surv.coxph.featsel; learner.class=FeatSelWrapper
 #&gt; Trained on: task.id = wpbc-example; obs = 194; features = 32
@@ -615,7 +973,7 @@ mod
 sfeats
 #&gt; FeatSel result:
 #&gt; Features (19): mean_radius, mean_texture, mean_perimeter, mean_area, mean_smoothness, mean_compactness, mean_concavepoints, mean_fractaldim, SE_compactness, SE_concavity, SE_concavepoints, SE_symmetry, worst_texture, worst_perimeter, worst_area, worst_concavepoints, worst_symmetry, tsize, pnodes
-#&gt; cindex.test.mean=0.631
+#&gt; cindex.test.mean=0.6308754
 </code></pre>
 
 <p>The selected features are:</p>
@@ -635,6 +993,108 @@ follows:</p>
 
 r = resample(learner = lrn, task = wpbc.task, resampling = out.rdesc, models = TRUE,
   show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
+#&gt; Resampling: cross-validation
+#&gt; Measures:             cindex
 r$aggr
 #&gt; cindex.test.mean 
 #&gt;         0.632357
@@ -645,27 +1105,27 @@ r$aggr
 #&gt; [[1]]
 #&gt; FeatSel result:
 #&gt; Features (18): mean_texture, mean_area, mean_smoothness, mean_compactness, mean_concavity, mean_symmetry, SE_radius, SE_compactness, SE_concavity, SE_concavepoints, SE_fractaldim, worst_radius, worst_smoothness, worst_compactness, worst_concavity, worst_symmetry, tsize, pnodes
-#&gt; cindex.test.mean=0.66
+#&gt; cindex.test.mean=0.6599048
 #&gt; 
 #&gt; [[2]]
 #&gt; FeatSel result:
 #&gt; Features (12): mean_area, mean_compactness, mean_symmetry, mean_fractaldim, SE_perimeter, SE_area, SE_concavity, SE_symmetry, worst_texture, worst_smoothness, worst_fractaldim, tsize
-#&gt; cindex.test.mean=0.652
+#&gt; cindex.test.mean=0.6524759
 #&gt; 
 #&gt; [[3]]
 #&gt; FeatSel result:
 #&gt; Features (14): mean_compactness, mean_symmetry, mean_fractaldim, SE_radius, SE_perimeter, SE_smoothness, SE_concavity, SE_concavepoints, SE_fractaldim, worst_concavity, worst_concavepoints, worst_symmetry, worst_fractaldim, pnodes
-#&gt; cindex.test.mean=0.607
+#&gt; cindex.test.mean=0.6074810
 #&gt; 
 #&gt; [[4]]
 #&gt; FeatSel result:
 #&gt; Features (18): mean_radius, mean_texture, mean_perimeter, mean_compactness, mean_concavity, SE_texture, SE_area, SE_smoothness, SE_concavity, SE_symmetry, SE_fractaldim, worst_radius, worst_compactness, worst_concavepoints, worst_symmetry, worst_fractaldim, tsize, pnodes
-#&gt; cindex.test.mean=0.653
+#&gt; cindex.test.mean=0.6526122
 #&gt; 
 #&gt; [[5]]
 #&gt; FeatSel result:
 #&gt; Features (14): mean_radius, mean_texture, mean_compactness, mean_concavepoints, mean_symmetry, SE_texture, SE_compactness, SE_symmetry, SE_fractaldim, worst_radius, worst_smoothness, worst_compactness, worst_concavity, pnodes
-#&gt; cindex.test.mean=0.626
+#&gt; cindex.test.mean=0.6262729
 </code></pre></div>
         </div>
 

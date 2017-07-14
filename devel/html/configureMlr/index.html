@@ -272,7 +272,8 @@ session.</p>
 <p>You are bothered by all the output on the console like in this example?</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;Holdout&quot;)
 r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
-#&gt; [Resample] holdout iter 1:
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
 #&gt; # weights:  18 (10 variable)
 #&gt; initial  value 109.861229 
 #&gt; iter  10 value 12.256619
@@ -287,13 +288,17 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 #&gt; iter 100 value 2.360602
 #&gt; final  value 2.360602 
 #&gt; stopped after 100 iterations
-#&gt; mmce.test.mean=0.02
-#&gt; [Resample] Aggr. Result: mmce.test.mean=0.02
+#&gt; [Resample] iter 1:    0.0200000
+#&gt; 
+#&gt; Aggregated Result: mmce.test.mean=0.0200000
+#&gt; 
 </code></pre>
 
 <p>You can suppress the output for this <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> and this <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> call as follows:</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.multinom&quot;, config = list(show.learner.output = FALSE))
 r = resample(lrn, iris.task, rdesc, show.info = FALSE)
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
 </code></pre>
 
 <p>(Note that <a href="http://www.rdocumentation.org/packages/nnet/functions/multinom.html">multinom</a> has a <code>trace</code> switch that can alternatively be used to turn off
@@ -302,6 +307,8 @@ the progress messages.)</p>
 <a href="http://www.rdocumentation.org/packages/mlr/functions/benchmark.html">benchmark</a> etc. do the following:</p>
 <pre><code class="r">configureMlr(show.learner.output = FALSE, show.info = FALSE)
 r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
 </code></pre>
 
 <h2 id="accessing-and-resetting-the-configuration">Accessing and resetting the configuration</h2>

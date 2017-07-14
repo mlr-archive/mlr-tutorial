@@ -317,13 +317,165 @@ lrn = makeTuneWrapper(&quot;classif.ksvm&quot;, resampling = inner, par.set = ps
 ## Outer resampling loop
 outer = makeResampleDesc(&quot;CV&quot;, iters = 3)
 r = resample(lrn, iris.task, resampling = outer, extract = getTuneResult, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
 
 r
 #&gt; Resample Result
 #&gt; Task: iris-example
 #&gt; Learner: classif.ksvm.tuned
-#&gt; Aggr perf: mmce.test.mean=0.0533
-#&gt; Runtime: 3.28652
+#&gt; Aggr perf: mmce.test.mean=0.0533333
+#&gt; Runtime: 3.16766
 </code></pre>
 
 <p>You can obtain the error rates on the 3 outer test sets by:</p>
@@ -349,17 +501,17 @@ resulting from inner resampling on the outer training set for the best hyperpara
 #&gt; [[1]]
 #&gt; Tune result:
 #&gt; Op. pars: C=2; sigma=0.25
-#&gt; mmce.test.mean=0.0147
+#&gt; mmce.test.mean=0.0147059
 #&gt; 
 #&gt; [[2]]
 #&gt; Tune result:
 #&gt; Op. pars: C=4; sigma=0.25
-#&gt; mmce.test.mean=   0
+#&gt; mmce.test.mean=0.0000000
 #&gt; 
 #&gt; [[3]]
 #&gt; Tune result:
 #&gt; Op. pars: C=4; sigma=0.25
-#&gt; mmce.test.mean=0.0735
+#&gt; mmce.test.mean=0.0735294
 
 names(r$extract[[1]])
 #&gt; [1] &quot;learner&quot;   &quot;control&quot;   &quot;x&quot;         &quot;y&quot;         &quot;threshold&quot; &quot;opt.path&quot;
@@ -377,16 +529,16 @@ resampling iteration.</p>
 <pre><code class="r">opt.paths = getNestedTuneResultsOptPathDf(r)
 head(opt.paths, 10)
 #&gt;       C sigma mmce.test.mean dob eol error.message exec.time iter
-#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.043    1
-#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.041    1
-#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.043    1
-#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.044    1
-#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.037    1
-#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.037    1
-#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.039    1
-#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.040    1
-#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.042    1
-#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.042    1
+#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.034    1
+#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.032    1
+#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.033    1
+#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.034    1
+#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.033    1
+#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.033    1
+#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.033    1
+#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.033    1
+#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.039    1
+#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.048    1
 </code></pre>
 
 <p>Below we visualize the <code>opt.path</code>s for the 3 outer resampling iterations.</p>
@@ -425,13 +577,365 @@ lrn = makeFeatSelWrapper(&quot;regr.lm&quot;, resampling = inner,
 outer = makeResampleDesc(&quot;Subsample&quot;, iters = 2)
 r = resample(learner = lrn, task = bh.task, resampling = outer, extract = getFeatSelResult,
   show.info = FALSE)
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
 
 r
 #&gt; Resample Result
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm.featsel
-#&gt; Aggr perf: mse.test.mean=31.7
-#&gt; Runtime: 6.68787
+#&gt; Aggr perf: mse.test.mean=31.6991293
+#&gt; Runtime: 6.45581
 
 r$measures.test
 #&gt;   iter      mse
@@ -447,12 +951,12 @@ when calling <a href="http://www.rdocumentation.org/packages/mlr/functions/resam
 #&gt; [[1]]
 #&gt; FeatSel result:
 #&gt; Features (10): crim, zn, indus, nox, rm, dis, rad, tax, ptratio, lstat
-#&gt; mse.test.mean=20.2
+#&gt; mse.test.mean=20.1593896
 #&gt; 
 #&gt; [[2]]
 #&gt; FeatSel result:
 #&gt; Features (9): zn, nox, rm, dis, rad, tax, ptratio, b, lstat
-#&gt; mse.test.mean=22.6
+#&gt; mse.test.mean=22.5966796
 
 ## Selected features in the first outer resampling iteration
 r$extract[[1]]$x
@@ -479,19 +983,19 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      80.48765
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      63.06724
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.017
-#&gt; 2   2   2          &lt;NA&gt;     0.029
-#&gt; 3   2   2          &lt;NA&gt;     0.028
-#&gt; 4   2   2          &lt;NA&gt;     0.029
-#&gt; 5   2   2          &lt;NA&gt;     0.031
-#&gt; 6   2   2          &lt;NA&gt;     0.028
+#&gt; 1   1   2          &lt;NA&gt;     0.019
+#&gt; 2   2   2          &lt;NA&gt;     0.030
+#&gt; 3   2   2          &lt;NA&gt;     0.031
+#&gt; 4   2   2          &lt;NA&gt;     0.031
+#&gt; 5   2   2          &lt;NA&gt;     0.034
+#&gt; 6   2   2          &lt;NA&gt;     0.031
 </code></pre>
 
 <p>An easy-to-read version of the optimization path for sequential feature selection can be
 obtained with function <a href="http://www.rdocumentation.org/packages/mlr/functions/analyzeFeatSelResult.html">analyzeFeatSelResult</a>.</p>
 <pre><code class="r">analyzeFeatSelResult(r$extract[[1]])
 #&gt; Features         : 10
-#&gt; Performance      : mse.test.mean=20.2
+#&gt; Performance      : mse.test.mean=20.1593896
 #&gt; crim, zn, indus, nox, rm, dis, rad, tax, ptratio, lstat
 #&gt; 
 #&gt; Path to optimum:
@@ -530,12 +1034,50 @@ lrn = makeTuneWrapper(lrn, resampling = inner, par.set = ps, control = ctrl, sho
 ## Outer resampling loop
 outer = makeResampleDesc(&quot;CV&quot;, iters = 3)
 r = resample(learner = lrn, task = bh.task, resampling = outer, models = TRUE, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
 r
 #&gt; Resample Result
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm.filtered.tuned
-#&gt; Aggr perf: mse.test.mean=25.4
-#&gt; Runtime: 3.72059
+#&gt; Aggr perf: mse.test.mean=25.3915155
+#&gt; Runtime: 3.57026
 </code></pre>
 
 <h4 id="accessing-the-selected-features-and-optimal-percentage">Accessing the selected features and optimal percentage</h4>
@@ -581,27 +1123,27 @@ res
 #&gt; [[1]]
 #&gt; Tune result:
 #&gt; Op. pars: fw.threshold=0
-#&gt; mse.test.mean=24.9
+#&gt; mse.test.mean=24.8915992
 #&gt; 
 #&gt; [[2]]
 #&gt; Tune result:
 #&gt; Op. pars: fw.threshold=0.4
-#&gt; mse.test.mean=27.2
+#&gt; mse.test.mean=27.1812625
 #&gt; 
 #&gt; [[3]]
 #&gt; Tune result:
 #&gt; Op. pars: fw.threshold=0
-#&gt; mse.test.mean=19.7
+#&gt; mse.test.mean=19.7012695
 
 opt.paths = lapply(res, function(x) as.data.frame(x$opt.path))
 opt.paths[[1]]
 #&gt;   fw.threshold mse.test.mean dob eol error.message exec.time
-#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.193
-#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.190
-#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.201
-#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.185
-#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.172
-#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.181
+#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.187
+#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.185
+#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.200
+#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.182
+#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.168
+#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.175
 </code></pre>
 
 <h2 id="benchmark-experiments">Benchmark experiments</h2>
@@ -663,6 +1205,86 @@ lrns = list(lrn1, lrn2)
 ## Outer resampling loop
 outer = list(makeResampleDesc(&quot;Holdout&quot;), makeResampleDesc(&quot;Bootstrap&quot;, iters = 2))
 res = benchmark(lrns, tasks, outer, measures = list(acc, ber), show.info = FALSE)
+#&gt; Resampling: holdout
+#&gt; Measures:             acc       ber
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: OOB bootstrapping
+#&gt; Measures:             acc       ber
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
+#&gt; Resampling: holdout
+#&gt; Measures:             acc       ber
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: OOB bootstrapping
+#&gt; Measures:             acc       ber
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
+#&gt; Resampling: subsampling
+#&gt; Measures:             mmce
 res
 #&gt;         task.id         learner.id acc.test.mean ber.test.mean
 #&gt; 1  iris-example classif.ksvm.tuned     0.9400000    0.05882353
@@ -697,14 +1319,14 @@ of rows per task differ.</p>
 #&gt; $`iris-example`$classif.ksvm.tuned[[1]]
 #&gt; Tune result:
 #&gt; Op. pars: C=0.5; sigma=0.5
-#&gt; mmce.test.mean=0.0588
+#&gt; mmce.test.mean=0.0588235
 #&gt; 
 #&gt; 
 #&gt; $`iris-example`$classif.kknn.tuned
 #&gt; $`iris-example`$classif.kknn.tuned[[1]]
 #&gt; Tune result:
 #&gt; Op. pars: k=3
-#&gt; mmce.test.mean=0.049
+#&gt; mmce.test.mean=0.0490196
 #&gt; 
 #&gt; 
 #&gt; 
@@ -713,24 +1335,24 @@ of rows per task differ.</p>
 #&gt; $`Sonar-example`$classif.ksvm.tuned[[1]]
 #&gt; Tune result:
 #&gt; Op. pars: C=1; sigma=2
-#&gt; mmce.test.mean=0.343
+#&gt; mmce.test.mean=0.3428571
 #&gt; 
 #&gt; $`Sonar-example`$classif.ksvm.tuned[[2]]
 #&gt; Tune result:
 #&gt; Op. pars: C=2; sigma=0.5
-#&gt; mmce.test.mean= 0.2
+#&gt; mmce.test.mean=0.2000000
 #&gt; 
 #&gt; 
 #&gt; $`Sonar-example`$classif.kknn.tuned
 #&gt; $`Sonar-example`$classif.kknn.tuned[[1]]
 #&gt; Tune result:
 #&gt; Op. pars: k=4
-#&gt; mmce.test.mean=0.11
+#&gt; mmce.test.mean=0.1095238
 #&gt; 
 #&gt; $`Sonar-example`$classif.kknn.tuned[[2]]
 #&gt; Tune result:
 #&gt; Op. pars: k=3
-#&gt; mmce.test.mean=0.0667
+#&gt; mmce.test.mean=0.0666667
 </code></pre>
 
 <p>As for several other accessor functions a clearer representation as <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a>
@@ -771,6 +1393,352 @@ lrns = list(&quot;regr.rpart&quot;, lrn)
 ## Outer resampling loop
 outer = makeResampleDesc(&quot;Subsample&quot;, iters = 2)
 res = benchmark(tasks = bh.task, learners = lrns, resampling = outer, show.info = FALSE)
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
 
 res
 #&gt;                 task.id      learner.id mse.test.mean
@@ -792,12 +1760,12 @@ If only a single learner or, as in our case, a single task is considered, settin
 #&gt; $`BostonHousing-example`$regr.lm.featsel[[1]]
 #&gt; FeatSel result:
 #&gt; Features (8): crim, zn, chas, nox, rm, dis, ptratio, lstat
-#&gt; mse.test.mean=26.7
+#&gt; mse.test.mean=26.7257383
 #&gt; 
 #&gt; $`BostonHousing-example`$regr.lm.featsel[[2]]
 #&gt; FeatSel result:
 #&gt; Features (10): crim, zn, nox, rm, dis, rad, tax, ptratio, b, lstat
-#&gt; mse.test.mean=24.3
+#&gt; mse.test.mean=24.2874464
 getBMRFeatSelResults(res, drop = TRUE)
 #&gt; $regr.rpart
 #&gt; NULL
@@ -806,12 +1774,12 @@ getBMRFeatSelResults(res, drop = TRUE)
 #&gt; $regr.lm.featsel[[1]]
 #&gt; FeatSel result:
 #&gt; Features (8): crim, zn, chas, nox, rm, dis, ptratio, lstat
-#&gt; mse.test.mean=26.7
+#&gt; mse.test.mean=26.7257383
 #&gt; 
 #&gt; $regr.lm.featsel[[2]]
 #&gt; FeatSel result:
 #&gt; Features (10): crim, zn, nox, rm, dis, rad, tax, ptratio, b, lstat
-#&gt; mse.test.mean=24.3
+#&gt; mse.test.mean=24.2874464
 </code></pre>
 
 <p>You can access results for individual learners and tasks and inspect them further.</p>
@@ -842,16 +1810,16 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      86.93409
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      76.32457
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.018
-#&gt; 2   2   2          &lt;NA&gt;     0.025
-#&gt; 3   2   2          &lt;NA&gt;     0.026
-#&gt; 4   2   2          &lt;NA&gt;     0.025
-#&gt; 5   2   2          &lt;NA&gt;     0.028
-#&gt; 6   2   2          &lt;NA&gt;     0.027
+#&gt; 1   1   2          &lt;NA&gt;     0.024
+#&gt; 2   2   2          &lt;NA&gt;     0.022
+#&gt; 3   2   2          &lt;NA&gt;     0.020
+#&gt; 4   2   2          &lt;NA&gt;     0.020
+#&gt; 5   2   2          &lt;NA&gt;     0.023
+#&gt; 6   2   2          &lt;NA&gt;     0.021
 
 analyzeFeatSelResult(feats[[1]])
 #&gt; Features         : 8
-#&gt; Performance      : mse.test.mean=26.7
+#&gt; Performance      : mse.test.mean=26.7257383
 #&gt; crim, zn, chas, nox, rm, dis, ptratio, lstat
 #&gt; 
 #&gt; Path to optimum:
@@ -884,6 +1852,88 @@ lrns = list(&quot;regr.rpart&quot;, lrn)
 ## Outer resampling loop
 outer = makeResampleDesc(&quot;Subsample&quot;, iter = 3)
 res = benchmark(tasks = bh.task, learners = lrns, resampling = outer, show.info = FALSE)
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: subsampling
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
 
 res
 #&gt;                 task.id             learner.id mse.test.mean

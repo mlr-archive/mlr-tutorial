@@ -472,6 +472,8 @@ task = makeRegrTask(data = airq, target = &quot;Ozone&quot;)
 <p>In the following the 3-fold cross-validated <a href="../measures/index.html">mean squared error</a> is calculated.</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 r = resample(lrn, task, resampling = rdesc, show.info = FALSE, models = TRUE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mse
 r$aggr
 #&gt; mse.test.mean 
 #&gt;      524.3392

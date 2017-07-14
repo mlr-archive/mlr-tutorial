@@ -268,8 +268,12 @@ parallelStartSocket(2)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 r = resample(&quot;classif.lda&quot;, iris.task, rdesc)
 #&gt; Exporting objects to slaves for mode socket: .mlr.slave.options
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce
 #&gt; Mapping in parallel: mode = socket; cpus = 2; elements = 3.
-#&gt; [Resample] Aggr. Result: mmce.test.mean=0.02
+#&gt; 
+#&gt; Aggregated Result: mmce.test.mean=0.0200000
+#&gt; 
 
 parallelStop()
 #&gt; Stopped parallelization. All cleaned up.

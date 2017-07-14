@@ -272,6 +272,8 @@ bag.lrn = makeBaggingWrapper(lrn, bw.iters = 50, bw.replace = TRUE, bw.size = 0.
 First let's try it without bagging:</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 10)
 r = resample(learner = lrn, task = sonar.task, resampling = rdesc, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce
 r$aggr
 #&gt; mmce.test.mean 
 #&gt;      0.2735714
@@ -280,6 +282,8 @@ r$aggr
 <p>And now with bagging:</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 10)
 result = resample(learner = bag.lrn, task = sonar.task, resampling = rdesc, show.info = FALSE)
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce
 result$aggr
 #&gt; mmce.test.mean 
 #&gt;      0.2069048
