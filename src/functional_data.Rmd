@@ -1,6 +1,29 @@
 # Functional Data
 
 Functional data provides information about curves varying over a continuum, such as time.
+This type of data is often present when analyzing measurements at various time points.
+Such curves usually are interdependent, which means that the measurement at a point $t_{i + 1}$ usually depends on some measurements ${t_1, ..., t_i}; i \in \mathcal{N}$.
+
+As traditional machine learning techniques usually do not emphasize the interdependence between features,
+they are often not _well suited_ for such tasks, which can lead to poor performance.
+Functional data analysis on the other hand tries to address this by either using algorithms specifically tailored to functional data, or by transforming the functional covariates into a non time-dependent feature space. 
+For a more in depth introduction to functional data analysis see e.g [When the data are functions](http://rd.springer.com/article/10.1007/BF02293704) Ramsay, J.O., 1982. 
+
+Each observation of a functional covariate in the data are evaluations of a functional, i.e. measurements of a scalar value at various time points.
+A single observation might then look like this: 
+```{r}
+# Plot NIR curve for first observarion
+library(FDboost)
+data(fuelSubset)
+library(ggplot2)
+# NIR_Obs_1 are the measurements for NIR of the first functional covariate.
+# lambda are the time points, the data was measured at.
+df = data.frame("NIR_Obs_1" = fuelSubset$NIR[1, ],
+                "lambda" = fuelSubset$nir.lambda)
+ggplot(df) + 
+  geom_line(aes(y = NIR_obs_1, x = lambda))
+```
+
 There are two commonly used approaches for analysing functional data.
 
 * Directly analyze the functional data using a [learner](&Learner.md) that is suitable for functional data on a [Task](&makeTask). Those learners have the prefixes __classif.fda__ and __regr.fda__.
@@ -8,7 +31,7 @@ For this purpose, the functional data has to be saved as a matrix column in the 
 for constructing the [Task](&makeTask).
 
 * Transform the task into a format suitable for standard __classification__ or __regression__ [learners](&Learner.md). 
-This is done by [extracting](functional_data.Rmd#feature-extraction) non-temporal/non-functional features from the curves.
+This is done by [extracting](functional_data.Rmd#feature-extraction) non-temporal/non-functional features from the curves. Non-temporal features do not have any interdependence between each other, similarly to features in traditional machine learning.  
 
 
 ## Creating a Task that contains functional features
@@ -20,11 +43,10 @@ After that a [Task](&makeTask) that contains the data in a well-defined format i
 In the following example, the data is first stored as matrix columns using the 
 helper function [makeFunctionalData](&makeFunctionalData) for the [fuelSubset](fuelSubset.task)
 data from package [%FDboost].
+
 The data is provided in the following structure:
 
 ```{r}
-library(FDboost)
-data(fuelSubset)
 str(fuelSubset)
 ```
 
@@ -49,8 +71,6 @@ The [Task](&makeTask) can then be constructed as follows:
 ```{r}
 ## Put all values into a data.frame
 df = data.frame(fuelSubset[c("heatan", "h2o", "UVVIS", "NIR")])
-## Change row names to V1 to V367
-colnames(df) = stri_paste("V", 1:367)
 
 ## Create a regression task, classification tasks behave analogously
 ## In this case we use column indices
@@ -82,29 +102,36 @@ Applying learners to a [FDATask](&makeFDATask) works in two ways:
 * Use a [learner](&Learner.md)
 that supports functional features, those learners have prefixes  __fdaclassif.__ or __fdaregr.__
 
-  + For regression: 
-```{r}
-## The following learners can be used for the task.
-## head(listLearners(tsk))
-## Create a FDboost learner
-fdalrn = makeLearner("fdaregr.FDboost")
-```
-
+  + For regression:
+  
+  ```{r}
+  ## The following learners can be used for the task.
+  ## head(listLearners(tsk))
+  ## Create a FDboost learner
+  fdalrn = makeLearner("fdaregr.FDboost")
+  ```
+  
   + And for classification:
   
-```{r}
-## knn learner
-knn.lrn = makeLearner("fdaclassif.knn")
-```
+  ```{r}
+  ## knn learner
+  knn.lrn = makeLearner("fdaclassif.knn")
+  ```
 
 * Use a _standard_ [learner](&Learner.md): 
 In this case the temporal structure is disregarded
+
+```{r}
+## knn learner
+lrn = makeLearner("fdaclassif.rpart")
+```
 
 * Alternatively, transform the functional data into a non-temporal/non-functional space by [extracting](functional_data.Rmd#feature-extraction) features before training.
 In this case, a normal regression- or classification- [learner](&Learner.md) 
 can be applied. 
 This is explained in more detail in the [feature extraction](functional_data.Rmd#feature-extraction)
 section below.
+
 
 ## Train the learner
 
