@@ -3,18 +3,23 @@
 Functional data provides information about curves varying over a continuum, such as time.
 There are two commonly used approaches for analysing functional data.
 
-* Directly analyse the functional data using a [learner](&Learner.md) that is suitable for functional data on a [FDATask](&makeFDATask). Those learners have the prefixes __FDAClassif.__ and __FDARegr.__.
+* Directly analyze the functional data using a [learner](&Learner.md) that is suitable for functional data on a [Task](&makeTask). Those learners have the prefixes __classif.fda__ and __regr.fda__.
+For this purpose, the functional data has to be saved as a matrix column in the data.frame used
+for constructing the [Task](&makeTask).
 
 * Transform the task into a format suitable for standard __classification__ or __regression__ [learners](&Learner.md). 
 This is done by [extracting](functional_data.Rmd#feature-extraction) non-temporal/non-functional features from the curves.
 
 
-## Creating a FDATask
+## Creating a Task that contains functional features
 
-The first step is to get the data in the right format. [%mlr] expects a  [data.frame](&base::data.frame) which consists of the functional features and the target variable as input. The rows are considered independent, while column-ranges, such as $3:136$ in the example below correspond to a functional feature.
-After that a [FDATask](&makeFDATask) that contains the data in a well-defined format is created. [FDATasks](&makeFDATask), just like normal [Tasks](&Task.md) come in different flavours, such as [FDAClassifTask](&makeFDAClassifTask) and [FDARegrTask](&makeFDARegrTask), which can be used according to the class of the target variable.
+The first step is to get the data in the right format. [%mlr] expects a  [data.frame](&base::data.frame) which consists of the functional features and the target variable as input. Functional data in contrast to __numeric__ data has to be
+stored as a matrix column in the data.frame.
+After that a [Task](&makeTask) that contains the data in a well-defined format is created. [Tasks](&makeTask) come in different flavours, such as [ClassifTask](&makeClassifTask) and [RegrTask](&makeRegrTask), which can be used according to the class of the target variable.
 
-In the following example, this is done for the [fuelSubset](fuelSubset.task) data from package [%FDboost].
+In the following example, the data is first stored as matrix columns using the 
+helper function [makeFunctionalData](&makeFunctionalData) for the [fuelSubset](fuelSubset.task)
+data from package [%FDboost].
 The data is provided in the following structure:
 
 ```{r}
@@ -37,10 +42,9 @@ ggplot(df) +
   geom_line(aes(y = NIR_obs_1, x = lambda))
 ```
 
-The [FDATask](&makeFDATask) can then be constructed as follows:
+The [Task](&makeTask) can then be constructed as follows:
 
 * __fd.features__ is a list of functional features and the associated column indices.
-* __fd.grids__ is a list of the functional features' time points, i.e when they were measured. 
 
 ```{r}
 ## Put all values into a data.frame
