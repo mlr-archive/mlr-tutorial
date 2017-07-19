@@ -196,9 +196,6 @@ feat.methods = list("UVVIS" = extractFDAMean(), "NIR" = extractFDAFourier())
 
 # Either create a new task from an existing task
 extractFDAFeatures(tsk, feat.methods = feat.methods)
-
-# Or use a FDAFeatExtractWrapper
-makeExtractFDAFeatsWrapper("classif.rpart",  feat.methods = feat.methods)
 ```
 
 
@@ -210,12 +207,12 @@ This functions returns a regression task of type regr since the raw data contain
 ```{r, eval = FALSE}
 ## Specify the feature extraction method and generate new task.
 ## Here, we use the Haar filter:
-task.w = convertTaskToNormalTask(task = tsk, method = "wavelets", pars = list(filter = "haar"))
-print(task.w)
+feat.methods = list("NIR" = extractFDAWavelets(filter = "haar"))
+task.w = extractFDAFeatures(task = tsk, feat.methods)
 
 # Use the Daubechie wavelet with filter length 4.
-task.wd4 = convertTaskToNormalTask(task = tsk, method = "wavelets", pars = list(filter = "d4"))
-print(task.wd4)
+feat.methods = list("NIR" = extractFDAWavelets(filter = "fd4"))
+task.wd4 = extractFDAFeatures(task = tsk, feat.methods)
 ```
 The transformation calls the function [&getFDAWaveletFeatures].
 
@@ -226,15 +223,22 @@ Now, we use the fourier feature transformation. Either the amplitude or the phas
 
 ```{r, eval = FALSE}
 # Specify the feature extraction method and generate new task.
-# We use the fourier features and the amplitude:
-task.fa = convertTaskToNormalTask(task = tsk, method = "fourier", 
-  pars = list(fft.coeff = "amplitude"))
-print(task.fa)
-# ... or we prefer the phase:
-task.fp = convertTaskToNormalTask(task = tsk, method = "fourier", 
-  pars = list(fft.coeff = "phase"))
-print(task.fp)
+# We use the fourier features and the amplitude for NIR, as well as the phase for UVVIS
+feat.methods = list("NIR" = extractFDAWavelets(fft.coeff = "amplitude"),
+                    "UVVIS" = extractFDAWavelets(fft.coeff = "phase"))
+task.fa = extractFDAFeatures(task = tsk, feat.methods)
+task.fa
 ```
 
 This transformation uses the function [&getFDAFourierFeatures].
+
+### Wrappers
+Additionally we can wrap the preprocessing around a standard learner such as __classif.rpart__. 
+
+```{r}
+# Use a FDAFeatExtractWrapper
+feat.methods = list("UVVIS" = extractFDAMean(), "NIR" = extractFDAFpca())
+wrapped.lrn = makeExtractFDAFeatsWrapper("classif.rpart",  feat.methods = feat.methods)
+wrapped.lrn
+```
 
