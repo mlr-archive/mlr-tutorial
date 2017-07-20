@@ -14,7 +14,7 @@ Three functions are mandatory for each learner.
   function).
 
 Technically, integrating a learning method means introducing a new S3 [class](&base::class)
-and implementing the corresponding methods for the generic functions [makeRLerner](&RLearner),
+and implementing the corresponding methods for the generic functions [makeRLearner](&RLearner),
 [&trainLearner], and [&predictLearner].
 Therefore we start with a quick overview of the involved [classes](&base::class) and
 constructor functions.
