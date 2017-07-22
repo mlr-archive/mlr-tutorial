@@ -25,7 +25,7 @@ addons:
       - pandoc
 
 before_install:
-  - sudo apt-get install libgmp-dev libgsl0-dev
+  - apt-get install libgmp-dev libgsl0-dev
   - ln -s $(which gcc-4.9) $HOME/bin/gcc
   - ln -s $(which g++-4.9) $HOME/bin/g++
   - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
