@@ -19,6 +19,6 @@ pmiss = setdiff(p, ip2)
 print("MISSING PACKAGES:")
 print(pmiss)
 if (length(pmiss) > 0)
-  install.packages(pmiss[1:40])
+  install.packages(pmiss)
 
 update.packages(ask = FALSE)
