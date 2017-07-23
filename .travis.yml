@@ -1,5 +1,5 @@
 language: r
-sudo: required
+sudo: false
 dist: trusty
 cache:
   packages: true
@@ -22,10 +22,11 @@ addons:
       - gcc-4.9
       - g++-4.9
       - gfortran-4.9
+      - libgmp-dev
+      - libgsl0-dev
       - pandoc
 
 before_install:
-  - sudo apt-get install libgmp-dev libgsl0-dev
   - ln -s $(which gcc-4.9) $HOME/bin/gcc
   - ln -s $(which g++-4.9) $HOME/bin/g++
   - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
@@ -45,7 +46,7 @@ after_success:
     - git checkout gh-pages
     - git config user.name $GIT_NAME
     - git config user.email $GIT_EMAIL
-    - git config credential.helper "store --file=.git/credentials"a
+    - git config credential.helper "store --file=.git/credentials"
     - echo "https://$GH_TOKEN:@github.com" >> .git/credentials
     - git config push.default matching
     - git add devel
