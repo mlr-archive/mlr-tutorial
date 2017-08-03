@@ -1,9 +1,8 @@
 language: r
 sudo: false
 dist: trusty
-cache:
-  packages: true
-  pip: true
+cache: packages
+pip: true
 
 branches:
     only:
@@ -11,36 +10,32 @@ branches:
 
 env:
   global:
-  - secure: "oZCCuJbRCV3GyGxDxAflWUKohCgNv9TtGLgdXWV4YVjIYqqSCBl0sSwv+eCE6zVDji6bTM20NK6v5l0DbpM+TCk5vQFL8cP/LKgdFMqJm88/fCMqIX5QPk0uafd0Twpni6Rm+iUECxZJS63HL7vppz2WKnnjb2ZV6avPold+E1Pn1xboAjrQ0B4yMGKpy2KjzFbfEDMfVITO6SSNc9z7Jdii9Kf17NkY8MBPUJ8CkQQcN3UfBKRx6O0P8FnA9gj3nc1Sf9EacRtovhLBQuOVGD/uTbchV2UBMdBnhVk+39qEEsBB4SPyaI4FT9t6jJoqBYpvpQU0xhJXGcERppmMsNGe8nTniAfPQsT8vQs1pyYbnahkM3AUj7/lbOjVfzE1IJ7ExxkfGVeEUQr5XA3RlD3qJgt6hU4GT04vF4zN3IHPGlc8jjv96tX7C/f6axxLuM+20aRzwc5kM2+qlWwdWDj9r0Ir9ieA4t71zbgrAPrcw+Mt8S9p3DeXgj1R6MouT/1uqSdrKTnIVQS906acb0mPh9Tpb0WX7zAWr1WScJXVpvVyiOwWyR/MpMjkLFiRS9GcdiygudFdBS3qkHkgPuhV4pzu/r03e5rbwF/FC7CiCcIYTU7VjE4/NHE+awnXU51pfbjWSBqWuDg7ClXwfxwFWvwxZDPfCt3i+rW5sqs="
-
+    - _R_CHECK_TIMINGS_=0
+    - _R_CHECK_FORCE_SUGGESTS_=0  # no error if suggested packs are not avail
+    - _R_CHECK_TESTS_NLINES_=999
+    - secure: "d0xff7hriQyReF4y3/iR5sHJlXocKNKcN6/Gi/r9Hxsfuh2Hx3fouQCMSPP+Oba6MDgEvAfryToAxcmaoZByQMwgevB0OBy5xkatj3oTHmhN5Nbk3jNXxXfA6P0Oqxaf7lXVZk2+Ly+PWnbgXn0uhjzdaZo0cWtVJ660ajS0x9Q="
 
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
-      - gcc-4.9
-      - g++-4.9
-      - gfortran-4.9
       - libgmp-dev
       - libgsl0-dev
       - pandoc
 
-before_install:
-  - ln -s $(which gcc-4.9) $HOME/bin/gcc
-  - ln -s $(which g++-4.9) $HOME/bin/g++
-  - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
-  - export PATH=$HOME/bin:$PATH
-  - echo $LD_LIBRARY_PATH
-  - echo $LIBRARY_PATH
+warnings_are_errors: true
 
-install:
-  - pip install --user mkdocs
-  - pip install --user python-markdown-math
-  - Rscript r_packs_install.R
-
-script:
-  - ./build
+jobs:
+  include:
+    - stage: packages
+      install:
+        - pip install --user mkdocs
+        - pip install --user python-markdown-math
+        - Rscript r_packs_install.R
+      script: true
+    - stage: build
+      install: 
+        - ./build
+      script: true
 
 after_success:
     - git checkout gh-pages
