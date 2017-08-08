@@ -346,7 +346,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.test.mean=24.2
-#&gt; Runtime: 0.0378239
+#&gt; Runtime: 0.0343521
 </code></pre>
 
 <p>The result <code>r</code> is an object of class <a href="http://www.rdocumentation.org/packages/mlr/functions/ResampleResult.html">ResampleResult</a>.
@@ -400,23 +400,23 @@ lrn = makeLearner(&quot;classif.rpart&quot;, parms = list(split = &quot;informat
 ## Calculate the performance measures
 r = resample(lrn, sonar.task, rdesc, measures = list(mmce, fpr, fnr, timetrain))
 #&gt; [Resample] subsampling iter 1:
-#&gt; mmce.test.mean=0.262,fpr.test.mean=0.235,fnr.test.mean=0.28,timetrain.test.mean=0.018
+#&gt; mmce.test.mean=0.262,fpr.test.mean=0.235,fnr.test.mean=0.28,timetrain.test.mean=0.014
 #&gt; [Resample] subsampling iter 2:
 #&gt; mmce.test.mean=0.286,fpr.test.mean=0.286,fnr.test.mean=0.286,timetrain.test.mean=0.018
 #&gt; [Resample] subsampling iter 3:
-#&gt; mmce.test.mean=0.262,fpr.test.mean=0.286,fnr.test.mean=0.238,timetrain.test.mean=0.028
+#&gt; mmce.test.mean=0.262,fpr.test.mean=0.286,fnr.test.mean=0.238,timetrain.test.mean=0.013
 #&gt; [Resample] subsampling iter 4:
-#&gt; mmce.test.mean=0.333,fpr.test.mean=0.35,fnr.test.mean=0.318,timetrain.test.mean=0.018
+#&gt; mmce.test.mean=0.333,fpr.test.mean=0.35,fnr.test.mean=0.318,timetrain.test.mean=0.015
 #&gt; [Resample] subsampling iter 5:
-#&gt; mmce.test.mean=0.333,fpr.test.mean=0.167,fnr.test.mean=0.458,timetrain.test.mean=0.018
-#&gt; [Resample] Aggr. Result: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.02
+#&gt; mmce.test.mean=0.333,fpr.test.mean=0.167,fnr.test.mean=0.458,timetrain.test.mean=0.014
+#&gt; [Resample] Aggr. Result: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.0148
 
 r
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.02
-#&gt; Runtime: 0.17135
+#&gt; Aggr perf: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.0148
+#&gt; Runtime: 0.143139
 </code></pre>
 
 <p>If you want to add further measures afterwards, use <a href="http://www.rdocumentation.org/packages/mlr/functions/addRRMeasure.html">addRRMeasure</a>.</p>
@@ -425,8 +425,8 @@ addRRMeasure(r, list(ber, timepredict))
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.02,ber.test.mean=0.29,timepredict.test.mean=0.0058
-#&gt; Runtime: 0.17135
+#&gt; Aggr perf: mmce.test.mean=0.295,fpr.test.mean=0.265,fnr.test.mean=0.316,timetrain.test.mean=0.0148,ber.test.mean=0.29,timepredict.test.mean=0.007
+#&gt; Runtime: 0.143139
 </code></pre>
 
 <p>By default, <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> prints progress messages and intermediate results. You can turn this off by setting
@@ -442,8 +442,8 @@ r
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.305,fpr.test.mean=0.279,fnr.test.mean=0.309,timetrain.test.mean=0.0178
-#&gt; Runtime: 0.159702
+#&gt; Aggr perf: mmce.test.mean=0.305,fpr.test.mean=0.279,fnr.test.mean=0.309,timetrain.test.mean=0.0146
+#&gt; Runtime: 0.139198
 </code></pre>
 
 <h2 id="accessing-resample-results">Accessing resample results</h2>
@@ -536,7 +536,7 @@ r
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.02
-#&gt; Runtime: 0.0175035
+#&gt; Runtime: 0.0135851
 
 r$measures.train
 #&gt;   iter mmce
@@ -741,7 +741,7 @@ r
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.0132
-#&gt; Runtime: 0.030688
+#&gt; Runtime: 0.0262961
 </code></pre>
 
 <p>Stratification is also available for survival tasks.
@@ -759,7 +759,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.rpart
 #&gt; Aggr perf: mse.test.mean=21.2
-#&gt; Runtime: 0.0421262
+#&gt; Runtime: 0.0377381
 </code></pre>
 
 <h3 id="blocking">Blocking</h3>
@@ -940,9 +940,8 @@ mmce$aggr
 #&gt; Aggregation function: test.mean
 
 mmce$aggr$fun
-#&gt; function (task, perf.test, perf.train, measure, group, pred) 
-#&gt; mean(perf.test)
-#&gt; &lt;bytecode: 0xbae1038&gt;
+#&gt; function(task, perf.test, perf.train, measure, group, pred) mean(perf.test)
+#&gt; &lt;bytecode: 0x7fc4a05a8aa0&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 
 ## Root mean square error
@@ -950,9 +949,8 @@ rmse$aggr
 #&gt; Aggregation function: test.rmse
 
 rmse$aggr$fun
-#&gt; function (task, perf.test, perf.train, measure, group, pred) 
-#&gt; sqrt(mean(perf.test^2))
-#&gt; &lt;bytecode: 0x149fb0f8&gt;
+#&gt; function(task, perf.test, perf.train, measure, group, pred) sqrt(mean(perf.test^2))
+#&gt; &lt;bytecode: 0x7fc4874bc208&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -990,7 +988,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.test.mean=23.6,mse.test.median=  25,mse.test.min=17.6,mse.test.max=28.2
-#&gt; Runtime: 0.0389743
+#&gt; Runtime: 0.0362651
 
 r$aggr
 #&gt;   mse.test.mean mse.test.median    mse.test.min    mse.test.max 
@@ -1047,7 +1045,7 @@ mmceB632plus = setAggregation(mmce, b632plus)
 mmceB632
 #&gt; Name: Mean misclassification error
 #&gt; Performance measure: mmce
-#&gt; Properties: classif,classif.multi,req.pred,req.truth
+#&gt; Properties: oneclass,classif,classif.multi,req.pred,req.truth
 #&gt; Minimize: TRUE
 #&gt; Best: 0; Worst: 1
 #&gt; Aggregated by: b632
@@ -1091,7 +1089,7 @@ for example <a href="http://www.rdocumentation.org/packages/mlr/functions/resamp
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.02,ber.test.mean=0.0191
-#&gt; Runtime: 0.0359364
+#&gt; Runtime: 0.0315311
 
 bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, mae))
 #&gt; [Resample] OOB bootstrapping iter 1:
@@ -1105,7 +1103,7 @@ bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, 
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.b632plus=23.9,mae.b632plus=3.49
-#&gt; Runtime: 0.0562229
+#&gt; Runtime: 0.069237
 </code></pre></div>
         </div>
 
