@@ -32,9 +32,13 @@ jobs:
         - pip install --user python-markdown-math
         - Rscript r_packs_install.R
       script: true
-    - stage: build
+    - stage: build-1
       install: 
-        - ./build
+        - ./build-1
+      script: true
+    - stage: build-2
+      install: 
+        - ./build-2
       script: true
 
 after_success:
