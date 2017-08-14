@@ -156,7 +156,7 @@ if (is.na(link)) {
 
 # do lapply for now. with mclapply it seems unclear how to stop best on error. this was 100% broken before
 message("Building PDF version...")
-dummy = lapply(list.files(src, pattern = "\\.Rmd$")[60:], knitIt, "pdf")
+dummy = lapply(list.files(src, pattern = "\\.Rmd$")[21:36], knitIt, "pdf")
 ok = system3("./build-pdf.py")
 if (ok$exit.code == 0L) {
   # copy pdf to devel
