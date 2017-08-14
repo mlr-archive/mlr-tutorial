@@ -32,10 +32,15 @@ jobs:
         - pip install --user python-markdown-math
         - Rscript r_packs_install.R
       script: true
-    - stage: build
+    - stage: build-1
       install: 
       - |
-        travis_wait 40 ./build
+        travis_wait 60 ./build-1
+      script: true
+    - stage: build-2
+      install: 
+      - |
+        travis_wait 60 ./build-2
       script: true
 
 after_success:
