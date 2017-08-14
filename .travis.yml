@@ -28,12 +28,12 @@ jobs:
   include:
     - stage: packages
       install:
-        - pip install --user mkdocs
-        - pip install --user python-markdown-math
         - Rscript r_packs_install.R
       script: true
     - stage: build
       install: 
+      - pip install --user mkdocs
+      - pip install --user python-markdown-math
       - |
         travis_wait 60 ./build
       script: true
