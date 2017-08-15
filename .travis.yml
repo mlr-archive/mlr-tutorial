@@ -30,18 +30,14 @@ jobs:
       install:
         - Rscript r_packs_install.R
       script: true
-    - stage: build1
-      install:
-      - |
-        travis_wait 60 ./build-1
-      script: true
-    - stage: build2
+    - stage: build
       install:
       - pip install --user mkdocs
       - pip install --user python-markdown-math
-      - |
-        travis_wait 60 ./build-2
-      script: true
+      script: 
+        - |
+          travis_wait 60 ./build
+
 
 after_success:
     - git checkout gh-pages
