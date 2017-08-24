@@ -1,0 +1,20 @@
+# Preprocessing Operators
+
+Data preprocessing can be performed using the "mlrCPO" ("Composable Preprocessing Operators") addon package for mlr.
+CPO makes it easy to use a variety of preprocessing operations, to chain different operations, and to integrate
+preprocessing with mlr learners, and to define custom preprocessing operations.
+
+To chain different operations, to apply a CPO to a dataset, and to attach a CPO to a learner, the operator `%>>%` can
+be used. This way, it is possible to create natural looking pipelines that 
+
+## CPO Objects
+
+Different preprocessing operations are provided in the form of *CPO Constructors*, which can be called like functions
+to create *CPO* objects. These CPO objects are then used to apply the operation to a data set.
+
+The central operation 
+
+```{r}
+cpoScale  # a cpo constructor
+cpoScale()  # create a CPO object that ca
+```
