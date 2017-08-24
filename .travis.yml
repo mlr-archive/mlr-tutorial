@@ -26,7 +26,7 @@ addons:
       - pandoc
 
 before_install:
-  - mkdir $HOME/bin
+  - mkdir -p $HOME/bin
   - ln -s $(which gcc-4.9) $HOME/bin/gcc
   - ln -s $(which g++-4.9) $HOME/bin/g++
   - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
