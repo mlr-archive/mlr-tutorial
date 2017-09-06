@@ -27,6 +27,7 @@ pages:
     - 'Configuration': 'configureMlr.md'
     - 'Wrapped Learners': 'wrapper.md'
     - 'Preprocessing': 'preproc.md'
+    - 'Preproc Operators': 'cpo.md'
     - 'Imputation': 'impute.md'
     - 'Bagging': 'bagging.md'
     - 'Advanced Tuning': 'advanced_tune.md'

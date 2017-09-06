@@ -112,6 +112,10 @@
 </li>
                             
 <li >
+    <a href="../cpo/index.html">Preproc Operators</a>
+</li>
+                            
+<li >
     <a href="../impute/index.html">Imputation</a>
 </li>
                             
@@ -287,8 +291,8 @@ regr.task
 #&gt; Target: medv
 #&gt; Observations: 506
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       12        1        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          12           1           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -315,8 +319,8 @@ classif.task
 #&gt; Target: Class
 #&gt; Observations: 699
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        0        4        5 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           0           4           5           0 
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -353,8 +357,8 @@ surv.task
 #&gt; Events: 165
 #&gt; Observations: 228
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        8        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           8           0           0           0 
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -380,8 +384,8 @@ yeast.task
 #&gt; Target: label1,label2,label3,label4,label5,label6,label7,label8,label9,label10,label11,label12,label13,label14
 #&gt; Observations: 2417
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;      103        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;         103           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -404,8 +408,8 @@ cluster.task
 #&gt; Type: cluster
 #&gt; Observations: 32
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       11        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          11           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -437,8 +441,8 @@ costsens.task
 #&gt; Type: costsens
 #&gt; Observations: 150
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        4        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           4           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has blocking: FALSE
 #&gt; Classes: 3
@@ -479,8 +483,8 @@ the task you can use:</p>
 #&gt; [1] 699
 #&gt; 
 #&gt; $n.feat
-#&gt; numerics  factors  ordered 
-#&gt;        0        4        5 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           0           4           5           0 
 #&gt; 
 #&gt; $has.missings
 #&gt; [1] TRUE
@@ -586,8 +590,8 @@ removeConstantFeatures(cluster.task)
 #&gt; Type: cluster
 #&gt; Observations: 14
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       10        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          10           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -600,8 +604,8 @@ dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;))
 #&gt; Events: 165
 #&gt; Observations: 228
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        6        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           6           0           0           0 
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE

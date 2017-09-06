@@ -26,7 +26,7 @@ cpoScale()  # create a CPO object that scales and centers data
 `CPO` objects are central to `mlrCPO`, and they are very flexible. They can be applied to a dataset or a Task:
 ```{r}
 head(iris %>>% cpoScale())
-head(getTaskData(iris %>>% cpoScale()))
+head(getTaskData(iris.task %>>% cpoScale()))
 ```
 they can be concatenated to create new operations:
 ```{r}
@@ -156,7 +156,8 @@ cbinder = cpoCbind(scaled = scale, pcad = scale.pca, original = NULLCPO)
 ```{r}
 # cpoCbind recognises that "scale.scale" happens before "pca.pca" but is also fed to the
 # result directly. The summary draws a (crude) ascii-art graph.
-print(cbinder, verbose = TRUE)
+print(cbinder)
+getParamSet(cbinder)
 head(iris %>>% cbinder)
 ```
 ```{r}

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Preproc Operators - mlr tutorial</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/custom_mlr.css" rel="stylesheet">
+        <link href="../css/custom_highlight.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../index.html">mlr tutorial</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../task/index.html">Tasks</a>
+</li>
+                            
+<li >
+    <a href="../learner/index.html">Learners</a>
+</li>
+                            
+<li >
+    <a href="../train/index.html">Train</a>
+</li>
+                            
+<li >
+    <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../performance/index.html">Performance</a>
+</li>
+                            
+<li >
+    <a href="../resample/index.html">Resampling</a>
+</li>
+                            
+<li >
+    <a href="../tune/index.html">Tuning</a>
+</li>
+                            
+<li >
+    <a href="../benchmark_experiments/index.html">Benchmark Experiments</a>
+</li>
+                            
+<li >
+    <a href="../parallelization/index.html">Parallelization</a>
+</li>
+                            
+<li >
+    <a href="../visualization/index.html">Visualization</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../configureMlr/index.html">Configuration</a>
+</li>
+                            
+<li >
+    <a href="../wrapper/index.html">Wrapped Learners</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
+</li>
+                            
+<li class="active">
+    <a href="index.html">Preproc Operators</a>
+</li>
+                            
+<li >
+    <a href="../impute/index.html">Imputation</a>
+</li>
+                            
+<li >
+    <a href="../bagging/index.html">Bagging</a>
+</li>
+                            
+<li >
+    <a href="../advanced_tune/index.html">Advanced Tuning</a>
+</li>
+                            
+<li >
+    <a href="../feature_selection/index.html">Feature Selection</a>
+</li>
+                            
+<li >
+    <a href="../nested_resampling/index.html">Nested Resampling</a>
+</li>
+                            
+<li >
+    <a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>
+</li>
+                            
+<li >
+    <a href="../over_and_undersampling/index.html">Imbalanced Classification Problems</a>
+</li>
+                            
+<li >
+    <a href="../roc_analysis/index.html">ROC Analysis</a>
+</li>
+                            
+<li >
+    <a href="../multilabel/index.html">Multilabel Classification</a>
+</li>
+                            
+<li >
+    <a href="../learning_curve/index.html">Learning Curves</a>
+</li>
+                            
+<li >
+    <a href="../partial_dependence/index.html">Partial Dependence Plots</a>
+</li>
+                            
+<li >
+    <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
+</li>
+                            
+<li >
+    <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
+</li>
+                            
+<li >
+    <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../create_learner/index.html">Create Custom Learners</a>
+</li>
+                            
+<li >
+    <a href="../create_measure/index.html">Create Custom Measures</a>
+</li>
+                            
+<li >
+    <a href="../create_imputation/index.html">Create Imputation Methods</a>
+</li>
+                            
+<li >
+    <a href="../create_filter/index.html">Create Custom Filters</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Appendix <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../example_tasks/index.html">Example Tasks</a>
+</li>
+                            
+<li >
+    <a href="../integrated_learners/index.html">Integrated Learners</a>
+</li>
+                            
+<li >
+    <a href="../measures/index.html">Implemented Performance Measures</a>
+</li>
+                            
+<li >
+    <a href="../filter_methods/index.html">Integrated Filter Methods</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../preproc/index.html">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../impute/index.html">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/mlr-org/mlr/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#preprocessing-operators">Preprocessing Operators</a></li>
+            <li><a href="#cpo-objects">CPO Objects</a></li>
+            <li><a href="#retrafo">Retrafo</a></li>
+            <li><a href="#hyperparameters">Hyperparameters</a></li>
+            <li><a href="#special-cpos">Special CPOs</a></li>
+            <li><a href="#custom-cpos">Custom CPOs</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="preprocessing-operators">Preprocessing Operators</h1>
+<p>Data preprocessing can be performed using the "mlrCPO" ("Composable Preprocessing Operators") addon package for mlr.
+CPO makes it easy to use a variety of preprocessing operations, to chain different operations, and to integrate
+preprocessing with mlr learners, and to define custom preprocessing operations.</p>
+<p>To chain different operations, to apply a CPO to a dataset, and to attach a CPO to a learner, the operator <code>%&gt;&gt;%</code> can
+be used. This way, it is possible to quickly create natural looking pipelines that are very flexible and can even be
+optimized over.</p>
+<p>The following requires the <code>mlrCPO</code> package to be loaded:</p>
+<pre><code class="r">library(&quot;mlrCPO&quot;)
+</code></pre>
+
+<h2 id="cpo-objects">CPO Objects</h2>
+<p>Different preprocessing operations are provided in the form of <em>CPO Constructors</em>, which can be called like functions
+to create <em>CPO</em> objects. These CPO objects are then used to apply the operation to a data set.</p>
+<pre><code class="r">cpoScale  # a cpo constructor
+#&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
+print(cpoScale, verbose = TRUE)  # more information
+#&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
+#&gt; CPO Trafo:
+#&gt; function (center = TRUE, scale = TRUE, data, target) 
+#&gt; {
+#&gt;     result = scale(as.matrix(data), center = center, scale = scale)
+#&gt;     control = list(center = firstNonNull(attr(result, &quot;scaled:center&quot;), 
+#&gt;         FALSE), scale = firstNonNull(attr(result, &quot;scaled:scale&quot;), 
+#&gt;         FALSE))
+#&gt;     result
+#&gt; }
+#&gt; &lt;environment: namespace:mlrCPO&gt;
+#&gt; 
+#&gt; CPO Retrafo:
+#&gt; function (center = TRUE, scale = TRUE, data, control) 
+#&gt; {
+#&gt;     scale(as.matrix(data), center = control$center, scale = control$scale)
+#&gt; }
+#&gt; &lt;environment: namespace:mlrCPO&gt;
+cpoScale()  # create a CPO object that scales and centers data
+#&gt; scale(center = TRUE, scale = TRUE)
+</code></pre>
+
+<p><code>CPO</code> objects are central to <code>mlrCPO</code>, and they are very flexible. They can be applied to a dataset or a Task:</p>
+<pre><code class="r">head(iris %&gt;&gt;% cpoScale())
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
+#&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
+#&gt; 3   -1.3807271  0.32731751    -1.392399   -1.311052  setosa
+#&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
+#&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
+#&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
+head(getTaskData(iris.task %&gt;&gt;% cpoScale()))
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
+#&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
+#&gt; 3   -1.3807271  0.32731751    -1.392399   -1.311052  setosa
+#&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
+#&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
+#&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
+</code></pre>
+
+<p>they can be concatenated to create new operations:</p>
+<pre><code class="r">cpoScale() %&gt;&gt;% cpoPca()
+#&gt; (scale &gt;&gt; pca)(scale.center = TRUE, scale.scale = TRUE)
+</code></pre>
+
+<p>and they can be fused with a <code>Learner</code> to create a machine learning pipeline that performs preprocessing on the learning data
+and also pre-processes the data that is fed to the model for prediction.</p>
+<p>A list of all internal <code>CPO</code>s can be retrieved using <code>listCPO</code>, which returns a data frame of names, descriptions, and categories.</p>
+<pre><code class="r">listCPO()$name
+#&gt;  [1] cpoDropConstants                cpoFixFactors                  
+#&gt;  [3] cpoCollapseFact                 cpoCollapseFact                
+#&gt;  [5] cpoCollapseFact                 cpoDummyEncode                 
+#&gt;  [7] cpoImpactEncodeClassif          cpoImpactEncodeRegr            
+#&gt;  [9] cpoProbEncode                   cpoSelect                      
+#&gt; [11] cpoPca                          cpoSelect                      
+#&gt; [13] cpoPca                          cpoScale                       
+#&gt; [15] cpoScaleMaxAbs                  cpoScaleRange                  
+#&gt; [17] cpoSpatialSign                  cpoFilterFeatures              
+#&gt; [19] cpoFilterAnova                  cpoFilterCarscore              
+#&gt; [21] cpoFilterChiSquared             cpoFilterGainRatio             
+#&gt; [23] cpoFilterInformationGain        cpoFilterKruskal               
+#&gt; [25] cpoFilterLinearCorrelation      cpoFilterMrmr                  
+#&gt; [27] cpoFilterOneR                   cpoFilterPermutationImportance 
+#&gt; [29] cpoFilterRankCorrelation        cpoFilterRelief                
+#&gt; [31] cpoFilterRfCImportance          cpoFilterRfImportance          
+#&gt; [33] cpoFilterRfSRCImportance        cpoFilterRfSRCMinDepth         
+#&gt; [35] cpoFilterSymmetricalUncertainty cpoFilterUnivariate            
+#&gt; [37] cpoFilterVariance               cpoImpute                      
+#&gt; [39] cpoImputeAll                    cpoImputeConstant              
+#&gt; [41] cpoImputeHist                   cpoImputeLearner               
+#&gt; [43] cpoImputeMax                    cpoImputeMean                  
+#&gt; [45] cpoImputeMedian                 cpoImputeMin                   
+#&gt; [47] cpoImputeMode                   cpoImputeNormal                
+#&gt; [49] cpoImputeUniform                cpoCbind                       
+#&gt; [51] cpoMultiplex                    cpoWrap                        
+#&gt; [53] cpoMissingIndicators           
+#&gt; 49 Levels: cpoCbind cpoCollapseFact cpoDropConstants ... cpoWrap
+</code></pre>
+
+<h2 id="retrafo">Retrafo</h2>
+<p>Manipulating data for preprocessing itself is relatively easy. A challenge comes when one wants to integrate preprocessing
+into a machine-learning pipeline: The same preprocessing steps that are performed on the training data need to be performed
+on the new prediction data. However, the transformation performed for prediction often needs information from the training step.
+For example, if training entail performing PCA, then for prediction, the data must not undergo another PCA, instead it needs
+to be rotated by the rotation matrix found by the training PCA. The process of obtaining the rotation matrix will be called
+"training" the <code>CPO</code>, and the object that contains the trained information is called <code>CPOTrained</code>. For preprocessing operations
+that operate only on <em>features</em> of a task (as opposed to the target column), the <code>CPOTrained</code> will always be applied to new
+incoming data, and hence be of class <code>CPORetrafo</code> and called a "retrafo" object. To obtain this retrafo object, one can use
+<code>retrafo()</code>. Retrafo objects can be applied to data just as <code>CPO</code>s can, by using the <code>%&gt;&gt;%</code> operator.</p>
+<pre><code class="r">transformed = iris %&gt;&gt;% cpoPca()
+ret = retrafo(transformed)
+print(ret)
+#&gt; CPO Retrafo chain
+#&gt; [RETRAFO pca()]
+# Comparing the first lines of the
+# transformed data with the lines of
+# &quot;retransforming&quot; the same input data:
+head(transformed)
+#&gt;   Species       PC1      PC2          PC3          PC4
+#&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
+#&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
+#&gt; 3  setosa -5.446977 2.095206  0.015029262  0.018013331
+#&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
+#&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
+#&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
+head(iris) %&gt;&gt;% ret
+#&gt;   Species       PC1      PC2          PC3          PC4
+#&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
+#&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
+#&gt; 3  setosa -5.446977 2.095206  0.015029262  0.018013331
+#&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
+#&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
+#&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
+# note that using the PCA on only the head
+# of 'iris' gives a different (wrong) result:
+head(iris) %&gt;&gt;% cpoPca()
+#&gt;   Species       PC1           PC2         PC3          PC4
+#&gt; 1  setosa -6.344251  3.699099e-05 -0.10237713 -0.001527648
+#&gt; 2  setosa -5.909522 -2.939100e-01  0.01398430  0.031126691
+#&gt; 3  setosa -5.835572 -1.780612e-02 -0.07507399  0.011978402
+#&gt; 4  setosa -5.747518 -5.192580e-02  0.13484436 -0.071787045
+#&gt; 5  setosa -6.319018  1.359890e-01 -0.10270328 -0.031196772
+#&gt; 6  setosa -6.882318  1.859359e-01  0.12770825  0.053118356
+</code></pre>
+
+<p>When attaching a <code>CPO</code> to a <code>Learner</code> using the <code>%&gt;&gt;%</code>-operator, all this is performed by <code>mlrCPO</code>, so there is no need to
+worry about keeping <code>CPOTrained</code> objects around.</p>
+<p><code>retrafo()</code> gets the retrafo object from an attribute of the <code>transformed</code> object. The retrafo is always generated by the application
+of a <code>CPO</code> already. Retrafos that are attached to an object also stack, so multiple applications of different <code>CPO</code>s only need
+one <code>retrafo()</code> call to get the respective retrafo operation.</p>
+<pre><code class="r">trans.a = iris %&gt;&gt;% cpoScale()
+trans.b = trans.a %&gt;&gt;% cpoPca()
+ret = retrafo(trans.b)
+# check that 'ret' does what it is supposed to do:
+head(trans.b)
+#&gt;   Species       PC1        PC2         PC3          PC4
+#&gt; 1  setosa -2.257141 -0.4784238  0.12727962  0.024087508
+#&gt; 2  setosa -2.074013  0.6718827  0.23382552  0.102662845
+#&gt; 3  setosa -2.356335  0.3407664 -0.04405390  0.028282305
+#&gt; 4  setosa -2.291707  0.5953999 -0.09098530 -0.065735340
+#&gt; 5  setosa -2.381863 -0.6446757 -0.01568565 -0.035802870
+#&gt; 6  setosa -2.068701 -1.4842053 -0.02687825  0.006586116
+head(iris) %&gt;&gt;% ret
+#&gt;   Species       PC1        PC2         PC3          PC4
+#&gt; 1  setosa -2.257141 -0.4784238  0.12727962  0.024087508
+#&gt; 2  setosa -2.074013  0.6718827  0.23382552  0.102662845
+#&gt; 3  setosa -2.356335  0.3407664 -0.04405390  0.028282305
+#&gt; 4  setosa -2.291707  0.5953999 -0.09098530 -0.065735340
+#&gt; 5  setosa -2.381863 -0.6446757 -0.01568565 -0.035802870
+#&gt; 6  setosa -2.068701 -1.4842053 -0.02687825  0.006586116
+</code></pre>
+
+<h2 id="hyperparameters">Hyperparameters</h2>
+<p><code>CPO</code> objects have hyperparameters that can be adjusted at creation, or later using <code>setHyperPars</code>.</p>
+<pre><code class="r">print(cpoScale)
+#&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
+do.center = cpoScale(scale = FALSE, center = TRUE)
+print(do.center, verbose = TRUE)  # note the 'scale.' prefix of parameters
+#&gt; Trafo chain of 1 elements:
+#&gt; scale(center = TRUE, scale = FALSE)
+#&gt; 
+#&gt;                 Type len  Def Constr Req Tunable Trafo
+#&gt; scale.center logical   - TRUE      -   -    TRUE     -
+#&gt; scale.scale  logical   - TRUE      -   -    TRUE     -
+do.scale = setHyperPars(do.center,
+  scale.scale = TRUE, scale.center = FALSE)
+</code></pre>
+
+<p>These hyperparameters even survive <code>CPO</code> composition and attachment to Learners:</p>
+<pre><code class="r">cpo = cpoScale() %&gt;&gt;% cpoPca()
+lrn = cpo %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;)
+print(lrn)
+#&gt; Learner classif.logreg.pca.scale from package stats
+#&gt; Type: classif
+#&gt; Name: ; Short name: 
+#&gt; Class: CPOLearner
+#&gt; Properties: numerics,factors,prob,twoclass
+#&gt; Predict-Type: response
+#&gt; Hyperparameters: model=FALSE,scale.center=TRUE,scale.scale=TRUE
+</code></pre>
+
+<h3 id="tuning">Tuning</h3>
+<p>Since the hyperparameters remain intact for learners, is possible to tune hyperparameters parameters of preprocessing operations.</p>
+<pre><code class="r">(clrn = cpoModelMatrix() %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;))
+#&gt; Learner classif.logreg.model.matrix from package stats
+#&gt; Type: classif
+#&gt; Name: ; Short name: 
+#&gt; Class: CPOLearner
+#&gt; Properties: numerics,factors,ordered,prob,twoclass
+#&gt; Predict-Type: response
+#&gt; Hyperparameters: model=FALSE
+getParamSet(clrn)
+#&gt;                         Type len  Def Constr Req Tunable Trafo
+#&gt; model.matrix.formula untyped   -    -      -   -    TRUE     -
+#&gt; model                logical   - TRUE      -   -   FALSE     -
+
+ps = makeParamSet(
+    makeDiscreteParam(
+        &quot;model.matrix.formula&quot;,
+        values = list(first = ~0 + ., second = ~0 + .^2, third = ~0 + .^3)))
+
+tuneParams(clrn, pid.task, cv5, par.set = ps,
+           control = makeTuneControlGrid(),
+           show.info=TRUE)
+#&gt; [Tune] Started tuning learner classif.logreg.model.matrix for parameter set:
+#&gt;                          Type len Def             Constr Req Tunable Trafo
+#&gt; model.matrix.formula discrete   -   - first,second,third   -    TRUE     -
+#&gt; With control class: TuneControlGrid
+#&gt; Imputation value: 1
+#&gt; [Tune-x] 1: model.matrix.formula=first
+#&gt; [Tune-y] 1: mmce.test.mean=0.2213225; time: 0.0 min
+#&gt; [Tune-x] 2: model.matrix.formula=second
+#&gt; [Tune-y] 2: mmce.test.mean=0.2421272; time: 0.0 min
+#&gt; [Tune-x] 3: model.matrix.formula=third
+#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+
+#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+
+#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+
+#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+#&gt; [Tune-y] 3: mmce.test.mean=0.2682200; time: 0.0 min
+#&gt; [Tune] Result: model.matrix.formula=first : mmce.test.mean=0.2213225
+#&gt; Tune result:
+#&gt; Op. pars: model.matrix.formula=first
+#&gt; mmce.test.mean=0.2213225
+</code></pre>
+
+<h2 id="special-cpos">Special CPOs</h2>
+<h3 id="cpo-multiplexer">CPO Multiplexer</h3>
+<p>The multiplexer makes it possible to combine many CPOs into one, with an extra <code>selected.cpo</code> parameter that chooses between them.</p>
+<pre><code class="r">cpm = cpoMultiplex(list(cpoScale, cpoPca))
+print(cpm, verbose = TRUE)
+#&gt; Trafo chain of 1 elements:
+#&gt; multiplex(selected.cpo = scale, scale.center = TRUE, scale.scale = TRUE)
+#&gt; 
+#&gt;                  Type len   Def    Constr Req Tunable Trafo
+#&gt; selected.cpo discrete   - scale scale,pca   -    TRUE     -
+#&gt; scale.center  logical   -  TRUE         -   Y    TRUE     -
+#&gt; scale.scale   logical   -  TRUE         -   Y    TRUE     -
+head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;))
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
+#&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
+#&gt; 3   -1.3807271  0.32731751    -1.392399   -1.311052  setosa
+#&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
+#&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
+#&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
+# every CPO's Hyperparameters are exported
+head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;, scale.center = FALSE))
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1    0.8613268   1.1296201    0.3362663    0.140405  setosa
+#&gt; 2    0.8275493   0.9682458    0.3362663    0.140405  setosa
+#&gt; 3    0.7937718   1.0327956    0.3122473    0.140405  setosa
+#&gt; 4    0.7768830   1.0005207    0.3602853    0.140405  setosa
+#&gt; 5    0.8444380   1.1618950    0.3362663    0.140405  setosa
+#&gt; 6    0.9119931   1.2587196    0.4083234    0.280810  setosa
+head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;pca&quot;))
+#&gt;   Species       PC1      PC2          PC3          PC4
+#&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
+#&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
+#&gt; 3  setosa -5.446977 2.095206  0.015029262  0.018013331
+#&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
+#&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
+#&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
+</code></pre>
+
+<p>This makes it possible to tune over many different tuner configurations at once.</p>
+<h3 id="cpo-wrapper">CPO Wrapper</h3>
+<p>A simple CPO with one parameter which gets applied to the data as CPO. This is different from a multiplexer in that its parameter is free and can take any value that behaves like a CPO. On the downside, this does not expose the argument's parameters to the outside.</p>
+<pre><code class="r">cpa = cpoWrap()
+print(cpa, verbose = TRUE)
+#&gt; Trafo chain of 1 elements:
+#&gt; wrap()
+#&gt; 
+#&gt;             Type len Def Constr Req Tunable Trafo
+#&gt; wrap.cpo untyped   -   -      -   -    TRUE     -
+head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoScale()))
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
+#&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
+#&gt; 3   -1.3807271  0.32731751    -1.392399   -1.311052  setosa
+#&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
+#&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
+#&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
+head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoPca()))
+#&gt;   Species       PC1      PC2          PC3          PC4
+#&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
+#&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
+#&gt; 3  setosa -5.446977 2.095206  0.015029262  0.018013331
+#&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
+#&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
+#&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
+# attaching the cpo applicator to a learner gives this learner a &quot;cpo&quot; hyperparameter
+# that can be set to any CPO.
+getParamSet(cpoWrap() %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;))
+#&gt;             Type len  Def Constr Req Tunable Trafo
+#&gt; wrap.cpo untyped   -    -      -   -    TRUE     -
+#&gt; model    logical   - TRUE      -   -   FALSE     -
+</code></pre>
+
+<h3 id="cbind-cpo">CBind CPO</h3>
+<p><code>cbind</code> other CPOs as operation. The <code>cbinder</code> makes it possible to build DAGs of CPOs that perform different operations on data and paste the results next to each other.</p>
+<pre><code class="r">scale = cpoScale(id = &quot;scale&quot;)
+scale.pca = scale %&gt;&gt;% cpoPca()
+cbinder = cpoCbind(scaled = scale, pcad = scale.pca, original = NULLCPO)
+</code></pre>
+
+<pre><code class="r"># cpoCbind recognises that &quot;scale.scale&quot; happens before &quot;pca.pca&quot; but is also fed to the
+# result directly. The summary draws a (crude) ascii-art graph.
+print(cbinder, verbose = TRUE)
+#&gt; Trafo chain of 1 elements:
+#&gt; cbind(scale.center = TRUE, scale.scale = TRUE, .CPO = &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;)
+#&gt; O&gt;+   scale(center = TRUE, scale = TRUE)
+#&gt; | |  
+#&gt; +&lt;O   pca()
+#&gt; |  
+#&gt; O   CBIND[scaled,pcad,original]
+#&gt;  
+#&gt; 
+#&gt;                 Type len  Def Constr Req Tunable Trafo
+#&gt; scale.center logical   - TRUE      -   -    TRUE     -
+#&gt; scale.scale  logical   - TRUE      -   -    TRUE     -
+#&gt; .CPO         untyped   -    -      -   -    TRUE     -
+#&gt; O&gt;+   scale(center = TRUE, scale = TRUE)
+#&gt; | |  
+#&gt; +&lt;O   pca()
+#&gt; |  
+#&gt; O   CBIND[scaled,pcad,original]
+#&gt; 
+head(iris %&gt;&gt;% cbinder)
+#&gt;   scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
+#&gt; 1          -0.8976739         1.01560199           -1.335752
+#&gt; 2          -1.1392005        -0.13153881           -1.335752
+#&gt; 3          -1.3807271         0.32731751           -1.392399
+#&gt; 4          -1.5014904         0.09788935           -1.279104
+#&gt; 5          -1.0184372         1.24503015           -1.335752
+#&gt; 6          -0.5353840         1.93331463           -1.165809
+#&gt;   scaled.Petal.Width scaled.Species pcad.Species  pcad.PC1   pcad.PC2
+#&gt; 1          -1.311052         setosa       setosa -2.257141 -0.4784238
+#&gt; 2          -1.311052         setosa       setosa -2.074013  0.6718827
+#&gt; 3          -1.311052         setosa       setosa -2.356335  0.3407664
+#&gt; 4          -1.311052         setosa       setosa -2.291707  0.5953999
+#&gt; 5          -1.311052         setosa       setosa -2.381863 -0.6446757
+#&gt; 6          -1.048667         setosa       setosa -2.068701 -1.4842053
+#&gt;      pcad.PC3     pcad.PC4 original.Sepal.Length original.Sepal.Width
+#&gt; 1  0.12727962  0.024087508                   5.1                  3.5
+#&gt; 2  0.23382552  0.102662845                   4.9                  3.0
+#&gt; 3 -0.04405390  0.028282305                   4.7                  3.2
+#&gt; 4 -0.09098530 -0.065735340                   4.6                  3.1
+#&gt; 5 -0.01568565 -0.035802870                   5.0                  3.6
+#&gt; 6 -0.02687825  0.006586116                   5.4                  3.9
+#&gt;   original.Petal.Length original.Petal.Width original.Species
+#&gt; 1                   1.4                  0.2           setosa
+#&gt; 2                   1.4                  0.2           setosa
+#&gt; 3                   1.3                  0.2           setosa
+#&gt; 4                   1.5                  0.2           setosa
+#&gt; 5                   1.4                  0.2           setosa
+#&gt; 6                   1.7                  0.4           setosa
+</code></pre>
+
+<pre><code class="r"># the unnecessary copies of &quot;Species&quot; are unfortunate. Remove them with cpoSelect:
+selector = cpoSelect(type = &quot;numeric&quot;)
+cbinder.select = cpoCbind(scaled = selector %&gt;&gt;% scale, pcad = selector %&gt;&gt;% scale.pca, original = NULLCPO)
+cbinder.select
+#&gt; cbind(select.type = numeric, select.index = integer(0), select.names = character(0), select.pattern = &lt;NULL&gt;, select.pattern.ignore.case = FALSE, select.pattern.perl = FALSE, select.pattern.fixed = FALSE, select.invert = FALSE, scale.center = TRUE, scale.scale = TRUE, .CPO = &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;)
+#&gt; O     select(type = numeric, index = integer(0), names = character(0),
+#&gt; |    pattern = &lt;NULL&gt;, pattern.ignore.case = FALSE, pattern.perl = FALSE,
+#&gt; |    pattern.fixed = FALSE, invert = FALSE)
+#&gt; |    
+#&gt; O&gt;+   scale(center = TRUE, scale = TRUE)
+#&gt; | |  
+#&gt; +&lt;O   pca()
+#&gt; |  
+#&gt; O   CBIND[scaled,pcad,original]
+#&gt; 
+head(iris %&gt;&gt;% cbinder)
+#&gt;   scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
+#&gt; 1          -0.8976739         1.01560199           -1.335752
+#&gt; 2          -1.1392005        -0.13153881           -1.335752
+#&gt; 3          -1.3807271         0.32731751           -1.392399
+#&gt; 4          -1.5014904         0.09788935           -1.279104
+#&gt; 5          -1.0184372         1.24503015           -1.335752
+#&gt; 6          -0.5353840         1.93331463           -1.165809
+#&gt;   scaled.Petal.Width scaled.Species pcad.Species  pcad.PC1   pcad.PC2
+#&gt; 1          -1.311052         setosa       setosa -2.257141 -0.4784238
+#&gt; 2          -1.311052         setosa       setosa -2.074013  0.6718827
+#&gt; 3          -1.311052         setosa       setosa -2.356335  0.3407664
+#&gt; 4          -1.311052         setosa       setosa -2.291707  0.5953999
+#&gt; 5          -1.311052         setosa       setosa -2.381863 -0.6446757
+#&gt; 6          -1.048667         setosa       setosa -2.068701 -1.4842053
+#&gt;      pcad.PC3     pcad.PC4 original.Sepal.Length original.Sepal.Width
+#&gt; 1  0.12727962  0.024087508                   5.1                  3.5
+#&gt; 2  0.23382552  0.102662845                   4.9                  3.0
+#&gt; 3 -0.04405390  0.028282305                   4.7                  3.2
+#&gt; 4 -0.09098530 -0.065735340                   4.6                  3.1
+#&gt; 5 -0.01568565 -0.035802870                   5.0                  3.6
+#&gt; 6 -0.02687825  0.006586116                   5.4                  3.9
+#&gt;   original.Petal.Length original.Petal.Width original.Species
+#&gt; 1                   1.4                  0.2           setosa
+#&gt; 2                   1.4                  0.2           setosa
+#&gt; 3                   1.3                  0.2           setosa
+#&gt; 4                   1.5                  0.2           setosa
+#&gt; 5                   1.4                  0.2           setosa
+#&gt; 6                   1.7                  0.4           setosa
+</code></pre>
+
+<pre><code class="r"># alternatively, we apply the cbinder only to numerical data
+head(iris %&gt;&gt;% cpoWrap(cbinder, affect.type = &quot;numeric&quot;))
+#&gt;   Species scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
+#&gt; 1  setosa          -0.8976739         1.01560199           -1.335752
+#&gt; 2  setosa          -1.1392005        -0.13153881           -1.335752
+#&gt; 3  setosa          -1.3807271         0.32731751           -1.392399
+#&gt; 4  setosa          -1.5014904         0.09788935           -1.279104
+#&gt; 5  setosa          -1.0184372         1.24503015           -1.335752
+#&gt; 6  setosa          -0.5353840         1.93331463           -1.165809
+#&gt;   scaled.Petal.Width  pcad.PC1   pcad.PC2    pcad.PC3     pcad.PC4
+#&gt; 1          -1.311052 -2.257141 -0.4784238  0.12727962  0.024087508
+#&gt; 2          -1.311052 -2.074013  0.6718827  0.23382552  0.102662845
+#&gt; 3          -1.311052 -2.356335  0.3407664 -0.04405390  0.028282305
+#&gt; 4          -1.311052 -2.291707  0.5953999 -0.09098530 -0.065735340
+#&gt; 5          -1.311052 -2.381863 -0.6446757 -0.01568565 -0.035802870
+#&gt; 6          -1.048667 -2.068701 -1.4842053 -0.02687825  0.006586116
+#&gt;   original.Sepal.Length original.Sepal.Width original.Petal.Length
+#&gt; 1                   5.1                  3.5                   1.4
+#&gt; 2                   4.9                  3.0                   1.4
+#&gt; 3                   4.7                  3.2                   1.3
+#&gt; 4                   4.6                  3.1                   1.5
+#&gt; 5                   5.0                  3.6                   1.4
+#&gt; 6                   5.4                  3.9                   1.7
+#&gt;   original.Petal.Width
+#&gt; 1                  0.2
+#&gt; 2                  0.2
+#&gt; 3                  0.2
+#&gt; 4                  0.2
+#&gt; 5                  0.2
+#&gt; 6                  0.4
+</code></pre>
+
+<h2 id="custom-cpos">Custom CPOs</h2>
+<p>Even though <code>CPO</code>s are very flexible and can be combined in many ways, it may be necessary to create completely custom <code>CPO</code>s.
+Custom CPOs can be created using the <code>makeCPO</code> function. Its most important arguments are <code>cpo.trafo</code> and <code>cpo.retrafo</code>, both of which are functions.
+In principle, a <code>CPO</code> needs a function that "trains" a control object depending on the data (<code>cpo.trafo</code>),
+and another function that uses this control object, and new data, to perform the preprocessing operation (<code>cpo.retrafo</code>).
+The <code>cpo.trafo</code>-function must return a "control" object which contains all information about how to transform a given dataset.
+<code>cpo.retrafo</code> takes a (potentially new!) dataset <em>and</em> the "control" object returned by <code>cpo.trafo</code>, and transforms the new data according to plan.</p>
+<pre><code class="r">names(formals(makeCPO))  # see help(makeCPO) for explanation of arguments
+#&gt;  [1] &quot;cpo.name&quot;                       &quot;par.set&quot;                       
+#&gt;  [3] &quot;par.vals&quot;                       &quot;dataformat&quot;                    
+#&gt;  [5] &quot;dataformat.factor.with.ordered&quot; &quot;export.params&quot;                 
+#&gt;  [7] &quot;fix.factors&quot;                    &quot;properties&quot;                    
+#&gt;  [9] &quot;properties.adding&quot;              &quot;properties.needed&quot;             
+#&gt; [11] &quot;properties.target&quot;              &quot;packages&quot;                      
+#&gt; [13] &quot;cpo.trafo&quot;                      &quot;cpo.retrafo&quot;
+</code></pre>
+
+<pre><code class="r">constFeatRem = makeCPO(&quot;constFeatRem&quot;,
+  dataformat = &quot;df.features&quot;,
+  cpo.trafo = function(data, target) {
+    names(Filter(function(x) {  # names of columns to keep
+        length(unique(x)) &gt; 1
+      }, data))
+    }, cpo.retrafo = function(data, control) {
+    data[control]
+  })
+head(iris) %&gt;&gt;% constFeatRem()
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width
+#&gt; 1          5.1         3.5          1.4         0.2
+#&gt; 2          4.9         3.0          1.4         0.2
+#&gt; 3          4.7         3.2          1.3         0.2
+#&gt; 4          4.6         3.1          1.5         0.2
+#&gt; 5          5.0         3.6          1.4         0.2
+#&gt; 6          5.4         3.9          1.7         0.4
+print(constFeatRem, verbose = TRUE)
+#&gt; &lt;&lt;CPO constFeatRem()&gt;&gt;
+#&gt; CPO Trafo:
+#&gt; function(data, target) {
+#&gt;     names(Filter(function(x) {  # names of columns to keep
+#&gt;         length(unique(x)) &gt; 1
+#&gt;       }, data))
+#&gt;     }
+#&gt; &lt;environment: 0x562679f3d108&gt;
+#&gt; 
+#&gt; CPO Retrafo:
+#&gt; function(data, control) {
+#&gt;     data[control]
+#&gt;   }
+#&gt; &lt;environment: 0x562679f3d108&gt;
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

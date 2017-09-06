@@ -112,6 +112,10 @@
 </li>
                             
 <li >
+    <a href="../cpo/index.html">Preproc Operators</a>
+</li>
+                            
+<li >
     <a href="../impute/index.html">Imputation</a>
 </li>
                             
@@ -297,8 +301,6 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 <p>You can suppress the output for this <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> and this <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> call as follows:</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.multinom&quot;, config = list(show.learner.output = FALSE))
 r = resample(lrn, iris.task, rdesc, show.info = FALSE)
-#&gt; Resampling: holdout
-#&gt; Measures:             mmce
 </code></pre>
 
 <p>(Note that <a href="http://www.rdocumentation.org/packages/nnet/functions/multinom.html">multinom</a> has a <code>trace</code> switch that can alternatively be used to turn off
@@ -307,8 +309,6 @@ the progress messages.)</p>
 <a href="http://www.rdocumentation.org/packages/mlr/functions/benchmark.html">benchmark</a> etc. do the following:</p>
 <pre><code class="r">configureMlr(show.learner.output = FALSE, show.info = FALSE)
 r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
-#&gt; Resampling: holdout
-#&gt; Measures:             mmce
 </code></pre>
 
 <h2 id="accessing-and-resetting-the-configuration">Accessing and resetting the configuration</h2>
@@ -318,13 +318,13 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $on.learner.error
-#&gt; [1] &quot;warn&quot;
+#&gt; [1] &quot;stop&quot;
 #&gt; 
 #&gt; $on.learner.warning
 #&gt; [1] &quot;warn&quot;
 #&gt; 
 #&gt; $on.par.without.desc
-#&gt; [1] &quot;warn&quot;
+#&gt; [1] &quot;stop&quot;
 #&gt; 
 #&gt; $on.par.out.of.bounds
 #&gt; [1] &quot;stop&quot;
@@ -464,7 +464,7 @@ pred
 #&gt; 4  4 setosa     &lt;NA&gt;
 #&gt; 5  5 setosa     &lt;NA&gt;
 #&gt; 6  6 setosa     &lt;NA&gt;
-#&gt; ... (150 rows, 3 cols)
+#&gt; ... (#rows: 150, #cols: 3)
 
 performance(pred)
 #&gt; mmce 

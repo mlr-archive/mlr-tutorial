@@ -112,6 +112,10 @@
 </li>
                             
 <li >
+    <a href="../cpo/index.html">Preproc Operators</a>
+</li>
+                            
+<li >
     <a href="../impute/index.html">Imputation</a>
 </li>
                             
@@ -413,7 +417,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: (fp) / (tn + fn).</td>
+<td align="left">Defined as: fp / (tp + fp).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fn</a></strong> <br />False negatives</td>
@@ -563,7 +567,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)), denominator set to 1 if 0</td>
+<td align="left">Defined as (tp * tn - fp * fn) / sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)), denominator set to 1 if 0</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mmce</a></strong> <br />Mean misclassification error</td>
@@ -668,7 +672,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: (tn) / (tn + fn).</td>
+<td align="left">Defined as: tn / (tn + fn).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">ppv</a></strong> <br />Positive predictive value</td>
@@ -683,7 +687,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: tp / (tp + number of fp). Also called precision. If the denominator is 0, PPV is set to be either 1 or 0 depending on whether the highest probability prediction is positive (1) or negative (0).</td>
+<td align="left">Defined as: tp / (tp + fp). Also called precision. If the denominator is 0, PPV is set to be either 1 or 0 depending on whether the highest probability prediction is positive (1) or negative (0).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">qsr</a></strong> <br />Quadratic Scoring Rule</td>
@@ -773,7 +777,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Percentage of correctly classified observations in the positive class. Also called hit rate or recall.</td>
+<td align="left">Percentage of correctly classified observations in the positive class. Also called hit rate or recall or sensitivity.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">wkappa</a></strong> <br />Mean quadratic weighted kappa</td>

@@ -112,6 +112,10 @@
 </li>
                             
 <li >
+    <a href="../cpo/index.html">Preproc Operators</a>
+</li>
+                            
+<li >
     <a href="../impute/index.html">Imputation</a>
 </li>
                             
@@ -683,6 +687,11 @@ registerS3method(&quot;predictLearner&quot;, &quot;&lt;awesome_new_learner_class
 or out-of-bag predictions these also need to be registered in the same manner, for example:</p>
 <pre><code class="r">registerS3method(&quot;getFeatureImportanceLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;,
   getFeatureImportanceLearner.&lt;awesome_new_learner_class&gt;)
+</code></pre>
+
+<p>For the new learner to work with parallelization, you may have to export the new
+methods explicitly:</p>
+<pre><code class="r">parallelExport(&quot;trainLearner.&lt;awesome_new_learner_class&gt;&quot;, &quot;predictLearner.&lt;awesome_new_learner_class&gt;&quot;)
 </code></pre>
 
 <h2 id="further-information-for-developers">Further information for developers</h2>

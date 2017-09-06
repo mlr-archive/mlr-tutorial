@@ -112,6 +112,10 @@
 </li>
                             
 <li >
+    <a href="../cpo/index.html">Preproc Operators</a>
+</li>
+                            
+<li >
     <a href="../impute/index.html">Imputation</a>
 </li>
                             
@@ -224,7 +228,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../impute/index.html">
+                        <a rel="prev" href="../cpo/index.html">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -362,8 +366,8 @@ and 60 features.</p>
 #&gt; Target: Class
 #&gt; Observations: 208
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       60        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          60           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -432,10 +436,6 @@ Note that we use stratified resampling to prevent errors in <a href="http://www.
 small number of observations from either class.</p>
 <pre><code class="r">rin = makeResampleInstance(&quot;CV&quot;, iters = 3, stratify = TRUE, task = sonar.task)
 res = benchmark(list(&quot;classif.qda&quot;, lrn), sonar.task, rin, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 res
 #&gt;         task.id          learner.id mmce.test.mean
 #&gt; 1 Sonar-example         classif.qda      0.3941339
@@ -517,46 +517,6 @@ This is for demonstration. You might want to use a finer resolution.</p>
 )
 ctrl = makeTuneControlGrid(resolution = 10)
 res = tuneParams(lrn, sonar.task, rin, par.set = ps, control = ctrl, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 res
 #&gt; Tune result:
 #&gt; Op. pars: ppc.pcaComp=8; predict.method=plug-in
@@ -699,25 +659,21 @@ lrn
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 
 r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mse
 r
 #&gt; Resample Result
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.nnet.preproc
 #&gt; Aggr perf: mse.test.mean=20.6204314
-#&gt; Runtime: 0.14716
+#&gt; Runtime: 0.29669
 
 lrn = makeLearner(&quot;regr.nnet&quot;, trace = FALSE, decay = 1e-02)
 r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mse
 r
 #&gt; Resample Result
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.nnet
 #&gt; Aggr perf: mse.test.mean=55.0639088
-#&gt; Runtime: 0.0956459
+#&gt; Runtime: 0.186914
 </code></pre>
 
 <h3 id="joint-tuning-of-preprocessing-and-learner-parameters">Joint tuning of preprocessing and learner parameters</h3>
@@ -779,30 +735,6 @@ ps = makeParamSet(
 )
 ctrl = makeTuneControlGrid()
 res = tuneParams(lrn, bh.task, rdesc, par.set = ps, control = ctrl, show.info = FALSE)
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
-#&gt; Resampling: holdout
-#&gt; Measures:             mse
 
 res
 #&gt; Tune result:
@@ -811,18 +743,18 @@ res
 
 as.data.frame(res$opt.path)
 #&gt;    decay center scale mse.test.mean dob eol error.message exec.time
-#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.041
-#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.047
-#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.047
-#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.024
-#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.050
-#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.044
-#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.046
-#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.045
-#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.048
-#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.024
-#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.047
-#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.046
+#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.072
+#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.088
+#&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.086
+#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.038
+#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.095
+#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.085
+#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.093
+#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.100
+#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.084
+#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.036
+#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.086
+#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.084
 </code></pre>
 
 <h3 id="preprocessing-wrapper-functions">Preprocessing wrapper functions</h3>
