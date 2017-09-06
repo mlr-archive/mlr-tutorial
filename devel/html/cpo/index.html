@@ -583,26 +583,19 @@ cbinder = cpoCbind(scaled = scale, pcad = scale.pca, original = NULLCPO)
 
 <pre><code class="r"># cpoCbind recognises that &quot;scale.scale&quot; happens before &quot;pca.pca&quot; but is also fed to the
 # result directly. The summary draws a (crude) ascii-art graph.
-print(cbinder, verbose = TRUE)
-#&gt; Trafo chain of 1 elements:
+print(cbinder)
 #&gt; cbind(scale.center = TRUE, scale.scale = TRUE, .CPO = &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;)
 #&gt; O&gt;+   scale(center = TRUE, scale = TRUE)
 #&gt; | |  
 #&gt; +&lt;O   pca()
 #&gt; |  
 #&gt; O   CBIND[scaled,pcad,original]
-#&gt;  
 #&gt; 
+getParamSet(cbinder)
 #&gt;                 Type len  Def Constr Req Tunable Trafo
 #&gt; scale.center logical   - TRUE      -   -    TRUE     -
 #&gt; scale.scale  logical   - TRUE      -   -    TRUE     -
 #&gt; .CPO         untyped   -    -      -   -    TRUE     -
-#&gt; O&gt;+   scale(center = TRUE, scale = TRUE)
-#&gt; | |  
-#&gt; +&lt;O   pca()
-#&gt; |  
-#&gt; O   CBIND[scaled,pcad,original]
-#&gt; 
 head(iris %&gt;&gt;% cbinder)
 #&gt;   scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
 #&gt; 1          -0.8976739         1.01560199           -1.335752
