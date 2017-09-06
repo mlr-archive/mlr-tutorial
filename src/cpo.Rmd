@@ -19,6 +19,8 @@ Different preprocessing operations are provided in the form of *CPO Constructors
 to create *CPO* objects. These CPO objects are then used to apply the operation to a data set.
 ```{r}
 cpoScale  # a cpo constructor
+```
+```{r}
 print(cpoScale, verbose = TRUE)  # more information
 cpoScale()  # create a CPO object that scales and centers data
 ```
@@ -26,6 +28,8 @@ cpoScale()  # create a CPO object that scales and centers data
 `CPO` objects are central to `mlrCPO`, and they are very flexible. They can be applied to a dataset or a Task:
 ```{r}
 head(iris %>>% cpoScale())
+```
+```{r}
 head(getTaskData(iris.task %>>% cpoScale()))
 ```
 they can be concatenated to create new operations:
@@ -56,13 +60,14 @@ incoming data, and hence be of class `CPORetrafo` and called a "retrafo" object.
 transformed = iris %>>% cpoPca()
 ret = retrafo(transformed)
 print(ret)
-# Comparing the first lines of the
-# transformed data with the lines of
-# "retransforming" the same input data:
+```
+Comparing the first lines of the transformed data with the lines of "retransforming" the same input data:
+```{r}
 head(transformed)
 head(iris) %>>% ret
-# note that using the PCA on only the head
-# of 'iris' gives a different (wrong) result:
+```
+Note that using the PCA on only the head of 'iris' gives a different (wrong) result:
+```{r}
 head(iris) %>>% cpoPca()
 ```
 
@@ -76,7 +81,9 @@ one `retrafo()` call to get the respective retrafo operation.
 trans.a = iris %>>% cpoScale()
 trans.b = trans.a %>>% cpoPca()
 ret = retrafo(trans.b)
-# check that 'ret' does what it is supposed to do:
+```
+Check that 'ret' does what it is supposed to do:
+```{r}
 head(trans.b)
 head(iris) %>>% ret
 ```
@@ -86,8 +93,12 @@ head(iris) %>>% ret
 `CPO` objects have hyperparameters that can be adjusted at creation, or later using `setHyperPars`.
 ```{r}
 print(cpoScale)
+```
+```{r}
 do.center = cpoScale(scale = FALSE, center = TRUE)
 print(do.center, verbose = TRUE)  # note the 'scale.' prefix of parameters
+```
+```{r}
 do.scale = setHyperPars(do.center,
   scale.scale = TRUE, scale.center = FALSE)
 ```
@@ -104,8 +115,11 @@ Since the hyperparameters remain intact for learners, is possible to tune hyperp
 
 ```{r}
 (clrn = cpoModelMatrix() %>>% makeLearner("classif.logreg"))
+```
+```{r}
 getParamSet(clrn)
-
+```
+```{r}
 ps = makeParamSet(
     makeDiscreteParam(
         "model.matrix.formula",
@@ -124,9 +138,15 @@ The multiplexer makes it possible to combine many CPOs into one, with an extra `
 ```{r}
 cpm = cpoMultiplex(list(cpoScale, cpoPca))
 print(cpm, verbose = TRUE)
+```
+```{r}
 head(iris %>>% setHyperPars(cpm, selected.cpo = "scale"))
-# every CPO's Hyperparameters are exported
+```
+Every CPO's Hyperparameters are exported:
+```{r}
 head(iris %>>% setHyperPars(cpm, selected.cpo = "scale", scale.center = FALSE))
+```
+```{r}
 head(iris %>>% setHyperPars(cpm, selected.cpo = "pca"))
 ```
 
@@ -138,10 +158,15 @@ A simple CPO with one parameter which gets applied to the data as CPO. This is d
 ```{r}
 cpa = cpoWrap()
 print(cpa, verbose = TRUE)
+```
+```{r}
 head(iris %>>% setHyperPars(cpa, wrap.cpo = cpoScale()))
+```
+```{r}
 head(iris %>>% setHyperPars(cpa, wrap.cpo = cpoPca()))
-# attaching the cpo applicator to a learner gives this learner a "cpo" hyperparameter
-# that can be set to any CPO.
+```
+Attaching the cpo applicator to a learner gives this learner a "cpo" hyperparameter that can be set to any CPO.
+```{r}
 getParamSet(cpoWrap() %>>% makeLearner("classif.logreg"))
 ```
 
@@ -153,22 +178,25 @@ scale = cpoScale(id = "scale")
 scale.pca = scale %>>% cpoPca()
 cbinder = cpoCbind(scaled = scale, pcad = scale.pca, original = NULLCPO)
 ```
+`cpoCbind` recognises that `"scale.scale"` happens before `"pca.pca"` but is also fed to the result directly. The summary draws a (crude) ascii-art graph.
 ```{r}
-# cpoCbind recognises that "scale.scale" happens before "pca.pca" but is also fed to the
-# result directly. The summary draws a (crude) ascii-art graph.
 print(cbinder)
-getParamSet(cbinder)
-head(iris %>>% cbinder)
 ```
 ```{r}
-# the unnecessary copies of "Species" are unfortunate. Remove them with cpoSelect:
+getParamSet(cbinder)
+```
+```{r}
+head(iris %>>% cbinder)
+```
+The unnecessary copies of "Species" are unfortunate. Remove them with cpoSelect:
+```{r}
 selector = cpoSelect(type = "numeric")
 cbinder.select = cpoCbind(scaled = selector %>>% scale, pcad = selector %>>% scale.pca, original = NULLCPO)
 cbinder.select
 head(iris %>>% cbinder)
 ```
+alternatively, we apply the cbinder only to numerical data
 ```{r}
-# alternatively, we apply the cbinder only to numerical data
 head(iris %>>% cpoWrap(cbinder, affect.type = "numeric"))
 ```
 

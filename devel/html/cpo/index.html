@@ -271,7 +271,9 @@ optimized over.</p>
 to create <em>CPO</em> objects. These CPO objects are then used to apply the operation to a data set.</p>
 <pre><code class="r">cpoScale  # a cpo constructor
 #&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
-print(cpoScale, verbose = TRUE)  # more information
+</code></pre>
+
+<pre><code class="r">print(cpoScale, verbose = TRUE)  # more information
 #&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
 #&gt; CPO Trafo:
 #&gt; function (center = TRUE, scale = TRUE, data, target) 
@@ -303,7 +305,9 @@ cpoScale()  # create a CPO object that scales and centers data
 #&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
 #&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
 #&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
-head(getTaskData(iris.task %&gt;&gt;% cpoScale()))
+</code></pre>
+
+<pre><code class="r">head(getTaskData(iris.task %&gt;&gt;% cpoScale()))
 #&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
 #&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
@@ -367,10 +371,10 @@ ret = retrafo(transformed)
 print(ret)
 #&gt; CPO Retrafo chain
 #&gt; [RETRAFO pca()]
-# Comparing the first lines of the
-# transformed data with the lines of
-# &quot;retransforming&quot; the same input data:
-head(transformed)
+</code></pre>
+
+<p>Comparing the first lines of the transformed data with the lines of "retransforming" the same input data:</p>
+<pre><code class="r">head(transformed)
 #&gt;   Species       PC1      PC2          PC3          PC4
 #&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
 #&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
@@ -386,9 +390,10 @@ head(iris) %&gt;&gt;% ret
 #&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
 #&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
 #&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
-# note that using the PCA on only the head
-# of 'iris' gives a different (wrong) result:
-head(iris) %&gt;&gt;% cpoPca()
+</code></pre>
+
+<p>Note that using the PCA on only the head of 'iris' gives a different (wrong) result:</p>
+<pre><code class="r">head(iris) %&gt;&gt;% cpoPca()
 #&gt;   Species       PC1           PC2         PC3          PC4
 #&gt; 1  setosa -6.344251  3.699099e-05 -0.10237713 -0.001527648
 #&gt; 2  setosa -5.909522 -2.939100e-01  0.01398430  0.031126691
@@ -406,8 +411,10 @@ one <code>retrafo()</code> call to get the respective retrafo operation.</p>
 <pre><code class="r">trans.a = iris %&gt;&gt;% cpoScale()
 trans.b = trans.a %&gt;&gt;% cpoPca()
 ret = retrafo(trans.b)
-# check that 'ret' does what it is supposed to do:
-head(trans.b)
+</code></pre>
+
+<p>Check that 'ret' does what it is supposed to do:</p>
+<pre><code class="r">head(trans.b)
 #&gt;   Species       PC1        PC2         PC3          PC4
 #&gt; 1  setosa -2.257141 -0.4784238  0.12727962  0.024087508
 #&gt; 2  setosa -2.074013  0.6718827  0.23382552  0.102662845
@@ -429,7 +436,9 @@ head(iris) %&gt;&gt;% ret
 <p><code>CPO</code> objects have hyperparameters that can be adjusted at creation, or later using <code>setHyperPars</code>.</p>
 <pre><code class="r">print(cpoScale)
 #&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
-do.center = cpoScale(scale = FALSE, center = TRUE)
+</code></pre>
+
+<pre><code class="r">do.center = cpoScale(scale = FALSE, center = TRUE)
 print(do.center, verbose = TRUE)  # note the 'scale.' prefix of parameters
 #&gt; Trafo chain of 1 elements:
 #&gt; scale(center = TRUE, scale = FALSE)
@@ -437,7 +446,9 @@ print(do.center, verbose = TRUE)  # note the 'scale.' prefix of parameters
 #&gt;                 Type len  Def Constr Req Tunable Trafo
 #&gt; scale.center logical   - TRUE      -   -    TRUE     -
 #&gt; scale.scale  logical   - TRUE      -   -    TRUE     -
-do.scale = setHyperPars(do.center,
+</code></pre>
+
+<pre><code class="r">do.scale = setHyperPars(do.center,
   scale.scale = TRUE, scale.center = FALSE)
 </code></pre>
 
@@ -464,12 +475,15 @@ print(lrn)
 #&gt; Properties: numerics,factors,ordered,prob,twoclass
 #&gt; Predict-Type: response
 #&gt; Hyperparameters: model=FALSE
-getParamSet(clrn)
+</code></pre>
+
+<pre><code class="r">getParamSet(clrn)
 #&gt;                         Type len  Def Constr Req Tunable Trafo
 #&gt; model.matrix.formula untyped   -    -      -   -    TRUE     -
 #&gt; model                logical   - TRUE      -   -   FALSE     -
+</code></pre>
 
-ps = makeParamSet(
+<pre><code class="r">ps = makeParamSet(
     makeDiscreteParam(
         &quot;model.matrix.formula&quot;,
         values = list(first = ~0 + ., second = ~0 + .^2, third = ~0 + .^3)))
@@ -513,7 +527,9 @@ print(cpm, verbose = TRUE)
 #&gt; selected.cpo discrete   - scale scale,pca   -    TRUE     -
 #&gt; scale.center  logical   -  TRUE         -   Y    TRUE     -
 #&gt; scale.scale   logical   -  TRUE         -   Y    TRUE     -
-head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;))
+</code></pre>
+
+<pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;))
 #&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
 #&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
@@ -521,8 +537,10 @@ head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;))
 #&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
 #&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
 #&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
-# every CPO's Hyperparameters are exported
-head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;, scale.center = FALSE))
+</code></pre>
+
+<p>Every CPO's Hyperparameters are exported:</p>
+<pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;, scale.center = FALSE))
 #&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1    0.8613268   1.1296201    0.3362663    0.140405  setosa
 #&gt; 2    0.8275493   0.9682458    0.3362663    0.140405  setosa
@@ -530,7 +548,9 @@ head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;, scale.c
 #&gt; 4    0.7768830   1.0005207    0.3602853    0.140405  setosa
 #&gt; 5    0.8444380   1.1618950    0.3362663    0.140405  setosa
 #&gt; 6    0.9119931   1.2587196    0.4083234    0.280810  setosa
-head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;pca&quot;))
+</code></pre>
+
+<pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;pca&quot;))
 #&gt;   Species       PC1      PC2          PC3          PC4
 #&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
 #&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
@@ -550,7 +570,9 @@ print(cpa, verbose = TRUE)
 #&gt; 
 #&gt;             Type len Def Constr Req Tunable Trafo
 #&gt; wrap.cpo untyped   -   -      -   -    TRUE     -
-head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoScale()))
+</code></pre>
+
+<pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoScale()))
 #&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
 #&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
@@ -558,7 +580,9 @@ head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoScale()))
 #&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
 #&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
 #&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
-head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoPca()))
+</code></pre>
+
+<pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoPca()))
 #&gt;   Species       PC1      PC2          PC3          PC4
 #&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
 #&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
@@ -566,9 +590,10 @@ head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoPca()))
 #&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
 #&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
 #&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
-# attaching the cpo applicator to a learner gives this learner a &quot;cpo&quot; hyperparameter
-# that can be set to any CPO.
-getParamSet(cpoWrap() %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;))
+</code></pre>
+
+<p>Attaching the cpo applicator to a learner gives this learner a "cpo" hyperparameter that can be set to any CPO.</p>
+<pre><code class="r">getParamSet(cpoWrap() %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;))
 #&gt;             Type len  Def Constr Req Tunable Trafo
 #&gt; wrap.cpo untyped   -    -      -   -    TRUE     -
 #&gt; model    logical   - TRUE      -   -   FALSE     -
@@ -581,9 +606,8 @@ scale.pca = scale %&gt;&gt;% cpoPca()
 cbinder = cpoCbind(scaled = scale, pcad = scale.pca, original = NULLCPO)
 </code></pre>
 
-<pre><code class="r"># cpoCbind recognises that &quot;scale.scale&quot; happens before &quot;pca.pca&quot; but is also fed to the
-# result directly. The summary draws a (crude) ascii-art graph.
-print(cbinder)
+<p><code>cpoCbind</code> recognises that <code>"scale.scale"</code> happens before <code>"pca.pca"</code> but is also fed to the result directly. The summary draws a (crude) ascii-art graph.</p>
+<pre><code class="r">print(cbinder)
 #&gt; cbind(scale.center = TRUE, scale.scale = TRUE, .CPO = &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;)
 #&gt; O&gt;+   scale(center = TRUE, scale = TRUE)
 #&gt; | |  
@@ -591,12 +615,16 @@ print(cbinder)
 #&gt; |  
 #&gt; O   CBIND[scaled,pcad,original]
 #&gt; 
-getParamSet(cbinder)
+</code></pre>
+
+<pre><code class="r">getParamSet(cbinder)
 #&gt;                 Type len  Def Constr Req Tunable Trafo
 #&gt; scale.center logical   - TRUE      -   -    TRUE     -
 #&gt; scale.scale  logical   - TRUE      -   -    TRUE     -
 #&gt; .CPO         untyped   -    -      -   -    TRUE     -
-head(iris %&gt;&gt;% cbinder)
+</code></pre>
+
+<pre><code class="r">head(iris %&gt;&gt;% cbinder)
 #&gt;   scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
 #&gt; 1          -0.8976739         1.01560199           -1.335752
 #&gt; 2          -1.1392005        -0.13153881           -1.335752
@@ -627,8 +655,8 @@ head(iris %&gt;&gt;% cbinder)
 #&gt; 6                   1.7                  0.4           setosa
 </code></pre>
 
-<pre><code class="r"># the unnecessary copies of &quot;Species&quot; are unfortunate. Remove them with cpoSelect:
-selector = cpoSelect(type = &quot;numeric&quot;)
+<p>The unnecessary copies of "Species" are unfortunate. Remove them with cpoSelect:</p>
+<pre><code class="r">selector = cpoSelect(type = &quot;numeric&quot;)
 cbinder.select = cpoCbind(scaled = selector %&gt;&gt;% scale, pcad = selector %&gt;&gt;% scale.pca, original = NULLCPO)
 cbinder.select
 #&gt; cbind(select.type = numeric, select.index = integer(0), select.names = character(0), select.pattern = &lt;NULL&gt;, select.pattern.ignore.case = FALSE, select.pattern.perl = FALSE, select.pattern.fixed = FALSE, select.invert = FALSE, scale.center = TRUE, scale.scale = TRUE, .CPO = &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;)
@@ -673,8 +701,8 @@ head(iris %&gt;&gt;% cbinder)
 #&gt; 6                   1.7                  0.4           setosa
 </code></pre>
 
-<pre><code class="r"># alternatively, we apply the cbinder only to numerical data
-head(iris %&gt;&gt;% cpoWrap(cbinder, affect.type = &quot;numeric&quot;))
+<p>alternatively, we apply the cbinder only to numerical data</p>
+<pre><code class="r">head(iris %&gt;&gt;% cpoWrap(cbinder, affect.type = &quot;numeric&quot;))
 #&gt;   Species scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
 #&gt; 1  setosa          -0.8976739         1.01560199           -1.335752
 #&gt; 2  setosa          -1.1392005        -0.13153881           -1.335752
@@ -747,13 +775,13 @@ print(constFeatRem, verbose = TRUE)
 #&gt;         length(unique(x)) &gt; 1
 #&gt;       }, data))
 #&gt;     }
-#&gt; &lt;environment: 0x562679f3d108&gt;
+#&gt; &lt;environment: 0x555a2f3483b8&gt;
 #&gt; 
 #&gt; CPO Retrafo:
 #&gt; function(data, control) {
 #&gt;     data[control]
 #&gt;   }
-#&gt; &lt;environment: 0x562679f3d108&gt;
+#&gt; &lt;environment: 0x555a2f3483b8&gt;
 </code></pre></div>
         </div>
 
