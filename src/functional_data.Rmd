@@ -167,7 +167,8 @@ m
 
 ## Feature Extraction
 
-In contrast to applying a learner that works on a [Task](&makeTask), the [Task](&makeTask) can be converted to a normal [&Task.md].
+In contrast to applying a learner that works on a [Task](&makeTask) containing functional features,
+the [Task](&makeTask) can be converted to a normal [&Task.md].
 This works by transforming the functional features into a 
 non-functional domain, e.g by extracting wavelets.
 
@@ -177,8 +178,8 @@ The currently supported preprocessing functions are:
 * functional principal component analysis
 * multi-resolution feature extraction
 
-Again, in a list we specify methods for each functional feature in the task.
-In this case we simply want to extract the mean from each __UVVIS__ functional and the fourier transformed features from each __NIR__ functional.
+In order to do this, we specify methods for each functional feature in the task in a __list__.
+In this case we simply want to extract the mean from each __UVVIS__ functional and the fourier transformed features from each __NIR__ functional. Additional arguments can be passed on 
 
 ```{r}
 # feat.methods specifies what to extract from which functional
