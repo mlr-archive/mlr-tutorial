@@ -16,11 +16,6 @@ env:
     - secure: "d0xff7hriQyReF4y3/iR5sHJlXocKNKcN6/Gi/r9Hxsfuh2Hx3fouQCMSPP+Oba6MDgEvAfryToAxcmaoZByQMwgevB0OBy5xkatj3oTHmhN5Nbk3jNXxXfA6P0Oqxaf7lXVZk2+Ly+PWnbgXn0uhjzdaZo0cWtVJ660ajS0x9Q="
     # include $HOME/.local/bin for `aws`
     - PATH=$HOME/.local/bin:$PATH
-before_install:
-  # set up awscli packages
-  - pip install --user awscli
-  - mkdir -p ~/shared
-  - aws s3 sync s3://mlr-tutorial/shared ~/shared
   
 addons:
   apt:
@@ -30,7 +25,19 @@ addons:
       - pandoc
 
 warnings_are_errors: true
-
+before_install:
+  - mkdir -p $HOME/bin
+  - ln -s $(which gcc-4.9) $HOME/bin/gcc
+  - ln -s $(which g++-4.9) $HOME/bin/g++
+  - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
+  - export PATH=$HOME/bin:$PATH
+  - echo $LD_LIBRARY_PATH
+  - echo $LIBRARY_PATH
+  # set up awscli packages
+  - pip install --user awscli
+  - mkdir -p ~/shared
+  - aws s3 sync s3://mlr-tutorial/shared ~/shared
+  
 jobs:
   include:
     - stage: packages
