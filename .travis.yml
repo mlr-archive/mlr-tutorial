@@ -1,64 +1,93 @@
 language: r
 sudo: false
-cache: 
-  packages: true
-  pip: true
-
+dist: trusty
+cache: packages
+pip: true
 branches:
-    only:
-        - gh-pages
-
+  only:
+  - gh-pages
 env:
   global:
-  - secure: "oZCCuJbRCV3GyGxDxAflWUKohCgNv9TtGLgdXWV4YVjIYqqSCBl0sSwv+eCE6zVDji6bTM20NK6v5l0DbpM+TCk5vQFL8cP/LKgdFMqJm88/fCMqIX5QPk0uafd0Twpni6Rm+iUECxZJS63HL7vppz2WKnnjb2ZV6avPold+E1Pn1xboAjrQ0B4yMGKpy2KjzFbfEDMfVITO6SSNc9z7Jdii9Kf17NkY8MBPUJ8CkQQcN3UfBKRx6O0P8FnA9gj3nc1Sf9EacRtovhLBQuOVGD/uTbchV2UBMdBnhVk+39qEEsBB4SPyaI4FT9t6jJoqBYpvpQU0xhJXGcERppmMsNGe8nTniAfPQsT8vQs1pyYbnahkM3AUj7/lbOjVfzE1IJ7ExxkfGVeEUQr5XA3RlD3qJgt6hU4GT04vF4zN3IHPGlc8jjv96tX7C/f6axxLuM+20aRzwc5kM2+qlWwdWDj9r0Ir9ieA4t71zbgrAPrcw+Mt8S9p3DeXgj1R6MouT/1uqSdrKTnIVQS906acb0mPh9Tpb0WX7zAWr1WScJXVpvVyiOwWyR/MpMjkLFiRS9GcdiygudFdBS3qkHkgPuhV4pzu/r03e5rbwF/FC7CiCcIYTU7VjE4/NHE+awnXU51pfbjWSBqWuDg7ClXwfxwFWvwxZDPfCt3i+rW5sqs="
-
-
+  - _R_CHECK_TIMINGS_=0
+  - _R_CHECK_FORCE_SUGGESTS_=0
+  - _R_CHECK_TESTS_NLINES_=999
+  - secure: d0xff7hriQyReF4y3/iR5sHJlXocKNKcN6/Gi/r9Hxsfuh2Hx3fouQCMSPP+Oba6MDgEvAfryToAxcmaoZByQMwgevB0OBy5xkatj3oTHmhN5Nbk3jNXxXfA6P0Oqxaf7lXVZk2+Ly+PWnbgXn0uhjzdaZo0cWtVJ660ajS0x9Q=
+  - PATH=$HOME/.local/bin:$PATH
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
-      - gcc-4.9
-      - g++-4.9
-      - gfortran-4.9
-      - libgmp-dev
-      - libgsl0-dev
-      - pandoc
-
+    - libgmp-dev
+    - libgsl0-dev
+    - pandoc
+deploy:
+  provider: s3
+  access_key_id: AKIAJDVNNWQJP6WQ3EMQ
+  secret_access_key:
+    secure: caUwAkjXxqxjVFyQnQnjbpQVXleh+JeZSQn+vUjwE5262n0t2xMFWiFofgH68RpinRsLek9trD6xVXLgUR+HDA0mXMC/6n0MK8IUDSKPE59gzfFYccRS5NMDxJ32i40CQav98iZ+8VNUoXdWX96d8ZZXpnR5I5SRRkzpg6qfchrZNMIqULPvZ/DRVWPl5YUgtxbHnKJPUn2+Kx8NtaSUsvfayjqbG3l+aldmN3nwRbYMKNK6ZzBGCao9sh3cMDIdbapILXYWU2PF0pqR++wZVQA2RQQVqnJn+M++9XFE42TeycAQkHwN/oO8gViHgrQhCOI8q/vixyyJVwTKGLkl/El6Dwbtq1IkzhcKFrBQff7hdYgATx5LtkYS5bGfQ0QIkA6LXbFS3S0VQU4aeA6dcEwdOOJfk5qa1RXj72GhyrshBpm9n+yyS8bGbbuJkZ2bSZa8kjM7fRC37NyYfq0Uw3nnrJtFukXWzqNVCeiYJkzazCb7pApNPi0zHisN+/D83QChn91geqpIWK/FaBOBpngoZd7BvC3sadFmAX/uhSyRhgq6lb1gqo7HFCJlL8dToJ0v8QV7izkkEuyva9v1xkn2dNpy8Db0Bx+StmVAfeHpL2j2ZEy+vfZ6xJDengT07Njhn+p/+fOSsgfv8AZiU1BLrgsN+nWmjsxNG8o9Kes=
+  bucket: mlr-tutorial
+  acl: ''
+  on:
+    repo: pat-s/mlr-tutorial
+    branch: travis
+warnings_are_errors: true
 before_install:
-  - mkdir -p $HOME/bin
-  - ln -s $(which gcc-4.9) $HOME/bin/gcc
-  - ln -s $(which g++-4.9) $HOME/bin/g++
-  - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
-  - export PATH=$HOME/bin:$PATH
-  - echo $LD_LIBRARY_PATH
-  - echo $LIBRARY_PATH
+- mkdir -p $HOME/bin
+- ln -s $(which gcc-4.9) $HOME/bin/gcc
+- ln -s $(which g++-4.9) $HOME/bin/g++
+- ln -s $(which gfortran-4.9) $HOME/bin/gfortran
+- export PATH=$HOME/bin:$PATH
+- echo $LD_LIBRARY_PATH
+- echo $LIBRARY_PATH
+- pip install --user awscli
+- mkdir -p ~/shared
+- aws s3 sync s3://mlr-tutorial ~/shared
+jobs:
+  include:
+  - stage: packages
+    install:
+    - Rscript r_packs_install.R
+    script: true
+  - stage: build1
+    install:
+    - 'travis_wait 60 ./build-1
 
-install:
-  - pip install --user mkdocs
-  - pip install --user python-markdown-math
-  - Rscript r_packs_install.R
+'
+    script:
+    - true
+    - tee > ~/shared/build-1
+  - stage: build2
+    script:
+    - true
+    - tee > ~/shared/build-2
+    install:
+    - pip install --user mkdocs
+    - pip install --user python-markdown-math
+    - 'travis_wait 60 ./build-2
 
-script:
-  - ./build
+'
+  - stage: build3
+    script:
+    - true
+    - 'travis_wait 60 ./build-3
 
+'
 after_success:
-    - git checkout gh-pages
-    - git config user.name $GIT_NAME
-    - git config user.email $GIT_EMAIL
-    - git config credential.helper "store --file=.git/credentials"
-    - echo "https://$GH_TOKEN:@github.com" >> .git/credentials
-    - git config push.default matching
-    - git add devel
-    - git commit -a -m "update auto-generated tutorial pages [ci skip]"
-    - git push
-
+- git checkout gh-pages
+- git config user.name $GIT_NAME
+- git config user.email $GIT_EMAIL
+- git config credential.helper "store --file=.git/credentials"
+- echo "https://$GH_TOKEN:@github.com" >> .git/credentials
+- git config push.default matching
+- git add devel
+- git commit -a -m "update auto-generated tutorial pages [ci skip]"
+- git push
+- aws s3 sync ~/shared s3://mlr-tutorial/shared
 notifications:
   email:
     recipients:
-        - bernd_bischl@gmx.net
-        - larsko@cs.ubc.ca
-        - schiffner@math.uni-duesseldorf.de
+    - bernd_bischl@gmx.net
+    - larsko@cs.ubc.ca
+    - schiffner@math.uni-duesseldorf.de
     on_success: change
     on_failure: always
   slack: mlr-org:jiHX1LxqUBJUCJmCioo7vUVl#buildnotifications
