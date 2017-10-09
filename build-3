@@ -1,0 +1,21 @@
+ok = system3("./build-pdf.py")
+if (ok$exit.code == 0L) {
+  # copy pdf to devel
+  file.copy("mlr-tutorial.pdf", "devel", overwrite = TRUE)
+  # embed images in HTML
+  opts_knit$set(upload.fun = image_uri)
+  message("Building HTML version...")
+  dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "svg")
+  ok = system3("mkdocs", "build")
+  message("Build successful!")
+  message("Now zip everything!")
+  setwd("devel/html/")
+  suppressAll(zip("../mlr_tutorial.zip", files = "."))
+  setwd("../../")
+  exit(0L)
+}
+
+messagef("Build failed!")
+exit(ok$exit.code)
+
+# vim: set ft=r:

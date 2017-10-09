@@ -14,7 +14,14 @@ env:
     - _R_CHECK_FORCE_SUGGESTS_=0  # no error if suggested packs are not avail
     - _R_CHECK_TESTS_NLINES_=999
     - secure: "d0xff7hriQyReF4y3/iR5sHJlXocKNKcN6/Gi/r9Hxsfuh2Hx3fouQCMSPP+Oba6MDgEvAfryToAxcmaoZByQMwgevB0OBy5xkatj3oTHmhN5Nbk3jNXxXfA6P0Oqxaf7lXVZk2+Ly+PWnbgXn0uhjzdaZo0cWtVJ660ajS0x9Q="
-
+    # include $HOME/.local/bin for `aws`
+    - PATH=$HOME/.local/bin:$PATH
+before_install:
+  # set up awscli packages
+  - pip install --user awscli
+  - mkdir -p ~/shared
+  - aws s3 sync s3://mlr-tutorial/shared ~/shared
+  
 addons:
   apt:
     packages:
@@ -30,14 +37,31 @@ jobs:
       install:
         - Rscript r_packs_install.R
       script: true
-    - stage: build
+    - stage: build1
+      install:
+      - |
+        travis_wait 60 ./build-1
+      script: 
+      - true
+      - tee > ~/shared/build-1
+    - stage: build2
+      script:
+      - cat ~/shared/*
       install:
       - pip install --user mkdocs
       - pip install --user python-markdown-math
+      - |
+        travis_wait 60 ./build-2
       script: 
-        - |
-          travis_wait 60 ./build
-
+      - true
+      - tee > ~/shared/build-2
+    - stage: build3
+      script:
+      - cat ~/shared/*
+      script: 
+      - true
+      - |
+        travis_wait 60 ./build-3
 
 after_success:
     - git checkout gh-pages
@@ -49,6 +73,7 @@ after_success:
     - git add devel
     - git commit -a -m "update auto-generated tutorial pages [ci skip]"
     - git push
+    - aws s3 sync ~/shared s3://mlr-tutorial/shared
 
 notifications:
   email:
