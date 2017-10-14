@@ -263,7 +263,7 @@ each prediction is only made by learners that did not use the observation for tr
 #&gt; 4          classif.rFerns          rFerns
 #&gt; 5       regr.randomForest    randomForest
 #&gt; 6    regr.randomForestSRC randomForestSRC
-#&gt; ... (8 rows, 2 cols)
+#&gt; ... (#rows: 8, #cols: 2)
 </code></pre>
 
 <p>In <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function <a href="http://www.rdocumentation.org/packages/mlr/functions/getOOBPreds.html">getOOBPreds</a> can be used to extract these observations from the trained
@@ -285,7 +285,7 @@ oob
 #&gt; 4  4     R 0.4319901 0.5680099        R
 #&gt; 5  5     R 0.5417589 0.4582411        R
 #&gt; 6  6     R 0.4005787 0.5994213        R
-#&gt; ... (208 rows, 5 cols)
+#&gt; ... (#rows: 208, #cols: 5)
 
 performance(oob, measures = list(auc, mmce))
 #&gt;       auc      mmce 

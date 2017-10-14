@@ -270,7 +270,7 @@ listLearners(&quot;regr&quot;, properties = &quot;missings&quot;)[c(&quot;class&
 #&gt; 4       regr.ctree        party
 #&gt; 5      regr.cubist       Cubist
 #&gt; 6 regr.featureless          mlr
-#&gt; ... (12 rows, 2 cols)
+#&gt; ... (#rows: 14, #cols: 2)
 </code></pre>
 
 <p>See also the list of <a href="../integrated_learners/index.html">integrated learners</a> in the Appendix.</p>
@@ -472,8 +472,6 @@ task = makeRegrTask(data = airq, target = &quot;Ozone&quot;)
 <p>In the following the 3-fold cross-validated <a href="../measures/index.html">mean squared error</a> is calculated.</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 r = resample(lrn, task, resampling = rdesc, show.info = FALSE, models = TRUE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mse
 r$aggr
 #&gt; mse.test.mean 
 #&gt;      524.3392

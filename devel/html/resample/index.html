@@ -347,7 +347,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.test.mean=24.2161578
-#&gt; Runtime: 0.0372968
+#&gt; Runtime: 0.0612469
 </code></pre>
 
 <p>The result <code>r</code> is an object of class <a href="http://www.rdocumentation.org/packages/mlr/functions/ResampleResult.html">ResampleResult</a>.
@@ -402,21 +402,21 @@ lrn = makeLearner(&quot;classif.rpart&quot;, parms = list(split = &quot;informat
 r = resample(lrn, sonar.task, rdesc, measures = list(mmce, fpr, fnr, timetrain))
 #&gt; Resampling: subsampling
 #&gt; Measures:             mmce        fpr         fnr         timetrain
-#&gt; [Resample] iter 1:    0.2619048   0.2352941   0.2800000   0.0180000
-#&gt; [Resample] iter 2:    0.2857143   0.2857143   0.2857143   0.0160000
-#&gt; [Resample] iter 3:    0.2619048   0.2857143   0.2380952   0.0170000
-#&gt; [Resample] iter 4:    0.3333333   0.3500000   0.3181818   0.0170000
-#&gt; [Resample] iter 5:    0.3333333   0.1666667   0.4583333   0.0170000
+#&gt; [Resample] iter 1:    0.2619048   0.2352941   0.2800000   0.0290000
+#&gt; [Resample] iter 2:    0.2857143   0.2857143   0.2857143   0.0280000
+#&gt; [Resample] iter 3:    0.2619048   0.2857143   0.2380952   0.0290000
+#&gt; [Resample] iter 4:    0.3333333   0.3500000   0.3181818   0.0290000
+#&gt; [Resample] iter 5:    0.3333333   0.1666667   0.4583333   0.0290000
 #&gt; 
-#&gt; Aggregated Result: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0170000
+#&gt; Aggregated Result: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0288000
 #&gt; 
 
 r
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0170000
-#&gt; Runtime: 0.155956
+#&gt; Aggr perf: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0288000
+#&gt; Runtime: 0.264054
 </code></pre>
 
 <p>If you want to add further measures afterwards, use <a href="http://www.rdocumentation.org/packages/mlr/functions/addRRMeasure.html">addRRMeasure</a>.</p>
@@ -425,8 +425,8 @@ addRRMeasure(r, list(ber, timepredict))
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0170000,ber.test.mean=0.2903714,timepredict.test.mean=0.0058000
-#&gt; Runtime: 0.155956
+#&gt; Aggr perf: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0288000,ber.test.mean=0.2903714,timepredict.test.mean=0.0106000
+#&gt; Runtime: 0.264054
 </code></pre>
 
 <p>By default, <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> prints progress messages and intermediate results. You can turn this off by setting
@@ -437,15 +437,13 @@ you can also specify the learner as a string and pass any learner parameters via
 of <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a>.</p>
 <pre><code class="r">r = resample(&quot;classif.rpart&quot;, parms = list(split = &quot;information&quot;), sonar.task, rdesc,
   measures = list(mmce, fpr, fnr, timetrain), show.info = FALSE)
-#&gt; Resampling: subsampling
-#&gt; Measures:             mmce        fpr         fnr         timetrain
 
 r
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.3047619,fpr.test.mean=0.2785319,fnr.test.mean=0.3093917,timetrain.test.mean=0.0170000
-#&gt; Runtime: 0.14903
+#&gt; Aggr perf: mmce.test.mean=0.3047619,fpr.test.mean=0.2785319,fnr.test.mean=0.3093917,timetrain.test.mean=0.0288000
+#&gt; Runtime: 0.255795
 </code></pre>
 
 <h2 id="accessing-resample-results">Accessing resample results</h2>
@@ -473,7 +471,7 @@ by function <a href="http://www.rdocumentation.org/packages/mlr/functions/getRRP
 #&gt; 4 161     M        R    1 test
 #&gt; 5 108     M        M    1 test
 #&gt; 6 178     M        M    1 test
-#&gt; ... (210 rows, 5 cols)
+#&gt; ... (#rows: 210, #cols: 5)
 
 pred = getRRPredictions(r)
 pred
@@ -491,7 +489,7 @@ pred
 #&gt; 4 161     M        R    1 test
 #&gt; 5 108     M        M    1 test
 #&gt; 6 178     M        M    1 test
-#&gt; ... (210 rows, 5 cols)
+#&gt; ... (#rows: 210, #cols: 5)
 </code></pre>
 
 <p><code>pred</code> is an object of class <a href="http://www.rdocumentation.org/packages/mlr/functions/ResamplePrediction.html">ResamplePrediction</a>.
@@ -533,14 +531,12 @@ resampling strategy and make predictions on both sets.</p>
 rdesc = makeResampleDesc(&quot;Holdout&quot;, predict = &quot;both&quot;)
 
 r = resample(&quot;classif.lda&quot;, iris.task, rdesc, show.info = FALSE)
-#&gt; Resampling: holdout
-#&gt; Measures:             mmce.test
 r
 #&gt; Resample Result
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.0200000
-#&gt; Runtime: 0.0156295
+#&gt; Runtime: 0.0251639
 
 r$measures.train
 #&gt;   iter mmce
@@ -568,8 +564,7 @@ predList
 #&gt; 45   45     setosa     setosa
 #&gt; 46   46     setosa     setosa
 #&gt; 3     3     setosa     setosa
-#&gt; ... (100 rows, 3 cols)
-#&gt; 
+#&gt; ... (#rows: 100, #cols: 3)
 #&gt; 
 #&gt; 
 #&gt; $test
@@ -585,7 +580,7 @@ predList
 #&gt; 140 140  virginica  virginica
 #&gt; 125 125  virginica  virginica
 #&gt; 10   10     setosa     setosa
-#&gt; ... (50 rows, 3 cols)
+#&gt; ... (#rows: 50, #cols: 3)
 </code></pre>
 
 <h3 id="learner-models">Learner models</h3>
@@ -598,8 +593,6 @@ survival analysis example.</p>
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 
 r = resample(&quot;surv.coxph&quot;, lung.task, rdesc, show.info = FALSE, models = TRUE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             cindex
 r$models
 #&gt; [[1]]
 #&gt; Model for learner.id=surv.coxph; learner.class=surv.coxph
@@ -632,8 +625,6 @@ rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 ## Extract the compute cluster centers
 r = resample(&quot;cluster.kmeans&quot;, mtcars.task, rdesc, show.info = FALSE,
   centers = 3, extract = function(x) getLearnerModel(x)$centers)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             db
 r$extract
 #&gt; [[1]]
 #&gt;        mpg      cyl     disp        hp     drat       wt     qsec
@@ -672,8 +663,6 @@ function <a href="http://www.rdocumentation.org/packages/mlr/functions/getFeatur
 <a href="../feature_selection/index.html">feature selection</a> page.)</p>
 <pre><code class="r">## Extract the variable importance in a regression tree
 r = resample(&quot;regr.rpart&quot;, bh.task, rdesc, show.info = FALSE, extract = getFeatureImportance)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mse
 r$extract
 #&gt; [[1]]
 #&gt; FeatureImportance:
@@ -746,14 +735,12 @@ In order to conduct stratified resampling, set <code>stratify = TRUE</code> in <
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, stratify = TRUE)
 
 r = resample(&quot;classif.lda&quot;, iris.task, rdesc, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 r
 #&gt; Resample Result
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.0132026
-#&gt; Runtime: 0.0306408
+#&gt; Runtime: 0.0493157
 </code></pre>
 
 <p>Stratification is also available for survival tasks.
@@ -766,14 +753,12 @@ via <code>stratify.cols</code>.</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3, stratify.cols = &quot;chas&quot;)
 
 r = resample(&quot;regr.rpart&quot;, bh.task, rdesc, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mse
 r
 #&gt; Resample Result
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.rpart
 #&gt; Aggr perf: mse.test.mean=21.2385142
-#&gt; Runtime: 0.0421331
+#&gt; Runtime: 0.0697768
 </code></pre>
 
 <h3 id="blocking">Blocking</h3>
@@ -788,8 +773,8 @@ task
 #&gt; Target: Species
 #&gt; Observations: 150
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        4        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           4           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: TRUE
@@ -911,11 +896,7 @@ rin = makeResampleInstance(rdesc, task = iris.task)
 
 ## Calculate the performance of two learners based on the same resample instance
 r.lda = resample(&quot;classif.lda&quot;, iris.task, rin, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 r.rpart = resample(&quot;classif.rpart&quot;, iris.task, rin, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 r.lda$aggr
 #&gt; mmce.test.mean 
 #&gt;           0.02
@@ -960,7 +941,7 @@ mmce$aggr
 mmce$aggr$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; mean(perf.test)
-#&gt; &lt;bytecode: 0x97724e0&gt;
+#&gt; &lt;bytecode: 0xd9bf958&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 
 ## Root mean square error
@@ -970,7 +951,7 @@ rmse$aggr
 rmse$aggr$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; sqrt(mean(perf.test^2))
-#&gt; &lt;bytecode: 0x122adf30&gt;
+#&gt; &lt;bytecode: 0x1da4ab18&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -1010,7 +991,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.test.mean=23.5718916,mse.test.median=24.9572187,mse.test.min=17.5939818,mse.test.max=28.1644743
-#&gt; Runtime: 0.0384829
+#&gt; Runtime: 0.065074
 
 r$aggr
 #&gt;   mse.test.mean mse.test.median    mse.test.min    mse.test.max 
@@ -1077,8 +1058,6 @@ mmceB632
 
 r = resample(&quot;classif.rpart&quot;, iris.task, rdesc, measures = list(mmce, mmceB632, mmceB632plus),
   show.info = FALSE)
-#&gt; Resampling: OOB bootstrapping
-#&gt; Measures:             mmce.train   mmce.train   mmce.test    mmce.test    mmce.test
 head(r$measures.train)
 #&gt;   iter       mmce       mmce       mmce
 #&gt; 1    1 0.04000000 0.04000000 0.04000000
@@ -1116,7 +1095,7 @@ for example <a href="http://www.rdocumentation.org/packages/mlr/functions/resamp
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.0200000,ber.test.mean=0.0191290
-#&gt; Runtime: 0.0348022
+#&gt; Runtime: 0.0571756
 
 bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, mae))
 #&gt; Resampling: OOB bootstrapping
@@ -1131,7 +1110,7 @@ bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, 
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.b632plus=23.9312510,mae.b632plus=3.4912886
-#&gt; Runtime: 0.0559411
+#&gt; Runtime: 0.0927022
 </code></pre></div>
         </div>
 

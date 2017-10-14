@@ -242,8 +242,8 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
-            <li><a href="#classification-79">Classification (79)</a></li>
-            <li><a href="#regression-60">Regression (60)</a></li>
+            <li><a href="#classification-83">Classification (83)</a></li>
+            <li><a href="#regression-61">Regression (61)</a></li>
             <li><a href="#survival-analysis-12">Survival analysis (12)</a></li>
             <li><a href="#cluster-analysis-9">Cluster analysis (9)</a></li>
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
@@ -261,7 +261,7 @@ weights are supported.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods specific to the
 type of learning task.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-79">Classification (79)</h3>
+<h3 id="classification-83">Classification (83)</h3>
 <p>For classification the following additional learner properties are relevant and shown in
 column <strong>Props</strong>:</p>
 <ul>
@@ -462,6 +462,50 @@ column <strong>Props</strong>:</p>
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>classif.fdausc.glm</strong> <br /> <em>fdausc.glm</em> <br /><br />Generalized Linear Models classification on FDA</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/fda.usc/">fda.usc</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass<br />functionals</td>
+<td align="left">model$C[[1]] is set to quote(classif.glm)</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.fdausc.kernel</strong> <br /> <em>fdausc.kernel</em> <br /><br />Kernel classification on FDA</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/fda.usc/">fda.usc</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass<br />single.functional</td>
+<td align="left">Argument draw=FALSE is used as default.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.fdausc.knn</strong> <br /> <em>fdausc.knn</em> <br /><br />fdausc.knn</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/fda.usc/">fda.usc</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">prob<br />twoclass<br />multiclass<br />single.functional</td>
+<td align="left">Argument draw=FALSE is used as default.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.fdausc.np</strong> <br /> <em>fdausc.np</em> <br /><br />Nonparametric classification on FDA</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/fda.usc/">fda.usc</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass<br />single.functional</td>
+<td align="left">Argument draw=FALSE is used as default. Additionally, mod$C[[1]] is set to quote(classif.np)</td>
+</tr>
+<tr>
 <td align="left"><strong>classif.featureless</strong> <br /> <em>featureless</em> <br /><br />Featureless classifier</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a></td>
 <td align="center">X</td>
@@ -469,7 +513,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left">prob<br />twoclass<br />multiclass<br />functionals</td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -566,7 +610,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
 <td align="left"></td>
@@ -588,7 +632,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass</td>
 <td align="left">'family' is always set to 'binomial' to get a binary classifier.</td>
@@ -1020,7 +1064,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass<br />featimp<br />oobpreds</td>
-<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable.</td>
+<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable. <code>mtry.perc</code> sets <code>mtry</code> to <code>mtry.perc*getTaskNFeats(.task)</code>. Default for <code>mtry</code> is the floor of square root of number of features in task. Default for <code>min.node.size</code> is 1 for classification and 10 for probability estimation.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.rda</strong> <br /> <em>rda</em> <br /><br />Regularized Discriminant Analysis</td>
@@ -1156,7 +1200,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-60">Regression (60)</h3>
+<h3 id="regression-61">Regression (61)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1397,6 +1441,17 @@ column <strong>Props</strong>:</p>
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>regr.FDboost</strong> <br /> <em>FDboost</em> <br /><br />Functional linear array regression boosting</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/FDboost/">FDboost</a><br /><a href="http://www.rdocumentation.org/packages/mboost/">mboost</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">functionals</td>
+<td align="left">Only allow one base learner for functional covariate and one base learner for scalar covariate, the parameters for these base learners are the same. Also we currently do not support interaction between scalar covariates</td>
+</tr>
+<tr>
 <td align="left"><strong>regr.featureless</strong> <br /> <em>featureless</em> <br /><br />Featureless regression</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a></td>
 <td align="center">X</td>
@@ -1404,7 +1459,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="left"></td>
+<td align="left">functionals</td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -1512,7 +1567,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left"></td>
 <td align="left"></td>
@@ -1534,7 +1589,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left"></td>
 <td align="left">'family' is always set to 'gaussian'.</td>
@@ -1745,8 +1800,8 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left">featimp<br />oobpreds</td>
-<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable.</td>
+<td align="left">featimp<br />oobpreds<br />se</td>
+<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable. <code>mtry.perc</code> sets <code>mtry</code> to <code>mtry.perc*getTaskNFeats(.task)</code>. Default for <code>mtry</code> is the floor of square root of number of features in task.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.rknn</strong> <br /> <em>rknn</em> <br /><br />Random k-Nearest-Neighbors</td>

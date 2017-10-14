@@ -634,7 +634,7 @@ It must return a named vector of importance values.</p>
 In case of <code>"classif.rpart"</code> the feature importance values can be easily extracted from the
 fitted model.</p>
 <pre><code class="r">getFeatureImportanceLearner.classif.rpart = function(.learner, .model, ...) {
-  mod = getLearnerModel(.model)
+  mod = getLearnerModel(.model, more.unwrap = TRUE)
   mod$variable.importance
 }
 </code></pre>
@@ -642,7 +642,7 @@ fitted model.</p>
 <p>For the <a href="http://www.rdocumentation.org/packages/randomForestSRC/functions/rfsrc.html">random forest</a> from package <a href="http://www.rdocumentation.org/packages/randomForestSRC/">randomForestSRC</a> function
 <a href="http://www.rdocumentation.org/packages/randomForestSRC/functions/vimp.html">vimp</a> is called.</p>
 <pre><code class="r">getFeatureImportanceLearner.classif.randomForestSRC = function(.learner, .model, ...) {
-  mod = getLearnerModel(.model)
+  mod = getLearnerModel(.model, more.unwrap = TRUE)
   randomForestSRC::vimp(mod, ...)$importance[, &quot;all&quot;]
 }
 </code></pre>
@@ -662,9 +662,10 @@ able to access them in <a href="http://www.rdocumentation.org/packages/mlr/">mlr
 It must return the predictions in the same format as the <a href="http://www.rdocumentation.org/packages/mlr/functions/predictLearner.html">predictLearner</a> function.</p>
 <pre><code class="r">getOOBPredsLearner.classif.randomForest = function(.learner, .model) {
   if (.learner$predict.type == &quot;response&quot;) {
-    unname(.model$learner.model$predicted)
+    m = getLearnerModel(.model, more.unwrap = TRUE)
+    unname(m$predicted)
   } else {
-    .model$learner.model$votes
+    getLearnerModel(.model, more.unwrap = TRUE)$votes
   }
 }
 </code></pre>
@@ -683,6 +684,11 @@ registerS3method(&quot;predictLearner&quot;, &quot;&lt;awesome_new_learner_class
 or out-of-bag predictions these also need to be registered in the same manner, for example:</p>
 <pre><code class="r">registerS3method(&quot;getFeatureImportanceLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;,
   getFeatureImportanceLearner.&lt;awesome_new_learner_class&gt;)
+</code></pre>
+
+<p>For the new learner to work with parallelization, you may have to export the new
+methods explicitly:</p>
+<pre><code class="r">parallelExport(&quot;trainLearner.&lt;awesome_new_learner_class&gt;&quot;, &quot;predictLearner.&lt;awesome_new_learner_class&gt;&quot;)
 </code></pre>
 
 <h2 id="further-information-for-developers">Further information for developers</h2>
