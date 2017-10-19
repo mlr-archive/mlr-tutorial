@@ -439,9 +439,9 @@ in the <a href="../measures/index.html">table of performance measures</a> and th
 performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc,
   multilabel.f1, timepredict))
 #&gt; multilabel.subset01  multilabel.hamloss      multilabel.acc 
-#&gt;           0.8663633           0.2049471           0.4637509 
+#&gt;           0.8642946           0.2043560           0.4639072 
 #&gt;       multilabel.f1         timepredict 
-#&gt;           0.5729926           3.7440000
+#&gt;           0.5730995           2.5330000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt;  [1] &quot;multilabel.f1&quot;       &quot;multilabel.subset01&quot; &quot;multilabel.tpr&quot;     
@@ -461,16 +461,16 @@ r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.classif.rpart
-#&gt; Aggr perf: multilabel.hamloss.test.mean=0.2248054
-#&gt; Runtime: 9.55406
+#&gt; Aggr perf: multilabel.hamloss.test.mean=0.2220267
+#&gt; Runtime: 8.94421
 
 r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.rFerns
-#&gt; Aggr perf: multilabel.hamloss.test.mean=0.4731658
-#&gt; Runtime: 0.934505
+#&gt; Aggr perf: multilabel.hamloss.test.mean=0.4745012
+#&gt; Runtime: 0.779436
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>
@@ -500,20 +500,20 @@ predicted probabilities.</p>
 
 getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
 #&gt;         acc.test.mean mmce.test.mean
-#&gt; label1     0.69383533      0.3061647
-#&gt; label2     0.58254034      0.4174597
-#&gt; label3     0.70211005      0.2978899
-#&gt; label4     0.71369466      0.2863053
-#&gt; label5     0.70831609      0.2916839
-#&gt; label6     0.60488209      0.3951179
-#&gt; label7     0.54447662      0.4555234
-#&gt; label8     0.53289201      0.4671080
-#&gt; label9     0.30906082      0.6909392
-#&gt; label10    0.44683492      0.5531651
-#&gt; label11    0.45676458      0.5432354
-#&gt; label12    0.52916839      0.4708316
-#&gt; label13    0.53702938      0.4629706
-#&gt; label14    0.01406703      0.9859330
+#&gt; label1     0.69880017      0.3011998
+#&gt; label2     0.58543649      0.4145635
+#&gt; label3     0.70086885      0.2991312
+#&gt; label4     0.71493587      0.2850641
+#&gt; label5     0.71162598      0.2883740
+#&gt; label6     0.58874638      0.4112536
+#&gt; label7     0.53165081      0.4683492
+#&gt; label8     0.53496070      0.4650393
+#&gt; label9     0.30740588      0.6925941
+#&gt; label10    0.44269756      0.5573024
+#&gt; label11    0.45097228      0.5490277
+#&gt; label12    0.53330575      0.4666942
+#&gt; label13    0.53868432      0.4613157
+#&gt; label14    0.01696318      0.9830368
 </code></pre></div>
         </div>
 

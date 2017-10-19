@@ -323,7 +323,7 @@ r
 #&gt; Task: iris-example
 #&gt; Learner: classif.ksvm.tuned
 #&gt; Aggr perf: mmce.test.mean=0.0533333
-#&gt; Runtime: 5.04516
+#&gt; Runtime: 4.34065
 </code></pre>
 
 <p>You can obtain the error rates on the 3 outer test sets by:</p>
@@ -377,16 +377,16 @@ resampling iteration.</p>
 <pre><code class="r">opt.paths = getNestedTuneResultsOptPathDf(r)
 head(opt.paths, 10)
 #&gt;       C sigma mmce.test.mean dob eol error.message exec.time iter
-#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.057    1
-#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.058    1
-#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.060    1
-#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.085    1
-#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.055    1
-#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.056    1
-#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.055    1
-#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.055    1
-#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.055    1
-#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.055    1
+#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.040    1
+#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.047    1
+#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.056    1
+#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.057    1
+#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.060    1
+#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.060    1
+#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.067    1
+#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.048    1
+#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.052    1
+#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.053    1
 </code></pre>
 
 <p>Below we visualize the <code>opt.path</code>s for the 3 outer resampling iterations.</p>
@@ -431,7 +431,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm.featsel
 #&gt; Aggr perf: mse.test.mean=31.6991293
-#&gt; Runtime: 10.6266
+#&gt; Runtime: 7.45121
 
 r$measures.test
 #&gt;   iter      mse
@@ -479,12 +479,12 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      80.48765
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      63.06724
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.023
-#&gt; 2   2   2          &lt;NA&gt;     0.045
-#&gt; 3   2   2          &lt;NA&gt;     0.046
-#&gt; 4   2   2          &lt;NA&gt;     0.046
-#&gt; 5   2   2          &lt;NA&gt;     0.051
-#&gt; 6   2   2          &lt;NA&gt;     0.046
+#&gt; 1   1   2          &lt;NA&gt;     0.018
+#&gt; 2   2   2          &lt;NA&gt;     0.035
+#&gt; 3   2   2          &lt;NA&gt;     0.032
+#&gt; 4   2   2          &lt;NA&gt;     0.030
+#&gt; 5   2   2          &lt;NA&gt;     0.046
+#&gt; 6   2   2          &lt;NA&gt;     0.037
 </code></pre>
 
 <p>An easy-to-read version of the optimization path for sequential feature selection can be
@@ -535,7 +535,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm.filtered.tuned
 #&gt; Aggr perf: mse.test.mean=25.3915155
-#&gt; Runtime: 5.48647
+#&gt; Runtime: 3.87596
 </code></pre>
 
 <h4 id="accessing-the-selected-features-and-optimal-percentage">Accessing the selected features and optimal percentage</h4>
@@ -596,12 +596,12 @@ res
 opt.paths = lapply(res, function(x) as.data.frame(x$opt.path))
 opt.paths[[1]]
 #&gt;   fw.threshold mse.test.mean dob eol error.message exec.time
-#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.290
-#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.299
-#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.285
-#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.279
-#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.267
-#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.252
+#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.207
+#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.234
+#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.189
+#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.204
+#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.192
+#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.185
 </code></pre>
 
 <h2 id="benchmark-experiments">Benchmark experiments</h2>
@@ -842,12 +842,12 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      86.93409
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      76.32457
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.022
-#&gt; 2   2   2          &lt;NA&gt;     0.032
-#&gt; 3   2   2          &lt;NA&gt;     0.021
-#&gt; 4   2   2          &lt;NA&gt;     0.030
-#&gt; 5   2   2          &lt;NA&gt;     0.035
-#&gt; 6   2   2          &lt;NA&gt;     0.033
+#&gt; 1   1   2          &lt;NA&gt;     0.014
+#&gt; 2   2   2          &lt;NA&gt;     0.047
+#&gt; 3   2   2          &lt;NA&gt;     0.027
+#&gt; 4   2   2          &lt;NA&gt;     0.020
+#&gt; 5   2   2          &lt;NA&gt;     0.023
+#&gt; 6   2   2          &lt;NA&gt;     0.021
 
 analyzeFeatSelResult(feats[[1]])
 #&gt; Features         : 8
