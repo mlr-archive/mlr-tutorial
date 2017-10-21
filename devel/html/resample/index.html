@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/resample.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -347,7 +345,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.test.mean=24.2161578
-#&gt; Runtime: 0.0423818
+#&gt; Runtime: 0.0420394
 </code></pre>
 
 <p>The result <code>r</code> is an object of class <a href="http://www.rdocumentation.org/packages/mlr/functions/ResampleResult.html">ResampleResult</a>.
@@ -402,21 +400,21 @@ lrn = makeLearner(&quot;classif.rpart&quot;, parms = list(split = &quot;informat
 r = resample(lrn, sonar.task, rdesc, measures = list(mmce, fpr, fnr, timetrain))
 #&gt; Resampling: subsampling
 #&gt; Measures:             mmce        fpr         fnr         timetrain
-#&gt; [Resample] iter 1:    0.2619048   0.2352941   0.2800000   0.0310000
-#&gt; [Resample] iter 2:    0.2857143   0.2857143   0.2857143   0.0220000
-#&gt; [Resample] iter 3:    0.2619048   0.2857143   0.2380952   0.0190000
-#&gt; [Resample] iter 4:    0.3333333   0.3500000   0.3181818   0.0180000
-#&gt; [Resample] iter 5:    0.3333333   0.1666667   0.4583333   0.0180000
+#&gt; [Resample] iter 1:    0.2619048   0.2352941   0.2800000   0.0200000
+#&gt; [Resample] iter 2:    0.2857143   0.2857143   0.2857143   0.0190000
+#&gt; [Resample] iter 3:    0.2619048   0.2857143   0.2380952   0.0350000
+#&gt; [Resample] iter 4:    0.3333333   0.3500000   0.3181818   0.0280000
+#&gt; [Resample] iter 5:    0.3333333   0.1666667   0.4583333   0.0220000
 #&gt; 
-#&gt; Aggregated Result: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0216000
+#&gt; Aggregated Result: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0248000
 #&gt; 
 
 r
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0216000
-#&gt; Runtime: 0.19357
+#&gt; Aggr perf: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0248000
+#&gt; Runtime: 0.217807
 </code></pre>
 
 <p>If you want to add further measures afterwards, use <a href="http://www.rdocumentation.org/packages/mlr/functions/addRRMeasure.html">addRRMeasure</a>.</p>
@@ -425,8 +423,8 @@ addRRMeasure(r, list(ber, timepredict))
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0216000,ber.test.mean=0.2903714,timepredict.test.mean=0.0070000
-#&gt; Runtime: 0.19357
+#&gt; Aggr perf: mmce.test.mean=0.2952381,fpr.test.mean=0.2646779,fnr.test.mean=0.3160649,timetrain.test.mean=0.0248000,ber.test.mean=0.2903714,timepredict.test.mean=0.0084000
+#&gt; Runtime: 0.217807
 </code></pre>
 
 <p>By default, <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> prints progress messages and intermediate results. You can turn this off by setting
@@ -442,8 +440,8 @@ r
 #&gt; Resample Result
 #&gt; Task: Sonar-example
 #&gt; Learner: classif.rpart
-#&gt; Aggr perf: mmce.test.mean=0.3047619,fpr.test.mean=0.2785319,fnr.test.mean=0.3093917,timetrain.test.mean=0.0218000
-#&gt; Runtime: 0.190048
+#&gt; Aggr perf: mmce.test.mean=0.3047619,fpr.test.mean=0.2785319,fnr.test.mean=0.3093917,timetrain.test.mean=0.0192000
+#&gt; Runtime: 0.16768
 </code></pre>
 
 <h2 id="accessing-resample-results">Accessing resample results</h2>
@@ -536,7 +534,7 @@ r
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.0200000
-#&gt; Runtime: 0.0197594
+#&gt; Runtime: 0.0178165
 
 r$measures.train
 #&gt;   iter mmce
@@ -740,7 +738,7 @@ r
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.0132026
-#&gt; Runtime: 0.0538909
+#&gt; Runtime: 0.0336819
 </code></pre>
 
 <p>Stratification is also available for survival tasks.
@@ -758,7 +756,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.rpart
 #&gt; Aggr perf: mse.test.mean=21.2385142
-#&gt; Runtime: 0.0834036
+#&gt; Runtime: 0.0479982
 </code></pre>
 
 <h3 id="blocking">Blocking</h3>
@@ -941,7 +939,7 @@ mmce$aggr
 mmce$aggr$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; mean(perf.test)
-#&gt; &lt;bytecode: 0xd36ffc0&gt;
+#&gt; &lt;bytecode: 0xcba5bd0&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 
 ## Root mean square error
@@ -951,7 +949,7 @@ rmse$aggr
 rmse$aggr$fun
 #&gt; function (task, perf.test, perf.train, measure, group, pred) 
 #&gt; sqrt(mean(perf.test^2))
-#&gt; &lt;bytecode: 0x19d46648&gt;
+#&gt; &lt;bytecode: 0x1b436a68&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -991,7 +989,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.test.mean=23.5718916,mse.test.median=24.9572187,mse.test.min=17.5939818,mse.test.max=28.1644743
-#&gt; Runtime: 0.0773103
+#&gt; Runtime: 0.042625
 
 r$aggr
 #&gt;   mse.test.mean mse.test.median    mse.test.min    mse.test.max 
@@ -1095,7 +1093,7 @@ for example <a href="http://www.rdocumentation.org/packages/mlr/functions/resamp
 #&gt; Task: iris-example
 #&gt; Learner: classif.lda
 #&gt; Aggr perf: mmce.test.mean=0.0200000,ber.test.mean=0.0191290
-#&gt; Runtime: 0.0390038
+#&gt; Runtime: 0.0367236
 
 bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, mae))
 #&gt; Resampling: OOB bootstrapping
@@ -1110,7 +1108,7 @@ bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, 
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm
 #&gt; Aggr perf: mse.b632plus=23.9312510,mae.b632plus=3.4912886
-#&gt; Runtime: 0.0639555
+#&gt; Runtime: 0.0613043
 </code></pre></div>
         </div>
 
@@ -1119,9 +1117,12 @@ bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, 
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -1144,7 +1145,47 @@ bootstrapB632plus(&quot;regr.lm&quot;, bh.task, iters = 3, measures = list(mse, 
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

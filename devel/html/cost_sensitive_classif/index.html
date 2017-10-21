@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/cost_sensitive_classif.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -422,7 +420,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.50,Good=0.50
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -461,7 +459,7 @@ pred.th
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.17,Good=0.83
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -518,7 +516,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.5831280,mmce.test.mean=0.3630397
-#&gt; Runtime: 0.302008
+#&gt; Runtime: 0.196646
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -561,7 +559,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.8600427,mmce.test.mean=0.2520215
-#&gt; Runtime: 0.241521
+#&gt; Runtime: 0.199585
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -660,7 +658,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.5851031,mmce.test.mean=0.3530387
-#&gt; Runtime: 0.311276
+#&gt; Runtime: 0.227058
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -677,7 +675,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
 #&gt; Aggr perf: credit.costs.test.mean=0.6520802,mmce.test.mean=0.3360276
-#&gt; Runtime: 0.547857
+#&gt; Runtime: 0.363826
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -755,7 +753,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
 #&gt; Aggr perf: credit.costs.test.mean=0.5681190,mmce.test.mean=0.3360426
-#&gt; Runtime: 0.585825
+#&gt; Runtime: 0.391616
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -851,7 +849,7 @@ r
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
 #&gt; Aggr perf: wf.costs.test.mean=7.9568814,mmce.test.mean=0.3180386
-#&gt; Runtime: 0.0933797
+#&gt; Runtime: 0.0634921
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1012,7 +1010,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.06
+#&gt; time: 0.05
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa
@@ -1033,9 +1031,12 @@ performance(pred, measures = list(meancosts, mcp), task = costsens.task)
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -1058,7 +1059,47 @@ performance(pred, measures = list(meancosts, mcp), task = costsens.task)
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

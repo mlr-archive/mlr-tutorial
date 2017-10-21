@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/advanced_tune.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -275,12 +273,12 @@ print(head(as.data.frame(res$opt.path)))
 #&gt; 5  9.7729840 vanilladot        NA     NA           0.04   1  NA
 #&gt; 6 -2.7930352     rbfdot -7.198476     NA           0.36   1  NA
 #&gt;   error.message exec.time
-#&gt; 1          &lt;NA&gt;     0.024
-#&gt; 2          &lt;NA&gt;     0.022
-#&gt; 3          &lt;NA&gt;     0.034
-#&gt; 4          &lt;NA&gt;     0.033
+#&gt; 1          &lt;NA&gt;     0.036
+#&gt; 2          &lt;NA&gt;     0.035
+#&gt; 3          &lt;NA&gt;     0.036
+#&gt; 4          &lt;NA&gt;     0.035
 #&gt; 5          &lt;NA&gt;     0.034
-#&gt; 6          &lt;NA&gt;     0.035
+#&gt; 6          &lt;NA&gt;     0.037
 </code></pre>
 
 <p>See how we made the kernel parameters like <code>sigma</code> and <code>degree</code> dependent on the <code>kernel</code>
@@ -330,12 +328,12 @@ print(head(as.data.frame(res$opt.path)))
 #&gt; 5 classif.randomForest                 NA                        394
 #&gt; 6         classif.ksvm           11.02356                         NA
 #&gt;   mmce.test.mean dob eol error.message exec.time
-#&gt; 1     0.04666667   1  NA          &lt;NA&gt;     0.054
-#&gt; 2     0.68000000   1  NA          &lt;NA&gt;     0.065
-#&gt; 3     0.52666667   1  NA          &lt;NA&gt;     0.065
-#&gt; 4     0.68000000   1  NA          &lt;NA&gt;     0.069
-#&gt; 5     0.04666667   1  NA          &lt;NA&gt;     0.077
-#&gt; 6     0.68000000   1  NA          &lt;NA&gt;     0.062
+#&gt; 1     0.04666667   1  NA          &lt;NA&gt;     0.083
+#&gt; 2     0.68000000   1  NA          &lt;NA&gt;     0.077
+#&gt; 3     0.52666667   1  NA          &lt;NA&gt;     0.046
+#&gt; 4     0.68000000   1  NA          &lt;NA&gt;     0.056
+#&gt; 5     0.04666667   1  NA          &lt;NA&gt;     0.056
+#&gt; 6     0.68000000   1  NA          &lt;NA&gt;     0.043
 </code></pre>
 
 <h2 id="multi-criteria-evaluation-and-optimization">Multi-criteria evaluation and optimization</h2>
@@ -368,12 +366,12 @@ head(as.data.frame(trafoOptPath(res$opt.path)))
 #&gt; 5 8.642356e+01 47.600399172          1.00    0.00000000   5  NA
 #&gt; 6 3.661447e-04  0.715765529          1.00    0.00000000   6  NA
 #&gt;   error.message exec.time
-#&gt; 1          &lt;NA&gt;     0.062
-#&gt; 2          &lt;NA&gt;     0.055
-#&gt; 3          &lt;NA&gt;     0.063
-#&gt; 4          &lt;NA&gt;     0.053
-#&gt; 5          &lt;NA&gt;     0.046
-#&gt; 6          &lt;NA&gt;     0.060
+#&gt; 1          &lt;NA&gt;     0.039
+#&gt; 2          &lt;NA&gt;     0.041
+#&gt; 3          &lt;NA&gt;     0.040
+#&gt; 4          &lt;NA&gt;     0.050
+#&gt; 5          &lt;NA&gt;     0.039
+#&gt; 6          &lt;NA&gt;     0.039
 </code></pre>
 
 <p>The results can be visualized with function <a href="http://www.rdocumentation.org/packages/mlr/functions/plotTuneMultiCritResult.html">plotTuneMultiCritResult</a>.
@@ -390,9 +388,12 @@ during tuning. Points on the Pareto front are slightly increased.</p>
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -415,7 +416,47 @@ during tuning. Points on the Pareto front are slightly increased.</p>
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>
