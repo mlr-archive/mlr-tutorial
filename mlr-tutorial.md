@@ -10748,6 +10748,207 @@ As the predictions that are used are out-of-bag, this evaluation strategy is ver
 to common resampling strategies like 10-fold cross-validation, but much faster, as only one
 training instance of the model is required.
 
+## One-Class Classification
+
+*Regular classification* or *cost-sensitive classification* are supervised learning methods, 
+class labels are given for each observation and is used to train the model. Classification methods therefore are provided with the information of which observations belongs to which class and thus can *learn* class patterns and apply those onto new data. To learn the patterns a sufficient number of observation in each class is required and (nearly) balanced class sizes.
+
+But what if there are no labels in the data?
+
+And what if the class sizes a *very very* unbalanced?
+
+And what if there is one class with a *very very* small number of observations?
+
+If you have all of those cases in your data, you probably need to apply *Anomaly Detection methods*.
+
+An *anomaly* is "something that deviates from what is standard, normal, or expected"
+[Dictionary]. In the sense of data, anomalies are observations, which deviates from the majority
+of the data [Amer et al., 2013, p.1]. In different application domains anomalies are
+also referred to as outliers, discordant observations, exceptions, aberrations, surprises,
+peculiarities, contaminants [Chandola et al., 2009, p.1], novelties, noise or deviations
+[Dau et al., 2014, p.2].
+There are two ways of handling anomalies, either delete them for example to yield statistically
+significant increase in accuracy [Smith and Martinez, 2011, p.1] or translate them into significant actionable information [Chandola et al., 2009, p.1] [Hodge and Austin, 2004,
+p.1] [Dau et al., 2014, p.1]. An example for the former case would be anomalies caused
+by measurement errors, which one want to remove from the data. For the later case a typical example is anomalous traffic pattern in a computer network, which could be interpreted as a hacker attack [Kumar., 2005] and which one obviously want to prevent.
+
+Methods to find anomalies and delete, modify or ignore them are often referred to as noise removal and noise accommodation [Hodge and Austin, 2004, p.4]. Whereas methods to find anomalies to extract relevant information are referred to as *anomlay detection*.
+
+A special case of *Anomaly Detection* is the *one-class classification*. As the name one-class learning already says, the problem is that most of the time we only have observation of one class, namely the *normal* class. It is easy to collect the normal situation, for example production machines are probably
+nearly always run as it should, aircraft machinary works like it should and so on. It is hard to simulate the situation which is not normal, and even if we would be able to simulate this situation, we wouldn’t know if we cover all possible situations of anomalies. Therefore a binary classification problem is most likely not sufficient to detect "unseen" anomalies as anomalies.
+
+### One-class classification approach
+
+The *one-class classification* approach is a *semi-supervised* learning approach. One requirement to apply *one-class classification* methods is to have training data, which only consists of *normal* observations (therefore *semi-supervised*). The idea is to learn how the data is structured if the data is from the normal class. If the method learned the structure well it can tell in new data if an anomalous observation deviates from the normal class.
+Unfortunately, in real life settings there is usually no way to test, if any or all anomalies were detected, as usually labels are not given. In [mlr](http://www.rdocumentation.org/packages/mlr/) a new class is introduced to handle anomalies and also to test the methods, in case benchmark data are used or labels do exisits.
+
+### Quick start
+Here we show the mlr workflow to train, make predictions, and evaluate a learner on a one-class classification problem. More details on each steps are provided later.
+
+
+```r
+devtools::install_github("mlr-org/mlr", ref = "oneclass_lof")
+#> Downloading GitHub repo mlr-org/mlr@oneclass_lof
+#> from URL https://api.github.com/repos/mlr-org/mlr/zipball/oneclass_lof
+#> Installing mlr
+#> Installing checkmate
+#> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
+#>   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
+#>   '/private/var/folders/rk/4qx5ytpn5td457dnnqxlpgw00000gn/T/RtmpoL1vS7/devtools20f770d9dd36/checkmate'  \
+#>   --library='/Library/Frameworks/R.framework/Versions/3.3/Resources/library'  \
+#>   --install-tests
+#> 
+#> Installing data.table
+#> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
+#>   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
+#>   '/private/var/folders/rk/4qx5ytpn5td457dnnqxlpgw00000gn/T/RtmpoL1vS7/devtools20f7402c208d/data.table'  \
+#>   --library='/Library/Frameworks/R.framework/Versions/3.3/Resources/library'  \
+#>   --install-tests
+#> 
+#> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
+#>   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
+#>   '/private/var/folders/rk/4qx5ytpn5td457dnnqxlpgw00000gn/T/RtmpoL1vS7/devtools20f75aef9e34/mlr-org-mlr-f6490b8'  \
+#>   --library='/Library/Frameworks/R.framework/Versions/3.3/Resources/library'  \
+#>   --install-tests
+#> 
+#> Reloading installed mlr
+#> 
+#> Attache Paket: 'mlr'
+#> The following object is masked from 'package:caret':
+#> 
+#>     train
+#> The following object is masked from 'package:ROCR':
+#> 
+#>     performance
+library(mlr)
+## get synthetic anomaly data, frist 1000 observation are normal, the last 50 are anomalies
+## this dataset has labels in the 'target' column for testing the model
+data = getTaskData(oneclass2d.task)
+train.set = 1:550
+test.set = 551:1050
+
+### 1) Define the task
+### For one-class classification, unlike other learning problem, the label names of the 
+### positive/anomaly and negative/normal class needs to be provided.
+### Note, the target column is not used for training only for evaluating
+task = makeOneClassTask(id = "oneclass", data = data, target = "Target", positive = "Anomaly", negative = "Normal")
+
+### 2) Define the learner
+### Currently four methods are implemented for one-class classificiation
+### All learner can have predict type response or probability
+### per default the predict.threshold is set to the 95%-quantile, but if the user have information about
+### the ratio of anomalies in the data, he/she should set predict.type to "prob" and adapt the predict.threshold variable
+lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "response")
+lrn.svm = makeLearner("oneclass.svm", predict.type = "response")
+lrn.lof = makeLearner("oneclass.lofactor", predict.type = "prob", k = 60, predict.threshold = 0.95)
+### sometimes the h2o learner are not computational stable, therfore add learner settings,
+### e.g. l1, max_w2 etc.
+lrn.ae = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", predict.threshold = 0.95, 
+  activation = "Tanh", reproducible = TRUE, l2 = 1e-5, sparse = TRUE, max_w2 = 10)
+
+### 3) Fit the model
+### The model is fitted ignoring that labels are provided (more information later)
+mod.ksvm = train(lrn.ksvm, task, subset = train.set)  
+mod.svm = train(lrn.svm, task, subset = train.set)  
+mod.lof = train(lrn.lof, task, subset = train.set)  
+mod.ae = train(lrn.ae, task, subset = train.set)  
+#>  Connection successful!
+#> 
+#> R is connected to the H2O cluster: 
+#>     H2O cluster uptime:         1 hours 9 minutes 
+#>     H2O cluster version:        3.10.3.6 
+#>     H2O cluster version age:    8 months and 6 days !!! 
+#>     H2O cluster name:           H2O_started_from_R_Minh_huk890 
+#>     H2O cluster total nodes:    1 
+#>     H2O cluster total memory:   3.54 GB 
+#>     H2O cluster total cores:    8 
+#>     H2O cluster allowed cores:  2 
+#>     H2O cluster healthy:        TRUE 
+#>     H2O Connection ip:          localhost 
+#>     H2O Connection port:        54321 
+#>     H2O Connection proxy:       NA 
+#>     R Version:                  R version 3.3.3 (2017-03-06)
+#> Warning in h2o.clusterInfo(): 
+#> Your H2O cluster version is too old (8 months and 6 days)!
+#> Please download and install the latest version from http://h2o.ai/download/
+#> 
+#> 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |=================================================================| 100%
+#> 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |=============                                                    |  20%
+  |                                                                       
+  |=================================================================| 100%
+
+### 4) Make predictions
+### If predict.type = "prob", observation with high probability are more likely to be anomalous
+pred.ksvm = predict(mod.ksvm, task, subset = test.set)
+pred.svm = predict(mod.svm, task, subset = test.set)
+pred.lof = predict(mod.lof, task, subset = test.set)
+#> lof method is unsupervised, therefore predict()-fct trains and predicts on the same data
+pred.ae = predict(mod.ae, task, subset = test.set)
+#> 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |=================================================================| 100%
+
+### 5) Evaluate the learner
+### The provided labels are now used to evaluate the models above using measurement for binary classification
+performance(pred.ksvm, measures = list(bac, f1, mmce))
+#>       bac        f1      mmce 
+#> 0.8788889 0.4784689 0.2180000
+
+### additional measurement for evaluating anomaly detection methods using labels are also implemented in R
+### for using those measurment, create them first
+rprecision = makePrecisionMeasure(id = "RPrecision", type = "rprecision", adjusted = FALSE)
+precisionat5 = makePrecisionMeasure(id = "Precisionat5", p = 5, type = "precisionatp", adjusted = FALSE)
+avgprecision = makePrecisionMeasure(id = "AvgPrecision", type = "avgprecision", adjusted = FALSE)
+wac = makeWACMeasure(id = "wac", w = 0.6) #weight of the anomaly class is set to 0.6
+
+performance(pred.svm, measures = list(rprecision, precisionat5, avgprecision, wac))
+#>   RPrecision Precisionat5 AvgPrecision          wac 
+#>    0.0000000    0.0000000    0.0000000    0.7848889
+performance(pred.lof, measures = list(rprecision, precisionat5, avgprecision, wac))
+#>   RPrecision Precisionat5 AvgPrecision          wac 
+#>   0.14000000   0.20000000   0.09711221   1.00000000
+
+### additional measurement for evaluating anomaly detection methods without using labels are also implemented in R
+### for using those measurment, create them first (here for demonstartion purpose set low n.alpha and n.sim)
+### for dimension <= 8 use makeAMVMeasure
+amv = makeAMVMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim = 100)
+### for dimension > 8 use makeAMVhdMeasure
+amvhd = makeAMVhdMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim = 100)
+
+performance(model = mod.ae, pred = pred.ae, task = task, measures = list(amv))
+#> 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |=================================================================| 100%
+#>      AMV 
+#> 590.8225
+```
+If one only have a few data set without labels, it is recommended to plot the probability and set the threshold manually.
+
+```r
+par(mfrow = c(1,2))
+n = length(pred.lof$data$prob.Anomaly)
+plot(1:n, pred.lof$data$prob.Anomaly, main = "lof", ylab = "probability for anomaly", xlab = "observation")
+plot(1:n, pred.ae$data$prob.Anomaly, main = "autoencoder", ylab = "probability for anomaly", xlab = "observation")
+```
+
+<embed src="pdf/figure/oneclass_classification/unnamed-chunk-2-1.pdf" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="75%" type="application/pdf" />
+### Create a task
+
+
+
+
 ## Integrating Another Learner
 
 In order to integrate a learning algorithm into [mlr](http://www.rdocumentation.org/packages/mlr/) some interface code has to be written.
