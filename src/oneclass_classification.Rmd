@@ -11,7 +11,7 @@ And what if there is one class with a *very very* small number of observations?
 
 If you have all of those cases in your data, you probably need to apply *Anomaly Detection methods*.
 
-A *anomaly* is "something that deviates from what is standard, normal, or expected"
+An *anomaly* is "something that deviates from what is standard, normal, or expected"
 [Dictionary]. In the sense of data, anomalies are observations, which deviates from the majority
 of the data [Amer et al., 2013, p.1]. In different application domains anomalies are
 also referred to as outliers, discordant observations, exceptions, aberrations, surprises,
@@ -24,8 +24,7 @@ by measurement errors, which one want to remove from the data. For the latter ca
 
 Methods to find anomalies and delete, modify or ignore them are often referred to as noise removal and noise accommodation [Hodge and Austin, 2004, p.4]. Whereas methods to find anomalies to extract relevant information are referred to as *anomaly detection*.
 
-A special case of *Anomaly Detection* is the *one-class classification*. As the name one-class learning already says, the problem is that most of the time we only have the observation of one class, namely the *normal* class. It is easy to collect the normal situation, for example, production machines are probably
-nearly always run as it should, aircraft machinery works like it should and so on. It is hard to simulate the situation which is not normal, and even if we would be able to simulate this situation, we wouldn’t know if we cover all possible situations of anomalies. Therefore, a binary classification problem is most likely not sufficient to detect "unseen" anomalies as anomalies.
+A special case of *Anomaly Detection* is the *one-class classification*. As the name *one-class learning* already says, the problem is that most of the time we only have the observation of one class, namely the *normal* class. It is easy to collect the normal situation, for example, production machines are probably nearly always run as it should, aircraft machinery works like it should and so on. It is hard to simulate the situation which is not normal, and even if we would be able to simulate this situation, we wouldn’t know if we cover all possible situations of anomalies. Therefore, a binary classification problem is most likely not sufficient to detect "unseen" anomalies as anomalies.
 
 ## One-class classification approach
 
@@ -33,7 +32,7 @@ The *one-class classification* approach is a *semi-supervised* learning approach
 Unfortunately, in real life settings, there is usually no way to test, if any or all anomalies were detected, as usually labels are not given. In [%mlr] a new class is introduced to handle anomalies and also to test the methods, in case benchmark data are used or labels do exist.
 
 ## Quick start
-Here we show the mlr workflow to train, make predictions, and evaluate a learner on a one-class classification problem. More details on each step are provided later.
+Here we show the [%mlr] workflow to train, make predictions, and evaluate a learner on a one-class classification problem. More details on each step are provided later.
 
 ```{r, results='hide', warning = FALSE}
 devtools::install_github("mlr-org/mlr", ref = "oneclass_lof")
@@ -100,6 +99,7 @@ amvhd = makeAMVhdMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim 
 
 performance(model = mod.ae, pred = pred.ae, task = task, measures = list(amv))
 ```
+
 If one only have a few data set without labels, it is recommended to plot the probability and set the threshold manually.
 ```{r, out.width = '75%'}
 par(mfrow = c(1,2))
