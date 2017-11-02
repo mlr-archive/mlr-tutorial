@@ -252,11 +252,13 @@ For tuning an anomaly detection learner, you need to always create a learner wit
 
 *2. an unsupervised measurement like ``avm`` or ``amvhd``, no threshold is needed, but the algorithm of those measures are based on an anomaly scores, which is the probability output in [&mlr]
 ```{r}
-# Set search strategy (maxit is low for this example)
+# Set search strategy (maxit is low to run this example)
 ctrl = makeTuneControlRandom(maxit = 5L, tune.threshold = TRUE)
 ```
  
 ### Performing the benchmark experiment
+
+For conducting a benchmark experiment with three learners, you need to specify the search space for each learner. The procedure is described in [Tuning](tune.md) and [Benchmark](benchmark_experiments.md) section.  
 ```{r}
 ### parameter for svm
 ps.svm = makeParamSet(
@@ -266,6 +268,12 @@ ps.svm = makeParamSet(
   makeNumericParam("coef0", lower = 0, upper = 3, requires = quote(kernel == "polynomial" || kernel == "sigmoid"))
 )
 
+### parameter for lofactor
+ps.lofactor = makeParamSet(
+  makeIntegerParam("k", lower = 20, upper = 200))
+```
+For the *oneclass.ksvm* learner there is an exception for setting the search space for the ``sigma`` parameter, see [Tuning](tune.md#specifying-the-search-space).
+```{r}
 ### parameter for ksvm
 ps.ksvm = makeParamSet(
   makeNumericParam("nu",  lower = 0.01, upper = 0.99),
@@ -277,7 +285,9 @@ ps.ksvm = makeParamSet(
   makeNumericParam("offset", lower = 0, upper = 3, requires = quote(kernel %in% c("polydot", "tanhdot"))),
   makeIntegerParam(id = "order", lower = 1, upper = 3, requires = quote(kernel == "besseldot"))
 )
-
+```
+There is also an exception fot the *oneclass.h2o.autoencoder*. [&mlr] enable to tune for number of layers and nodes up to three layers.
+```{r}
 ### parameter for autoencoder
 ps.h2o = makeParamSet(
   makeIntegerParam(id = "layers", lower = 1L, upper = 3L, default = 1L),
@@ -287,32 +297,29 @@ ps.h2o = makeParamSet(
   makeIntegerParam(id = "nodes3", lower = 150L, upper = 250, default = 200L,
     requires = quote(layers > 2))
 )
+```
 
-### parameter for lofactor
-ps.lofactor = makeParamSet(
-  makeIntegerParam("k", lower = 20, upper = 200))
-
-
+```{r}
 # make lofactor learner and tunewrapper
 lrn.svm = makeLearner("oneclass.svm", predict.type = "prob")
-lrn.svm = makeTuneWrapper(lrn.svm, resampling = inner, par.set = ps.svm, measures = measInner,
+lrn.svm = makeTuneWrapper(lrn.svm, resampling = inner, par.set = ps.svm, measures = list(f1),
   control = ctrl, show.info = TRUE)
 
 # make lofactor learner and tunewrapper
 lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "prob")
-lrn.ksvm = makeTuneWrapper(lrn.ksvm, resampling = inner, par.set = ps.ksvm, measures = measInner,
+lrn.ksvm = makeTuneWrapper(lrn.ksvm, resampling = inner, par.set = ps.ksvm, measures = list(f1),
   control = ctrl, show.info = TRUE)
 
 # make lofactor learner and tunewrapper
 lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob")
-lrn.lofactor = makeTuneWrapper(lrn.lofactor, resampling = inner, par.set = ps.lofactor, measures = measInner,
+lrn.lofactor = makeTuneWrapper(lrn.lofactor, resampling = inner, par.set = ps.lofactor, measures = list(f1),
   control = ctrl, show.info = TRUE)
 
 # make autoencoder learner and tunewrapper
 lrn.h2o = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", activation = "Tanh", 
   reproducible = TRUE, mini_batch_size = 4, loss = "Quadratic", adaptive_rate = TRUE, l2=1e-5, 
   sparse = TRUE, max_w2=10, train_samples_per_iteration = -1)
-lrn.h2o = makeTuneWrapper(lrn.h2o, resampling = inner, par.set = ps.h2o, measures = measInner,
+lrn.h2o = makeTuneWrapper(lrn.h2o, resampling = inner, par.set = ps.h2o, measures = list(f1),
   control = ctrl, show.info = TRUE)
 
 lrns = list(lrn.svm, lrn.ksvm, lrn.ae, lrn.lof)
