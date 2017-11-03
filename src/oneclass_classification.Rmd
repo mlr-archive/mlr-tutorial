@@ -12,17 +12,14 @@ And what if there is one class with a *very very* small number of observations?
 If you have all of those cases in your data, you probably need to apply *Anomaly Detection methods*.
 
 An *anomaly* is "something that deviates from what is standard, normal, or expected"
-[Dictionary]. In the sense of data, anomalies are observations, which deviates from the majority
+[Oxford English Dictionary]. In the sense of data, anomalies are observations, which deviates from the majority
 of the data [Amer et al., 2013, p.1]. In different application domains anomalies are
-also referred to as outliers, discordant observations, exceptions, aberrations, surprises,
-peculiarities, contaminants [Chandola et al., 2009, p.1], novelties, noise or deviations
-[Dau et al., 2014, p.2].
+also referred to as *outliers*, *discordant observations*, *exceptions*, *aberrations*, *surprises*, *peculiarities*, *contaminants* [Chandola et al., 2009, p.1], *novelties*, *noise* or *deviations* [Dau et al., 2014, p.2].
+
 There are two ways of handling anomalies, either delete them for example to yield statistically
 significant increase in accuracy [Smith and Martinez, 2011, p.1] or translate them into significant actionable information [Chandola et al., 2009, p.1] [Hodge and Austin, 2004,
 p.1] [Dau et al., 2014, p.1]. An example for the former case would be anomalies caused
-by measurement errors, which one want to remove from the data. For the latter case, a typical example is anomalous traffic pattern in a computer network, which could be interpreted as a hacker attack [Kumar., 2005] and which one obviously want to prevent.
-
-Methods to find anomalies and delete, modify or ignore them are often referred to as noise removal and noise accommodation [Hodge and Austin, 2004, p.4]. Whereas methods to find anomalies to extract relevant information are referred to as *anomaly detection*.
+by measurement errors, which one want to remove from the data. For the latter case, a typical example is anomalous traffic pattern in a computer network, which could be interpreted as a hacker attack [Kumar., 2005] and which one obviously want to prevent. Methods to find anomalies and delete, modify or ignore them are often referred to as noise removal and noise accommodation [Hodge and Austin, 2004, p.4]. Whereas methods to find anomalies to extract relevant information are referred to as *anomaly detection*.
 
 A special case of *Anomaly Detection* is the *one-class classification*. As the name *one-class learning* already says, the problem is that most of the time we only have the observation of one class, namely the *normal* class. It is easy to collect the normal situation, for example, production machines are probably nearly always run as it should, aircraft machinery works like it should and so on. It is hard to simulate the situation which is not normal, and even if we would be able to simulate this situation, we wouldn’t know if we cover all possible situations of anomalies. Therefore, a binary classification problem is most likely not sufficient to detect "unseen" anomalies as anomalies.
 
