@@ -18,7 +18,7 @@ data(fuelSubset)
 library(ggplot2)
 # NIR_Obs_1 are the measurements for NIR of the first functional covariate.
 # lambda are the time points, the data was measured at.
-df = data.frame("NIRObs1" = fuelSubset$NIR[1, ],
+df = data.frame("NIR_Obs1" = fuelSubset$NIR[1, ],
                 "lambda" = fuelSubset$nir.lambda)
 ggplot(df) + 
   geom_line(aes(y = NIRObs1, x = lambda))
@@ -108,19 +108,19 @@ Applying learners to a [Task](&makeTask) works in two ways:
 
   + For regression:
   
-  ```{r}
+```{r}
   # The following learners can be used for the task.
   listLearners(tsk1, properties = "functionals")
   # Create a FDboost learner
   fdalrn = makeLearner("regr.FDboost")
-  ```
+```
   
   + Or alternatively for classification:
   
-  ```{r}
+```{r}
   # knn learner
   knn.lrn = makeLearner("classif.fdausc.knn")
-  ```
+```
 
 * Use a _standard_ [learner](&Learner.md): 
 In this case the temporal structure is disregarded
@@ -202,12 +202,12 @@ For more informations on wavelets consider the documentation [wavelets](dwt).
 ```{r, eval = FALSE}
 ## Specify the feature extraction method and generate new task.
 ## Here, we use the Haar filter:
-feat.methods = list("NIR" = extractFDAWavelets(filter = "haar"))
-task.w = extractFDAFeatures(task = tsk, feat.methods)
+feat.methods = list("UVVIS" = extractFDAWavelets(filter = "haar"))
+task.w = extractFDAFeatures(tsk1, feat.methods = feat.methods)
 
 # Use the Daubechie wavelet with filter length 4.
-feat.methods = list("NIR" = extractFDAWavelets(filter = "fd4"))
-task.wd4 = extractFDAFeatures(task = tsk, feat.methods)
+feat.methods = list("NIR" = extractFDAWavelets(filter = "d4"))
+task.wd4 = extractFDAFeatures(tsk1, feat.methods = feat.methods)
 ```
 
 
@@ -218,10 +218,10 @@ Now, we use the fourier feature transformation. Either the amplitude or the phas
 ```{r, eval = FALSE}
 # Specify the feature extraction method and generate new task.
 # We use the fourier features and the amplitude for NIR, as well as the phase for UVVIS
-feat.methods = list("NIR" = extractFDAWavelets(fft.coeff = "amplitude"),
-                    "UVVIS" = extractFDAWavelets(fft.coeff = "phase"))
-task.fa = extractFDAFeatures(task = tsk, feat.methods)
-task.fa
+feat.methods = list("NIR" = extractFDAFourier(trafo.coeff = "amplitude"),
+                    "UVVIS" = extractFDAFourier(trafo.coeff = "phase"))
+task.fourier = extractFDAFeatures(tsk1, feat.methods = feat.methods)
+task.fourier
 ```
 
 ### Wrappers

@@ -59,4 +59,3 @@ If you want to include an additional image in file `pic.png`:
   This particularily means: If you encounter an error in building the tutorial
   due to your R setup (e.g. outdated/missing packages) you **have to** delete
   the cache (after updating said packages) to get rid of the error.
-
