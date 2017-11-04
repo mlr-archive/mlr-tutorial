@@ -137,7 +137,7 @@ All current learners in [%mlr] for one-class classification can have a response 
 Support vector machines are well known for analyzing data for classification and regression analysis. SVMs can also apply to detect anomalies by "creating a spherical decision boundary around a set of [normal] data points"[Karatzoglou et al., 2004, p.9]. In **R** the package s [%e1071] and [%kernlab] are providing the algorithm to do so. 
 
 ```{r}
-lrn.svm = makeLearner("oneclass.svm")
+lrn.svm = makeLearner("oneclass.svm", predict.type = "prob")
 lrn.ksvm = makeLearner("oneclass.ksvm")
 lrn.ksvm
 ```
@@ -236,11 +236,11 @@ A challenge in anomaly detection is to set the parameters, which is not an easy 
 For one-class classification tuning you can use the standard [resampling strategy] (resample.md#defining-the-resampling-strategy), especially if you don't have labels. But if you have labels it is recommended to use a resampling strategy designed for the one-class classification task, which are: ``OCHoldhout``, ``OCCV``, ``OCSubsample``, ``OCBootsrap``, ``OCRepCV``, to assure to only have normal data during the training. ``OCHoldhout``,``OCSubsample``, ``OCBootsrap`` are basically sampling only normal observations for the training data set and the rest are using for testing. ``OCCV`` and ``OCRepCV`` split the anomalous observations in k-folds, when a fold became the training set it drops the anomalies for training. These strategies can be called as usual in [&mlr] with the [&makeResampleDesc] function.
 ```{r}
 # Set outer resampling strategy
-outer = makeResampleDesc("OCCV", iters = 3)
+outer = makeResampleDesc("OCBootstrap", iters = 3)
 rin = makeResampleInstance(outer, oneclass2d.task)
 
 # Set inner resampling strategy
-inner = makeResampleDesc("OCCV", iters = 3)
+inner = makeResampleDesc("CV", iters = 3)
 ```
 
 ### Specifying the optimization algorithm
@@ -300,28 +300,29 @@ ps.h2o = makeParamSet(
 # make lofactor learner and tunewrapper
 lrn.svm = makeLearner("oneclass.svm", predict.type = "prob")
 lrn.svm = makeTuneWrapper(lrn.svm, resampling = inner, par.set = ps.svm, measures = list(f1),
-  control = ctrl, show.info = TRUE)
+  control = ctrl, show.info = FALSE)
 
 # make lofactor learner and tunewrapper
 lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "prob")
 lrn.ksvm = makeTuneWrapper(lrn.ksvm, resampling = inner, par.set = ps.ksvm, measures = list(f1),
-  control = ctrl, show.info = TRUE)
+  control = ctrl, show.info = FALSE)
 
 # make lofactor learner and tunewrapper
 lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob")
 lrn.lofactor = makeTuneWrapper(lrn.lofactor, resampling = inner, par.set = ps.lofactor, measures = list(f1),
-  control = ctrl, show.info = TRUE)
+ control = ctrl, show.info = FALSE)
 
 # make autoencoder learner and tunewrapper
 lrn.h2o = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", activation = "Tanh", 
   reproducible = TRUE, mini_batch_size = 4, loss = "Quadratic", adaptive_rate = TRUE, l2=1e-5, 
   sparse = TRUE, max_w2=10, train_samples_per_iteration = -1)
 lrn.h2o = makeTuneWrapper(lrn.h2o, resampling = inner, par.set = ps.h2o, measures = list(f1),
-  control = ctrl, show.info = TRUE)
+  control = ctrl, show.info = FALSE)
 
-lrns = list(lrn.svm, lrn.ksvm, lrn.ae, lrn.lof)
+lrns = list(lrn.svm, lrn.ksvm, lrn.h2o, lrn.lofactor)
 res = benchmark(lrns, oneclass2d.task, rin, measures = list(f1))
-getBMRPerformances(res, as.df = TRUE)
+bmr = getBMRPerformances(res, as.df = TRUE)
+bmr
 ```
 
 ## References
