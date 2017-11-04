@@ -21,7 +21,7 @@ library(ggplot2)
 df = data.frame("NIR_Obs1" = fuelSubset$NIR[1, ],
                 "lambda" = fuelSubset$nir.lambda)
 ggplot(df) + 
-  geom_line(aes(y = NIRObs1, x = lambda))
+  geom_line(aes(y = NIR_Obs1, x = lambda))
 ```
 
 ## How to model functional data
