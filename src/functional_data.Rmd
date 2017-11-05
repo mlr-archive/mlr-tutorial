@@ -225,7 +225,8 @@ task.fourier
 ```
 
 ### Wrappers
-Additionally we can wrap the preprocessing around a standard learner such as __classif.rpart__. 
+Additionally we can wrap the preprocessing around a standard learner such as __classif.rpart__.
+For additional information, please consider the __Wrappers__ section.
 
 ```{r}
 # Use a FDAFeatExtractWrapper
