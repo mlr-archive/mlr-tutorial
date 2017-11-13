@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/learner.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -310,7 +308,7 @@ surv.lrn
 #&gt; Type: surv
 #&gt; Name: Cox Proportional Hazard Model; Short name: coxph
 #&gt; Class: surv.coxph
-#&gt; Properties: numerics,factors,weights,rcens
+#&gt; Properties: numerics,factors,weights
 #&gt; Predict-Type: response
 #&gt; Hyperparameters:
 </code></pre>
@@ -361,7 +359,7 @@ regr.lrn$predict.type
 <p>Slot <code>$par.set</code> is an object of class <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/makeParamSet.html">ParamSet</a>.
 It contains, among others, the type of hyperparameters (e.g., numeric, logical), potential
 default values and the range of allowed values.</p>
-<p>Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides function <a href="http://www.rdocumentation.org/packages/mlr/functions/getHyperPars.html">getHyperPars</a> to access the current hyperparameter setting
+<p>Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> provides function <a href="http://www.rdocumentation.org/packages/mlr/functions/getHyperPars.html">getHyperPars</a> or its alternative <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerParVals.html">getLearnerParVals</a> to access the current hyperparameter setting
 of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html">getParamSet</a> to get a description of all possible settings.
 These are particularly useful in case of wrapped <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a>s,
 for example if a learner is fused with a feature selection strategy, and both, the learner
@@ -394,7 +392,7 @@ getParamSet(classif.lrn)
 #&gt; keep.inbag        logical    - FALSE        -   -   FALSE     -
 </code></pre>
 
-<p>We can also use <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html">getParamSet</a> to get a quick overview about the available hyperparameters
+<p>We can also use <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html">getParamSet</a> or its alias <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerParamSet.html">getLearnerParamSet</a> to get a quick overview about the available hyperparameters
 and defaults of a learning method without explicitly constructing it (by calling <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a>).</p>
 <pre><code class="r">getParamSet(&quot;classif.randomForest&quot;)
 #&gt;                      Type  len   Def   Constr Req Tunable Trafo
@@ -417,6 +415,24 @@ and defaults of a learning method without explicitly constructing it (by calling
 #&gt; keep.inbag        logical    - FALSE        -   -   FALSE     -
 </code></pre>
 
+<p>Functions for accessing a Learner's meta information are available in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>. We can use <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerId.html">getLearnerId</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerShortName.html">getLearnerShortName</a> and  <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerType.html">getLearnerType</a> to get Learner's ID, short name and type, respectively. Moreover, in order to show the required packages for the Learner, one can call <a href="http://www.rdocumentation.org/packages/mlr/functions/getLearnerPackages.html">getLearnerPackages</a>.</p>
+<pre><code class="r">## Get object's id
+getLearnerId(surv.lrn)
+#&gt; [1] &quot;cph&quot;
+
+## Get the short name
+getLearnerShortName(classif.lrn)
+#&gt; [1] &quot;rf&quot;
+
+## Get the type of the learner
+getLearnerType(multilabel.lrn)
+#&gt; [1] &quot;multilabel&quot;
+
+## Get required packages
+getLearnerPackages(cluster.lrn)
+#&gt; [1] &quot;stats&quot; &quot;clue&quot;
+</code></pre>
+
 <h2 id="modifying-a-learner">Modifying a learner</h2>
 <p>There are also some functions that enable you to change certain aspects
 of a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> without needing to create a new <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> from scratch.
@@ -428,7 +444,7 @@ surv.lrn
 #&gt; Type: surv
 #&gt; Name: Cox Proportional Hazard Model; Short name: coxph
 #&gt; Class: surv.coxph
-#&gt; Properties: numerics,factors,weights,rcens
+#&gt; Properties: numerics,factors,weights
 #&gt; Predict-Type: response
 #&gt; Hyperparameters:
 
@@ -450,34 +466,34 @@ certain learning <a href="http://www.rdocumentation.org/packages/mlr/functions/T
 lrns = listLearners()
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;                 class      package
-#&gt; 1         classif.ada          ada
+#&gt; 1         classif.ada    ada,rpart
 #&gt; 2 classif.bartMachine  bartMachine
-#&gt; 3         classif.bdk      kohonen
-#&gt; 4    classif.binomial        stats
-#&gt; 5  classif.blackboost mboost,party
-#&gt; 6    classif.boosting adabag,rpart
+#&gt; 3    classif.binomial        stats
+#&gt; 4  classif.blackboost mboost,party
+#&gt; 5    classif.boosting adabag,rpart
+#&gt; 6         classif.bst    bst,rpart
 
 ## List classifiers that can output probabilities
 lrns = listLearners(&quot;classif&quot;, properties = &quot;prob&quot;)
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;                 class      package
-#&gt; 1         classif.ada          ada
+#&gt; 1         classif.ada    ada,rpart
 #&gt; 2 classif.bartMachine  bartMachine
-#&gt; 3         classif.bdk      kohonen
-#&gt; 4    classif.binomial        stats
-#&gt; 5  classif.blackboost mboost,party
-#&gt; 6    classif.boosting adabag,rpart
+#&gt; 3    classif.binomial        stats
+#&gt; 4  classif.blackboost mboost,party
+#&gt; 5    classif.boosting adabag,rpart
+#&gt; 6         classif.C50          C50
 
 ## List classifiers that can be applied to iris (i.e., multiclass) and output probabilities
 lrns = listLearners(iris.task, properties = &quot;prob&quot;)
 head(lrns[c(&quot;class&quot;, &quot;package&quot;)])
 #&gt;              class      package
-#&gt; 1      classif.bdk      kohonen
-#&gt; 2 classif.boosting adabag,rpart
-#&gt; 3      classif.C50          C50
-#&gt; 4  classif.cforest        party
-#&gt; 5    classif.ctree        party
-#&gt; 6 classif.cvglmnet       glmnet
+#&gt; 1 classif.boosting adabag,rpart
+#&gt; 2      classif.C50          C50
+#&gt; 3  classif.cforest        party
+#&gt; 4    classif.ctree        party
+#&gt; 5 classif.cvglmnet       glmnet
+#&gt; 6   classif.dbnDNN      deepnet
 
 ## The calls above return character vectors, but you can also create learner objects
 head(listLearners(&quot;cluster&quot;, create = TRUE), 2)
@@ -507,9 +523,12 @@ head(listLearners(&quot;cluster&quot;, create = TRUE), 2)
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -532,7 +551,47 @@ head(listLearners(&quot;cluster&quot;, create = TRUE), 2)
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

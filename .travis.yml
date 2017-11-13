@@ -26,7 +26,7 @@ addons:
       - pandoc
 
 before_install:
-  - mkdir $HOME/bin
+  - mkdir -p $HOME/bin
   - ln -s $(which gcc-4.9) $HOME/bin/gcc
   - ln -s $(which g++-4.9) $HOME/bin/g++
   - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
@@ -50,7 +50,6 @@ after_success:
     - echo "https://$GH_TOKEN:@github.com" >> .git/credentials
     - git config push.default matching
     - git add devel
-    - git add mlr-tutorial.pdf
     - git commit -a -m "update auto-generated tutorial pages [ci skip]"
     - git push
 

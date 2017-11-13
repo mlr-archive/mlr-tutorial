@@ -65,7 +65,7 @@ cv3
 ```
 
 
-## Resampling
+## Performing the resampling
 Function [&resample] evaluates a [Learner](&makeLearner) on a
 given machine learning [&Task] using the selected [resampling strategy](&makeResampleDesc).
 

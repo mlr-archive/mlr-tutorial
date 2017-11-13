@@ -502,6 +502,13 @@ registerS3method("getFeatureImportanceLearner", "<awesome_new_learner_class>",
   getFeatureImportanceLearner.<awesome_new_learner_class>)
 ```
 
+For the new learner to work with parallelization, you may have to export the new
+methods explicitly:
+
+```{r, eval=FALSE}
+parallelExport("trainLearner.<awesome_new_learner_class>", "predictLearner.<awesome_new_learner_class>")
+```
+
 
 ## Further information for developers
 If you haven't written a learner interface for private use only, but intend to send a pull

@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/measures.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -413,7 +411,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: (fp) / (tn + fn).</td>
+<td align="left">Defined as: fp / (tp + fp).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">fn</a></strong> <br />False negatives</td>
@@ -548,7 +546,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: mean(log(p_i)), where p_i is the predicted probability of the true class of observation i.  This scoring rule is the same as the negative logloss, self-information or surprisal.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left">Defined as: mean(log(p_i)), where p_i is the predicted probability of the true class of observation i.   This scoring rule is the same as the negative logloss, self-information or surprisal.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mcc</a></strong> <br />Matthews correlation coefficient</td>
@@ -563,7 +561,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))</td>
+<td align="left">Defined as (tp * tn - fp * fn) / sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)), denominator set to 1 if 0</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mmce</a></strong> <br />Mean misclassification error</td>
@@ -668,7 +666,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: (tn) / (tn + fn).</td>
+<td align="left">Defined as: tn / (tn + fn).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">ppv</a></strong> <br />Positive predictive value</td>
@@ -683,7 +681,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: tp / (tp + number of fp). Also called precision.</td>
+<td align="left">Defined as: tp / (tp + fp). Also called precision. If the denominator is 0, PPV is set to be either 1 or 0 depending on whether the highest probability prediction is positive (1) or negative (0).</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">qsr</a></strong> <br />Quadratic Scoring Rule</td>
@@ -698,7 +696,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: 1 - (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j.   This scoring rule is the same as 1 - multiclass.brier.    See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left">Defined as: 1 - (1/n) sum_i sum_j (y_ij - p_ij)^2, where y_ij = 1 if observation i has class j (else 0), and p_ij is the predicted probablity of observation i for class j.   This scoring rule is the same as 1 - multiclass.brier.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">ssr</a></strong> <br />Spherical Scoring Rule</td>
@@ -713,7 +711,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: mean(p_i(sum_j(p_ij))), where p_i is the predicted probability of the true class of observation i and p_ij is the predicted probablity of observation i for class j.    See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
+<td align="left">Defined as: mean(p_i(sum_j(p_ij))), where p_i is the predicted probability of the true class of observation i and p_ij is the predicted probablity of observation i for class j.   See: Bickel, J. E. (2007). Some comparisons among quadratic, spherical, and logarithmic scoring rules. Decision Analysis, 4(2), 49-65.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">tn</a></strong> <br />True negatives</td>
@@ -773,7 +771,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Percentage of correctly classified observations in the positive class. Also called hit rate or recall.</td>
+<td align="left">Percentage of correctly classified observations in the positive class. Also called hit rate or recall or sensitivity.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">wkappa</a></strong> <br />Mean quadratic weighted kappa</td>
@@ -812,7 +810,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">adjrsq</a></strong> <br />Adjusted coefficient of determination</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">arsq</a></strong> <br />Adjusted coefficient of determination</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -838,6 +836,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Similar to measure rsq (R-squared). Defined as explained_sum_of_squares / total_sum_of_squares.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">kendalltau</a></strong> <br />Kendall's tau</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">-1</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: Kendall's tau correlation between truth and response. Only looks at the order.   See Rosset et al.: <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf</a>.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">mae</a></strong> <br />Mean of absolute errors</td>
@@ -963,7 +975,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Defined as: sqrt(msle). Definition taken from:   Definition taken from: <a href="https://www.kaggle.com/wiki/RootMeanSquaredLogarithmicError">https://www.kaggle.com/wiki/RootMeanSquaredLogarithmicError</a>.   This measure is mostly used for count data, note that all predicted and actual target values   must be greater or equal '-1' to compute the measure.</td>
+<td align="left">Defined as: sqrt(msle). Definition taken from:   Definition taken from: https: / /www.kaggle.com / wiki / RootMeanSquaredLogarithmicError.   This measure is mostly used for count data, note that all predicted and actual target values   must be greater or equal '-1' to compute the measure.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">rrse</a></strong> <br />Root relative squared error</td>
@@ -1008,6 +1020,20 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="left">Defined as: sum(abs(response - truth))</td>
 </tr>
 <tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">spearmanrho</a></strong> <br />Spearman's rho</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">-1</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Defined as: Spearman's rho correlation between truth and response. Only looks at the order.   See Rosset et al.: <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf">http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.95.1398&amp;rep=rep1&amp;type=pdf</a>.</td>
+</tr>
+<tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">sse</a></strong> <br />Sum of squared errors</td>
 <td align="center">X</td>
 <td align="right">0</td>
@@ -1043,7 +1069,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 </thead>
 <tbody>
 <tr>
-<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">cindex</a></strong> <br />Concordance index</td>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">cindex</a></strong> <br />Harrell's Concordance index</td>
 <td align="center"></td>
 <td align="right">1</td>
 <td align="right">0</td>
@@ -1055,6 +1081,48 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
 <td align="left">Fraction of all pairs of subjects whose predicted survival times are correctly ordered among all subjects that can actually be ordered. In other words, it is the probability of concordance between the predicted and the observed survival.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">cindex.uno</a></strong> <br />Uno's Concordance index</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">Fraction of all pairs of subjects whose predicted survival times are correctly ordered among all subjects that can actually be ordered. In other words, it is the probability of concordance between the predicted and the observed survival. Corrected by weighting with IPCW as suggested by Uno. Implemented in survAUC::UnoC.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">iauc.uno</a></strong> <br />Uno's estimator of cumulative AUC for right censored time-to-event data</td>
+<td align="center"></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">To set an upper time limit, set argument max.time (defaults to max time in complete task). Implemented in survAUC::AUC.uno.</td>
+</tr>
+<tr>
+<td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">ibrier</a></strong> <br />Integrated brier score using Kaplan-Meier estimator for weighting</td>
+<td align="center">X</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
+<td align="left">To set an upper time limit, set argument max.time (defaults to max time in test data). Implemented in pec::pec</td>
 </tr>
 </tbody>
 </table>
@@ -1122,7 +1190,7 @@ multi-class problems. If not, the measure can only be used for binary classifica
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">G2</a></strong> <br />Baker and Hubert adaptation of Goodman-Kruskal's gamma statistic</td>
 <td align="center"></td>
-<td align="right">Inf</td>
+<td align="right">1</td>
 <td align="right">0</td>
 <td align="center">X</td>
 <td align="center"></td>
@@ -1233,7 +1301,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Averaged proportion of correctly predicted labels with respect to the total number of labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.</td>
+<td align="left">Averaged proportion of correctly predicted labels with respect to the total number of labels for each instance,   following the definition by Charte and Charte: https: / /journal.r-project.org / archive / 2015 - 2 / charte-charte.pdf.   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.f1</a></strong> <br />F1 measure (multilabel)</td>
@@ -1247,7 +1315,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Harmonic mean of precision and recall on a per instance basis (Micro-F1), following the   definition by Montanes et al.: <a href="http://www.sciencedirect.com/science/article/pii/S0031320313004019">http://www.sciencedirect.com/science/article/pii/S0031320313004019</a>.   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.</td>
+<td align="left">Harmonic mean of precision and recall on a per instance basis (Micro-F1), following the   definition by Montanes et al.: http: / /www.sciencedirect.com / science / article / pii / S0031320313004019.   Fractions where the denominator becomes 0 are replaced with 1 before computing the average across all instances.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.hamloss</a></strong> <br />Hamming loss</td>
@@ -1275,7 +1343,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called precision. Averaged ratio of correctly predicted labels for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.   Fractions where the denominator becomes 0 are ignored in the average calculation.</td>
+<td align="left">Also called precision. Averaged ratio of correctly predicted labels for each instance,   following the definition by Charte and Charte: https: / /journal.r-project.org / archive / 2015 - 2 / charte-charte.pdf.   Fractions where the denominator becomes 0 are ignored in the average calculation.</td>
 </tr>
 <tr>
 <td align="left"><strong><a href="http://www.rdocumentation.org/packages/mlr/functions/measures.html">multilabel.subset01</a></strong> <br />Subset-0-1 loss</td>
@@ -1303,7 +1371,7 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/functions/aggregations.html">test.mean</a></td>
-<td align="left">Also called recall. Averaged proportion of predicted labels which are relevant for each instance,   following the definition by Charte and Charte: <a href="https://journal.r-project.org/archive/2015-2/charte-charte.pdf">https://journal.r-project.org/archive/2015-2/charte-charte.pdf</a>.   Fractions where the denominator becomes 0 are ignored in the average calculation.</td>
+<td align="left">Also called recall. Averaged proportion of predicted labels which are relevant for each instance,   following the definition by Charte and Charte: https: / /journal.r-project.org / archive / 2015 - 2 / charte-charte.pdf.   Fractions where the denominator becomes 0 are ignored in the average calculation.</td>
 </tr>
 </tbody>
 </table>
@@ -1391,9 +1459,12 @@ and also the page on <a href="../create_measure/index.html">custom performance m
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -1416,7 +1487,47 @@ and also the page on <a href="../create_measure/index.html">custom performance m
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/task.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -287,8 +285,8 @@ regr.task
 #&gt; Target: medv
 #&gt; Observations: 506
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       12        1        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          12           1           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -315,8 +313,8 @@ classif.task
 #&gt; Target: Class
 #&gt; Observations: 699
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        0        4        5 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           0           4           5           0 
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -353,8 +351,8 @@ surv.task
 #&gt; Events: 165
 #&gt; Observations: 228
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        8        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           8           0           0           0 
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -380,8 +378,8 @@ yeast.task
 #&gt; Target: label1,label2,label3,label4,label5,label6,label7,label8,label9,label10,label11,label12,label13,label14
 #&gt; Observations: 2417
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;      103        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;         103           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -404,8 +402,8 @@ cluster.task
 #&gt; Type: cluster
 #&gt; Observations: 32
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       11        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          11           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -437,8 +435,8 @@ costsens.task
 #&gt; Type: costsens
 #&gt; Observations: 150
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        4        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           4           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has blocking: FALSE
 #&gt; Classes: 3
@@ -454,7 +452,7 @@ This would indicate that some observations "belong together" and should
 not be separated when splitting the data into training and test sets for <a href="../resample/index.html">resampling</a>.</p>
 <p>Another option is to assign <code>weights</code> to observations.
 These can simply indicate observation frequencies or result from the sampling
-scheme used to collect the data.<br />
+scheme used to collect the data.
 Note that you should use this option only if the weights really belong to the task.
 If you plan to train some learning algorithms with different weights on the same <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>,
 <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> offers several other ways to set observation or class weights (for supervised
@@ -465,7 +463,7 @@ classification). See for example the tutorial page about <a href="../train/index
 The most important ones are listed in the documentation of <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a>.</p>
 <p>To access the <a href="http://www.rdocumentation.org/packages/mlr/functions/TaskDesc.html">task description</a> that contains basic information about
 the task you can use:</p>
-<pre><code class="r">getTaskDescription(classif.task)
+<pre><code class="r">getTaskDesc(classif.task)
 #&gt; $id
 #&gt; [1] &quot;BreastCancer&quot;
 #&gt; 
@@ -479,8 +477,8 @@ the task you can use:</p>
 #&gt; [1] 699
 #&gt; 
 #&gt; $n.feat
-#&gt; numerics  factors  ordered 
-#&gt;        0        4        5 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           0           4           5           0 
 #&gt; 
 #&gt; $has.missings
 #&gt; [1] TRUE
@@ -501,7 +499,7 @@ the task you can use:</p>
 #&gt; [1] &quot;benign&quot;
 #&gt; 
 #&gt; attr(,&quot;class&quot;)
-#&gt; [1] &quot;TaskDescClassif&quot;    &quot;TaskDescSupervised&quot; &quot;TaskDesc&quot;
+#&gt; [1] &quot;ClassifTaskDesc&quot;    &quot;SupervisedTaskDesc&quot; &quot;TaskDesc&quot;
 </code></pre>
 
 <p>Note that <a href="http://www.rdocumentation.org/packages/mlr/functions/TaskDesc.html">task descriptions</a> have slightly different elements for different
@@ -564,13 +562,7 @@ head(getTaskTargets(surv.task))
 
 ## Get the cost matrix in costsens.task
 head(getTaskCosts(costsens.task))
-#&gt;      y1        y2         y3
-#&gt; [1,]  0 1589.5664  674.44434
-#&gt; [2,]  0 1173.4364  828.40682
-#&gt; [3,]  0  942.7611 1095.33713
-#&gt; [4,]  0 1049.5562  477.82496
-#&gt; [5,]  0 1121.8899   90.85237
-#&gt; [6,]  0 1819.9830  841.06686
+#&gt; NULL
 </code></pre>
 
 <p>Note that <a href="http://www.rdocumentation.org/packages/mlr/functions/getTaskData.html">getTaskData</a> offers many options for converting the data set into a convenient format.
@@ -592,8 +584,8 @@ removeConstantFeatures(cluster.task)
 #&gt; Type: cluster
 #&gt; Observations: 14
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       10        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          10           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -606,8 +598,8 @@ dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;))
 #&gt; Events: 165
 #&gt; Observations: 228
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        6        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           6           0           0           0 
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
@@ -653,9 +645,12 @@ sets and data generating functions in package <a href="http://www.rdocumentation
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -678,7 +673,47 @@ sets and data generating functions in package <a href="http://www.rdocumentation
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

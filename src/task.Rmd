@@ -169,7 +169,7 @@ not be separated when splitting the data into training and test sets for [resamp
 
 Another option is to assign ``weights`` to observations.
 These can simply indicate observation frequencies or result from the sampling
-scheme used to collect the data.  
+scheme used to collect the data.
 Note that you should use this option only if the weights really belong to the task.
 If you plan to train some learning algorithms with different weights on the same [&Task],
 [%mlr] offers several other ways to set observation or class weights (for supervised
@@ -184,7 +184,7 @@ To access the [task description](&TaskDesc) that contains basic information abou
 the task you can use:
 
 ```{r}
-getTaskDescription(classif.task)
+getTaskDesc(classif.task)
 ```
 
 Note that [task descriptions](&TaskDesc) have slightly different elements for different

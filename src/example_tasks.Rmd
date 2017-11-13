@@ -10,7 +10,7 @@ linkTask = function(x) {
 }
 d = data(package = "mlr")
 d = d$results
-types = sapply(d[,"Item"], function(x) getTaskDescription(eval(parse(text = x)))$type)
+types = sapply(d[,"Item"], function(x) getTaskDesc(eval(parse(text = x)))$type)
 names(types) = NULL
 ord = order(types)
 d = d[ord,]

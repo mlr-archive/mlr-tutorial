@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/out_of_bag_predictions.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -263,7 +261,7 @@ each prediction is only made by learners that did not use the observation for tr
 #&gt; 4          classif.rFerns          rFerns
 #&gt; 5       regr.randomForest    randomForest
 #&gt; 6    regr.randomForestSRC randomForestSRC
-#&gt; ... (8 rows, 2 cols)
+#&gt; ... (#rows: 8, #cols: 2)
 </code></pre>
 
 <p>In <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function <a href="http://www.rdocumentation.org/packages/mlr/functions/getOOBPreds.html">getOOBPreds</a> can be used to extract these observations from the trained
@@ -279,17 +277,17 @@ oob
 #&gt; threshold: M=0.60,R=0.40
 #&gt; time: NA
 #&gt;   id truth    prob.M    prob.R response
-#&gt; 1  1     R 0.5781238 0.4218762        R
-#&gt; 2  2     R 0.5507498 0.4492502        R
-#&gt; 3  3     R 0.5309715 0.4690285        R
-#&gt; 4  4     R 0.4583185 0.5416815        R
-#&gt; 5  5     R 0.5787902 0.4212098        R
-#&gt; 6  6     R 0.3856006 0.6143994        R
-#&gt; ... (208 rows, 5 cols)
+#&gt; 1  1     R 0.5373385 0.4626615        R
+#&gt; 2  2     R 0.5971972 0.4028028        R
+#&gt; 3  3     R 0.5626560 0.4373440        R
+#&gt; 4  4     R 0.4319901 0.5680099        R
+#&gt; 5  5     R 0.5417589 0.4582411        R
+#&gt; 6  6     R 0.4005787 0.5994213        R
+#&gt; ... (#rows: 208, #cols: 5)
 
 performance(oob, measures = list(auc, mmce))
 #&gt;       auc      mmce 
-#&gt; 0.9412093 0.1442308
+#&gt; 0.9308071 0.1778846
 </code></pre>
 
 <p>As the predictions that are used are out-of-bag, this evaluation strategy is very similar
@@ -302,9 +300,12 @@ training instance of the model is required.</p></div>
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -327,7 +328,47 @@ training instance of the model is required.</p></div>
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>
