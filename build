@@ -94,7 +94,7 @@ knitIt = function(f, dev) {
     lines = c(
       lines, "\n", 
       "## Complete code listing", "\n",
-      The above code without the output is given below:
+      "The above code without the output is given below:", "\n",
       "```{r, purl=FALSE, echo = FALSE, comment=''}",
       paste0("cat(readLines('./",file.path("full_code_src", str_replace(f, "\\.Rmd$", "\\.R")),"'),fill = 2)"),
       "```")
