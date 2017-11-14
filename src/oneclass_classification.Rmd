@@ -1,32 +1,31 @@
 # One-Class Classification
 
-*Regular classification* or *cost-sensitive classification* are supervised learning methods, 
-class labels are given for each observation and are used to train the model. Classification methods, therefore, are provided with the information of which observations belongs to which class and thus can *learn* class patterns and apply those onto new data. To learn the patterns a sufficient number of observations in each class is required and (nearly) balanced class sizes.
+*Regular classification* or *cost-sensitive classification* are supervised learning methods, *class labels are given* for each observation and are used to train the model. Classification methods, therefore, are provided with the information of which observations belongs to which class and thus can learn class patterns and apply those onto new data. To learn the patterns for the classes a sufficient number of observations in each class is required and (nearly) balanced class sizes.
 
 But what if there are no labels in the data?
 
-And what if the class sizes a *very very* unbalanced?
+And what if the class sizes a unbalanced?
 
-And what if there is one class with a *very very* small number of observations?
+And what if the classes are not just unbalanced, but one class has very a small number of observations?
 
-If you have all of those cases in your data, you probably need to apply *Anomaly Detection methods*.
+If you have all of those cases in your data, you probably want to apply *Anomaly Detection methods*.
 
 An *anomaly* is "something that deviates from what is standard, normal, or expected"
-[Oxford English Dictionary]. In the sense of data, anomalies are observations, which deviates from the majority
+[Oxford English Dictionary]. In the sense of data, anomalies are observations, that deviates from the majority
 of the data [Amer et al., 2013, p.1]. In different application domains anomalies are
 also referred to as *outliers*, *discordant observations*, *exceptions*, *aberrations*, *surprises*, *peculiarities*, *contaminants* [Chandola et al., 2009, p.1], *novelties*, *noise* or *deviations* [Dau et al., 2014, p.2].
 
-There are two ways of handling anomalies, either delete them for example to yield statistically
+There are two ways of handling anomalies,depending on the type of the anomaly:  either delete them to yield statistically
 significant increase in accuracy [Smith and Martinez, 2011, p.1] or translate them into significant actionable information [Chandola et al., 2009, p.1] [Hodge and Austin, 2004,
 p.1] [Dau et al., 2014, p.1]. An example for the former case would be anomalies caused
-by measurement errors, which one want to remove from the data. For the latter case, a typical example is anomalous traffic pattern in a computer network, which could be interpreted as a hacker attack [Kumar., 2005] and which one obviously want to prevent. Methods to find anomalies and delete, modify or ignore them are often referred to as noise removal and noise accommodation [Hodge and Austin, 2004, p.4]. Whereas methods to find anomalies to extract relevant information are referred to as *anomaly detection*.
+by measurement errors, which one want to remove from the data. For the latter case, a typical example is anomalous traffic pattern in a computer network, which could be interpreted as a hacker attack [Kumar., 2005] and which one obviously want to prevent. Whereas methods to find anomalies to extract relevant information are referred to as *anomaly detection*.
 
-A special case of *Anomaly Detection* is the *one-class classification*. As the name *one-class learning* already says, the problem is that most of the time we only have the observation of one class, namely the *normal* class. It is easy to collect the normal situation, for example, production machines are probably nearly always run as it should, aircraft machinery works like it should and so on. It is hard to simulate the situation which is not normal, and even if we would be able to simulate this situation, we wouldn’t know if we cover all possible situations of anomalies. Therefore, a binary classification problem is most likely not sufficient to detect "unseen" anomalies as anomalies.
+A special case of *Anomaly Detection* is the *one-class classification*. As the name *one-class learning* already says, the problem is that most of the time we only observe measurements/data of one class, namely the *normal* class. Especially in real world scenarios, it is easy to collect the normal situation, for example, production machines are probably nearly always run as it should, aircraft machinery works like it should and so on. It is hard to simulate the situation which is not normal, and even if we would be able to simulate this situation, we wouldn’t know if we cover all possible situations of anomalies, since anomalies can be of diverse nature.
 
 ## One-class classification approach
 
-The *one-class classification* approach is a *semi-supervised* learning approach. One requirement to apply *one-class classification* methods is to have training data, which only consists of *normal* observations (therefore *semi-supervised*). The idea is to learn how the data is structured if the data is from the normal class. If the method learned the structure well it can tell in new data if an anomalous observation deviates from the normal class.
-Unfortunately, in real life settings, there is usually no way to test, if any or all anomalies were detected, as usually labels are not given. In [%mlr] a new class is introduced to handle anomalies and also to test the methods, in case benchmark data are used or labels do exist.
+As described in the previous section *one-class classification* is a *semi-supervised* learning approach. A requirement to apply *one-class classification* methods is to have training data, that consist only only consists of *normal* observations (therefore *semi-supervised*). The idea is to learn how the data is structured if the data is from the normal class. If the method learned the structure well it can tell in new data if an anomalous observation deviates from the normal class.
+Unfortunately, in real life settings, there is usually no way to test, if any or all anomalies were detected, as usually labels are not given. In [%mlr] a new class is introduced to handle anomalies and also to test the methods, in case benchmark data are used or labels do exist. This necessary to provide reproducibility of the experiements and comparability of the methods.
 
 ## Quick start
 Here we show the [%mlr] workflow to train, make predictions, and evaluate a learner on a one-class classification problem. More details on each step are provided later.
@@ -97,7 +96,7 @@ amvhd = makeAMVhdMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim 
 performance(model = mod.ae, pred = pred.ae, task = task, measures = list(amv))
 ```
 
-If one only have a few data set without labels, it is recommended to plot the probability and set the threshold manually.
+If one only has a few data sets without labels, it is recommended to plot the probability and set the threshold manually.
 ```{r, out.width = '75%'}
 par(mfrow = c(1,2))
 n = length(pred.lof$data$prob.Anomaly)
@@ -107,12 +106,10 @@ plot(1:n, pred.ae$data$prob.Anomaly, main = "autoencoder", ylab = "probability f
 
 ## Create a task
 
-Usually, anomalous data sets don't have labels and therefore are an unsupervised learning problem, however, in [%mlr] one-class classification learner inherits from the supervised class. The main purpose is to be able to use all binary classification measure in case labels are given for the test sets. Anomaly benchmark data, in general, provides labels for users to evaluate their methods. The one-class classification case in [%mlr] is built for that case.
+Usually, anomalous data sets don't have labels and therefore are an unsupervised learning problem, however, the [%mlr] one-class classification learner inherits from the supervised class. This ensures that all binary classification measures can be used for evaluating the model’s performance in case labeled data is given.
 
 Before creating a [OneClassTask](&Task) problem you have to bring your data in the right format if it doesn't have a column containing the class labels. In case labels are missing create a synthetic column with only one class (e.g. name the column 'Target' and fill it with the label 'Normal'). 
-If you have the right format you can create a [OneClassTask](&Task), but unlike the other learning problem, you *always* need to specify which column is the label/target column and which label stands for the *anomaly* class (positive) and which for the *normal* class (negative). As already mentioned above one-class classification only trains on one-class, the normal class, so you need to tell [%mlr] what the other class is. 
-In the following example, we used the synthetic created data from the already existing [oneclass2d.task](&oneclass2d.task) in [%mlr] for anomaly data, which has a label column.
-
+The next step is to create a [OneClassTask](&Task), if you have the right format:
 ```{r}
 data = getTaskData(oneclass2d.task)
 train.set = 1:550
@@ -121,17 +118,19 @@ test.set = 551:1050
 task = makeOneClassTask(id = "oneclass", data = data, target = "Target", positive = "Anomaly", negative = "Normal")
 task
 ```
+In contrast to other learning problem, you *always* need to specify which column is the label/target column and which label stands for the *anomaly* class (positive) and which for the *normal* class (negative). As already mentioned above one-class classification only trains on one-class, the normal class, so you need to tell [%mlr] what the other class is. 
+In the following example, we used the synthetic created data from the already existing [oneclass2d.task](&oneclass2d.task) in [%mlr] for anomaly data, which has a label column.
+
 
 ## Constructing a learner
-
-One-class classification in [%mlr] is currently containing three methods:
-* Support vector machines
+One-class classification in [%mlr] is currently provides three methods:
+* One-Class Support Vector Machine
 
 * Autoencoder (Artificial neural network)
 
 * Local Outlier Factor (LOF)
 
-All current learners in [%mlr] for one-class classification can have a response or probability output. The characteristic of the response output will be specified when the learner is introduced below. For the probabilistic output in [%mlr], we are using anomaly scores, which are the usual output of anomaly detection methods. Anomaly scores indicate to which degree an observation is anomalous (relative to the other observations). Depending on the methods the scores are constructed differently and therefore can have different ranges and meaning, while they lead to the same interpretation. An advantage of [%mlr] is the consistent structure of the package and to keep the consistency the scores output, returned by each learner are transformed to the range of [0,1]. Although this output is called *probability* within the [%mlr] package, it should not exactly be interpreted as a probability but more as a normalized score. For more information about the transformation see the help page of [&convertingScoresToProbability]. 
+All one-class classification learners in [%mlr] support response or probability output. The response output will state if the observation is predicted as *normal* or *anomaly*, more details on the response output will be specified when the learner is introduced below. For the probabilistic output in [%mlr], we are using *converted* anomaly scores. Anomaly scores are the usual output of anomaly detection methods indicating to what degree an observation is anomalous (relative to the other observations). The anomaly scores are constructed depending on the applied anomaly detection method. This can lead to different ranges while interpretation remains unchanged. An advantage of [%mlr] is the consistent structure of the package and to keep the consistency the scores output, returned by each learner are transformed to the range of [0,1]. Although this output is called *probability* within the [%mlr] package, it should not exactly be interpreted as a probability but more as a normalized score. For more information about the transformation see the help page of [&convertingScoresToProbability]. 
 
 ### Support vector machines
 Support vector machines are well known for analyzing data for classification and regression analysis. SVMs can also apply to detect anomalies by "creating a spherical decision boundary around a set of [normal] data points"[Karatzoglou et al., 2004, p.9]. In **R** the package s [%e1071] and [%kernlab] are providing the algorithm to do so. 
@@ -283,7 +282,7 @@ ps.ksvm = makeParamSet(
   makeIntegerParam(id = "order", lower = 1, upper = 3, requires = quote(kernel == "besseldot"))
 )
 ```
-There is also an exception fot the *oneclass.h2o.autoencoder*. [&mlr] enable to tune for number of layers and nodes up to three layers.
+There is also an exception fot the *oneclass.h2o.autoencoder*. [&mlr] enables to tune for number of layers and nodes up to three layers.
 ```{r}
 ### parameter for autoencoder
 ps.h2o = makeParamSet(
@@ -296,6 +295,7 @@ ps.h2o = makeParamSet(
 )
 ```
 
+After defining the search space for the learners, set the learners and apply the tuning wrapper like section [Benchmark Experiment](benchmark_experiments.md#tuning).
 ```{r}
 # make lofactor learner and tunewrapper
 lrn.svm = makeLearner("oneclass.svm", predict.type = "prob")
