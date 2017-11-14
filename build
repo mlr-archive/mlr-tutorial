@@ -91,10 +91,13 @@ knitIt = function(f, dev) {
   #  full.code: FALSE
   knit.params = knit_params(lines)
   if (!isFALSE(knit.params$full.code$value) && dev != "pdf") {
-    lines = c(lines, "\n", "## Full code",
-    "```{r, purl=FALSE, echo = FALSE, comment=''}",
-    paste0("cat(readLines('./",file.path("full_code_src", str_replace(f, "\\.Rmd$", "\\.R")),"'),fill = 2)"),
-    "```")
+    lines = c(
+      lines, "\n", 
+      "## Complete code listing", "\n",
+      The above code without the output is given below:
+      "```{r, purl=FALSE, echo = FALSE, comment=''}",
+      paste0("cat(readLines('./",file.path("full_code_src", str_replace(f, "\\.Rmd$", "\\.R")),"'),fill = 2)"),
+      "```")
   }
 
   cache.path = paste0(file.path(dev, "cache", f), .Platform$file.sep)
@@ -137,6 +140,7 @@ suppressPackageStartupMessages({
   suppressWarnings(library(rgl)) # suppress "no X" warning on travis
   library(mlr)
   library(stringr)
+  library(backports)
 })
 
 # turn warnings to errors, we don't want to miss them
