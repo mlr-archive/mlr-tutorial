@@ -502,7 +502,7 @@ predict(m, task = iris.task)
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.01
+#&gt; time: 0.00
 #&gt;   id  truth response
 #&gt; 1  1 setosa   setosa
 #&gt; 2  2 setosa   setosa
@@ -525,12 +525,12 @@ predict(m, task = iris.task)
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;            C      sigma acc.test.mean acc.test.sd iteration exec.time
-#&gt; 1 -9.9783231  1.0531818     0.2733333  0.02309401         1     0.059
-#&gt; 2 -0.5292817  3.2214785     0.2733333  0.02309401         2     0.059
-#&gt; 3 -0.3544567  4.1644832     0.2733333  0.02309401         3     0.060
-#&gt; 4  0.6341910  7.8640461     0.2866667  0.03055050         4     0.060
-#&gt; 5  5.7640748 -3.3159251     0.9533333  0.03055050         5     0.081
-#&gt; 6 -6.5880397  0.4600323     0.2733333  0.02309401         6     0.084
+#&gt; 1 -9.9783231  1.0531818     0.2733333  0.02309401         1     0.080
+#&gt; 2 -0.5292817  3.2214785     0.2733333  0.02309401         2     0.091
+#&gt; 3 -0.3544567  4.1644832     0.2733333  0.02309401         3     0.062
+#&gt; 4  0.6341910  7.8640461     0.2866667  0.03055050         4     0.057
+#&gt; 5  5.7640748 -3.3159251     0.9533333  0.03055050         5     0.062
+#&gt; 6 -6.5880397  0.4600323     0.2733333  0.02309401         6     0.053
 </code></pre>
 
 <p>Note that the result of <a href="http://www.rdocumentation.org/packages/mlr/functions/generateHyperParsEffectData.html">generateHyperParsEffectData</a>
@@ -544,12 +544,12 @@ In order to get the <em>transformed</em> parameter values instead, use the <code
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;              C        sigma acc.test.mean acc.test.sd iteration exec.time
-#&gt; 1 1.051180e-10 1.130269e+01     0.2733333  0.02309401         1     0.059
-#&gt; 2 2.956095e-01 1.665246e+03     0.2733333  0.02309401         2     0.059
-#&gt; 3 4.421232e-01 1.460438e+04     0.2733333  0.02309401         3     0.060
-#&gt; 4 4.307159e+00 7.312168e+07     0.2866667  0.03055050         4     0.060
-#&gt; 5 5.808644e+05 4.831421e-04     0.9533333  0.03055050         5     0.081
-#&gt; 6 2.582024e-07 2.884246e+00     0.2733333  0.02309401         6     0.084
+#&gt; 1 1.051180e-10 1.130269e+01     0.2733333  0.02309401         1     0.080
+#&gt; 2 2.956095e-01 1.665246e+03     0.2733333  0.02309401         2     0.091
+#&gt; 3 4.421232e-01 1.460438e+04     0.2733333  0.02309401         3     0.062
+#&gt; 4 4.307159e+00 7.312168e+07     0.2866667  0.03055050         4     0.057
+#&gt; 5 5.808644e+05 4.831421e-04     0.9533333  0.03055050         5     0.062
+#&gt; 6 2.582024e-07 2.884246e+00     0.2733333  0.02309401         6     0.053
 </code></pre>
 
 <p>Note that we can also generate performance on the train data along with the validation/test
@@ -566,11 +566,11 @@ generateHyperParsEffectData(res2)
 #&gt; Nested CV Used: FALSE
 #&gt; Snapshot of data:
 #&gt;           C      sigma acc.test.mean acc.train.mean iteration exec.time
-#&gt; 1  9.457202 -4.0536025          0.98           0.97         1     0.041
-#&gt; 2  9.900523  1.8815923          0.40           1.00         2     0.033
-#&gt; 3  2.363975  5.3202458          0.26           1.00         3     0.031
-#&gt; 4 -1.530251  4.7579424          0.26           0.37         4     0.033
-#&gt; 5 -7.837476  2.4352698          0.26           0.37         5     0.035
+#&gt; 1  9.457202 -4.0536025          0.98           0.97         1     0.039
+#&gt; 2  9.900523  1.8815923          0.40           1.00         2     0.031
+#&gt; 3  2.363975  5.3202458          0.26           1.00         3     0.028
+#&gt; 4 -1.530251  4.7579424          0.26           0.37         4     0.028
+#&gt; 5 -7.837476  2.4352698          0.26           0.37         5     0.028
 #&gt; 6  8.782931 -0.4143757          0.92           1.00         6     0.031
 </code></pre>
 
