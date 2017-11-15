@@ -25,33 +25,38 @@ addons:
       - libgsl0-dev
       - pandoc
 
-before_install:
-  - mkdir -p $HOME/bin
-  - ln -s $(which gcc-4.9) $HOME/bin/gcc
-  - ln -s $(which g++-4.9) $HOME/bin/g++
-  - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
-  - export PATH=$HOME/bin:$PATH
-  - echo $LD_LIBRARY_PATH
-  - echo $LIBRARY_PATH
-
-install:
-  - pip install --user mkdocs
-  - pip install --user python-markdown-math
-  - Rscript r_packs_install.R
-
-script:
-  - ./build
-
-after_success:
-    - git checkout gh-pages
-    - git config user.name $GIT_NAME
-    - git config user.email $GIT_EMAIL
-    - git config credential.helper "store --file=.git/credentials"
-    - echo "https://$GH_TOKEN:@github.com" >> .git/credentials
-    - git config push.default matching
-    - git add devel
-    - git commit -a -m "update auto-generated tutorial pages [ci skip]"
-    - git push
+jobs:
+  include:
+    - stage: warmup-1
+      before_install:
+        - mkdir -p $HOME/bin
+        - ln -s $(which gcc-4.9) $HOME/bin/gcc
+        - ln -s $(which g++-4.9) $HOME/bin/g++
+        - ln -s $(which gfortran-4.9) $HOME/bin/gfortran
+        - export PATH=$HOME/bin:$PATH
+        - echo $LD_LIBRARY_PATH
+        - echo $LIBRARY_PATH
+      install:
+        - pip install --user mkdocs
+        - pip install --user python-markdown-math
+      script: true
+    - stage: warmup-2
+      install:
+        - Rscript r_packs_install.R
+      script: true
+    - stage: build
+      script:
+        - ./build
+      after_success:
+        - git checkout gh-pages
+        - git config user.name $GIT_NAME
+        - git config user.email $GIT_EMAIL
+        - git config credential.helper "store --file=.git/credentials"
+        - echo "https://$GH_TOKEN:@github.com" >> .git/credentials
+        - git config push.default matching
+        - git add devel
+        - git commit -a -m "update auto-generated tutorial pages [ci skip]"
+        - git push
 
 notifications:
   email:
