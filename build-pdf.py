@@ -63,6 +63,6 @@ with open('mlr-tutorial.md', 'r+') as fd:
   fd.write(out)
   fd.truncate()
 # In a new version of pandoc he only accepts --pdf-engine=xelatex (?)
-retval = os.system("pandoc --number-sections --tex-engine=xelatex --variable colorlinks=\"true\" --listings -H latex-setup.tex --toc -f markdown+grid_tables+table_captions-implicit_figures -o mlr-tutorial.pdf mlr-tutorial.md")
+retval = os.system("pandoc --number-sections --latex-engine=xelatex --variable colorlinks=\"true\" --listings -H latex-setup.tex --toc -f markdown+grid_tables+table_captions-implicit_figures -o mlr-tutorial.pdf mlr-tutorial.md")
 if retval != 0:
   sys.exit(1)
