@@ -100,8 +100,8 @@ knitIt = function(f, dev) {
       "```")
   }
 
-  cache.path = paste0(file.path(dev, "cache", f), .Platform$file.sep)
-  opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = paste0(file.path(dev, "figure", str_replace(f, "\\.Rmd", "")), .Platform$file.sep), dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
+  cache.path = file.path("cache", f, "")
+  opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = file.path("figure", dev, str_replace(f, "\\.Rmd", ""), ""), dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
   setSeed(f)
   knit(
     text = lines,
