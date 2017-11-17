@@ -245,6 +245,7 @@
             <li><a href="#accessing-a-learning-task">Accessing a learning task</a></li>
             <li><a href="#modifying-a-learning-task">Modifying a learning task</a></li>
             <li><a href="#example-tasks-and-convenience-functions">Example tasks and convenience functions</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -637,7 +638,79 @@ summary(getTaskData(task))
 These are also used throughout this tutorial in order to get shorter and more readable code.
 A list of all <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s can be found in the <a href="../example_tasks/index.html">Appendix</a>.</p>
 <p>Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s function <a href="http://www.rdocumentation.org/packages/mlr/functions/convertMLBenchObjToTask.html">convertMLBenchObjToTask</a> can generate <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s from the data
-sets and data generating functions in package <a href="http://www.rdocumentation.org/packages/mlbench/">mlbench</a>.</p></div>
+sets and data generating functions in package <a href="http://www.rdocumentation.org/packages/mlbench/">mlbench</a>.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>data(BostonHousing, package = &quot;mlbench&quot;) 
+regr.task = makeRegrTask(id = &quot;bh&quot;, data = BostonHousing, target = &quot;medv&quot;) 
+regr.task 
+data(BreastCancer, package = &quot;mlbench&quot;) 
+df = BreastCancer 
+df$Id = NULL 
+classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;) 
+classif.task 
+classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;, positive = &quot;malignant&quot;) 
+data(lung, package = &quot;survival&quot;) 
+lung$status = (lung$status == 2) # convert to logical 
+surv.task = makeSurvTask(data = lung, target = c(&quot;time&quot;, &quot;status&quot;)) 
+surv.task 
+yeast = getTaskData(yeast.task) 
+
+labels = colnames(yeast)[1:14] 
+yeast.task = makeMultilabelTask(id = &quot;multi&quot;, data = yeast, target = labels) 
+yeast.task 
+data(mtcars, package = &quot;datasets&quot;) 
+cluster.task = makeClusterTask(data = mtcars) 
+cluster.task 
+df = iris 
+cost = matrix(runif(150 * 3, 0, 2000), 150) * (1 - diag(3))[df$Species,] 
+df$Species = NULL 
+
+costsens.task = makeCostSensTask(data = df, cost = cost) 
+costsens.task 
+getTaskDesc(classif.task) 
+## Get the ID 
+getTaskId(classif.task) 
+
+## Get the type of task 
+getTaskType(classif.task) 
+
+## Get the names of the target columns 
+getTaskTargetNames(classif.task) 
+
+## Get the number of observations 
+getTaskSize(classif.task) 
+
+## Get the number of input variables 
+getTaskNFeats(classif.task) 
+
+## Get the class levels in classif.task 
+getTaskClassLevels(classif.task) 
+## Accessing the data set in classif.task 
+str(getTaskData(classif.task)) 
+
+## Get the names of the input variables in cluster.task 
+getTaskFeatureNames(cluster.task) 
+
+## Get the values of the target variables in surv.task 
+head(getTaskTargets(surv.task)) 
+
+## Get the cost matrix in costsens.task 
+head(getTaskCosts(costsens.task)) 
+## Select observations and/or features 
+cluster.task = subsetTask(cluster.task, subset = 4:17) 
+
+## It may happen, especially after selecting observations, that features are constant. 
+## These should be removed. 
+removeConstantFeatures(cluster.task) 
+
+## Remove selected features 
+dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;)) 
+
+## Standardize numerical features 
+task = normalizeFeatures(cluster.task, method = &quot;range&quot;) 
+summary(getTaskData(task))
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">

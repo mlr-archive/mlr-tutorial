@@ -244,6 +244,7 @@
             <li><a href="#accessing-a-learner">Accessing a learner</a></li>
             <li><a href="#modifying-a-learner">Modifying a learner</a></li>
             <li><a href="#listing-learners">Listing learners</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -515,6 +516,78 @@ head(listLearners(&quot;cluster&quot;, create = TRUE), 2)
 #&gt; Properties: numerics
 #&gt; Predict-Type: response
 #&gt; Hyperparameters:
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>## Classification tree, set it up for predicting probabilities 
+classif.lrn = makeLearner(&quot;classif.randomForest&quot;, predict.type = &quot;prob&quot;, fix.factors.prediction = TRUE) 
+
+## Regression gradient boosting machine, specify hyperparameters via a list 
+regr.lrn = makeLearner(&quot;regr.gbm&quot;, par.vals = list(n.trees = 500, interaction.depth = 3)) 
+
+## Cox proportional hazards model with custom name 
+surv.lrn = makeLearner(&quot;surv.coxph&quot;, id = &quot;cph&quot;) 
+
+## K-means with 5 clusters 
+cluster.lrn = makeLearner(&quot;cluster.kmeans&quot;, centers = 5) 
+
+## Multilabel Random Ferns classification algorithm 
+multilabel.lrn = makeLearner(&quot;multilabel.rFerns&quot;) 
+classif.lrn 
+
+surv.lrn 
+## Get the configured hyperparameter settings that deviate from the defaults 
+cluster.lrn$par.vals 
+
+## Get the set of hyperparameters 
+classif.lrn$par.set 
+
+## Get the type of prediction 
+regr.lrn$predict.type 
+## Get current hyperparameter settings 
+getHyperPars(cluster.lrn) 
+
+## Get a description of all possible hyperparameter settings 
+getParamSet(classif.lrn) 
+getParamSet(&quot;classif.randomForest&quot;) 
+## Get object's id 
+getLearnerId(surv.lrn) 
+
+## Get the short name 
+getLearnerShortName(classif.lrn) 
+
+## Get the type of the learner 
+getLearnerType(multilabel.lrn) 
+
+## Get required packages 
+getLearnerPackages(cluster.lrn) 
+## Change the ID 
+surv.lrn = setLearnerId(surv.lrn, &quot;CoxModel&quot;) 
+surv.lrn 
+
+## Change the prediction type, predict a factor with class labels instead of probabilities 
+classif.lrn = setPredictType(classif.lrn, &quot;response&quot;) 
+
+## Change hyperparameter values 
+cluster.lrn = setHyperPars(cluster.lrn, centers = 4) 
+
+## Go back to default hyperparameter values 
+regr.lrn = removeHyperPars(regr.lrn, c(&quot;n.trees&quot;, &quot;interaction.depth&quot;)) 
+## List everything in mlr 
+lrns = listLearners() 
+head(lrns[c(&quot;class&quot;, &quot;package&quot;)]) 
+
+## List classifiers that can output probabilities 
+lrns = listLearners(&quot;classif&quot;, properties = &quot;prob&quot;) 
+head(lrns[c(&quot;class&quot;, &quot;package&quot;)]) 
+
+## List classifiers that can be applied to iris (i.e., multiclass) and output probabilities 
+lrns = listLearners(iris.task, properties = &quot;prob&quot;) 
+head(lrns[c(&quot;class&quot;, &quot;package&quot;)]) 
+
+## The calls above return character vectors, but you can also create learner objects 
+head(listLearners(&quot;cluster&quot;, create = TRUE), 2)
 </code></pre></div>
         </div>
 

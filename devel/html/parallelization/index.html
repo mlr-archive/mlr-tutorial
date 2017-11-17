@@ -243,6 +243,7 @@
             <li><a href="#parallelization-levels">Parallelization levels</a></li>
             <li><a href="#custom-learners-and-parallelization">Custom learners and parallelization</a></li>
             <li><a href="#the-end">The end</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -304,7 +305,18 @@ So if you see an error after calling, e.g., a parallelized version of <a href="h
 
 <h2 id="the-end">The end</h2>
 <p>For further details, consult the
-<a href="https://github.com/berndbischl/parallelMap#parallelmap">parallelMap tutorial</a> and <a href="http://www.rdocumentation.org/packages/parallelMap/">help</a>.</p></div>
+<a href="https://github.com/berndbischl/parallelMap#parallelmap">parallelMap tutorial</a> and <a href="http://www.rdocumentation.org/packages/parallelMap/">help</a>.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>library(&quot;parallelMap&quot;) 
+parallelStartSocket(2) 
+
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3) 
+r = resample(&quot;classif.lda&quot;, iris.task, rdesc) 
+
+parallelStop() 
+parallelGetRegisteredLevels()
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
