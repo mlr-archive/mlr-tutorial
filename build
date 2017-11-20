@@ -81,6 +81,12 @@ knitIt = function(f, dev) {
   messagef("Knitting file '%s' ...", f)
   lines = readLines(file.path(src, f))
 
+  # FIXME: remove if mkdocs handles this, currently mkdocs puts yaml front matter in the output.
+  yaml.lines = which(lines == "---")
+  if (length(yaml.lines == 2)) {
+    lines = lines[-1 * seq(from = yaml.lines[1], to = yaml.lines[2])]
+  }
+
   # apply replacement macros
   for (macro in macros)
     lines = str_replace_all(lines, macro$pattern, macro$replacement)
