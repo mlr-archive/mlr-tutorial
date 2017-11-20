@@ -239,19 +239,18 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#fullcode-false">full.code: FALSE</a></li>
-        <li class="main "><a href="#integrated-learners">Integrated Learners</a></li>
+        <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
             <li><a href="#classification-83">Classification (83)</a></li>
             <li><a href="#regression-61">Regression (61)</a></li>
             <li><a href="#survival-analysis-12">Survival analysis (12)</a></li>
             <li><a href="#cluster-analysis-9">Cluster analysis (9)</a></li>
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
             <li><a href="#multilabel-classification-3">Multilabel classification (3)</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h2 id="fullcode-false">full.code: FALSE</h2>
 <h1 id="integrated-learners">Integrated Learners</h1>
 <p>This page lists the learning methods already integrated in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.</p>
 <p>Columns <strong>Num.</strong>, <strong>Fac.</strong>, <strong>Ord.</strong>, <strong>NAs</strong>, and <strong>Weights</strong> indicate if a method can cope with
@@ -2230,7 +2229,65 @@ for details.</p>
 </table>
 <p>Moreover, you can use the binary relevance method to apply ordinary classification learners
 to the multilabel problem. See the documentation of function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelBinaryRelevanceWrapper.html">makeMultilabelBinaryRelevanceWrapper</a>
-and the tutorial section on <a href="../multilabel/index.html">multilabel classification</a> for details.</p></div>
+and the tutorial section on <a href="../multilabel/index.html">multilabel classification</a> for details.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>params &lt;- 
+structure(list(full.code = FALSE), .Names = &quot;full.code&quot;) 
+
+library(&quot;mlr&quot;) 
+library(&quot;pander&quot;) 
+# baseR, urlBasePackages, urlContribPackages are defined in build 
+linkPkg = function(x) { 
+  x = strsplit(x, &quot;,&quot;)[[1]] 
+  x = mlr:::cleanupPackageNames(x)    # remove exclamation marks 
+  if (urlBasePackages != urlContribPackages) { 
+    ind = x %in% baseR 
+    url = c(urlContribPackages, urlBasePackages)[ind + 1] 
+  } else { 
+    url = urlContribPackages 
+  } 
+  collapse(sprintf(&quot;[%1$s](%2$s%1$s/)&quot;, x, url), sep = &quot;&lt;br /&gt;&quot;) 
+} 
+
+getTab = function(type) { 
+  cn = function(x) if (is.null(x)) NA else gsub(&quot;\\n&quot;, &quot; &quot;, x) 
+  lrns = listLearners(type) 
+  lrns$note[is.na(lrns$note)] = &quot;&quot; 
+  cols = c(&quot;class&quot;, &quot;type&quot;, &quot;package&quot;, &quot;short.name&quot;, &quot;name&quot;, &quot;numerics&quot;, &quot;factors&quot;, &quot;ordered&quot;, &quot;missings&quot;, &quot;weights&quot;, &quot;note&quot;, &quot;installed&quot;) 
+  props = setdiff(colnames(lrns), cols) 
+
+  colNames = c(&quot;Class / Short Name / Name&quot;, &quot;Packages&quot;, &quot;Num.&quot;, &quot;Fac.&quot;, &quot;Ord.&quot;, &quot;NAs&quot;, &quot;Weights&quot;, &quot;Props&quot;, &quot;Note&quot;) 
+  df = makeDataFrame(nrow = nrow(lrns), ncol = length(colNames), 
+    col.types = c(&quot;character&quot;, &quot;character&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;character&quot;, &quot;character&quot;)) 
+  names(df) = colNames 
+
+  df[1] = apply(lrns[c(&quot;class&quot;, &quot;short.name&quot;, &quot;name&quot;)], 1, function(x) 
+    paste0(&quot;**&quot;, x[&quot;class&quot;], &quot;** &lt;br /&gt; *&quot;, cn(x[&quot;short.name&quot;]), &quot;* &lt;br /&gt;&lt;br /&gt;&quot;, cn(x[&quot;name&quot;]))) 
+  df$Packages = sapply(lrns$package, linkPkg) 
+  df[3:7] = lrns[c(&quot;numerics&quot;, &quot;factors&quot;, &quot;ordered&quot;, &quot;missings&quot;, &quot;weights&quot;)] 
+  df$Props = apply(lrns[props], 1, function(x) collapse(props[x], sep = &quot;&lt;br /&gt;&quot;)) 
+  df$Note = sapply(lrns$note, cn) 
+  logicals = vlapply(df, is.logical) 
+  df[logicals] = lapply(df[logicals], function(x) ifelse(x, &quot;X&quot;, &quot;&quot;)) 
+  df 
+} 
+
+makeTab = function(df) { 
+  pandoc.table(df, style = &quot;rmarkdown&quot;, split.tables = Inf, split.cells = Inf, 
+    justify = c(&quot;left&quot;, &quot;left&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;left&quot;, &quot;left&quot;)) 
+} 
+
+types = c(&quot;classif&quot;, &quot;multilabel&quot;, &quot;regr&quot;, &quot;surv&quot;, &quot;cluster&quot;) 
+tables = lapply(types, getTab) 
+names(tables) = types 
+numbers = sapply(tables, nrow) 
+makeTab(tables[[&quot;classif&quot;]]) 
+makeTab(tables[[&quot;regr&quot;]]) 
+makeTab(tables[[&quot;surv&quot;]]) 
+makeTab(tables[[&quot;cluster&quot;]]) 
+makeTab(tables[[&quot;multilabel&quot;]])
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">

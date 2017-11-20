@@ -239,15 +239,14 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#fullcode-false">full.code: FALSE</a></li>
-        <li class="main "><a href="#integrated-filter-methods">Integrated Filter Methods</a></li>
+        <li class="main active"><a href="#integrated-filter-methods">Integrated Filter Methods</a></li>
             <li><a href="#current-methods">Current methods</a></li>
             <li><a href="#deprecated-methods">Deprecated methods</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h2 id="fullcode-false">full.code: FALSE</h2>
 <h1 id="integrated-filter-methods">Integrated Filter Methods</h1>
 <p>The following table shows the available methods for calculating the feature importance.
 Columns <strong>Classif</strong>, <strong>Regr</strong> and <strong>Surv</strong> indicate if classification, regression or survival
@@ -543,7 +542,33 @@ features.</p>
 <td align="center">X</td>
 </tr>
 </tbody>
-</table></div>
+</table>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>params &lt;- 
+structure(list(full.code = FALSE), .Names = &quot;full.code&quot;) 
+
+# urlContribPackages is defined in build 
+linkPkg = function(x) { 
+  ifelse(x == &quot;&quot;, &quot;&quot;, collapse(sprintf(&quot;[%1$s](%2$s%1$s/)&quot;, x, urlContribPackages), sep = &quot;&lt;br /&gt;&quot;)) 
+} 
+df = listFilterMethods(desc = TRUE, tasks = TRUE, features = TRUE, include.deprecated = TRUE) 
+df$package = sapply(df$package, linkPkg) 
+
+depr = df$deprecated 
+df$deprecated = NULL 
+
+logicals = vlapply(df, is.logical) 
+df[logicals] = lapply(df[logicals], function(x) ifelse(x, &quot;X&quot;, &quot;&quot;)) 
+names(df) = c(&quot;Method&quot;, &quot;Package&quot;, &quot;Description&quot;, &quot;Classif&quot;, &quot;Regr&quot;, &quot;Surv&quot;, &quot;Fac.&quot;, &quot;Num.&quot;, &quot;Ord.&quot;) 
+just = rep(c(&quot;left&quot;, &quot;center&quot;), c(3, ncol(df) - 3)) 
+dfnd = df[!depr,] 
+rownames(dfnd) = seq_len(nrow(dfnd)) 
+pandoc.table(dfnd, style = &quot;rmarkdown&quot;, split.tables = Inf, split.cells = Inf, emphasize.rownames = FALSE, justify = just) 
+dfd = df[depr,] 
+rownames(dfd) = seq_len(nrow(dfd)) 
+pandoc.table(dfd, style = &quot;rmarkdown&quot;, split.tables = Inf, split.cells = Inf, justify = just)
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">

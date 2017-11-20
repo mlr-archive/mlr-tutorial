@@ -239,8 +239,7 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#fullcode-false">full.code: FALSE</a></li>
-        <li class="main "><a href="#implemented-performance-measures">Implemented Performance Measures</a></li>
+        <li class="main active"><a href="#implemented-performance-measures">Implemented Performance Measures</a></li>
             <li><a href="#classification">Classification</a></li>
             <li><a href="#regression">Regression</a></li>
             <li><a href="#survival-analysis">Survival analysis</a></li>
@@ -248,11 +247,11 @@
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
             <li><a href="#multilabel-classification">Multilabel classification</a></li>
             <li><a href="#general-performance-measures">General performance measures</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h2 id="fullcode-false">full.code: FALSE</h2>
 <h1 id="implemented-performance-measures">Implemented Performance Measures</h1>
 <p>This page shows the performance measures available for the different types of
 learning problems as well as general performance measures in alphabetical order.
@@ -1453,7 +1452,77 @@ and also the page on <a href="../create_measure/index.html">custom performance m
 <td align="left"></td>
 </tr>
 </tbody>
-</table></div>
+</table>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>params &lt;- 
+structure(list(full.code = FALSE), .Names = &quot;full.code&quot;) 
+
+# urlMlrFunctions, ext are defined in build 
+linkFct = function(x, y) { 
+  collapse(sprintf(&quot;[%1$s](%3$s%2$s%4$s)&quot;, x, y, urlMlrFunctions, ext), sep = &quot;&lt;br /&gt;&quot;) 
+} 
+
+cn = function(x) if (is.null(x)) NA else gsub(&quot;\\n&quot;, &quot; &quot;, x) 
+urls = function(x) if (is.na(x)) NA else gsub(&quot;(http)(\\S+)(\\.)&quot;, &quot;[\\1\\2](\\1\\2)\\3&quot;, x) 
+# regex is not ideal and can break 
+
+getTab = function(type) { 
+  m = list(featperc = featperc, timeboth = timeboth, timepredict = timepredict, timetrain = timetrain) 
+
+  if (type == &quot;general&quot;) { 
+    meas = m 
+  } else { 
+    meas = listMeasures(type, create = TRUE) 
+    ord = order(names(meas)) 
+    meas = meas[ord] 
+    keep = setdiff(names(meas), names(m)) 
+    meas = meas[keep] 
+  } 
+
+  cols = c(&quot;ID / Name&quot;, &quot;Minim.&quot;, &quot;Best&quot;, &quot;Worst&quot;, &quot;Multi&quot;, &quot;Pred.&quot;, &quot;Truth&quot;, &quot;Probs&quot;, &quot;Model&quot;, &quot;Task&quot;, &quot;Feats&quot;, &quot;Aggr.&quot;, &quot;Note&quot;) 
+  df = makeDataFrame(nrow = length(meas), ncol = length(cols), 
+    col.types = c(&quot;character&quot;, &quot;logical&quot;, &quot;numeric&quot;, &quot;numeric&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;logical&quot;, &quot;character&quot;, &quot;character&quot;)) 
+  names(df) = cols 
+
+  for (i in seq_along(meas)) { 
+    mea = meas[[i]] 
+    df[i, 1] = paste0(&quot;**&quot;, linkFct(mea$id, &quot;measures&quot;), &quot;** &lt;br /&gt;&quot;, mea$name) 
+    df[i, 2] = mea$minimize 
+    df[i, 3] = mea$best 
+    df[i, 4] = mea$worst 
+    df[i, 5] = &quot;classif.multi&quot; %in% mea$properties 
+    df[i, 6] = &quot;req.pred&quot; %in% mea$properties 
+    df[i, 7] = &quot;req.truth&quot; %in% mea$properties 
+    df[i, 8] = &quot;req.prob&quot; %in% mea$properties 
+    df[i, 9] = &quot;req.model&quot; %in% mea$properties 
+    df[i, 10] = &quot;req.task&quot; %in% mea$properties 
+    df[i, 11] = &quot;req.feats&quot; %in% mea$properties 
+    df[i, 12] = linkFct(mea$aggr$id, &quot;aggregations&quot;) 
+    df[i, 13] = urls(cn(mea$note)) 
+  } 
+
+  just = c(&quot;left&quot;, &quot;center&quot;, &quot;right&quot;, &quot;right&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;center&quot;, &quot;left&quot;, &quot;left&quot;) 
+
+  if (type != &quot;classif&quot;) { 
+    ind = cols != &quot;Multi&quot; 
+    df = df[ind] 
+    just = just[ind] 
+  } 
+
+  logicals = vlapply(df, is.logical) 
+  df[logicals] = lapply(df[logicals], function(x) ifelse(x, &quot;X&quot;, &quot;&quot;)) 
+  pandoc.table(df, style = &quot;rmarkdown&quot;, split.tables = Inf, split.cells = Inf, 
+    justify = just) 
+} 
+getTab(&quot;classif&quot;) 
+getTab(&quot;regr&quot;) 
+getTab(&quot;surv&quot;) 
+getTab(&quot;cluster&quot;) 
+getTab(&quot;costsens&quot;) 
+getTab(&quot;multilabel&quot;) 
+getTab(&quot;general&quot;)
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
