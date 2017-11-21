@@ -1,0 +1,112 @@
+# Handling of Spatial Data
+
+## Introduction
+
+In many modeling fields (e.g. ecological modeling [more fields here]), users have to deal with spatial data. 
+Spatial data is different from non-spatial data by having a spatial reference information attached to each observation. 
+This information is usually stored as coordinates, often named 'x' and 'y'. 
+Coordinates are either stored in UTM (Universal Transverse Mercator) or in latitude/longitude format. 
+
+Treating spatial data sets like non-spatial ones leads to overoptimistic results in predictive accuracy of models (Brenning 2005). 
+This is due to the underlying spatial autocorrelation in the data.
+Spatial autocorrelation does occur in all spatial data sets.
+Magnitude varies depending on the characteristics of the data set. 
+The closer observations are located to each other, the more similar they are. 
+
+If common validation procedures like cross-validation are applied to such data sets, they assume independence of the observation to provide unbiased estimates upfront.
+However, this assumption is violated in the spatial case due to spatial autocorrelation.
+Subsequently, non-spatial CV will fail to provide accurate performance estimates.
+
+[SPCV figure here] 
+
+By doing a random sampling of the data set (i.e. non-spatial sampling), training and test set data are often located directly next to each other (in a spatial meaning).
+Hence, the test set will contain observations which are somehwat similar (due to spatial autocorrelation) to observations in the training set. 
+This leads to the effect that the model, which was trained on the training set, does perform quite well on the test data because it already knows the test data to some degree. 
+
+To reduce this bias on the resulting predictive accuracy estimate, Brenning2005 suggested to use spatial partitioning in favor of random partitioning. 
+Here, spatial clusters equal to the number of folds are created. 
+These spatially disjoint subsets of the data introduce a spatial distance between training and test set. 
+This reduces the influence of spatial autocorrelation and subsequently also the overoptimistc predictive accuracy estimates.
+
+## How to use spatial partitioning in mlr
+
+Spatial partitioning can be used when performing CV. 
+In any [resample](http://www.rdocumentation.org/packages/mlr/functions/resample.html) call you can choose 'SpCV' or 'RepSpCV' to use it. 
+There are some prerequisites for this:
+
+When specyfing the [task](Task.md), you need to explicitly state that the task is of kind 'spatial' by setting `spatial = TRUE`. 
+Next, there need to be two columns named 'x' and 'y' in your data set that store the coordinate information. 
+If this applies, coordinates will be used for a spatial partitining if 'SpCV' or 'RepSpCV' are selected as resampling strategies. 
+
+Also, these variables *will be removed* for any `train` or `predict` call. 
+This means they will not be used as predictors within the specified learner but only to set up the sampling for the CV task.
+
+Coordinates must be named 'x' and 'y' to be used for spatial partitioning. 
+If named differently and `spatial = TRUE` was set during task creation, an error will occur. 
+
+## Examples
+
+The `basque` data set servers an example data set for spatial modeling tasks.
+The [task](Task.md) attribute `spatial` is set to `TRUE` to indicate that the data set also stores coordinate information.
+
+In this example Random Forest (package `ranger`) is used to model a binomial response variable.
+
+For performance assessment, a repeated spatial CV with 5 folds and 10 repetitions is chosen.
+
+
+```{r}
+data("bc.task.spatial")
+bc.task.spatial
+
+learner.glm <- makeLearner("classif.ranger", predict.type = "prob")
+
+resampling <- makeResampleDesc("SpRepCV", fold = 5, reps = 10)
+
+set.seed(123)
+out <- resample(learner = learner.glm, task = bc.task.spatial,
+  resampling = resampling, measures = list(auc))
+
+mean(out$measures.test$auc)
+[1] 0.8379669
+```
+
+If the same model would be evaluated using non-spatial CV, the overoptimistic performance result would become visible.
+Note that to force non-spatial CV here, `x` and `y` need to be removed from the data set because they are not used for parititiong and also should not be used as predictors. 
+
+Additionally, the `spatial` task attribute needs to be set to `FALSE`.
+Finally, `RepCV` is chosed instead of `SpRepCV`.
+
+
+```{r}
+data("bc.task.spatial")
+bc.task.spatial
+
+bc.task.spatial$task.desc$spatial = FALSE
+bc.task.spatial$env$data$x = NULL
+bc.task.spatial$env$data$y = NULL
+
+learner.glm <- makeLearner("classif.ranger", predict.type = "prob")
+
+resampling <- makeResampleDesc("RepCV", fold = 5, reps = 10)
+
+set.seed(123)
+out <- resample(learner = learner.glm, task = bc.task.spatial,
+  resampling = resampling, measures = list(auc))
+
+mean(out$measures.test$auc)
+[1] 0.9112472
+```
+
+The introduced bias (caused by spatial autocorrelation) in performance for this example is 0.0732803 (0.9112472 - 0.8379669) AUROC. 
+
+## Notes
+* Usually, coordinates are not used as predictors for modeling in the spatial community. 
+If you insist on using them and also want to perform spatial cross-validation, add them to the data set a second time with a different name, e.g. 'x1' and 'y1'. 
+They will be treated as normal predictors then. 
+
+* Some models are more affected by spatial autocorrelation than others. 
+In general it can be said that the more flexible a model is, the more it will profit from underlying spatial autocorrelation.
+Simpler models (e.g. GLM) will suffer less from overoptimistic performance estimates. 
+
+* For more detailed information, see Brenning2005, Brenning2012, Schratz2017.
+
