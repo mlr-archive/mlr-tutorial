@@ -200,7 +200,10 @@ dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "pdf")
 ok = system3("./build-pdf.py")
 if (ok$exit.code == 0L) {
   # copy pdf to devel
-  file.copy("mlr-tutorial.pdf", "devel", overwrite = TRUE)
+  ok = file.copy("mlr-tutorial-build.pdf", file.path("devel", "mlr-tutorial.pdf"), overwrite = TRUE)
+  if (!ok) {
+    stop("copy pdf failed.")
+  }
   # embed images in HTML
   opts_knit$set(upload.fun = image_uri)
   message("Building HTML version...")
