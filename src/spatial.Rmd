@@ -17,10 +17,10 @@ If common validation procedures like cross-validation are applied to such data s
 However, this assumption is violated in the spatial case due to spatial autocorrelation.
 Subsequently, non-spatial CV will fail to provide accurate performance estimates.
 
-[SPCV figure here] 
+![Nested Spatial and Non-Spatial Validation](img/spatial_cross_validation.png "Nested Spatial and Non-Spatial Validation")
 
-By doing a random sampling of the data set (i.e. non-spatial sampling), training and test set data are often located directly next to each other (in a spatial meaning).
-Hence, the test set will contain observations which are somehwat similar (due to spatial autocorrelation) to observations in the training set. 
+By doing a random sampling of the data set (i.e. non-spatial sampling), training and test set data are often located directly next to each other (in geographical space).
+Hence, the test set will contain observations which are somewhat similar (due to spatial autocorrelation) to observations in the training set. 
 This leads to the effect that the model, which was trained on the training set, does perform quite well on the test data because it already knows the test data to some degree. 
 
 To reduce this bias on the resulting predictive accuracy estimate, Brenning2005 suggested to use spatial partitioning in favor of random partitioning. 
@@ -54,7 +54,7 @@ In this example Random Forest (package `ranger`) is used to model a binomial res
 For performance assessment, a repeated spatial CV with 5 folds and 10 repetitions is chosen.
 
 
-```{r}
+```{r, eval = FALSE}
 data("bc.task.spatial")
 bc.task.spatial
 
@@ -67,7 +67,6 @@ out <- resample(learner = learner.glm, task = bc.task.spatial,
   resampling = resampling, measures = list(auc))
 
 mean(out$measures.test$auc)
-[1] 0.8379669
 ```
 
 If the same model would be evaluated using non-spatial CV, the overoptimistic performance result would become visible.
@@ -77,7 +76,7 @@ Additionally, the `spatial` task attribute needs to be set to `FALSE`.
 Finally, `RepCV` is chosed instead of `SpRepCV`.
 
 
-```{r}
+```{r, eval = FALSE}
 data("bc.task.spatial")
 bc.task.spatial
 
@@ -94,12 +93,12 @@ out <- resample(learner = learner.glm, task = bc.task.spatial,
   resampling = resampling, measures = list(auc))
 
 mean(out$measures.test$auc)
-[1] 0.9112472
 ```
 
 The introduced bias (caused by spatial autocorrelation) in performance for this example is 0.0732803 (0.9112472 - 0.8379669) AUROC. 
 
 ## Notes
+
 * Usually, coordinates are not used as predictors for modeling in the spatial community. 
 If you insist on using them and also want to perform spatial cross-validation, add them to the data set a second time with a different name, e.g. 'x1' and 'y1'. 
 They will be treated as normal predictors then. 
