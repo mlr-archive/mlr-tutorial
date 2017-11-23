@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/create_learner.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -252,6 +250,7 @@
             <li><a href="#creating-a-new-method-for-extracting-out-of-bag-predictions">Creating a new method for extracting out-of-bag predictions</a></li>
             <li><a href="#registering-your-learner">Registering your learner</a></li>
             <li><a href="#further-information-for-developers">Further information for developers</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -634,7 +633,7 @@ It must return a named vector of importance values.</p>
 In case of <code>"classif.rpart"</code> the feature importance values can be easily extracted from the
 fitted model.</p>
 <pre><code class="r">getFeatureImportanceLearner.classif.rpart = function(.learner, .model, ...) {
-  mod = getLearnerModel(.model)
+  mod = getLearnerModel(.model, more.unwrap = TRUE)
   mod$variable.importance
 }
 </code></pre>
@@ -642,7 +641,7 @@ fitted model.</p>
 <p>For the <a href="http://www.rdocumentation.org/packages/randomForestSRC/functions/rfsrc.html">random forest</a> from package <a href="http://www.rdocumentation.org/packages/randomForestSRC/">randomForestSRC</a> function
 <a href="http://www.rdocumentation.org/packages/randomForestSRC/functions/vimp.html">vimp</a> is called.</p>
 <pre><code class="r">getFeatureImportanceLearner.classif.randomForestSRC = function(.learner, .model, ...) {
-  mod = getLearnerModel(.model)
+  mod = getLearnerModel(.model, more.unwrap = TRUE)
   randomForestSRC::vimp(mod, ...)$importance[, &quot;all&quot;]
 }
 </code></pre>
@@ -662,9 +661,10 @@ able to access them in <a href="http://www.rdocumentation.org/packages/mlr/">mlr
 It must return the predictions in the same format as the <a href="http://www.rdocumentation.org/packages/mlr/functions/predictLearner.html">predictLearner</a> function.</p>
 <pre><code class="r">getOOBPredsLearner.classif.randomForest = function(.learner, .model) {
   if (.learner$predict.type == &quot;response&quot;) {
-    unname(.model$learner.model$predicted)
+    m = getLearnerModel(.model, more.unwrap = TRUE)
+    unname(m$predicted)
   } else {
-    .model$learner.model$votes
+    getLearnerModel(.model, more.unwrap = TRUE)$votes
   }
 }
 </code></pre>
@@ -683,6 +683,11 @@ registerS3method(&quot;predictLearner&quot;, &quot;&lt;awesome_new_learner_class
 or out-of-bag predictions these also need to be registered in the same manner, for example:</p>
 <pre><code class="r">registerS3method(&quot;getFeatureImportanceLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;,
   getFeatureImportanceLearner.&lt;awesome_new_learner_class&gt;)
+</code></pre>
+
+<p>For the new learner to work with parallelization, you may have to export the new
+methods explicitly:</p>
+<pre><code class="r">parallelExport(&quot;trainLearner.&lt;awesome_new_learner_class&gt;&quot;, &quot;predictLearner.&lt;awesome_new_learner_class&gt;&quot;)
 </code></pre>
 
 <h2 id="further-information-for-developers">Further information for developers</h2>
@@ -819,6 +824,225 @@ the tests from within <strong>R</strong> by</p>
 
 <p>or from the command line using <a href="https://github.com/rdatsci/rt">Michel's rt tool</a></p>
 <pre><code>rtest --filter=classif
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>class(makeLearner(cl = &quot;classif.lda&quot;)) 
+
+class(makeLearner(cl = &quot;regr.lm&quot;)) 
+
+class(makeLearner(cl = &quot;surv.coxph&quot;)) 
+
+class(makeLearner(cl = &quot;cluster.kmeans&quot;)) 
+
+class(makeLearner(cl = &quot;multilabel.rFerns&quot;)) 
+makeRLearner.classif.lda = function() { 
+  makeRLearnerClassif( 
+    cl = &quot;classif.lda&quot;, 
+    package = &quot;MASS&quot;, 
+    par.set = makeParamSet( 
+      makeDiscreteLearnerParam(id = &quot;method&quot;, default = &quot;moment&quot;, values = c(&quot;moment&quot;, &quot;mle&quot;, &quot;mve&quot;, &quot;t&quot;)), 
+      makeNumericLearnerParam(id = &quot;nu&quot;, lower = 2, requires = quote(method == &quot;t&quot;)), 
+      makeNumericLearnerParam(id = &quot;tol&quot;, default = 1e-4, lower = 0), 
+      makeDiscreteLearnerParam(id = &quot;predict.method&quot;, values = c(&quot;plug-in&quot;, &quot;predictive&quot;, &quot;debiased&quot;), 
+        default = &quot;plug-in&quot;, when = &quot;predict&quot;), 
+      makeLogicalLearnerParam(id = &quot;CV&quot;, default = FALSE, tunable = FALSE) 
+    ), 
+    properties = c(&quot;twoclass&quot;, &quot;multiclass&quot;, &quot;numerics&quot;, &quot;factors&quot;, &quot;prob&quot;), 
+    name = &quot;Linear Discriminant Analysis&quot;, 
+    short.name = &quot;lda&quot;, 
+    note = &quot;Learner param 'predict.method' maps to 'method' in predict.lda.&quot; 
+  ) 
+} 
+## function(.learner, .task, .subset, .weights = NULL, ...) { } 
+## trainLearner.classif.lda = function(.learner, .task, .subset, .weights = NULL,  ...) { 
+##   f = getTaskFormula(.task) 
+##   MASS::lda(f, data = getTaskData(.task, .subset), ...) 
+## } 
+## function(.learner, .model, .newdata, ...) { } 
+## predictLearner.classif.lda = function(.learner, .model, .newdata, predict.method = &quot;plug-in&quot;, ...) { 
+##   p = predict(.model$learner.model, newdata = .newdata, method = predict.method, ...) 
+##   if(.learner$predict.type == &quot;response&quot;) 
+##     return(p$class) 
+##   else 
+##     return(p$posterior) 
+## } 
+makeRLearner.regr.earth = function() { 
+  makeRLearnerRegr( 
+    cl = &quot;regr.earth&quot;, 
+    package = &quot;earth&quot;, 
+    par.set = makeParamSet( 
+      makeLogicalLearnerParam(id = &quot;keepxy&quot;, default = FALSE, tunable = FALSE), 
+      makeNumericLearnerParam(id = &quot;trace&quot;, default = 0, upper = 10, tunable = FALSE), 
+      makeIntegerLearnerParam(id = &quot;degree&quot;, default = 1L, lower = 1L), 
+      makeNumericLearnerParam(id = &quot;penalty&quot;), 
+      makeIntegerLearnerParam(id = &quot;nk&quot;, lower = 0L), 
+      makeNumericLearnerParam(id = &quot;thres&quot;, default = 0.001), 
+      makeIntegerLearnerParam(id = &quot;minspan&quot;, default = 0L), 
+      makeIntegerLearnerParam(id = &quot;endspan&quot;, default = 0L), 
+      makeNumericLearnerParam(id = &quot;newvar.penalty&quot;, default = 0), 
+      makeIntegerLearnerParam(id = &quot;fast.k&quot;, default = 20L, lower = 0L), 
+      makeNumericLearnerParam(id = &quot;fast.beta&quot;, default = 1), 
+      makeDiscreteLearnerParam(id = &quot;pmethod&quot;, default = &quot;backward&quot;, 
+        values = c(&quot;backward&quot;, &quot;none&quot;, &quot;exhaustive&quot;, &quot;forward&quot;, &quot;seqrep&quot;, &quot;cv&quot;)), 
+      makeIntegerLearnerParam(id = &quot;nprune&quot;) 
+    ), 
+    properties = c(&quot;numerics&quot;, &quot;factors&quot;), 
+    name = &quot;Multivariate Adaptive Regression Splines&quot;, 
+    short.name = &quot;earth&quot;, 
+    note = &quot;&quot; 
+  ) 
+} 
+## trainLearner.regr.earth = function(.learner, .task, .subset, .weights = NULL,  ...) { 
+##   f = getTaskFormula(.task) 
+##   earth::earth(f, data = getTaskData(.task, .subset), ...) 
+## } 
+## predictLearner.regr.earth = function(.learner, .model, .newdata, ...) { 
+##   predict(.model$learner.model, newdata = .newdata)[, 1L] 
+## } 
+makeRLearner.surv.coxph = function() { 
+  makeRLearnerSurv( 
+    cl = &quot;surv.coxph&quot;, 
+    package = &quot;survival&quot;, 
+    par.set = makeParamSet( 
+      makeDiscreteLearnerParam(id = &quot;ties&quot;, default = &quot;efron&quot;, values = c(&quot;efron&quot;, &quot;breslow&quot;, &quot;exact&quot;)), 
+      makeLogicalLearnerParam(id = &quot;singular.ok&quot;, default = TRUE), 
+      makeNumericLearnerParam(id = &quot;eps&quot;, default = 1e-09, lower = 0), 
+      makeNumericLearnerParam(id = &quot;toler.chol&quot;, default = .Machine$double.eps^0.75, lower = 0), 
+      makeIntegerLearnerParam(id = &quot;iter.max&quot;, default = 20L, lower = 1L), 
+      makeNumericLearnerParam(id = &quot;toler.inf&quot;, default = sqrt(.Machine$double.eps^0.75), lower = 0), 
+      makeIntegerLearnerParam(id = &quot;outer.max&quot;, default = 10L, lower = 1L), 
+      makeLogicalLearnerParam(id = &quot;model&quot;, default = FALSE, tunable = FALSE), 
+      makeLogicalLearnerParam(id = &quot;x&quot;, default = FALSE, tunable = FALSE), 
+      makeLogicalLearnerParam(id = &quot;y&quot;, default = TRUE, tunable = FALSE) 
+    ), 
+    properties = c(&quot;missings&quot;, &quot;numerics&quot;, &quot;factors&quot;, &quot;weights&quot;, &quot;prob&quot;, &quot;rcens&quot;), 
+    name = &quot;Cox Proportional Hazard Model&quot;, 
+    short.name = &quot;coxph&quot;, 
+    note = &quot;&quot; 
+  ) 
+} 
+## trainLearner.surv.coxph = function(.learner, .task, .subset, .weights = NULL,  ...) { 
+##   f = getTaskFormula(.task) 
+##   data = getTaskData(.task, subset = .subset) 
+##   if (is.null(.weights)) { 
+##     mod = survival::coxph(formula = f, data = data, ...) 
+##   } else  { 
+##     mod = survival::coxph(formula = f, data = data, weights = .weights, ...) 
+##   } 
+##   if (.learner$predict.type == &quot;prob&quot;) 
+##     mod = attachTrainingInfo(mod, list(surv.range = range(getTaskTargets(.task)[, 1L]))) 
+##   mod 
+## } 
+## predictLearner.surv.coxph = function(.learner, .model, .newdata, ...) { 
+##   if(.learner$predict.type == &quot;response&quot;) { 
+##     predict(.model$learner.model, newdata = .newdata, type = &quot;lp&quot;, ...) 
+##   } else if (.learner$predict.type == &quot;prob&quot;) { 
+##     surv.range = getTrainingInfo(.model$learner.model)$surv.range 
+##     times = seq(from = surv.range[1L], to = surv.range[2L], length.out = 1000) 
+##     t(summary(survival::survfit(.model$learner.model, newdata = .newdata, se.fit = FALSE, conf.int = FALSE), times = times)$surv) 
+##   } else { 
+##     stop(&quot;Unknown predict type&quot;) 
+##   } 
+## } 
+makeRLearner.cluster.FarthestFirst = function() { 
+  makeRLearnerCluster( 
+    cl = &quot;cluster.FarthestFirst&quot;, 
+    package = &quot;RWeka&quot;, 
+    par.set = makeParamSet( 
+      makeIntegerLearnerParam(id = &quot;N&quot;, default = 2L, lower = 1L), 
+      makeIntegerLearnerParam(id = &quot;S&quot;, default = 1L, lower = 1L), 
+      makeLogicalLearnerParam(id = &quot;output-debug-info&quot;, default = FALSE, tunable = FALSE) 
+    ), 
+    properties = c(&quot;numerics&quot;), 
+    name = &quot;FarthestFirst Clustering Algorithm&quot;, 
+    short.name = &quot;farthestfirst&quot; 
+  ) 
+} 
+## trainLearner.cluster.FarthestFirst = function(.learner, .task, .subset, .weights = NULL,  ...) { 
+##   ctrl = RWeka::Weka_control(...) 
+##   RWeka::FarthestFirst(getTaskData(.task, .subset), control = ctrl) 
+## } 
+## predictLearner.cluster.FarthestFirst = function(.learner, .model, .newdata, ...) { 
+##   # RWeka returns cluster indices (i.e. starting from 0, which some tools don't like 
+##   as.integer(predict(.model$learner.model, .newdata, ...)) + 1L 
+## } 
+makeRLearner.multilabel.rFerns = function() { 
+  makeRLearnerMultilabel( 
+    cl = &quot;multilabel.rFerns&quot;, 
+    package = &quot;rFerns&quot;, 
+    par.set = makeParamSet( 
+      makeIntegerLearnerParam(id = &quot;depth&quot;, default = 5L), 
+      makeIntegerLearnerParam(id = &quot;ferns&quot;, default = 1000L) 
+    ), 
+    properties = c(&quot;numerics&quot;, &quot;factors&quot;, &quot;ordered&quot;), 
+    name = &quot;Random ferns&quot;, 
+    short.name = &quot;rFerns&quot;, 
+    note = &quot;&quot; 
+  ) 
+} 
+## trainLearner.multilabel.rFerns = function(.learner, .task, .subset, .weights = NULL, ...) { 
+##   d = getTaskData(.task, .subset, target.extra = TRUE) 
+##   rFerns::rFerns(x = d$data, y = as.matrix(d$target), ...) 
+## } 
+## predictLearner.multilabel.rFerns = function(.learner, .model, .newdata, ...) { 
+##   as.matrix(predict(.model$learner.model, .newdata, ...)) 
+## } 
+## getFeatureImportanceLearner.classif.rpart = function(.learner, .model, ...) { 
+##   mod = getLearnerModel(.model) 
+##   mod$variable.importance 
+## } 
+## getFeatureImportanceLearner.classif.randomForestSRC = function(.learner, .model, ...) { 
+##   mod = getLearnerModel(.model) 
+##   randomForestSRC::vimp(mod, ...)$importance[, &quot;all&quot;] 
+## } 
+## NA 
+## registerS3method(&quot;makeRLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, makeRLearner.&lt;awesome_new_learner_class&gt;) 
+## registerS3method(&quot;trainLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, trainLearner.&lt;awesome_new_learner_class&gt;) 
+## registerS3method(&quot;predictLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, predictLearner.&lt;awesome_new_learner_class&gt;) 
+## registerS3method(&quot;getFeatureImportanceLearner&quot;, &quot;&lt;awesome_new_learner_class&gt;&quot;, 
+##   getFeatureImportanceLearner.&lt;awesome_new_learner_class&gt;) 
+## parallelExport(&quot;trainLearner.&lt;awesome_new_learner_class&gt;&quot;, &quot;predictLearner.&lt;awesome_new_learner_class&gt;&quot;) 
+## test_that(&quot;classif_lda&quot;, { 
+##   requirePackagesOrSkip(&quot;MASS&quot;, default.method = &quot;load&quot;) 
+##  
+##   set.seed(getOption(&quot;mlr.debug.seed&quot;)) 
+##   m = MASS::lda(formula = multiclass.formula, data = multiclass.train) 
+##   set.seed(getOption(&quot;mlr.debug.seed&quot;)) 
+##   p = predict(m, newdata = multiclass.test) 
+##  
+##   testSimple(&quot;classif.lda&quot;, multiclass.df, multiclass.target, multiclass.train.inds, p$class) 
+##   testProb(&quot;classif.lda&quot;, multiclass.df, multiclass.target, multiclass.train.inds, p$posterior) 
+## }) 
+## test_that(&quot;regr_randomForest&quot;, { 
+##   requirePackagesOrSkip(&quot;randomForest&quot;, default.method = &quot;load&quot;) 
+##  
+##   parset.list = list( 
+##     list(), 
+##     list(ntree = 5, mtry = 2), 
+##     list(ntree = 5, mtry = 4), 
+##     list(proximity = TRUE, oob.prox = TRUE), 
+##     list(nPerm = 3) 
+##   ) 
+##  
+##   old.predicts.list = list() 
+##  
+##   for (i in 1:length(parset.list)) { 
+##     parset = parset.list[[i]] 
+##     pars = list(formula = regr.formula, data = regr.train) 
+##     pars = c(pars, parset) 
+##     set.seed(getOption(&quot;mlr.debug.seed&quot;)) 
+##     m = do.call(randomForest::randomForest, pars) 
+##     set.seed(getOption(&quot;mlr.debug.seed&quot;)) 
+##     p = predict(m, newdata = regr.test, type = &quot;response&quot;) 
+##     old.predicts.list[[i]] = p 
+##   } 
+##  
+##   testSimpleParsets(&quot;regr.randomForest&quot;, regr.df, regr.target, 
+##     regr.train.inds, old.predicts.list, parset.list) 
+## }) 
+## devtools::test(&quot;mlr&quot;, filter = &quot;classif&quot;)
 </code></pre></div>
         </div>
 
@@ -827,9 +1051,12 @@ the tests from within <strong>R</strong> by</p>
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -852,7 +1079,47 @@ the tests from within <strong>R</strong> by</p>
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>
