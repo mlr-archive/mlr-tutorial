@@ -34,7 +34,7 @@ Spatial partitioning can be used when performing CV.
 In any [resample](http://www.rdocumentation.org/packages/mlr/functions/resample.html) call you can choose 'SpCV' or 'RepSpCV' to use it. 
 There are some prerequisites for this:
 
-When specyfing the [task](Task.md), you need to explicitly state that the task is of kind 'spatial' by setting `spatial = TRUE`. 
+When specyfing the [task](task.md), you need to explicitly state that the task is of kind 'spatial' by setting `spatial = TRUE`. 
 Next, there need to be two columns named 'x' and 'y' in your data set that store the coordinate information. 
 If this applies, coordinates will be used for a spatial partitining if 'SpCV' or 'RepSpCV' are selected as resampling strategies. 
 
@@ -47,7 +47,7 @@ If named differently and `spatial = TRUE` was set during task creation, an error
 ## Examples
 
 The `basque` data set servers an example data set for spatial modeling tasks.
-The [task](Task.md) attribute `spatial` is set to `TRUE` to indicate that the data set also stores coordinate information.
+The [task](task.md) attribute `spatial` is set to `TRUE` to indicate that the data set also stores coordinate information.
 
 In this example Random Forest (package `ranger`) is used to model a binomial response variable.
 
