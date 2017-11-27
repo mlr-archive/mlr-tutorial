@@ -4,11 +4,11 @@
 
 But what if there are no labels in the data?
 
-And what if the class sizes an unbalanced?
+And what if the class sizes are unbalanced?
 
 And what if the classes are not just unbalanced, but one class has very a small number of observations?
 
-If you have all of those cases in your data, you probably want to apply *Anomaly Detection methods*.
+If only the first question is true for your data, you can probably use *cluster* methods, if only the second question is true you can use  [special sample techniques](over_and_undersampling.md#imbalanced-classification-problems). But if all questions are true for your data, you probably want to apply *Anomaly Detection methods*.
 
 An *anomaly* is "something that deviates from what is standard, normal, or expected"
 [Oxford English Dictionary]. In the sense of data, anomalies are observations, that deviate from the majority of the data [Amer et al., 2013, p.1]. In different application domains anomalies are
