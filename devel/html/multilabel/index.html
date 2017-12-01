@@ -283,6 +283,7 @@ yeast.task
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 #&gt; Classes: 14
 #&gt;  label1  label2  label3  label4  label5  label6  label7  label8  label9 
 #&gt;     762    1038     983     862     722     597     428     480     178 
@@ -324,7 +325,7 @@ classification learner with <a href="http://www.rdocumentation.org/packages/mlr/
 <pre><code class="r">lrn.br = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
 lrn.br = makeMultilabelBinaryRelevanceWrapper(lrn.br)
 lrn.br
-#&gt; Learner multilabel.classif.rpart from package rpart
+#&gt; Learner multilabel.binaryRelevance.classif.rpart from package rpart
 #&gt; Type: multilabel
 #&gt; Name: ; Short name: 
 #&gt; Class: MultilabelBinaryRelevanceWrapper
@@ -334,7 +335,7 @@ lrn.br
 
 lrn.br2 = makeMultilabelBinaryRelevanceWrapper(&quot;classif.rpart&quot;)
 lrn.br2
-#&gt; Learner multilabel.classif.rpart from package rpart
+#&gt; Learner multilabel.binaryRelevance.classif.rpart from package rpart
 #&gt; Type: multilabel
 #&gt; Name: ; Short name: 
 #&gt; Class: MultilabelBinaryRelevanceWrapper
@@ -372,7 +373,7 @@ learner supports this.</p>
 <pre><code class="r">mod = train(lrn.br, yeast.task)
 mod = train(lrn.br, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
 mod
-#&gt; Model for learner.id=multilabel.classif.rpart; learner.class=MultilabelBinaryRelevanceWrapper
+#&gt; Model for learner.id=multilabel.binaryRelevance.classif.rpart; learner.class=MultilabelBinaryRelevanceWrapper
 #&gt; Trained on: task.id = multi; obs = 1500; features = 103
 #&gt; Hyperparameters: xval=0
 
@@ -440,7 +441,7 @@ performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, mult
 #&gt; multilabel.subset01  multilabel.hamloss      multilabel.acc 
 #&gt;           0.8642946           0.2043560           0.4639072 
 #&gt;       multilabel.f1         timepredict 
-#&gt;           0.5730995           3.6550000
+#&gt;           0.5730995           2.2280000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt;  [1] &quot;multilabel.f1&quot;       &quot;multilabel.subset01&quot; &quot;multilabel.tpr&quot;     
@@ -459,9 +460,9 @@ r = resample(learner = lrn.br, task = yeast.task, resampling = rdesc, show.info 
 r
 #&gt; Resample Result
 #&gt; Task: multi
-#&gt; Learner: multilabel.classif.rpart
+#&gt; Learner: multilabel.binaryRelevance.classif.rpart
 #&gt; Aggr perf: multilabel.hamloss.test.mean=0.2220267
-#&gt; Runtime: 9.24603
+#&gt; Runtime: 5.64307
 
 r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
@@ -469,7 +470,7 @@ r
 #&gt; Task: multi
 #&gt; Learner: multilabel.rFerns
 #&gt; Aggr perf: multilabel.hamloss.test.mean=0.4745012
-#&gt; Runtime: 0.893577
+#&gt; Runtime: 0.558289
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>

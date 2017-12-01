@@ -291,6 +291,7 @@ regr.task
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 </code></pre>
 
 <p>As you can see, the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> records the type of the learning problem and basic information about
@@ -319,6 +320,7 @@ classif.task
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 #&gt; Classes: 2
 #&gt;    benign malignant 
 #&gt;       458       241 
@@ -357,6 +359,7 @@ surv.task
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 </code></pre>
 
 <p>The type of censoring can be specified via the argument <code>censoring</code>, which defaults to
@@ -384,6 +387,7 @@ yeast.task
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 #&gt; Classes: 14
 #&gt;  label1  label2  label3  label4  label5  label6  label7  label8  label9 
 #&gt;     762    1038     983     862     722     597     428     480     178 
@@ -408,6 +412,7 @@ cluster.task
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 </code></pre>
 
 <h3 id="cost-sensitive-classification">Cost-sensitive classification</h3>
@@ -440,6 +445,7 @@ costsens.task
 #&gt;           4           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 #&gt; Classes: 3
 #&gt; y1, y2, y3
 </code></pre>
@@ -488,6 +494,9 @@ the task you can use:</p>
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $has.blocking
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $is.spatial
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $class.levels
@@ -590,6 +599,7 @@ removeConstantFeatures(cluster.task)
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 
 ## Remove selected features
 dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;))
@@ -604,6 +614,7 @@ dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;))
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 
 ## Standardize numerical features
 task = normalizeFeatures(cluster.task, method = &quot;range&quot;)

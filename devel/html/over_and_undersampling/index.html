@@ -306,6 +306,9 @@ tasks (<code>task.over</code>, <code>task.under</code>) are created via <a href=
   data.frame(x = rnorm(5000, mean = 2), class = &quot;B&quot;)
 )
 task = makeClassifTask(data = data.imbal.train, target = &quot;class&quot;)
+#&gt; Warning in makeTask(type = type, data = data, weights = weights, blocking = blocking, : We detected that you have columns named 'x' and 'y' in your data.
+#&gt; If you have spatial data and want to use spatial cross-validation as resampling method, please set 'spatial = TRUE' during task creation (default = FALSE).
+#&gt; If not, you can safely ignore this warning.
 task.over = oversample(task, rate = 8)
 task.under = undersample(task, rate = 1/8)
 
