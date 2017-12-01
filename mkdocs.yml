@@ -41,6 +41,7 @@ pages:
     - 'Classifier Calibration Plots': 'classifier_calibration.md'
     - 'Hyperparameter Tuning Effects': 'hyperpar_tuning_effects.md'
     - 'Out-of-Bag Predictions': 'out_of_bag_predictions.md'
+    - 'Handling of Spatial Data': 'handling_of_spatial_data.md'
 - Extend:
     - 'Create Custom Learners': 'create_learner.md'
     - 'Create Custom Measures': 'create_measure.md'
