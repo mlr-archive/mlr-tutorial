@@ -386,7 +386,7 @@ lrn
 #&gt; Class: PreprocWrapperCaret
 #&gt; Properties: twoclass,multiclass,numerics,factors,prob
 #&gt; Predict-Type: response
-#&gt; Hyperparameters: ppc.BoxCox=FALSE,ppc.YeoJohnson=FALSE,ppc.expoTrans=FALSE,ppc.center=TRUE,ppc.scale=TRUE,ppc.range=FALSE,ppc.knnImpute=FALSE,ppc.bagImpute=FALSE,ppc.medianImpute=FALSE,ppc.pca=TRUE,ppc.ica=FALSE,ppc.spatialSign=FALSE,ppc.thresh=0.9,ppc.na.remove=TRUE,ppc.k=5,ppc.fudge=0.2,ppc.numUnique=3
+#&gt; Hyperparameters: ppc.BoxCox=FALSE,ppc.YeoJohnson=FALSE,ppc.expoTrans=FALSE,ppc.center=TRUE,ppc.scale=TRUE,ppc.range=FALSE,ppc.knnImpute=FALSE,ppc.bagImpute=FALSE,ppc.medianImpute=FALSE,ppc.pca=TRUE,ppc.ica=FALSE,ppc.spatialSign=FALSE,ppc.corr=FALSE,ppc.zv=FALSE,ppc.nzv=FALSE,ppc.thresh=0.9,ppc.na.remove=TRUE,ppc.k=5,ppc.fudge=0.2,ppc.numUnique=3,ppc.cutoff=0.9,ppc.freqCut=19,ppc.uniqueCut=10
 </code></pre>
 
 <p>The wrapped learner is trained on the <a href="http://www.rdocumentation.org/packages/mlr/functions/sonar.task.html">sonar.task</a>.
@@ -396,7 +396,7 @@ principal components have been used for training.</p>
 mod
 #&gt; Model for learner.id=classif.qda.preproc; learner.class=PreprocWrapperCaret
 #&gt; Trained on: task.id = Sonar-example; obs = 208; features = 60
-#&gt; Hyperparameters: ppc.BoxCox=FALSE,ppc.YeoJohnson=FALSE,ppc.expoTrans=FALSE,ppc.center=TRUE,ppc.scale=TRUE,ppc.range=FALSE,ppc.knnImpute=FALSE,ppc.bagImpute=FALSE,ppc.medianImpute=FALSE,ppc.pca=TRUE,ppc.ica=FALSE,ppc.spatialSign=FALSE,ppc.thresh=0.9,ppc.na.remove=TRUE,ppc.k=5,ppc.fudge=0.2,ppc.numUnique=3
+#&gt; Hyperparameters: ppc.BoxCox=FALSE,ppc.YeoJohnson=FALSE,ppc.expoTrans=FALSE,ppc.center=TRUE,ppc.scale=TRUE,ppc.range=FALSE,ppc.knnImpute=FALSE,ppc.bagImpute=FALSE,ppc.medianImpute=FALSE,ppc.pca=TRUE,ppc.ica=FALSE,ppc.spatialSign=FALSE,ppc.corr=FALSE,ppc.zv=FALSE,ppc.nzv=FALSE,ppc.thresh=0.9,ppc.na.remove=TRUE,ppc.k=5,ppc.fudge=0.2,ppc.numUnique=3,ppc.cutoff=0.9,ppc.freqCut=19,ppc.uniqueCut=10
 
 getLearnerModel(mod)
 #&gt; Model for learner.id=classif.qda; learner.class=classif.qda
@@ -464,6 +464,9 @@ using function <a href="http://www.rdocumentation.org/packages/mlr/functions/get
 #&gt; ppc.pca           logical   -   FALSE                           -   -
 #&gt; ppc.ica           logical   -   FALSE                           -   -
 #&gt; ppc.spatialSign   logical   -   FALSE                           -   -
+#&gt; ppc.corr          logical   -   FALSE                           -   -
+#&gt; ppc.zv            logical   -   FALSE                           -   -
+#&gt; ppc.nzv           logical   -   FALSE                           -   -
 #&gt; ppc.thresh        numeric   -    0.95                    0 to Inf   -
 #&gt; ppc.pcaComp       integer   -       -                    1 to Inf   -
 #&gt; ppc.na.remove     logical   -    TRUE                           -   -
@@ -471,6 +474,9 @@ using function <a href="http://www.rdocumentation.org/packages/mlr/functions/get
 #&gt; ppc.fudge         numeric   -     0.2                    0 to Inf   -
 #&gt; ppc.numUnique     integer   -       3                    1 to Inf   -
 #&gt; ppc.n.comp        integer   -       -                    1 to Inf   -
+#&gt; ppc.cutoff        numeric   -     0.9                      0 to 1   -
+#&gt; ppc.freqCut       numeric   -      19                    1 to Inf   -
+#&gt; ppc.uniqueCut     numeric   -      10                    0 to Inf   -
 #&gt; method           discrete   -  moment            moment,mle,mve,t   -
 #&gt; nu                numeric   -       5                    2 to Inf   Y
 #&gt; predict.method   discrete   - plug-in plug-in,predictive,debiased   -
@@ -487,6 +493,9 @@ using function <a href="http://www.rdocumentation.org/packages/mlr/functions/get
 #&gt; ppc.pca             TRUE     -
 #&gt; ppc.ica             TRUE     -
 #&gt; ppc.spatialSign     TRUE     -
+#&gt; ppc.corr            TRUE     -
+#&gt; ppc.zv              TRUE     -
+#&gt; ppc.nzv             TRUE     -
 #&gt; ppc.thresh          TRUE     -
 #&gt; ppc.pcaComp         TRUE     -
 #&gt; ppc.na.remove       TRUE     -
@@ -494,6 +503,9 @@ using function <a href="http://www.rdocumentation.org/packages/mlr/functions/get
 #&gt; ppc.fudge           TRUE     -
 #&gt; ppc.numUnique       TRUE     -
 #&gt; ppc.n.comp          TRUE     -
+#&gt; ppc.cutoff          TRUE     -
+#&gt; ppc.freqCut         TRUE     -
+#&gt; ppc.uniqueCut       TRUE     -
 #&gt; method              TRUE     -
 #&gt; nu                  TRUE     -
 #&gt; predict.method      TRUE     -
@@ -660,7 +672,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.nnet.preproc
 #&gt; Aggr perf: mse.test.mean=20.6204314
-#&gt; Runtime: 0.181562
+#&gt; Runtime: 0.14859
 
 lrn = makeLearner(&quot;regr.nnet&quot;, trace = FALSE, decay = 1e-02)
 r = resample(lrn, bh.task, resampling = rdesc, show.info = FALSE)
@@ -669,7 +681,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.nnet
 #&gt; Aggr perf: mse.test.mean=55.0639088
-#&gt; Runtime: 0.127955
+#&gt; Runtime: 0.0963695
 </code></pre>
 
 <h3 id="joint-tuning-of-preprocessing-and-learner-parameters">Joint tuning of preprocessing and learner parameters</h3>
@@ -739,18 +751,18 @@ res
 
 as.data.frame(res$opt.path)
 #&gt;    decay center scale mse.test.mean dob eol error.message exec.time
-#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.047
-#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.046
+#&gt; 1      0   TRUE  TRUE      49.38128   1  NA          &lt;NA&gt;     0.039
+#&gt; 2   0.05   TRUE  TRUE      20.64761   2  NA          &lt;NA&gt;     0.047
 #&gt; 3    0.1   TRUE  TRUE      22.42986   3  NA          &lt;NA&gt;     0.046
-#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.024
-#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.049
-#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.057
-#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.063
-#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.043
-#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.047
-#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.029
-#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.060
-#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.065
+#&gt; 4      0  FALSE  TRUE      96.25474   4  NA          &lt;NA&gt;     0.023
+#&gt; 5   0.05  FALSE  TRUE      14.84306   5  NA          &lt;NA&gt;     0.057
+#&gt; 6    0.1  FALSE  TRUE      16.65383   6  NA          &lt;NA&gt;     0.044
+#&gt; 7      0   TRUE FALSE      40.51518   7  NA          &lt;NA&gt;     0.050
+#&gt; 8   0.05   TRUE FALSE      68.00069   8  NA          &lt;NA&gt;     0.048
+#&gt; 9    0.1   TRUE FALSE      55.42210   9  NA          &lt;NA&gt;     0.046
+#&gt; 10     0  FALSE FALSE      96.25474  10  NA          &lt;NA&gt;     0.023
+#&gt; 11  0.05  FALSE FALSE      56.25758  11  NA          &lt;NA&gt;     0.045
+#&gt; 12   0.1  FALSE FALSE      42.85529  12  NA          &lt;NA&gt;     0.044
 </code></pre>
 
 <h3 id="preprocessing-wrapper-functions">Preprocessing wrapper functions</h3>

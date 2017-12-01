@@ -360,7 +360,7 @@ works in the same way.</p>
 model has to be passed.</p>
 <pre><code class="r">performance(pred, measures = timetrain, model = mod)
 #&gt; timetrain 
-#&gt;     0.076
+#&gt;     0.072
 </code></pre>
 
 <p>For many performance measures in cluster analysis the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> is required.</p>
@@ -420,7 +420,7 @@ str(mmce)
 <h3 id="plot-performance-versus-threshold">Plot performance versus threshold</h3>
 <p>As you may recall (see the previous section on <a href="../predict/index.html">making predictions</a>)
 in binary classification we can adjust the threshold used to map probabilities to class labels.
-Helpful in this regard is are the functions <a href="http://www.rdocumentation.org/packages/mlr/functions/generateThreshVsPerfData.html">generateThreshVsPerfData</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/plotThreshVsPerf.html">plotThreshVsPerf</a>, which generate and plot, respectively, the learner performance versus the threshold.</p>
+Helpful in this regard are the functions <a href="http://www.rdocumentation.org/packages/mlr/functions/generateThreshVsPerfData.html">generateThreshVsPerfData</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/plotThreshVsPerf.html">plotThreshVsPerf</a>, which generate and plot, respectively, the learner performance versus the threshold.</p>
 <p>For more performance plots and automatic threshold tuning see <a href="../roc_analysis/index.html">here</a>.</p>
 <p>In the following example we consider the <a href="http://www.rdocumentation.org/packages/mlbench/functions/Sonar.html">Sonar</a> data set and
 plot the false positive rate (<a href="../measures/index.html">fpr</a>), the false negative rate (<a href="../measures/index.html">fnr</a>)
