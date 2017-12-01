@@ -518,7 +518,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.5831280,mmce.test.mean=0.3630397
-#&gt; Runtime: 0.196949
+#&gt; Runtime: 0.200493
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -561,7 +561,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.8600427,mmce.test.mean=0.2520215
-#&gt; Runtime: 0.199051
+#&gt; Runtime: 0.201254
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -660,7 +660,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.5851031,mmce.test.mean=0.3530387
-#&gt; Runtime: 0.242214
+#&gt; Runtime: 0.239636
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -677,7 +677,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
 #&gt; Aggr perf: credit.costs.test.mean=0.6520802,mmce.test.mean=0.3360276
-#&gt; Runtime: 0.428862
+#&gt; Runtime: 0.379198
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -755,7 +755,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
 #&gt; Aggr perf: credit.costs.test.mean=0.5681190,mmce.test.mean=0.3360426
-#&gt; Runtime: 0.524313
+#&gt; Runtime: 0.410912
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -851,7 +851,7 @@ r
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
 #&gt; Aggr perf: wf.costs.test.mean=7.9568814,mmce.test.mean=0.3180386
-#&gt; Runtime: 0.0954413
+#&gt; Runtime: 0.0735962
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
