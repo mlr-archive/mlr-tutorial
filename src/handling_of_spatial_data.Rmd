@@ -67,7 +67,7 @@ bc.task.spatial
 
 learner.glm <- makeLearner("classif.ranger", predict.type = "prob")
 
-resampling <- makeResampleDesc("SpRepcross-validation", fold = 5, reps = 10)
+resampling <- makeResampleDesc("SpRepCV", fold = 5, reps = 10)
 
 set.seed(123)
 out <- resample(learner = learner.glm, task = bc.task.spatial,
@@ -95,7 +95,7 @@ bc.task.spatial$env$data$y = NULL
 
 learner.glm <- makeLearner("classif.ranger", predict.type = "prob")
 
-resampling <- makeResampleDesc("Repcross-validation", fold = 5, reps = 10)
+resampling <- makeResampleDesc("RepCV", fold = 5, reps = 10)
 
 set.seed(123)
 out <- resample(learner = learner.glm, task = bc.task.spatial,
