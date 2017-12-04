@@ -37,12 +37,12 @@ The nested approach is used when hyperparameter tuning is performed.
 ## How to use spatial partitioning in mlr
 
 Spatial partitioning can be used when performing cross-validation. 
-In any [&resample] call you can choose `Spcross-validation` or `RepSpcross-validation` to use it. 
+In any [&resample] call you can choose `SpCV` or `RepSpCV` to use it. 
 There are some prerequisites for this:
 
 When specifying the [task](task.md), you need to explicitly state that the task is `spatial` one by setting `spatial = TRUE`. 
 Next, there need to be two variables named `x` and `y` in your data set that store the coordinate information. 
-If this applies, the coordinates will be used for spatial partitioning if `Spcross-validation` or `RepSpcross-validation` are selected as resampling strategies. 
+If this applies, the coordinates will be used for spatial partitioning if `SpCV` or `RepSpCV` are selected as resampling strategies. 
 
 Also, these variables **will be removed** for any [train()](&train) or [predict()](&predict) call. 
 This means they will not be used as predictors within the specified learner but only to set up the sampling for the cross-validation task.
@@ -77,11 +77,11 @@ mean(out$measures.test$auc)
 ```
 
 We can check for the introduced spatial autocorrelation bias here by performing the same modeling task using a non-spatial partitioning setting.
-To force use non-spatial cross-validation here, variables `x` and `y` need to be removed from the data set because they are not used for partitioning when using `Repcross-validation` and also should not be used as predictors. 
+To force use non-spatial cross-validation here, variables `x` and `y` need to be removed from the data set because they are not used for partitioning when using `RepCV` and also should not be used as predictors. 
 
 Additionally, the `spatial` task attribute needs to be set to `FALSE`.
-`mlr` tries to be smart by issuing a warning message if it detects variables named `x` or `y` in combination with  `spatial = FALSE`.
-Finally, `Repcross-validation` is chosen instead of `SpRepcross-validation`.
+`mlr` tries to be smart by issueing a warning message if it detects variables named `x` or `y` in combination with  `spatial = FALSE`.
+Finally, `RepCV` is chosen instead of `SpRepCV`.
 
 ### Non-Spatial Cross-Validation
 
