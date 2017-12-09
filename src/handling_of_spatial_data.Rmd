@@ -37,7 +37,10 @@ The nested approach is used when hyperparameter tuning is performed.
 ## How to use spatial partitioning in mlr
 
 Spatial partitioning can be used when performing cross-validation. 
-In any [&resample] call you can choose `SpCV` or `RepSpCV` to use it. 
+In any [&resample] call you can choose `SpCV` or `SpRepCV` to use it. 
+While `SpCV` will perform a spatial cross-validation with only one repetition, `SpRepCV` gives you the option to choose any number of repetitions. 
+As a rule of thumb, usually 100 repetitions are used with the aim to reduce variance introduced by partitioning.   
+
 There are some prerequisites for this:
 
 When specifying the [task](task.md), you need to explicitly state that the task is `spatial` one by setting `spatial = TRUE`. 
