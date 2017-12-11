@@ -4,26 +4,21 @@ params:
 ---
 # Machine Learning in R: mlr Tutorial
 This `r if (dev == "pdf") "document" else "web page"` provides an in-depth introduction to
-the [Machine Learning in R: mlr](https://github.com/mlr-org/mlr) framework for machine
+[Machine Learning in R: mlr](https://github.com/mlr-org/mlr), a framework for machine
 learning experiments in **R**.
 
-We focus on the comprehension of the basic functions and applications.
+In this tutorial, we focus on basic functions and applications.
 More detailed technical information can be found in the [manual pages](%mlr) which
 are regularly updated and reflect the documentation of the
 [current package version on CRAN](http://cran.r-project.org/web/packages/mlr/index.html).
 
-An offline version of this tutorial is available for download
+Offline versions of this tutorial are also available for download:
 
-* [here](https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip) for the
-  current mlr release on CRAN and
-* [here](https://mlr-org.github.io/mlr-tutorial/devel/mlr_tutorial.zip) for
-  the mlr devel version on GitHub.
+* [current mlr release on CRAN](https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip)
+* [the mlr devel version on GitHub](https://mlr-org.github.io/mlr-tutorial/devel/mlr_tutorial.zip)
 
-The tutorial explains the basic analysis of a data set step by step.
-Please refer to sections of the menu above: Basics, Advanced, Extend and Appendix.
-
-During the tutorial we present various simple examples from classification, regression, cluster and
-survival analysis to illustrate the main features of the package.
+The tutorial aims to walkthrough basic data analysis tasks step by step. We will use simple examples
+from classification, regression, cluster and survival analysis to illustrate the main features of the package.
 
 Enjoy reading!
 
