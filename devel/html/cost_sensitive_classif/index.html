@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -169,7 +169,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -422,7 +422,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.50,Good=0.50
-#&gt; time: 0.01
+#&gt; time: 0.02
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -461,7 +461,7 @@ pred.th
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.17,Good=0.83
-#&gt; time: 0.01
+#&gt; time: 0.02
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -518,7 +518,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.5831280,mmce.test.mean=0.3630397
-#&gt; Runtime: 0.195636
+#&gt; Runtime: 0.27055
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -561,7 +561,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.8600427,mmce.test.mean=0.2520215
-#&gt; Runtime: 0.205321
+#&gt; Runtime: 0.216496
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -660,7 +660,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.5851031,mmce.test.mean=0.3530387
-#&gt; Runtime: 0.227888
+#&gt; Runtime: 0.254446
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -677,7 +677,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
 #&gt; Aggr perf: credit.costs.test.mean=0.6520802,mmce.test.mean=0.3360276
-#&gt; Runtime: 0.344196
+#&gt; Runtime: 0.422376
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -755,7 +755,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
 #&gt; Aggr perf: credit.costs.test.mean=0.5681190,mmce.test.mean=0.3360426
-#&gt; Runtime: 0.385134
+#&gt; Runtime: 0.447756
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -851,7 +851,7 @@ r
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
 #&gt; Aggr perf: wf.costs.test.mean=7.9568814,mmce.test.mean=0.3180386
-#&gt; Runtime: 0.0684874
+#&gt; Runtime: 0.0935669
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1013,7 +1013,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.04
+#&gt; time: 0.06
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa

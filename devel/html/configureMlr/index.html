@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -169,7 +169,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -384,14 +384,14 @@ lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, new
 train(lrn, iris.task)
 #&gt;  Setting default kernel parameters
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
-#&gt; Trained on: task.id = iris-example; obs = 150; features = 4
+#&gt; Trained on: task.id = iris_example; obs = 150; features = 4
 #&gt; Hyperparameters: fit=FALSE,kernel=vanilladot,newParam=3
 
 ## Option &quot;quiet&quot; also masks typos
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;)
 train(lrn, iris.task)
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
-#&gt; Trained on: task.id = iris-example; obs = 150; features = 4
+#&gt; Trained on: task.id = iris_example; obs = 150; features = 4
 #&gt; Hyperparameters: fit=FALSE,kernl=vanilladot
 
 ## Alternatively turn off parameter checking, but still see warnings
@@ -406,7 +406,7 @@ lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newP
 
 train(lrn, iris.task)
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
-#&gt; Trained on: task.id = iris-example; obs = 150; features = 4
+#&gt; Trained on: task.id = iris_example; obs = 150; features = 4
 #&gt; Hyperparameters: fit=FALSE,kernl=vanilladot,newParam=3
 </code></pre>
 
@@ -429,7 +429,7 @@ mod = train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
 
 mod
 #&gt; Model for learner.id=classif.qda; learner.class=classif.qda
-#&gt; Trained on: task.id = iris-example; obs = 104; features = 4
+#&gt; Trained on: task.id = iris_example; obs = 104; features = 4
 #&gt; Hyperparameters: 
 #&gt; Training failed: Error in qda.default(x, grouping, ...) : 
 #&gt;   some group is too small for 'qda'

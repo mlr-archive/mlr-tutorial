@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -169,7 +169,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -240,7 +240,7 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
-            <li><a href="#classification-83">Classification (83)</a></li>
+            <li><a href="#classification-84">Classification (84)</a></li>
             <li><a href="#regression-61">Regression (61)</a></li>
             <li><a href="#survival-analysis-12">Survival analysis (12)</a></li>
             <li><a href="#cluster-analysis-9">Cluster analysis (9)</a></li>
@@ -259,7 +259,7 @@ weights are supported.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods specific to the
 type of learning task.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-83">Classification (83)</h3>
+<h3 id="classification-84">Classification (84)</h3>
 <p>For classification the following additional learner properties are relevant and shown in
 column <strong>Props</strong>:</p>
 <ul>
@@ -293,6 +293,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left">prob<br />twoclass</td>
 <td align="left"><code>xval</code> has been set to <code>0</code> by default for speed.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.adaboostm1</strong> <br /> <em>adaboostm1</em> <br /><br />ada Boosting M1</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/RWeka/">RWeka</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left">NAs are directly passed to WEKA with <code>na.action = na.pass</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.bartMachine</strong> <br /> <em>bartmachine</em> <br /><br />Bayesian Additive Regression Trees</td>
