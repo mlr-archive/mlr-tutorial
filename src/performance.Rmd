@@ -142,7 +142,7 @@ For binary classification specialized techniques exist to analyze the performanc
 
 As you may recall (see the previous section on [making predictions](predict.md))
 in binary classification we can adjust the threshold used to map probabilities to class labels.
-Helpful in this regard is are the functions [&generateThreshVsPerfData] and [&plotThreshVsPerf], which generate and plot, respectively, the learner performance versus the threshold.
+Helpful in this regard are the functions [&generateThreshVsPerfData] and [&plotThreshVsPerf], which generate and plot, respectively, the learner performance versus the threshold.
 
 For more performance plots and automatic threshold tuning see [here](roc_analysis.md).
 

@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/task.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -247,6 +245,7 @@
             <li><a href="#accessing-a-learning-task">Accessing a learning task</a></li>
             <li><a href="#modifying-a-learning-task">Modifying a learning task</a></li>
             <li><a href="#example-tasks-and-convenience-functions">Example tasks and convenience functions</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -287,11 +286,12 @@ regr.task
 #&gt; Target: medv
 #&gt; Observations: 506
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       12        1        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          12           1           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 </code></pre>
 
 <p>As you can see, the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> records the type of the learning problem and basic information about
@@ -315,11 +315,12 @@ classif.task
 #&gt; Target: Class
 #&gt; Observations: 699
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        0        4        5 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           0           4           5           0 
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 #&gt; Classes: 2
 #&gt;    benign malignant 
 #&gt;       458       241 
@@ -353,11 +354,12 @@ surv.task
 #&gt; Events: 165
 #&gt; Observations: 228
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        8        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           8           0           0           0 
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 </code></pre>
 
 <p>The type of censoring can be specified via the argument <code>censoring</code>, which defaults to
@@ -380,11 +382,12 @@ yeast.task
 #&gt; Target: label1,label2,label3,label4,label5,label6,label7,label8,label9,label10,label11,label12,label13,label14
 #&gt; Observations: 2417
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;      103        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;         103           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 #&gt; Classes: 14
 #&gt;  label1  label2  label3  label4  label5  label6  label7  label8  label9 
 #&gt;     762    1038     983     862     722     597     428     480     178 
@@ -404,11 +407,12 @@ cluster.task
 #&gt; Type: cluster
 #&gt; Observations: 32
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       11        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          11           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 </code></pre>
 
 <h3 id="cost-sensitive-classification">Cost-sensitive classification</h3>
@@ -437,10 +441,11 @@ costsens.task
 #&gt; Type: costsens
 #&gt; Observations: 150
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        4        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           4           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 #&gt; Classes: 3
 #&gt; y1, y2, y3
 </code></pre>
@@ -479,8 +484,8 @@ the task you can use:</p>
 #&gt; [1] 699
 #&gt; 
 #&gt; $n.feat
-#&gt; numerics  factors  ordered 
-#&gt;        0        4        5 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           0           4           5           0 
 #&gt; 
 #&gt; $has.missings
 #&gt; [1] TRUE
@@ -489,6 +494,9 @@ the task you can use:</p>
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $has.blocking
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $is.spatial
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $class.levels
@@ -586,11 +594,12 @@ removeConstantFeatures(cluster.task)
 #&gt; Type: cluster
 #&gt; Observations: 14
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;       10        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;          10           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 
 ## Remove selected features
 dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;))
@@ -600,11 +609,12 @@ dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;))
 #&gt; Events: 165
 #&gt; Observations: 228
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;        6        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           6           0           0           0 
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 
 ## Standardize numerical features
 task = normalizeFeatures(cluster.task, method = &quot;range&quot;)
@@ -639,7 +649,79 @@ summary(getTaskData(task))
 These are also used throughout this tutorial in order to get shorter and more readable code.
 A list of all <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s can be found in the <a href="../example_tasks/index.html">Appendix</a>.</p>
 <p>Moreover, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>'s function <a href="http://www.rdocumentation.org/packages/mlr/functions/convertMLBenchObjToTask.html">convertMLBenchObjToTask</a> can generate <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a>s from the data
-sets and data generating functions in package <a href="http://www.rdocumentation.org/packages/mlbench/">mlbench</a>.</p></div>
+sets and data generating functions in package <a href="http://www.rdocumentation.org/packages/mlbench/">mlbench</a>.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>data(BostonHousing, package = &quot;mlbench&quot;) 
+regr.task = makeRegrTask(id = &quot;bh&quot;, data = BostonHousing, target = &quot;medv&quot;) 
+regr.task 
+data(BreastCancer, package = &quot;mlbench&quot;) 
+df = BreastCancer 
+df$Id = NULL 
+classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;) 
+classif.task 
+classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;, positive = &quot;malignant&quot;) 
+data(lung, package = &quot;survival&quot;) 
+lung$status = (lung$status == 2) # convert to logical 
+surv.task = makeSurvTask(data = lung, target = c(&quot;time&quot;, &quot;status&quot;)) 
+surv.task 
+yeast = getTaskData(yeast.task) 
+
+labels = colnames(yeast)[1:14] 
+yeast.task = makeMultilabelTask(id = &quot;multi&quot;, data = yeast, target = labels) 
+yeast.task 
+data(mtcars, package = &quot;datasets&quot;) 
+cluster.task = makeClusterTask(data = mtcars) 
+cluster.task 
+df = iris 
+cost = matrix(runif(150 * 3, 0, 2000), 150) * (1 - diag(3))[df$Species,] 
+df$Species = NULL 
+
+costsens.task = makeCostSensTask(data = df, cost = cost) 
+costsens.task 
+getTaskDesc(classif.task) 
+## Get the ID 
+getTaskId(classif.task) 
+
+## Get the type of task 
+getTaskType(classif.task) 
+
+## Get the names of the target columns 
+getTaskTargetNames(classif.task) 
+
+## Get the number of observations 
+getTaskSize(classif.task) 
+
+## Get the number of input variables 
+getTaskNFeats(classif.task) 
+
+## Get the class levels in classif.task 
+getTaskClassLevels(classif.task) 
+## Accessing the data set in classif.task 
+str(getTaskData(classif.task)) 
+
+## Get the names of the input variables in cluster.task 
+getTaskFeatureNames(cluster.task) 
+
+## Get the values of the target variables in surv.task 
+head(getTaskTargets(surv.task)) 
+
+## Get the cost matrix in costsens.task 
+head(getTaskCosts(costsens.task)) 
+## Select observations and/or features 
+cluster.task = subsetTask(cluster.task, subset = 4:17) 
+
+## It may happen, especially after selecting observations, that features are constant. 
+## These should be removed. 
+removeConstantFeatures(cluster.task) 
+
+## Remove selected features 
+dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;)) 
+
+## Standardize numerical features 
+task = normalizeFeatures(cluster.task, method = &quot;range&quot;) 
+summary(getTaskData(task))
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
@@ -647,9 +729,12 @@ sets and data generating functions in package <a href="http://www.rdocumentation
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -672,7 +757,47 @@ sets and data generating functions in package <a href="http://www.rdocumentation
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

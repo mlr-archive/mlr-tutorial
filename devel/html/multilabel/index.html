@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/multilabel.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -249,6 +247,7 @@
             <li><a href="#performance">Performance</a></li>
             <li><a href="#resampling">Resampling</a></li>
             <li><a href="#binary-performance">Binary performance</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -279,11 +278,12 @@ yeast.task
 #&gt; Target: label1,label2,label3,label4,label5,label6,label7,label8,label9,label10,label11,label12,label13,label14
 #&gt; Observations: 2417
 #&gt; Features:
-#&gt; numerics  factors  ordered 
-#&gt;      103        0        0 
+#&gt;    numerics     factors     ordered functionals 
+#&gt;         103           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
 #&gt; Classes: 14
 #&gt;  label1  label2  label3  label4  label5  label6  label7  label8  label9 
 #&gt;     762    1038     983     862     722     597     428     480     178 
@@ -325,7 +325,7 @@ classification learner with <a href="http://www.rdocumentation.org/packages/mlr/
 <pre><code class="r">lrn.br = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
 lrn.br = makeMultilabelBinaryRelevanceWrapper(lrn.br)
 lrn.br
-#&gt; Learner multilabel.classif.rpart from package rpart
+#&gt; Learner multilabel.binaryRelevance.classif.rpart from package rpart
 #&gt; Type: multilabel
 #&gt; Name: ; Short name: 
 #&gt; Class: MultilabelBinaryRelevanceWrapper
@@ -335,7 +335,7 @@ lrn.br
 
 lrn.br2 = makeMultilabelBinaryRelevanceWrapper(&quot;classif.rpart&quot;)
 lrn.br2
-#&gt; Learner multilabel.classif.rpart from package rpart
+#&gt; Learner multilabel.binaryRelevance.classif.rpart from package rpart
 #&gt; Type: multilabel
 #&gt; Name: ; Short name: 
 #&gt; Class: MultilabelBinaryRelevanceWrapper
@@ -373,7 +373,7 @@ learner supports this.</p>
 <pre><code class="r">mod = train(lrn.br, yeast.task)
 mod = train(lrn.br, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
 mod
-#&gt; Model for learner.id=multilabel.classif.rpart; learner.class=MultilabelBinaryRelevanceWrapper
+#&gt; Model for learner.id=multilabel.binaryRelevance.classif.rpart; learner.class=MultilabelBinaryRelevanceWrapper
 #&gt; Trained on: task.id = multi; obs = 1500; features = 103
 #&gt; Hyperparameters: xval=0
 
@@ -439,9 +439,9 @@ in the <a href="../measures/index.html">table of performance measures</a> and th
 performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc,
   multilabel.f1, timepredict))
 #&gt; multilabel.subset01  multilabel.hamloss      multilabel.acc 
-#&gt;           0.8663633           0.2049471           0.4637509 
+#&gt;           0.8642946           0.2043560           0.4639072 
 #&gt;       multilabel.f1         timepredict 
-#&gt;           0.5729926           2.2800000
+#&gt;           0.5730995           2.2200000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt;  [1] &quot;multilabel.f1&quot;       &quot;multilabel.subset01&quot; &quot;multilabel.tpr&quot;     
@@ -457,24 +457,20 @@ via <a href="http://www.rdocumentation.org/packages/mlr/functions/makeResampleDe
 function. Below the default measure Hamming loss is calculated.</p>
 <pre><code class="r">rdesc = makeResampleDesc(method = &quot;CV&quot;, stratify = FALSE, iters = 3)
 r = resample(learner = lrn.br, task = yeast.task, resampling = rdesc, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             multilabel.hamloss
 r
 #&gt; Resample Result
 #&gt; Task: multi
-#&gt; Learner: multilabel.classif.rpart
-#&gt; Aggr perf: multilabel.hamloss.test.mean=0.2248054
-#&gt; Runtime: 5.52481
+#&gt; Learner: multilabel.binaryRelevance.classif.rpart
+#&gt; Aggr perf: multilabel.hamloss.test.mean=0.2220267
+#&gt; Runtime: 5.9079
 
 r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
-#&gt; Resampling: cross-validation
-#&gt; Measures:             multilabel.hamloss
 r
 #&gt; Resample Result
 #&gt; Task: multi
 #&gt; Learner: multilabel.rFerns
-#&gt; Aggr perf: multilabel.hamloss.test.mean=0.4731658
-#&gt; Runtime: 0.549132
+#&gt; Aggr perf: multilabel.hamloss.test.mean=0.4745012
+#&gt; Runtime: 0.558688
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>
@@ -504,20 +500,64 @@ predicted probabilities.</p>
 
 getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
 #&gt;         acc.test.mean mmce.test.mean
-#&gt; label1     0.69383533      0.3061647
-#&gt; label2     0.58254034      0.4174597
-#&gt; label3     0.70211005      0.2978899
-#&gt; label4     0.71369466      0.2863053
-#&gt; label5     0.70831609      0.2916839
-#&gt; label6     0.60488209      0.3951179
-#&gt; label7     0.54447662      0.4555234
-#&gt; label8     0.53289201      0.4671080
-#&gt; label9     0.30906082      0.6909392
-#&gt; label10    0.44683492      0.5531651
-#&gt; label11    0.45676458      0.5432354
-#&gt; label12    0.52916839      0.4708316
-#&gt; label13    0.53702938      0.4629706
-#&gt; label14    0.01406703      0.9859330
+#&gt; label1     0.69880017      0.3011998
+#&gt; label2     0.58543649      0.4145635
+#&gt; label3     0.70086885      0.2991312
+#&gt; label4     0.71493587      0.2850641
+#&gt; label5     0.71162598      0.2883740
+#&gt; label6     0.58874638      0.4112536
+#&gt; label7     0.53165081      0.4683492
+#&gt; label8     0.53496070      0.4650393
+#&gt; label9     0.30740588      0.6925941
+#&gt; label10    0.44269756      0.5573024
+#&gt; label11    0.45097228      0.5490277
+#&gt; label12    0.53330575      0.4666942
+#&gt; label13    0.53868432      0.4613157
+#&gt; label14    0.01696318      0.9830368
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>yeast = getTaskData(yeast.task) 
+labels = colnames(yeast)[1:14] 
+yeast.task = makeMultilabelTask(id = &quot;multi&quot;, data = yeast, target = labels) 
+yeast.task 
+lrn.rfsrc = makeLearner(&quot;multilabel.randomForestSRC&quot;) 
+lrn.rFerns = makeLearner(&quot;multilabel.rFerns&quot;) 
+lrn.rFerns 
+lrn.br = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;) 
+lrn.br = makeMultilabelBinaryRelevanceWrapper(lrn.br) 
+lrn.br 
+
+lrn.br2 = makeMultilabelBinaryRelevanceWrapper(&quot;classif.rpart&quot;) 
+lrn.br2 
+mod = train(lrn.br, yeast.task) 
+mod = train(lrn.br, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500)) 
+mod 
+
+mod2 = train(lrn.rfsrc, yeast.task, subset = 1:100) 
+mod2 
+pred = predict(mod, task = yeast.task, subset = 1:10) 
+pred = predict(mod, newdata = yeast[1501:1600,]) 
+names(as.data.frame(pred)) 
+
+pred2 = predict(mod2, task = yeast.task) 
+names(as.data.frame(pred2)) 
+performance(pred) 
+
+performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc, 
+  multilabel.f1, timepredict)) 
+
+listMeasures(&quot;multilabel&quot;) 
+rdesc = makeResampleDesc(method = &quot;CV&quot;, stratify = FALSE, iters = 3) 
+r = resample(learner = lrn.br, task = yeast.task, resampling = rdesc, show.info = FALSE) 
+r 
+
+r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE) 
+r 
+getMultilabelBinaryPerformances(pred, measures = list(acc, mmce, auc)) 
+
+getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
 </code></pre></div>
         </div>
 
@@ -526,9 +566,12 @@ getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -551,7 +594,47 @@ getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

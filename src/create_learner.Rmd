@@ -119,7 +119,7 @@ supports classification problems with two or more classes and can deal with
 numeric and factor explanatory variables. It can predict posterior
 probabilities.
 
-```{r, include=FALSE}
+```{r, include=FALSE, purl= FALSE}
 showFunctionDef = function(fun, name = gsub("^[^:]*:+", "", deparse(substitute(fun)))) {
   l = deparse(fun)
   l[1] = paste(name, l[1], sep = " = ")

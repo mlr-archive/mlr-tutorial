@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -229,9 +229,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/wrapper.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -243,6 +241,7 @@
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#wrapper">Wrapper</a></li>
             <li><a href="#example-bagging-wrapper">Example: Bagging wrapper</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -382,50 +381,51 @@ print(tuned.lrn)
 #&gt; With control class: TuneControlRandom
 #&gt; Imputation value: 1
 #&gt; [Tune-x] 1: minsplit=5; bw.feats=0.935
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 1: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 2: minsplit=9; bw.feats=0.675
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 2: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 3: minsplit=2; bw.feats=0.847
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 3: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 4: minsplit=4; bw.feats=0.761
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 4: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 5: minsplit=6; bw.feats=0.338
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 5: mmce.test.mean=0.0866667; time: 0.1 min
 #&gt; [Tune-x] 6: minsplit=1; bw.feats=0.637
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 6: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 7: minsplit=1; bw.feats=0.998
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 7: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 8: minsplit=4; bw.feats=0.698
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 8: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 9: minsplit=3; bw.feats=0.836
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 9: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 10: minsplit=10; bw.feats=0.529
-#&gt; Resampling: cross-validation
-#&gt; Measures:             mmce
 #&gt; [Tune-y] 10: mmce.test.mean=0.0533333; time: 0.1 min
 #&gt; [Tune] Result: minsplit=1; bw.feats=0.998 : mmce.test.mean=0.0466667
 print(lrn)
 #&gt; Model for learner.id=classif.rpart.bagged.tuned; learner.class=TuneWrapper
 #&gt; Trained on: task.id = iris; obs = 150; features = 4
 #&gt; Hyperparameters: xval=0,bw.iters=100,bw.feats=0.5
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>data(iris) 
+task = makeClassifTask(data = iris, target = &quot;Species&quot;, weights = as.integer(iris$Species)) 
+base.lrn = makeLearner(&quot;classif.rpart&quot;) 
+wrapped.lrn = makeBaggingWrapper(base.lrn, bw.iters = 100, bw.feats = 0.5) 
+print(wrapped.lrn) 
+benchmark(tasks = task, learners = list(base.lrn, wrapped.lrn)) 
+getParamSet(wrapped.lrn) 
+ctrl = makeTuneControlRandom(maxit = 10) 
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3) 
+par.set = makeParamSet( 
+  makeIntegerParam(&quot;minsplit&quot;, lower = 1, upper = 10), 
+  makeNumericParam(&quot;bw.feats&quot;, lower = 0.25, upper = 1) 
+) 
+tuned.lrn = makeTuneWrapper(wrapped.lrn, rdesc, mmce, par.set, ctrl) 
+print(tuned.lrn) 
+lrn = train(tuned.lrn, task = task) 
+print(lrn)
 </code></pre></div>
         </div>
 
@@ -434,9 +434,12 @@ print(lrn)
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -459,7 +462,47 @@ print(lrn)
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>
