@@ -278,20 +278,20 @@ non-standard misclassification costs, see the section on
 certain learning <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> use the function <a href="http://www.rdocumentation.org/packages/mlr/functions/listMeasures.html">listMeasures</a>.</p>
 <pre><code class="r">## Performance measures for classification with multiple classes
 listMeasures(&quot;classif&quot;, properties = &quot;classif.multi&quot;)
-#&gt;  [1] &quot;kappa&quot;            &quot;multiclass.brier&quot; &quot;multiclass.aunp&quot; 
-#&gt;  [4] &quot;multiclass.aunu&quot;  &quot;qsr&quot;              &quot;ber&quot;             
-#&gt;  [7] &quot;logloss&quot;          &quot;wkappa&quot;           &quot;timeboth&quot;        
-#&gt; [10] &quot;timepredict&quot;      &quot;acc&quot;              &quot;lsr&quot;             
-#&gt; [13] &quot;featperc&quot;         &quot;multiclass.au1p&quot;  &quot;multiclass.au1u&quot; 
-#&gt; [16] &quot;ssr&quot;              &quot;timetrain&quot;        &quot;mmce&quot;
+#&gt;  [1] &quot;featperc&quot;         &quot;mmce&quot;             &quot;lsr&quot;             
+#&gt;  [4] &quot;qsr&quot;              &quot;timeboth&quot;         &quot;multiclass.aunp&quot; 
+#&gt;  [7] &quot;timetrain&quot;        &quot;multiclass.aunu&quot;  &quot;ber&quot;             
+#&gt; [10] &quot;timepredict&quot;      &quot;multiclass.brier&quot; &quot;ssr&quot;             
+#&gt; [13] &quot;acc&quot;              &quot;logloss&quot;          &quot;wkappa&quot;          
+#&gt; [16] &quot;multiclass.au1p&quot;  &quot;multiclass.au1u&quot;  &quot;kappa&quot;
 ## Performance measure suitable for the iris classification task
 listMeasures(iris.task)
-#&gt;  [1] &quot;kappa&quot;            &quot;multiclass.brier&quot; &quot;multiclass.aunp&quot; 
-#&gt;  [4] &quot;multiclass.aunu&quot;  &quot;qsr&quot;              &quot;ber&quot;             
-#&gt;  [7] &quot;logloss&quot;          &quot;wkappa&quot;           &quot;timeboth&quot;        
-#&gt; [10] &quot;timepredict&quot;      &quot;acc&quot;              &quot;lsr&quot;             
-#&gt; [13] &quot;featperc&quot;         &quot;multiclass.au1p&quot;  &quot;multiclass.au1u&quot; 
-#&gt; [16] &quot;ssr&quot;              &quot;timetrain&quot;        &quot;mmce&quot;
+#&gt;  [1] &quot;featperc&quot;         &quot;mmce&quot;             &quot;lsr&quot;             
+#&gt;  [4] &quot;qsr&quot;              &quot;timeboth&quot;         &quot;multiclass.aunp&quot; 
+#&gt;  [7] &quot;timetrain&quot;        &quot;multiclass.aunu&quot;  &quot;ber&quot;             
+#&gt; [10] &quot;timepredict&quot;      &quot;multiclass.brier&quot; &quot;ssr&quot;             
+#&gt; [13] &quot;acc&quot;              &quot;logloss&quot;          &quot;wkappa&quot;          
+#&gt; [16] &quot;multiclass.au1p&quot;  &quot;multiclass.au1u&quot;  &quot;kappa&quot;
 </code></pre>
 
 <p>For convenience there exists a default measure for each type of learning problem, which is
@@ -360,7 +360,7 @@ works in the same way.</p>
 model has to be passed.</p>
 <pre><code class="r">performance(pred, measures = timetrain, model = mod)
 #&gt; timetrain 
-#&gt;     0.073
+#&gt;     0.094
 </code></pre>
 
 <p>For many performance measures in cluster analysis the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> is required.</p>
