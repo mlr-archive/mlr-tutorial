@@ -1,16 +1,25 @@
-# Tutorial
-URL: http://mlr-org.github.io/mlr-tutorial/devel/html/
+# mlr-tutorial
 
-## First steps
+The mlr package online tutorial
+
+[![Build Status](https://travis-ci.org/mlr-org/mlr-tutorial.svg?branch=gh-pages)](https://travis-ci.org/mlr-org/mlr-tutorial)
+
+To view the tutorial online see:
+ * http://mlr-org.github.io/mlr-tutorial/devel/html/ - targets the github-version of **mlr**
+ * http://mlr-org.github.io/mlr-tutorial/release/html/ - targets the cran-version of **mlr**.
+
+## Building the tutorial locally
+
+### First steps
 Install dependencies:
 * `pip install --user mkdocs` or `easy_install --user mkdocs`.
 * Install the [math extension for Python-Markdown](https://github.com/mitya57/python-markdown-math):
   After download `chmod a+x setup.py`, edit the first line in the file if you use `python2`, type `python setup.py build` and `python setup.py install`.
 * Install R dependencies as required.
 
-## Howto
+### Howto
 
-### Edit a tutorial section
+#### Edit a tutorial section
 * Only edit R markdown files in subfolder `src/`.
 * Markdown basics:
   * Basic Markdown: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
@@ -29,24 +38,24 @@ Install dependencies:
   `[foo](&bar)` instead of `[&foo]`.
 * Link to packages: `[%pkg]` and `[name](%pkg)`.
 
-### Add a new tutorial section
+#### Add a new tutorial section
 * Create a new R markdown file in subfolder `src/`.
 * Add the new section to the pages configuration in `mkdocs.yml`.
 
-### Include images
+#### Include images
 If you want to include an additional image in file `pic.png`:  
 * Put this file in subfolder `img/`.
 * Add a symlink in directory `custom_theme/img/`: `pic.png -> ../../img/pic.png`.
 * When including the image in the R markdown link to `img/pic.png`:  
   `![alt text](img/pic.png "Image Title")`
 
-### Commit your changes
+#### Commit your changes
 * Run `./build` to generate new static HTML.
 * If everything works:
   Commit and push your changes **except those in** `devel/` to update the tutorial.
   After your commit the HTML pages are automatically built and pushed by Travis.
 
-## More
+### More
 * "mkdocs serve" starts a http server listening on http://localhost:8000
   and updates the docs on change.
 * Sometimes function names collide. These packages must be loaded _first_

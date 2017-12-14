@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -169,7 +169,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -422,8 +422,8 @@ rdesc.outer = makeResampleDesc(&quot;CV&quot;, iters = 5)
 bmr = benchmark(lrns, tasks = sonar.task, resampling = rdesc.outer, measures = ms, show.info = FALSE)
 bmr
 #&gt;         task.id         learner.id auc.test.mean mmce.test.mean
-#&gt; 1 Sonar-example        classif.lda     0.7835442      0.2592334
-#&gt; 2 Sonar-example classif.ksvm.tuned     0.9454418      0.1390244
+#&gt; 1 Sonar_example        classif.lda     0.7835442      0.2592334
+#&gt; 2 Sonar_example classif.ksvm.tuned     0.9454418      0.1390244
 </code></pre>
 
 <p>Calling <a href="http://www.rdocumentation.org/packages/mlr/functions/generateThreshVsPerfData.html">generateThreshVsPerfData</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/plotROCCurves.html">plotROCCurves</a> on the <a href="http://www.rdocumentation.org/packages/mlr/functions/BenchmarkResult.html">benchmark result</a>
@@ -601,7 +601,7 @@ Below plots for the benchmark experiment (Example 2) are generated.</p>
 <pre><code class="r">z = plotViperCharts(bmr, chart = &quot;rocc&quot;, browse = FALSE)
 </code></pre>
 
-<p>You can see the plot created this way <a href="http://viper.ijs.si/chart/roc/ffc022be-fbb2-4e27-a969-71f4adec5f56/">here</a>.
+<p>You can see the plot created this way <a href="http://viper.ijs.si/chart/roc/424e4c2b-ab26-46fe-9176-2634f65c915a/">here</a>.
 Note that besides ROC curves you get several other plots like lift charts or cost curves.
 For details, see <a href="http://www.rdocumentation.org/packages/mlr/functions/plotViperCharts.html">plotViperCharts</a>.</p>
 <h2 id="complete-code-listing">Complete code listing</h2>
