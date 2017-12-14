@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -169,7 +169,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -319,10 +319,10 @@ r = resample(lrn, iris.task, resampling = outer, extract = getTuneResult, show.i
 
 r
 #&gt; Resample Result
-#&gt; Task: iris-example
+#&gt; Task: iris_example
 #&gt; Learner: classif.ksvm.tuned
 #&gt; Aggr perf: mmce.test.mean=0.0533333
-#&gt; Runtime: 5.33662
+#&gt; Runtime: 3.40427
 </code></pre>
 
 <p>You can obtain the error rates on the 3 outer test sets by:</p>
@@ -376,16 +376,16 @@ resampling iteration.</p>
 <pre><code class="r">opt.paths = getNestedTuneResultsOptPathDf(r)
 head(opt.paths, 10)
 #&gt;       C sigma mmce.test.mean dob eol error.message exec.time iter
-#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.060    1
-#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.061    1
-#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.062    1
-#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.063    1
-#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.062    1
-#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.073    1
-#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.058    1
-#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.058    1
-#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.060    1
-#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.059    1
+#&gt; 1  0.25  0.25     0.05882353   1  NA          &lt;NA&gt;     0.042    1
+#&gt; 2   0.5  0.25     0.04411765   2  NA          &lt;NA&gt;     0.042    1
+#&gt; 3     1  0.25     0.04411765   3  NA          &lt;NA&gt;     0.042    1
+#&gt; 4     2  0.25     0.01470588   4  NA          &lt;NA&gt;     0.048    1
+#&gt; 5     4  0.25     0.05882353   5  NA          &lt;NA&gt;     0.036    1
+#&gt; 6  0.25   0.5     0.05882353   6  NA          &lt;NA&gt;     0.036    1
+#&gt; 7   0.5   0.5     0.01470588   7  NA          &lt;NA&gt;     0.036    1
+#&gt; 8     1   0.5     0.02941176   8  NA          &lt;NA&gt;     0.036    1
+#&gt; 9     2   0.5     0.01470588   9  NA          &lt;NA&gt;     0.036    1
+#&gt; 10    4   0.5     0.05882353  10  NA          &lt;NA&gt;     0.035    1
 </code></pre>
 
 <p>Below we visualize the <code>opt.path</code>s for the 3 outer resampling iterations.</p>
@@ -430,7 +430,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm.featsel
 #&gt; Aggr perf: mse.test.mean=31.6991293
-#&gt; Runtime: 11.3622
+#&gt; Runtime: 7.93073
 
 r$measures.test
 #&gt;   iter      mse
@@ -478,12 +478,12 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      80.48765
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      63.06724
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.030
-#&gt; 2   2   2          &lt;NA&gt;     0.050
-#&gt; 3   2   2          &lt;NA&gt;     0.049
-#&gt; 4   2   2          &lt;NA&gt;     0.050
-#&gt; 5   2   2          &lt;NA&gt;     0.055
-#&gt; 6   2   2          &lt;NA&gt;     0.049
+#&gt; 1   1   2          &lt;NA&gt;     0.021
+#&gt; 2   2   2          &lt;NA&gt;     0.034
+#&gt; 3   2   2          &lt;NA&gt;     0.033
+#&gt; 4   2   2          &lt;NA&gt;     0.032
+#&gt; 5   2   2          &lt;NA&gt;     0.035
+#&gt; 6   2   2          &lt;NA&gt;     0.032
 </code></pre>
 
 <p>An easy-to-read version of the optimization path for sequential feature selection can be
@@ -534,7 +534,7 @@ r
 #&gt; Task: BostonHousing-example
 #&gt; Learner: regr.lm.filtered.tuned
 #&gt; Aggr perf: mse.test.mean=25.3915155
-#&gt; Runtime: 6.2496
+#&gt; Runtime: 3.85701
 </code></pre>
 
 <h4 id="accessing-the-selected-features-and-optimal-percentage">Accessing the selected features and optimal percentage</h4>
@@ -595,12 +595,12 @@ res
 opt.paths = lapply(res, function(x) as.data.frame(x$opt.path))
 opt.paths[[1]]
 #&gt;   fw.threshold mse.test.mean dob eol error.message exec.time
-#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.341
-#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.348
-#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.337
-#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.328
-#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.261
-#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.285
+#&gt; 1            0      24.89160   1  NA          &lt;NA&gt;     0.195
+#&gt; 2          0.2      25.18817   2  NA          &lt;NA&gt;     0.204
+#&gt; 3          0.4      25.18817   3  NA          &lt;NA&gt;     0.194
+#&gt; 4          0.6      32.15930   4  NA          &lt;NA&gt;     0.182
+#&gt; 5          0.8      90.89848   5  NA          &lt;NA&gt;     0.190
+#&gt; 6            1      90.89848   6  NA          &lt;NA&gt;     0.193
 </code></pre>
 
 <h2 id="benchmark-experiments">Benchmark experiments</h2>
@@ -664,10 +664,10 @@ outer = list(makeResampleDesc(&quot;Holdout&quot;), makeResampleDesc(&quot;Boots
 res = benchmark(lrns, tasks, outer, measures = list(acc, ber), show.info = FALSE)
 res
 #&gt;         task.id         learner.id acc.test.mean ber.test.mean
-#&gt; 1  iris-example classif.ksvm.tuned     0.9400000    0.05882353
-#&gt; 2  iris-example classif.kknn.tuned     0.9200000    0.08683473
-#&gt; 3 Sonar-example classif.ksvm.tuned     0.5289307    0.50000000
-#&gt; 4 Sonar-example classif.kknn.tuned     0.8077080    0.19549714
+#&gt; 1  iris_example classif.ksvm.tuned     0.9400000    0.05882353
+#&gt; 2  iris_example classif.kknn.tuned     0.9200000    0.08683473
+#&gt; 3 Sonar_example classif.ksvm.tuned     0.5289307    0.50000000
+#&gt; 4 Sonar_example classif.kknn.tuned     0.8077080    0.19549714
 </code></pre>
 
 <p>The <a href="http://www.rdocumentation.org/packages/base/functions/print.html">print</a> method for the <a href="http://www.rdocumentation.org/packages/mlr/functions/BenchmarkResult.html">BenchmarkResult</a> shows the aggregated performances
@@ -681,52 +681,52 @@ Note that, since we used different outer resampling strategies for the two tasks
 of rows per task differ.</p>
 <pre><code class="r">getBMRPerformances(res, as.df = TRUE)
 #&gt;         task.id         learner.id iter       acc        ber
-#&gt; 1  iris-example classif.ksvm.tuned    1 0.9400000 0.05882353
-#&gt; 2  iris-example classif.kknn.tuned    1 0.9200000 0.08683473
-#&gt; 3 Sonar-example classif.ksvm.tuned    1 0.5373134 0.50000000
-#&gt; 4 Sonar-example classif.ksvm.tuned    2 0.5205479 0.50000000
-#&gt; 5 Sonar-example classif.kknn.tuned    1 0.8208955 0.18234767
-#&gt; 6 Sonar-example classif.kknn.tuned    2 0.7945205 0.20864662
+#&gt; 1  iris_example classif.ksvm.tuned    1 0.9400000 0.05882353
+#&gt; 2  iris_example classif.kknn.tuned    1 0.9200000 0.08683473
+#&gt; 3 Sonar_example classif.ksvm.tuned    1 0.5373134 0.50000000
+#&gt; 4 Sonar_example classif.ksvm.tuned    2 0.5205479 0.50000000
+#&gt; 5 Sonar_example classif.kknn.tuned    1 0.8208955 0.18234767
+#&gt; 6 Sonar_example classif.kknn.tuned    2 0.7945205 0.20864662
 </code></pre>
 
 <p>The results from the parameter tuning can be obtained through function <a href="http://www.rdocumentation.org/packages/mlr/functions/getBMRTuneResults.html">getBMRTuneResults</a>.</p>
 <pre><code class="r">getBMRTuneResults(res)
-#&gt; $`iris-example`
-#&gt; $`iris-example`$classif.ksvm.tuned
-#&gt; $`iris-example`$classif.ksvm.tuned[[1]]
+#&gt; $iris_example
+#&gt; $iris_example$classif.ksvm.tuned
+#&gt; $iris_example$classif.ksvm.tuned[[1]]
 #&gt; Tune result:
 #&gt; Op. pars: C=0.5; sigma=0.5
 #&gt; mmce.test.mean=0.0588235
 #&gt; 
 #&gt; 
-#&gt; $`iris-example`$classif.kknn.tuned
-#&gt; $`iris-example`$classif.kknn.tuned[[1]]
+#&gt; $iris_example$classif.kknn.tuned
+#&gt; $iris_example$classif.kknn.tuned[[1]]
 #&gt; Tune result:
 #&gt; Op. pars: k=3
 #&gt; mmce.test.mean=0.0490196
 #&gt; 
 #&gt; 
 #&gt; 
-#&gt; $`Sonar-example`
-#&gt; $`Sonar-example`$classif.ksvm.tuned
-#&gt; $`Sonar-example`$classif.ksvm.tuned[[1]]
+#&gt; $Sonar_example
+#&gt; $Sonar_example$classif.ksvm.tuned
+#&gt; $Sonar_example$classif.ksvm.tuned[[1]]
 #&gt; Tune result:
 #&gt; Op. pars: C=1; sigma=2
 #&gt; mmce.test.mean=0.3428571
 #&gt; 
-#&gt; $`Sonar-example`$classif.ksvm.tuned[[2]]
+#&gt; $Sonar_example$classif.ksvm.tuned[[2]]
 #&gt; Tune result:
 #&gt; Op. pars: C=2; sigma=0.5
 #&gt; mmce.test.mean=0.2000000
 #&gt; 
 #&gt; 
-#&gt; $`Sonar-example`$classif.kknn.tuned
-#&gt; $`Sonar-example`$classif.kknn.tuned[[1]]
+#&gt; $Sonar_example$classif.kknn.tuned
+#&gt; $Sonar_example$classif.kknn.tuned[[1]]
 #&gt; Tune result:
 #&gt; Op. pars: k=4
 #&gt; mmce.test.mean=0.1095238
 #&gt; 
-#&gt; $`Sonar-example`$classif.kknn.tuned[[2]]
+#&gt; $Sonar_example$classif.kknn.tuned[[2]]
 #&gt; Tune result:
 #&gt; Op. pars: k=3
 #&gt; mmce.test.mean=0.0666667
@@ -736,24 +736,24 @@ of rows per task differ.</p>
 can be achieved by setting <code>as.df = TRUE</code>.</p>
 <pre><code class="r">getBMRTuneResults(res, as.df = TRUE)
 #&gt;         task.id         learner.id iter   C sigma mmce.test.mean  k
-#&gt; 1  iris-example classif.ksvm.tuned    1 0.5   0.5     0.05882353 NA
-#&gt; 2  iris-example classif.kknn.tuned    1  NA    NA     0.04901961  3
-#&gt; 3 Sonar-example classif.ksvm.tuned    1 1.0   2.0     0.34285714 NA
-#&gt; 4 Sonar-example classif.ksvm.tuned    2 2.0   0.5     0.20000000 NA
-#&gt; 5 Sonar-example classif.kknn.tuned    1  NA    NA     0.10952381  4
-#&gt; 6 Sonar-example classif.kknn.tuned    2  NA    NA     0.06666667  3
+#&gt; 1  iris_example classif.ksvm.tuned    1 0.5   0.5     0.05882353 NA
+#&gt; 2  iris_example classif.kknn.tuned    1  NA    NA     0.04901961  3
+#&gt; 3 Sonar_example classif.ksvm.tuned    1 1.0   2.0     0.34285714 NA
+#&gt; 4 Sonar_example classif.ksvm.tuned    2 2.0   0.5     0.20000000 NA
+#&gt; 5 Sonar_example classif.kknn.tuned    1  NA    NA     0.10952381  4
+#&gt; 6 Sonar_example classif.kknn.tuned    2  NA    NA     0.06666667  3
 </code></pre>
 
 <p>It is also possible to extract the tuning results for individual tasks and learners and,
 as shown in earlier examples, inspect the <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/OptPath.html">optimization path</a>.</p>
-<pre><code class="r">tune.res = getBMRTuneResults(res, task.ids = &quot;Sonar-example&quot;, learner.ids = &quot;classif.ksvm.tuned&quot;,
+<pre><code class="r">tune.res = getBMRTuneResults(res, task.ids = &quot;Sonar_example&quot;, learner.ids = &quot;classif.ksvm.tuned&quot;,
   as.df = TRUE)
 tune.res
 #&gt;         task.id         learner.id iter C sigma mmce.test.mean
-#&gt; 1 Sonar-example classif.ksvm.tuned    1 1   2.0      0.3428571
-#&gt; 2 Sonar-example classif.ksvm.tuned    2 2   0.5      0.2000000
+#&gt; 1 Sonar_example classif.ksvm.tuned    1 1   2.0      0.3428571
+#&gt; 2 Sonar_example classif.ksvm.tuned    2 2   0.5      0.2000000
 
-getNestedTuneResultsOptPathDf(res$results[[&quot;Sonar-example&quot;]][[&quot;classif.ksvm.tuned&quot;]])
+getNestedTuneResultsOptPathDf(res$results[[&quot;Sonar_example&quot;]][[&quot;classif.ksvm.tuned&quot;]])
 </code></pre>
 
 <h3 id="example-2-one-task-two-learners-feature-selection">Example 2: One task, two learners, feature selection</h3>
@@ -841,12 +841,12 @@ head(opt.paths[[1]])
 #&gt; 5    0  0     0    1   0  0   0   0   0   0       0 0     0      86.93409
 #&gt; 6    0  0     0    0   1  0   0   0   0   0       0 0     0      76.32457
 #&gt;   dob eol error.message exec.time
-#&gt; 1   1   2          &lt;NA&gt;     0.022
-#&gt; 2   2   2          &lt;NA&gt;     0.030
-#&gt; 3   2   2          &lt;NA&gt;     0.032
-#&gt; 4   2   2          &lt;NA&gt;     0.031
-#&gt; 5   2   2          &lt;NA&gt;     0.035
-#&gt; 6   2   2          &lt;NA&gt;     0.034
+#&gt; 1   1   2          &lt;NA&gt;     0.015
+#&gt; 2   2   2          &lt;NA&gt;     0.024
+#&gt; 3   2   2          &lt;NA&gt;     0.023
+#&gt; 4   2   2          &lt;NA&gt;     0.025
+#&gt; 5   2   2          &lt;NA&gt;     0.025
+#&gt; 6   2   2          &lt;NA&gt;     0.035
 
 analyzeFeatSelResult(feats[[1]])
 #&gt; Features         : 8
@@ -996,11 +996,11 @@ res
 getBMRPerformances(res, as.df = TRUE) 
 getBMRTuneResults(res) 
 getBMRTuneResults(res, as.df = TRUE) 
-tune.res = getBMRTuneResults(res, task.ids = &quot;Sonar-example&quot;, learner.ids = &quot;classif.ksvm.tuned&quot;, 
+tune.res = getBMRTuneResults(res, task.ids = &quot;Sonar_example&quot;, learner.ids = &quot;classif.ksvm.tuned&quot;, 
   as.df = TRUE) 
 tune.res 
 
-getNestedTuneResultsOptPathDf(res$results[[&quot;Sonar-example&quot;]][[&quot;classif.ksvm.tuned&quot;]]) 
+getNestedTuneResultsOptPathDf(res$results[[&quot;Sonar_example&quot;]][[&quot;classif.ksvm.tuned&quot;]]) 
 ## Feature selection in inner resampling loop 
 ctrl = makeFeatSelControlSequential(method = &quot;sfs&quot;) 
 inner = makeResampleDesc(&quot;Subsample&quot;, iters = 2) 

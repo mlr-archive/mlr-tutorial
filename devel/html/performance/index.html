@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li class="active">
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -169,7 +169,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -219,7 +219,7 @@
                     </a>
                 </li>
                     <li >
-                        <a rel="next" href="../predict/index.html">
+                        <a rel="next" href="../preproc/index.html">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -278,20 +278,20 @@ non-standard misclassification costs, see the section on
 certain learning <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> use the function <a href="http://www.rdocumentation.org/packages/mlr/functions/listMeasures.html">listMeasures</a>.</p>
 <pre><code class="r">## Performance measures for classification with multiple classes
 listMeasures(&quot;classif&quot;, properties = &quot;classif.multi&quot;)
-#&gt;  [1] &quot;kappa&quot;            &quot;multiclass.brier&quot; &quot;multiclass.aunp&quot; 
-#&gt;  [4] &quot;multiclass.aunu&quot;  &quot;qsr&quot;              &quot;ber&quot;             
-#&gt;  [7] &quot;logloss&quot;          &quot;wkappa&quot;           &quot;timeboth&quot;        
-#&gt; [10] &quot;timepredict&quot;      &quot;acc&quot;              &quot;lsr&quot;             
-#&gt; [13] &quot;featperc&quot;         &quot;multiclass.au1p&quot;  &quot;multiclass.au1u&quot; 
-#&gt; [16] &quot;ssr&quot;              &quot;timetrain&quot;        &quot;mmce&quot;
+#&gt;  [1] &quot;featperc&quot;         &quot;mmce&quot;             &quot;lsr&quot;             
+#&gt;  [4] &quot;qsr&quot;              &quot;timeboth&quot;         &quot;multiclass.aunp&quot; 
+#&gt;  [7] &quot;timetrain&quot;        &quot;multiclass.aunu&quot;  &quot;ber&quot;             
+#&gt; [10] &quot;timepredict&quot;      &quot;multiclass.brier&quot; &quot;ssr&quot;             
+#&gt; [13] &quot;acc&quot;              &quot;logloss&quot;          &quot;wkappa&quot;          
+#&gt; [16] &quot;multiclass.au1p&quot;  &quot;multiclass.au1u&quot;  &quot;kappa&quot;
 ## Performance measure suitable for the iris classification task
 listMeasures(iris.task)
-#&gt;  [1] &quot;kappa&quot;            &quot;multiclass.brier&quot; &quot;multiclass.aunp&quot; 
-#&gt;  [4] &quot;multiclass.aunu&quot;  &quot;qsr&quot;              &quot;ber&quot;             
-#&gt;  [7] &quot;logloss&quot;          &quot;wkappa&quot;           &quot;timeboth&quot;        
-#&gt; [10] &quot;timepredict&quot;      &quot;acc&quot;              &quot;lsr&quot;             
-#&gt; [13] &quot;featperc&quot;         &quot;multiclass.au1p&quot;  &quot;multiclass.au1u&quot; 
-#&gt; [16] &quot;ssr&quot;              &quot;timetrain&quot;        &quot;mmce&quot;
+#&gt;  [1] &quot;featperc&quot;         &quot;mmce&quot;             &quot;lsr&quot;             
+#&gt;  [4] &quot;qsr&quot;              &quot;timeboth&quot;         &quot;multiclass.aunp&quot; 
+#&gt;  [7] &quot;timetrain&quot;        &quot;multiclass.aunu&quot;  &quot;ber&quot;             
+#&gt; [10] &quot;timepredict&quot;      &quot;multiclass.brier&quot; &quot;ssr&quot;             
+#&gt; [13] &quot;acc&quot;              &quot;logloss&quot;          &quot;wkappa&quot;          
+#&gt; [16] &quot;multiclass.au1p&quot;  &quot;multiclass.au1u&quot;  &quot;kappa&quot;
 </code></pre>
 
 <p>For convenience there exists a default measure for each type of learning problem, which is
@@ -360,7 +360,7 @@ works in the same way.</p>
 model has to be passed.</p>
 <pre><code class="r">performance(pred, measures = timetrain, model = mod)
 #&gt; timetrain 
-#&gt;     0.073
+#&gt;     0.072
 </code></pre>
 
 <p>For many performance measures in cluster analysis the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> is required.</p>
@@ -420,7 +420,7 @@ str(mmce)
 <h3 id="plot-performance-versus-threshold">Plot performance versus threshold</h3>
 <p>As you may recall (see the previous section on <a href="../predict/index.html">making predictions</a>)
 in binary classification we can adjust the threshold used to map probabilities to class labels.
-Helpful in this regard is are the functions <a href="http://www.rdocumentation.org/packages/mlr/functions/generateThreshVsPerfData.html">generateThreshVsPerfData</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/plotThreshVsPerf.html">plotThreshVsPerf</a>, which generate and plot, respectively, the learner performance versus the threshold.</p>
+Helpful in this regard are the functions <a href="http://www.rdocumentation.org/packages/mlr/functions/generateThreshVsPerfData.html">generateThreshVsPerfData</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/plotThreshVsPerf.html">plotThreshVsPerf</a>, which generate and plot, respectively, the learner performance versus the threshold.</p>
 <p>For more performance plots and automatic threshold tuning see <a href="../roc_analysis/index.html">here</a>.</p>
 <p>In the following example we consider the <a href="http://www.rdocumentation.org/packages/mlbench/functions/Sonar.html">Sonar</a> data set and
 plot the false positive rate (<a href="../measures/index.html">fpr</a>), the false negative rate (<a href="../measures/index.html">fnr</a>)

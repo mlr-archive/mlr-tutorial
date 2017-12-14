@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -169,7 +169,7 @@
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -274,12 +274,12 @@ print(head(as.data.frame(res$opt.path)))
 #&gt; 5  9.7729840 vanilladot        NA     NA           0.04   1  NA
 #&gt; 6 -2.7930352     rbfdot -7.198476     NA           0.36   1  NA
 #&gt;   error.message exec.time
-#&gt; 1          &lt;NA&gt;     0.025
-#&gt; 2          &lt;NA&gt;     0.035
+#&gt; 1          &lt;NA&gt;     0.026
+#&gt; 2          &lt;NA&gt;     0.025
 #&gt; 3          &lt;NA&gt;     0.025
-#&gt; 4          &lt;NA&gt;     0.023
-#&gt; 5          &lt;NA&gt;     0.022
-#&gt; 6          &lt;NA&gt;     0.022
+#&gt; 4          &lt;NA&gt;     0.024
+#&gt; 5          &lt;NA&gt;     0.023
+#&gt; 6          &lt;NA&gt;     0.032
 </code></pre>
 
 <p>See how we made the kernel parameters like <code>sigma</code> and <code>degree</code> dependent on the <code>kernel</code>
@@ -329,12 +329,12 @@ print(head(as.data.frame(res$opt.path)))
 #&gt; 5 classif.randomForest                 NA                        394
 #&gt; 6         classif.ksvm           11.02356                         NA
 #&gt;   mmce.test.mean dob eol error.message exec.time
-#&gt; 1     0.04666667   1  NA          &lt;NA&gt;     0.046
-#&gt; 2     0.68000000   1  NA          &lt;NA&gt;     0.039
-#&gt; 3     0.52666667   1  NA          &lt;NA&gt;     0.039
-#&gt; 4     0.68000000   1  NA          &lt;NA&gt;     0.039
-#&gt; 5     0.04666667   1  NA          &lt;NA&gt;     0.050
-#&gt; 6     0.68000000   1  NA          &lt;NA&gt;     0.039
+#&gt; 1     0.04666667   1  NA          &lt;NA&gt;     0.084
+#&gt; 2     0.68000000   1  NA          &lt;NA&gt;     0.062
+#&gt; 3     0.52666667   1  NA          &lt;NA&gt;     0.060
+#&gt; 4     0.68000000   1  NA          &lt;NA&gt;     0.056
+#&gt; 5     0.04666667   1  NA          &lt;NA&gt;     0.071
+#&gt; 6     0.68000000   1  NA          &lt;NA&gt;     0.055
 </code></pre>
 
 <h2 id="multi-criteria-evaluation-and-optimization">Multi-criteria evaluation and optimization</h2>
@@ -367,12 +367,12 @@ head(as.data.frame(trafoOptPath(res$opt.path)))
 #&gt; 5 8.642356e+01 47.600399172          1.00    0.00000000   5  NA
 #&gt; 6 3.661447e-04  0.715765529          1.00    0.00000000   6  NA
 #&gt;   error.message exec.time
-#&gt; 1          &lt;NA&gt;     0.048
-#&gt; 2          &lt;NA&gt;     0.045
-#&gt; 3          &lt;NA&gt;     0.043
-#&gt; 4          &lt;NA&gt;     0.039
-#&gt; 5          &lt;NA&gt;     0.038
-#&gt; 6          &lt;NA&gt;     0.037
+#&gt; 1          &lt;NA&gt;     0.043
+#&gt; 2          &lt;NA&gt;     0.044
+#&gt; 3          &lt;NA&gt;     0.056
+#&gt; 4          &lt;NA&gt;     0.053
+#&gt; 5          &lt;NA&gt;     0.053
+#&gt; 6          &lt;NA&gt;     0.044
 </code></pre>
 
 <p>The results can be visualized with function <a href="http://www.rdocumentation.org/packages/mlr/functions/plotTuneMultiCritResult.html">plotTuneMultiCritResult</a>.
