@@ -83,7 +83,6 @@ We can check for the introduced spatial autocorrelation bias here by performing 
 To force non-spatial cross-validation here, variables `x` and `y` need to be removed from the data set because they are not used for partitioning when using `RepCV` and also should not be used as predictors. 
 
 Additionally, the `spatial` task attribute needs to be set to `FALSE`.
-`mlr` will issue a warning message if it detects variables named `x` or `y` in combination with  `spatial = FALSE`.
 Finally, `RepCV` is chosen instead of `SpRepCV`.
 
 ### Non-Spatial Cross-Validation
