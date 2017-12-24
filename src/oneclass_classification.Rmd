@@ -28,7 +28,7 @@ Unfortunately, in real life settings, there is usually no way to test, if any or
 Here we show the [%mlr] workflow to train, make predictions, and evaluate a learner on a one-class classification problem. More details on each step are provided later.
 
 ```{r, results='hide', warning = FALSE}
-devtools::install_github("mlr-org/mlr", ref = "oneclass_lof")
+devtools::install_github("mlr-org/mlr", ref = "oneclass_lof_dbscan")
 library(mlr)
 # get synthetic anomaly data, first 1000 observation are normal, the last 50 are anomalies
 # this dataset has labels in the 'target' column for testing the model
@@ -49,7 +49,8 @@ task = makeOneClassTask(id = "oneclass", data = data, target = "Target", positiv
 ## the ratio of anomalies in the data, he/she should set predict.type to "prob" and adapt the predict.threshold variable
 lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "response")
 lrn.svm = makeLearner("oneclass.svm", predict.type = "response")
-lrn.lof = makeLearner("oneclass.lofactor", predict.type = "prob", k = 60, predict.threshold = 0.95)
+lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob", k = 60, predict.threshold = 0.95)
+lrn.lof = makeLearner("oneclass.lof", predict.type = "prob", k = 60, predict.threshold = 0.95)
 ## sometimes the h2o learner are not computational stable, therefore add learner settings,
 ## e.g. l1, max_w2 etc.
 lrn.ae = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", predict.threshold = 0.95, 
@@ -59,6 +60,7 @@ lrn.ae = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", predict.
 ## The model is fitted ignoring that labels are provided (more information later)
 mod.ksvm = train(lrn.ksvm, task, subset = train.set)  
 mod.svm = train(lrn.svm, task, subset = train.set)  
+mod.lofactor = train(lrn.lofactor, task, subset = train.set)  
 mod.lof = train(lrn.lof, task, subset = train.set)  
 mod.ae = train(lrn.ae, task, subset = train.set)  
 
@@ -66,6 +68,7 @@ mod.ae = train(lrn.ae, task, subset = train.set)
 ## If predict.type = "prob", observation with high probability are more likely to be anomalous
 pred.ksvm = predict(mod.ksvm, task, subset = test.set)
 pred.svm = predict(mod.svm, task, subset = test.set)
+pred.lofactor = predict(mod.lofactor, task, subset = test.set)
 pred.lof = predict(mod.lof, task, subset = test.set)
 pred.ae = predict(mod.ae, task, subset = test.set)
 
@@ -81,6 +84,7 @@ avgprecision = makePrecisionMeasure(id = "AvgPrecision", type = "avgprecision", 
 wac = makeWACMeasure(id = "wac", w = 0.6) #weight of the anomaly class is set to 0.6
 
 performance(pred.svm, measures = list(rprecision, precisionat5, avgprecision, wac))
+performance(pred.lofactor, measures = list(rprecision, precisionat5, avgprecision, wac))
 performance(pred.lof, measures = list(rprecision, precisionat5, avgprecision, wac))
 
 ## additional measurement for evaluating anomaly detection methods without using labels are also implemented in R
@@ -96,8 +100,8 @@ performance(model = mod.ae, pred = pred.ae, task = task, measures = list(amv))
 If one only has a few data sets without labels, it is recommended to plot the probability and set the threshold manually.
 ```{r, out.width = '75%'}
 par(mfrow = c(1,2))
-n = length(pred.lof$data$prob.Anomaly)
-plot(1:n, pred.lof$data$prob.Anomaly, main = "lof", ylab = "probability for anomaly", xlab = "observation")
+n = length(pred.lofactor$data$prob.Anomaly)
+plot(1:n, pred.lofactor$data$prob.Anomaly, main = "lofactor", ylab = "probability for anomaly", xlab = "observation")
 plot(1:n, pred.ae$data$prob.Anomaly, main = "autoencoder", ylab = "probability for anomaly", xlab = "observation")
 ```
 
@@ -157,12 +161,13 @@ As explained above, the autoencoder is producing a reconstruction error (mse bet
 
 ### Local Outlier Factor (LOF)
 
-The *local outlier factor (LOF)* is the degree of being an outlier of a data point. The degree depends on the *local* density, that is the dense of the *k-nearest* neighbours. *LOF* basically compares the local density of one data point to the local density of its neighbours. A data point, which local density is comparable lower than its neighbours is more likely an anomaly. A low local density indicates that the observation lies in a region that is sparser than that of its neighbours, and thus it is more likely to be anomalous. [Breunig et.al 2000]
+The *local outlier factor (LOF)* is the degree of being an outlier of a data point. The degree depends on the *local* density, that is the dense of the *k-nearest* neighbours. *LOF* basically compares the local density of one data point to the local density of its neighbours. A data point, which local density is comparable lower than its neighbours is more likely an anomaly. A low local density indicates that the observation lies in a region that is sparser than that of its neighbours, and thus it is more likely to be anomalous. [Breunig et.al 2000]. In **R** the packages, the 'lofactor' in [%DMwR] and 'lof' in [%dbscan] provides an algorithm for the LOF method.
 
 ```{r}
 # The number of neighbours (k) that will be used in the calculation of the local 
 # outlier factors must be set by the user
-lrn.lof = makeLearner("oneclass.lofactor", k = 50, predict.type = "prob")
+lrn.lofactor = makeLearner("oneclass.lofactor", k = 50, predict.type = "prob")
+lrn.lof = makeLearner("oneclass.lof", k = 50, predict.type = "prob")
 lrn.lof
 ```
 
@@ -173,6 +178,7 @@ You can [&train] a model as usual with a oneclass learner and a oneclass task as
 ```{r, results='hide'}
 mod.ksvm = train(lrn.ksvm, task, subset = train.set)  
 mod.svm = train(lrn.svm, task, subset = train.set)
+mod.lofactor = train(lrn.lofactor, task, subset = train.set)  
 mod.lof = train(lrn.lof, task, subset = train.set)  
 mod.ae = train(lrn.ae, task, subset = train.set) 
 ```
@@ -186,8 +192,9 @@ pred.ae = predict(mod.ae, task, subset = test.set)
 ```
 
 The training of LOF in [&mlr] is different than the other learners, in the way that the (&train) and the (&test) function are independent. Which means that the (&train) function returns a prediction of the train data and the (&test) functions return a prediction of the test data based on the test data themselves, without needing the trained model. [&mlr] returns a message to notify the user.
-(To apply LOF from the [&DMwR] package, no test and train data are needed. In order to keep the structure of mlr, to enable tuning and to allow binary supervised evaluation methods we modified the [&lofactor] function in [&mlr] so LOF in [&mlr] inherits from the supervised class although it is an unsupervised learning method. 
+(To apply LOF from the [&DMwR] package and from the [&dbscan], no test and train data are needed. In order to keep the structure of mlr, to enable tuning and to allow binary supervised evaluation methods we modified the [&lofactor] function in [&mlr] so LOF in [&mlr] inherits from the supervised class although it is an unsupervised learning method. 
 ```{r}
+pred.lofactor = predict(mod.lofactor, task, subset = test.set)
 pred.lof = predict(mod.lof, task, subset = test.set)
 ```
 
@@ -232,7 +239,7 @@ performance(model = mod.ae, pred = pred.ae, task = task, measures = list(amv))
 A challenge in anomaly detection is to tune hyperparameters. If you have data with labels, you can tune a model using a supervised binary measurement and use this model on unlabelled data. If you don't have labeled data, you can tune a model using an unsupervised binary measurement like *amv* or *amvhd*. A tuning example for all implemented anomaly detection is provided below using the [oneclass2d.task](&oneclass2d.task).
 
 ### Defining the resampling strategy for one-class classification
-For one-class classification tuning you can use the standard [resampling strategy] (resample.md#defining-the-resampling-strategy), especially if you don't have labels. But if you have labels it is recommended to use one of the resampling strategies designed for the one-class classification task, which are: ``OCHoldhout``, ``OCCV``, ``OCSubsample``, ``OCBootsrap``, ``OCRepCV``, to assure to only have normal data during the training. ``OCHoldhout``,``OCSubsample``, and ``OCBootsrap`` are basically sampling only normal observations for the training data set and the remaining observations are used for testing. ``OCCV`` and ``OCRepCV`` split the anomalous observations in k-folds, dropping the anomalies in the used fold for training. These strategies can be called as usual in [&mlr] with the [&makeResampleDesc] function.
+For one-class classification tuning you can use the standard [resampling strategy] (resample.md#defining-the-resampling-strategy), especially if you don't have labels. But if you have labels it is recommended to use one of the resampling strategies designed for the one-class classification task, which are: ``OCHoldhout``, ``OCCV``, ``OCSubsample``, ``OCBootsrap``, ``OCRepCV``, to assure to only have normal data during the training. ``OCHoldhout``,``OCSubsample``, and ``OCBootsrap`` are basically sampling only normal observations for the training data set and the remaining observations, including all anomalies, are used for testing. ``OCCV`` and ``OCRepCV`` split the anomalous observations in k-folds, dropping the anomalies in the used fold for training. These strategies can be called as usual in [&mlr] with the [&makeResampleDesc] function.
 ```{r}
 # Set outer resampling strategy
 outer = makeResampleDesc("OCBootstrap", iters = 3)
@@ -267,6 +274,10 @@ ps.svm = makeParamSet(
 
 ### parameter for lofactor
 ps.lofactor = makeParamSet(
+  makeIntegerParam("k", lower = 20, upper = 200))
+
+### parameter for lof
+ps.lof = makeParamSet(
   makeIntegerParam("k", lower = 20, upper = 200))
 ```
 For the *oneclass.ksvm* learner there is an exception for setting the search space for the ``sigma`` parameter, see [Tuning](tune.md#specifying-the-search-space).
@@ -320,7 +331,7 @@ lrn.h2o = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", activat
 lrn.h2o = makeTuneWrapper(lrn.h2o, resampling = inner, par.set = ps.h2o, measures = list(f1),
   control = ctrl, show.info = FALSE)
 
-lrns = list(lrn.svm, lrn.ksvm, lrn.h2o, lrn.lofactor)
+lrns = list(lrn.svm, lrn.ksvm, lrn.h2o, lrn.lofactor, lrn.lof)
 res = benchmark(lrns, oneclass2d.task, rin, measures = list(f1))
 bmr = getBMRPerformances(res, as.df = TRUE)
 bmr
