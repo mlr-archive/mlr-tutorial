@@ -7,7 +7,7 @@ frequency of that class. [%mlr] can visualize this by plotting estimated class p
 
 [&generateCalibrationData] takes as input [&Prediction], [&ResampleResult], [&BenchmarkResult],
 or a named list of [&Prediction] or [&ResampleResult] objects on a classification (multiclass
-or binary) task with learner(s) that are capable of outputting probabiliites (i.e., learners
+or binary) task with learner(s) that are capable of outputting probabilities (i.e., learners
 must be constructed with `predict.type = "prob"`). The result is an object of class
 [CalibrationData](&generateCalibrationData) which has elements `proportion`, `data`, and
 `task`. `proportion` gives the proportion of observations labelled with a given class for
