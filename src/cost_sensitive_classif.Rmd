@@ -248,7 +248,7 @@ As expected the tuned threshold is smaller than the theoretical threshold.
 
 #### 2. Rebalancing
 
-In order to minimize the average costs, observations from the less costly class should be
+In order to minimize the average costs, observations from the more costly class should be
 given higher importance during training.
 This can be achieved by *weighting* the classes, provided that the learner under consideration
 has a 'class weights' or an 'observation weights' argument.
