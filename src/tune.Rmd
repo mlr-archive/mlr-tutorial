@@ -87,8 +87,8 @@ Notice this time we use [makeNumericParam](&ParamHelpers::makeNumericParam):
 
 ```{r}
 num_ps = makeParamSet(
-  makeNumericParam("C", lower = -10, upper = 10, trafo = function(x) 10^x),
-  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 10^x)
+  makeNumericParam("C", lower = -10, upper = 10, trafo = function(x) 2^x),
+  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 2^x)
 )
 ```
 

@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li class="active">
     <a href="index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -224,7 +228,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../preproc/index.html">
+                        <a rel="prev" href="../impute/index.html">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -241,6 +245,7 @@
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#wrapper">Wrapper</a></li>
             <li><a href="#example-bagging-wrapper">Example: Bagging wrapper</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -404,6 +409,27 @@ print(lrn)
 #&gt; Model for learner.id=classif.rpart.bagged.tuned; learner.class=TuneWrapper
 #&gt; Trained on: task.id = iris; obs = 150; features = 4
 #&gt; Hyperparameters: xval=0,bw.iters=100,bw.feats=0.5
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>data(iris) 
+task = makeClassifTask(data = iris, target = &quot;Species&quot;, weights = as.integer(iris$Species)) 
+base.lrn = makeLearner(&quot;classif.rpart&quot;) 
+wrapped.lrn = makeBaggingWrapper(base.lrn, bw.iters = 100, bw.feats = 0.5) 
+print(wrapped.lrn) 
+benchmark(tasks = task, learners = list(base.lrn, wrapped.lrn)) 
+getParamSet(wrapped.lrn) 
+ctrl = makeTuneControlRandom(maxit = 10) 
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3) 
+par.set = makeParamSet( 
+  makeIntegerParam(&quot;minsplit&quot;, lower = 1, upper = 10), 
+  makeNumericParam(&quot;bw.feats&quot;, lower = 0.25, upper = 1) 
+) 
+tuned.lrn = makeTuneWrapper(wrapped.lrn, rdesc, mmce, par.set, ctrl) 
+print(tuned.lrn) 
+lrn = train(tuned.lrn, task = task) 
+print(lrn)
 </code></pre></div>
         </div>
 

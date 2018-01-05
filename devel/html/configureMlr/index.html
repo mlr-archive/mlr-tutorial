@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -244,6 +248,7 @@
             <li><a href="#accessing-and-resetting-the-configuration">Accessing and resetting the configuration</a></li>
             <li><a href="#example-turning-off-parameter-checking">Example: Turning off parameter checking</a></li>
             <li><a href="#example-handling-errors-in-a-learning-method">Example: Handling errors in a learning method</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -383,14 +388,14 @@ lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, new
 train(lrn, iris.task)
 #&gt;  Setting default kernel parameters
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
-#&gt; Trained on: task.id = iris-example; obs = 150; features = 4
+#&gt; Trained on: task.id = iris_example; obs = 150; features = 4
 #&gt; Hyperparameters: fit=FALSE,kernel=vanilladot,newParam=3
 
 ## Option &quot;quiet&quot; also masks typos
 lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;)
 train(lrn, iris.task)
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
-#&gt; Trained on: task.id = iris-example; obs = 150; features = 4
+#&gt; Trained on: task.id = iris_example; obs = 150; features = 4
 #&gt; Hyperparameters: fit=FALSE,kernl=vanilladot
 
 ## Alternatively turn off parameter checking, but still see warnings
@@ -405,7 +410,7 @@ lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newP
 
 train(lrn, iris.task)
 #&gt; Model for learner.id=classif.ksvm; learner.class=classif.ksvm
-#&gt; Trained on: task.id = iris-example; obs = 150; features = 4
+#&gt; Trained on: task.id = iris_example; obs = 150; features = 4
 #&gt; Hyperparameters: fit=FALSE,kernl=vanilladot,newParam=3
 </code></pre>
 
@@ -428,7 +433,7 @@ mod = train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
 
 mod
 #&gt; Model for learner.id=classif.qda; learner.class=classif.qda
-#&gt; Trained on: task.id = iris-example; obs = 104; features = 4
+#&gt; Trained on: task.id = iris_example; obs = 104; features = 4
 #&gt; Hyperparameters: 
 #&gt; Training failed: Error in qda.default(x, grouping, ...) : 
 #&gt;   some group is too small for 'qda'
@@ -468,7 +473,56 @@ performance(pred)
 <p>If <code>on.learner.error = "warn"</code> a warning is issued instead of an exception and an object
 of class <a href="http://www.rdocumentation.org/packages/mlr/functions/FailureModel.html">FailureModel</a> is created.
 You can extract the error message using function <a href="http://www.rdocumentation.org/packages/mlr/functions/getFailureModelMsg.html">getFailureModelMsg</a>.
-All further steps like prediction and performance calculation work and return <code>NA's</code>.</p></div>
+All further steps like prediction and performance calculation work and return <code>NA's</code>.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>rdesc = makeResampleDesc(&quot;Holdout&quot;) 
+r = resample(&quot;classif.multinom&quot;, iris.task, rdesc) 
+lrn = makeLearner(&quot;classif.multinom&quot;, config = list(show.learner.output = FALSE)) 
+r = resample(lrn, iris.task, rdesc, show.info = FALSE) 
+configureMlr(show.learner.output = FALSE, show.info = FALSE) 
+r = resample(&quot;classif.multinom&quot;, iris.task, rdesc) 
+getMlrOptions() 
+configureMlr() 
+getMlrOptions() 
+## Support Vector Machine with linear kernel and new parameter 'newParam' 
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3) 
+
+## Turn off parameter checking completely 
+configureMlr(on.par.without.desc = &quot;quiet&quot;) 
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3) 
+train(lrn, iris.task) 
+
+## Option &quot;quiet&quot; also masks typos 
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;) 
+train(lrn, iris.task) 
+
+## Alternatively turn off parameter checking, but still see warnings 
+configureMlr(on.par.without.desc = &quot;warn&quot;) 
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newParam = 3) 
+
+train(lrn, iris.task) 
+## This call gives an error caused by the low number of observations in class &quot;virginica&quot; 
+train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104) 
+
+## Get a warning instead of an error 
+configureMlr(on.learner.error = &quot;warn&quot;) 
+mod = train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104) 
+
+mod 
+
+## mod is an object of class FailureModel 
+isFailureModel(mod) 
+
+## Retrieve the error message 
+getFailureModelMsg(mod) 
+
+## predict and performance return NA's 
+pred = predict(mod, iris.task) 
+pred 
+
+performance(pred)
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">

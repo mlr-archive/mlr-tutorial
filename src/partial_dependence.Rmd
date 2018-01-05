@@ -1,3 +1,7 @@
+---
+params:
+  full.code: FALSE
+---
 # Exploring Learner Predictions
 
 Learners use features to learn a prediction function and make predictions, but the effect of those features is often not apparent.

@@ -51,7 +51,7 @@
                         <a href="index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -247,23 +251,19 @@
 
 <h1 id="machine-learning-in-r-mlr-tutorial">Machine Learning in R: mlr Tutorial</h1>
 <p>This web page provides an in-depth introduction to
-the <a href="https://github.com/mlr-org/mlr">Machine Learning in R: mlr</a> framework for machine
+<a href="https://github.com/mlr-org/mlr">Machine Learning in R: mlr</a>, a framework for machine
 learning experiments in <strong>R</strong>.</p>
-<p>We focus on the comprehension of the basic functions and applications.
+<p>In this tutorial, we focus on basic functions and applications.
 More detailed technical information can be found in the <a href="http://www.rdocumentation.org/packages/mlr/">manual pages</a> which
 are regularly updated and reflect the documentation of the
 <a href="http://cran.r-project.org/web/packages/mlr/index.html">current package version on CRAN</a>.</p>
-<p>An offline version of this tutorial is available for download</p>
+<p>Offline versions of this tutorial are also available for download:</p>
 <ul>
-<li><a href="https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip">here</a> for the
-  current mlr release on CRAN and</li>
-<li><a href="https://mlr-org.github.io/mlr-tutorial/devel/mlr_tutorial.zip">here</a> for
-  the mlr devel version on GitHub.</li>
+<li><a href="https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip">current mlr release on CRAN</a></li>
+<li><a href="https://mlr-org.github.io/mlr-tutorial/devel/mlr_tutorial.zip">the mlr devel version on GitHub</a></li>
 </ul>
-<p>The tutorial explains the basic analysis of a data set step by step.
-Please refer to sections of the menu above: Basics, Advanced, Extend and Appendix.</p>
-<p>During the tutorial we present various simple examples from classification, regression, cluster and
-survival analysis to illustrate the main features of the package.</p>
+<p>The tutorial aims to walkthrough basic data analysis tasks step by step. We will use simple examples
+from classification, regression, cluster and survival analysis to illustrate the main features of the package.</p>
 <p>Enjoy reading!</p>
 <h2 id="quick-start">Quick start</h2>
 <p>Here we show the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> workflow to train, make predictions, and evaluate a learner on a
@@ -380,6 +380,6 @@ performance(pred, measures = list(mmce, acc))
 </html>
 
 <!--
-MkDocs version : 0.17.1
-Build Date UTC : 2017-11-07 17:51:54
+MkDocs version : 0.17.2
+Build Date UTC : 2017-12-16 23:50:57
 -->

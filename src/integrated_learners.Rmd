@@ -1,3 +1,7 @@
+---
+params:
+  full.code: FALSE
+---
 # Integrated Learners
 
 This page lists the learning methods already integrated in [%mlr].

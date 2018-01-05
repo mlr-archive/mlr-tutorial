@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -242,6 +246,7 @@
         <li class="main active"><a href="#creating-an-imputation-method">Creating an Imputation Method</a></li>
             <li><a href="#example-imputation-using-the-mean">Example: Imputation using the mean</a></li>
             <li><a href="#writing-your-own-imputation-method">Writing your own imputation method</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -329,6 +334,32 @@ head(imp$data, 10)
 #&gt; 8     19      99 13.8   59     5   8       FALSE         FALSE
 #&gt; 9      8      19 20.1   61     5   9       FALSE         FALSE
 #&gt; 10     8     194  8.6   69     5  10        TRUE         FALSE
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>imputeLOCF = function() { 
+  makeImputeMethod( 
+    learn = function(data, target, col) { 
+      x = data[[col]] 
+      ind = is.na(x) 
+      dind = diff(ind) 
+      lastValue = which(dind == 1)  # position of the last observed value previous to NA 
+      lastNA = which(dind == -1)    # position of the last of potentially several consecutive NA's 
+      values = x[lastValue]         # last observed value previous to NA 
+      times = lastNA - lastValue    # number of consecutive NA's 
+      return(list(values = values, times = times)) 
+    }, 
+    impute = function(data, target, col, values, times) { 
+      x = data[[col]] 
+      replace(x, is.na(x), rep(values, times)) 
+    } 
+  ) 
+} 
+data(airquality) 
+imp = impute(airquality, cols = list(Ozone = imputeLOCF(), Solar.R = imputeLOCF()), 
+  dummy.cols = c(&quot;Ozone&quot;, &quot;Solar.R&quot;)) 
+head(imp$data, 10)
 </code></pre></div>
         </div>
 

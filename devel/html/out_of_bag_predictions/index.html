@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li class="active">
     <a href="index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -224,7 +228,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../create_learner/index.html">
+                        <a rel="prev" href="../handling_of_spatial_data/index.html">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -240,6 +244,7 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#out-of-bag-predictions">Out-of-Bag Predictions</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -292,7 +297,17 @@ performance(oob, measures = list(auc, mmce))
 
 <p>As the predictions that are used are out-of-bag, this evaluation strategy is very similar
 to common resampling strategies like 10-fold cross-validation, but much faster, as only one
-training instance of the model is required.</p></div>
+training instance of the model is required.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>listLearners(obj = NA, properties = &quot;oobpreds&quot;)[c(&quot;class&quot;, &quot;package&quot;)] 
+lrn = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;, predict.threshold = 0.6) 
+mod = train(lrn, sonar.task) 
+oob = getOOBPreds(mod, sonar.task) 
+oob 
+
+performance(oob, measures = list(auc, mmce))
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">

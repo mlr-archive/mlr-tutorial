@@ -1,3 +1,7 @@
+---
+params:
+  full.code: FALSE
+---
 # Implemented Performance Measures
 
 This page shows the performance measures available for the different types of

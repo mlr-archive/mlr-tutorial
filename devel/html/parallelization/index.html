@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -243,6 +247,7 @@
             <li><a href="#parallelization-levels">Parallelization levels</a></li>
             <li><a href="#custom-learners-and-parallelization">Custom learners and parallelization</a></li>
             <li><a href="#the-end">The end</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -304,7 +309,18 @@ So if you see an error after calling, e.g., a parallelized version of <a href="h
 
 <h2 id="the-end">The end</h2>
 <p>For further details, consult the
-<a href="https://github.com/berndbischl/parallelMap#parallelmap">parallelMap tutorial</a> and <a href="http://www.rdocumentation.org/packages/parallelMap/">help</a>.</p></div>
+<a href="https://github.com/berndbischl/parallelMap#parallelmap">parallelMap tutorial</a> and <a href="http://www.rdocumentation.org/packages/parallelMap/">help</a>.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>library(&quot;parallelMap&quot;) 
+parallelStartSocket(2) 
+
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3) 
+r = resample(&quot;classif.lda&quot;, iris.task, rdesc) 
+
+parallelStop() 
+parallelGetRegisteredLevels()
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
