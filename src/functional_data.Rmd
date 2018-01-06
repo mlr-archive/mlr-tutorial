@@ -141,14 +141,15 @@ section below.
 
 The resulting learner can now be trained on the task created in section [Creating a Task](functional_data.Rmd#creating-a-task) above. 
 
-```{r, warning=FALSE}
+```{r, warning = FALSE}
 # Train the fdalrn on the constructed task
 m = train(learner = fdalrn, task = tsk1)
-m
 p = predict(m, tsk1)
 performance(p, rmse)
+```
 
-# Or simply resample (3-fold Cross-Validation)
+```{r}
+# Alternatively, we can simply resample (3-fold Cross-Validation)
 resample(fdalrn, tsk1, resampling = cv3, measures =  mse, show.info = FALSE)
 ```
 
