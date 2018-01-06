@@ -11,7 +11,7 @@ For a more in depth introduction to functional data analysis see e.g [When the d
 
 Each observation of a functional covariate in the data are evaluations of a functional, i.e. measurements of a scalar value at various time points.
 A single observation might then look like this: 
-```{r}
+```{r, fig.height=4, fig.width=6}
 # Plot NIR curve for first observarion
 library(FDboost)
 data(fuelSubset)
@@ -79,8 +79,7 @@ fd.features = list("UVVIS" = 3:136, "NIR" = 137:367)
 fdf = makeFunctionalData(df, fd.features = fd.features)
 ```
 
-[makeFunctionalData](&makeFunctionalData) returns a data.frame, where the functional features are
-matricies.
+[makeFunctionalData](&makeFunctionalData) returns a data.frame, where the functional features are contained as matricies.
 
 ```{r}
 str(fdf)
@@ -104,7 +103,7 @@ For functional data, [learners](&Learner.md) are constructed using
 
 Applying learners to a [Task](&makeTask) works in two ways:
 
-* Use a [learner](&Learner.md)
+* **Use a [learner](&Learner.md) suitable for functional data**
 
   + For regression:
   
@@ -122,8 +121,8 @@ Applying learners to a [Task](&makeTask) works in two ways:
   knn.lrn = makeLearner("classif.fdausc.knn")
 ```
 
-* Use a _standard_ [learner](&Learner.md): 
-In this case the temporal structure is disregarded
+* **Use a _standard_ [learner](&Learner.md)**: 
+In this case the temporal structure is disregarded, and the functional data treated as simple numeric features.
 
 ```{r}
 ## Decision Tree learner
@@ -142,7 +141,7 @@ section below.
 
 The resulting learner can now be trained on the task created in section [Creating a Task](functional_data.Rmd#creating-a-task) above. 
 
-```{r}
+```{r, warning=FALSE}
 # Train the fdalrn on the constructed task
 m = train(learner = fdalrn, task = tsk1)
 m
@@ -150,7 +149,7 @@ p = predict(m, tsk1)
 performance(p, rmse)
 
 # Or simply resample (3-fold Cross-Validation)
-resample(fdalrn, tsk1, resampling = cv3, measures =  mse)
+resample(fdalrn, tsk1, resampling = cv3, measures =  mse, show.info = FALSE)
 ```
 
 Alternatively, learners that do not specifically treat functional covariates can
