@@ -3,7 +3,7 @@ if (!require(devtools)) {
   library(devtools)
 }
 install_github("mlr-org/mlr")
-
+install_github("mlr-org/mlrCPO")
 print("LIBPATHS:")
 print(.libPaths())
 
