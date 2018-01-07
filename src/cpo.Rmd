@@ -56,7 +56,7 @@ getFeatureImportance(model$learner.model$next.model)
 
 A list of all internal CPOs can be retrieved using `listCPO`, which returns a data frame of names, categories, and descriptions.
 ```{r}
-listCPO()$name
+listCPO()
 ```
 
 ## Hyperparameters
@@ -254,6 +254,7 @@ constFeatRem = makeCPO("constFeatRem",
   cpo.retrafo = function(data, control) {
     data[control]
   })
+
 !constFeatRem
 ```
 This CPO can be used on the `head()` of the `iris` dataset. Since the "Species" entry for the first six rows of `iris` is constant it is removed
