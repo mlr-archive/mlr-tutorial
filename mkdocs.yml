@@ -12,11 +12,12 @@ markdown_extensions:
 extra_javascript: ['https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML']
 pages:
 - Home: 'index.md'
-- Basics:
+- Quick Walkthrough:
     - 'Tasks': 'task.md'
     - 'Learners': 'learner.md'
     - 'Train': 'train.md'
     - 'Predict': 'predict.md'
+    - 'Preprocessing': 'preproc.md'
     - 'Performance': 'performance.md'
     - 'Resampling': 'resample.md'
     - 'Tuning': 'tune.md'
@@ -26,8 +27,7 @@ pages:
 - Advanced:
     - 'Configuration': 'configureMlr.md'
     - 'Wrapped Learners': 'wrapper.md'
-    - 'Preprocessing': 'preproc.md'
-    - 'Preproc Operators': 'cpo.md'
+    - 'Preprocessing Operators (CPO)': 'cpo.md'
     - 'Imputation': 'impute.md'
     - 'Bagging': 'bagging.md'
     - 'Advanced Tuning': 'advanced_tune.md'
@@ -42,7 +42,8 @@ pages:
     - 'Classifier Calibration Plots': 'classifier_calibration.md'
     - 'Hyperparameter Tuning Effects': 'hyperpar_tuning_effects.md'
     - 'Out-of-Bag Predictions': 'out_of_bag_predictions.md'
-- Extend:
+    - 'Handling of Spatial Data': 'handling_of_spatial_data.md'
+- Extending:
     - 'Create Custom Learners': 'create_learner.md'
     - 'Create Custom Measures': 'create_measure.md'
     - 'Create Imputation Methods': 'create_imputation.md'

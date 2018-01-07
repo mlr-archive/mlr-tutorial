@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="./js/jquery-1.10.2.min.js"></script>
+
+        <script src="./js/jquery-1.10.2.min.js"></script>
         <script src="./js/bootstrap-3.0.3.min.js"></script>
         <script src="./js/highlight.pack.js"></script> 
     </head>
@@ -51,7 +51,7 @@
                         <a href="index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,14 +109,6 @@
                             
 <li >
     <a href="wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="preproc/index.html">Preprocessing</a>
-</li>
-                            
-<li >
-    <a href="cpo/index.html">Preproc Operators</a>
 </li>
                             
 <li >
@@ -170,10 +166,18 @@
 <li >
     <a href="out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="functional_data/index.html">Functional Data</a>
+</li>
+                            
+<li >
+    <a href="handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -233,9 +237,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/index.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -253,23 +255,19 @@
 
 <h1 id="machine-learning-in-r-mlr-tutorial">Machine Learning in R: mlr Tutorial</h1>
 <p>This web page provides an in-depth introduction to
-the <a href="https://github.com/mlr-org/mlr">Machine Learning in R: mlr</a> framework for machine
+<a href="https://github.com/mlr-org/mlr">Machine Learning in R: mlr</a>, a framework for machine
 learning experiments in <strong>R</strong>.</p>
-<p>We focus on the comprehension of the basic functions and applications.
+<p>In this tutorial, we focus on basic functions and applications.
 More detailed technical information can be found in the <a href="http://www.rdocumentation.org/packages/mlr/">manual pages</a> which
 are regularly updated and reflect the documentation of the
 <a href="http://cran.r-project.org/web/packages/mlr/index.html">current package version on CRAN</a>.</p>
-<p>An offline version of this tutorial is available for download</p>
+<p>Offline versions of this tutorial are also available for download:</p>
 <ul>
-<li><a href="https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip">here</a> for the
-  current mlr release on CRAN and</li>
-<li><a href="https://mlr-org.github.io/mlr-tutorial/devel/mlr_tutorial.zip">here</a> for
-  the mlr devel version on GitHub.</li>
+<li><a href="https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip">current mlr release on CRAN</a></li>
+<li><a href="https://mlr-org.github.io/mlr-tutorial/devel/mlr_tutorial.zip">the mlr devel version on GitHub</a></li>
 </ul>
-<p>The tutorial explains the basic analysis of a data set step by step.
-Please refer to sections of the menu above: Basics, Advanced, Extend and Appendix.</p>
-<p>During the tutorial we present various simple examples from classification, regression, cluster and
-survival analysis to illustrate the main features of the package.</p>
+<p>The tutorial aims to walkthrough basic data analysis tasks step by step. We will use simple examples
+from classification, regression, cluster and survival analysis to illustrate the main features of the package.</p>
 <p>Enjoy reading!</p>
 <h2 id="quick-start">Quick start</h2>
 <p>Here we show the <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> workflow to train, make predictions, and evaluate a learner on a
@@ -312,9 +310,12 @@ performance(pred, measures = list(mmce, acc))
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '.';</script>
-        <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
         <script src="./js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="./search/require.js"></script>
+        <script src="./search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -337,12 +338,52 @@ performance(pred, measures = list(mmce, acc))
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>
 
 <!--
-MkDocs version : 0.16.1
-Build Date UTC : 2017-09-06 14:01:05
+MkDocs version : 0.17.2
+Build Date UTC : 2018-01-07 21:13:52
 -->

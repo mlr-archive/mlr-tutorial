@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Functional Data - mlr tutorial</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <link href="../css/custom_mlr.css" rel="stylesheet">
+        <link href="../css/custom_highlight.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../index.html">mlr tutorial</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../task/index.html">Tasks</a>
+</li>
+                            
+<li >
+    <a href="../learner/index.html">Learners</a>
+</li>
+                            
+<li >
+    <a href="../train/index.html">Train</a>
+</li>
+                            
+<li >
+    <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
+</li>
+                            
+<li >
+    <a href="../performance/index.html">Performance</a>
+</li>
+                            
+<li >
+    <a href="../resample/index.html">Resampling</a>
+</li>
+                            
+<li >
+    <a href="../tune/index.html">Tuning</a>
+</li>
+                            
+<li >
+    <a href="../benchmark_experiments/index.html">Benchmark Experiments</a>
+</li>
+                            
+<li >
+    <a href="../parallelization/index.html">Parallelization</a>
+</li>
+                            
+<li >
+    <a href="../visualization/index.html">Visualization</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../configureMlr/index.html">Configuration</a>
+</li>
+                            
+<li >
+    <a href="../wrapper/index.html">Wrapped Learners</a>
+</li>
+                            
+<li >
+    <a href="../impute/index.html">Imputation</a>
+</li>
+                            
+<li >
+    <a href="../bagging/index.html">Bagging</a>
+</li>
+                            
+<li >
+    <a href="../advanced_tune/index.html">Advanced Tuning</a>
+</li>
+                            
+<li >
+    <a href="../feature_selection/index.html">Feature Selection</a>
+</li>
+                            
+<li >
+    <a href="../nested_resampling/index.html">Nested Resampling</a>
+</li>
+                            
+<li >
+    <a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>
+</li>
+                            
+<li >
+    <a href="../over_and_undersampling/index.html">Imbalanced Classification Problems</a>
+</li>
+                            
+<li >
+    <a href="../roc_analysis/index.html">ROC Analysis</a>
+</li>
+                            
+<li >
+    <a href="../multilabel/index.html">Multilabel Classification</a>
+</li>
+                            
+<li >
+    <a href="../learning_curve/index.html">Learning Curves</a>
+</li>
+                            
+<li >
+    <a href="../partial_dependence/index.html">Partial Dependence Plots</a>
+</li>
+                            
+<li >
+    <a href="../classifier_calibration/index.html">Classifier Calibration Plots</a>
+</li>
+                            
+<li >
+    <a href="../hyperpar_tuning_effects/index.html">Hyperparameter Tuning Effects</a>
+</li>
+                            
+<li >
+    <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
+</li>
+                            
+<li class="active">
+    <a href="index.html">Functional Data</a>
+</li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../create_learner/index.html">Create Custom Learners</a>
+</li>
+                            
+<li >
+    <a href="../create_measure/index.html">Create Custom Measures</a>
+</li>
+                            
+<li >
+    <a href="../create_imputation/index.html">Create Imputation Methods</a>
+</li>
+                            
+<li >
+    <a href="../create_filter/index.html">Create Custom Filters</a>
+</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Appendix <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../example_tasks/index.html">Example Tasks</a>
+</li>
+                            
+<li >
+    <a href="../integrated_learners/index.html">Integrated Learners</a>
+</li>
+                            
+<li >
+    <a href="../measures/index.html">Implemented Performance Measures</a>
+</li>
+                            
+<li >
+    <a href="../filter_methods/index.html">Integrated Filter Methods</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../out_of_bag_predictions/index.html">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../handling_of_spatial_data/index.html">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/functional_data.md"><i class="fa fa-github"></i> Edit on GitHub</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#functional-data">Functional Data</a></li>
+            <li><a href="#how-to-model-functional-data">How to model functional data</a></li>
+            <li><a href="#creating-a-task-that-contains-functional-features">Creating a Task that contains functional features</a></li>
+            <li><a href="#constructing-a-learner">Constructing a learner</a></li>
+            <li><a href="#train-the-learner">Train the learner</a></li>
+            <li><a href="#feature-extraction">Feature Extraction</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="functional-data">Functional Data</h1>
+<p>Functional data provides information about curves varying over a continuum, such as time.
+This type of data is often present when analyzing measurements at various time points.
+Such curves usually are interdependent, which means that the measurement at a point <script type="math/tex">t_{i + 1}</script> usually depends on some measurements <script type="math/tex">{t_1, ..., t_i}; i \in \mathbb{N}</script>.</p>
+<p>As traditional machine learning techniques usually do not emphasize the interdependence between features,
+they are often not <em>well suited</em> for such tasks, which can lead to poor performance.
+Functional data analysis on the other hand tries to address this by either using algorithms specifically tailored to functional data, or by transforming the functional covariates into a non time-dependent feature space. 
+For a more in depth introduction to functional data analysis see e.g <a href="http://rd.springer.com/article/10.1007/BF02293704">When the data are functions</a> Ramsay, J.O., 1982. </p>
+<p>Each observation of a functional covariate in the data are evaluations of a functional, i.e. measurements of a scalar value at various time points.
+A single observation might then look like this: </p>
+<pre><code class="r"># Plot NIR curve for first observarion
+library(FDboost)
+data(fuelSubset)
+library(ggplot2)
+# NIR_Obs_1 are the measurements for NIR of the first functional covariate.
+# lambda are the time points, the data was measured at.
+df = data.frame(&quot;NIR_Obs1&quot; = fuelSubset$NIR[1, ],
+                &quot;lambda&quot; = fuelSubset$nir.lambda)
+ggplot(df) + 
+  geom_line(aes(y = NIR_Obs1, x = lambda))
+</code></pre>
+
+<p><img alt="plot of chunk unnamed-chunk-1" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDMycHQiIGhlaWdodD0iMjg4cHQiIHZpZXdCb3g9IjAgMCA0MzIgMjg4IiB2ZXJzaW9uPSIxLjEiPgo8ZGVmcz4KPGc+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDAtMCI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9IiIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMC0xIj4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iTSAyLjUgLTIuNzUgTCAwLjQwNjI1IC0yLjc1IEwgMC40MDYyNSAtMi4xMDkzNzUgTCAyLjUgLTIuMTA5Mzc1IFogTSAyLjUgLTIuNzUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgwLTIiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIDIuNDIxODc1IC02LjIzNDM3NSBDIDEuODQzNzUgLTYuMjM0Mzc1IDEuMzEyNSAtNS45ODQzNzUgMC45ODQzNzUgLTUuNTQ2ODc1IEMgMC41NzgxMjUgLTUgMC4zNzUgLTQuMTcxODc1IDAuMzc1IC0zLjAxNTYyNSBDIDAuMzc1IC0wLjkyMTg3NSAxLjA3ODEyNSAwLjIwMzEyNSAyLjQyMTg3NSAwLjIwMzEyNSBDIDMuNzM0Mzc1IDAuMjAzMTI1IDQuNDUzMTI1IC0wLjkyMTg3NSA0LjQ1MzEyNSAtMi45Njg3NSBDIDQuNDUzMTI1IC00LjE3MTg3NSA0LjI2NTYyNSAtNC45ODQzNzUgMy44NTkzNzUgLTUuNTQ2ODc1IEMgMy41MzEyNSAtNS45ODQzNzUgMy4wMTU2MjUgLTYuMjM0Mzc1IDIuNDIxODc1IC02LjIzNDM3NSBaIE0gMi40MjE4NzUgLTUuNTQ2ODc1IEMgMy4yNSAtNS41NDY4NzUgMy42NzE4NzUgLTQuNzAzMTI1IDMuNjcxODc1IC0zLjAzMTI1IEMgMy42NzE4NzUgLTEuMjY1NjI1IDMuMjY1NjI1IC0wLjQzNzUgMi40MDYyNSAtMC40Mzc1IEMgMS41NzgxMjUgLTAuNDM3NSAxLjE3MTg3NSAtMS4yOTY4NzUgMS4xNzE4NzUgLTMuMDE1NjI1IEMgMS4xNzE4NzUgLTQuNzE4NzUgMS41NzgxMjUgLTUuNTQ2ODc1IDIuNDIxODc1IC01LjU0Njg3NSBaIE0gMi40MjE4NzUgLTUuNTQ2ODc1ICIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMC0zIj4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iTSAxLjY4NzUgLTAuOTIxODc1IEwgMC43NjU2MjUgLTAuOTIxODc1IEwgMC43NjU2MjUgMCBMIDEuNjg3NSAwIFogTSAxLjY4NzUgLTAuOTIxODc1ICIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMC00Ij4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iTSA0LjE4NzUgLTYuMjM0Mzc1IEwgMC45Njg3NSAtNi4yMzQzNzUgTCAwLjUgLTIuODQzNzUgTCAxLjIxODc1IC0yLjg0Mzc1IEMgMS41NzgxMjUgLTMuMjY1NjI1IDEuODc1IC0zLjQyMTg3NSAyLjM1OTM3NSAtMy40MjE4NzUgQyAzLjE4NzUgLTMuNDIxODc1IDMuNzE4NzUgLTIuODQzNzUgMy43MTg3NSAtMS45MjE4NzUgQyAzLjcxODc1IC0xLjAzMTI1IDMuMjAzMTI1IC0wLjQ4NDM3NSAyLjM1OTM3NSAtMC40ODQzNzUgQyAxLjY4NzUgLTAuNDg0Mzc1IDEuMjY1NjI1IC0wLjgyODEyNSAxLjA3ODEyNSAtMS41MzEyNSBMIDAuMzEyNSAtMS41MzEyNSBDIDAuNDA2MjUgLTEuMDE1NjI1IDAuNSAtMC43ODEyNSAwLjY4NzUgLTAuNTQ2ODc1IEMgMS4wMzEyNSAtMC4wNzgxMjUgMS42NzE4NzUgMC4yMDMxMjUgMi4zNzUgMC4yMDMxMjUgQyAzLjY0MDYyNSAwLjIwMzEyNSA0LjUxNTYyNSAtMC43MTg3NSA0LjUxNTYyNSAtMi4wMzEyNSBDIDQuNTE1NjI1IC0zLjI2NTYyNSAzLjY4NzUgLTQuMTA5Mzc1IDIuNSAtNC4xMDkzNzUgQyAyLjA2MjUgLTQuMTA5Mzc1IDEuNzAzMTI1IC00IDEuMzQzNzUgLTMuNzM0Mzc1IEwgMS41OTM3NSAtNS40Njg3NSBMIDQuMTg3NSAtNS40Njg3NSBaIE0gNC4xODc1IC02LjIzNDM3NSAiLz4KPC9zeW1ib2w+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDAtNSI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9Ik0gNC40NTMxMjUgLTAuNzY1NjI1IEwgMS4xNzE4NzUgLTAuNzY1NjI1IEMgMS4yNSAtMS4yODEyNSAxLjUzMTI1IC0xLjU5Mzc1IDIuMjk2ODc1IC0yLjA0Njg3NSBMIDMuMTcxODc1IC0yLjUzMTI1IEMgNC4wNDY4NzUgLTMgNC41IC0zLjY0MDYyNSA0LjUgLTQuNDA2MjUgQyA0LjUgLTQuOTIxODc1IDQuMjgxMjUgLTUuNDA2MjUgMy45MjE4NzUgLTUuNzUgQyAzLjU0Njg3NSAtNi4wNzgxMjUgMy4wOTM3NSAtNi4yMzQzNzUgMi41IC02LjIzNDM3NSBDIDEuNzAzMTI1IC02LjIzNDM3NSAxLjEyNSAtNS45NTMxMjUgMC43ODEyNSAtNS40MjE4NzUgQyAwLjU0Njg3NSAtNS4wOTM3NSAwLjQ1MzEyNSAtNC43MDMxMjUgMC40Mzc1IC00LjA3ODEyNSBMIDEuMjE4NzUgLTQuMDc4MTI1IEMgMS4yMzQzNzUgLTQuNSAxLjI5Njg3NSAtNC43NSAxLjQwNjI1IC00Ljk1MzEyNSBDIDEuNTkzNzUgLTUuMzI4MTI1IDIgLTUuNTYyNSAyLjQ2ODc1IC01LjU2MjUgQyAzLjE3MTg3NSAtNS41NjI1IDMuNzAzMTI1IC01LjA2MjUgMy43MDMxMjUgLTQuMzkwNjI1IEMgMy43MDMxMjUgLTMuODkwNjI1IDMuNDA2MjUgLTMuNDY4NzUgMi44NTkzNzUgLTMuMTU2MjUgTCAyLjA0Njg3NSAtMi43MDMxMjUgQyAwLjc1IC0xLjk2ODc1IDAuMzc1IC0xLjM3NSAwLjI5Njg3NSAwIEwgNC40NTMxMjUgMCBaIE0gNC40NTMxMjUgLTAuNzY1NjI1ICIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMC02Ij4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iTSAyLjI4MTI1IC00LjQzNzUgTCAyLjI4MTI1IDAgTCAzLjA0Njg3NSAwIEwgMy4wNDY4NzUgLTYuMjM0Mzc1IEwgMi41NDY4NzUgLTYuMjM0Mzc1IEMgMi4yNjU2MjUgLTUuMjgxMjUgMi4wOTM3NSAtNS4xNDA2MjUgMC44OTA2MjUgLTUgTCAwLjg5MDYyNSAtNC40Mzc1IFogTSAyLjI4MTI1IC00LjQzNzUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgxLTAiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSIiLz4KPC9zeW1ib2w+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDEtMSI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9Ik0gMS42NzE4NzUgLTguMDE1NjI1IEwgMC43NSAtOC4wMTU2MjUgTCAwLjc1IDAgTCAxLjY3MTg3NSAwIFogTSAxLjY3MTg3NSAtOC4wMTU2MjUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgxLTIiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIDUuODkwNjI1IC0wLjUzMTI1IEMgNS43ODEyNSAtMC41MTU2MjUgNS43MzQzNzUgLTAuNTE1NjI1IDUuNjg3NSAtMC41MTU2MjUgQyA1LjM3NSAtMC41MTU2MjUgNS4xODc1IC0wLjY4NzUgNS4xODc1IC0wLjk2ODc1IEwgNS4xODc1IC00LjM1OTM3NSBDIDUuMTg3NSAtNS4zNzUgNC40Mzc1IC01LjkyMTg3NSAzLjAzMTI1IC01LjkyMTg3NSBDIDIuMTg3NSAtNS45MjE4NzUgMS41IC01LjY4NzUgMS4xMDkzNzUgLTUuMjY1NjI1IEMgMC44NDM3NSAtNC45Njg3NSAwLjczNDM3NSAtNC42MjUgMC43MTg3NSAtNC4wNjI1IEwgMS42NDA2MjUgLTQuMDYyNSBDIDEuNzE4NzUgLTQuNzY1NjI1IDIuMTQwNjI1IC01LjA3ODEyNSAyLjk4NDM3NSAtNS4wNzgxMjUgQyAzLjgxMjUgLTUuMDc4MTI1IDQuMjgxMjUgLTQuNzgxMjUgNC4yODEyNSAtNC4yMTg3NSBMIDQuMjgxMjUgLTMuOTg0Mzc1IEMgNC4yODEyNSAtMy41OTM3NSA0LjA0Njg3NSAtMy40Mzc1IDMuMzI4MTI1IC0zLjM0Mzc1IEMgMi4wMzEyNSAtMy4xNzE4NzUgMS44MjgxMjUgLTMuMTQwNjI1IDEuNDY4NzUgLTIuOTg0Mzc1IEMgMC43OTY4NzUgLTIuNzE4NzUgMC40Njg3NSAtMi4yMDMxMjUgMC40Njg3NSAtMS40NTMxMjUgQyAwLjQ2ODc1IC0wLjQwNjI1IDEuMTg3NSAwLjI1IDIuMzU5Mzc1IDAuMjUgQyAzLjA3ODEyNSAwLjI1IDMuNjU2MjUgMCA0LjMxMjUgLTAuNTkzNzUgQyA0LjM3NSAtMC4wMTU2MjUgNC42NTYyNSAwLjI1IDUuMjY1NjI1IDAuMjUgQyA1LjQzNzUgMC4yNSA1LjU5Mzc1IDAuMjM0Mzc1IDUuODkwNjI1IDAuMTU2MjUgWiBNIDQuMjgxMjUgLTEuODEyNSBDIDQuMjgxMjUgLTEuNSA0LjE4NzUgLTEuMzEyNSAzLjkyMTg3NSAtMS4wNjI1IEMgMy41NDY4NzUgLTAuNzE4NzUgMy4wOTM3NSAtMC41NDY4NzUgMi41NDY4NzUgLTAuNTQ2ODc1IEMgMS44NDM3NSAtMC41NDY4NzUgMS40MjE4NzUgLTAuODkwNjI1IDEuNDIxODc1IC0xLjQ2ODc1IEMgMS40MjE4NzUgLTIuMDc4MTI1IDEuODI4MTI1IC0yLjM5MDYyNSAyLjgxMjUgLTIuNTMxMjUgQyAzLjc2NTYyNSAtMi42NTYyNSAzLjk2ODc1IC0yLjcwMzEyNSA0LjI4MTI1IC0yLjg0Mzc1IFogTSA0LjI4MTI1IC0xLjgxMjUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgxLTMiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIDAuNzY1NjI1IC01Ljc2NTYyNSBMIDAuNzY1NjI1IDAgTCAxLjY4NzUgMCBMIDEuNjg3NSAtMy42MjUgQyAxLjY4NzUgLTQuNDUzMTI1IDIuMjk2ODc1IC01LjEyNSAzLjA0Njg3NSAtNS4xMjUgQyAzLjczNDM3NSAtNS4xMjUgNC4xMDkzNzUgLTQuNzAzMTI1IDQuMTA5Mzc1IC0zLjk2ODc1IEwgNC4xMDkzNzUgMCBMIDUuMDMxMjUgMCBMIDUuMDMxMjUgLTMuNjI1IEMgNS4wMzEyNSAtNC40NTMxMjUgNS42NDA2MjUgLTUuMTI1IDYuMzkwNjI1IC01LjEyNSBDIDcuMDYyNSAtNS4xMjUgNy40NTMxMjUgLTQuNzAzMTI1IDcuNDUzMTI1IC0zLjk2ODc1IEwgNy40NTMxMjUgMCBMIDguMzc1IDAgTCA4LjM3NSAtNC4zMjgxMjUgQyA4LjM3NSAtNS4zNTkzNzUgNy43ODEyNSAtNS45MjE4NzUgNi43MDMxMjUgLTUuOTIxODc1IEMgNS45Mzc1IC01LjkyMTg3NSA1LjQ4NDM3NSAtNS43MDMxMjUgNC45Mzc1IC01LjA0Njg3NSBDIDQuNTkzNzUgLTUuNjcxODc1IDQuMTQwNjI1IC01LjkyMTg3NSAzLjM5MDYyNSAtNS45MjE4NzUgQyAyLjYyNSAtNS45MjE4NzUgMi4xMDkzNzUgLTUuNjQwNjI1IDEuNjA5Mzc1IC00Ljk1MzEyNSBMIDEuNjA5Mzc1IC01Ljc2NTYyNSBaIE0gMC43NjU2MjUgLTUuNzY1NjI1ICIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMS00Ij4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iTSAwLjU5Mzc1IC04LjAxNTYyNSBMIDAuNTkzNzUgMCBMIDEuNDIxODc1IDAgTCAxLjQyMTg3NSAtMC43MzQzNzUgQyAxLjg1OTM3NSAtMC4wNjI1IDIuNDM3NSAwLjI1IDMuMjUgMC4yNSBDIDQuNzY1NjI1IDAuMjUgNS43NSAtMC45ODQzNzUgNS43NSAtMi45MDYyNSBDIDUuNzUgLTQuNzgxMjUgNC44MTI1IC01LjkyMTg3NSAzLjI4MTI1IC01LjkyMTg3NSBDIDIuNSAtNS45MjE4NzUgMS45Mzc1IC01LjYyNSAxLjUgLTQuOTg0Mzc1IEwgMS41IC04LjAxNTYyNSBaIE0gMy4xMDkzNzUgLTUuMDc4MTI1IEMgNC4xNDA2MjUgLTUuMDc4MTI1IDQuNzk2ODc1IC00LjE4NzUgNC43OTY4NzUgLTIuODEyNSBDIDQuNzk2ODc1IC0xLjUgNC4xMDkzNzUgLTAuNjA5Mzc1IDMuMTA5Mzc1IC0wLjYwOTM3NSBDIDIuMTQwNjI1IC0wLjYwOTM3NSAxLjUgLTEuNDg0Mzc1IDEuNSAtMi44NDM3NSBDIDEuNSAtNC4xODc1IDIuMTQwNjI1IC01LjA3ODEyNSAzLjEwOTM3NSAtNS4wNzgxMjUgWiBNIDMuMTA5Mzc1IC01LjA3ODEyNSAiLz4KPC9zeW1ib2w+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDEtNSI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9Ik0gNS40Mzc1IC04LjAxNTYyNSBMIDQuNTMxMjUgLTguMDE1NjI1IEwgNC41MzEyNSAtNS4wMzEyNSBDIDQuMTQwNjI1IC01LjYyNSAzLjUzMTI1IC01LjkyMTg3NSAyLjc2NTYyNSAtNS45MjE4NzUgQyAxLjI2NTYyNSAtNS45MjE4NzUgMC4yODEyNSAtNC43MzQzNzUgMC4yODEyNSAtMi44OTA2MjUgQyAwLjI4MTI1IC0wLjk1MzEyNSAxLjI1IDAuMjUgMi43OTY4NzUgMC4yNSBDIDMuNTkzNzUgMC4yNSA0LjE0MDYyNSAtMC4wNDY4NzUgNC42MjUgLTAuNzY1NjI1IEwgNC42MjUgMCBMIDUuNDM3NSAwIFogTSAyLjkyMTg3NSAtNS4wNzgxMjUgQyAzLjkwNjI1IC01LjA3ODEyNSA0LjUzMTI1IC00LjE4NzUgNC41MzEyNSAtMi44MTI1IEMgNC41MzEyNSAtMS40ODQzNzUgMy44OTA2MjUgLTAuNjA5Mzc1IDIuOTIxODc1IC0wLjYwOTM3NSBDIDEuOTA2MjUgLTAuNjA5Mzc1IDEuMjUgLTEuNSAxLjI1IC0yLjg0Mzc1IEMgMS4yNSAtNC4xODc1IDEuOTA2MjUgLTUuMDc4MTI1IDIuOTIxODc1IC01LjA3ODEyNSBaIE0gMi45MjE4NzUgLTUuMDc4MTI1ICIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMi0wIj4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgyLTEiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIC04LjAxNTYyNSAtNy4xMDkzNzUgTCAtOC4wMTU2MjUgLTYuMTQwNjI1IEwgLTEuNDY4NzUgLTYuMTQwNjI1IEwgLTguMDE1NjI1IC0xLjk1MzEyNSBMIC04LjAxNTYyNSAtMC44NDM3NSBMIDAgLTAuODQzNzUgTCAwIC0xLjc5Njg3NSBMIC02LjUgLTEuNzk2ODc1IEwgMCAtNS45NTMxMjUgTCAwIC03LjEwOTM3NSBaIE0gLTguMDE1NjI1IC03LjEwOTM3NSAiLz4KPC9zeW1ib2w+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDItMiI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9Ik0gLTguMDE1NjI1IC0yLjE0MDYyNSBMIC04LjAxNTYyNSAtMS4wOTM3NSBMIDAgLTEuMDkzNzUgTCAwIC0yLjE0MDYyNSBaIE0gLTguMDE1NjI1IC0yLjE0MDYyNSAiLz4KPC9zeW1ib2w+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDItMyI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9Ik0gLTMuNDUzMTI1IC0yLjA0Njg3NSBMIC0zLjQ1MzEyNSAtNC42ODc1IEMgLTMuNDUzMTI1IC01LjU5Mzc1IC0zLjAxNTYyNSAtNiAtMi4wMzEyNSAtNiBMIC0xLjMxMjUgLTYgQyAtMC44MTI1IC02IC0wLjMyODEyNSAtNi4wNzgxMjUgMCAtNi4yMTg3NSBMIDAgLTcuNDY4NzUgTCAtMC4yNSAtNy40Njg3NSBDIC0wLjUxNTYyNSAtNy4wNzgxMjUgLTAuNzk2ODc1IC03IC0xLjg3NSAtNi45ODQzNzUgQyAtMy4xODc1IC02Ljk2ODc1IC0zLjU5Mzc1IC02Ljc2NTYyNSAtMy45NTMxMjUgLTUuODkwNjI1IEMgLTQuNDA2MjUgLTYuNzk2ODc1IC00Ljk2ODc1IC03LjE1NjI1IC01Ljg3NSAtNy4xNTYyNSBDIC03LjI2NTYyNSAtNy4xNTYyNSAtOC4wMTU2MjUgLTYuMjk2ODc1IC04LjAxNTYyNSAtNC43MTg3NSBMIC04LjAxNTYyNSAtMS4wMTU2MjUgTCAwIC0xLjAxNTYyNSBMIDAgLTIuMDQ2ODc1IFogTSAtNC4zNTkzNzUgLTIuMDQ2ODc1IEwgLTcuMTA5Mzc1IC0yLjA0Njg3NSBMIC03LjEwOTM3NSAtNC41MTU2MjUgQyAtNy4xMDkzNzUgLTUuMDkzNzUgLTcuMDMxMjUgLTUuNDIxODc1IC02LjgxMjUgLTUuNjcxODc1IEMgLTYuNTc4MTI1IC01Ljk1MzEyNSAtNi4yMTg3NSAtNi4wOTM3NSAtNS43MzQzNzUgLTYuMDkzNzUgQyAtNC43ODEyNSAtNi4wOTM3NSAtNC4zNTkzNzUgLTUuNjA5Mzc1IC00LjM1OTM3NSAtNC41MTU2MjUgWiBNIC00LjM1OTM3NSAtMi4wNDY4NzUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgyLTQiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIDEuMzkwNjI1IC02LjM1OTM3NSBMIDEuMzkwNjI1IDAuMjM0Mzc1IEwgMS45Mzc1IDAuMjM0Mzc1IEwgMS45Mzc1IC02LjM1OTM3NSBaIE0gMS4zOTA2MjUgLTYuMzU5Mzc1ICIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMi01Ij4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iTSAtOC4xNTYyNSAtNC4yODEyNSBDIC04LjE1NjI1IC0xLjk4NDM3NSAtNi40NTMxMjUgLTAuNDIxODc1IC0zLjk1MzEyNSAtMC40MjE4NzUgQyAtMS40Mzc1IC0wLjQyMTg3NSAwLjI1IC0xLjk4NDM3NSAwLjI1IC00LjI5Njg3NSBDIDAuMjUgLTUuMjY1NjI1IC0wLjA0Njg3NSAtNi4xMjUgLTAuNTkzNzUgLTYuNzgxMjUgQyAtMS4zMjgxMjUgLTcuNjQwNjI1IC0yLjU3ODEyNSAtOC4xNTYyNSAtMy44OTA2MjUgLTguMTU2MjUgQyAtNi40Njg3NSAtOC4xNTYyNSAtOC4xNTYyNSAtNi42NDA2MjUgLTguMTU2MjUgLTQuMjgxMjUgWiBNIC03LjI1IC00LjI4MTI1IEMgLTcuMjUgLTYuMDE1NjI1IC01LjkyMTg3NSAtNy4xNDA2MjUgLTMuOTA2MjUgLTcuMTQwNjI1IEMgLTEuOTY4NzUgLTcuMTQwNjI1IC0wLjY1NjI1IC01Ljk4NDM3NSAtMC42NTYyNSAtNC4yOTY4NzUgQyAtMC42NTYyNSAtMi41NzgxMjUgLTEuOTY4NzUgLTEuNDM3NSAtMy45NTMxMjUgLTEuNDM3NSBDIC01LjkyMTg3NSAtMS40Mzc1IC03LjI1IC0yLjU3ODEyNSAtNy4yNSAtNC4yODEyNSBaIE0gLTcuMjUgLTQuMjgxMjUgIi8+Cjwvc3ltYm9sPgo8c3ltYm9sIG92ZXJmbG93PSJ2aXNpYmxlIiBpZD0iZ2x5cGgyLTYiPgo8cGF0aCBzdHlsZT0ic3Ryb2tlOm5vbmU7IiBkPSJNIC04LjAxNTYyNSAtMC41OTM3NSBMIDAgLTAuNTkzNzUgTCAwIC0xLjQyMTg3NSBMIC0wLjczNDM3NSAtMS40MjE4NzUgQyAtMC4wNjI1IC0xLjg1OTM3NSAwLjI1IC0yLjQzNzUgMC4yNSAtMy4yNSBDIDAuMjUgLTQuNzY1NjI1IC0wLjk4NDM3NSAtNS43NSAtMi45MDYyNSAtNS43NSBDIC00Ljc4MTI1IC01Ljc1IC01LjkyMTg3NSAtNC44MTI1IC01LjkyMTg3NSAtMy4yODEyNSBDIC01LjkyMTg3NSAtMi41IC01LjYyNSAtMS45Mzc1IC00Ljk4NDM3NSAtMS41IEwgLTguMDE1NjI1IC0xLjUgWiBNIC01LjA3ODEyNSAtMy4xMDkzNzUgQyAtNS4wNzgxMjUgLTQuMTQwNjI1IC00LjE4NzUgLTQuNzk2ODc1IC0yLjgxMjUgLTQuNzk2ODc1IEMgLTEuNSAtNC43OTY4NzUgLTAuNjA5Mzc1IC00LjEwOTM3NSAtMC42MDkzNzUgLTMuMTA5Mzc1IEMgLTAuNjA5Mzc1IC0yLjE0MDYyNSAtMS40ODQzNzUgLTEuNSAtMi44NDM3NSAtMS41IEMgLTQuMTg3NSAtMS41IC01LjA3ODEyNSAtMi4xNDA2MjUgLTUuMDc4MTI1IC0zLjEwOTM3NSBaIE0gLTUuMDc4MTI1IC0zLjEwOTM3NSAiLz4KPC9zeW1ib2w+CjxzeW1ib2wgb3ZlcmZsb3c9InZpc2libGUiIGlkPSJnbHlwaDItNyI+CjxwYXRoIHN0eWxlPSJzdHJva2U6bm9uZTsiIGQ9Ik0gLTQuMTU2MjUgLTQuODEyNSBDIC01LjI5Njg3NSAtNC44MTI1IC01LjkyMTg3NSAtNC4wNjI1IC01LjkyMTg3NSAtMi43MzQzNzUgQyAtNS45MjE4NzUgLTEuMzkwNjI1IC01LjIzNDM3NSAtMC41MTU2MjUgLTQuMTcxODc1IC0wLjUxNTYyNSBDIC0zLjI2NTYyNSAtMC41MTU2MjUgLTIuODQzNzUgLTAuOTg0Mzc1IC0yLjUxNTYyNSAtMi4zNDM3NSBMIC0yLjI5Njg3NSAtMy4yMDMxMjUgQyAtMi4xNDA2MjUgLTMuODQzNzUgLTEuOTA2MjUgLTQuMDkzNzUgLTEuNSAtNC4wOTM3NSBDIC0wLjk1MzEyNSAtNC4wOTM3NSAtMC41OTM3NSAtMy41NDY4NzUgLTAuNTkzNzUgLTIuNzUgQyAtMC41OTM3NSAtMi4yNSAtMC43MzQzNzUgLTEuODQzNzUgLTAuOTg0Mzc1IC0xLjYwOTM3NSBDIC0xLjE0MDYyNSAtMS40Njg3NSAtMS4zMTI1IC0xLjM5MDYyNSAtMS43MTg3NSAtMS4zNDM3NSBMIC0xLjcxODc1IC0wLjM3NSBDIC0wLjM5MDYyNSAtMC40MjE4NzUgMC4yNSAtMS4xNzE4NzUgMC4yNSAtMi42NzE4NzUgQyAwLjI1IC00LjEyNSAtMC40Njg3NSAtNS4wNDY4NzUgLTEuNTc4MTI1IC01LjA0Njg3NSBDIC0yLjQzNzUgLTUuMDQ2ODc1IC0yLjkwNjI1IC00LjU2MjUgLTMuMTcxODc1IC0zLjQyMTg3NSBMIC0zLjM5MDYyNSAtMi41NDY4NzUgQyAtMy41NjI1IC0xLjc5Njg3NSAtMy44MTI1IC0xLjQ2ODc1IC00LjIxODc1IC0xLjQ2ODc1IEMgLTQuNzM0Mzc1IC0xLjQ2ODc1IC01LjA3ODEyNSAtMS45NTMxMjUgLTUuMDc4MTI1IC0yLjY4NzUgQyAtNS4wNzgxMjUgLTMuNDM3NSAtNC43NjU2MjUgLTMuODI4MTI1IC00LjE1NjI1IC0zLjg0Mzc1IFogTSAtNC4xNTYyNSAtNC44MTI1ICIvPgo8L3N5bWJvbD4KPHN5bWJvbCBvdmVyZmxvdz0idmlzaWJsZSIgaWQ9ImdseXBoMi04Ij4KPHBhdGggc3R5bGU9InN0cm9rZTpub25lOyIgZD0iTSAtNS41NjI1IC0yLjg0Mzc1IEwgMCAtMi44NDM3NSBMIDAgLTMuODEyNSBMIC03Ljc5Njg3NSAtMy44MTI1IEwgLTcuNzk2ODc1IC0zLjE3MTg3NSBDIC02LjU5Mzc1IC0yLjg0Mzc1IC02LjQzNzUgLTIuNjI1IC02LjI1IC0xLjEyNSBMIC01LjU2MjUgLTEuMTI1IFogTSAtNS41NjI1IC0yLjg0Mzc1ICIvPgo8L3N5bWJvbD4KPC9nPgo8Y2xpcFBhdGggaWQ9ImNsaXAxIj4KICA8cGF0aCBkPSJNIDQ3LjM5MDYyNSA1LjQ4MDQ2OSBMIDQyNyA1LjQ4MDQ2OSBMIDQyNyAyNTYgTCA0Ny4zOTA2MjUgMjU2IFogTSA0Ny4zOTA2MjUgNS40ODA0NjkgIi8+CjwvY2xpcFBhdGg+CjxjbGlwUGF0aCBpZD0iY2xpcDIiPgogIDxwYXRoIGQ9Ik0gNDcuMzkwNjI1IDI1MyBMIDQyNyAyNTMgTCA0MjcgMjU0IEwgNDcuMzkwNjI1IDI1NCBaIE0gNDcuMzkwNjI1IDI1MyAiLz4KPC9jbGlwUGF0aD4KPGNsaXBQYXRoIGlkPSJjbGlwMyI+CiAgPHBhdGggZD0iTSA0Ny4zOTA2MjUgMTk3IEwgNDI3IDE5NyBMIDQyNyAxOTggTCA0Ny4zOTA2MjUgMTk4IFogTSA0Ny4zOTA2MjUgMTk3ICIvPgo8L2NsaXBQYXRoPgo8Y2xpcFBhdGggaWQ9ImNsaXA0Ij4KICA8cGF0aCBkPSJNIDQ3LjM5MDYyNSAxNDEgTCA0MjcgMTQxIEwgNDI3IDE0MyBMIDQ3LjM5MDYyNSAxNDMgWiBNIDQ3LjM5MDYyNSAxNDEgIi8+CjwvY2xpcFBhdGg+CjxjbGlwUGF0aCBpZD0iY2xpcDUiPgogIDxwYXRoIGQ9Ik0gNDcuMzkwNjI1IDg2IEwgNDI3IDg2IEwgNDI3IDg3IEwgNDcuMzkwNjI1IDg3IFogTSA0Ny4zOTA2MjUgODYgIi8+CjwvY2xpcFBhdGg+CjxjbGlwUGF0aCBpZD0iY2xpcDYiPgogIDxwYXRoIGQ9Ik0gNDcuMzkwNjI1IDMwIEwgNDI3IDMwIEwgNDI3IDMxIEwgNDcuMzkwNjI1IDMxIFogTSA0Ny4zOTA2MjUgMzAgIi8+CjwvY2xpcFBhdGg+CjxjbGlwUGF0aCBpZD0iY2xpcDciPgogIDxwYXRoIGQ9Ik0gNTUgNS40ODA0NjkgTCA1NyA1LjQ4MDQ2OSBMIDU3IDI1Ni45Mjk2ODggTCA1NSAyNTYuOTI5Njg4IFogTSA1NSA1LjQ4MDQ2OSAiLz4KPC9jbGlwUGF0aD4KPGNsaXBQYXRoIGlkPSJjbGlwOCI+CiAgPHBhdGggZD0iTSAxNDMgNS40ODA0NjkgTCAxNDQgNS40ODA0NjkgTCAxNDQgMjU2LjkyOTY4OCBMIDE0MyAyNTYuOTI5Njg4IFogTSAxNDMgNS40ODA0NjkgIi8+CjwvY2xpcFBhdGg+CjxjbGlwUGF0aCBpZD0iY2xpcDkiPgogIDxwYXRoIGQ9Ik0gMjMxIDUuNDgwNDY5IEwgMjMyIDUuNDgwNDY5IEwgMjMyIDI1Ni45Mjk2ODggTCAyMzEgMjU2LjkyOTY4OCBaIE0gMjMxIDUuNDgwNDY5ICIvPgo8L2NsaXBQYXRoPgo8Y2xpcFBhdGggaWQ9ImNsaXAxMCI+CiAgPHBhdGggZD0iTSAzMTkgNS40ODA0NjkgTCAzMjAgNS40ODA0NjkgTCAzMjAgMjU2LjkyOTY4OCBMIDMxOSAyNTYuOTI5Njg4IFogTSAzMTkgNS40ODA0NjkgIi8+CjwvY2xpcFBhdGg+CjxjbGlwUGF0aCBpZD0iY2xpcDExIj4KICA8cGF0aCBkPSJNIDQwNyA1LjQ4MDQ2OSBMIDQwOCA1LjQ4MDQ2OSBMIDQwOCAyNTYuOTI5Njg4IEwgNDA3IDI1Ni45Mjk2ODggWiBNIDQwNyA1LjQ4MDQ2OSAiLz4KPC9jbGlwUGF0aD4KPGNsaXBQYXRoIGlkPSJjbGlwMTIiPgogIDxwYXRoIGQ9Ik0gNDcuMzkwNjI1IDIyNCBMIDQyNy41MTk1MzEgMjI0IEwgNDI3LjUxOTUzMSAyMjYgTCA0Ny4zOTA2MjUgMjI2IFogTSA0Ny4zOTA2MjUgMjI0ICIvPgo8L2NsaXBQYXRoPgo8Y2xpcFBhdGggaWQ9ImNsaXAxMyI+CiAgPHBhdGggZD0iTSA0Ny4zOTA2MjUgMTY5IEwgNDI3LjUxOTUzMSAxNjkgTCA0MjcuNTE5NTMxIDE3MSBMIDQ3LjM5MDYyNSAxNzEgWiBNIDQ3LjM5MDYyNSAxNjkgIi8+CjwvY2xpcFBhdGg+CjxjbGlwUGF0aCBpZD0iY2xpcDE0Ij4KICA8cGF0aCBkPSJNIDQ3LjM5MDYyNSAxMTMgTCA0MjcuNTE5NTMxIDExMyBMIDQyNy41MTk1MzEgMTE1IEwgNDcuMzkwNjI1IDExNSBaIE0gNDcuMzkwNjI1IDExMyAiLz4KPC9jbGlwUGF0aD4KPGNsaXBQYXRoIGlkPSJjbGlwMTUiPgogIDxwYXRoIGQ9Ik0gNDcuMzkwNjI1IDU4IEwgNDI3LjUxOTUzMSA1OCBMIDQyNy41MTk1MzEgNjAgTCA0Ny4zOTA2MjUgNjAgWiBNIDQ3LjM5MDYyNSA1OCAiLz4KPC9jbGlwUGF0aD4KPGNsaXBQYXRoIGlkPSJjbGlwMTYiPgogIDxwYXRoIGQ9Ik0gOTkgNS40ODA0NjkgTCAxMDEgNS40ODA0NjkgTCAxMDEgMjU2LjkyOTY4OCBMIDk5IDI1Ni45Mjk2ODggWiBNIDk5IDUuNDgwNDY5ICIvPgo8L2NsaXBQYXRoPgo8Y2xpcFBhdGggaWQ9ImNsaXAxNyI+CiAgPHBhdGggZD0iTSAxODcgNS40ODA0NjkgTCAxODkgNS40ODA0NjkgTCAxODkgMjU2LjkyOTY4OCBMIDE4NyAyNTYuOTI5Njg4IFogTSAxODcgNS40ODA0NjkgIi8+CjwvY2xpcFBhdGg+CjxjbGlwUGF0aCBpZD0iY2xpcDE4Ij4KICA8cGF0aCBkPSJNIDI3NCA1LjQ4MDQ2OSBMIDI3NyA1LjQ4MDQ2OSBMIDI3NyAyNTYuOTI5Njg4IEwgMjc0IDI1Ni45Mjk2ODggWiBNIDI3NCA1LjQ4MDQ2OSAiLz4KPC9jbGlwUGF0aD4KPGNsaXBQYXRoIGlkPSJjbGlwMTkiPgogIDxwYXRoIGQ9Ik0gMzYyIDUuNDgwNDY5IEwgMzY0IDUuNDgwNDY5IEwgMzY0IDI1Ni45Mjk2ODggTCAzNjIgMjU2LjkyOTY4OCBaIE0gMzYyIDUuNDgwNDY5ICIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+CjxnIGlkPSJzdXJmYWNlMTU3Ij4KPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjQzMiIgaGVpZ2h0PSIyODgiIHN0eWxlPSJmaWxsOnJnYigxMDAlLDEwMCUsMTAwJSk7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Ii8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI0MzIiIGhlaWdodD0iMjg4IiBzdHlsZT0iZmlsbDpyZ2IoMTAwJSwxMDAlLDEwMCUpO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lOyIvPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDoxLjA2Njk3ODtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMCAyODggTCA0MzIgMjg4IEwgNDMyIDAgTCAwIDAgWiBNIDAgMjg4ICIvPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDEpIiBjbGlwLXJ1bGU9Im5vbnplcm8iPgo8cGF0aCBzdHlsZT0iIHN0cm9rZTpub25lO2ZpbGwtcnVsZTpub256ZXJvO2ZpbGw6cmdiKDkyLjE1Njg2MyUsOTIuMTU2ODYzJSw5Mi4xNTY4NjMlKTtmaWxsLW9wYWNpdHk6MTsiIGQ9Ik0gNDcuMzkwNjI1IDI1NS45Mjk2ODggTCA0MjYuNTE5NTMxIDI1NS45Mjk2ODggTCA0MjYuNTE5NTMxIDUuNDgwNDY5IEwgNDcuMzkwNjI1IDUuNDgwNDY5IFogTSA0Ny4zOTA2MjUgMjU1LjkyOTY4OCAiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDIpIiBjbGlwLXJ1bGU9Im5vbnplcm8iPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDowLjUzMzQ4OTtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDEwMCUsMTAwJSwxMDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0Ny4zOTA2MjUgMjUzLjI4MTI1IEwgNDI2LjUxOTUzMSAyNTMuMjgxMjUgIi8+CjwvZz4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAzKSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MC41MzM0ODk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDcuMzkwNjI1IDE5Ny42NDA2MjUgTCA0MjYuNTE5NTMxIDE5Ny42NDA2MjUgIi8+CjwvZz4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXA0KSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MC41MzM0ODk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDcuMzkwNjI1IDE0MiBMIDQyNi41MTk1MzEgMTQyICIvPgo8L2c+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwNSkiIGNsaXAtcnVsZT0ibm9uemVybyI+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjAuNTMzNDg5O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMTAwJSwxMDAlLDEwMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ3LjM5MDYyNSA4Ni4zNjMyODEgTCA0MjYuNTE5NTMxIDg2LjM2MzI4MSAiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDYpIiBjbGlwLXJ1bGU9Im5vbnplcm8iPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDowLjUzMzQ4OTtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDEwMCUsMTAwJSwxMDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0Ny4zOTA2MjUgMzAuNzIyNjU2IEwgNDI2LjUxOTUzMSAzMC43MjI2NTYgIi8+CjwvZz4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXA3KSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MC41MzM0ODk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNTUuNzU3ODEyIDI1NS45Mjk2ODggTCA1NS43NTc4MTIgNS40ODA0NjkgIi8+CjwvZz4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXA4KSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MC41MzM0ODk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMTQzLjY1NjI1IDI1NS45Mjk2ODggTCAxNDMuNjU2MjUgNS40ODA0NjkgIi8+CjwvZz4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXA5KSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MC41MzM0ODk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMjMxLjU1NDY4OCAyNTUuOTI5Njg4IEwgMjMxLjU1NDY4OCA1LjQ4MDQ2OSAiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDEwKSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MC41MzM0ODk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMzE5LjQ1MzEyNSAyNTUuOTI5Njg4IEwgMzE5LjQ1MzEyNSA1LjQ4MDQ2OSAiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDExKSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MC41MzM0ODk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDA3LjM0NzY1NiAyNTUuOTI5Njg4IEwgNDA3LjM0NzY1NiA1LjQ4MDQ2OSAiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDEyKSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDcuMzkwNjI1IDIyNS40NjA5MzggTCA0MjYuNTE5NTMxIDIyNS40NjA5MzggIi8+CjwvZz4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAxMykiIGNsaXAtcnVsZT0ibm9uemVybyI+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMTAwJSwxMDAlLDEwMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ3LjM5MDYyNSAxNjkuODIwMzEyIEwgNDI2LjUxOTUzMSAxNjkuODIwMzEyICIvPgo8L2c+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMTQpIiBjbGlwLXJ1bGU9Im5vbnplcm8iPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDoxLjA2Njk3ODtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDEwMCUsMTAwJSwxMDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA0Ny4zOTA2MjUgMTE0LjE4MzU5NCBMIDQyNi41MTk1MzEgMTE0LjE4MzU5NCAiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDE1KSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gNDcuMzkwNjI1IDU4LjU0Mjk2OSBMIDQyNi41MTk1MzEgNTguNTQyOTY5ICIvPgo8L2c+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMTYpIiBjbGlwLXJ1bGU9Im5vbnplcm8iPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDoxLjA2Njk3ODtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDEwMCUsMTAwJSwxMDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA5OS43MDcwMzEgMjU1LjkyOTY4OCBMIDk5LjcwNzAzMSA1LjQ4MDQ2OSAiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDE3KSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMTg3LjYwNTQ2OSAyNTUuOTI5Njg4IEwgMTg3LjYwNTQ2OSA1LjQ4MDQ2OSAiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDE4KSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMjc1LjUwMzkwNiAyNTUuOTI5Njg4IEwgMjc1LjUwMzkwNiA1LjQ4MDQ2OSAiLz4KPC9nPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDE5KSIgY2xpcC1ydWxlPSJub256ZXJvIj4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigxMDAlLDEwMCUsMTAwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMzYzLjM5ODQzOCAyNTUuOTI5Njg4IEwgMzYzLjM5ODQzOCA1LjQ4MDQ2OSAiLz4KPC9nPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDoxLjA2Njk3ODtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDAlLDAlLDAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjE7IiBkPSJNIDY0LjYyNSA1MS40NjA5MzggTCA2NS4wNTg1OTQgNDEuMzAwNzgxIEwgNjUuNDk2MDk0IDM5LjA5Mzc1IEwgNjUuOTM3NSA0NC4xNjc5NjkgTCA2Ni4zODI4MTIgMTYuODYzMjgxIEwgNjYuODI4MTI1IDIyLjY5MTQwNiBMIDY3LjI4MTI1IDQyLjA0Mjk2OSBMIDY3LjczMDQ2OSAzMy43MjI2NTYgTCA2OC4xODc1IDMyLjQxMDE1NiBMIDY4LjY0NDUzMSA0MS4yMjY1NjIgTCA2OS4xMDU0NjkgMzcuOTUzMTI1IEwgNjkuNTcwMzEyIDI4LjUxNTYyNSBMIDcwLjAzOTA2MiA0Mi45MzM1OTQgTCA3MC41MDc4MTIgNDIuNjEzMjgxIEwgNzAuOTgwNDY5IDUzLjE3OTY4OCBMIDcxLjQ1NzAzMSA0MS40NTMxMjUgTCA3MS45Mzc1IDM5LjMzMjAzMSBMIDcyLjQxNzk2OSA0NS41ODU5MzggTCA3Mi45MDIzNDQgNTQuNTYyNSBMIDczLjM5MDYyNSA1Ni45OTYwOTQgTCA3My44ODI4MTIgNjAuODEyNSBMIDc0LjM3ODkwNiA0NC42NjAxNTYgTCA3NC44Nzg5MDYgNTMuMzQ3NjU2IEwgNzUuMzc4OTA2IDYwLjI5Njg3NSBMIDc1Ljg4MjgxMiA0NC41NTQ2ODggTCA3Ni4zOTQ1MzEgNDMuNDM3NSBMIDc2LjkwNjI1IDU1Ljc0MjE4OCBMIDc3LjQyMTg3NSA1My42Nzk2ODggTCA3Ny45Mzc1IDQ2LjY2NDA2MiBMIDc4LjQ2MDkzOCA2MC4wNjY0MDYgTCA3OC45ODgyODEgNTYuNDUzMTI1IEwgNzkuNTE1NjI1IDUzLjE1NjI1IEwgODAuMDUwNzgxIDYyLjk0OTIxOSBMIDgwLjU4NTkzOCA1NC43OTI5NjkgTCA4MS4xMjUgNTMuMzI4MTI1IEwgODEuNjcxODc1IDY4LjEzMjgxMiBMIDgyLjIxODc1IDU2Ljg1MTU2MiBMIDgyLjc2OTUzMSA2OC42NjQwNjIgTCA4My4zMjgxMjUgNjIuODk4NDM4IEwgODMuODg2NzE5IDU3LjgyODEyNSBMIDg0LjQ0OTIxOSA2OS41MjM0MzggTCA4NS4wMTU2MjUgNjIuMzc1IEwgODUuNTg5ODQ0IDYzLjA5Mzc1IEwgODYuMTY0MDYyIDY3LjUxNTYyNSBMIDg2Ljc0MjE4OCA3Ni4xODM1OTQgTCA4Ny4zMjgxMjUgNjkuOTQxNDA2IEwgODcuOTE0MDYyIDc1LjA5Mzc1IEwgODguNTA3ODEyIDY1LjAzOTA2MiBMIDg5LjEwNTQ2OSA3My42MDE1NjIgTCA4OS43MDcwMzEgNzEuNzQyMTg4IEwgOTAuMzA4NTk0IDc0LjE0ODQzOCBMIDkwLjkyMTg3NSA3MS4xNzU3ODEgTCA5MS41MzUxNTYgNzMuNjY0MDYyIEwgOTIuMTUyMzQ0IDczLjExNzE4OCBMIDkyLjc3NzM0NCA3Ny41NTQ2ODggTCA5My40MDYyNSA3OS42NTIzNDQgTCA5NC4wMzkwNjIgNzcuOTY0ODQ0IEwgOTQuNjc1NzgxIDc4LjI0NjA5NCBMIDk1LjMxNjQwNiA3MS45NDUzMTIgTCA5NS45NjQ4NDQgNzguMjk2ODc1IEwgOTYuNjE3MTg4IDgxLjMyNDIxOSBMIDk3LjI3MzQzOCA4MS40MTc5NjkgTCA5Ny45MzM1OTQgODAuODQ3NjU2IEwgOTguNjAxNTYyIDgxLjk3MjY1NiBMIDk5LjI3MzQzOCA4Mi4xMzI4MTIgTCA5OS45NTMxMjUgODIuMjU3ODEyIEwgMTAwLjYzMjgxMiA4OC4zNjcxODggTCAxMDEuMzIwMzEyIDg0LjE5OTIxOSBMIDEwMi4wMTU2MjUgODYuNTM5MDYyIEwgMTAyLjcxNDg0NCA4Ni43MTA5MzggTCAxMDMuNDE3OTY5IDkwLjc0NjA5NCBMIDEwNC4xMjg5MDYgODguMjI2NTYyIEwgMTA0Ljg0Mzc1IDkxLjk4ODI4MSBMIDEwNS41NjI1IDkyLjA3NDIxOSBMIDEwNi4yOTI5NjkgOTEuMDIzNDM4IEwgMTA3LjAyMzQzOCA5MS43ODEyNSBMIDEwNy43NjE3MTkgOTYuMjAzMTI1IEwgMTA4LjUwNzgxMiA5Ny40MTc5NjkgTCAxMDkuMjU3ODEyIDk1LjEwMTU2MiBMIDExMC4wMTU2MjUgOTUuMTk5MjE5IEwgMTEwLjc3NzM0NCA5Ny42MjEwOTQgTCAxMTEuNTQ2ODc1IDk5LjE0ODQzOCBMIDExMi4zMjQyMTkgMTAwLjQ3MjY1NiBMIDExMy4xMDU0NjkgMTAwLjM4MjgxMiBMIDExMy44OTQ1MzEgMTAwLjM5NDUzMSBMIDExNC42ODc1IDEwMi4wODU5MzggTCAxMTUuNDkyMTg4IDEwMS4xMjEwOTQgTCAxMTYuMzAwNzgxIDEwMy40ODQzNzUgTCAxMTcuMTEzMjgxIDEwNC45NTMxMjUgTCAxMTcuOTM3NSAxMDUuOTQ5MjE5IEwgMTE4Ljc2NTYyNSAxMDYuNjA5Mzc1IEwgMTE5LjYwNTQ2OSAxMDUuMjMwNDY5IEwgMTIwLjQ0OTIxOSAxMDcuOTcyNjU2IEwgMTIxLjI5Njg3NSAxMDcuNDQ1MzEyIEwgMTIyLjE1NjI1IDEwOS4zNDM3NSBMIDEyMy4wMjM0MzggMTA5LjQ4ODI4MSBMIDEyMy44OTg0MzggMTEwLjI1NzgxMiBMIDEyNC43NzczNDQgMTExLjgyODEyNSBMIDEyNS42Njc5NjkgMTEzLjY5OTIxOSBMIDEyNi41NjY0MDYgMTE0LjE2NDA2MiBMIDEyNy40Njg3NSAxMTUuMDAzOTA2IEwgMTI4LjM4MjgxMiAxMTcuMTU2MjUgTCAxMjkuMzA0Njg4IDExNi44Nzg5MDYgTCAxMzAuMjM0Mzc1IDExNy43NzczNDQgTCAxMzEuMTcxODc1IDExNy40MTAxNTYgTCAxMzIuMTIxMDk0IDExOS4yNSBMIDEzMy4wNzQyMTkgMTE5LjgzMjAzMSBMIDEzNC4wMzkwNjIgMTIwLjQ4ODI4MSBMIDEzNS4wMTE3MTkgMTIxLjc0MjE4OCBMIDEzNS45OTYwOTQgMTIyLjIzNDM3NSBMIDEzNi45ODgyODEgMTIzLjQ3NjU2MiBMIDEzNy45ODgyODEgMTI0LjYwNTQ2OSBMIDEzOC45OTYwOTQgMTI1LjI1MzkwNiBMIDE0MC4wMTU2MjUgMTI3Ljk2NDg0NCBMIDE0MS4wNDY4NzUgMTI2LjM4NjcxOSBMIDE0Mi4wODU5MzggMTI4LjQ5MjE4OCBMIDE0My4xMzY3MTkgMTMwLjg4NjcxOSBMIDE0NC4xOTUzMTIgMTMyLjM3NSBMIDE0NS4yNjU2MjUgMTMxLjA3ODEyNSBMIDE0Ni4zNDM3NSAxMzIuOTUzMTI1IEwgMTQ3LjQzNzUgMTM0Ljc0MjE4OCBMIDE0OC41MzkwNjIgMTM0Ljk2ODc1IEwgMTQ5LjY1MjM0NCAxMzYuMTg3NSBMIDE1MC43NzM0MzggMTM2LjY2MDE1NiBMIDE1MS45MTAxNTYgMTM3LjYyODkwNiBMIDE1My4wNTQ2ODggMTM5LjAyNzM0NCBMIDE1NC4yMTQ4NDQgMTQwLjI5Mjk2OSBMIDE1NS4zODI4MTIgMTQwLjU2NjQwNiBMIDE1Ni41NjY0MDYgMTQyLjI0MjE4OCBMIDE1Ny43NTc4MTIgMTQzLjQ3MjY1NiBMIDE1OC45NjQ4NDQgMTQ0LjkyOTY4OCBMIDE2MC4xODM1OTQgMTQ1LjAyNzM0NCBMIDE2MS40MTQwNjIgMTQ3LjAyNzM0NCBMIDE2Mi42NTYyNSAxNDcuODc4OTA2IEwgMTYzLjkxNDA2MiAxNDcuNzIyNjU2IEwgMTY1LjE4NzUgMTUwLjI1IEwgMTY2LjQ2ODc1IDE1MS43NDYwOTQgTCAxNjcuNzY5NTMxIDE1Mi41MDc4MTIgTCAxNjkuMDc4MTI1IDE1Mi4zNzg5MDYgTCAxNzAuNDA2MjUgMTU0LjE2NDA2MiBMIDE3MS43NDYwOTQgMTU0LjI4MTI1IEwgMTczLjEwMTU2MiAxNTcuMDYyNSBMIDE3NC40NzI2NTYgMTU3LjkwMjM0NCBMIDE3NS44NTU0NjkgMTU4LjU5Mzc1IEwgMTc3LjI1NzgxMiAxNTkuNDQxNDA2IEwgMTc4LjY3MTg3NSAxNjAuMTAxNTYyIEwgMTgwLjEwNTQ2OSAxNjEuODM1OTM4IEwgMTgxLjU1NDY4OCAxNjMuNTUwNzgxIEwgMTgzLjAxNTYyNSAxNjQuMzk4NDM4IEwgMTg0LjUgMTY1LjIyMjY1NiBMIDE4NS45OTYwOTQgMTY2Ljc5Mjk2OSBMIDE4Ny41MTE3MTkgMTY4LjAyMzQzOCBMIDE4OS4wNDY4NzUgMTY4LjM0Mzc1IEwgMTkwLjU5NzY1NiAxNzAuMDU0Njg4IEwgMTkyLjE2Nzk2OSAxNzEuMjczNDM4IEwgMTkzLjc1NzgxMiAxNzIuMDUwNzgxIEwgMTk1LjM2MzI4MSAxNzMuODI4MTI1IEwgMTk2Ljk4ODI4MSAxNzQuNTAzOTA2IEwgMTk4LjYzNjcxOSAxNzUuOTAyMzQ0IEwgMjAwLjMwMDc4MSAxNzYuOTYwOTM4IEwgMjAxLjk4ODI4MSAxNzcuODM1OTM4IEwgMjAzLjY5NTMxMiAxNzkuMzI0MjE5IEwgMjA1LjQyMTg3NSAxODEgTCAyMDcuMTcxODc1IDE4MS45MTc5NjkgTCAyMDguOTQ1MzEyIDE4My4wMTE3MTkgTCAyMTAuNzM4MjgxIDE4My45MTc5NjkgTCAyMTIuNTU0Njg4IDE4NSBMIDIxNC4zOTQ1MzEgMTg1LjkxNzk2OSBMIDIxNi4yNTc4MTIgMTg3LjEwOTM3NSBMIDIxOC4xNDQ1MzEgMTg3LjY2NDA2MiBMIDIyMC4wNTg1OTQgMTg4Ljc4OTA2MiBMIDIyMS45OTIxODggMTkwLjM5NDUzMSBMIDIyMy45NTcwMzEgMTkxLjU3MDMxMiBMIDIyNS45NDUzMTIgMTkzLjE5NTMxMiBMIDIyNy45NjA5MzggMTk0LjczMDQ2OSBMIDIzMCAxOTUuNzE0ODQ0IEwgMjMyLjA3MDMxMiAxOTYuNDIxODc1IEwgMjM0LjE2Nzk2OSAxOTcuOTQ1MzEyIEwgMjM2LjI5Njg3NSAxOTkuMDgyMDMxIEwgMjM4LjQ0OTIxOSAyMDAuNjQ0NTMxIEwgMjQwLjYzNjcxOSAyMDEuNDY4NzUgTCAyNDIuODUxNTYyIDIwMi45NjQ4NDQgTCAyNDUuMTAxNTYyIDIwNC40Njg3NSBMIDI0Ny4zNzg5MDYgMjA1LjczODI4MSBMIDI0OS42OTE0MDYgMjA2LjE1NjI1IEwgMjUyLjAzOTA2MiAyMDguMzg2NzE5IEwgMjU0LjQxNzk2OSAyMDkuMDQ2ODc1IEwgMjU2LjgzMjAzMSAyMDkuMTI1IEwgMjU5LjI4MTI1IDIwOS4xNDA2MjUgTCAyNjEuNzY1NjI1IDIxMC44NjcxODggTCAyNjQuMjg5MDYyIDIxMi41NjI1IEwgMjY2Ljg1MTU2MiAyMTQuNzM0Mzc1IEwgMjY5LjQ1MzEyNSAyMTUuNjY3OTY5IEwgMjcyLjA4OTg0NCAyMTcuMTI1IEwgMjc0Ljc3MzQzOCAyMTguMzgyODEyIEwgMjc3LjQ5MjE4OCAyMTkuNDQ5MjE5IEwgMjgwLjI1NzgxMiAyMjAuNTg5ODQ0IEwgMjgzLjA2NjQwNiAyMjIuMjUgTCAyODUuOTE3OTY5IDIyMy40MDYyNSBMIDI4OC44MTY0MDYgMjI0LjMzNTkzOCBMIDI5MS43NjE3MTkgMjI1LjI3MzQzOCBMIDI5NC43NTc4MTIgMjI1Ljk1MzEyNSBMIDI5Ny43OTY4NzUgMjI2LjY4MzU5NCBMIDMwMC44OTA2MjUgMjI2LjE2MDE1NiBMIDMwNC4wMzUxNTYgMjI3LjQxMDE1NiBMIDMwNy4yMzA0NjkgMjI4Ljc2NTYyNSBMIDMxMC40ODQzNzUgMjMwLjIwNzAzMSBMIDMxMy43ODkwNjIgMjMxLjcxODc1IEwgMzE3LjE1MjM0NCAyMzMuMTY0MDYyIEwgMzIwLjU3ODEyNSAyMzMuMjkyOTY5IEwgMzI0LjA1ODU5NCAyMzIuNzY1NjI1IEwgMzI3LjYwMTU2MiAyMzMuODIwMzEyIEwgMzMxLjIxMDkzOCAyMzMuMzAwNzgxIEwgMzM0Ljg4MjgxMiAyMzQuMzEyNSBMIDMzOC42MjEwOTQgMjM2LjYzNjcxOSBMIDM0Mi40Mjk2ODggMjM3LjY5MTQwNiBMIDM0Ni4zMDg1OTQgMjM5LjYyNSBMIDM1MC4yNjE3MTkgMjQwLjEwMTU2MiBMIDM1NC4yODkwNjIgMjQwLjE4NzUgTCAzNTguMzkwNjI1IDIzOS42OTkyMTkgTCAzNjIuNTcwMzEyIDI0MC4xNjAxNTYgTCAzNjYuODM1OTM4IDI0MC43NTc4MTIgTCAzNzEuMTc5Njg4IDI0MC43MzgyODEgTCAzNzUuNjEzMjgxIDI0MS44Mzk4NDQgTCAzODAuMTM2NzE5IDI0MS42Njc5NjkgTCAzODQuNzUgMjQzLjQ3MjY1NiBMIDM4OS40NTcwMzEgMjQ0LjU0Njg3NSBMIDM5NC4yNjE3MTkgMjM4LjgzNTkzOCBMIDM5OS4xNjQwNjIgMTgzLjE0MDYyNSBMIDQwNC4xNzE4NzUgMTQzLjUzNTE1NiBMIDQwOS4yODkwNjIgMTE0LjA5NzY1NiAiLz4KPGcgc3R5bGU9ImZpbGw6cmdiKDMwLjE5NjA3OCUsMzAuMTk2MDc4JSwzMC4xOTYwNzglKTtmaWxsLW9wYWNpdHk6MTsiPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0xIiB4PSIyMS40NTcwMzEiIHk9IjIyOC4zNDY2OCIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0yIiB4PSIyNC4zODY3MTkiIHk9IjIyOC4zNDY2OCIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0zIiB4PSIyOS4yNzczNDQiIHk9IjIyOC4zNDY2OCIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC00IiB4PSIzMS43MjI2NTYiIHk9IjIyOC4zNDY2OCIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0yIiB4PSIzNi42MTMyODEiIHk9IjIyOC4zNDY2OCIvPgo8L2c+CjxnIHN0eWxlPSJmaWxsOnJnYigzMC4xOTYwNzglLDMwLjE5NjA3OCUsMzAuMTk2MDc4JSk7ZmlsbC1vcGFjaXR5OjE7Ij4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMSIgeD0iMjEuNDU3MDMxIiB5PSIxNzIuNzA2MDU1Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTIiIHg9IjI0LjM4NjcxOSIgeT0iMTcyLjcwNjA1NSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0zIiB4PSIyOS4yNzczNDQiIHk9IjE3Mi43MDYwNTUiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtNSIgeD0iMzEuNzIyNjU2IiB5PSIxNzIuNzA2MDU1Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTQiIHg9IjM2LjYxMzI4MSIgeT0iMTcyLjcwNjA1NSIvPgo8L2c+CjxnIHN0eWxlPSJmaWxsOnJnYigzMC4xOTYwNzglLDMwLjE5NjA3OCUsMzAuMTk2MDc4JSk7ZmlsbC1vcGFjaXR5OjE7Ij4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMiIgeD0iMjQuNDU3MDMxIiB5PSIxMTcuMDY5MzM2Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTMiIHg9IjI5LjM0NzY1NiIgeT0iMTE3LjA2OTMzNiIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0yIiB4PSIzMS43OTI5NjkiIHk9IjExNy4wNjkzMzYiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMiIgeD0iMzYuNjgzNTk0IiB5PSIxMTcuMDY5MzM2Ii8+CjwvZz4KPGcgc3R5bGU9ImZpbGw6cmdiKDMwLjE5NjA3OCUsMzAuMTk2MDc4JSwzMC4xOTYwNzglKTtmaWxsLW9wYWNpdHk6MTsiPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0yIiB4PSIyNC40NTcwMzEiIHk9IjYxLjQyODcxMSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0zIiB4PSIyOS4zNDc2NTYiIHk9IjYxLjQyODcxMSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC01IiB4PSIzMS43OTI5NjkiIHk9IjYxLjQyODcxMSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC00IiB4PSIzNi42ODM1OTQiIHk9IjYxLjQyODcxMSIvPgo8L2c+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMjAlLDIwJSwyMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ0LjY1MjM0NCAyMjUuNDYwOTM4IEwgNDcuMzkwNjI1IDIyNS40NjA5MzggIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMjAlLDIwJSwyMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ0LjY1MjM0NCAxNjkuODIwMzEyIEwgNDcuMzkwNjI1IDE2OS44MjAzMTIgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMjAlLDIwJSwyMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ0LjY1MjM0NCAxMTQuMTgzNTk0IEwgNDcuMzkwNjI1IDExNC4xODM1OTQgIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMjAlLDIwJSwyMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDQ0LjY1MjM0NCA1OC41NDI5NjkgTCA0Ny4zOTA2MjUgNTguNTQyOTY5ICIvPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDoxLjA2Njk3ODtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDIwJSwyMCUsMjAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSA5OS43MDcwMzEgMjU4LjY2Nzk2OSBMIDk5LjcwNzAzMSAyNTUuOTI5Njg4ICIvPgo8cGF0aCBzdHlsZT0iZmlsbDpub25lO3N0cm9rZS13aWR0aDoxLjA2Njk3ODtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2U6cmdiKDIwJSwyMCUsMjAlKTtzdHJva2Utb3BhY2l0eToxO3N0cm9rZS1taXRlcmxpbWl0OjEwOyIgZD0iTSAxODcuNjA1NDY5IDI1OC42Njc5NjkgTCAxODcuNjA1NDY5IDI1NS45Mjk2ODggIi8+CjxwYXRoIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlLXdpZHRoOjEuMDY2OTc4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZTpyZ2IoMjAlLDIwJSwyMCUpO3N0cm9rZS1vcGFjaXR5OjE7c3Ryb2tlLW1pdGVybGltaXQ6MTA7IiBkPSJNIDI3NS41MDM5MDYgMjU4LjY2Nzk2OSBMIDI3NS41MDM5MDYgMjU1LjkyOTY4OCAiLz4KPHBhdGggc3R5bGU9ImZpbGw6bm9uZTtzdHJva2Utd2lkdGg6MS4wNjY5Nzg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlOnJnYigyMCUsMjAlLDIwJSk7c3Ryb2tlLW9wYWNpdHk6MTtzdHJva2UtbWl0ZXJsaW1pdDoxMDsiIGQ9Ik0gMzYzLjM5ODQzOCAyNTguNjY3OTY5IEwgMzYzLjM5ODQzOCAyNTUuOTI5Njg4ICIvPgo8ZyBzdHlsZT0iZmlsbDpyZ2IoMzAuMTk2MDc4JSwzMC4xOTYwNzglLDMwLjE5NjA3OCUpO2ZpbGwtb3BhY2l0eToxOyI+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTYiIHg9Ijg5LjcwNzAzMSIgeT0iMjY3LjI0NTExNyIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0yIiB4PSI5NC41OTc2NTYiIHk9IjI2Ny4yNDUxMTciLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMiIgeD0iOTkuNDg4MjgxIiB5PSIyNjcuMjQ1MTE3Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTIiIHg9IjEwNC4zNzg5MDYiIHk9IjI2Ny4yNDUxMTciLz4KPC9nPgo8ZyBzdHlsZT0iZmlsbDpyZ2IoMzAuMTk2MDc4JSwzMC4xOTYwNzglLDMwLjE5NjA3OCUpO2ZpbGwtb3BhY2l0eToxOyI+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTYiIHg9IjE3Ny42MDU0NjkiIHk9IjI2Ny4yNDUxMTciLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtNCIgeD0iMTgyLjQ5NjA5NCIgeT0iMjY3LjI0NTExNyIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0yIiB4PSIxODcuMzg2NzE5IiB5PSIyNjcuMjQ1MTE3Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTIiIHg9IjE5Mi4yNzczNDQiIHk9IjI2Ny4yNDUxMTciLz4KPC9nPgo8ZyBzdHlsZT0iZmlsbDpyZ2IoMzAuMTk2MDc4JSwzMC4xOTYwNzglLDMwLjE5NjA3OCUpO2ZpbGwtb3BhY2l0eToxOyI+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTUiIHg9IjI2NS41MDM5MDYiIHk9IjI2Ny4yNDUxMTciLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtMiIgeD0iMjcwLjM5NDUzMSIgeT0iMjY3LjI0NTExNyIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0yIiB4PSIyNzUuMjg1MTU2IiB5PSIyNjcuMjQ1MTE3Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTIiIHg9IjI4MC4xNzU3ODEiIHk9IjI2Ny4yNDUxMTciLz4KPC9nPgo8ZyBzdHlsZT0iZmlsbDpyZ2IoMzAuMTk2MDc4JSwzMC4xOTYwNzglLDMwLjE5NjA3OCUpO2ZpbGwtb3BhY2l0eToxOyI+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTUiIHg9IjM1My4zOTg0MzgiIHk9IjI2Ny4yNDUxMTciLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDAtNCIgeD0iMzU4LjI4OTA2MiIgeT0iMjY3LjI0NTExNyIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMC0yIiB4PSIzNjMuMTc5Njg4IiB5PSIyNjcuMjQ1MTE3Ii8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgwLTIiIHg9IjM2OC4wNzAzMTIiIHk9IjI2Ny4yNDUxMTciLz4KPC9nPgo8ZyBzdHlsZT0iZmlsbDpyZ2IoMCUsMCUsMCUpO2ZpbGwtb3BhY2l0eToxOyI+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgxLTEiIHg9IjIxOC40NTcwMzEiIHk9IjI4MS44MjMyNDIiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDEtMiIgeD0iMjIwLjg5OTQxNCIgeT0iMjgxLjgyMzI0MiIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMS0zIiB4PSIyMjcuMDE1NjI1IiB5PSIyODEuODIzMjQyIi8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgxLTQiIHg9IjIzNi4xNzg3MTEiIHk9IjI4MS44MjMyNDIiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDEtNSIgeD0iMjQyLjI5NDkyMiIgeT0iMjgxLjgyMzI0MiIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMS0yIiB4PSIyNDguNDExMTMzIiB5PSIyODEuODIzMjQyIi8+CjwvZz4KPGcgc3R5bGU9ImZpbGw6cmdiKDAlLDAlLDAlKTtmaWxsLW9wYWNpdHk6MTsiPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMi0xIiB4PSIxMy45NjM4NjciIHk9IjE1Ni43MDMxMjUiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDItMiIgeD0iMTMuOTYzODY3IiB5PSIxNDguNzYwNzQyIi8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgyLTMiIHg9IjEzLjk2Mzg2NyIgeT0iMTQ1LjcwMzEyNSIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMi00IiB4PSIxMy45NjM4NjciIHk9IjEzNy43NjA3NDIiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDItNSIgeD0iMTMuOTYzODY3IiB5PSIxMzEuNjQ0NTMxIi8+CiAgPHVzZSB4bGluazpocmVmPSIjZ2x5cGgyLTYiIHg9IjEzLjk2Mzg2NyIgeT0iMTIzLjA4NjkxNCIvPgogIDx1c2UgeGxpbms6aHJlZj0iI2dseXBoMi03IiB4PSIxMy45NjM4NjciIHk9IjExNi45NzA3MDMiLz4KICA8dXNlIHhsaW5rOmhyZWY9IiNnbHlwaDItOCIgeD0iMTMuOTYzODY3IiB5PSIxMTEuNDcwNzAzIi8+CjwvZz4KPC9nPgo8L3N2Zz4K" /></p>
+<h2 id="how-to-model-functional-data">How to model functional data</h2>
+<p>There are two commonly used approaches for analysing functional data.</p>
+<ul>
+<li>
+<p>Directly analyze the functional data using a <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.md.html">learner</a> that is suitable for functional data on a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a>. Those learners have the prefixes <strong>classif.fda</strong> and <strong>regr.fda</strong>.
+For more info on learners see <a href="../functional_data.Rmd#constructing-a-learner">fda learners</a>.
+For this purpose, the functional data has to be saved as a matrix column in the data.frame used
+for constructing the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a>. For more info on functional tasks consider the folowing section.</p>
+</li>
+<li>
+<p>Transform the task into a format suitable for standard <strong>classification</strong> or <strong>regression</strong> <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.md.html">learners</a>. 
+This is done by <a href="../functional_data.Rmd#feature-extraction">extracting</a> non-temporal/non-functional features from the curves. Non-temporal features do not have any interdependence between each other, similarly to features in traditional machine learning.This is explained in more detail <a href="../functional_data.Rmd#feature-extraction">below</a>.</p>
+</li>
+</ul>
+<h2 id="creating-a-task-that-contains-functional-features">Creating a Task that contains functional features</h2>
+<p>The first step is to get the data in the right format. <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> expects a  <a href="http://www.rdocumentation.org/packages/base/functions/data.frame.html">data.frame</a> which consists of the functional features and the target variable as input. Functional data in contrast to <strong>numeric</strong> data have to be stored as a matrix column in the data.frame.
+After that a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a> that contains the data in a well-defined format is created. <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Tasks</a> come in different flavours, such as <a href="http://www.rdocumentation.org/packages/mlr/functions/makeClassifTask.html">ClassifTask</a> and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeRegrTask.html">RegrTask</a>, which can be used according to the class of the target variable.</p>
+<p>In the following example, the data is first stored as matrix columns using the
+helper function <a href="http://www.rdocumentation.org/packages/mlr/functions/makeFunctionalData.html">makeFunctionalData</a> for the <a href="../fuelSubset.task">fuelSubset</a>
+data from package <a href="http://www.rdocumentation.org/packages/FDboost/">FDboost</a>.</p>
+<p>The data is provided in the following structure:</p>
+<pre><code class="r">str(fuelSubset)
+#&gt; List of 7
+#&gt;  $ heatan      : num [1:129] 26.8 27.5 23.8 18.2 17.5 ...
+#&gt;  $ h2o         : num [1:129] 2.3 3 2 1.85 2.39 ...
+#&gt;  $ nir.lambda  : num [1:231] 800 803 805 808 810 ...
+#&gt;  $ NIR         : num [1:129, 1:231] 0.2818 0.2916 -0.0042 -0.034 -0.1804 ...
+#&gt;  $ uvvis.lambda: num [1:134] 250 256 261 267 273 ...
+#&gt;  $ UVVIS       : num [1:129, 1:134] 0.145 -1.584 -0.814 -1.311 -1.373 ...
+#&gt;  $ h2o.fit     : num [1:129] 2.58 3.43 1.83 2.03 3.07 ...
+</code></pre>
+
+<ul>
+<li><strong>heatan</strong> is the target variable, in this case a numeric value.</li>
+<li><strong>h2o</strong> is an additional scalar variable.</li>
+<li><strong>NIR</strong> and <strong>UVVIS</strong> are matricies containing the curve data. Each column corresponds to a single time point the data was sampled at. Each row indicates a single curve. <strong>NIR</strong> was measured at <script type="math/tex">231</script> time points, while <strong>UVVIS</strong> was measured at <script type="math/tex">129</script> time points.</li>
+<li><strong>nir.lambda</strong> and <strong>uvvis.lambda</strong> are vectors of length <script type="math/tex">231</script> and <script type="math/tex">129</script> indicate the time points the data was measured at. Each entry corresponds to one column of <strong>NIR</strong> and <strong>UVVIS</strong> respectively. For now we ignore this additional information in mlr.</li>
+</ul>
+<p>Our data already contains functional features as matricies in a list.
+In order to showcase how such a matrix can 
+be created from arbitrary numeric columns, we transform the list into a data.frame with a set of numeric columns for each matrix. These columns refer to the matrix columns in the list, i.e 
+<strong>UVVIS.1</strong> is the first column of the UVVIS matrix. </p>
+<pre><code class="r">## Put all values into a data.frame
+df = data.frame(fuelSubset[c(&quot;heatan&quot;, &quot;h2o&quot;, &quot;UVVIS&quot;, &quot;NIR&quot;)])
+str(df[, 1:5])
+#&gt; 'data.frame':    129 obs. of  5 variables:
+#&gt;  $ heatan : num  26.8 27.5 23.8 18.2 17.5 ...
+#&gt;  $ h2o    : num  2.3 3 2 1.85 2.39 ...
+#&gt;  $ UVVIS.1: num  0.145 -1.584 -0.814 -1.311 -1.373 ...
+#&gt;  $ UVVIS.2: num  -0.0111 -2.0467 -1.053 -1.2445 -1.8826 ...
+#&gt;  $ UVVIS.3: num  0.0372 -1.5695 -0.9381 -1.0649 -1.4016 ...
+</code></pre>
+
+<p>Before constructing the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a>, the data is again reformated so it contains column matricies. 
+This is done by providing a list <strong>fd.features</strong>, that identifies the functional covariates. 
+All columns not mentioned in the list are kept as-is. In our case the column indices 3:136 correspond to the columns of the UVVIS matrix. Alternatively we could also specify the respective column names.</p>
+<pre><code class="r"># fd.features is a named list, where each name corresponds to the name of the 
+# fuctional feature and the values to the respective column indices or column names.
+fd.features = list(&quot;UVVIS&quot; = 3:136, &quot;NIR&quot; = 137:367)
+fdf = makeFunctionalData(df, fd.features = fd.features)
+</code></pre>
+
+<p><a href="http://www.rdocumentation.org/packages/mlr/functions/makeFunctionalData.html">makeFunctionalData</a> returns a data.frame, where the functional features are contained as matricies.</p>
+<pre><code class="r">str(fdf)
+#&gt; 'data.frame':    129 obs. of  4 variables:
+#&gt;  $ heatan: num  26.8 27.5 23.8 18.2 17.5 ...
+#&gt;  $ h2o   : num  2.3 3 2 1.85 2.39 ...
+#&gt;  $ UVVIS : num [1:129, 1:134] 0.145 -1.584 -0.814 -1.311 -1.373 ...
+#&gt;   ..- attr(*, &quot;dimnames&quot;)=List of 2
+#&gt;   .. ..$ : NULL
+#&gt;   .. ..$ : chr  &quot;UVVIS.1&quot; &quot;UVVIS.2&quot; &quot;UVVIS.3&quot; &quot;UVVIS.4&quot; ...
+#&gt;  $ NIR   : num [1:129, 1:231] 0.2818 0.2916 -0.0042 -0.034 -0.1804 ...
+#&gt;   ..- attr(*, &quot;dimnames&quot;)=List of 2
+#&gt;   .. ..$ : NULL
+#&gt;   .. ..$ : chr  &quot;NIR.1&quot; &quot;NIR.2&quot; &quot;NIR.3&quot; &quot;NIR.4&quot; ...
+</code></pre>
+
+<p>Now with a data.frame containing the functionals as matricies, a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a> can be created:</p>
+<pre><code class="r"># Create a regression task, classification tasks behave analogously
+# In this case we use column indices
+tsk1 = makeRegrTask(&quot;fuelsubset&quot;, data = fdf, target = &quot;heatan&quot;)
+tsk1
+#&gt; Supervised task: fuelsubset
+#&gt; Type: regr
+#&gt; Target: heatan
+#&gt; Observations: 129
+#&gt; Features:
+#&gt;    numerics     factors     ordered functionals 
+#&gt;           1           0           0           2 
+#&gt; Missings: FALSE
+#&gt; Has weights: FALSE
+#&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
+</code></pre>
+
+<h2 id="constructing-a-learner">Constructing a learner</h2>
+<p>For functional data, <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.md.html">learners</a> are constructed using 
+<code>makeLearner("&lt;classif.&lt;R_method_name&gt;")</code> or 
+<code>makeLearner("&lt;regr.&lt;R_method_name&gt;")</code> depending on the target variable.</p>
+<p>Applying learners to a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a> works in two ways:</p>
+<ul>
+<li>
+<p><strong>Use a <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.md.html">learner</a> suitable for functional data</strong></p>
+</li>
+<li>
+<p>For regression:</p>
+</li>
+</ul>
+<pre><code class="r">  # The following learners can be used for the task.
+  listLearners(tsk1, properties = &quot;functionals&quot;)
+#&gt;              class                                        name  short.name
+#&gt; 1     regr.FDboost Functional linear array regression boosting     FDboost
+#&gt; 2 regr.featureless                      Featureless regression featureless
+#&gt;          package type installed numerics factors ordered missings weights
+#&gt; 1 FDboost,mboost regr      TRUE     TRUE   FALSE   FALSE    FALSE   FALSE
+#&gt; 2            mlr regr      TRUE     TRUE    TRUE    TRUE     TRUE   FALSE
+#&gt;    prob oneclass twoclass multiclass class.weights featimp oobpreds
+#&gt; 1 FALSE    FALSE    FALSE      FALSE         FALSE   FALSE    FALSE
+#&gt; 2 FALSE    FALSE    FALSE      FALSE         FALSE   FALSE    FALSE
+#&gt;   functionals single.functional    se lcens rcens icens
+#&gt; 1        TRUE             FALSE FALSE FALSE FALSE FALSE
+#&gt; 2        TRUE             FALSE FALSE FALSE FALSE FALSE
+#&gt; ... (#elements: 24)
+  # Create a FDboost learner
+  fdalrn = makeLearner(&quot;regr.FDboost&quot;)
+</code></pre>
+
+<ul>
+<li>Or alternatively for classification:</li>
+</ul>
+<pre><code class="r">  # knn learner
+  knn.lrn = makeLearner(&quot;classif.fdausc.knn&quot;)
+</code></pre>
+
+<ul>
+<li><strong>Use a <em>standard</em> <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.md.html">learner</a></strong>: 
+In this case the temporal structure is disregarded, and the functional data treated as simple numeric features.</li>
+</ul>
+<pre><code class="r">## Decision Tree learner
+rpartlrn = makeLearner(&quot;classif.rpart&quot;)
+</code></pre>
+
+<ul>
+<li>Alternatively, transform the functional data into a non-temporal/non-functional space by <a href="../functional_data.Rmd#feature-extraction">extracting</a> features before training.
+In this case, a normal regression- or classification-<a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.md.html">learner</a> 
+can be applied.</li>
+</ul>
+<p>This is explained in more detail in the <a href="../functional_data.Rmd#feature-extraction">feature extraction</a>
+section below.</p>
+<h2 id="train-the-learner">Train the learner</h2>
+<p>The resulting learner can now be trained on the task created in section <a href="../functional_data.Rmd#creating-a-task">Creating a Task</a> above. </p>
+<pre><code class="r"># Train the fdalrn on the constructed task
+m = train(learner = fdalrn, task = tsk1)
+#&gt; UVVIS is not centered per column, inducing a non-centered effect.
+#&gt; NIR is not centered per column, inducing a non-centered effect.
+p = predict(m, tsk1)
+performance(p, rmse)
+#&gt;     rmse 
+#&gt; 2.181438
+</code></pre>
+
+<pre><code class="r"># Alternatively, we can simply resample (3-fold Cross-Validation)
+resample(fdalrn, tsk1, resampling = cv3, measures =  mse, show.info = FALSE)
+#&gt; UVVIS is not centered per column, inducing a non-centered effect.
+#&gt; NIR is not centered per column, inducing a non-centered effect.
+#&gt; UVVIS is not centered per column, inducing a non-centered effect.
+#&gt; NIR is not centered per column, inducing a non-centered effect.
+#&gt; UVVIS is not centered per column, inducing a non-centered effect.
+#&gt; NIR is not centered per column, inducing a non-centered effect.
+#&gt; Warning in bsplines(mf[[i]], knots = args$knots[[i]]$knots, boundary.knots
+#&gt; = args$knots[[i]]$boundary.knots, : Some 'x' values are beyond
+#&gt; 'boundary.knots'; Linear extrapolation used.
+#&gt; Resample Result
+#&gt; Task: fuelsubset
+#&gt; Learner: regr.FDboost
+#&gt; Aggr perf: mse.test.mean=5.9374832
+#&gt; Runtime: 0.984154
+</code></pre>
+
+<p>Alternatively, learners that do not specifically treat functional covariates can
+be applied. In this case the temporal structure is completely disregarded, and all
+columns are treated as independent.</p>
+<pre><code class="r"># Train a normal learner on the constructed task.
+# Note that we get a message, that functionals have been converted to numerics.
+rpart.lrn = makeLearner(&quot;regr.rpart&quot;)
+m = train(learner = rpart.lrn, task = tsk1)
+#&gt; Functional features have been converted to numerics
+m
+#&gt; Model for learner.id=regr.rpart; learner.class=regr.rpart
+#&gt; Trained on: task.id = fuelsubset; obs = 129; features = 3
+#&gt; Hyperparameters: xval=0
+</code></pre>
+
+<h2 id="feature-extraction">Feature Extraction</h2>
+<p>In contrast to applying a learner that works on a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a> containing functional features,
+the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a> can be converted to a normal <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.md.html">Task.md</a>.
+This works by transforming the functional features into a 
+non-functional domain, e.g by extracting wavelets.</p>
+<p>The currently supported preprocessing functions are:
+<em> discrete wavelet transform
+</em> fast fourier transform
+<em> functional principal component analysis
+</em> multi-resolution feature extraction</p>
+<p>In order to do this, we specify methods for each functional feature in the task in a <strong>list</strong>.
+In this case we simply want to extract the mean from each <strong>UVVIS</strong> functional and the fourier transformed features from each <strong>NIR</strong> functional. Additional arguments can be passed on </p>
+<pre><code class="r"># feat.methods specifies what to extract from which functional
+# from the first functional we extract the fourier transformation, from the second the fpca scores
+feat.methods = list(&quot;UVVIS&quot; = extractFDAFourier(), &quot;NIR&quot; = extractFDAFPCA())
+
+# Either create a new task from an existing task
+extracted = extractFDAFeatures(tsk1, feat.methods = feat.methods)
+extracted
+#&gt; $task
+#&gt; Supervised task: fuelsubset
+#&gt; Type: regr
+#&gt; Target: heatan
+#&gt; Observations: 129
+#&gt; Features:
+#&gt;    numerics     factors     ordered functionals 
+#&gt;         137           0           0           0 
+#&gt; Missings: FALSE
+#&gt; Has weights: FALSE
+#&gt; Has blocking: FALSE
+#&gt; Is spatial: FALSE
+#&gt; 
+#&gt; $desc
+#&gt; Extraction of features from functional data:
+#&gt; Target: heatan
+#&gt; Functional Features: 2; Extracted features: 2
+</code></pre>
+
+<h3 id="wavelets">Wavelets</h3>
+<p>In this case, discrete wavelet feature transformation is applied.
+We can specify which feature extraction method is used via <em>method = "wavelets"</em> and add additional parameters (i.e. the filter and the boundary) in the pars argument. 
+This functions returns a regression task of type regr since the raw data contained temporal structure but the transformed data does not inherit temporal structure anymore.
+For more informations on wavelets consider the documentation <a href="../dwt">wavelets</a>.</p>
+<pre><code class="r">## Specify the feature extraction method and generate new task.
+## Here, we use the Haar filter:
+feat.methods = list(&quot;UVVIS&quot; = extractFDAWavelets(filter = &quot;haar&quot;))
+task.w = extractFDAFeatures(tsk1, feat.methods = feat.methods)
+
+# Use the Daubechie wavelet with filter length 4.
+feat.methods = list(&quot;NIR&quot; = extractFDAWavelets(filter = &quot;d4&quot;))
+task.wd4 = extractFDAFeatures(tsk1, feat.methods = feat.methods)
+</code></pre>
+
+<h3 id="fourier-transformation">Fourier transformation</h3>
+<p>Now, we use the fourier feature transformation. Either the amplitude or the phase of the complex fourier coefficients can be used for analysis. This can be specified in the additional <em>fft.coeff</em> argument:</p>
+<pre><code class="r"># Specify the feature extraction method and generate new task.
+# We use the fourier features and the amplitude for NIR, as well as the phase for UVVIS
+feat.methods = list(&quot;NIR&quot; = extractFDAFourier(trafo.coeff = &quot;amplitude&quot;),
+                    &quot;UVVIS&quot; = extractFDAFourier(trafo.coeff = &quot;phase&quot;))
+task.fourier = extractFDAFeatures(tsk1, feat.methods = feat.methods)
+task.fourier
+</code></pre>
+
+<h3 id="wrappers">Wrappers</h3>
+<p>Additionally we can wrap the preprocessing around a standard learner such as <strong>classif.rpart</strong>.
+For additional information, please consider the <strong>Wrappers</strong> section.</p>
+<pre><code class="r"># Use a FDAFeatExtractWrapper
+feat.methods = list(&quot;UVVIS&quot; = extractFDAMultiResFeatures(), &quot;NIR&quot; = extractFDAFourier())
+wrapped.lrn = makeExtractFDAFeatsWrapper(&quot;classif.rpart&quot;,  feat.methods = feat.methods)
+wrapped.lrn
+#&gt; Learner classif.rpart.extracted from package rpart
+#&gt; Type: classif
+#&gt; Name: ; Short name: 
+#&gt; Class: extractFDAFeatsWrapper
+#&gt; Properties: twoclass,multiclass,missings,numerics,factors,ordered,prob,weights,featimp,functionals,single.functional
+#&gt; Predict-Type: response
+#&gt; Hyperparameters: xval=0
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code># Plot NIR curve for first observarion 
+library(FDboost) 
+data(fuelSubset) 
+library(ggplot2) 
+# NIR_Obs_1 are the measurements for NIR of the first functional covariate. 
+# lambda are the time points, the data was measured at. 
+df = data.frame(&quot;NIR_Obs1&quot; = fuelSubset$NIR[1, ], 
+                &quot;lambda&quot; = fuelSubset$nir.lambda) 
+ggplot(df) +  
+  geom_line(aes(y = NIR_Obs1, x = lambda)) 
+str(fuelSubset) 
+## Put all values into a data.frame 
+df = data.frame(fuelSubset[c(&quot;heatan&quot;, &quot;h2o&quot;, &quot;UVVIS&quot;, &quot;NIR&quot;)]) 
+str(df[, 1:5]) 
+# fd.features is a named list, where each name corresponds to the name of the  
+# fuctional feature and the values to the respective column indices or column names. 
+fd.features = list(&quot;UVVIS&quot; = 3:136, &quot;NIR&quot; = 137:367) 
+fdf = makeFunctionalData(df, fd.features = fd.features) 
+str(fdf) 
+# Create a regression task, classification tasks behave analogously 
+# In this case we use column indices 
+tsk1 = makeRegrTask(&quot;fuelsubset&quot;, data = fdf, target = &quot;heatan&quot;) 
+tsk1 
+  # The following learners can be used for the task. 
+  listLearners(tsk1, properties = &quot;functionals&quot;) 
+  # Create a FDboost learner 
+  fdalrn = makeLearner(&quot;regr.FDboost&quot;) 
+  # knn learner 
+  knn.lrn = makeLearner(&quot;classif.fdausc.knn&quot;) 
+## Decision Tree learner 
+rpartlrn = makeLearner(&quot;classif.rpart&quot;) 
+# Train the fdalrn on the constructed task 
+m = train(learner = fdalrn, task = tsk1) 
+p = predict(m, tsk1) 
+performance(p, rmse) 
+# Alternatively, we can simply resample (3-fold Cross-Validation) 
+resample(fdalrn, tsk1, resampling = cv3, measures =  mse, show.info = FALSE) 
+# Train a normal learner on the constructed task. 
+# Note that we get a message, that functionals have been converted to numerics. 
+rpart.lrn = makeLearner(&quot;regr.rpart&quot;) 
+m = train(learner = rpart.lrn, task = tsk1) 
+m 
+# feat.methods specifies what to extract from which functional 
+# from the first functional we extract the fourier transformation, from the second the fpca scores 
+feat.methods = list(&quot;UVVIS&quot; = extractFDAFourier(), &quot;NIR&quot; = extractFDAFPCA()) 
+
+# Either create a new task from an existing task 
+extracted = extractFDAFeatures(tsk1, feat.methods = feat.methods) 
+extracted 
+## ## Specify the feature extraction method and generate new task. 
+## ## Here, we use the Haar filter: 
+## feat.methods = list(&quot;UVVIS&quot; = extractFDAWavelets(filter = &quot;haar&quot;)) 
+## task.w = extractFDAFeatures(tsk1, feat.methods = feat.methods) 
+##  
+## # Use the Daubechie wavelet with filter length 4. 
+## feat.methods = list(&quot;NIR&quot; = extractFDAWavelets(filter = &quot;d4&quot;)) 
+## task.wd4 = extractFDAFeatures(tsk1, feat.methods = feat.methods) 
+## # Specify the feature extraction method and generate new task. 
+## # We use the fourier features and the amplitude for NIR, as well as the phase for UVVIS 
+## feat.methods = list(&quot;NIR&quot; = extractFDAFourier(trafo.coeff = &quot;amplitude&quot;), 
+##                     &quot;UVVIS&quot; = extractFDAFourier(trafo.coeff = &quot;phase&quot;)) 
+## task.fourier = extractFDAFeatures(tsk1, feat.methods = feat.methods) 
+## task.fourier 
+# Use a FDAFeatExtractWrapper 
+feat.methods = list(&quot;UVVIS&quot; = extractFDAMultiResFeatures(), &quot;NIR&quot; = extractFDAFourier()) 
+wrapped.lrn = makeExtractFDAFeatsWrapper(&quot;classif.rpart&quot;,  feat.methods = feat.methods) 
+wrapped.lrn
+</code></pre></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '..';</script>
+        <script src="../js/base.js"></script>
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>
