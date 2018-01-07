@@ -28,8 +28,6 @@ to create *CPO* objects. These CPO objects are then used to apply the operation 
 cpoAddCols  # a cpo constructor
 ```
 ```{r}
-!cpoAddCols  # more information
-
 # create a CPO object that adds a new column
 cpo = cpoAddCols(Sepal.Area = Sepal.Length * Sepal.Width) 
 ```
