@@ -92,7 +92,7 @@ to change the prefix of the hyperparameters of a given CPO using the *ID*. It ca
 ```{r}
 combined = cpoScale(scale = TRUE, center = FALSE, id = "scale") %>>%
   cpoScale(scale = FALSE, center = TRUE, id = "center")
-!combined
+getParamSet(combined)
 ```
 
 Another possibility is to change what parameters are "exported" by the CPO. A parameter that is not exported can not be changed
@@ -196,12 +196,13 @@ cpm = cpoMultiplex(list(cpoScale, cpoPca))
 ```{r}
 head(iris %>>% setHyperPars(cpm, selected.cpo = "scale"))
 ```
+```{r}
+head(iris %>>% setHyperPars(cpm, selected.cpo = "pca"))
+```
+
 Every CPO's Hyperparameters are exported:
 ```{r}
 head(iris %>>% setHyperPars(cpm, selected.cpo = "scale", scale.center = FALSE))
-```
-```{r}
-head(iris %>>% setHyperPars(cpm, selected.cpo = "pca"))
 ```
 
 This makes it possible to tune over many different CPO configurations at once.
