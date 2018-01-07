@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Preproc Operators - mlr tutorial</title>
+        <title>Preprocessing Operators (CPO) - mlr tutorial</title>
         <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -107,12 +111,8 @@
     <a href="../wrapper/index.html">Wrapped Learners</a>
 </li>
                             
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
-</li>
-                            
 <li class="active">
-    <a href="index.html">Preproc Operators</a>
+    <a href="index.html">Preprocessing Operators (CPO)</a>
 </li>
                             
 <li >
@@ -170,10 +170,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -223,7 +227,7 @@
                     </a>
                 </li>
                     <li >
-                        <a rel="next" href="../preproc/index.html">
+                        <a rel="next" href="../wrapper/index.html">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -247,21 +251,31 @@
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#preprocessing-operators">Preprocessing Operators</a></li>
             <li><a href="#cpo-objects">CPO Objects</a></li>
-            <li><a href="#retrafo">Retrafo</a></li>
             <li><a href="#hyperparameters">Hyperparameters</a></li>
+            <li><a href="#affecting-only-some-features">Affecting Only Some Features</a></li>
+            <li><a href="#cpotrained-retrafo-and-inverter">CPOTrained: Retrafo and Inverter</a></li>
+            <li><a href="#cpo-learner">CPO Learner</a></li>
+            <li><a href="#tuning">Tuning</a></li>
             <li><a href="#special-cpos">Special CPOs</a></li>
             <li><a href="#custom-cpos">Custom CPOs</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
 <h1 id="preprocessing-operators">Preprocessing Operators</h1>
 <p>Data preprocessing can be performed using the "mlrCPO" ("Composable Preprocessing Operators") addon package for mlr.
-CPO makes it easy to use a variety of preprocessing operations, to chain different operations, and to integrate
-preprocessing with mlr learners, and to define custom preprocessing operations.</p>
-<p>To chain different operations, to apply a CPO to a dataset, and to attach a CPO to a learner, the operator <code>%&gt;&gt;%</code> can
-be used. This way, it is possible to quickly create natural looking pipelines that are very flexible and can even be
+mlrCPO makes it easy to use a variety of preprocessing operations, to chain different operations, to to integrate
+preprocessing with mlr Learners, and to define custom preprocessing operations.</p>
+<p>The operator <code>%&gt;&gt;%</code> is used as a piping operator: It chains different operations, it applies an operation to a dataset,
+and it attaches an operation to a Learner to create an integrated preprocessing and model fitting pipeline.
+This way, it is possible to quickly create natural looking pipelines that are very flexible and can even be
 optimized over.</p>
+<p>This tutorial handles the basics of using mlrCPO for preprocessing in combination with mlr <a href="../learner/index.html">Learner</a>s. For a more in-depth introduction, look at the
+mlrCPO vignette using</p>
+<pre><code class="r">vignette(&quot;a_1_getting_started&quot;, package = &quot;mlrCPO&quot;)
+</code></pre>
+
 <p>The following requires the <code>mlrCPO</code> package to be loaded:</p>
 <pre><code class="r">library(&quot;mlrCPO&quot;)
 </code></pre>
@@ -269,180 +283,167 @@ optimized over.</p>
 <h2 id="cpo-objects">CPO Objects</h2>
 <p>Different preprocessing operations are provided in the form of <em>CPO Constructors</em>, which can be called like functions
 to create <em>CPO</em> objects. These CPO objects are then used to apply the operation to a data set.</p>
-<pre><code class="r">cpoScale  # a cpo constructor
-#&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
+<pre><code class="r">cpoAddCols  # a cpo constructor
+#&gt; &lt;&lt;CPO new.cols(..., .make.factors = TRUE)&gt;&gt;
 </code></pre>
 
-<pre><code class="r">print(cpoScale, verbose = TRUE)  # more information
-#&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
-#&gt; CPO Trafo:
-#&gt; function (center = TRUE, scale = TRUE, data, target) 
+<pre><code class="r">!cpoAddCols  # more information
+#&gt; &lt;&lt;CPO new.cols(..., .make.factors = TRUE)&gt;&gt;
+#&gt; 
+#&gt; cpo.trafo:
+#&gt; function (expr, superceding.env, make.factors, add.cols, data, 
+#&gt;     target) 
 #&gt; {
-#&gt;     result = scale(as.matrix(data), center = center, scale = scale)
-#&gt;     control = list(center = firstNonNull(attr(result, &quot;scaled:center&quot;), 
-#&gt;         FALSE), scale = firstNonNull(attr(result, &quot;scaled:scale&quot;), 
-#&gt;         FALSE))
-#&gt;     result
+#&gt;     target
 #&gt; }
 #&gt; &lt;environment: namespace:mlrCPO&gt;
 #&gt; 
-#&gt; CPO Retrafo:
-#&gt; function (center = TRUE, scale = TRUE, data, control) 
+#&gt; cpo.retrafo:
+#&gt; function (expr, superceding.env, make.factors, add.cols, data, 
+#&gt;     control) 
 #&gt; {
-#&gt;     scale(as.matrix(data), center = control$center, scale = control$scale)
+#&gt;     target = control
+#&gt;     if (length({
+#&gt;         badcols = intersect(names(expr), target)
+#&gt;     })) {
+#&gt;         stopf(&quot;Columns %s can not be created, since they clash with the Task's target names&quot;, 
+#&gt;             collapse(badcols, &quot;, &quot;))
+#&gt;     }
+#&gt;     if (add.cols &amp;&amp; length({
+#&gt;         badcols = intersect(names(expr), colnames(data))
+#&gt;     })) {
+#&gt;         stopf(&quot;Columns %s can not be created, since they clash with the Task's feature names&quot;, 
+#&gt;             collapse(badcols, &quot;, &quot;))
+#&gt;     }
+#&gt;     reserved = &quot;..CPO..RESERVED..&quot;
+#&gt;     if (length(target)) {
+#&gt;         reserved = target[1]
+#&gt;     }
+#&gt;     expr[[reserved]] = seq_len(nrow(data))
+#&gt;     ret = data.frame(lapply(expr, function(ex) {
+#&gt;         val = eval(ex, data, superceding.env)
+#&gt;         if (make.factors &amp;&amp; (is.character(val) || is.logical(val))) {
+#&gt;             factor(val)
+#&gt;         }
+#&gt;         else {
+#&gt;             val
+#&gt;         }
+#&gt;     }), stringsAsFactors = FALSE)
+#&gt;     ret = dropNamed(ret, reserved)
+#&gt;     if (add.cols) {
+#&gt;         cbind(data, ret)
+#&gt;     }
+#&gt;     else {
+#&gt;         ret
+#&gt;     }
 #&gt; }
 #&gt; &lt;environment: namespace:mlrCPO&gt;
-cpoScale()  # create a CPO object that scales and centers data
-#&gt; scale(center = TRUE, scale = TRUE)
+
+# create a CPO object that adds a new column
+cpo = cpoAddCols(Sepal.Area = Sepal.Length * Sepal.Width) 
 </code></pre>
 
-<p><code>CPO</code> objects are central to <code>mlrCPO</code>, and they are very flexible. They can be applied to a dataset or a Task:</p>
-<pre><code class="r">head(iris %&gt;&gt;% cpoScale())
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
-#&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
-#&gt; 3   -1.3807271  0.32731751    -1.392399   -1.311052  setosa
-#&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
-#&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
-#&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
+<p>CPO objects are central to <code>mlrCPO</code>, and they are very flexible. They can be applied to a <code>data.frame</code> or a Task:</p>
+<pre><code class="r">head(iris %&gt;&gt;% cpo)
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species Sepal.Area
+#&gt; 1          5.1         3.5          1.4         0.2  setosa      17.85
+#&gt; 2          4.9         3.0          1.4         0.2  setosa      14.70
+#&gt; 3          4.7         3.2          1.3         0.2  setosa      15.04
+#&gt; 4          4.6         3.1          1.5         0.2  setosa      14.26
+#&gt; 5          5.0         3.6          1.4         0.2  setosa      18.00
+#&gt; 6          5.4         3.9          1.7         0.4  setosa      21.06
 </code></pre>
 
-<pre><code class="r">head(getTaskData(iris.task %&gt;&gt;% cpoScale()))
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
-#&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
-#&gt; 3   -1.3807271  0.32731751    -1.392399   -1.311052  setosa
-#&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
-#&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
-#&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
+<pre><code class="r">head(getTaskData(iris.task %&gt;&gt;% cpo))
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Sepal.Area Species
+#&gt; 1          5.1         3.5          1.4         0.2      17.85  setosa
+#&gt; 2          4.9         3.0          1.4         0.2      14.70  setosa
+#&gt; 3          4.7         3.2          1.3         0.2      15.04  setosa
+#&gt; 4          4.6         3.1          1.5         0.2      14.26  setosa
+#&gt; 5          5.0         3.6          1.4         0.2      18.00  setosa
+#&gt; 6          5.4         3.9          1.7         0.4      21.06  setosa
 </code></pre>
 
-<p>they can be concatenated to create new operations:</p>
-<pre><code class="r">cpoScale() %&gt;&gt;% cpoPca()
-#&gt; (scale &gt;&gt; pca)(scale.center = TRUE, scale.scale = TRUE)
+<p>CPOs can be concatenated to create new operations. The following example adds the <code>Sepal.Area</code> column and then scales
+and centers all numeric columns:</p>
+<pre><code class="r">cpo %&gt;&gt;% cpoScale()
+#&gt; (new.cols &gt;&gt; scale)(scale.center = TRUE, scale.scale = TRUE)
 </code></pre>
 
-<p>and they can be fused with a <code>Learner</code> to create a machine learning pipeline that performs preprocessing on the learning data
+<p>CPOs can be fused with a Learner to create a machine learning pipeline that performs preprocessing on the learning data
 and also pre-processes the data that is fed to the model for prediction.</p>
-<p>A list of all internal <code>CPO</code>s can be retrieved using <code>listCPO</code>, which returns a data frame of names, descriptions, and categories.</p>
+<pre><code class="r">lrn = cpo %&gt;&gt;% makeLearner(&quot;classif.randomForest&quot;)
+model = train(lrn, iris.task)
+getFeatureImportance(model$learner.model$next.model)
+#&gt; FeatureImportance:
+#&gt; Task: iris_example
+#&gt; 
+#&gt; Learner: classif.randomForest
+#&gt; Measure: NA
+#&gt; Contrast: NA
+#&gt; Aggregation: function (x)  x
+#&gt; Replace: NA
+#&gt; Number of Monte-Carlo iterations: NA
+#&gt; Local: FALSE
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Sepal.Area
+#&gt; 1     11.23503    4.260543     39.65265    40.19068   3.966734
+</code></pre>
+
+<p>A list of all internal CPOs can be retrieved using <code>listCPO</code>, which returns a data frame of names, categories, and descriptions.</p>
 <pre><code class="r">listCPO()$name
-#&gt;  [1] cpoDropConstants                cpoFixFactors                  
-#&gt;  [3] cpoCollapseFact                 cpoCollapseFact                
-#&gt;  [5] cpoCollapseFact                 cpoDummyEncode                 
-#&gt;  [7] cpoImpactEncodeClassif          cpoImpactEncodeRegr            
-#&gt;  [9] cpoProbEncode                   cpoSelect                      
-#&gt; [11] cpoPca                          cpoSelect                      
-#&gt; [13] cpoPca                          cpoScale                       
-#&gt; [15] cpoScaleMaxAbs                  cpoScaleRange                  
-#&gt; [17] cpoSpatialSign                  cpoFilterFeatures              
-#&gt; [19] cpoFilterAnova                  cpoFilterCarscore              
-#&gt; [21] cpoFilterChiSquared             cpoFilterGainRatio             
-#&gt; [23] cpoFilterInformationGain        cpoFilterKruskal               
-#&gt; [25] cpoFilterLinearCorrelation      cpoFilterMrmr                  
-#&gt; [27] cpoFilterOneR                   cpoFilterPermutationImportance 
-#&gt; [29] cpoFilterRankCorrelation        cpoFilterRelief                
-#&gt; [31] cpoFilterRfCImportance          cpoFilterRfImportance          
-#&gt; [33] cpoFilterRfSRCImportance        cpoFilterRfSRCMinDepth         
-#&gt; [35] cpoFilterSymmetricalUncertainty cpoFilterUnivariate            
-#&gt; [37] cpoFilterVariance               cpoImpute                      
-#&gt; [39] cpoImputeAll                    cpoImputeConstant              
-#&gt; [41] cpoImputeHist                   cpoImputeLearner               
-#&gt; [43] cpoImputeMax                    cpoImputeMean                  
-#&gt; [45] cpoImputeMedian                 cpoImputeMin                   
-#&gt; [47] cpoImputeMode                   cpoImputeNormal                
-#&gt; [49] cpoImputeUniform                cpoCbind                       
-#&gt; [51] cpoMultiplex                    cpoWrap                        
-#&gt; [53] cpoMissingIndicators           
-#&gt; 49 Levels: cpoCbind cpoCollapseFact cpoDropConstants ... cpoWrap
-</code></pre>
-
-<h2 id="retrafo">Retrafo</h2>
-<p>Manipulating data for preprocessing itself is relatively easy. A challenge comes when one wants to integrate preprocessing
-into a machine-learning pipeline: The same preprocessing steps that are performed on the training data need to be performed
-on the new prediction data. However, the transformation performed for prediction often needs information from the training step.
-For example, if training entail performing PCA, then for prediction, the data must not undergo another PCA, instead it needs
-to be rotated by the rotation matrix found by the training PCA. The process of obtaining the rotation matrix will be called
-"training" the <code>CPO</code>, and the object that contains the trained information is called <code>CPOTrained</code>. For preprocessing operations
-that operate only on <em>features</em> of a task (as opposed to the target column), the <code>CPOTrained</code> will always be applied to new
-incoming data, and hence be of class <code>CPORetrafo</code> and called a "retrafo" object. To obtain this retrafo object, one can use
-<code>retrafo()</code>. Retrafo objects can be applied to data just as <code>CPO</code>s can, by using the <code>%&gt;&gt;%</code> operator.</p>
-<pre><code class="r">transformed = iris %&gt;&gt;% cpoPca()
-ret = retrafo(transformed)
-print(ret)
-#&gt; CPO Retrafo chain
-#&gt; [RETRAFO pca()]
-</code></pre>
-
-<p>Comparing the first lines of the transformed data with the lines of "retransforming" the same input data:</p>
-<pre><code class="r">head(transformed)
-#&gt;   Species       PC1      PC2          PC3          PC4
-#&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
-#&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
-#&gt; 3  setosa -5.446977 2.095206  0.015029262  0.018013331
-#&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
-#&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
-#&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
-head(iris) %&gt;&gt;% ret
-#&gt;   Species       PC1      PC2          PC3          PC4
-#&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
-#&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
-#&gt; 3  setosa -5.446977 2.095206  0.015029262  0.018013331
-#&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
-#&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
-#&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
-</code></pre>
-
-<p>Note that using the PCA on only the head of 'iris' gives a different (wrong) result:</p>
-<pre><code class="r">head(iris) %&gt;&gt;% cpoPca()
-#&gt;   Species       PC1           PC2         PC3          PC4
-#&gt; 1  setosa -6.344251  3.699099e-05 -0.10237713 -0.001527648
-#&gt; 2  setosa -5.909522 -2.939100e-01  0.01398430  0.031126691
-#&gt; 3  setosa -5.835572 -1.780612e-02 -0.07507399  0.011978402
-#&gt; 4  setosa -5.747518 -5.192580e-02  0.13484436 -0.071787045
-#&gt; 5  setosa -6.319018  1.359890e-01 -0.10270328 -0.031196772
-#&gt; 6  setosa -6.882318  1.859359e-01  0.12770825  0.053118356
-</code></pre>
-
-<p>When attaching a <code>CPO</code> to a <code>Learner</code> using the <code>%&gt;&gt;%</code>-operator, all this is performed by <code>mlrCPO</code>, so there is no need to
-worry about keeping <code>CPOTrained</code> objects around.</p>
-<p><code>retrafo()</code> gets the retrafo object from an attribute of the <code>transformed</code> object. The retrafo is always generated by the application
-of a <code>CPO</code> already. Retrafos that are attached to an object also stack, so multiple applications of different <code>CPO</code>s only need
-one <code>retrafo()</code> call to get the respective retrafo operation.</p>
-<pre><code class="r">trans.a = iris %&gt;&gt;% cpoScale()
-trans.b = trans.a %&gt;&gt;% cpoPca()
-ret = retrafo(trans.b)
-</code></pre>
-
-<p>Check that 'ret' does what it is supposed to do:</p>
-<pre><code class="r">head(trans.b)
-#&gt;   Species       PC1        PC2         PC3          PC4
-#&gt; 1  setosa -2.257141 -0.4784238  0.12727962  0.024087508
-#&gt; 2  setosa -2.074013  0.6718827  0.23382552  0.102662845
-#&gt; 3  setosa -2.356335  0.3407664 -0.04405390  0.028282305
-#&gt; 4  setosa -2.291707  0.5953999 -0.09098530 -0.065735340
-#&gt; 5  setosa -2.381863 -0.6446757 -0.01568565 -0.035802870
-#&gt; 6  setosa -2.068701 -1.4842053 -0.02687825  0.006586116
-head(iris) %&gt;&gt;% ret
-#&gt;   Species       PC1        PC2         PC3          PC4
-#&gt; 1  setosa -2.257141 -0.4784238  0.12727962  0.024087508
-#&gt; 2  setosa -2.074013  0.6718827  0.23382552  0.102662845
-#&gt; 3  setosa -2.356335  0.3407664 -0.04405390  0.028282305
-#&gt; 4  setosa -2.291707  0.5953999 -0.09098530 -0.065735340
-#&gt; 5  setosa -2.381863 -0.6446757 -0.01568565 -0.035802870
-#&gt; 6  setosa -2.068701 -1.4842053 -0.02687825  0.006586116
+#&gt;  [1] &quot;cpoDropConstants&quot;                &quot;cpoFixFactors&quot;                  
+#&gt;  [3] &quot;cpoCollapseFact&quot;                 &quot;cpoAsNumeric&quot;                   
+#&gt;  [5] &quot;cpoDummyEncode&quot;                  &quot;cpoImpactEncodeClassif&quot;         
+#&gt;  [7] &quot;cpoImpactEncodeRegr&quot;             &quot;cpoProbEncode&quot;                  
+#&gt;  [9] &quot;cpoQuantileBinNumerics&quot;          &quot;cpoSelect&quot;                      
+#&gt; [11] &quot;cpoSelectFreeProperties&quot;         &quot;cpoAddCols&quot;                     
+#&gt; [13] &quot;cpoMakeCols&quot;                     &quot;cpoApplyFun&quot;                    
+#&gt; [15] &quot;cpoModelMatrix&quot;                  &quot;cpoIca&quot;                         
+#&gt; [17] &quot;cpoPca&quot;                          &quot;cpoScale&quot;                       
+#&gt; [19] &quot;cpoScaleMaxAbs&quot;                  &quot;cpoScaleRange&quot;                  
+#&gt; [21] &quot;cpoSpatialSign&quot;                  &quot;cpoFilterFeatures&quot;              
+#&gt; [23] &quot;cpoFilterAnova&quot;                  &quot;cpoFilterCarscore&quot;              
+#&gt; [25] &quot;cpoFilterChiSquared&quot;             &quot;cpoFilterGainRatio&quot;             
+#&gt; [27] &quot;cpoFilterInformationGain&quot;        &quot;cpoFilterKruskal&quot;               
+#&gt; [29] &quot;cpoFilterLinearCorrelation&quot;      &quot;cpoFilterMrmr&quot;                  
+#&gt; [31] &quot;cpoFilterOneR&quot;                   &quot;cpoFilterPermutationImportance&quot; 
+#&gt; [33] &quot;cpoFilterRankCorrelation&quot;        &quot;cpoFilterRelief&quot;                
+#&gt; [35] &quot;cpoFilterRfCImportance&quot;          &quot;cpoFilterRfImportance&quot;          
+#&gt; [37] &quot;cpoFilterRfSRCImportance&quot;        &quot;cpoFilterRfSRCMinDepth&quot;         
+#&gt; [39] &quot;cpoFilterSymmetricalUncertainty&quot; &quot;cpoFilterUnivariate&quot;            
+#&gt; [41] &quot;cpoFilterVariance&quot;               &quot;cpoImpute&quot;                      
+#&gt; [43] &quot;cpoImputeAll&quot;                    &quot;cpoImputeConstant&quot;              
+#&gt; [45] &quot;cpoImputeHist&quot;                   &quot;cpoImputeLearner&quot;               
+#&gt; [47] &quot;cpoImputeMax&quot;                    &quot;cpoImputeMean&quot;                  
+#&gt; [49] &quot;cpoImputeMedian&quot;                 &quot;cpoImputeMin&quot;                   
+#&gt; [51] &quot;cpoImputeMode&quot;                   &quot;cpoImputeNormal&quot;                
+#&gt; [53] &quot;cpoImputeUniform&quot;                &quot;cpoCache&quot;                       
+#&gt; [55] &quot;cpoCase&quot;                         &quot;cpoCbind&quot;                       
+#&gt; [57] &quot;cpoMultiplex&quot;                    &quot;cpoTransformParams&quot;             
+#&gt; [59] &quot;cpoWrap&quot;                         &quot;cpoWrapRetrafoless&quot;             
+#&gt; [61] &quot;cpoOversample&quot;                   &quot;cpoSmote&quot;                       
+#&gt; [63] &quot;cpoUndersample&quot;                  &quot;cpoSample&quot;                      
+#&gt; [65] &quot;cpoApplyFunRegrTarget&quot;           &quot;cpoRegrResiduals&quot;               
+#&gt; [67] &quot;cpoLogTrafoRegr&quot;                 &quot;cpoMissingIndicators&quot;           
+#&gt; [69] &quot;cpoResponseFromSE&quot;
 </code></pre>
 
 <h2 id="hyperparameters">Hyperparameters</h2>
-<p><code>CPO</code> objects have hyperparameters that can be adjusted at creation, or later using <code>setHyperPars</code>.</p>
-<pre><code class="r">print(cpoScale)
+<p>CPO objects have hyperparameters that can be adjusted at creation, or later using <code>setHyperPars</code>. They are shown by the
+CPO Constructor representation when printed, and can be given as parameters during construction.</p>
+<pre><code class="r">cpoScale
 #&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
 </code></pre>
 
 <pre><code class="r">do.center = cpoScale(scale = FALSE, center = TRUE)
-print(do.center, verbose = TRUE)  # note the 'scale.' prefix of parameters
-#&gt; Trafo chain of 1 elements:
+</code></pre>
+
+<p>The <code>ParamSet</code> of a CPO can be inspected using <code>getParamSet</code>, but it is also shown when verbosely printing a CPO using <code>!</code>.</p>
+<pre><code class="r">!do.center  # note the 'scale.' prefix
+#&gt; Trafo chain of 1 cpos:
 #&gt; scale(center = TRUE, scale = FALSE)
-#&gt; 
+#&gt; Operating: feature
+#&gt; ParamSet:
 #&gt;                 Type len  Def Constr Req Tunable Trafo
 #&gt; scale.center logical   - TRUE      -   -    TRUE     -
 #&gt; scale.scale  logical   - TRUE      -   -    TRUE     -
@@ -452,7 +453,7 @@ print(do.center, verbose = TRUE)  # note the 'scale.' prefix of parameters
   scale.scale = TRUE, scale.center = FALSE)
 </code></pre>
 
-<p>These hyperparameters even survive <code>CPO</code> composition and attachment to Learners:</p>
+<p>These hyperparameters even survive CPO composition and attachment to Learners:</p>
 <pre><code class="r">cpo = cpoScale() %&gt;&gt;% cpoPca()
 lrn = cpo %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;)
 print(lrn)
@@ -460,73 +461,153 @@ print(lrn)
 #&gt; Type: classif
 #&gt; Name: ; Short name: 
 #&gt; Class: CPOLearner
-#&gt; Properties: numerics,factors,prob,twoclass
-#&gt; Predict-Type: response
-#&gt; Hyperparameters: model=FALSE,scale.center=TRUE,scale.scale=TRUE
-</code></pre>
-
-<h3 id="tuning">Tuning</h3>
-<p>Since the hyperparameters remain intact for learners, is possible to tune hyperparameters parameters of preprocessing operations.</p>
-<pre><code class="r">(clrn = cpoModelMatrix() %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;))
-#&gt; Learner classif.logreg.model.matrix from package stats
-#&gt; Type: classif
-#&gt; Name: ; Short name: 
-#&gt; Class: CPOLearner
-#&gt; Properties: numerics,factors,ordered,prob,twoclass
+#&gt; Properties: numerics,factors,twoclass,prob
 #&gt; Predict-Type: response
 #&gt; Hyperparameters: model=FALSE
 </code></pre>
 
-<pre><code class="r">getParamSet(clrn)
-#&gt;                         Type len  Def Constr Req Tunable Trafo
-#&gt; model.matrix.formula untyped   -    -      -   -    TRUE     -
-#&gt; model                logical   - TRUE      -   -   FALSE     -
+<p>When composing many CPOs, the <code>ParamSet</code> of the combined CPO can become quite cluttered. To prevent name clashes, it is possible
+to change the prefix of the hyperparameters of a given CPO using the <em>ID</em>. It can be set during construction, or by using <code>setCPOId()</code>.</p>
+<pre><code class="r">combined = cpoScale(scale = TRUE, center = FALSE, id = &quot;scale&quot;) %&gt;&gt;%
+  cpoScale(scale = FALSE, center = TRUE, id = &quot;center&quot;)
+!combined
+#&gt; Trafo chain of 2 cpos:
+#&gt; scale(center = FALSE, scale = TRUE)
+#&gt; Operating: feature
+#&gt; ParamSet:
+#&gt;                 Type len  Def Constr Req Tunable Trafo
+#&gt; scale.center logical   - TRUE      -   -    TRUE     -
+#&gt; scale.scale  logical   - TRUE      -   -    TRUE     -
+#&gt;   ====&gt;
+#&gt; center&lt;scale&gt;(center = TRUE, scale = FALSE)
+#&gt; Operating: feature
+#&gt; ParamSet:
+#&gt;                  Type len  Def Constr Req Tunable Trafo
+#&gt; center.center logical   - TRUE      -   -    TRUE     -
+#&gt; center.scale  logical   - TRUE      -   -    TRUE     -
+</code></pre>
+
+<p>Another possibility is to change what parameters are "exported" by the CPO. A parameter that is not exported can not be changed
+after construction. The <code>export</code> parameter given during construction can be a character vector of the parameters to export.</p>
+<pre><code class="r">center = cpoScale(scale = FALSE, center = TRUE, export = &quot;center&quot;)
+!center
+#&gt; Trafo chain of 1 cpos:
+#&gt; scale(center = TRUE)[not exp'd: scale = FALSE]
+#&gt; Operating: feature
+#&gt; ParamSet:
+#&gt;                 Type len  Def Constr Req Tunable Trafo
+#&gt; scale.center logical   - TRUE      -   -    TRUE     -
+</code></pre>
+
+<h2 id="affecting-only-some-features">Affecting Only Some Features</h2>
+<p>It is possible to set up a CPO so that it only affects certain columns of a given dataset. This is done with a few
+parameters during construction that begin with the prefix "<code>affect.</code>". The following example only scales and centers columns
+that begin with "Sepal".</p>
+<pre><code class="r">cpo = cpoScale(affect.pattern = &quot;^Sepal&quot;)
+head(iris %&gt;&gt;% cpo)
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1   -0.8976739  1.01560199          1.4         0.2  setosa
+#&gt; 2   -1.1392005 -0.13153881          1.4         0.2  setosa
+#&gt; 3   -1.3807271  0.32731751          1.3         0.2  setosa
+#&gt; 4   -1.5014904  0.09788935          1.5         0.2  setosa
+#&gt; 5   -1.0184372  1.24503015          1.4         0.2  setosa
+#&gt; 6   -0.5353840  1.93331463          1.7         0.4  setosa
+</code></pre>
+
+<h2 id="cpotrained-retrafo-and-inverter"><code>CPOTrained</code>: Retrafo and Inverter</h2>
+<p>Manipulating data for preprocessing itself is relatively easy. A challenge comes when one wants to integrate preprocessing
+into a machine-learning pipeline: The same preprocessing steps that are performed on the training data need to be performed
+on the new prediction data. However, the transformation performed for prediction often needs information from the training step.
+For example, if training entail performing PCA, then for prediction, the data must not undergo another PCA, instead it needs
+to be rotated by the rotation matrix found by the training PCA. The process of obtaining the rotation matrix is called
+"training" the CPO, and the object that contains the trained information is a <code>CPOTrained</code> object; it can be accessed using
+the <code>retrafo()</code> function on the transformed data. When a CPO has an effect
+on the <em>target</em> columns of a Task, two <code>CPOTrained</code> objects are generated: One, as before, is used on new prediction data before
+doing predictoin with a model. The other is used on predictions made with that model, to map the prediction back to the space
+of the original target column. This inverting <code>CPOTrained</code> can be accessed using <code>inverter()</code> on transformed data.</p>
+<p>The process of using <code>CPOTrained</code> correctly can be a bit involved, but mlrCPO automates it when a CPO is attached to a
+Learner object, see the following section. The <code>CPOTrained</code> objects are explained in more detail in the mlrCP vignette.</p>
+<h2 id="cpo-learner">CPO Learner</h2>
+<p>When attaching a CPO to a Learner using the <code>%&gt;&gt;%</code>-operator, the complete preprocessing pipeline is integrated by <code>mlrCPO</code>, so there is no need to
+worry about keeping <code>CPOTrained</code> objects. The resulting "<code>CPOLearner</code>" inherits the hyperparameters both from the CPO <em>and</em> the Learner. This way,
+the function of a CPO can be <em>tuned</em> together with parameters of a Learner itself.</p>
+<p>When a <code>CPOLearner</code> is trained on some data, it is possible to get information about the effect of an attached CPO by
+inspecting the <code>CPOTrained</code> object created during training. It can be retrieved from a model using <code>retrafo()</code> and inspected
+using <code>getCPOTrainedState()</code>. The following example retrieves the PCA rotation matrix trained when fitting a <code>CPOLearner</code> to <code>iris.task</code>.</p>
+<pre><code class="r">lrn = cpoPca() %&gt;&gt;% makeLearner(&quot;classif.randomForest&quot;)
+model = train(lrn, iris.task)
+
+retr = retrafo(model)
+state = getCPOTrainedState(retr)
+state$control$rotation
+#&gt;                      PC1         PC2         PC3        PC4
+#&gt; Sepal.Length  0.36138659 -0.65658877  0.58202985  0.3154872
+#&gt; Sepal.Width  -0.08452251 -0.73016143 -0.59791083 -0.3197231
+#&gt; Petal.Length  0.85667061  0.17337266 -0.07623608 -0.4798390
+#&gt; Petal.Width   0.35828920  0.07548102 -0.54583143  0.7536574
+</code></pre>
+
+<h2 id="tuning">Tuning</h2>
+<p>Tuning CPO hyperparameters works exactly like <a href="../tune/index.html">tuning Learner hyperparameters</a>, since the CPO's parameters are attached naturally to a Learner's parameters when a <code>CPOLearner</code> is formed.</p>
+<pre><code class="r">(clrn = cpoFilterFeatures(export = c(&quot;method&quot;, &quot;abs&quot;)) %&gt;&gt;% makeLearner(&quot;classif.knn&quot;))
+#&gt; Learner classif.knn.filterFeatures from package class
+#&gt; Type: classif
+#&gt; Name: ; Short name: 
+#&gt; Class: CPOLearner
+#&gt; Properties: numerics,twoclass,multiclass
+#&gt; Predict-Type: response
+#&gt; Hyperparameters: filterFeatures.method=randomForest...,filterFeatures.abs=&lt;NULL&gt;
+</code></pre>
+
+<pre><code class="r">getParamIds(getParamSet(clrn))
+#&gt; [1] &quot;filterFeatures.method&quot; &quot;filterFeatures.abs&quot;    &quot;k&quot;                    
+#&gt; [4] &quot;l&quot;                     &quot;prob&quot;                  &quot;use.all&quot;
 </code></pre>
 
 <pre><code class="r">ps = makeParamSet(
     makeDiscreteParam(
-        &quot;model.matrix.formula&quot;,
-        values = list(first = ~0 + ., second = ~0 + .^2, third = ~0 + .^3)))
+        &quot;filterFeatures.method&quot;,
+        values = list(&quot;anova.test&quot;, &quot;variance&quot;, &quot;chi.squared&quot;)),
+    makeIntegerParam(
+        &quot;filterFeatures.abs&quot;,
+        lower = 1, upper = 8),
+    makeIntegerParam(
+        &quot;k&quot;,
+        lower = 1, upper = 10))
 
 tuneParams(clrn, pid.task, cv5, par.set = ps,
            control = makeTuneControlGrid(),
-           show.info=TRUE)
-#&gt; [Tune] Started tuning learner classif.logreg.model.matrix for parameter set:
-#&gt;                          Type len Def             Constr Req Tunable Trafo
-#&gt; model.matrix.formula discrete   -   - first,second,third   -    TRUE     -
-#&gt; With control class: TuneControlGrid
-#&gt; Imputation value: 1
-#&gt; [Tune-x] 1: model.matrix.formula=first
-#&gt; [Tune-y] 1: mmce.test.mean=0.2213225; time: 0.0 min
-#&gt; [Tune-x] 2: model.matrix.formula=second
-#&gt; [Tune-y] 2: mmce.test.mean=0.2421272; time: 0.0 min
-#&gt; [Tune-x] 3: model.matrix.formula=third
-#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-
-#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-
-#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-
-#&gt; Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-#&gt; [Tune-y] 3: mmce.test.mean=0.2682200; time: 0.0 min
-#&gt; [Tune] Result: model.matrix.formula=first : mmce.test.mean=0.2213225
+           show.info=FALSE)
 #&gt; Tune result:
-#&gt; Op. pars: model.matrix.formula=first
-#&gt; mmce.test.mean=0.2213225
+#&gt; Op. pars: filterFeatures.method=chi.squared; filterFeatures.abs=6; k=10
+#&gt; mmce.test.mean=0.2474747
 </code></pre>
 
 <h2 id="special-cpos">Special CPOs</h2>
+<h3 id="nullcpo">NULLCPO</h3>
+<p>Under certain circumstances it can be useful to represent the operation of no preprocessing. This is done using the <code>NULLCPO</code> object. If it is applied to data, attached to a Learner or composed with another CPO, the result is not modified.</p>
+<pre><code class="r">identical(iris %&gt;&gt;% NULLCPO, iris)
+#&gt; [1] TRUE
+identical(cpoPca() %&gt;&gt;% NULLCPO, cpoPca())
+#&gt; [1] TRUE
+identical(NULLCPO %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;), makeLearner(&quot;classif.logreg&quot;))
+#&gt; [1] TRUE
+</code></pre>
+
 <h3 id="cpo-multiplexer">CPO Multiplexer</h3>
 <p>The multiplexer makes it possible to combine many CPOs into one, with an extra <code>selected.cpo</code> parameter that chooses between them.</p>
 <pre><code class="r">cpm = cpoMultiplex(list(cpoScale, cpoPca))
-print(cpm, verbose = TRUE)
-#&gt; Trafo chain of 1 elements:
-#&gt; multiplex(selected.cpo = scale, scale.center = TRUE, scale.scale = TRUE)
-#&gt; 
+!cpm
+#&gt; Trafo chain of 1 cpos:
+#&gt; multiplex(selected.cpo = scale, scale.center = TRUE, scale.scale = TRUE, pca.center = TRUE, pca.scale = FALSE)
+#&gt; Operating: feature
+#&gt; ParamSet:
 #&gt;                  Type len   Def    Constr Req Tunable Trafo
 #&gt; selected.cpo discrete   - scale scale,pca   -    TRUE     -
 #&gt; scale.center  logical   -  TRUE         -   Y    TRUE     -
 #&gt; scale.scale   logical   -  TRUE         -   Y    TRUE     -
+#&gt; pca.center    logical   -  TRUE         -   Y    TRUE     -
+#&gt; pca.scale     logical   - FALSE         -   Y    TRUE     -
 </code></pre>
 
 <pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;))
@@ -551,80 +632,20 @@ print(cpm, verbose = TRUE)
 </code></pre>
 
 <pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;pca&quot;))
-#&gt;   Species       PC1      PC2          PC3          PC4
-#&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
-#&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
-#&gt; 3  setosa -5.446977 2.095206  0.015029262  0.018013331
-#&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
-#&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
-#&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
+#&gt;   Species       PC1        PC2         PC3          PC4
+#&gt; 1  setosa -2.684126 -0.3193972  0.02791483  0.002262437
+#&gt; 2  setosa -2.714142  0.1770012  0.21046427  0.099026550
+#&gt; 3  setosa -2.888991  0.1449494 -0.01790026  0.019968390
+#&gt; 4  setosa -2.745343  0.3182990 -0.03155937 -0.075575817
+#&gt; 5  setosa -2.728717 -0.3267545 -0.09007924 -0.061258593
+#&gt; 6  setosa -2.280860 -0.7413304 -0.16867766 -0.024200858
 </code></pre>
 
-<p>This makes it possible to tune over many different tuner configurations at once.</p>
-<h3 id="cpo-wrapper">CPO Wrapper</h3>
-<p>A simple CPO with one parameter which gets applied to the data as CPO. This is different from a multiplexer in that its parameter is free and can take any value that behaves like a CPO. On the downside, this does not expose the argument's parameters to the outside.</p>
-<pre><code class="r">cpa = cpoWrap()
-print(cpa, verbose = TRUE)
-#&gt; Trafo chain of 1 elements:
-#&gt; wrap()
-#&gt; 
-#&gt;             Type len Def Constr Req Tunable Trafo
-#&gt; wrap.cpo untyped   -   -      -   -    TRUE     -
-</code></pre>
-
-<pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoScale()))
-#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-#&gt; 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
-#&gt; 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
-#&gt; 3   -1.3807271  0.32731751    -1.392399   -1.311052  setosa
-#&gt; 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
-#&gt; 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
-#&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
-</code></pre>
-
-<pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpa, wrap.cpo = cpoPca()))
-#&gt;   Species       PC1      PC2          PC3          PC4
-#&gt; 1  setosa -5.912747 2.302033  0.007401536  0.003087706
-#&gt; 2  setosa -5.572482 1.971826  0.244592251  0.097552888
-#&gt; 3  setosa -5.446977 2.095206  0.015029262  0.018013331
-#&gt; 4  setosa -5.436459 1.870382  0.020504880 -0.078491501
-#&gt; 5  setosa -5.875645 2.328290 -0.110338269 -0.060719326
-#&gt; 6  setosa -6.477598 2.324650 -0.237202487 -0.021419633
-</code></pre>
-
-<p>Attaching the cpo applicator to a learner gives this learner a "cpo" hyperparameter that can be set to any CPO.</p>
-<pre><code class="r">getParamSet(cpoWrap() %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;))
-#&gt;             Type len  Def Constr Req Tunable Trafo
-#&gt; wrap.cpo untyped   -    -      -   -    TRUE     -
-#&gt; model    logical   - TRUE      -   -   FALSE     -
-</code></pre>
-
+<p>This makes it possible to tune over many different CPO configurations at once.</p>
 <h3 id="cbind-cpo">CBind CPO</h3>
-<p><code>cbind</code> other CPOs as operation. The <code>cbinder</code> makes it possible to build DAGs of CPOs that perform different operations on data and paste the results next to each other.</p>
-<pre><code class="r">scale = cpoScale(id = &quot;scale&quot;)
-scale.pca = scale %&gt;&gt;% cpoPca()
-cbinder = cpoCbind(scaled = scale, pcad = scale.pca, original = NULLCPO)
-</code></pre>
-
-<p><code>cpoCbind</code> recognises that <code>"scale.scale"</code> happens before <code>"pca.pca"</code> but is also fed to the result directly. The summary draws a (crude) ascii-art graph.</p>
-<pre><code class="r">print(cbinder)
-#&gt; cbind(scale.center = TRUE, scale.scale = TRUE, .CPO = &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;)
-#&gt; O&gt;+   scale(center = TRUE, scale = TRUE)
-#&gt; | |  
-#&gt; +&lt;O   pca()
-#&gt; |  
-#&gt; O   CBIND[scaled,pcad,original]
-#&gt; 
-</code></pre>
-
-<pre><code class="r">getParamSet(cbinder)
-#&gt;                 Type len  Def Constr Req Tunable Trafo
-#&gt; scale.center logical   - TRUE      -   -    TRUE     -
-#&gt; scale.scale  logical   - TRUE      -   -    TRUE     -
-#&gt; .CPO         untyped   -    -      -   -    TRUE     -
-</code></pre>
-
-<pre><code class="r">head(iris %&gt;&gt;% cbinder)
+<p><code>cbind</code> other CPOs as operation. <code>cpoCbind</code> makes it possible to build CPOs that perform different operations on data and paste the results next to each other.</p>
+<pre><code class="r">cbnd = cpoCbind(scaled = cpoScale(), pca = cpoPca())
+head(iris %&gt;&gt;% cbnd)
 #&gt;   scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
 #&gt; 1          -0.8976739         1.01560199           -1.335752
 #&gt; 2          -1.1392005        -0.13153881           -1.335752
@@ -632,134 +653,34 @@ cbinder = cpoCbind(scaled = scale, pcad = scale.pca, original = NULLCPO)
 #&gt; 4          -1.5014904         0.09788935           -1.279104
 #&gt; 5          -1.0184372         1.24503015           -1.335752
 #&gt; 6          -0.5353840         1.93331463           -1.165809
-#&gt;   scaled.Petal.Width scaled.Species pcad.Species  pcad.PC1   pcad.PC2
-#&gt; 1          -1.311052         setosa       setosa -2.257141 -0.4784238
-#&gt; 2          -1.311052         setosa       setosa -2.074013  0.6718827
-#&gt; 3          -1.311052         setosa       setosa -2.356335  0.3407664
-#&gt; 4          -1.311052         setosa       setosa -2.291707  0.5953999
-#&gt; 5          -1.311052         setosa       setosa -2.381863 -0.6446757
-#&gt; 6          -1.048667         setosa       setosa -2.068701 -1.4842053
-#&gt;      pcad.PC3     pcad.PC4 original.Sepal.Length original.Sepal.Width
-#&gt; 1  0.12727962  0.024087508                   5.1                  3.5
-#&gt; 2  0.23382552  0.102662845                   4.9                  3.0
-#&gt; 3 -0.04405390  0.028282305                   4.7                  3.2
-#&gt; 4 -0.09098530 -0.065735340                   4.6                  3.1
-#&gt; 5 -0.01568565 -0.035802870                   5.0                  3.6
-#&gt; 6 -0.02687825  0.006586116                   5.4                  3.9
-#&gt;   original.Petal.Length original.Petal.Width original.Species
-#&gt; 1                   1.4                  0.2           setosa
-#&gt; 2                   1.4                  0.2           setosa
-#&gt; 3                   1.3                  0.2           setosa
-#&gt; 4                   1.5                  0.2           setosa
-#&gt; 5                   1.4                  0.2           setosa
-#&gt; 6                   1.7                  0.4           setosa
+#&gt;   scaled.Petal.Width scaled.Species pca.Species   pca.PC1    pca.PC2
+#&gt; 1          -1.311052         setosa      setosa -2.684126 -0.3193972
+#&gt; 2          -1.311052         setosa      setosa -2.714142  0.1770012
+#&gt; 3          -1.311052         setosa      setosa -2.888991  0.1449494
+#&gt; 4          -1.311052         setosa      setosa -2.745343  0.3182990
+#&gt; 5          -1.311052         setosa      setosa -2.728717 -0.3267545
+#&gt; 6          -1.048667         setosa      setosa -2.280860 -0.7413304
+#&gt;       pca.PC3      pca.PC4
+#&gt; 1  0.02791483  0.002262437
+#&gt; 2  0.21046427  0.099026550
+#&gt; 3 -0.01790026  0.019968390
+#&gt; 4 -0.03155937 -0.075575817
+#&gt; 5 -0.09007924 -0.061258593
+#&gt; 6 -0.16867766 -0.024200858
 </code></pre>
 
-<p>The unnecessary copies of "Species" are unfortunate. Remove them with cpoSelect:</p>
-<pre><code class="r">selector = cpoSelect(type = &quot;numeric&quot;)
-cbinder.select = cpoCbind(scaled = selector %&gt;&gt;% scale, pcad = selector %&gt;&gt;% scale.pca, original = NULLCPO)
-cbinder.select
-#&gt; cbind(select.type = numeric, select.index = integer(0), select.names = character(0), select.pattern = &lt;NULL&gt;, select.pattern.ignore.case = FALSE, select.pattern.perl = FALSE, select.pattern.fixed = FALSE, select.invert = FALSE, scale.center = TRUE, scale.scale = TRUE, .CPO = &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;, &lt;unnamed&gt;=&lt;CPOGraphItem&gt;)
-#&gt; O     select(type = numeric, index = integer(0), names = character(0),
-#&gt; |    pattern = &lt;NULL&gt;, pattern.ignore.case = FALSE, pattern.perl = FALSE,
-#&gt; |    pattern.fixed = FALSE, invert = FALSE)
-#&gt; |    
-#&gt; O&gt;+   scale(center = TRUE, scale = TRUE)
-#&gt; | |  
-#&gt; +&lt;O   pca()
-#&gt; |  
-#&gt; O   CBIND[scaled,pcad,original]
-#&gt; 
-head(iris %&gt;&gt;% cbinder)
-#&gt;   scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
-#&gt; 1          -0.8976739         1.01560199           -1.335752
-#&gt; 2          -1.1392005        -0.13153881           -1.335752
-#&gt; 3          -1.3807271         0.32731751           -1.392399
-#&gt; 4          -1.5014904         0.09788935           -1.279104
-#&gt; 5          -1.0184372         1.24503015           -1.335752
-#&gt; 6          -0.5353840         1.93331463           -1.165809
-#&gt;   scaled.Petal.Width scaled.Species pcad.Species  pcad.PC1   pcad.PC2
-#&gt; 1          -1.311052         setosa       setosa -2.257141 -0.4784238
-#&gt; 2          -1.311052         setosa       setosa -2.074013  0.6718827
-#&gt; 3          -1.311052         setosa       setosa -2.356335  0.3407664
-#&gt; 4          -1.311052         setosa       setosa -2.291707  0.5953999
-#&gt; 5          -1.311052         setosa       setosa -2.381863 -0.6446757
-#&gt; 6          -1.048667         setosa       setosa -2.068701 -1.4842053
-#&gt;      pcad.PC3     pcad.PC4 original.Sepal.Length original.Sepal.Width
-#&gt; 1  0.12727962  0.024087508                   5.1                  3.5
-#&gt; 2  0.23382552  0.102662845                   4.9                  3.0
-#&gt; 3 -0.04405390  0.028282305                   4.7                  3.2
-#&gt; 4 -0.09098530 -0.065735340                   4.6                  3.1
-#&gt; 5 -0.01568565 -0.035802870                   5.0                  3.6
-#&gt; 6 -0.02687825  0.006586116                   5.4                  3.9
-#&gt;   original.Petal.Length original.Petal.Width original.Species
-#&gt; 1                   1.4                  0.2           setosa
-#&gt; 2                   1.4                  0.2           setosa
-#&gt; 3                   1.3                  0.2           setosa
-#&gt; 4                   1.5                  0.2           setosa
-#&gt; 5                   1.4                  0.2           setosa
-#&gt; 6                   1.7                  0.4           setosa
-</code></pre>
-
-<p>alternatively, we apply the cbinder only to numerical data</p>
-<pre><code class="r">head(iris %&gt;&gt;% cpoWrap(cbinder, affect.type = &quot;numeric&quot;))
-#&gt;   Species scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
-#&gt; 1  setosa          -0.8976739         1.01560199           -1.335752
-#&gt; 2  setosa          -1.1392005        -0.13153881           -1.335752
-#&gt; 3  setosa          -1.3807271         0.32731751           -1.392399
-#&gt; 4  setosa          -1.5014904         0.09788935           -1.279104
-#&gt; 5  setosa          -1.0184372         1.24503015           -1.335752
-#&gt; 6  setosa          -0.5353840         1.93331463           -1.165809
-#&gt;   scaled.Petal.Width  pcad.PC1   pcad.PC2    pcad.PC3     pcad.PC4
-#&gt; 1          -1.311052 -2.257141 -0.4784238  0.12727962  0.024087508
-#&gt; 2          -1.311052 -2.074013  0.6718827  0.23382552  0.102662845
-#&gt; 3          -1.311052 -2.356335  0.3407664 -0.04405390  0.028282305
-#&gt; 4          -1.311052 -2.291707  0.5953999 -0.09098530 -0.065735340
-#&gt; 5          -1.311052 -2.381863 -0.6446757 -0.01568565 -0.035802870
-#&gt; 6          -1.048667 -2.068701 -1.4842053 -0.02687825  0.006586116
-#&gt;   original.Sepal.Length original.Sepal.Width original.Petal.Length
-#&gt; 1                   5.1                  3.5                   1.4
-#&gt; 2                   4.9                  3.0                   1.4
-#&gt; 3                   4.7                  3.2                   1.3
-#&gt; 4                   4.6                  3.1                   1.5
-#&gt; 5                   5.0                  3.6                   1.4
-#&gt; 6                   5.4                  3.9                   1.7
-#&gt;   original.Petal.Width
-#&gt; 1                  0.2
-#&gt; 2                  0.2
-#&gt; 3                  0.2
-#&gt; 4                  0.2
-#&gt; 5                  0.2
-#&gt; 6                  0.4
-</code></pre>
-
-<h2 id="custom-cpos">Custom CPOs</h2>
-<p>Even though <code>CPO</code>s are very flexible and can be combined in many ways, it may be necessary to create completely custom <code>CPO</code>s.
-Custom CPOs can be created using the <code>makeCPO</code> function. Its most important arguments are <code>cpo.trafo</code> and <code>cpo.retrafo</code>, both of which are functions.
-In principle, a <code>CPO</code> needs a function that "trains" a control object depending on the data (<code>cpo.trafo</code>),
-and another function that uses this control object, and new data, to perform the preprocessing operation (<code>cpo.retrafo</code>).
-The <code>cpo.trafo</code>-function must return a "control" object which contains all information about how to transform a given dataset.
-<code>cpo.retrafo</code> takes a (potentially new!) dataset <em>and</em> the "control" object returned by <code>cpo.trafo</code>, and transforms the new data according to plan.</p>
-<pre><code class="r">names(formals(makeCPO))  # see help(makeCPO) for explanation of arguments
-#&gt;  [1] &quot;cpo.name&quot;                       &quot;par.set&quot;                       
-#&gt;  [3] &quot;par.vals&quot;                       &quot;dataformat&quot;                    
-#&gt;  [5] &quot;dataformat.factor.with.ordered&quot; &quot;export.params&quot;                 
-#&gt;  [7] &quot;fix.factors&quot;                    &quot;properties&quot;                    
-#&gt;  [9] &quot;properties.adding&quot;              &quot;properties.needed&quot;             
-#&gt; [11] &quot;properties.target&quot;              &quot;packages&quot;                      
-#&gt; [13] &quot;cpo.trafo&quot;                      &quot;cpo.retrafo&quot;
-</code></pre>
-
-<pre><code class="r">constFeatRem = makeCPO(&quot;constFeatRem&quot;,
-  dataformat = &quot;df.features&quot;,
-  cpo.trafo = function(data, target) {
-    names(Filter(function(x) {  # names of columns to keep
-        length(unique(x)) &gt; 1
-      }, data))
-    }, cpo.retrafo = function(data, control) {
-    data[control]
-  })
-head(iris) %&gt;&gt;% constFeatRem()
+<p>It is even possible to build complex DAGs of preprocessing operators. In the following example, <code>cpoCbind</code> recognizes that <code>cpoFilterVariance</code> comes
+before both <code>cpoScale</code> <em>and</em> <code>cpoPca</code> and performs it only once. The original data is pasted next to the scaled and PCA'd data by having a <code>NULLCPO</code> slot which does not change any data.</p>
+<pre><code class="r">flt = cpoFilterVariance(abs = 2, export = &quot;abs&quot;)
+cbnd = cpoCbind(scale = flt %&gt;&gt;% cpoScale(), pca = flt %&gt;&gt;% cpoPca(), NULLCPO)
+head(getTaskData(iris.task %&gt;&gt;% cbnd))
+#&gt;   Species scale.Sepal.Length scale.Petal.Length   pca.PC1     pca.PC2
+#&gt; 1  setosa         -0.8976739          -1.335752 -2.460241 -0.24479165
+#&gt; 2  setosa         -1.1392005          -1.335752 -2.538962 -0.06093579
+#&gt; 3  setosa         -1.3807271          -1.392399 -2.709611  0.08355948
+#&gt; 4  setosa         -1.5014904          -1.279104 -2.565116  0.25420858
+#&gt; 5  setosa         -1.0184372          -1.335752 -2.499602 -0.15286372
+#&gt; 6  setosa         -0.5353840          -1.165809 -2.066375 -0.40249369
 #&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width
 #&gt; 1          5.1         3.5          1.4         0.2
 #&gt; 2          4.9         3.0          1.4         0.2
@@ -767,21 +688,192 @@ head(iris) %&gt;&gt;% constFeatRem()
 #&gt; 4          4.6         3.1          1.5         0.2
 #&gt; 5          5.0         3.6          1.4         0.2
 #&gt; 6          5.4         3.9          1.7         0.4
-print(constFeatRem, verbose = TRUE)
+</code></pre>
+
+<p>The order of operations can be inspected in a crute ASCII graph when looking at the verbose printout of <code>cbnd</code>. The output of <code>variance</code> is fed into both <code>pca</code> and <code>scale</code>.</p>
+<pre><code class="r">!cbnd
+#&gt; Trafo chain of 1 cpos:
+#&gt; cbind(variance.abs = 2, scale.center = TRUE, scale.scale = TRUE, pca.center = TRUE, pca.scale = FALSE)
+#&gt; Operating: feature
+#&gt; ParamSet:
+#&gt;                 Type len    Def   Constr Req Tunable Trafo
+#&gt; variance.abs integer   - &lt;NULL&gt; 0 to Inf   -    TRUE     -
+#&gt; scale.center logical   -   TRUE        -   -    TRUE     -
+#&gt; scale.scale  logical   -   TRUE        -   -    TRUE     -
+#&gt; pca.center   logical   -   TRUE        -   -    TRUE     -
+#&gt; pca.scale    logical   -  FALSE        -   -    TRUE     -
+#&gt; O&gt;+   variance(abs = 2)[not exp'd: perc = &lt;NULL&gt;, threshold = &lt;NULL&gt;]
+#&gt; | |  
+#&gt; O |   pca(center = TRUE, scale = FALSE)[not exp'd: tol = &lt;NULL&gt;, rank =
+#&gt; | |  &lt;NULL&gt;]
+#&gt; | |  
+#&gt; +&lt;O   scale(center = TRUE, scale = TRUE)
+#&gt; |  
+#&gt; O   CBIND[scale,pca,]
+#&gt; 
+</code></pre>
+
+<p>The parameters of the internal CPOs are exported and can be manipulated and tuned.</p>
+<pre><code class="r">getParamSet(cbnd)
+#&gt;                 Type len    Def   Constr Req Tunable Trafo
+#&gt; variance.abs integer   - &lt;NULL&gt; 0 to Inf   -    TRUE     -
+#&gt; scale.center logical   -   TRUE        -   -    TRUE     -
+#&gt; scale.scale  logical   -   TRUE        -   -    TRUE     -
+#&gt; pca.center   logical   -   TRUE        -   -    TRUE     -
+#&gt; pca.scale    logical   -  FALSE        -   -    TRUE     -
+</code></pre>
+
+<h2 id="custom-cpos">Custom CPOs</h2>
+<p>Even though CPOs are very flexible and can be combined in many ways, it may be necessary to create completely custom CPOs.
+Custom CPOs can be created using the <code>makeCPO()</code> function (and similar related functions).
+Its most important arguments are <code>cpo.train</code> and <code>cpo.retrafo</code>, both of which are functions.
+In principle, a CPO needs a function that "trains" a control object depending on the data (<code>cpo.train</code>),
+and another function that uses this control object, and new data, to perform the preprocessing operation (<code>cpo.retrafo</code>).
+The <code>cpo.trafo</code>-function must return a "control" object which contains all information about how to transform a given dataset.
+<code>cpo.retrafo</code> takes a (potentially new!) dataset <em>and</em> the "control" object returned by <code>cpo.trafo</code>, and transforms the new data according to plan.
+See mlrCPO vignettes or <code>help(makeCPO)</code> for a more thorough description of how to create custom CPOs.</p>
+<pre><code class="r">names(formals(makeCPO))  # see help(makeCPO) for explanation of arguments
+#&gt;  [1] &quot;cpo.name&quot;                       &quot;par.set&quot;                       
+#&gt;  [3] &quot;par.vals&quot;                       &quot;dataformat&quot;                    
+#&gt;  [5] &quot;dataformat.factor.with.ordered&quot; &quot;export.params&quot;                 
+#&gt;  [7] &quot;fix.factors&quot;                    &quot;properties.data&quot;               
+#&gt;  [9] &quot;properties.adding&quot;              &quot;properties.needed&quot;             
+#&gt; [11] &quot;properties.target&quot;              &quot;packages&quot;                      
+#&gt; [13] &quot;cpo.train&quot;                      &quot;cpo.retrafo&quot;
+</code></pre>
+
+<pre><code class="r">constFeatRem = makeCPO(&quot;constFeatRem&quot;,
+  dataformat = &quot;df.features&quot;,
+  cpo.train = function(data, target) {
+    names(Filter(function(x) {  # names of columns to keep
+      length(unique(x)) &gt; 1
+    }, data))
+  },
+  cpo.retrafo = function(data, control) {
+    data[control]
+  })
+!constFeatRem
 #&gt; &lt;&lt;CPO constFeatRem()&gt;&gt;
-#&gt; CPO Trafo:
+#&gt; 
+#&gt; cpo.trafo:
 #&gt; function(data, target) {
 #&gt;     names(Filter(function(x) {  # names of columns to keep
-#&gt;         length(unique(x)) &gt; 1
-#&gt;       }, data))
-#&gt;     }
-#&gt; &lt;environment: 0x555a2f3483b8&gt;
+#&gt;       length(unique(x)) &gt; 1
+#&gt;     }, data))
+#&gt;   }
+#&gt; &lt;environment: 0x55782e40e5f0&gt;
 #&gt; 
-#&gt; CPO Retrafo:
+#&gt; cpo.retrafo:
 #&gt; function(data, control) {
 #&gt;     data[control]
 #&gt;   }
-#&gt; &lt;environment: 0x555a2f3483b8&gt;
+#&gt; &lt;environment: 0x55782e40e5f0&gt;
+</code></pre>
+
+<p>This CPO can be used on the <code>head()</code> of the <code>iris</code> dataset. Since the "Species" entry for the first six rows of <code>iris</code> is constant it is removed
+by this CPO.</p>
+<pre><code class="r">head(iris)
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1          5.1         3.5          1.4         0.2  setosa
+#&gt; 2          4.9         3.0          1.4         0.2  setosa
+#&gt; 3          4.7         3.2          1.3         0.2  setosa
+#&gt; 4          4.6         3.1          1.5         0.2  setosa
+#&gt; 5          5.0         3.6          1.4         0.2  setosa
+#&gt; 6          5.4         3.9          1.7         0.4  setosa
+</code></pre>
+
+<pre><code class="r">head(iris) %&gt;&gt;% constFeatRem()
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width
+#&gt; 1          5.1         3.5          1.4         0.2
+#&gt; 2          4.9         3.0          1.4         0.2
+#&gt; 3          4.7         3.2          1.3         0.2
+#&gt; 4          4.6         3.1          1.5         0.2
+#&gt; 5          5.0         3.6          1.4         0.2
+#&gt; 6          5.4         3.9          1.7         0.4
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>## vignette(&quot;a_1_getting_started&quot;, package = &quot;mlrCPO&quot;) 
+library(&quot;mlrCPO&quot;) 
+cpoAddCols  # a cpo constructor 
+!cpoAddCols  # more information 
+
+# create a CPO object that adds a new column 
+cpo = cpoAddCols(Sepal.Area = Sepal.Length * Sepal.Width)  
+head(iris %&gt;&gt;% cpo) 
+head(getTaskData(iris.task %&gt;&gt;% cpo)) 
+cpo %&gt;&gt;% cpoScale() 
+lrn = cpo %&gt;&gt;% makeLearner(&quot;classif.randomForest&quot;) 
+model = train(lrn, iris.task) 
+getFeatureImportance(model$learner.model$next.model) 
+listCPO()$name 
+cpoScale 
+do.center = cpoScale(scale = FALSE, center = TRUE) 
+!do.center  # note the 'scale.' prefix 
+do.scale = setHyperPars(do.center, 
+  scale.scale = TRUE, scale.center = FALSE) 
+cpo = cpoScale() %&gt;&gt;% cpoPca() 
+lrn = cpo %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;) 
+print(lrn) 
+combined = cpoScale(scale = TRUE, center = FALSE, id = &quot;scale&quot;) %&gt;&gt;% 
+  cpoScale(scale = FALSE, center = TRUE, id = &quot;center&quot;) 
+!combined 
+center = cpoScale(scale = FALSE, center = TRUE, export = &quot;center&quot;) 
+!center 
+cpo = cpoScale(affect.pattern = &quot;^Sepal&quot;) 
+head(iris %&gt;&gt;% cpo) 
+lrn = cpoPca() %&gt;&gt;% makeLearner(&quot;classif.randomForest&quot;) 
+model = train(lrn, iris.task) 
+
+retr = retrafo(model) 
+state = getCPOTrainedState(retr) 
+state$control$rotation 
+(clrn = cpoFilterFeatures(export = c(&quot;method&quot;, &quot;abs&quot;)) %&gt;&gt;% makeLearner(&quot;classif.knn&quot;)) 
+getParamIds(getParamSet(clrn)) 
+ps = makeParamSet( 
+    makeDiscreteParam( 
+        &quot;filterFeatures.method&quot;, 
+        values = list(&quot;anova.test&quot;, &quot;variance&quot;, &quot;chi.squared&quot;)), 
+    makeIntegerParam( 
+        &quot;filterFeatures.abs&quot;, 
+        lower = 1, upper = 8), 
+    makeIntegerParam( 
+        &quot;k&quot;, 
+        lower = 1, upper = 10)) 
+
+tuneParams(clrn, pid.task, cv5, par.set = ps, 
+           control = makeTuneControlGrid(), 
+           show.info=FALSE) 
+identical(iris %&gt;&gt;% NULLCPO, iris) 
+identical(cpoPca() %&gt;&gt;% NULLCPO, cpoPca()) 
+identical(NULLCPO %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;), makeLearner(&quot;classif.logreg&quot;)) 
+cpm = cpoMultiplex(list(cpoScale, cpoPca)) 
+!cpm 
+head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;)) 
+head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;, scale.center = FALSE)) 
+head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;pca&quot;)) 
+cbnd = cpoCbind(scaled = cpoScale(), pca = cpoPca()) 
+head(iris %&gt;&gt;% cbnd) 
+flt = cpoFilterVariance(abs = 2, export = &quot;abs&quot;) 
+cbnd = cpoCbind(scale = flt %&gt;&gt;% cpoScale(), pca = flt %&gt;&gt;% cpoPca(), NULLCPO) 
+head(getTaskData(iris.task %&gt;&gt;% cbnd)) 
+!cbnd 
+getParamSet(cbnd) 
+names(formals(makeCPO))  # see help(makeCPO) for explanation of arguments 
+constFeatRem = makeCPO(&quot;constFeatRem&quot;, 
+  dataformat = &quot;df.features&quot;, 
+  cpo.train = function(data, target) { 
+    names(Filter(function(x) {  # names of columns to keep 
+      length(unique(x)) &gt; 1 
+    }, data)) 
+  }, 
+  cpo.retrafo = function(data, control) { 
+    data[control] 
+  }) 
+!constFeatRem 
+head(iris) 
+head(iris) %&gt;&gt;% constFeatRem()
 </code></pre></div>
         </div>
 
