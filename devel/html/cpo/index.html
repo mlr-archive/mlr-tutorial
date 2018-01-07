@@ -287,59 +287,7 @@ to create <em>CPO</em> objects. These CPO objects are then used to apply the ope
 #&gt; &lt;&lt;CPO new.cols(..., .make.factors = TRUE)&gt;&gt;
 </code></pre>
 
-<pre><code class="r">!cpoAddCols  # more information
-#&gt; &lt;&lt;CPO new.cols(..., .make.factors = TRUE)&gt;&gt;
-#&gt; 
-#&gt; cpo.trafo:
-#&gt; function (expr, superceding.env, make.factors, add.cols, data, 
-#&gt;     target) 
-#&gt; {
-#&gt;     target
-#&gt; }
-#&gt; &lt;environment: namespace:mlrCPO&gt;
-#&gt; 
-#&gt; cpo.retrafo:
-#&gt; function (expr, superceding.env, make.factors, add.cols, data, 
-#&gt;     control) 
-#&gt; {
-#&gt;     target = control
-#&gt;     if (length({
-#&gt;         badcols = intersect(names(expr), target)
-#&gt;     })) {
-#&gt;         stopf(&quot;Columns %s can not be created, since they clash with the Task's target names&quot;, 
-#&gt;             collapse(badcols, &quot;, &quot;))
-#&gt;     }
-#&gt;     if (add.cols &amp;&amp; length({
-#&gt;         badcols = intersect(names(expr), colnames(data))
-#&gt;     })) {
-#&gt;         stopf(&quot;Columns %s can not be created, since they clash with the Task's feature names&quot;, 
-#&gt;             collapse(badcols, &quot;, &quot;))
-#&gt;     }
-#&gt;     reserved = &quot;..CPO..RESERVED..&quot;
-#&gt;     if (length(target)) {
-#&gt;         reserved = target[1]
-#&gt;     }
-#&gt;     expr[[reserved]] = seq_len(nrow(data))
-#&gt;     ret = data.frame(lapply(expr, function(ex) {
-#&gt;         val = eval(ex, data, superceding.env)
-#&gt;         if (make.factors &amp;&amp; (is.character(val) || is.logical(val))) {
-#&gt;             factor(val)
-#&gt;         }
-#&gt;         else {
-#&gt;             val
-#&gt;         }
-#&gt;     }), stringsAsFactors = FALSE)
-#&gt;     ret = dropNamed(ret, reserved)
-#&gt;     if (add.cols) {
-#&gt;         cbind(data, ret)
-#&gt;     }
-#&gt;     else {
-#&gt;         ret
-#&gt;     }
-#&gt; }
-#&gt; &lt;environment: namespace:mlrCPO&gt;
-
-# create a CPO object that adds a new column
+<pre><code class="r"># create a CPO object that adds a new column
 cpo = cpoAddCols(Sepal.Area = Sepal.Length * Sepal.Width) 
 </code></pre>
 
@@ -390,42 +338,22 @@ getFeatureImportance(model$learner.model$next.model)
 </code></pre>
 
 <p>A list of all internal CPOs can be retrieved using <code>listCPO</code>, which returns a data frame of names, categories, and descriptions.</p>
-<pre><code class="r">listCPO()$name
-#&gt;  [1] &quot;cpoDropConstants&quot;                &quot;cpoFixFactors&quot;                  
-#&gt;  [3] &quot;cpoCollapseFact&quot;                 &quot;cpoAsNumeric&quot;                   
-#&gt;  [5] &quot;cpoDummyEncode&quot;                  &quot;cpoImpactEncodeClassif&quot;         
-#&gt;  [7] &quot;cpoImpactEncodeRegr&quot;             &quot;cpoProbEncode&quot;                  
-#&gt;  [9] &quot;cpoQuantileBinNumerics&quot;          &quot;cpoSelect&quot;                      
-#&gt; [11] &quot;cpoSelectFreeProperties&quot;         &quot;cpoAddCols&quot;                     
-#&gt; [13] &quot;cpoMakeCols&quot;                     &quot;cpoApplyFun&quot;                    
-#&gt; [15] &quot;cpoModelMatrix&quot;                  &quot;cpoIca&quot;                         
-#&gt; [17] &quot;cpoPca&quot;                          &quot;cpoScale&quot;                       
-#&gt; [19] &quot;cpoScaleMaxAbs&quot;                  &quot;cpoScaleRange&quot;                  
-#&gt; [21] &quot;cpoSpatialSign&quot;                  &quot;cpoFilterFeatures&quot;              
-#&gt; [23] &quot;cpoFilterAnova&quot;                  &quot;cpoFilterCarscore&quot;              
-#&gt; [25] &quot;cpoFilterChiSquared&quot;             &quot;cpoFilterGainRatio&quot;             
-#&gt; [27] &quot;cpoFilterInformationGain&quot;        &quot;cpoFilterKruskal&quot;               
-#&gt; [29] &quot;cpoFilterLinearCorrelation&quot;      &quot;cpoFilterMrmr&quot;                  
-#&gt; [31] &quot;cpoFilterOneR&quot;                   &quot;cpoFilterPermutationImportance&quot; 
-#&gt; [33] &quot;cpoFilterRankCorrelation&quot;        &quot;cpoFilterRelief&quot;                
-#&gt; [35] &quot;cpoFilterRfCImportance&quot;          &quot;cpoFilterRfImportance&quot;          
-#&gt; [37] &quot;cpoFilterRfSRCImportance&quot;        &quot;cpoFilterRfSRCMinDepth&quot;         
-#&gt; [39] &quot;cpoFilterSymmetricalUncertainty&quot; &quot;cpoFilterUnivariate&quot;            
-#&gt; [41] &quot;cpoFilterVariance&quot;               &quot;cpoImpute&quot;                      
-#&gt; [43] &quot;cpoImputeAll&quot;                    &quot;cpoImputeConstant&quot;              
-#&gt; [45] &quot;cpoImputeHist&quot;                   &quot;cpoImputeLearner&quot;               
-#&gt; [47] &quot;cpoImputeMax&quot;                    &quot;cpoImputeMean&quot;                  
-#&gt; [49] &quot;cpoImputeMedian&quot;                 &quot;cpoImputeMin&quot;                   
-#&gt; [51] &quot;cpoImputeMode&quot;                   &quot;cpoImputeNormal&quot;                
-#&gt; [53] &quot;cpoImputeUniform&quot;                &quot;cpoCache&quot;                       
-#&gt; [55] &quot;cpoCase&quot;                         &quot;cpoCbind&quot;                       
-#&gt; [57] &quot;cpoMultiplex&quot;                    &quot;cpoTransformParams&quot;             
-#&gt; [59] &quot;cpoWrap&quot;                         &quot;cpoWrapRetrafoless&quot;             
-#&gt; [61] &quot;cpoOversample&quot;                   &quot;cpoSmote&quot;                       
-#&gt; [63] &quot;cpoUndersample&quot;                  &quot;cpoSample&quot;                      
-#&gt; [65] &quot;cpoApplyFunRegrTarget&quot;           &quot;cpoRegrResiduals&quot;               
-#&gt; [67] &quot;cpoLogTrafoRegr&quot;                 &quot;cpoMissingIndicators&quot;           
-#&gt; [69] &quot;cpoResponseFromSE&quot;
+<pre><code class="r">listCPO()
+#&gt;                      name               cponame category
+#&gt; 11       cpoDropConstants             dropconst     data
+#&gt; 36          cpoFixFactors            fixfactors     data
+#&gt; 10        cpoCollapseFact         collapse.fact     data
+#&gt; 4            cpoAsNumeric            as.numeric     data
+#&gt; 15         cpoDummyEncode           dummyencode     data
+#&gt; 13 cpoImpactEncodeClassif impact.encode.classif     data
+#&gt;                  subcategory
+#&gt; 11                   cleanup
+#&gt; 36                   cleanup
+#&gt; 10 factor data preprocessing
+#&gt; 4         feature conversion
+#&gt; 15        feature conversion
+#&gt; 13        feature conversion
+#&gt; ... (#rows: 69, #cols: 4)
 </code></pre>
 
 <h2 id="hyperparameters">Hyperparameters</h2>
@@ -470,19 +398,10 @@ print(lrn)
 to change the prefix of the hyperparameters of a given CPO using the <em>ID</em>. It can be set during construction, or by using <code>setCPOId()</code>.</p>
 <pre><code class="r">combined = cpoScale(scale = TRUE, center = FALSE, id = &quot;scale&quot;) %&gt;&gt;%
   cpoScale(scale = FALSE, center = TRUE, id = &quot;center&quot;)
-!combined
-#&gt; Trafo chain of 2 cpos:
-#&gt; scale(center = FALSE, scale = TRUE)
-#&gt; Operating: feature
-#&gt; ParamSet:
-#&gt;                 Type len  Def Constr Req Tunable Trafo
-#&gt; scale.center logical   - TRUE      -   -    TRUE     -
-#&gt; scale.scale  logical   - TRUE      -   -    TRUE     -
-#&gt;   ====&gt;
-#&gt; center&lt;scale&gt;(center = TRUE, scale = FALSE)
-#&gt; Operating: feature
-#&gt; ParamSet:
+getParamSet(combined)
 #&gt;                  Type len  Def Constr Req Tunable Trafo
+#&gt; scale.center  logical   - TRUE      -   -    TRUE     -
+#&gt; scale.scale   logical   - TRUE      -   -    TRUE     -
 #&gt; center.center logical   - TRUE      -   -    TRUE     -
 #&gt; center.scale  logical   - TRUE      -   -    TRUE     -
 </code></pre>
@@ -620,6 +539,16 @@ identical(NULLCPO %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;), makeLearne
 #&gt; 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
 </code></pre>
 
+<pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;pca&quot;))
+#&gt;   Species       PC1        PC2         PC3          PC4
+#&gt; 1  setosa -2.684126 -0.3193972  0.02791483  0.002262437
+#&gt; 2  setosa -2.714142  0.1770012  0.21046427  0.099026550
+#&gt; 3  setosa -2.888991  0.1449494 -0.01790026  0.019968390
+#&gt; 4  setosa -2.745343  0.3182990 -0.03155937 -0.075575817
+#&gt; 5  setosa -2.728717 -0.3267545 -0.09007924 -0.061258593
+#&gt; 6  setosa -2.280860 -0.7413304 -0.16867766 -0.024200858
+</code></pre>
+
 <p>Every CPO's Hyperparameters are exported:</p>
 <pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;scale&quot;, scale.center = FALSE))
 #&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
@@ -629,16 +558,6 @@ identical(NULLCPO %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;), makeLearne
 #&gt; 4    0.7768830   1.0005207    0.3602853    0.140405  setosa
 #&gt; 5    0.8444380   1.1618950    0.3362663    0.140405  setosa
 #&gt; 6    0.9119931   1.2587196    0.4083234    0.280810  setosa
-</code></pre>
-
-<pre><code class="r">head(iris %&gt;&gt;% setHyperPars(cpm, selected.cpo = &quot;pca&quot;))
-#&gt;   Species       PC1        PC2         PC3          PC4
-#&gt; 1  setosa -2.684126 -0.3193972  0.02791483  0.002262437
-#&gt; 2  setosa -2.714142  0.1770012  0.21046427  0.099026550
-#&gt; 3  setosa -2.888991  0.1449494 -0.01790026  0.019968390
-#&gt; 4  setosa -2.745343  0.3182990 -0.03155937 -0.075575817
-#&gt; 5  setosa -2.728717 -0.3267545 -0.09007924 -0.061258593
-#&gt; 6  setosa -2.280860 -0.7413304 -0.16867766 -0.024200858
 </code></pre>
 
 <p>This makes it possible to tune over many different CPO configurations at once.</p>
@@ -752,6 +671,7 @@ See mlrCPO vignettes or <code>help(makeCPO)</code> for a more thorough descripti
   cpo.retrafo = function(data, control) {
     data[control]
   })
+
 !constFeatRem
 #&gt; &lt;&lt;CPO constFeatRem()&gt;&gt;
 #&gt; 
@@ -761,13 +681,13 @@ See mlrCPO vignettes or <code>help(makeCPO)</code> for a more thorough descripti
 #&gt;       length(unique(x)) &gt; 1
 #&gt;     }, data))
 #&gt;   }
-#&gt; &lt;environment: 0x55782e40e5f0&gt;
+#&gt; &lt;environment: 0x55c59d5ff1e8&gt;
 #&gt; 
 #&gt; cpo.retrafo:
 #&gt; function(data, control) {
 #&gt;     data[control]
 #&gt;   }
-#&gt; &lt;environment: 0x55782e40e5f0&gt;
+#&gt; &lt;environment: 0x55c59d5ff1e8&gt;
 </code></pre>
 
 <p>This CPO can be used on the <code>head()</code> of the <code>iris</code> dataset. Since the "Species" entry for the first six rows of <code>iris</code> is constant it is removed
