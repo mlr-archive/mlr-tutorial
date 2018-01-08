@@ -495,11 +495,11 @@ state$control$rotation
         lower = 1, upper = 10))
 
 tuneParams(clrn, pid.task, cv5, par.set = ps,
-           control = makeTuneControlGrid(),
+           control = makeTuneControlRandom(budget = 10),
            show.info=FALSE)
 #&gt; Tune result:
-#&gt; Op. pars: filterFeatures.method=chi.squared; filterFeatures.abs=6; k=10
-#&gt; mmce.test.mean=0.2474747
+#&gt; Op. pars: filterFeatures.method=variance; filterFeatures.abs=8; k=10
+#&gt; mmce.test.mean=0.2527120
 </code></pre>
 
 <h2 id="special-cpos">Special CPOs</h2>
@@ -648,7 +648,7 @@ Custom CPOs can be created using the <code>makeCPO()</code> function (and simila
 Its most important arguments are <code>cpo.train</code> and <code>cpo.retrafo</code>, both of which are functions.
 In principle, a CPO needs a function that "trains" a control object depending on the data (<code>cpo.train</code>),
 and another function that uses this control object, and new data, to perform the preprocessing operation (<code>cpo.retrafo</code>).
-The <code>cpo.trafo</code>-function must return a "control" object which contains all information about how to transform a given dataset.
+The <code>cpo.train</code>-function must return a "control" object which contains all information about how to transform a given dataset.
 <code>cpo.retrafo</code> takes a (potentially new!) dataset <em>and</em> the "control" object returned by <code>cpo.trafo</code>, and transforms the new data according to plan.
 See mlrCPO vignettes or <code>help(makeCPO)</code> for a more thorough description of how to create custom CPOs.</p>
 <pre><code class="r">names(formals(makeCPO))  # see help(makeCPO) for explanation of arguments
@@ -681,13 +681,13 @@ See mlrCPO vignettes or <code>help(makeCPO)</code> for a more thorough descripti
 #&gt;       length(unique(x)) &gt; 1
 #&gt;     }, data))
 #&gt;   }
-#&gt; &lt;environment: 0x55c59d5ff1e8&gt;
+#&gt; &lt;environment: 0x55f1a019cc18&gt;
 #&gt; 
 #&gt; cpo.retrafo:
 #&gt; function(data, control) {
 #&gt;     data[control]
 #&gt;   }
-#&gt; &lt;environment: 0x55c59d5ff1e8&gt;
+#&gt; &lt;environment: 0x55f1a019cc18&gt;
 </code></pre>
 
 <p>This CPO can be used on the <code>head()</code> of the <code>iris</code> dataset. Since the "Species" entry for the first six rows of <code>iris</code> is constant it is removed
