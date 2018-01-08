@@ -170,7 +170,7 @@ ps = makeParamSet(
         lower = 1, upper = 10))
     
 tuneParams(clrn, pid.task, cv5, par.set = ps,
-           control = makeTuneControlGrid(),
+           control = makeTuneControlRandom(budget = 10),
            show.info=FALSE)
 ```
 
