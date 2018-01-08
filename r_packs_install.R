@@ -2,7 +2,7 @@ if (!require(devtools)) {
   install.packages("devtools")
   library(devtools)
 }
-install_github("mlr-org/ParamHelpers", ref = "paramSetSugar")
+install_github("berndbischl/ParamHelpers", ref = "paramSetSugar")
 install_github("mlr-org/mlr")
 install_github("mlr-org/mlrCPO")
 print("LIBPATHS:")
