@@ -237,7 +237,7 @@ Custom CPOs can be created using the `makeCPO()` function (and similar related f
 Its most important arguments are `cpo.train` and `cpo.retrafo`, both of which are functions.
 In principle, a CPO needs a function that "trains" a control object depending on the data (`cpo.train`),
 and another function that uses this control object, and new data, to perform the preprocessing operation (`cpo.retrafo`).
-The `cpo.trafo`-function must return a "control" object which contains all information about how to transform a given dataset.
+The `cpo.train`-function must return a "control" object which contains all information about how to transform a given dataset.
 `cpo.retrafo` takes a (potentially new!) dataset *and* the "control" object returned by `cpo.trafo`, and transforms the new data according to plan.
 See mlrCPO vignettes or `help(makeCPO)` for a more thorough description of how to create custom CPOs.
 ```{r}
