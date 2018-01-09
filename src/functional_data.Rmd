@@ -73,6 +73,7 @@ This is done by providing a list __fd.features__, that identifies the functional
 All columns not mentioned in the list are kept as-is. In our case the column indices 3:136 correspond to the columns of the UVVIS matrix. Alternatively we could also specify the respective column names.
 
 ```{r}
+library(mlr)
 # fd.features is a named list, where each name corresponds to the name of the 
 # fuctional feature and the values to the respective column indices or column names.
 fd.features = list("UVVIS" = 3:136, "NIR" = 137:367)
@@ -179,11 +180,11 @@ The currently supported preprocessing functions are:
 * multi-resolution feature extraction
 
 In order to do this, we specify methods for each functional feature in the task in a __list__.
-In this case we simply want to extract the mean from each __UVVIS__ functional and the fourier transformed features from each __NIR__ functional. Additional arguments can be passed on 
+In this case we simply want to extract the Fourier transform from each __UVVIS__ functional and the Functional PCA Scores from each __NIR__ functional. Variable names can be specified multiple times with different extractors. Additional arguments supplied to the _extract_ functions are passed on.
 
 ```{r}
 # feat.methods specifies what to extract from which functional
-# from the first functional we extract the fourier transformation, from the second the fpca scores
+# In this example, from the first functional we extract the fourier transformation, from the second the fpca scores.
 feat.methods = list("UVVIS" = extractFDAFourier(), "NIR" = extractFDAFPCA())
 
 # Either create a new task from an existing task
@@ -195,9 +196,11 @@ extracted
 ### Wavelets
 
 In this case, discrete wavelet feature transformation is applied.
-We can specify which feature extraction method is used via _method = "wavelets"_ and add additional parameters (i.e. the filter and the boundary) in the pars argument. 
+Discrete wavelet transform decomposes the functional into several _wavelets_.
+This essentially transforms the time signal to a time-scale representation, where every wavelet has a different resolution.
+We can specify which additional parameters (i.e. the filter (type of wavelet) and the boundary) in the pars argument.
 This functions returns a regression task of type regr since the raw data contained temporal structure but the transformed data does not inherit temporal structure anymore.
-For more informations on wavelets consider the documentation [wavelets](dwt).
+For more informations on wavelets consider the documentation [wavelets](dwt). A more comprehensive guide is for example given [here](https://www.cs.unm.edu/~williams/cs530/arfgtw.pdf).
 
 ```{r, eval = FALSE}
 ## Specify the feature extraction method and generate new task.
@@ -213,7 +216,10 @@ task.wd4 = extractFDAFeatures(tsk1, feat.methods = feat.methods)
 
 ### Fourier transformation
 
-Now, we use the fourier feature transformation. Either the amplitude or the phase of the complex fourier coefficients can be used for analysis. This can be specified in the additional _fft.coeff_ argument:
+Now, we use the fourier feature transformation.
+The Fourier transform takes a functional and transforms it to a frequency domain by splitting the signal up into its different frequency components. A more detailed tutorial on fourier transform can be found [here](http://www0.cs.ucl.ac.uk/teaching/GZ05/03-fourier.pdf).
+Either the amplitude or the phase of the complex fourier coefficients can be used for analysis.
+This can be specified in the additional _trafo.coeff_ argument:
 
 ```{r, eval = FALSE}
 # Specify the feature extraction method and generate new task.
@@ -231,7 +237,9 @@ For additional information, please consider the __Wrappers__ section.
 ```{r}
 # Use a FDAFeatExtractWrapper
 feat.methods = list("UVVIS" = extractFDAMultiResFeatures(), "NIR" = extractFDAFourier())
-wrapped.lrn = makeExtractFDAFeatsWrapper("classif.rpart",  feat.methods = feat.methods)
-wrapped.lrn
+wrapped.lrn = makeExtractFDAFeatsWrapper("regr.rpart",  feat.methods = feat.methods)
+
+# And run the learner
+train(wrapped.lrn, fuelsubset.task)
 ```
 
