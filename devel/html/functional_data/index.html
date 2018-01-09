@@ -337,7 +337,8 @@ str(df[, 1:5])
 <p>Before constructing the <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a>, the data is again reformated so it contains column matricies. 
 This is done by providing a list <strong>fd.features</strong>, that identifies the functional covariates. 
 All columns not mentioned in the list are kept as-is. In our case the column indices 3:136 correspond to the columns of the UVVIS matrix. Alternatively we could also specify the respective column names.</p>
-<pre><code class="r"># fd.features is a named list, where each name corresponds to the name of the 
+<pre><code class="r">library(mlr)
+# fd.features is a named list, where each name corresponds to the name of the 
 # fuctional feature and the values to the respective column indices or column names.
 fd.features = list(&quot;UVVIS&quot; = 3:136, &quot;NIR&quot; = 137:367)
 fdf = makeFunctionalData(df, fd.features = fd.features)
@@ -457,7 +458,7 @@ resample(fdalrn, tsk1, resampling = cv3, measures =  mse, show.info = FALSE)
 #&gt; Task: fuelsubset
 #&gt; Learner: regr.FDboost
 #&gt; Aggr perf: mse.test.mean=5.9374832
-#&gt; Runtime: 0.984154
+#&gt; Runtime: 0.959478
 </code></pre>
 
 <p>Alternatively, learners that do not specifically treat functional covariates can
@@ -485,9 +486,9 @@ non-functional domain, e.g by extracting wavelets.</p>
 <em> functional principal component analysis
 </em> multi-resolution feature extraction</p>
 <p>In order to do this, we specify methods for each functional feature in the task in a <strong>list</strong>.
-In this case we simply want to extract the mean from each <strong>UVVIS</strong> functional and the fourier transformed features from each <strong>NIR</strong> functional. Additional arguments can be passed on </p>
+In this case we simply want to extract the Fourier transform from each <strong>UVVIS</strong> functional and the Functional PCA Scores from each <strong>NIR</strong> functional. Variable names can be specified multiple times with different extractors. Additional arguments supplied to the <em>extract</em> functions are passed on.</p>
 <pre><code class="r"># feat.methods specifies what to extract from which functional
-# from the first functional we extract the fourier transformation, from the second the fpca scores
+# In this example, from the first functional we extract the fourier transformation, from the second the fpca scores.
 feat.methods = list(&quot;UVVIS&quot; = extractFDAFourier(), &quot;NIR&quot; = extractFDAFPCA())
 
 # Either create a new task from an existing task
@@ -514,9 +515,11 @@ extracted
 
 <h3 id="wavelets">Wavelets</h3>
 <p>In this case, discrete wavelet feature transformation is applied.
-We can specify which feature extraction method is used via <em>method = "wavelets"</em> and add additional parameters (i.e. the filter and the boundary) in the pars argument. 
+Discrete wavelet transform decomposes the functional into several <em>wavelets</em>.
+This essentially transforms the time signal to a time-scale representation, where every wavelet has a different resolution.
+We can specify which additional parameters (i.e. the filter (type of wavelet) and the boundary) in the pars argument.
 This functions returns a regression task of type regr since the raw data contained temporal structure but the transformed data does not inherit temporal structure anymore.
-For more informations on wavelets consider the documentation <a href="../dwt">wavelets</a>.</p>
+For more informations on wavelets consider the documentation <a href="../dwt">wavelets</a>. A more comprehensive guide is for example given <a href="https://www.cs.unm.edu/~williams/cs530/arfgtw.pdf">here</a>.</p>
 <pre><code class="r">## Specify the feature extraction method and generate new task.
 ## Here, we use the Haar filter:
 feat.methods = list(&quot;UVVIS&quot; = extractFDAWavelets(filter = &quot;haar&quot;))
@@ -528,7 +531,10 @@ task.wd4 = extractFDAFeatures(tsk1, feat.methods = feat.methods)
 </code></pre>
 
 <h3 id="fourier-transformation">Fourier transformation</h3>
-<p>Now, we use the fourier feature transformation. Either the amplitude or the phase of the complex fourier coefficients can be used for analysis. This can be specified in the additional <em>fft.coeff</em> argument:</p>
+<p>Now, we use the fourier feature transformation.
+The Fourier transform takes a functional and transforms it to a frequency domain by splitting the signal up into its different frequency components. A more detailed tutorial on fourier transform can be found <a href="http://www0.cs.ucl.ac.uk/teaching/GZ05/03-fourier.pdf">here</a>.
+Either the amplitude or the phase of the complex fourier coefficients can be used for analysis.
+This can be specified in the additional <em>trafo.coeff</em> argument:</p>
 <pre><code class="r"># Specify the feature extraction method and generate new task.
 # We use the fourier features and the amplitude for NIR, as well as the phase for UVVIS
 feat.methods = list(&quot;NIR&quot; = extractFDAFourier(trafo.coeff = &quot;amplitude&quot;),
@@ -542,14 +548,12 @@ task.fourier
 For additional information, please consider the <strong>Wrappers</strong> section.</p>
 <pre><code class="r"># Use a FDAFeatExtractWrapper
 feat.methods = list(&quot;UVVIS&quot; = extractFDAMultiResFeatures(), &quot;NIR&quot; = extractFDAFourier())
-wrapped.lrn = makeExtractFDAFeatsWrapper(&quot;classif.rpart&quot;,  feat.methods = feat.methods)
-wrapped.lrn
-#&gt; Learner classif.rpart.extracted from package rpart
-#&gt; Type: classif
-#&gt; Name: ; Short name: 
-#&gt; Class: extractFDAFeatsWrapper
-#&gt; Properties: twoclass,multiclass,missings,numerics,factors,ordered,prob,weights,featimp,functionals,single.functional
-#&gt; Predict-Type: response
+wrapped.lrn = makeExtractFDAFeatsWrapper(&quot;regr.rpart&quot;,  feat.methods = feat.methods)
+
+# And run the learner
+train(wrapped.lrn, fuelsubset.task)
+#&gt; Model for learner.id=regr.rpart.extracted; learner.class=extractFDAFeatsWrapper
+#&gt; Trained on: task.id = fs.fdf; obs = 129; features = 3
 #&gt; Hyperparameters: xval=0
 </code></pre>
 
@@ -569,6 +573,7 @@ str(fuelSubset)
 ## Put all values into a data.frame 
 df = data.frame(fuelSubset[c(&quot;heatan&quot;, &quot;h2o&quot;, &quot;UVVIS&quot;, &quot;NIR&quot;)]) 
 str(df[, 1:5]) 
+library(mlr) 
 # fd.features is a named list, where each name corresponds to the name of the  
 # fuctional feature and the values to the respective column indices or column names. 
 fd.features = list(&quot;UVVIS&quot; = 3:136, &quot;NIR&quot; = 137:367) 
@@ -598,7 +603,7 @@ rpart.lrn = makeLearner(&quot;regr.rpart&quot;)
 m = train(learner = rpart.lrn, task = tsk1) 
 m 
 # feat.methods specifies what to extract from which functional 
-# from the first functional we extract the fourier transformation, from the second the fpca scores 
+# In this example, from the first functional we extract the fourier transformation, from the second the fpca scores. 
 feat.methods = list(&quot;UVVIS&quot; = extractFDAFourier(), &quot;NIR&quot; = extractFDAFPCA()) 
 
 # Either create a new task from an existing task 
@@ -620,8 +625,10 @@ extracted
 ## task.fourier 
 # Use a FDAFeatExtractWrapper 
 feat.methods = list(&quot;UVVIS&quot; = extractFDAMultiResFeatures(), &quot;NIR&quot; = extractFDAFourier()) 
-wrapped.lrn = makeExtractFDAFeatsWrapper(&quot;classif.rpart&quot;,  feat.methods = feat.methods) 
-wrapped.lrn
+wrapped.lrn = makeExtractFDAFeatsWrapper(&quot;regr.rpart&quot;,  feat.methods = feat.methods) 
+
+# And run the learner 
+train(wrapped.lrn, fuelsubset.task)
 </code></pre></div>
         </div>
 
