@@ -161,7 +161,7 @@ As explained above, the autoencoder is producing a reconstruction error (mse bet
 
 ### Local Outlier Factor (LOF)
 
-The *local outlier factor (LOF)* is the degree of being an outlier of a data point. The degree depends on the *local* density, that is the dense of the *k-nearest* neighbours. *LOF* basically compares the local density of one data point to the local density of its neighbours. A data point, which local density is comparable lower than its neighbours is more likely an anomaly. A low local density indicates that the observation lies in a region that is sparser than that of its neighbours, and thus it is more likely to be anomalous. [Breunig et.al 2000]. In **R** the packages, the 'lofactor' in [%DMwR] and 'lof' in [%dbscan] provides an algorithm for the LOF method.
+The *local outlier factor (LOF)* is the degree of being an outlier of a data point. The degree depends on the *local* density, that is the dense of the *k-nearest* neighbours. *LOF* basically compares the local density of one data point to the local density of its neighbours. A data point, which local density is comparable lower than its neighbours is more likely an anomaly. A low local density indicates that the observation lies in a region that is sparser than that of its neighbours, and thus it is more likely to be anomalous. [Breunig et.al 2000]. In **R** the packages, the 'lofactor' in [%DMwR] and 'lof' in [%dbscan] provides an algorithm for the LOF method. (Note: $k$ should be smaller than the number of observation in the data, otherweise 'lofactor' will return 'NAs' and 'lof' an error.)
 
 ```{r}
 # The number of neighbours (k) that will be used in the calculation of the local 
