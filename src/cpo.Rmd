@@ -1,29 +1,31 @@
 # Preprocessing Operators
 
-Data preprocessing can be performed using the "mlrCPO" ("Composable Preprocessing Operators") addon package for mlr.
-mlrCPO makes it easy to use a variety of preprocessing operations, to chain different operations, to to integrate
+Data preprocessing can be performed using the "[%mlrCPO]" ("Composable Preprocessing Operators") addon package for [%mlr].
+[%mlrCPO] makes it easy to use a variety of preprocessing operations, to chain different operations, to to integrate
 preprocessing with mlr Learners, and to define custom preprocessing operations.
 
-The operator `%>>%` is used as a piping operator: It chains different operations, it applies an operation to a dataset,
+[%mlrCPO] provides the `%>>%`-operator, which is used as a piping operator: It chains different operations,
+it applies an operation to a dataset,
 and it attaches an operation to a Learner to create an integrated preprocessing and model fitting pipeline.
 This way, it is possible to quickly create natural looking pipelines that are very flexible and can even be
-optimized over.
+[tuned](tune.md) over.
 
-This tutorial handles the basics of using mlrCPO for preprocessing in combination with mlr [Learner](learner.md)s. For a more in-depth introduction, look at the
-mlrCPO vignette using
+This tutorial handles the basics of using [%mlrCPO] for preprocessing in combination with mlr [Learner](learner.md)s. For a more in-depth introduction, look at the
+[%mlrCPO] vignette using
 ```{r, eval = FALSE}
 vignette("a_1_getting_started", package = "mlrCPO")
 ```
 
-The following requires the `mlrCPO` package to be loaded:
+The following requires the [%mlrCPO] package to be loaded:
 ```{r}
 library("mlrCPO")
 ```
 
 ## CPO Objects
 
-Different preprocessing operations are provided in the form of *CPO Constructors*, which can be called like functions
-to create *CPO* objects. These CPO objects are then used to apply the operation to a data set.
+Different preprocessing operations are provided in the form of *[CPO Constructors](&mlrCPO::CPOConstructor)*,
+which can be called like functions
+to create *[CPO](&mlrCPO::CPO)* objects. These [CPO](&mlrCPO::CPO) objects are then used to apply the operation to a data set.
 ```{r}
 cpoAddCols  # a cpo constructor
 ```
@@ -32,7 +34,8 @@ cpoAddCols  # a cpo constructor
 cpo = cpoAddCols(Sepal.Area = Sepal.Length * Sepal.Width) 
 ```
 
-CPO objects are central to `mlrCPO`, and they are very flexible. They can be applied to a `data.frame` or a Task:
+[CPO](&mlrCPO::CPO) objects are central to [%mlrCPO], and they are very flexible. They can be applied to a
+[data.frame](&base::data.frame) or a [&Task]:
 ```{r}
 head(iris %>>% cpo)
 ```
@@ -40,29 +43,30 @@ head(iris %>>% cpo)
 head(getTaskData(iris.task %>>% cpo))
 ```
 
-CPOs can be concatenated to create new operations. The following example adds the `Sepal.Area` column and then scales
+[CPO](&mlrCPO::CPO)s can be [concatenated](&mlrCPO::composeCPO) to create new operations. The following example adds the `Sepal.Area` column and then scales
 and centers all numeric columns:
 ```{r}
 cpo %>>% cpoScale()
 ```
 
-CPOs can be fused with a Learner to create a machine learning pipeline that performs preprocessing on the learning data
-and also pre-processes the data that is fed to the model for prediction.
+[CPO](&mlrCPO::CPO)s can be [fused with a Learner](&mlrCPO::attachCPO) to create a machine learning pipeline that performs
+preprocessing on the training data
+and also pre-processes the data that is fed to the resulting model for prediction.
 ```{r}
 lrn = cpo %>>% makeLearner("classif.randomForest")
 model = train(lrn, iris.task)
 getFeatureImportance(model$learner.model$next.model)
 ```
 
-A list of all internal CPOs can be retrieved using `listCPO`, which returns a data frame of names, categories, and descriptions.
+A list of all internal [CPO](&mlrCPO::CPO)s can be retrieved using `[listCPO()](&mlrCPO::listCPO)`, which returns a [data.frame](&base::data.frame) of names, categories, and descriptions.
 ```{r}
 listCPO()
 ```
 
 ## Hyperparameters
 
-CPO objects have hyperparameters that can be adjusted at creation, or later using `setHyperPars`. They are shown by the
-CPO Constructor representation when printed, and can be given as parameters during construction.
+[CPO](&mlrCPO::CPO) objects have hyperparameters that can be adjusted at creation, or later using `[setHyperPars()](&ParamHelpers::setHyperPars)`. They are shown by the
+[CPO Constructor](&mlrCPO::CPOConstructor) representation when printed, and can be given as parameters during construction.
 ```{r}
 cpoScale
 ```
@@ -70,7 +74,7 @@ cpoScale
 do.center = cpoScale(scale = FALSE, center = TRUE)
 ```
 
-The `ParamSet` of a CPO can be inspected using `getParamSet`, but it is also shown when verbosely printing a CPO using `!`.
+The `[ParamSet](&ParamHelpers::ParamSet)` of a [CPO](&mlrCPO::CPO) can be inspected using `[&getParamSet]`, but it is also shown when verbosely printing a [CPO](&mlrCPO::CPO) using `!`.
 ```{r}
 !do.center  # note the 'scale.' prefix
 ```
@@ -79,15 +83,15 @@ do.scale = setHyperPars(do.center,
   scale.scale = TRUE, scale.center = FALSE)
 ```
 
-These hyperparameters even survive CPO composition and attachment to Learners:
+These hyperparameters even survive CPO composition and attachment to [&Learner]s:
 ```{r}
 cpo = cpoScale() %>>% cpoPca()
 lrn = cpo %>>% makeLearner("classif.logreg")
 print(lrn)
 ```
 
-When composing many CPOs, the `ParamSet` of the combined CPO can become quite cluttered. To prevent name clashes, it is possible
-to change the prefix of the hyperparameters of a given CPO using the *ID*. It can be set during construction, or by using `setCPOId()`.
+When composing many [CPO](&mlrCPO::CPO)s, the `[ParamSet](&ParamHelpers::ParamSet)` of the combined [CPO](&mlrCPO::CPO) can become quite cluttered. To prevent name clashes, it is possible
+to change the prefix of the hyperparameters of a given [CPO](&mlrCPO::CPO) using the *[ID](&mlrCPO::getCPOId)*. It can be set during construction, or by using `[setCPOId()](&mlrCPO::setCPOId)`.
 
 ```{r}
 combined = cpoScale(scale = TRUE, center = FALSE, id = "scale") %>>%
@@ -95,8 +99,8 @@ combined = cpoScale(scale = TRUE, center = FALSE, id = "scale") %>>%
 getParamSet(combined)
 ```
 
-Another possibility is to change what parameters are "exported" by the CPO. A parameter that is not exported can not be changed
-after construction. The `export` parameter given during construction can be a character vector of the parameters to export.
+Another possibility is to change what parameters are "exported" by the [CPO](&mlrCPO::CPO). A parameter that is not exported can not be changed
+after construction. The `export` parameter given during construction can be a [character](&base::character) vector of the parameters to export.
 ```{r}
 center = cpoScale(scale = FALSE, center = TRUE, export = "center")
 !center
@@ -104,7 +108,7 @@ center = cpoScale(scale = FALSE, center = TRUE, export = "center")
 
 ## Affecting Only Some Features
 
-It is possible to set up a CPO so that it only affects certain columns of a given dataset. This is done with a few
+It is possible to set up a [CPO](&mlrCPO::CPO) so that it only affects certain columns of a given dataset. This is done with a few
 parameters during construction that begin with the prefix "`affect.`". The following example only scales and centers columns
 that begin with "Sepal".
 
@@ -118,26 +122,26 @@ head(iris %>>% cpo)
 Manipulating data for preprocessing itself is relatively easy. A challenge comes when one wants to integrate preprocessing
 into a machine-learning pipeline: The same preprocessing steps that are performed on the training data need to be performed
 on the new prediction data. However, the transformation performed for prediction often needs information from the training step.
-For example, if training entail performing PCA, then for prediction, the data must not undergo another PCA, instead it needs
+For example, if training entails performing PCA, then for prediction, the data must not undergo another PCA, instead it needs
 to be rotated by the rotation matrix found by the training PCA. The process of obtaining the rotation matrix is called
-"training" the CPO, and the object that contains the trained information is a `CPOTrained` object; it can be accessed using
-the `retrafo()` function on the transformed data. When a CPO has an effect
-on the *target* columns of a Task, two `CPOTrained` objects are generated: One, as before, is used on new prediction data before
+"training" the [CPO](&mlrCPO::CPO), and the object that contains the trained information is a `[CPOTrained](&mlrCPO::CPOTrained)` object; it can be accessed using
+the `[retrafo()](&mlrCPO::retrafo)` function on the transformed data. When a [CPO](&mlrCPO::CPO) has an effect
+on the *target* columns of a Task, two `[CPOTrained](&mlrCPO::CPOTrained)` objects are generated: One, as before, is used on new prediction data before
 doing predictoin with a model. The other is used on predictions made with that model, to map the prediction back to the space
-of the original target column. This inverting `CPOTrained` can be accessed using `inverter()` on transformed data.
+of the original target column. This inverting `[CPOTrained](&mlrCPO::CPOTrained)` can be accessed using `[inverter()](&mlrCPO::inverter)` on transformed data.
 
-The process of using `CPOTrained` correctly can be a bit involved, but mlrCPO automates it when a CPO is attached to a
-Learner object, see the following section. The `CPOTrained` objects are explained in more detail in the mlrCP vignette.
+The process of using `[CPOTrained](&mlrCPO::CPOTrained)` correctly can be a bit involved, but [%mlrCPO] automates it when a [CPO](&mlrCPO::CPO) is attached to a
+Learner object, see the following section. The `[CPOTrained](&mlrCPO::CPOTrained)` objects are explained in more detail in the mlrCP vignette.
 
 ## CPO Learner
 
-When attaching a CPO to a Learner using the `%>>%`-operator, the complete preprocessing pipeline is integrated by `mlrCPO`, so there is no need to
-worry about keeping `CPOTrained` objects. The resulting "`CPOLearner`" inherits the hyperparameters both from the CPO *and* the Learner. This way,
-the function of a CPO can be *tuned* together with parameters of a Learner itself.
+When attaching a [CPO](&mlrCPO::CPO) to a Learner using the `%>>%`-operator, the complete preprocessing pipeline is integrated by [%mlrCPO], so there is no need to
+worry about keeping `[CPOTrained](&mlrCPO::CPOTrained)` objects. The resulting "`[CPOLearner](&mlrCPO::CPOLearner)`" inherits the hyperparameters both from the [CPO](&mlrCPO::CPO) *and* the [&Learner]. This way,
+the function of a [CPO](&mlrCPO::CPO) can be *[tuned](&tune.md)* together with parameters of a [&Learner] itself.
 
-When a `CPOLearner` is trained on some data, it is possible to get information about the effect of an attached CPO by
-inspecting the `CPOTrained` object created during training. It can be retrieved from a model using `retrafo()` and inspected
-using `getCPOTrainedState()`. The following example retrieves the PCA rotation matrix trained when fitting a `CPOLearner` to `iris.task`.
+When a `[CPOLearner](&mlrCPO::CPOLearner)` is trained on some data, it is possible to get information about the effect of an attached [CPO](&mlrCPO::CPO) by
+inspecting the `[CPOTrained](&mlrCPO::CPOTrained)` object created during training. It can be retrieved from a model using `[retrafo()](&mlrCPO::retrafo)` and inspected
+using `[getCPOTrainedState()](&mlrCPO::getCPOTrainedState)`. The following example retrieves the PCA rotation matrix trained when fitting a `[CPOLearner](&mlrCPO::CPOLearner)` to `[&iris.task]`.
 
 ```{r}
 lrn = cpoPca() %>>% makeLearner("classif.randomForest")
@@ -149,7 +153,8 @@ state$control$rotation
 ```
 
 ## Tuning
-Tuning CPO hyperparameters works exactly like [tuning Learner hyperparameters](tune.md), since the CPO's parameters are attached naturally to a Learner's parameters when a `CPOLearner` is formed.
+Tuning [CPO](&mlrCPO::CPO) hyperparameters works exactly like [tuning Learner hyperparameters](tune.md), since the [CPO](&mlrCPO::CPO)'s parameters are attached naturally to a [&Learner]'s parameters when a `[CPOLearner](&mlrCPO::CPOLearner)`
+is formed.
 
 ```{r}
 (clrn = cpoFilterFeatures(export = c("method", "abs")) %>>% makeLearner("classif.knn"))
@@ -178,7 +183,7 @@ tuneParams(clrn, pid.task, cv5, par.set = ps,
 
 ### NULLCPO
 
-Under certain circumstances it can be useful to represent the operation of no preprocessing. This is done using the `NULLCPO` object. If it is applied to data, attached to a Learner or composed with another CPO, the result is not modified.
+Under certain circumstances it can be useful to represent the operation of no preprocessing. This is done using the `[NULLCPO](&mlrCPO::NULLCPO)` object. If it is applied to data, attached to a Learner or composed with another [CPO](&mlrCPO::CPO), the result is not modified.
 
 ```{r}
 identical(iris %>>% NULLCPO, iris)
@@ -187,7 +192,7 @@ identical(NULLCPO %>>% makeLearner("classif.logreg"), makeLearner("classif.logre
 ```
 
 ### CPO Multiplexer
-The multiplexer makes it possible to combine many CPOs into one, with an extra `selected.cpo` parameter that chooses between them.
+The multiplexer makes it possible to combine many [CPO](&mlrCPO::CPO)s into one, with an extra `selected.cpo` parameter that chooses between them.
 
 ```{r}
 cpm = cpoMultiplex(list(cpoScale, cpoPca))
@@ -200,46 +205,48 @@ head(iris %>>% setHyperPars(cpm, selected.cpo = "scale"))
 head(iris %>>% setHyperPars(cpm, selected.cpo = "pca"))
 ```
 
-Every CPO's Hyperparameters are exported:
+Every [CPO](&mlrCPO::CPO)'s Hyperparameters are exported:
 ```{r}
 head(iris %>>% setHyperPars(cpm, selected.cpo = "scale", scale.center = FALSE))
 ```
 
-This makes it possible to tune over many different CPO configurations at once.
+This makes it possible to tune over many different [CPO](&mlrCPO::CPO) configurations at once.
 
 ### CBind CPO
-`cbind` other CPOs as operation. `cpoCbind` makes it possible to build CPOs that perform different operations on data and paste the results next to each other.
+`cbind` other [CPO](&mlrCPO::CPO)s as operation. `[cpoCbind](&mlrCPO::cpoCbind)` makes it possible to build [CPO](&mlrCPO::CPO)s that perform different operations on data and paste the results next to each other.
 
 ```{r}
 cbnd = cpoCbind(scaled = cpoScale(), pca = cpoPca())
 head(iris %>>% cbnd)
 ```
-It is even possible to build complex DAGs of preprocessing operators. In the following example, `cpoCbind` recognizes that `cpoFilterVariance` comes
-before both `cpoScale` *and* `cpoPca` and performs it only once. The original data is pasted next to the scaled and PCA'd data by having a `NULLCPO` slot which does not change any data.
+It is even possible to build complex DAGs of preprocessing operators. In the following example, `[cpoCbind](&mlrCPO::cpoCbind)` recognizes that `[cpoFilterVariance](&mlrCPO::cpoFilterVariance)` comes
+before both `[cpoScale](&mlrCPO::cpoScale)` *and* `[cpoPca](&mlrCPO::cpoPca)` and performs filtering only once.
+The original data is pasted next to the scaled and PCA'd data by having a `[NULLCPO](&mlrCPO::NULLCPO)` slot
+which does not change any data.
 ```{r}
 flt = cpoFilterVariance(abs = 2, export = "abs")
 cbnd = cpoCbind(scale = flt %>>% cpoScale(), pca = flt %>>% cpoPca(), NULLCPO)
 head(getTaskData(iris.task %>>% cbnd))
 ```
-The order of operations can be inspected in a crute ASCII graph when looking at the verbose printout of `cbnd`. The output of `variance` is fed into both `pca` and `scale`.
+The order of operations can be inspected in a crude ASCII graph when looking at the verbose printout of `cbnd`. The output of `variance` is fed into both `pca` and `scale`.
 ```{r}
 !cbnd
 ```
-The parameters of the internal CPOs are exported and can be manipulated and tuned.
+The parameters of the internal [CPO](&mlrCPO::CPO)s are exported and can be manipulated and [tuned](tune.md).
 ```{r}
 getParamSet(cbnd)
 ```
 
 ## Custom CPOs
 
-Even though CPOs are very flexible and can be combined in many ways, it may be necessary to create completely custom CPOs.
-Custom CPOs can be created using the `makeCPO()` function (and similar related functions).
+Even though [CPO](&mlrCPO::CPO)s are very flexible and can be combined in many ways, it may be necessary to create completely custom CPOs.
+Custom CPOs can be created using the `[makeCPO()](&mlrCPO::makeCPO)` function (and similar related functions).
 Its most important arguments are `cpo.train` and `cpo.retrafo`, both of which are functions.
-In principle, a CPO needs a function that "trains" a control object depending on the data (`cpo.train`),
+In principle, a [CPO](&mlrCPO::CPO) needs a function that "trains" a control object depending on the data (`cpo.train`),
 and another function that uses this control object, and new data, to perform the preprocessing operation (`cpo.retrafo`).
 The `cpo.train`-function must return a "control" object which contains all information about how to transform a given dataset.
 `cpo.retrafo` takes a (potentially new!) dataset *and* the "control" object returned by `cpo.trafo`, and transforms the new data according to plan.
-See mlrCPO vignettes or `help(makeCPO)` for a more thorough description of how to create custom CPOs.
+See [%mlrCPO] vignettes or `[help(makeCPO)](&mlrCPO::makeCPO)` for a more thorough description of how to create custom CPOs.
 ```{r}
 names(formals(makeCPO))  # see help(makeCPO) for explanation of arguments
 ```
@@ -258,8 +265,8 @@ constFeatRem = makeCPO("constFeatRem",
 
 !constFeatRem
 ```
-This CPO can be used on the `head()` of the `iris` dataset. Since the "Species" entry for the first six rows of `iris` is constant it is removed
-by this CPO.
+This [CPO](&mlrCPO::CPO) can be used on the `[head()](&utils::head)` of the `[iris](&datasets::iris)` dataset. Since the "Species" entry for the first six rows of `[iris](&datasets::iris)` is constant, it is removed
+by this [CPO](&mlrCPO::CPO).
 ```{r}
 head(iris)
 ```
