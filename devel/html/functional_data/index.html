@@ -456,7 +456,7 @@ resample(fdalrn, tsk1, resampling = cv3, measures =  mse, show.info = FALSE)
 #&gt; Task: fuelsubset
 #&gt; Learner: regr.FDboost
 #&gt; Aggr perf: mse.test.mean=5.9374832
-#&gt; Runtime: 0.980412
+#&gt; Runtime: 1.06266
 </code></pre>
 
 <p>Alternatively, learners that do not specifically treat functional covariates can
@@ -544,7 +544,7 @@ task.fourier
 
 <h3 id="wrappers">Wrappers</h3>
 <p>Additionally we can wrap the preprocessing around a standard learner such as <a href="http://www.rdocumentation.org/packages/rpart/functions/rpart.html">classif.rpart</a>.
-For additional information, please consider the <strong>Wrappers</strong> section.</p>
+For additional information, please consider the <a href="../wrapper/index.html#wrapper">Wrappers</a> section.</p>
 <pre><code class="r">## Use a FDAFeatExtractWrapper
 feat.methods = list(&quot;UVVIS&quot; = extractFDAMultiResFeatures(), &quot;NIR&quot; = extractFDAFourier())
 wrapped.lrn = makeExtractFDAFeatsWrapper(&quot;regr.rpart&quot;,  feat.methods = feat.methods)
