@@ -265,11 +265,11 @@
 
 <h1 id="preprocessing-operators">Preprocessing Operators</h1>
 <p>Data preprocessing can be performed using the "<a href="http://www.rdocumentation.org/packages/mlrCPO/">mlrCPO</a>" ("Composable Preprocessing Operators") addon package for <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.
-<a href="http://www.rdocumentation.org/packages/mlrCPO/">mlrCPO</a> makes it easy to use a variety of preprocessing operations, to chain different operations, to to integrate
-preprocessing with mlr Learners, and to define custom preprocessing operations.</p>
+<a href="http://www.rdocumentation.org/packages/mlrCPO/">mlrCPO</a> makes it easy to use a variety of preprocessing operations, to chain different operations, to integrate
+preprocessing with mlr <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a>s, and to define custom preprocessing operations.</p>
 <p><a href="http://www.rdocumentation.org/packages/mlrCPO/">mlrCPO</a> provides the <code>%&gt;&gt;%</code>-operator, which is used as a piping operator: It chains different operations,
 it applies an operation to a dataset,
-and it attaches an operation to a Learner to create an integrated preprocessing and model fitting pipeline.
+and it attaches an operation to a <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a> to create an integrated preprocessing and model fitting pipeline.
 This way, it is possible to quickly create natural looking pipelines that are very flexible and can even be
 <a href="../tune/index.html">tuned</a> over.</p>
 <p>This tutorial handles the basics of using <a href="http://www.rdocumentation.org/packages/mlrCPO/">mlrCPO</a> for preprocessing in combination with mlr <a href="../learner/index.html">Learner</a>s. For a more in-depth introduction, look at the
@@ -282,9 +282,9 @@ This way, it is possible to quickly create natural looking pipelines that are ve
 </code></pre>
 
 <h2 id="cpo-objects">CPO Objects</h2>
-<p>Different preprocessing operations are provided in the form of <em><a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOConstructor.html">CPO Constructors</a></em>,
+<p>Different preprocessing operations are provided in the form of <strong><a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOConstructor.html">CPO Constructors</a></strong>,
 which can be called like functions
-to create <em><a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a></em> objects. These <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> objects are then used to apply the operation to a data set.</p>
+to create <strong><a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a></strong> objects. These <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> objects are then used to apply the operation to a data set.</p>
 <pre><code class="r">cpoAddCols  # a cpo constructor
 #&gt; &lt;&lt;CPO new.cols(..., .make.factors = TRUE)&gt;&gt;
 </code></pre>
@@ -361,7 +361,7 @@ getFeatureImportance(model$learner.model$next.model)
 </code></pre>
 
 <h2 id="hyperparameters">Hyperparameters</h2>
-<p><a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> objects have hyperparameters that can be adjusted at creation, or later using <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/setHyperPars.html"><code>setHyperPars()</code></a>. They are shown by the
+<p><a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> objects have hyperparameters that can be adjusted at creation, or later using <a href="http://www.rdocumentation.org/packages/mlr/functions/setHyperPars.html"><code>setHyperPars()</code></a>. They are shown by the
 <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOConstructor.html">CPO Constructor</a> representation when printed, and can be given as parameters during construction.</p>
 <pre><code class="r">cpoScale
 #&gt; &lt;&lt;CPO scale(center = TRUE, scale = TRUE)&gt;&gt;
@@ -370,7 +370,7 @@ getFeatureImportance(model$learner.model$next.model)
 <pre><code class="r">do.center = cpoScale(scale = FALSE, center = TRUE)
 </code></pre>
 
-<p>The <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/ParamSet.html"><code>ParamSet</code></a> of a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> can be inspected using <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html"><code>getParamSet</code></a>, but it is also shown when verbosely printing a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> using <code>!</code>.</p>
+<p>The <a href="http://www.rdocumentation.org/packages/ParamHelpers/functions/ParamSet.html"><code>ParamSet</code></a> of a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> can be inspected using <a href="http://www.rdocumentation.org/packages/mlr/functions/getParamSet.html"><code>getParamSet()</code></a>, but it is also shown when verbosely printing a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> using <code>!</code>.</p>
 <pre><code class="r">!do.center  # note the 'scale.' prefix
 #&gt; Trafo chain of 1 cpos:
 #&gt; scale(center = TRUE, scale = FALSE)
@@ -383,9 +383,11 @@ getFeatureImportance(model$learner.model$next.model)
 
 <pre><code class="r">do.scale = setHyperPars(do.center,
   scale.scale = TRUE, scale.center = FALSE)
+do.scale
+#&gt; scale(center = FALSE, scale = TRUE)
 </code></pre>
 
-<p>These hyperparameters even survive CPO composition and attachment to <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a>s:</p>
+<p>These hyperparameters even survive CPO <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/composeCPO.html">composition</a> and <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/attachCPO.html">attachment</a> to <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a>s:</p>
 <pre><code class="r">cpo = cpoScale() %&gt;&gt;% cpoPca()
 lrn = cpo %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;)
 print(lrn)
@@ -439,20 +441,22 @@ head(iris %&gt;&gt;% cpo)
 
 <h2 id="cpotrained-retrafo-and-inverter"><code>CPOTrained</code>: Retrafo and Inverter</h2>
 <p>Manipulating data for preprocessing itself is relatively easy. A challenge comes when one wants to integrate preprocessing
-into a machine-learning pipeline: The same preprocessing steps that are performed on the training data need to be performed
-on the new prediction data. However, the transformation performed for prediction often needs information from the training step.
-For example, if training entails performing PCA, then for prediction, the data must not undergo another PCA, instead it needs
+into a machine-learning pipeline: The same preprocessing steps that are performed on the <a href="../train/index.html">training data</a>
+need to be performed on the new <a href="../predict/index.html">prediction data</a>. However, the transformation performed for prediction often needs
+information from the training step.
+For example, if training entails performing <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/cpoPca.html">PCA</a>,
+then for prediction, the data must not undergo another PCA, instead it needs
 to be rotated by the rotation matrix found by the training PCA. The process of obtaining the rotation matrix is called
-"training" the <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a>, and the object that contains the trained information is a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a> object; it can be accessed using
+"training" the <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a>, and the object that contains the trained information is a <strong><a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a></strong> object; it can be accessed using
 the <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/retrafo.html"><code>retrafo()</code></a> function on the transformed data. When a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> has an effect
 on the <em>target</em> columns of a Task, two <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a> objects are generated: One, as before, is used on new prediction data before
 doing predictoin with a model. The other is used on predictions made with that model, to map the prediction back to the space
 of the original target column. This inverting <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a> can be accessed using <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/inverter.html"><code>inverter()</code></a> on transformed data.</p>
 <p>The process of using <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a> correctly can be a bit involved, but <a href="http://www.rdocumentation.org/packages/mlrCPO/">mlrCPO</a> automates it when a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> is attached to a
-Learner object, see the following section. The <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a> objects are explained in more detail in the mlrCP vignette.</p>
+<a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a> object, see the <a href="#cpo-learner">following section</a>. The <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a> objects are explained in more detail in the mlrCP vignette.</p>
 <h2 id="cpo-learner">CPO Learner</h2>
 <p>When attaching a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> to a Learner using the <code>%&gt;&gt;%</code>-operator, the complete preprocessing pipeline is integrated by <a href="http://www.rdocumentation.org/packages/mlrCPO/">mlrCPO</a>, so there is no need to
-worry about keeping <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a> objects. The resulting "<a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOLearner.html"><code>CPOLearner</code></a>" inherits the hyperparameters both from the <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> <em>and</em> the <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a>. This way,
+worry about keeping <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a> objects. The resulting <strong><a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOLearner.html"><code>CPOLearner</code></a></strong> inherits the hyperparameters both from the <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> <em>and</em> the <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a>. This way,
 the function of a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> can be <em><a href="http://www.rdocumentation.org/packages/mlr/functions/tune.md.html">tuned</a></em> together with parameters of a <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a> itself.</p>
 <p>When a <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOLearner.html"><code>CPOLearner</code></a> is trained on some data, it is possible to get information about the effect of an attached <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> by
 inspecting the <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPOTrained.html"><code>CPOTrained</code></a> object created during training. It can be retrieved from a model using <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/retrafo.html"><code>retrafo()</code></a> and inspected
@@ -509,7 +513,7 @@ tuneParams(clrn, pid.task, cv5, par.set = ps,
 
 <h2 id="special-cpos">Special CPOs</h2>
 <h3 id="nullcpo">NULLCPO</h3>
-<p>Under certain circumstances it can be useful to represent the operation of no preprocessing. This is done using the <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/NULLCPO.html"><code>NULLCPO</code></a> object. If it is applied to data, attached to a Learner or composed with another <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a>, the result is not modified.</p>
+<p>Under certain circumstances it can be useful to represent the operation of <em>no preprocessing</em>. This is done using the <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/NULLCPO.html"><code>NULLCPO</code></a> object. If it is <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/applyCPO.html">applied</a> to data, <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/attachCPO.html">attached</a> to a <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">Learner</a> or <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/composeCPO.html">composed</a> with another <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a>, the result is not modified.</p>
 <pre><code class="r">identical(iris %&gt;&gt;% NULLCPO, iris)
 #&gt; [1] TRUE
 identical(cpoPca() %&gt;&gt;% NULLCPO, cpoPca())
@@ -565,9 +569,9 @@ identical(NULLCPO %&gt;&gt;% makeLearner(&quot;classif.logreg&quot;), makeLearne
 #&gt; 6    0.9119931   1.2587196    0.4083234    0.280810  setosa
 </code></pre>
 
-<p>This makes it possible to tune over many different <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> configurations at once.</p>
+<p>This makes it possible to <a href="../tune/index.html">tune</a> over many different <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> configurations at once.</p>
 <h3 id="cbind-cpo">CBind CPO</h3>
-<p><code>cbind</code> other <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a>s as operation. <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/cpoCbind.html"><code>cpoCbind</code></a> makes it possible to build <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a>s that perform different operations on data and paste the results next to each other.</p>
+<p>The operation of using <a href="http://www.rdocumentation.org/packages/base/functions/cbind.html"><code>cbind</code></a> on the result of multiple <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a>s. <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/cpoCbind.html"><code>cpoCbind</code></a> makes it possible to build <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a>s that perform different operations on data and paste the results next to each other.</p>
 <pre><code class="r">cbnd = cpoCbind(scaled = cpoScale(), pca = cpoPca())
 head(iris %&gt;&gt;% cbnd)
 #&gt;   scaled.Sepal.Length scaled.Sepal.Width scaled.Petal.Length
@@ -688,13 +692,13 @@ See <a href="http://www.rdocumentation.org/packages/mlrCPO/">mlrCPO</a> vignette
 #&gt;       length(unique(x)) &gt; 1
 #&gt;     }, data))
 #&gt;   }
-#&gt; &lt;environment: 0x55ec7377d058&gt;
+#&gt; &lt;environment: 0x55f52aa2a488&gt;
 #&gt; 
 #&gt; cpo.retrafo:
 #&gt; function(data, control) {
 #&gt;     data[control]
 #&gt;   }
-#&gt; &lt;environment: 0x55ec7377d058&gt;
+#&gt; &lt;environment: 0x55f52aa2a488&gt;
 </code></pre>
 
 <p>This <a href="http://www.rdocumentation.org/packages/mlrCPO/functions/CPO.html">CPO</a> can be used on the <a href="http://www.rdocumentation.org/packages/utils/functions/head.html"><code>head()</code></a> of the <a href="http://www.rdocumentation.org/packages/datasets/functions/iris.html"><code>iris</code></a> dataset. Since the "Species" entry for the first six rows of <a href="http://www.rdocumentation.org/packages/datasets/functions/iris.html"><code>iris</code></a> is constant, it is removed
