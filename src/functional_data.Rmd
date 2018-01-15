@@ -110,19 +110,19 @@ Applying learners to a [Task](&makeTask) works in two ways:
 
   + For regression:
   
-```{r}
-  ## The following learners can be used for the task.
-  listLearners(tsk1, properties = "functionals")
-  ## Create a FDboost learner
-  fdalrn = makeLearner("regr.FDboost")
-```
+  ```{r}
+    ## The following learners can be used for the task.
+    listLearners(tsk1, properties = "functionals")
+    ## Create a FDboost learner
+    fdalrn = makeLearner("regr.FDboost")
+  ```
   
   + Or alternatively for classification:
   
-```{r}
-  ## Knn learner
-  knn.lrn = makeLearner("classif.fdausc.knn")
-```
+  ```{r}
+    ## Knn learner
+    knn.lrn = makeLearner("classif.fdausc.knn")
+  ```
 
 * **Use a _standard_ [learner](&Learner)**: 
 In this case the temporal structure is disregarded, and the functional data treated as simple numeric features.
@@ -142,18 +142,13 @@ section below.
 
 ## Train the learner
 
-The resulting learner can now be trained on the task created in section [Creating a Task](functional_data.Rmd#creating-a-task) above. 
+The resulting [learner](&Learner) can now be trained on the task created in section [Creating a Task](functional_data.Rmd#creating-a-task) above. 
 
 ```{r, warning = FALSE}
 ## Train the fdalrn on the constructed task
 m = train(learner = fdalrn, task = tsk1)
 p = predict(m, tsk1)
 performance(p, rmse)
-```
-
-```{r}
-## Alternatively, we can simply resample (3-fold Cross-Validation)
-resample(fdalrn, tsk1, resampling = cv3, measures =  mse, show.info = FALSE)
 ```
 
 Alternatively, learners that do not specifically treat functional covariates can
@@ -239,7 +234,8 @@ For additional information, please consider the [Wrappers](wrapper.md#wrapper) s
 
 ```{r}
 ## Use a FDAFeatExtractWrapper
-feat.methods = list("UVVIS" = extractFDAMultiResFeatures(), "NIR" = extractFDAFourier())
+## In this case we extract the Fourier features from the NIR variable
+feat.methods = list("NIR" = extractFDAFourier())
 wrapped.lrn = makeExtractFDAFeatsWrapper("regr.rpart",  feat.methods = feat.methods)
 
 ## And run the learner
