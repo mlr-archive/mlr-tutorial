@@ -382,37 +382,37 @@ tsk1
 <code>makeLearner("regr.&lt;R_method_name&gt;")</code> depending on the target variable.</p>
 <p>Applying learners to a <a href="http://www.rdocumentation.org/packages/mlr/functions/makeTask.html">Task</a> works in two ways:</p>
 <ul>
-<li>
-<p><strong>Use a <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">learner</a> suitable for functional data</strong></p>
-</li>
-<li>
-<p>For regression:</p>
-</li>
+<li><strong>Use a <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">learner</a> suitable for functional data</strong></li>
+</ul>
+<pre><code class="r">## The following learners can be used for the task.
+listLearners(tsk1, properties = &quot;functionals&quot;)
+#&gt;              class                                        name  short.name
+#&gt; 1     regr.FDboost Functional linear array regression boosting     FDboost
+#&gt; 2 regr.featureless                      Featureless regression featureless
+#&gt;          package type installed numerics factors ordered missings weights
+#&gt; 1 FDboost,mboost regr      TRUE     TRUE   FALSE   FALSE    FALSE   FALSE
+#&gt; 2            mlr regr      TRUE     TRUE    TRUE    TRUE     TRUE   FALSE
+#&gt;    prob oneclass twoclass multiclass class.weights featimp oobpreds
+#&gt; 1 FALSE    FALSE    FALSE      FALSE         FALSE   FALSE    FALSE
+#&gt; 2 FALSE    FALSE    FALSE      FALSE         FALSE   FALSE    FALSE
+#&gt;   functionals single.functional    se lcens rcens icens
+#&gt; 1        TRUE             FALSE FALSE FALSE FALSE FALSE
+#&gt; 2        TRUE             FALSE FALSE FALSE FALSE FALSE
+#&gt; ... (#elements: 24)
+</code></pre>
+
+<ul>
+<li>For regression:</li>
 </ul>
 <p><code>r
-    ## The following learners can be used for the task.
-    listLearners(tsk1, properties = "functionals")
-  #&gt;              class                                        name  short.name
-  #&gt; 1     regr.FDboost Functional linear array regression boosting     FDboost
-  #&gt; 2 regr.featureless                      Featureless regression featureless
-  #&gt;          package type installed numerics factors ordered missings weights
-  #&gt; 1 FDboost,mboost regr      TRUE     TRUE   FALSE   FALSE    FALSE   FALSE
-  #&gt; 2            mlr regr      TRUE     TRUE    TRUE    TRUE     TRUE   FALSE
-  #&gt;    prob oneclass twoclass multiclass class.weights featimp oobpreds
-  #&gt; 1 FALSE    FALSE    FALSE      FALSE         FALSE   FALSE    FALSE
-  #&gt; 2 FALSE    FALSE    FALSE      FALSE         FALSE   FALSE    FALSE
-  #&gt;   functionals single.functional    se lcens rcens icens
-  #&gt; 1        TRUE             FALSE FALSE FALSE FALSE FALSE
-  #&gt; 2        TRUE             FALSE FALSE FALSE FALSE FALSE
-  #&gt; ... (#elements: 24)
-    ## Create a FDboost learner
-    fdalrn = makeLearner("regr.FDboost")</code></p>
+  ## Create a FDboost learner
+  fdalrn = makeLearner("regr.FDboost")</code></p>
 <ul>
 <li>Or alternatively for classification:</li>
 </ul>
 <p><code>r
-    ## Knn learner
-    knn.lrn = makeLearner("classif.fdausc.knn")</code></p>
+  ## Knn learner
+  knn.lrn = makeLearner("classif.fdausc.knn")</code></p>
 <ul>
 <li><strong>Use a <em>standard</em> <a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">learner</a></strong>:</li>
 </ul>
@@ -422,7 +422,7 @@ rpartlrn = makeLearner(&quot;classif.rpart&quot;)
 </code></pre>
 
 <ul>
-<li>Alternatively, transform the functional data into a non-temporal/non-functional space by <a href="../functional_data.Rmd#feature-extraction">extracting</a> features before training.
+<li>A third option is to transform the functional data into a non-temporal/non-functional domain by <a href="../functional_data.Rmd#feature-extraction">extracting</a> features before training.
 In this case, a normal regression- or classification-<a href="http://www.rdocumentation.org/packages/mlr/functions/Learner.html">learner</a> 
 can be applied.</li>
 </ul>
@@ -565,12 +565,12 @@ str(fdf)
 ## In this case we use column indices 
 tsk1 = makeRegrTask(&quot;fuelsubset&quot;, data = fdf, target = &quot;heatan&quot;) 
 tsk1 
-  ## The following learners can be used for the task. 
-  listLearners(tsk1, properties = &quot;functionals&quot;) 
-  ## Create a FDboost learner 
-  fdalrn = makeLearner(&quot;regr.FDboost&quot;) 
-  ## Knn learner 
-  knn.lrn = makeLearner(&quot;classif.fdausc.knn&quot;) 
+## The following learners can be used for the task. 
+listLearners(tsk1, properties = &quot;functionals&quot;) 
+## Create a FDboost learner 
+fdalrn = makeLearner(&quot;regr.FDboost&quot;) 
+## Knn learner 
+knn.lrn = makeLearner(&quot;classif.fdausc.knn&quot;) 
 ## Decision Tree learner 
 rpartlrn = makeLearner(&quot;classif.rpart&quot;) 
 ## Train the fdalrn on the constructed task 
