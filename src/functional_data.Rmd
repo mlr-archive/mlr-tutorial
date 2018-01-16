@@ -108,20 +108,23 @@ Applying learners to a [Task](&makeTask) works in two ways:
 
 * **Use a [learner](&Learner) suitable for functional data**
 
+```{r}
+## The following learners can be used for the task.
+listLearners(tsk1, properties = "functionals")
+```  
+
   + For regression:
   
   ```{r}
-    ## The following learners can be used for the task.
-    listLearners(tsk1, properties = "functionals")
-    ## Create a FDboost learner
-    fdalrn = makeLearner("regr.FDboost")
+  ## Create a FDboost learner
+  fdalrn = makeLearner("regr.FDboost")
   ```
   
   + Or alternatively for classification:
   
   ```{r}
-    ## Knn learner
-    knn.lrn = makeLearner("classif.fdausc.knn")
+  ## Knn learner
+  knn.lrn = makeLearner("classif.fdausc.knn")
   ```
 
 * **Use a _standard_ [learner](&Learner)**:
@@ -133,7 +136,7 @@ In this case the temporal structure is disregarded, and the functional data trea
 rpartlrn = makeLearner("classif.rpart")
 ```
 
-* Alternatively, transform the functional data into a non-temporal/non-functional space by [extracting](functional_data.Rmd#feature-extraction) features before training.
+* A third option is to transform the functional data into a non-temporal/non-functional domain by [extracting](functional_data.Rmd#feature-extraction) features before training.
 In this case, a normal regression- or classification-[learner](&Learner) 
 can be applied.
 
