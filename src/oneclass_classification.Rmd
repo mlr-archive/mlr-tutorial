@@ -49,8 +49,8 @@ task = makeOneClassTask(id = "oneclass", data = data, target = "Target", positiv
 ## the ratio of anomalies in the data, he/she should set predict.type to "prob" and adapt the predict.threshold variable
 lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "response")
 lrn.svm = makeLearner("oneclass.svm", predict.type = "response")
-lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob", k = 60, predict.threshold = 0.95)
-lrn.lof = makeLearner("oneclass.lof", predict.type = "prob", k = 60, predict.threshold = 0.95)
+lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob", k = 20, predict.threshold = 0.95)
+lrn.lof = makeLearner("oneclass.lof", predict.type = "prob",  predict.threshold = 0.95)
 ## sometimes the h2o learner are not computational stable, therefore add learner settings,
 ## e.g. l1, max_w2 etc.
 lrn.ae = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", predict.threshold = 0.95, 
