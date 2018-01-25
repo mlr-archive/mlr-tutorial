@@ -244,8 +244,8 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
-            <li><a href="#classification-84">Classification (84)</a></li>
-            <li><a href="#regression-61">Regression (61)</a></li>
+            <li><a href="#classification-85">Classification (85)</a></li>
+            <li><a href="#regression-62">Regression (62)</a></li>
             <li><a href="#survival-analysis-12">Survival analysis (12)</a></li>
             <li><a href="#cluster-analysis-9">Cluster analysis (9)</a></li>
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
@@ -263,7 +263,7 @@ weights are supported.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods specific to the
 type of learning task.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-84">Classification (84)</h3>
+<h3 id="classification-85">Classification (85)</h3>
 <p>For classification the following additional learner properties are relevant and shown in
 column <strong>Props</strong>:</p>
 <ul>
@@ -893,6 +893,17 @@ column <strong>Props</strong>:</p>
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>classif.mxff</strong> <br /> <em>mxff</em> <br /><br />Feedforward Neural Network</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mxnet/">mxnet</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left">Default of <code>learning.rate</code> set to <code>0.1</code>. Default of <code>array.layout</code> set to <code>'rowmajor'</code>.     Default of <code>verbose</code> is set to <code>FALSE</code>. If <code>symbol</code> is specified, it will be passed to mxnet     ignoring almost all other architectural specifications, the exception being that when convolution     is used in the symbol, <code>conv.layer1</code> has to be set to <code>TRUE</code> and <code>conv.data.shape</code> has to     be specified.     Default of <code>initializer</code> is set to NULL, which results in the default mxnet initializer being called when     training a model. Number of output nodes is detected automatically.     The upper bound for dropout is set to <code>1 - 1e-7</code> as in <code>mx.mlp</code>     in the <code>mxnet</code> package. If <code>dropout.global</code> is <code>TRUE</code>, the same dropout rate <code>dropout.input</code>     will be applied to the inputs and all the hidden layers. If <code>dropout.global</code> is <code>FALSE</code>,     <code>dropout.input</code> will be applied to the inputs, and the different <code>dropout.layer</code> parameters to     their respective layers.     <code>batch.normalization</code> specifies whether batch normalization should be used in all hidden layers.     If <code>batch.normalization</code> is set to <code>FALSE</code>, <code>batch.normalization1</code> specifies whether batch     normalization should be used in the first hidden layer,     <code>batch.normalization2</code> and <code>batch.normalization3</code> are defined accordingly.     If <code>conv.layer1</code> is <code>FALSE</code>, the first layer is a <code>FullyConnected</code> layer and <code>num.layer1</code> gives     the number of neurons. If <code>conv.layer1</code> is <code>TRUE</code>, then <code>num.layer1</code> gives the number of     filters. In this case, <code>act1</code> is applied as an <code>Activation</code> layer afterwards (as is the case     with a <code>FullyConnected</code> layer).     This is the same for <code>conv.layer2</code> and <code>conv.layer3</code>. A <code>Convolution</code>     layer cannot follow a <code>FullyConnected</code> layer. To stick with the example of the first layer,     <code>conv.kernel1</code>, <code>conv.stride1</code>,     <code>conv.dilate1</code> and <code>conv.pad1</code> correspond to the parameters     of <code>mx.symbol.Convolution</code>. When a <code>Convolution</code> layer is constructed, a <code>Pooling</code> layer is     constructed with it automatically. Again sticking to the example of the first layer,     <code>pool.kernel1</code>, <code>pool.stride1</code>, <code>pool.pad1</code>     and <code>pool.type1</code> correspond to the parameters in <code>mx.symbol.Pooling</code>.     When convolution is used, <code>conv.data.shape</code> needs to be specified, which is a vector giving the     dimensionality of the data (e.g. for MNIST <code>c(28, 28)</code> or <code>c(28, 28, 1) and for CIFAR10</code>c(28, 28, 3)<code>). Furthermore,</code>array.layout<code>is set to</code>colmajor<code>if convolution is used, to     enable compatability with</code>mxnet<code>. When using convolution,</code>mx.model.FeedForward.create<code>expects the array containing the data to have</code>4<code>dimensions.     To allow for flexibility,</code>conv.data.shape<code>can have length</code>1<code>to</code>4<code>, the dimensions are     taken in ascending order. For common cases, giving an</code>conv.data.shape<code>of length</code>2<code>or</code>3<code>is     sufficient.</code>validation.ratio<code>gives the ratio of training data that will not     be used for training but as validation data similar to the data provided in</code>eval.data<code>.     If</code>eval.data<code>is specified,</code>validation.ratio<code>will be ignored. Note that</code>eval.data<code>is passed     to</code>mx.model.FeedForward.create<code>unchanged to provide unconstrained usability of the underlying     learner. In particular, this implies that</code>array.layout<code>is not adapted when using convolution,     so</code>eval.data<code>needs to be provided in the right format.     If</code>validation.ratio<code>is specified, it is sampled randomly using</code>R<code>'s</code>sample<code>.     If</code>early.stop.badsteps<code>is specified and</code>epoch.end.callback<code>is not specified,     early stopping will be used using</code>mx.callback.early.stop<code>as</code>epoch.end.callback<code>with the     learner's</code>eval.metric<code>. In this case,</code>early.stop.badsteps<code>gives the number of</code>bad.steps<code>in</code>mx.callback.early.stop<code>and</code>early.stop.maximize<code>gives the</code>maximize<code>parameter in</code>mx.callback.early.stop<code>. Please note that when using</code>early.stop.badsteps<code>,</code>eval.metric<code>and     either</code>eval.data<code>or</code>validation.ratio` should be specified.</td>
+</tr>
+<tr>
 <td align="left"><strong>classif.naiveBayes</strong> <br /> <em>nbayes</em> <br /><br />Naive Bayes</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/e1071/">e1071</a></td>
 <td align="center">X</td>
@@ -1213,7 +1224,7 @@ column <strong>Props</strong>:</p>
 </tr>
 </tbody>
 </table>
-<h3 id="regression-61">Regression (61)</h3>
+<h3 id="regression-62">Regression (62)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1727,6 +1738,17 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="left"></td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>regr.mxff</strong> <br /> <em>mxff</em> <br /><br />Feedforward Neural Network</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mxnet/">mxnet</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">se</td>
+<td align="left">Default of <code>learning.rate</code> set to <code>0.1</code>. Default of <code>array.layout</code> set to <code>'rowmajor'</code>.     Default of <code>verbose</code> is set to <code>FALSE</code>. If <code>symbol</code> is specified, it will be passed to mxnet     ignoring other architectural specifications. Default of <code>initializer</code> is set to NULL, which     results in the default mxnet initializer being called when training a model. Number of output     nodes is detected automatically. The upper bound for dropout is set to <code>1 - 1e-7</code> as in <code>mx.mlp</code>     in the <code>mxnet</code> package. If <code>dropout.global</code> is <code>TRUE</code>, the same dropout rate <code>dropout.input</code>     will be applied to the inputs and all the hidden layers. If <code>dropout.global</code> is <code>FALSE</code>,     <code>dropout.input</code> will be applied to the inputs, and the different <code>dropout.layer</code> parameters to     their respective layers. <code>dropout.mode</code> specifies if dropout should only be used in training or     also for predictions, which allows stochastic predictions. This can be controlled for <code>se</code> with <code>dropout.predict.repls</code>.     If <code>conv.layer1</code> is <code>FALSE</code>, the first layer is a <code>FullyConnected</code> layer and <code>num.layer1</code> gives     the number of neurons. If <code>conv.layer1</code> is <code>TRUE</code>, then <code>num.layer1</code> gives the number of     filters. In this case, <code>act1</code> is applied as an <code>Activation</code> layer afterwards (as is the case     with a <code>FullyConnected</code> layer).     This is the same for <code>conv.layer2</code> and <code>conv.layer3</code>. A <code>Convolution</code>     layer cannot follow a <code>FullyConnected</code> layer. To stick with the example of the first layer,     <code>conv.kernel1</code>, <code>conv.stride1</code>,     <code>conv.dilate1</code> and <code>conv.pad1</code> correspond to the parameters     of <code>mx.symbol.Convolution</code>. When a <code>Convolution</code> layer is constructed, a <code>Pooling</code> layer is     constructed with it automatically. Again sticking to the example of the first layer,     <code>pool.kernel1</code>, <code>pool.stride1</code>, <code>pool.pad1</code>     and <code>pool.type1</code> correspond to the parameters in <code>mx.symbol.Pooling</code>.     When convolution is used, <code>conv.data.shape</code> needs to be specified, which is a vector giving the     dimensionality of the data (e.g. for MNIST <code>c(28, 28)</code> or <code>c(28, 28, 1) and for CIFAR10</code>c(28, 28, 3)<code>). Furthermore,</code>array.layout<code>is set to</code>colmajor<code>if convolution is used, to     enable compatability with</code>mxnet<code>. When using convolution,</code>mx.model.FeedForward.create<code>expects the array containing the data to have</code>4<code>dimensions.     To allow for flexibility,</code>conv.data.shape<code>can have length</code>1<code>to</code>4<code>, the dimensions are     taken in ascending order. For common cases, giving an</code>conv.data.shape<code>of length</code>2<code>or</code>3<code>is     sufficient.</code>validation.ratio<code>gives the ratio of training data that will not     be used for training but as validation data similar to the data provided in</code>eval.data<code>.     If</code>eval.data<code>is specified,</code>validation.ratio<code>will be ignored. Note that</code>eval.data<code>is passed     to</code>mx.model.FeedForward.create<code>unchanged to provide unconstrained usability of the underlying     learner. In particular, this implies that</code>array.layout<code>is not adapted when using convolution,     so</code>eval.data<code>needs to be provided in the right format.     If</code>validation.ratio<code>is specified, it is sampled randomly using</code>R<code>'s</code>sample<code>.     If</code>early.stop.badsteps<code>is specified and</code>epoch.end.callback<code>is not specified,     early stopping will be used using</code>mx.callback.early.stop<code>as</code>epoch.end.callback<code>with the     learner's</code>eval.metric<code>. In this case,</code>early.stop.badsteps<code>gives the number of</code>bad.steps<code>in</code>mx.callback.early.stop<code>and</code>early.stop.maximize<code>gives the</code>maximize<code>parameter in</code>mx.callback.early.stop<code>. Please note that when using</code>early.stop.badsteps<code>,</code>eval.metric<code>and     either</code>eval.data<code>or</code>validation.ratio` should be specified.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.nnet</strong> <br /> <em>nnet</em> <br /><br />Neural Network</td>
