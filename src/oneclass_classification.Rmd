@@ -1,3 +1,10 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
 # One-Class Classification
 
 *Regular classification* or *cost-sensitive classification* are supervised learning methods: *class labels are given* for each observation and are used to train the model. Classification methods, therefore, are provided with the information of which observations belongs to which class and thus can learn class patterns and apply those to new data. To learn the patterns for the classes a sufficient number of observations in each class is required and (nearly) balanced class sizes.
@@ -40,21 +47,25 @@ test.set = 551:1050
 ## For one-class classification, unlike other learning problem, the label names of the 
 ## positive/anomaly and negative/normal class needs to be provided.
 ## Note, the target column is not used for training only for evaluating
-task = makeOneClassTask(id = "oneclass", data = data, target = "Target", positive = "Anomaly", negative = "Normal")
+task = makeOneClassTask(id = "oneclass", data = data, target = "Target", 
+  positive = "Anomaly", negative = "Normal")
 
 ## 2) Define the learner
 ## Currently four methods are implemented for one-class classification
 ## All learner can have the predicted type response or probability
-## per default the predict.threshold is set to the 95%-quantile, but if the user have information about
-## the ratio of anomalies in the data, he/she should set predict.type to "prob" and adapt the predict.threshold variable
-lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "response")
+## per default the predict.threshold is set to the 95%-quantile, but if the user have 
+## information about the ratio of anomalies in the data, he/she should set predict.type 
+## to "prob" and adapt the predict.threshold variable
+lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "prob")
 lrn.svm = makeLearner("oneclass.svm", predict.type = "response")
-lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob", k = 20, predict.threshold = 0.95)
-lrn.lof = makeLearner("oneclass.lof", predict.type = "prob",  predict.threshold = 0.95)
+lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob", 
+  k = 20, predict.threshold = 0.95)
+lrn.lof = makeLearner("oneclass.lof", predict.type = "prob",  
+  predict.threshold = 0.95)
 ## sometimes the h2o learner are not computational stable, therefore add learner settings,
 ## e.g. l1, max_w2 etc.
-lrn.ae = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", predict.threshold = 0.95, 
-  activation = "Tanh", reproducible = TRUE, l2 = 1e-5, sparse = TRUE, max_w2 = 10)
+lrn.ae = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", activation = "Tanh",
+  predict.threshold = 0.95,  reproducible = TRUE, l2 = 1e-5, sparse = TRUE, max_w2 = 10)
 
 ## 3) Fit the model
 ## The model is fitted ignoring that labels are provided (more information later)
@@ -62,47 +73,55 @@ mod.ksvm = train(lrn.ksvm, task, subset = train.set)
 mod.svm = train(lrn.svm, task, subset = train.set)  
 mod.lofactor = train(lrn.lofactor, task, subset = train.set)  
 mod.lof = train(lrn.lof, task, subset = train.set)  
-mod.ae = train(lrn.ae, task, subset = train.set)  
+#mod.ae = train(lrn.ae, task, subset = train.set)  
 
 ## 4) Make predictions
-## If predict.type = "prob", observation with high probability are more likely to be anomalous
+## If predict.type = "prob", observation with high probability 
+## are more likely to be anomalous
 pred.ksvm = predict(mod.ksvm, task, subset = test.set)
 pred.svm = predict(mod.svm, task, subset = test.set)
 pred.lofactor = predict(mod.lofactor, task, subset = test.set)
 pred.lof = predict(mod.lof, task, subset = test.set)
-pred.ae = predict(mod.ae, task, subset = test.set)
+#pred.ae = predict(mod.ae, task, subset = test.set)
 
 ## 5) Evaluate the learner
-## The provided labels are now used to evaluate the models above using measurement for binary classification
-performance(pred.ksvm, measures = list(bac, f1, mmce))
+## The provided labels are now used to evaluate the models above using measurement 
+## for binary classification
+performance(pred.svm, measures = list(bac, f1, mmce))
 
-## additional measurement for evaluating anomaly detection methods using labels are also implemented in R
+## additional measurement for evaluating anomaly detection methods using labels are 
+## also implemented in R
 ## for using those measurement, create them first
 rprecision = makePrecisionMeasure(id = "RPrecision", type = "rprecision", adjusted = FALSE)
-precisionat5 = makePrecisionMeasure(id = "Precisionat5", p = 5, type = "precisionatp", adjusted = FALSE)
-avgprecision = makePrecisionMeasure(id = "AvgPrecision", type = "avgprecision", adjusted = FALSE)
+precisionat5 = makePrecisionMeasure(id = "Precisionat5", p = 5, 
+  type = "precisionatp", adjusted = FALSE)
+avgprecision = makePrecisionMeasure(id = "AvgPrecision", 
+  type = "avgprecision", adjusted = FALSE)
 wac = makeWACMeasure(id = "wac", w = 0.6) #weight of the anomaly class is set to 0.6
 
 performance(pred.svm, measures = list(rprecision, precisionat5, avgprecision, wac))
 performance(pred.lofactor, measures = list(rprecision, precisionat5, avgprecision, wac))
 performance(pred.lof, measures = list(rprecision, precisionat5, avgprecision, wac))
 
-## additional measurement for evaluating anomaly detection methods without using labels are also implemented in R
-## for using those measurement, create them first (here for demonstration purpose set low n.alpha and n.sim)
+## additional measurement for evaluating anomaly detection methods without using labels 
+## are also implemented in R for using those measurement, create them first 
+## (here for demonstration purpose set low n.alpha and n.sim)
 ## for dimension <= 8 use makeAMVMeasure
 amv = makeAMVMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim = 100)
 ## for dimension > 8 use makeAMVhdMeasure
 amvhd = makeAMVhdMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim = 100)
 
-performance(model = mod.ae, pred = pred.ae, task = task, measures = list(amv))
+performance(model = mod.lof, pred = pred.lof, task = task, measures = list(amv))
 ```
 
 If one only has a few data sets without labels, it is recommended to plot the probability and set the threshold manually.
 ```{r, out.width = '75%'}
 par(mfrow = c(1,2))
 n = length(pred.lofactor$data$prob.Anomaly)
-plot(1:n, pred.lofactor$data$prob.Anomaly, main = "lofactor", ylab = "probability for anomaly", xlab = "observation")
-plot(1:n, pred.ae$data$prob.Anomaly, main = "autoencoder", ylab = "probability for anomaly", xlab = "observation")
+plot(1:n, sort(pred.lofactor$data$prob.Anomaly), main = "lofactor", las = 1,
+  ylab = "probability for anomaly", xlab = "observation")
+plot(1:n, sort(pred.ksvm$data$prob.Anomaly), main = "one-class svm", las = 1,
+  ylab = "probability for anomaly", xlab = "observation")
 ```
 
 ## Create a task
@@ -117,7 +136,8 @@ data = getTaskData(oneclass2d.task)
 train.set = 1:550
 test.set = 551:1050
 
-task = makeOneClassTask(id = "oneclass", data = data, target = "Target", positive = "Anomaly", negative = "Normal")
+task = makeOneClassTask(id = "oneclass", data = data, target = "Target", 
+  positive = "Anomaly", negative = "Normal")
 task
 ```
 In contrast to other learning problem, you *always* need to specify which column is the label/target column and which label stands for the *anomaly* class (positive) and which for the *normal* class (negative). As already mentioned above one-class classification only trains on one-class, the normal class, so you need to tell [%mlr] what the other class is. 
@@ -149,9 +169,9 @@ The anomaly scores, also called decision values are the distance between the cor
 A special case of a neural network is an autoencoder, applicable to unsupervised learning. The main idea of an autoencoder is to set the output data identical to the input data in the neural network and to train the model to reconstruct the input, with the objective to minimize the reconstruction error [Dau et al.2014, p.314]. But this approach requires to only use the data with the normal class in the training, to make sure the network learn the characteristics of the normal class and therefore classifies previously unseen observations which match the normal pattern as normal otherwise as anomalies [Dau et al. 2014, p.311]. In **R** the package [%h2o] provides an algorithm for an autoencoder. Unlike [%h2o], in [%mlr] you can currently specify up to five layers, by first setting the number of layers in the *layer* parameter and for each layer the number of nodes with *nodes1*, *nodes2*, *nodes3*. Check [%h2o] for more information on the other parameter specification.
 
 ```{r}
-lrn.h2o = makeLearner("oneclass.h2o.autoencoder", par.vals = list(reproducible = T, seed = 1234), 
-  predict.type = "prob", predict.threshold = 0.95, reproducible = TRUE, 
-  layers = 2, nodes1 = 20, nodes2 = 10,  
+lrn.h2o = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob",
+  par.vals = list(reproducible = T, seed = 1234),  predict.threshold = 0.95, 
+  reproducible = TRUE, layers = 2, nodes1 = 20, nodes2 = 10,  
   # following settings were made to stabilise the model
   activation = "Tanh", l2 = 1e-5, sparse = TRUE, max_w2 = 10)
 lrn.h2o
@@ -180,7 +200,7 @@ mod.ksvm = train(lrn.ksvm, task, subset = train.set)
 mod.svm = train(lrn.svm, task, subset = train.set)
 mod.lofactor = train(lrn.lofactor, task, subset = train.set)  
 mod.lof = train(lrn.lof, task, subset = train.set)  
-mod.ae = train(lrn.ae, task, subset = train.set) 
+#mod.ae = train(lrn.ae, task, subset = train.set) 
 ```
 
 ## Predict
@@ -188,7 +208,7 @@ Prediction can be done as usual in [%mlr] with [predict](&predict.WrappedModel) 
 ```{r, results='hide'}
 pred.ksvm = predict(mod.ksvm, task, subset = test.set)
 pred.svm = predict(mod.svm, task, subset = test.set)
-pred.ae = predict(mod.ae, task, subset = test.set)
+#pred.ae = predict(mod.ae, task, subset = test.set)
 ```
 
 The training of LOF in [&mlr] is different than the other learners, in the way that the (&train) and the (&test) function are independent. Which means that the (&train) function returns a prediction of the train data and the (&test) functions return a prediction of the test data based on the test data themselves, without needing the trained model. [&mlr] returns a message to notify the user.
@@ -215,23 +235,27 @@ performance(pred.svm, measures = list(wac))
 
 Further measurements, specialising on evaluating anomaly detection models with given labels are *R-Precision measure/top p-accuracy*, *precision at p* and *average precision* (see [Campos et al., 2016]). For using this measures, you need to create them first with [&makePrecisionMeasure]. More information is in [Campos et al., 2016] and the help page [&makePrecisionMeasure]. All three measures return values between 0 and 1, whereas 1 indicates perfect prediction.
 ```{R}
-## additional measurement for evaluating anomaly detection methods using labels are also implemented in R
-## for using those measurement, create them first
-rprecision = makePrecisionMeasure(id = "RPrecision", type = "rprecision", adjusted = FALSE)
-precisionat5 = makePrecisionMeasure(id = "Precisionat5", p = 5, type = "precisionatp", adjusted = FALSE)
-avgprecision = makePrecisionMeasure(id = "AvgPrecision", type = "avgprecision", adjusted = FALSE)
+## additional measurement for evaluating anomaly detection methods using labels 
+## are also implemented in R for using those measurement, create them first
+rprecision = makePrecisionMeasure(id = "RPrecision", 
+  type = "rprecision", adjusted = FALSE)
+precisionat5 = makePrecisionMeasure(id = "Precisionat5", p = 5, 
+  type = "precisionatp", adjusted = FALSE)
+avgprecision = makePrecisionMeasure(id = "AvgPrecision", 
+  type = "avgprecision", adjusted = FALSE)
 
 performance(pred.lof, measures = list(rprecision, precisionat5, avgprecision))
 ```
 In case no labels are available, the previously introduces measures are not applicable. In that case [&mlr] provides the *Area under the Mass-Volume Curve (AMV)* measurement according to [Thomas et al., 2016] for dimension smaller than eight. This measure needs be created with [&makeAMVMeasure]. For datasets with greater dimension than eight [&mlr] provides the *Area under the Mass-Volume Curve for high dimensional data (AMVhd)* according to [Goix, 2016], analogous use [&makeAMVhdMeasure] to create the measurement. More information is provided in the named paper and the help page [&makeAMVMeasure] and [&makeAMVhdMeasure].
 ```{R}
-## additional measurement for evaluating anomaly detection methods without using labels are also implemented in R
-## for using those measurement, create them first (here for demonstration purpose set low n.alpha and n.sim)
+## additional measurement for evaluating anomaly detection methods without using labels
+## are also implemented in R for using those measurement, create them first 
+## (here for demonstration purpose set low n.alpha and n.sim)
 ## for dimension <= 8 use makeAMVMeasure
 amv = makeAMVMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim = 100)
 ## for dimension > 8 use makeAMVhdMeasure
 amvhd = makeAMVhdMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim = 100)
-performance(model = mod.ae, pred = pred.ae, task = task, measures = list(amv))
+performance(model = mod.lof, pred = pred.lof, task = task, measures = list(amv))
 ```
 
 
@@ -242,22 +266,24 @@ A challenge in anomaly detection is to tune hyperparameters. If you have data wi
 For one-class classification tuning you can use the standard [resampling strategy] (resample.md#defining-the-resampling-strategy), especially if you don't have labels. But if you have labels it is recommended to use one of the resampling strategies designed for the one-class classification task, which are: ``OCHoldhout``, ``OCCV``, ``OCSubsample``, ``OCBootsrap``, ``OCRepCV``, to assure to only have normal data during the training. ``OCHoldhout``,``OCSubsample``, and ``OCBootsrap`` are basically sampling only normal observations for the training data set and the remaining observations, including all anomalies, are used for testing. ``OCCV`` and ``OCRepCV`` split the anomalous observations in k-folds, dropping the anomalies in the used fold for training. These strategies can be called as usual in [&mlr] with the [&makeResampleDesc] function.
 ```{r}
 # Set outer resampling strategy
-outer = makeResampleDesc("OCBootstrap", iters = 3)
+outer = makeResampleDesc("OCCV", iters = 3)
 rin = makeResampleInstance(outer, oneclass2d.task)
 
 # Set inner resampling strategy
-inner = makeResampleDesc("CV", iters = 3)
+inner = makeResampleDesc("OCCV", iters = 3)
 ```
 
 ### Specifying the optimization algorithm
 For tuning an anomaly detection learner, you need to always create a learner with a ``prob`` output. In case you want to tune an anomaly learner using
 
-*1.  a supervised measurement (e.g. ``f1`` or ``average precision``), needs predicted labels, as those measures based on the number of correct predicted anomalies or true predicted normal points. These classes are set by applying a threshold to the probability output. The threshold can vary, therefore you should tune the threshold. 
+*1.  a supervised measurement (e.g. ``auc`` or ``average precision``), needs predicted labels, as those measures based on the number of correct predicted anomalies or true predicted normal points. These classes are set by applying a threshold to the probability output. The threshold can vary, therefore you should tune the threshold. ()
 
 *2. an unsupervised measurement like ``avm`` or ``amvhd``, no threshold-tuning is needed, but the algorithm of those measures are based on an anomaly scores, which is the probability output in [&mlr]
 ```{r}
-# Set search strategy (maxit is low to run this example)
-ctrl = makeTuneControlRandom(maxit = 5L, tune.threshold = TRUE)
+# Set search strategy with threshold tunung (maxit is low to run this example)
+# ctrl = makeTuneControlRandom(maxit = 2L, tune.threshold = TRUE)
+# For a shorter runtime in the example, tune.threshold = FALSE
+ctrl = makeTuneControlRandom(maxit = 2L, tune.threshold = FALSE)
 ```
  
 ### Performing the benchmark experiment
@@ -268,8 +294,10 @@ For conducting a benchmark experiment with three learners, you need to specify t
 ps.svm = makeParamSet(
   makeNumericParam("nu",  lower = 0.01, upper = 0.99),
   makeDiscreteParam("kernel", values = c("linear", "polynomial", "radial", "sigmoid")),
-  makeIntegerParam("degree", lower = 1L, upper = 4L, requires = quote(kernel == "polynomial")),
-  makeNumericParam("coef0", lower = 0, upper = 3, requires = quote(kernel == "polynomial" || kernel == "sigmoid"))
+  makeIntegerParam("degree", lower = 1L, upper = 4L, 
+    requires = quote(kernel == "polynomial")),
+  makeNumericParam("coef0", lower = 0, upper = 3, 
+    requires = quote(kernel == "polynomial" || kernel == "sigmoid"))
 )
 
 ### parameter for lofactor
@@ -286,12 +314,17 @@ For the *oneclass.ksvm* learner there is an exception for setting the search spa
 ps.ksvm = makeParamSet(
   makeNumericParam("nu",  lower = 0.01, upper = 0.99),
   makeDiscreteParam("kernel", values = c("vanilladot", "polydot", "rbfdot", "tanhdot")),
-  makeIntegerParam("degree", lower = 1L, upper = 4L, requires = quote(kernel %in% c("polydot", "anovadot", "besseldot"))),
+  makeIntegerParam("degree", lower = 1L, upper = 4L, 
+    requires = quote(kernel %in% c("polydot", "anovadot", "besseldot"))),
   # for sigma 
-  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 10^x, require = quote(kernel %in% c("rbfdot", "anovadot", "besseldot", "laplacedot"))),
-  makeNumericParam("scale", lower = 0, upper = 1, requires = quote(kernel %in% c("polydot", "tanhdot"))),
-  makeNumericParam("offset", lower = 0, upper = 3, requires = quote(kernel %in% c("polydot", "tanhdot"))),
-  makeIntegerParam(id = "order", lower = 1, upper = 3, requires = quote(kernel == "besseldot"))
+  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 10^x, 
+    require = quote(kernel %in% c("rbfdot", "anovadot", "besseldot", "laplacedot"))),
+  makeNumericParam("scale", lower = 0, upper = 1, 
+    requires = quote(kernel %in% c("polydot", "tanhdot"))),
+  makeNumericParam("offset", lower = 0, upper = 3, 
+    requires = quote(kernel %in% c("polydot", "tanhdot"))),
+  makeIntegerParam(id = "order", lower = 1, upper = 3, 
+    requires = quote(kernel == "besseldot"))
 )
 ```
 There is also an exception for the *oneclass.h2o.autoencoder*. [&mlr] enables to tune for number of layers and nodes up to three layers.
@@ -308,32 +341,35 @@ ps.h2o = makeParamSet(
 ```
 
 After defining the search space for the learners, set the learners and apply the tuning wrapper like section [Benchmark Experiment](benchmark_experiments.md#tuning).
-```{r}
+```{r, results='hide', warning=FALSE, message= FALSE}
 # make lofactor learner and tunewrapper
 lrn.svm = makeLearner("oneclass.svm", predict.type = "prob")
-lrn.svm = makeTuneWrapper(lrn.svm, resampling = inner, par.set = ps.svm, measures = list(f1),
-  control = ctrl, show.info = FALSE)
+lrn.svm = makeTuneWrapper(lrn.svm, resampling = inner, par.set = ps.svm, 
+  measures = list(auc), control = ctrl, show.info = FALSE)
 
 # make lofactor learner and tunewrapper
 lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "prob")
-lrn.ksvm = makeTuneWrapper(lrn.ksvm, resampling = inner, par.set = ps.ksvm, measures = list(f1),
-  control = ctrl, show.info = FALSE)
+lrn.ksvm = makeTuneWrapper(lrn.ksvm, resampling = inner, par.set = ps.ksvm, 
+  measures = list(auc), control = ctrl, show.info = FALSE)
 
 # make lofactor learner and tunewrapper
 lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob")
-lrn.lofactor = makeTuneWrapper(lrn.lofactor, resampling = inner, par.set = ps.lofactor, measures = list(f1),
- control = ctrl, show.info = FALSE)
+lrn.lofactor = makeTuneWrapper(lrn.lofactor, resampling = inner, par.set = ps.lofactor, 
+  measures = list(auc), control = ctrl, show.info = FALSE)
 
-# make autoencoder learner and tunewrapper
-lrn.h2o = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", activation = "Tanh", 
-  reproducible = TRUE, mini_batch_size = 4, loss = "Quadratic", adaptive_rate = TRUE, l2=1e-5, 
-  sparse = TRUE, max_w2=10, train_samples_per_iteration = -1)
-lrn.h2o = makeTuneWrapper(lrn.h2o, resampling = inner, par.set = ps.h2o, measures = list(f1),
-  control = ctrl, show.info = FALSE)
+# make autoencoder learner and tunewrapper                        
+lrn.h2o = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", loss = "Quadratic",
+  activation = "Tanh", reproducible = TRUE, mini_batch_size = 4,  adaptive_rate = TRUE, 
+  l2=1e-5, sparse = TRUE, max_w2=10, train_samples_per_iteration = -1)
+lrn.h2o = makeTuneWrapper(lrn.h2o, resampling = inner, par.set = ps.h2o, 
+  measures = list(auc), control = ctrl, show.info = FALSE)
 
-lrns = list(lrn.svm, lrn.ksvm, lrn.h2o, lrn.lofactor, lrn.lof)
-res = benchmark(lrns, oneclass2d.task, rin, measures = list(f1))
+# lrn.h2o is not executed here due to runtime constrains
+lrns = list(lrn.svm, lrn.ksvm, lrn.lofactor, lrn.lof)
+res = benchmark(lrns, tasks = list(task), resamplings =  rin, measures = list(auc))
 bmr = getBMRPerformances(res, as.df = TRUE)
+```
+```{r}
 bmr
 ```
 
