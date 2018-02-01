@@ -7,76 +7,95 @@ output:
 
 # One-Class Classification
 
-*Regular classification* or *cost-sensitive classification* are supervised learning methods: *class labels are given* for each observation and are used to train the model. Classification methods, therefore, are provided with the information of which observations belongs to which class and thus can learn class patterns and apply those to new data. To learn the patterns for the classes a sufficient number of observations in each class is required and (nearly) balanced class sizes.
+*Regular classification* or *cost-sensitive classification* are supervised
+learning methods: *class labels are given* for each observation and used to
+train the model. Classification methods, therefore, are provided with the
+information on which observations belong to which class and thus can learn class patterns and apply those to new data. To learn the patterns for the classes a sufficient number of observations in each class is required and (nearly) balanced class sizes.
 
-But what if there are no labels in the data?
+In case of not having labels you can probably use *cluster* methods.
+In case of having unbalanced class sizes you can use  [special sample techniques](over_and_undersampling.md#imbalanced-classification-problems).
+But if you don't have labels, and highly unbalanced class sizes you probably want to apply *Anomaly Detection Methods*.
 
-And what if the class sizes are unbalanced?
+An *anomaly* is "something that deviates from what is standard, normal, or
+expected" [Oxford English Dictionary]. In the context of data, anomalies are
+observations, that deviate from the majority of the data [Amer et al., 2013, p.1].
+In different application domains anomalies are also referred to as *outliers*,
+*discordant observations*, *exceptions*, *aberrations*, *surprises*,
+*peculiarities*, *contaminants* [Chandola et al., 2009, p.1], *novelties*,
+*noise* or *deviations* [Dau et al., 2014, p.2].
 
-And what if the classes are not just unbalanced, but one class has very a small number of observations?
+The goal of outlier/anomaly detection is to identify observations that don't
+conform to an expected pattern [Chandola et al., 2009, p.1],
+[Hodge and Austin, 2004, p.1], [Dau et al., 2014, p.1].
 
-If only the first question is true for your data, you can probably use *cluster* methods, if only the second question is true you can use  [special sample techniques](over_and_undersampling.md#imbalanced-classification-problems). But if all questions are true for your data, you probably want to apply *Anomaly Detection methods*.
-
-An *anomaly* is "something that deviates from what is standard, normal, or expected"
-[Oxford English Dictionary]. In the sense of data, anomalies are observations, that deviate from the majority of the data [Amer et al., 2013, p.1]. In different application domains anomalies are
-also referred to as *outliers*, *discordant observations*, *exceptions*, *aberrations*, *surprises*, *peculiarities*, *contaminants* [Chandola et al., 2009, p.1], *novelties*, *noise* or *deviations* [Dau et al., 2014, p.2].
-
-The goal of outlier/anomaly detection is to identify observations which di do not conform to an expected pattern [Chandola et al., 2009, p.1] [Hodge and Austin, 2004, p.1] [Dau et al., 2014, p.1]. 
-
-A special case of *Anomaly Detection* is the *one-class classification*. As the name *one-class learning* already says, the problem is that most of the time we only observe measurements/data of one class, namely the *normal* class. Especially in real-world scenarios, it is easy to collect the normal situation, for example, production machines are probably nearly always run as it should, aircraft machinery works like it should and so on. It is hard to simulate the situation which is not normal, and even if we would be able to simulate this situation, we wouldn’t know if we cover all possible situations of anomalies, since anomalies can be of diverse nature.
+A special case of *Anomaly Detection* is the *one-class classification*.
+As the name *one-class learning* suggests, the method is designed for situations
+were we only observe data of one class, the *normal* class. This is called the *semi-supervised* setting.
+In many real-world applications, it is easy to collect normal data, for example, production machines almost always run as expected. It is hard to simulate the situation which is not normal, and even if
+we would be able to simulate this situation, we wouldn’t know if we cover all
+possible situations of anomalies, since anomalies can deviate from normal
+observations in many different ways.
 
 ## One-class classification
 
-As described in the previous section *one-class classification* is a *semi-supervised* learning approach. A requirement to apply *one-class classification* methods is to have training data, that consist only consists of *normal* observations (therefore *semi-supervised*). The basic idea of one-class classification is to describe/find/learn the behaviour of normal data and use this description of normality for detecting further anomalies. An anomaly is thus predicted as the deviation from this learned behaviour. Description of normal behaviour is depended on the method used for anomaly detection. Several methods exist based on support vector machines (e.g. *one-class svm*), density (e.g. *lof* or *svm*), correlation, cluster analysis, neural networks (e.g. *autoencoder*) or ensemble techniques. 
+Since *one-class classification* is a *semi-supervised* learning approach, a requirement to apply *one-class classification* methods is to have training data that only consists of normal observations. The basic idea is to learn the behaviour of normal data and use this description of
+normality to detect anomalies. Description of normal behaviour is dependend on the method used for anomaly detection. An anomaly is likely to deviate from this learned behaviour.
 
-Unfortunately, in real life settings, there is usually no way to test, if any or all anomalies were detected, as usually labels are not given. In [%mlr] a new class is introduced to handle anomalies and also to test the methods, in case benchmark data are used or labels do exist. This necessary to provide reproducibility of the experiments and comparability of the methods.
+Methods for one-class classification include support vector machines (e.g. *One-Class SVM*), density based methods, cluster analysis, neural networks (e.g., *autoencoder*) and ensemble techniques.
+Anomaly detection for the case of not having data at all are called unsupervised methods, e.g. *Local Outlier Factor (LOF)*.
+
+*One-Class SVM* (learner ID ``oneclass.svm`` and ``oneclass.ksvm``), *autoenoceder* (learner ID ``oneclass.h2o.autoencoder``) and *LOF* (learner ID ``oneclass.lof`` and ``oneclass.lofactor``) are implemented in [%mlr].
+
+Unfortunately, in real life settings, there is usually no way to know or test, if any or all anomalies were detected, as labels are usually not given. If labels are available for testing, the user can pass it to the model in [%mlr].
 
 ## Quick start
 Here we show the [%mlr] workflow to train, make predictions, and evaluate a learner on a one-class classification problem. More details on each step are provided later.
 
-```{r, results='hide', warning = FALSE}
+```{r, results='hide', warning = FALSE, message = FALSE}
 devtools::install_github("mlr-org/mlr", ref = "oneclass_lof_dbscan")
+```
+```{r, results='hide', warning = FALSE}
 library(mlr)
 # get synthetic anomaly data, first 1000 observation are normal, the last 50 are anomalies
-# this dataset has labels in the 'target' column for testing the model
+# this dataset has labels in the 'target' column
 data = getTaskData(oneclass2d.task)
 train.set = 1:550
 test.set = 551:1050
 
 ## 1) Define the task
-## For one-class classification, unlike other learning problem, the label names of the 
+## For one-class classification, unlike other learning problems, the label names of the
 ## positive/anomaly and negative/normal class needs to be provided.
-## Note, the target column is not used for training only for evaluating
-task = makeOneClassTask(id = "oneclass", data = data, target = "Target", 
+## Note: the target column is not used for training, only for evaluation
+task = makeOneClassTask(id = "oneclass", data = data, target = "Target",
   positive = "Anomaly", negative = "Normal")
 
 ## 2) Define the learner
-## Currently four methods are implemented for one-class classification
-## All learner can have the predicted type response or probability
-## per default the predict.threshold is set to the 95%-quantile, but if the user have 
-## information about the ratio of anomalies in the data, he/she should set predict.type 
+## Currently 3 methods from 5 packages are implemented for one-class classification.
+## All learners can have the predicted type response or probability,
+## per default the predict.threshold is set to the 95%-quantile, but if the user has
+## information about the ratio of anomalies in the data, he/she should set predict.type
 ## to "prob" and adapt the predict.threshold variable
 lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "prob")
 lrn.svm = makeLearner("oneclass.svm", predict.type = "response")
-lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob", 
+lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob",
   k = 20, predict.threshold = 0.95)
-lrn.lof = makeLearner("oneclass.lof", predict.type = "prob",  
+lrn.lof = makeLearner("oneclass.lof", predict.type = "prob",
   predict.threshold = 0.95)
-## sometimes the h2o learner are not computational stable, therefore add learner settings,
+## Sometimes the h2o learners are computationaly unstable, therefore add learner settings,
 ## e.g. l1, max_w2 etc.
 lrn.ae = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", activation = "Tanh",
   predict.threshold = 0.95,  reproducible = TRUE, l2 = 1e-5, sparse = TRUE, max_w2 = 10)
 
 ## 3) Fit the model
 ## The model is fitted ignoring that labels are provided (more information later)
-mod.ksvm = train(lrn.ksvm, task, subset = train.set)  
-mod.svm = train(lrn.svm, task, subset = train.set)  
-mod.lofactor = train(lrn.lofactor, task, subset = train.set)  
-mod.lof = train(lrn.lof, task, subset = train.set)  
-#mod.ae = train(lrn.ae, task, subset = train.set)  
+mod.ksvm = train(lrn.ksvm, task, subset = train.set)
+mod.svm = train(lrn.svm, task, subset = train.set)
+mod.lofactor = train(lrn.lofactor, task, subset = train.set)
+mod.lof = train(lrn.lof, task, subset = train.set)
+#mod.ae = train(lrn.ae, task, subset = train.set)
 
 ## 4) Make predictions
-## If predict.type = "prob", observation with high probability 
+## If predict.type = "prob", observation with high probability
 ## are more likely to be anomalous
 pred.ksvm = predict(mod.ksvm, task, subset = test.set)
 pred.svm = predict(mod.svm, task, subset = test.set)
@@ -85,17 +104,17 @@ pred.lof = predict(mod.lof, task, subset = test.set)
 #pred.ae = predict(mod.ae, task, subset = test.set)
 
 ## 5) Evaluate the learner
-## The provided labels are now used to evaluate the models above using measurement 
+## The labels are now used to evaluate the models above using measurements
 ## for binary classification
 performance(pred.svm, measures = list(bac, f1, mmce))
 
-## additional measurement for evaluating anomaly detection methods using labels are 
-## also implemented in R
-## for using those measurement, create them first
+## Additional measurements for evaluating anomaly detection methods using labels are
+## also implemented.
+## To use those measurements, create them first
 rprecision = makePrecisionMeasure(id = "RPrecision", type = "rprecision", adjusted = FALSE)
-precisionat5 = makePrecisionMeasure(id = "Precisionat5", p = 5, 
+precisionat5 = makePrecisionMeasure(id = "Precisionat5", p = 5,
   type = "precisionatp", adjusted = FALSE)
-avgprecision = makePrecisionMeasure(id = "AvgPrecision", 
+avgprecision = makePrecisionMeasure(id = "AvgPrecision",
   type = "avgprecision", adjusted = FALSE)
 wac = makeWACMeasure(id = "wac", w = 0.6) #weight of the anomaly class is set to 0.6
 
@@ -103,12 +122,13 @@ performance(pred.svm, measures = list(rprecision, precisionat5, avgprecision, wa
 performance(pred.lofactor, measures = list(rprecision, precisionat5, avgprecision, wac))
 performance(pred.lof, measures = list(rprecision, precisionat5, avgprecision, wac))
 
-## additional measurement for evaluating anomaly detection methods without using labels 
-## are also implemented in R for using those measurement, create them first 
+## Additional measurements for evaluating anomaly detection methods without using labels
+## are also implemented.
+## To use those measurements, create them first
 ## (here for demonstration purpose set low n.alpha and n.sim)
-## for dimension <= 8 use makeAMVMeasure
+## For dimension <= 8 use makeAMVMeasure()
 amv = makeAMVMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim = 100)
-## for dimension > 8 use makeAMVhdMeasure
+## For dimension > 8 use makeAMVhdMeasure()
 amvhd = makeAMVhdMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim = 100)
 
 performance(model = mod.lof, pred = pred.lof, task = task, measures = list(amv))
@@ -124,102 +144,186 @@ plot(1:n, sort(pred.ksvm$data$prob.Anomaly), main = "one-class svm", las = 1,
   ylab = "probability for anomaly", xlab = "observation")
 ```
 
+
 ## Create a task
 
-Usually, anomalous data sets don't have labels and therefore are an unsupervised learning problem, however, the [%mlr] one-class classification learner inherits from the supervised class. This ensures that all binary classification measures can be used for evaluating the model’s performance in case labeled data is given.
+Usually, anomalous data sets don't have labels and are therefore unsupervised or semi-supervised
+learning problems. Nevertheless, the [%mlr] one-class classification learner
+inherits from the supervised class. This ensures that all binary classification
+measures can be used for evaluating the model’s performance in case labeled data for testing
+is given.
 
-The first step is to create a [task](&Task) to encapsulate the data set and further relevant information about a machine learning problem, for example, the name of the target variable for one-class classification.
-But before creating a [OneClassTask](&Task) problem you have to bring your data in the right format. Since the one-class classification problem inherits from the supervised class, the data needs a class label column, if it doesn't have a column containing the class labels, create a synthetic column with only one class (e.g. name the column 'Target' and fill it with the label 'Normal'). This column is *not* used for training only for testing, to use binary performance measurement like for example *F1*, *auc*.
-Create a [OneClassTask](&Task), if you have the right data format:
+The first step is to create a [task](&Task) to encapsulate the data set and further
+relevant information about a machine learning problem, for example, the name of
+the target variable for one-class classification. But before creating a
+[OneClassTask](&Task) problem you have to bring your data in the right format.
+Since the one-class classification problem inherits from the supervised class,
+the data needs a class label column. If it doesn't have a column containing the
+class labels, create a synthetic column with only one class (e.g., name the column
+'Target' and fill it with the label 'Normal'). This column is *not* used for
+training, however, it can be used for testing (e.g., to use binary performance measurements like for example *F1*, *auc*).
+In contrast to other learning problems, you *always* need to specify which column
+is the label/target column and which label stands for the *anomaly* class
+(positive) and which for the *normal* class (negative). As already mentioned above,
+one-class classification only trains on one-class, the normal class, so you
+need to tell [%mlr] what the other class label is.
+In the following example, we use the synthetic data from the already existing [oneclass2d.task](&oneclass2d.task), which has a labeled column.
+
+Create a [OneClassTask](&Task), if you have the right data format.
 ```{r}
 data = getTaskData(oneclass2d.task)
 train.set = 1:550
 test.set = 551:1050
 
-task = makeOneClassTask(id = "oneclass", data = data, target = "Target", 
+task = makeOneClassTask(id = "oneclass", data = data, target = "Target",
   positive = "Anomaly", negative = "Normal")
 task
 ```
-In contrast to other learning problem, you *always* need to specify which column is the label/target column and which label stands for the *anomaly* class (positive) and which for the *normal* class (negative). As already mentioned above one-class classification only trains on one-class, the normal class, so you need to tell [%mlr] what the other class is. 
-In the following example, we used the synthetic created data from the already existing [oneclass2d.task](&oneclass2d.task) in [%mlr] for anomaly data, which has a label column.
 
 
 ## Constructing a learner
-By constructing a [learner](learner.md#constructing-a-learner) you set the learning method you want to use for your machine learning problem. Moreover, you can set hyperparameters and prediction type etc.
-One-class classification in [%mlr] currently provides three learning methods:
+By constructing a [learner](learner.md#constructing-a-learner) you set the learning method you want to use for your machine learning problem. Moreover, you can set hyperparameters and prediction type.
+*One-class classification* in [%mlr] currently provides three learning methods:
+
 * One-Class Support Vector Machine (One-class SVM) [Schölkopf et al.2000]
 
 * Autoencoder (Artificial neural network) [Dau et al. 2014]
 
 * Local Outlier Factor (LOF) [Breunig et al. 2000]
 
-All one-class classification learners in [%mlr] support response or probability output. The response output will state if the observation is predicted as *normal* or *anomaly*, more details on the response output will be specified when the learner is introduced below. For the probabilistic output in [%mlr], we are using *converted* anomaly scores, which are *not* probabilities. Anomaly scores are the usual output of anomaly detection methods indicating to what degree an observation is anomalous (relative to the other observations). The anomaly scores are constructed depending on the applied anomaly detection method. This can lead to different ranges while interpretation remains unchanged, therefore we normalize the anomaly score by using a converting method (For more information about the transformation see the help page of [&convertingScoresToProbability]). Although this output is called *probability* within the [%mlr] package, it should not exactly be interpreted as a probability but more as a normalized score.  
+All one-class classification learners in [%mlr] support response or probability
+output. The response output will state if the observation is predicted as
+*normal* or *anomaly*. More details on the response output will be specified when
+the learner is introduced below. 
+Usually anomaly detection methods are returning score values. The anomaly scores are constructed depending on the applied anomaly detection method. This can lead to different ranges while interpretation remains unchanged, therefore we normalize the anomaly score by using a converting method (for more information about the transformation see the help page of [&convertingScoresToProbability]). Although this output is called *probability* within the [%mlr] package, it should not be interpreted exactly as a probabilities, however the value indicates to what degree an observation is anomalous (relative to the other observations). 
 
 ### One-class SVM
-SVMs are well known for analysing data for classification and regression task. A special case of SVMs is the one-class SVMs, which is an unsupervised algorithm that learns a decision function for anomaly detection. The packages function 'svm()' in [%e1071] and 'ksvm' in [%kernlab] already implemented an algorithm to do so. [%mlr] is using those training function for the internal one-class svm calculation.
+SVMs are well known for analysing data for classification and regression tasks.
+A special case of SVMs is the one-class SVM, which is an semi-supervised algorithm
+that learns a decision function for anomaly detection. The OC-SVM learns a line, plane, hyperplane or sphere based on one class (the normal class) in order to separate all observations from that one class from the origin in the feature space. The assumption is, that when passing anomalous data into the learned model, the anomalous observations lie on the wrong side of that separation.
+The function 'svm()' in package [%e1071] and 'ksvm' in [%kernlab] implement such algorithms.
+Internally, [%mlr] is using these functions for one-class SVM calculation.
 
 ```{r}
 lrn.svm = makeLearner("oneclass.svm", predict.type = "prob")
 lrn.ksvm = makeLearner("oneclass.ksvm")
 lrn.ksvm
 ```
-The anomaly scores, also called decision values are the distance between the corresponding observation and the decision boundaries. Both packages also return a response output, which is received by applying a threshold to the decision values. The threshold is per default set to 0, or in other words scores are positive for normal points and negative for anomalies in [%e1071] and [%kernlab]. The lower the score the more likely the related observation is anomalous. When using the method in [%mlr], the output is automatically normalized to [0,1] by using a converting function defined in [&convertingScoresToProbability]. After the transformation $1-f(score)$ is used for the probability column.
+
+
+The anomaly scores, also called decision values are the distances between the corresponding observations and the decision boundaries. Both packages also return
+a response output, which is obtained by applying a threshold to the decision
+values. The threshold is per default set to 0. In other words, scores are
+positive for normal points and negative for anomalies in [%e1071] and [%kernlab].
+The lower the score the more likely that the related observation is anomalous.
+When using the method in [%mlr], the output is automatically normalized to [0,1] by using a converting function defined in [&convertingScoresToProbability]. After the transformation $1-f(score)$ is used for the probability column.
 
 ### Autoencoder (Artificial neural network)
-A special case of a neural network is an autoencoder, applicable to unsupervised learning. The main idea of an autoencoder is to set the output data identical to the input data in the neural network and to train the model to reconstruct the input, with the objective to minimize the reconstruction error [Dau et al.2014, p.314]. But this approach requires to only use the data with the normal class in the training, to make sure the network learn the characteristics of the normal class and therefore classifies previously unseen observations which match the normal pattern as normal otherwise as anomalies [Dau et al. 2014, p.311]. In **R** the package [%h2o] provides an algorithm for an autoencoder. Unlike [%h2o], in [%mlr] you can currently specify up to five layers, by first setting the number of layers in the *layer* parameter and for each layer the number of nodes with *nodes1*, *nodes2*, *nodes3*. Check [%h2o] for more information on the other parameter specification.
+A special case of a neural network is an autoencoder, applicable to semi-supervised
+learning.  The main idea of an autoencoder is to set the output data identical to
+the input data in the neural network and to train the model to reconstruct the
+input. The autoencoder detects anomalies by learning a model that is able to reconstruct the normal input data, after it compresses and decompresses them. The assumption is, that when passing anomalous data into the learned model, it can't be reconstructed like a normal observation, hence returning a high reconstruction error [Dau et al.2014, p.314].
+However, this approach requires that only data of the normal class is used in
+training, to make sure the network learns the characteristics of the normal class
+and therefore classifies previously unseen observations which match the normal
+pattern as normal otherwise as anomalies [Dau et al. 2014, p.311].
+In **R** the package [%h2o] provides an algorithm for an autoencoder.
+Unlike [%h2o], in [%mlr] you can currently specify up to five layers,
+by first setting the number of layers in the *layer* parameter and for
+each layer the number of nodes with *nodes1*, *nodes2*, *nodes3*,*nodes4*, *nodes5*. Check [%h2o]
+for more information on the other parameter specification.
 
 ```{r}
 lrn.h2o = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob",
-  par.vals = list(reproducible = T, seed = 1234),  predict.threshold = 0.95, 
-  reproducible = TRUE, layers = 2, nodes1 = 20, nodes2 = 10,  
-  # following settings were made to stabilise the model
+  par.vals = list(reproducible = T, seed = 1234),  predict.threshold = 0.95,
+  reproducible = TRUE, layers = 2, nodes1 = 20, nodes2 = 10,
+  # following parameterss were set to stabilise the model
   activation = "Tanh", l2 = 1e-5, sparse = TRUE, max_w2 = 10)
 lrn.h2o
 ```
 
-As explained above, the autoencoder is producing a reconstruction error (mse between output and input layer in [&h2o]), which is the anomaly score. A high score or high mse means that the reconstruction wasn’t accurate, and therefore the observation can’t be compressed by the autoencoder without losing information, which is an indicator that the observation is not following normal behavior. So high scores tend to imply that the observation was rather anomalous. According to [&convertingScoresToProbability], after transformation $f(score)$ is used for the probability column. If you set the *predict.type* as *response*, [&mlr] applies a soft threshold of the 95%-quantile to the scores. Scores above the 95%-quantile are considered to be an anomaly.
+
+As explained above, the autoencoder is producing a reconstruction error
+(e.g mse between output and input layer in [&h2o]), which is the anomaly score.
+A high score or high mse means that the reconstruction wasn’t accurate, and
+therefore the observation can’t be compressed/decompressed by the autoencoder without losing
+information, which is an indicator that the observation is not following normal
+behavior. Thus, high scores imply that the observation was rather anomalous.
+According to [&convertingScoresToProbability], after transformation $f(score)$
+is used for the probability column. If you set the *predict.type* to *response*,
+[&mlr] applies a soft threshold of the 95%-quantile to the scores. Scores above
+the 95%-quantile are considered to be an anomaly.
 
 ### Local Outlier Factor (LOF)
 
-The *local outlier factor (LOF)* is the degree of being an outlier of a data point. The degree depends on the *local* density, that is the dense of the *k-nearest* neighbours. *LOF* basically compares the local density of one data point to the local density of its neighbours. A data point, which local density is comparable lower than its neighbours is more likely an anomaly. A low local density indicates that the observation lies in a region that is sparser than that of its neighbours, and thus it is more likely to be anomalous. [Breunig et.al 2000]. In **R** the packages, the 'lofactor' in [%DMwR] and 'lof' in [%dbscan] provides an algorithm for the LOF method. (Note: $k$ should be smaller than the number of observation in the data, otherweise 'lofactor' will return 'NAs' and 'lof' an error.)
+The *local outlier factor (LOF)* is the degree of being an outlier of a data point.
+The degree depends on the *local* density, calculated based on the *k-nearest*
+neighbors. *LOF* basically compares the local density of one data point to the
+local density of its neighbors. A data point whose local density is
+lower than the density of its neighbors is more likely to be an anomaly.
+A low local density indicates that the observation lies in a region that is
+sparser than that of its neighbors, and thus it is more likely to be anomalous.
+[Breunig et.al 2000]. In **R** the functions 'lofactor' in [%DMwR] and 'lof'
+in [%dbscan] provide an algorithm for the LOF method. (Note: $k$ should be
+smaller than the number of observation in the data, otherwise 'lofactor' will
+return 'NAs' and 'lof' an error).
 
 ```{r}
-# The number of neighbours (k) that will be used in the calculation of the local 
+# The number of neighbours (k) that will be used in the calculation of the local
 # outlier factors must be set by the user
 lrn.lofactor = makeLearner("oneclass.lofactor", k = 50, predict.type = "prob")
 lrn.lof = makeLearner("oneclass.lof", k = 50, predict.type = "prob")
 lrn.lof
 ```
 
-According to [&convertingScoresToProbability], after transformation $f(score)$ is used for the probability column. If you set the *predict.type* as *response*, [&mlr] applies a soft threshold of the 95%-quantile to the scores. Scores above the 95%-quantile are considered to be an anomaly.
+
+As described in [&convertingScoresToProbability], after transformation $f(score)$
+is used for the probability column. If you set the *predict.type* to *response*,
+[&mlr] applies a soft threshold of the 95%-quantile to the scores.
+Scores above the 95%-quantile are considered to be an anomaly.
 
 ## Train
-You can [&train] a model as usual with a oneclass learner and a oneclass task as input. You can pass a ``subset`` or a ``newdata set``.  
+You can [&train] a model as usual with a oneclass learner and a oneclass task as input. You can pass a ``subset`` or a ``newdata set``.
 ```{r, results='hide'}
-mod.ksvm = train(lrn.ksvm, task, subset = train.set)  
+mod.ksvm = train(lrn.ksvm, task, subset = train.set)
 mod.svm = train(lrn.svm, task, subset = train.set)
-mod.lofactor = train(lrn.lofactor, task, subset = train.set)  
-mod.lof = train(lrn.lof, task, subset = train.set)  
-#mod.ae = train(lrn.ae, task, subset = train.set) 
+mod.lofactor = train(lrn.lofactor, task, subset = train.set)
+mod.lof = train(lrn.lof, task, subset = train.set)
+#mod.ae = train(lrn.ae, task, subset = train.set)
 ```
 
+
 ## Predict
-Prediction can be done as usual in [%mlr] with [predict](&predict.WrappedModel) and by passing a trained model and either the task to the ``task`` argument or some new data to the ``newdata`` argument. As always you can specify a ``subset`` of the data which should be predicted. In section [Constructing a Learner)](oneclass_classification.md#constructing-a-learner), the details of the probability and response output are explained.
+Prediction can be done as usual in [%mlr] using [predict](&predict.WrappedModel) and by providing a trained model and either the task to the ``task`` argument or new data to the ``newdata`` argument. As always you can specify a ``subset`` of the data which should be predicted. In segment
+[Constructing a Learner](oneclass_classification.md#constructing-a-learner), the details of the probability and response output are explained.
 ```{r, results='hide'}
 pred.ksvm = predict(mod.ksvm, task, subset = test.set)
 pred.svm = predict(mod.svm, task, subset = test.set)
 #pred.ae = predict(mod.ae, task, subset = test.set)
 ```
 
-The training of LOF in [&mlr] is different than the other learners, in the way that the (&train) and the (&test) function are independent. Which means that the (&train) function returns a prediction of the train data and the (&test) functions return a prediction of the test data based on the test data themselves, without needing the trained model. [&mlr] returns a message to notify the user.
-(To apply LOF from the [&DMwR] package and from the [&dbscan], no test and train data are needed. In order to keep the structure of mlr, to enable tuning and to allow binary supervised evaluation methods we modified the [&lofactor] function in [&mlr] so LOF in [&mlr] inherits from the supervised class although it is an unsupervised learning method. 
+
+The training of LOF in [&mlr] is different than the other learners, in the way
+that the (&train) and the (&test) function are independent. Which means that the
+(&train) function returns a prediction of the train data and the (&test) functions returns a prediction of the test data based on the test data itself, without
+needing the trained model. This workaround is due to the architecture of [&mlr] and the one-class classification class. [&mlr] returns a message to notify the user that the prediction of the test set was done independent from the training.
+
+(To apply LOF from the [&DMwR] package and from the [&dbscan] package, no test and train data are needed. In order to keep the structure of [&mlr], to enable tuning and to allow binary supervised evaluation methods we modified the [&lofactor] function in [&mlr] so LOF in [&mlr] inherits from the supervised class although it is an semi-supervised learning method.)
 ```{r}
 pred.lofactor = predict(mod.lofactor, task, subset = test.set)
 pred.lof = predict(mod.lof, task, subset = test.set)
 ```
 
+
 ## Performance
-To assess the performance of the prediction, use the [&performance] function. As usually in [&mlr] you can specify by the `measures` argument which [measure(s)](measures.md) to calculate. The default measure for one-class classification is the *F1* (Note: if your data don't provide labels, switch to *AMV* or *AMVhd* explained below). Use [&listMeasures] to see all available measures. More details can be found on the [table of performance measures](measures.md) and the [&measures] documentation page and in this section.
+To assess the performance of the prediction, use the [&performance] function.
+As usual in [&mlr], you can specify which
+[measure(s)](measures.md) to calculate by specifying the `measures` argument.
+The default measure for one-class classification is the *F1*
+(Note: if your data don't provide labels, switch to *AUMVC* or *AUMVChd* explained
+below). Use [&listMeasures] to see all available measures.
+More details can be found on the [table of performance measures](measures.md)
+and the [&measures] documentation page and in this section.
 
 If the true labels are given you can use binary classification evaluation methods.
 ```{R}
@@ -227,29 +331,56 @@ performance(pred.ksvm, measures = list(bac, f1, mmce))
 ```
 
 
-Binary classification evaluation methods consider the two classes as equal. However, in anomaly detection, the anomaly class is more interesting for the user. [&mlr] also implemented additional evaluation methods for evaluating anomaly detection methods in case true labels are provided. One method is *weighted accuracy (wac)* a modification of the *balanced accuracy (bac)*, for which the user needs to set the weight (in [0,1]) of the importance of anomaly class relative to the normal class. If the weight is set to 0.5 the *wac* equals the *bac*. *Bac* measure returns values between 0 and 1, whereas 1 indicates perfect prediction.
+Binary classification evaluation methods consider the two classes as equal.
+However, in anomaly detection, the anomaly class is more interesting for the
+user. [&mlr] also implemented additional evaluation methods for evaluating
+anomaly detection methods in case true labels are provided. One method is
+*weighted accuracy (wac)* a modification of the *balanced accuracy (bac)*,
+for which the user needs to set the weight (in [0,1]) of the importance of
+anomaly class relative to the normal class. If the weight is set to 0.5 the *wac*
+equals the *bac*. *Bac* measure returns values between 0 and 1, whereas 1
+indicates perfect prediction.
 ```{R}
 wac = makeWACMeasure(id = "wac", w = 0.6) #weight of the anomaly class is set to 0.6
 performance(pred.svm, measures = list(wac))
 ```
 
-Further measurements, specialising on evaluating anomaly detection models with given labels are *R-Precision measure/top p-accuracy*, *precision at p* and *average precision* (see [Campos et al., 2016]). For using this measures, you need to create them first with [&makePrecisionMeasure]. More information is in [Campos et al., 2016] and the help page [&makePrecisionMeasure]. All three measures return values between 0 and 1, whereas 1 indicates perfect prediction.
+
+Further measurements, specializing on evaluating anomaly detection models with
+given labels are *R-Precision measure/top p-accuracy*, *precision at p* and
+*average precision* (see [Campos et al., 2016]). To use this measures,
+you need to create them first with [&makePrecisionMeasure]. More information is
+in [Campos et al., 2016] and the help page [&makePrecisionMeasure].
+All three measures return values between 0 and 1, where 1 indicates perfect
+prediction.
+
 ```{R}
-## additional measurement for evaluating anomaly detection methods using labels 
-## are also implemented in R for using those measurement, create them first
-rprecision = makePrecisionMeasure(id = "RPrecision", 
+## Additional measurements for evaluating anomaly detection methods using labels
+## are also implemented.
+## To use those measurements, create them first
+rprecision = makePrecisionMeasure(id = "RPrecision",
   type = "rprecision", adjusted = FALSE)
-precisionat5 = makePrecisionMeasure(id = "Precisionat5", p = 5, 
+precisionat5 = makePrecisionMeasure(id = "Precisionat5", p = 5,
   type = "precisionatp", adjusted = FALSE)
-avgprecision = makePrecisionMeasure(id = "AvgPrecision", 
+avgprecision = makePrecisionMeasure(id = "AvgPrecision",
   type = "avgprecision", adjusted = FALSE)
 
 performance(pred.lof, measures = list(rprecision, precisionat5, avgprecision))
 ```
-In case no labels are available, the previously introduces measures are not applicable. In that case [&mlr] provides the *Area under the Mass-Volume Curve (AMV)* measurement according to [Thomas et al., 2016] for dimension smaller than eight. This measure needs be created with [&makeAMVMeasure]. For datasets with greater dimension than eight [&mlr] provides the *Area under the Mass-Volume Curve for high dimensional data (AMVhd)* according to [Goix, 2016], analogous use [&makeAMVhdMeasure] to create the measurement. More information is provided in the named paper and the help page [&makeAMVMeasure] and [&makeAMVhdMeasure].
+
+
+In case no labels are available, the previously introduced measures are not
+applicable. In that case [&mlr] provides the
+*Area under the Mass-Volume Curve (AUMVC)* measurement according to
+[Thomas et al., 2016] for dimension smaller than eight. This measure needs to be
+created with [&makeAMVMeasure]. For datasets with greater dimension than eight
+[&mlr] provides the *Area under the Mass-Volume Curve for high dimensional data (AUMVChd)* according to [Goix, 2016]. Use [&makeAMVhdMeasure] to create the measurement. More information on the help
+page of [&makeAMVMeasure] and [&makeAMVhdMeasure].
+
 ```{R}
-## additional measurement for evaluating anomaly detection methods without using labels
-## are also implemented in R for using those measurement, create them first 
+## Additional measurements for evaluating anomaly detection methods without using labels
+## are also implemented.
+## To use those measurement, create them first
 ## (here for demonstration purpose set low n.alpha and n.sim)
 ## for dimension <= 8 use makeAMVMeasure
 amv = makeAMVMeasure(id = "AMV", alphas = c(0.8, 0.99), n.alpha = 10, n.sim = 100)
@@ -260,10 +391,27 @@ performance(model = mod.lof, pred = pred.lof, task = task, measures = list(amv))
 
 
 ## Tuning/benchmark experiment
-A challenge in anomaly detection is to tune hyperparameters. If you have data with labels, you can tune a model using a supervised binary measurement and use this model on unlabelled data. If you don't have labeled data, you can tune a model using an unsupervised binary measurement like *amv* or *amvhd*. A tuning example for all implemented anomaly detection is provided below using the [oneclass2d.task](&oneclass2d.task).
+A challenge in anomaly detection is to tune hyperparameter settings. If you have data
+with labels, you can tune a model using a supervised binary measurement and use
+this model on unlabeled data. If you don't have labeled data, you can tune a
+model using an unsupervised binary measurement like *AUMVC* or *AUMVChd*. A tuning
+example for all implemented anomaly detection is provided below using the
+[oneclass2d.task](&oneclass2d.task) data.
 
 ### Defining the resampling strategy for one-class classification
-For one-class classification tuning you can use the standard [resampling strategy] (resample.md#defining-the-resampling-strategy), especially if you don't have labels. But if you have labels it is recommended to use one of the resampling strategies designed for the one-class classification task, which are: ``OCHoldhout``, ``OCCV``, ``OCSubsample``, ``OCBootsrap``, ``OCRepCV``, to assure to only have normal data during the training. ``OCHoldhout``,``OCSubsample``, and ``OCBootsrap`` are basically sampling only normal observations for the training data set and the remaining observations, including all anomalies, are used for testing. ``OCCV`` and ``OCRepCV`` split the anomalous observations in k-folds, dropping the anomalies in the used fold for training. These strategies can be called as usual in [&mlr] with the [&makeResampleDesc] function.
+For one-class classification tuning you can use the standard
+[resampling strategy](resample.md#defining-the-resampling-strategy), especially
+if you don't have labels. But if you have labels it is recommended to use one
+of the resampling strategies designed for the one-class classification task,
+which are: ``OCHoldhout``, ``OCCV``, ``OCSubsample``, ``OCBootsrap``, ``OCRepCV``,
+to assure to only have normal data during training. ``OCHoldhout``,
+``OCSubsample``, and ``OCBootsrap`` are basically only sampling  normal
+observations for the training data set and the remaining observations,
+including all anomalies, are used for testing. ``OCCV`` and ``OCRepCV`` split
+the anomalous observations in k-folds, dropping the anomalies in the used fold
+for training. These strategies can be called as usual in [&mlr] with the
+[&makeResampleDesc] function.
+
 ```{r}
 # Set outer resampling strategy
 outer = makeResampleDesc("OCCV", iters = 3)
@@ -273,30 +421,42 @@ rin = makeResampleInstance(outer, oneclass2d.task)
 inner = makeResampleDesc("OCCV", iters = 3)
 ```
 
+
 ### Specifying the optimization algorithm
-For tuning an anomaly detection learner, you need to always create a learner with a ``prob`` output. In case you want to tune an anomaly learner using
+For tuning an anomaly detection learner, you need to always create a learner
+with a ``prob`` output. In case you want to tune an anomaly learner using
 
-*1.  a supervised measurement (e.g. ``auc`` or ``average precision``), needs predicted labels, as those measures based on the number of correct predicted anomalies or true predicted normal points. These classes are set by applying a threshold to the probability output. The threshold can vary, therefore you should tune the threshold. ()
+*1.  a supervised measurement (e.g. ``auc`` or ``average precision``), the learner needs to
+predict labels, as those measures based on the number of correct predicted
+anomalies or true predicted normal points. These classes are set by applying a
+threshold to the probability output. The threshold can vary, therefore you
+should tune the threshold.
 
-*2. an unsupervised measurement like ``avm`` or ``amvhd``, no threshold-tuning is needed, but the algorithm of those measures are based on an anomaly scores, which is the probability output in [&mlr]
+*2. an unsupervised measurement like ``AUMVC`` or ``AUMVChd``, no threshold-tuning
+is needed, but the algorithm of those measures are based on an anomaly scores,
+which is the probability output in [&mlr].
+
 ```{r}
-# Set search strategy with threshold tunung (maxit is low to run this example)
+# Set search strategy with threshold tuning (maxit is low to run this example)
 # ctrl = makeTuneControlRandom(maxit = 2L, tune.threshold = TRUE)
 # For a shorter runtime in the example, tune.threshold = FALSE
 ctrl = makeTuneControlRandom(maxit = 2L, tune.threshold = FALSE)
 ```
- 
+
+
 ### Performing the benchmark experiment
 
-For conducting a benchmark experiment with three learners, you need to specify the search space for each learner. The procedure is described in [Tuning](tune.md) and [Benchmark](benchmark_experiments.md) section.  
+For conducting a benchmark experiment with three learners, you need to specify
+the search space for each learner. The procedure is described in the
+[Tuning](tune.md) and [Benchmark](benchmark_experiments.md) section.
 ```{r}
 ### parameter for svm
 ps.svm = makeParamSet(
   makeNumericParam("nu",  lower = 0.01, upper = 0.99),
   makeDiscreteParam("kernel", values = c("linear", "polynomial", "radial", "sigmoid")),
-  makeIntegerParam("degree", lower = 1L, upper = 4L, 
+  makeIntegerParam("degree", lower = 1L, upper = 4L,
     requires = quote(kernel == "polynomial")),
-  makeNumericParam("coef0", lower = 0, upper = 3, 
+  makeNumericParam("coef0", lower = 0, upper = 3,
     requires = quote(kernel == "polynomial" || kernel == "sigmoid"))
 )
 
@@ -308,60 +468,76 @@ ps.lofactor = makeParamSet(
 ps.lof = makeParamSet(
   makeIntegerParam("k", lower = 20, upper = 200))
 ```
+
+
 For the *oneclass.ksvm* learner there is an exception for setting the search space for the ``sigma`` parameter, see [Tuning](tune.md#specifying-the-search-space).
 ```{r}
 ### parameter for ksvm
 ps.ksvm = makeParamSet(
   makeNumericParam("nu",  lower = 0.01, upper = 0.99),
   makeDiscreteParam("kernel", values = c("vanilladot", "polydot", "rbfdot", "tanhdot")),
-  makeIntegerParam("degree", lower = 1L, upper = 4L, 
+  makeIntegerParam("degree", lower = 1L, upper = 4L,
     requires = quote(kernel %in% c("polydot", "anovadot", "besseldot"))),
-  # for sigma 
-  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 10^x, 
+  # for sigma
+  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 10^x,
     require = quote(kernel %in% c("rbfdot", "anovadot", "besseldot", "laplacedot"))),
-  makeNumericParam("scale", lower = 0, upper = 1, 
+  makeNumericParam("scale", lower = 0, upper = 1,
     requires = quote(kernel %in% c("polydot", "tanhdot"))),
-  makeNumericParam("offset", lower = 0, upper = 3, 
+  makeNumericParam("offset", lower = 0, upper = 3,
     requires = quote(kernel %in% c("polydot", "tanhdot"))),
-  makeIntegerParam(id = "order", lower = 1, upper = 3, 
+  makeIntegerParam(id = "order", lower = 1, upper = 3,
     requires = quote(kernel == "besseldot"))
 )
 ```
-There is also an exception for the *oneclass.h2o.autoencoder*. [&mlr] enables to tune for number of layers and nodes up to three layers.
+
+
+There is also an exception for the *oneclass.h2o.autoencoder*. [&mlr] enables to
+tune for number of layers and nodes up to five layers.
 ```{r}
 ### parameter for autoencoder
 ps.h2o = makeParamSet(
-  makeIntegerParam(id = "layers", lower = 1L, upper = 3L, default = 1L),
+  makeIntegerParam(id = "layers", lower = 1L, upper = 5L, default = 1L),
   makeIntegerParam(id = "nodes1", lower = 150L, upper = 250, default = 200L),
   makeIntegerParam(id = "nodes2", lower = 150L, upper = 250, default = 200L,
     requires = quote(layers > 1)),
   makeIntegerParam(id = "nodes3", lower = 150L, upper = 250, default = 200L,
-    requires = quote(layers > 2))
+    requires = quote(layers > 2)),
+   makeIntegerParam(id = "nodes3", lower = 150L, upper = 250, default = 200L,
+    requires = quote(layers > 3)),
+   makeIntegerParam(id = "nodes3", lower = 150L, upper = 250, default = 200L,
+    requires = quote(layers > 4))
 )
 ```
 
-After defining the search space for the learners, set the learners and apply the tuning wrapper like section [Benchmark Experiment](benchmark_experiments.md#tuning).
+
+After defining the search space for the learners, define the learners and apply the
+tuning wrapper according to section [Benchmark Experiment](benchmark_experiments.md#tuning).
 ```{r, results='hide', warning=FALSE, message= FALSE}
-# make lofactor learner and tunewrapper
+# make OC-SVM learner and tunewrapper
 lrn.svm = makeLearner("oneclass.svm", predict.type = "prob")
-lrn.svm = makeTuneWrapper(lrn.svm, resampling = inner, par.set = ps.svm, 
+lrn.svm = makeTuneWrapper(lrn.svm, resampling = inner, par.set = ps.svm,
   measures = list(auc), control = ctrl, show.info = FALSE)
 
-# make lofactor learner and tunewrapper
+# make OC-SVM learner and tunewrapper
 lrn.ksvm = makeLearner("oneclass.ksvm", predict.type = "prob")
-lrn.ksvm = makeTuneWrapper(lrn.ksvm, resampling = inner, par.set = ps.ksvm, 
+lrn.ksvm = makeTuneWrapper(lrn.ksvm, resampling = inner, par.set = ps.ksvm,
+  measures = list(auc), control = ctrl, show.info = FALSE)
+
+# make lof learner and tunewrapper
+lrn.lof = makeLearner("oneclass.lof", predict.type = "prob")
+lrn.lof = makeTuneWrapper(lrn.lof, resampling = inner, par.set = ps.lof,
   measures = list(auc), control = ctrl, show.info = FALSE)
 
 # make lofactor learner and tunewrapper
 lrn.lofactor = makeLearner("oneclass.lofactor", predict.type = "prob")
-lrn.lofactor = makeTuneWrapper(lrn.lofactor, resampling = inner, par.set = ps.lofactor, 
+lrn.lofactor = makeTuneWrapper(lrn.lofactor, resampling = inner, par.set = ps.lofactor,
   measures = list(auc), control = ctrl, show.info = FALSE)
 
-# make autoencoder learner and tunewrapper                        
+# make autoencoder learner and tunewrapper
 lrn.h2o = makeLearner("oneclass.h2o.autoencoder", predict.type = "prob", loss = "Quadratic",
-  activation = "Tanh", reproducible = TRUE, mini_batch_size = 4,  adaptive_rate = TRUE, 
+  activation = "Tanh", reproducible = TRUE, mini_batch_size = 4,  adaptive_rate = TRUE,
   l2=1e-5, sparse = TRUE, max_w2=10, train_samples_per_iteration = -1)
-lrn.h2o = makeTuneWrapper(lrn.h2o, resampling = inner, par.set = ps.h2o, 
+lrn.h2o = makeTuneWrapper(lrn.h2o, resampling = inner, par.set = ps.h2o,
   measures = list(auc), control = ctrl, show.info = FALSE)
 
 # lrn.h2o is not executed here due to runtime constrains
@@ -372,6 +548,7 @@ bmr = getBMRPerformances(res, as.df = TRUE)
 ```{r}
 bmr
 ```
+
 
 ## References
 Albert Thomas, Stephan Clemencon, Feuilard Vincent, and Alexandre Gramfort.
@@ -417,5 +594,3 @@ Artificial intelligence review, 22(2):85–126, 2004.
 
 Vipin Kumar. Parallel and distributed computing for cybersecurity. IEEE
 Distributed Systems Online, 6(10), 2005.
-
-
