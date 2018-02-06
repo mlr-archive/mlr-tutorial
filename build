@@ -92,7 +92,7 @@ knitIt = function(f, dev) {
   knit.params = knit_params(lines)
   if (!isFALSE(knit.params$full.code$value) && dev != "pdf") {
     lines = c(
-      lines, "\n", 
+      lines, "\n",
       "## Complete code listing", "\n",
       "The above code without the output is given below:", "\n",
       "```{r, purl=FALSE, echo = FALSE, comment=''}",
@@ -109,7 +109,7 @@ knitIt = function(f, dev) {
   if (length(yaml.lines == 2)) {
     lines = lines[-1 * seq(from = yaml.lines[1], to = yaml.lines[2])]
   }
-  
+
   knit(
     text = lines,
     output = file.path(dev, dest, str_replace(f, "\\.Rmd$", "\\.md")),
@@ -128,6 +128,10 @@ purlIt = function(f, dest) {
     documentation = 0
   )
 }
+
+# environment #################################################################
+
+ontravis = identical(Sys.getenv("TRAVIS"), "true")
 
 # start #######################################################################
 message("Loading required packages ...")
@@ -180,7 +184,7 @@ if (is.na(link)) {
   # No directory or link for the new version exists so we create one
   file.symlink("devel", mlr.version)
   # Take care of github on Travis
-  if (identical(Sys.getenv("TRAVIS"), "true")) {
+  if (ontravis) {
     system(sprintf("git add %s", paste(mlr.version, old.version, "devel", "release")))
   }
 } else if (link == "") {
