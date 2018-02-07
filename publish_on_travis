@@ -1,4 +1,6 @@
 #!/bin/sh
+# This script runs 'make clean ; make -j NCORE release', which should do everything
+# necessary on TRAVIS.
 SDIR=$(dirname "$(readlink -f "$0")")
 if [ "${SDIR}" != "$PWD" ] ; then
   echo "publish script must be run in its own directory." >&2
@@ -20,6 +22,9 @@ if [ "$OSNAME" = "Linux" ] ; then
 elif [ "$OSNAME" = "Darwin" ] ; then
   ncore=$(sysctl -n hw.ncpu)
 fi
+
+echo -e "Cleaning"
+make clean
 
 echo -e "Building using $ncore thread(s)\n"
 exec make -j $ncore release
