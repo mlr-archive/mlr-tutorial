@@ -1,0 +1,105 @@
+#!/usr/bin/env Rscript
+
+# this file creates the input md-files for the HTML page. It assumes that
+# an md file was *already* created using knitIt; here only conversion happens:
+# - exchange of .pdf images with .svg images
+# - appending of original source code
+# Only if the "run.for.each.dev" property is TRUE in the yml header this will
+# execute knitr again.
+
+# usage: convertIt.Rexec infile.Rmd intermediate.md rfile.R outfile.md
+# where intermediate.md was previously created using knitIt.Rexec infile.Rmd intermediate.md
+# and rfile.R is the result of purlIt.Rexec infile.Rmd rfile.R
+
+
+NEEDARGS = 4
+
+# get current script dir
+self.name = substring(grep("^--file=", commandArgs(), value = TRUE), 8)
+scriptdir = dirname(self.name)
+# if we were not called with Rscript, then scriptdir is empty--fall back to "."
+scriptdir = c(scriptdir, ".")[1]
+# load common configuration
+source(file.path(scriptdir, "buildheader.R"), chdir = TRUE)
+
+
+# take a "![pic](path.pdf)" string and return a "![pic](data:image/svg+xml;base64,***)" string
+# where *** is the base64 encoding of path.svg.
+# @param includecommand [character(1)]: the "![pic](path.pdf)" string.
+replacePdfWithSvg = function(includecommand) {
+  match = stringr::str_match(includecommand, "!\\[([^]]*)\\]\\(([^)]*\\.pdf)\\)")
+
+  origfile = match[1, 3]
+  svgfile = stringr::str_replace(origfile, "\\.pdf$", ".svg")
+  imagedata = base64enc::base64encode(svgfile)
+  stringr::str_c("![", match[1, 2], "](data:image/svg+xml;base64,", imagedata, ")")
+}
+
+# worker function
+convertIt = function(infile, intermediate, rcode, outfile) {
+  f = basename(infile)
+  messagef("Converting file '%s' ...", intermediate)
+  lines = readLines(infile)
+
+  knit.params = knit_params(lines)
+  if (isTRUE(knit.params$run.for.each.dev$value)) {
+    loadlibraries()
+    dev = "svg"
+
+    # apply replacement macros
+    for (macro in macros) {
+      lines = str_replace_all(lines, macro$pattern, macro$replacement)
+    }
+
+    if (!isFALSE(knit.params$full.code$value)) {
+      lines = c(
+        lines, "\n",
+        "## Complete code listing", "\n",
+        "The above code without the output is given below:", "\n",
+        "```{r, purl=FALSE, echo = FALSE, comment=''}",
+        paste0("cat(readLines('./",rcode, "'),fill = 2)"),
+        "```")
+    }
+
+    cache.path = file.path("cache", f, "")
+    opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = file.path("figure", str_replace(f, "\\.Rmd", ""), ""),
+      dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
+    setSeed(f)
+
+    # FIXME: remove if mkdocs handles this, currently mkdocs puts yaml front matter in the output.
+    yaml.lines = which(lines == "---")
+    if (length(yaml.lines == 2)) {
+      lines = lines[-1 * seq(from = yaml.lines[1], to = yaml.lines[2])]
+    }
+
+    # write to a temporary file first, then move to actual target file after success.
+    # This is necessary to prevent half-completed files to be written when knitting fails.
+    tmpoutput = paste0(outfile, ".tmp")
+
+    knit(
+      text = lines,
+      output = tmpoutput,
+      quiet = TRUE
+    )
+
+    file.rename(tmpoutput, outfile)
+  } else {
+    lines = readLines(intermediate)
+
+    lines = stringr::str_replace_all(lines,
+      "!\\[([^]]*)\\]\\(([^)]*\\.pdf)\\)",
+      replacePdfWithSvg)
+
+    if (!isFALSE(knit.params$full.code$value)) {
+      lines = c(
+        lines, "\n",
+        "## Complete code listing", "\n",
+        "The above code without the output is given below:", "\n```",
+        readLines(rcode), "```")
+    }
+    write(lines, file = outfile)
+  }
+  invisible(NULL)
+}
+
+convertIt(argv[1], argv[2], argv[3], argv[4])
