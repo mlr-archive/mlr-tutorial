@@ -33,6 +33,8 @@ MDHTMLFILES := $(patsubst $(SOURCEDIR)/%.Rmd,$(MDOUTHTML)/%.md,$(INFILES))
 
 ### output files
 # html base directory. this overrides mkdocs.yml
+# If this changes, the mkdocs.yml should also be updated
+# to prevent 'mkdocs serve' from failing.
 HTMLBASE = local/html
 # html zip
 ZIPFILE = $(LOCALDIR)/mlr_tutorial.zip
