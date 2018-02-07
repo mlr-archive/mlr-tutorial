@@ -15,13 +15,7 @@ if [ "$TRAVIS" != "true" ] ; then
   echo "No TRAVIS detected, but forcing run." >&2
 fi
 
-ncore=1
-OSNAME=$(uname -s)
-if [ "$OSNAME" = "Linux" ] ; then
-  ncore=$(grep -c ^processor /proc/cpuinfo)
-elif [ "$OSNAME" = "Darwin" ] ; then
-  ncore=$(sysctl -n hw.ncpu)
-fi
+ncore=2  # hardcode 2 threads on TRAVIS
 
 echo -e "Cleaning"
 make clean
