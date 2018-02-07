@@ -46,6 +46,7 @@ PURL_CMD = ./purlIt.Rexec
 KNIT_CMD = ./knitIt.Rexec
 CONVERT_CMD = ./convertIt.Rexec
 BUILDPDF_CMD = ./build-pdf.py
+PUBLISH_CMD = ./publish.Rexec
 
 .PHONY: most all pdf html release clean zip
 
@@ -65,6 +66,9 @@ zip: $(ZIPFILE)
 source: $(SOURCEFILES)
 
 release: all
+	$(PUBLISH_CMD)
+	-rm -r $(RELEASEDIR)/*
+	cp -r $(LOCALDIR)/* $(RELEASEDIR)
 
 clean:
 	-rm $(PDFMASTERMD)

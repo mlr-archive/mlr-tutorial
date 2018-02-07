@@ -1,4 +1,10 @@
 #!/bin/sh
+SDIR=$(dirname "$(readlink -f "$0")")
+if [ "${SDIR}" != "$PWD" ] ; then
+  echo "build script must be run in its own directory." >&2
+  exit 1
+fi
+
 ncore=1
 OSNAME=$(uname -s)
 if [ "$OSNAME" = "Linux" ] ; then
