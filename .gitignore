@@ -3,3 +3,5 @@ cache
 docs
 html/.DS_Store
 .Rproj.user
+intermediate
+local
