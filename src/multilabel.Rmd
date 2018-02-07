@@ -46,7 +46,7 @@ lrn.rFerns
 ### Problem transformation methods
 For generating a wrapped multilabel learner first create a binary (or multiclass)
 classification learner with [&makeLearner]. Afterwards apply a function like
-[&makeMultilabelBinaryRelevanceWrapper], [&makeMultilabelClassifierChainsWrapper], [&makeMultilabelNestedStackingWrapper], 
+[&makeMultilabelBinaryRelevanceWrapper], [&makeMultilabelClassifierChainsWrapper], [&makeMultilabelNestedStackingWrapper],
 [&makeMultilabelDBRWrapper] or [&makeMultilabelStackingWrapper] on the learner to convert it to a learner that uses the respective problem transformation method.
 
 You can also generate a binary relevance learner directly, as you can see in the example.
@@ -60,7 +60,7 @@ lrn.br2 = makeMultilabelBinaryRelevanceWrapper("classif.rpart")
 lrn.br2
 ```
 
-The different methods are shortly described in the following. 
+The different methods are shortly described in the following.
 
 #### Binary relevance
 This problem transformation method converts the multilabel problem to binary
