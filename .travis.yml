@@ -40,7 +40,7 @@ install:
   - Rscript r_packs_install.R
 
 script:
-  - ./build
+  - ./publish_on_travis
 
 after_success:
     - git checkout gh-pages
