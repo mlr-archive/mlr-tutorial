@@ -1,0 +1,114 @@
+# This file gets included by all the build scripts and contains settings and auxiliary functions common to these.
+# All build scripts must source() this file.
+
+# check that necessary command line args were given
+
+argv = commandArgs(TRUE)
+
+if (length(argv) < get0("NEEDARGS", ifnotfound = 0)) {
+  write(sprintf("Usage: %s Infile.Rmd Outfile.R", self.name), stderr())
+  quit(save = "no", status = 1)
+}
+
+
+## urls for manual pages
+# - rdocumentation
+urlMlrFunctions = "http://www.rdocumentation.org/packages/mlr/functions/"
+urlContribPackages = urlBasePackages = "http://www.rdocumentation.org/packages/"
+docs = "functions/"
+ext = ".html"
+
+# - ianhowson (does not have base packages)
+# urlMlrFunctions = "http://rpackages.ianhowson.com/cran/mlr/man/"
+# urlContribPackages = "http://rpackages.ianhowson.com/cran/"
+# urlBasePackages = "http://www.inside-r.org/r-doc/"
+# docs = "man/"
+# ext = ".html"
+# baseR = c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4","tcltk", "tools", "utils")
+
+# - inside-r (does have contributed packages and base/recommended packages in different places)
+# urlMlrFunctions = "http://www.inside-r.org/packages/cran/mlr/docs/"
+# urlContribPackages = "http://www.inside-r.org/packages/cran/"
+# urlBasePackages = "http://www.inside-r.org/r-doc/"
+# docs = "docs/"
+# ext = ""
+# baseR = c("base", "boot", "class", "cluster", "codetools", "compiler", "datasets", "foreign", "graphics", "grDevices", "grid", "KernSmooth", "lattice", "MASS", "Matrix", "methods", "mgcv", "nlme", "nnet", "parallel", "rpart", "spatial", "splines", "stats", "stats4", "survival", "tcltk", "tools", "utils")
+
+
+# macros to link to manual pages:
+# - [NAME](&PACKAGE::FUNCTION)
+# - [NAME](&FUNCTION) (mlr documentation)
+# - [&PACKAGE::FUNCTION]
+# - [&FUNCTION] (mlr documentation)
+# - [NAME](%PACKAGE)
+# - [%PACKAGE]
+
+macros = list(
+  list(pattern = "\\[(.+?)\\]\\(&([A-Za-z0-9.]+?)::([A-Za-z0-9.-_]+)\\)", replacement = paste("[\\1](", urlContribPackages, "\\2/", docs, "\\3", ext, ")", sep = "")),
+  list(pattern = "\\[(.+?)\\]\\(&([A-Za-z0-9.-]+?)\\)", replacement = paste("[\\1](", urlMlrFunctions, "\\2", ext, ")", sep = "")),
+  list(pattern = "\\[&([A-Za-z0-9.]+?)::([A-Za-z0-9.-_]+?)\\]", replacement = paste("[\\1::\\2](", urlContribPackages, "\\1/", docs, "\\2", ext, ")", sep = "")),
+  list(pattern = "\\[&([A-Za-z0-9.-]+?)\\]", replacement = paste("[\\1](", urlMlrFunctions, "\\1", ext, ")", sep = "")),
+  list(pattern = "\\[(.+?)\\]\\(%([A-Za-z0-9.-]+?)\\)", replacement = paste("[\\1](", urlContribPackages, "\\2/)", sep = "")),
+  list(pattern = "\\[%([A-Za-z0-9.-]+?)\\]", replacement = paste("[\\1](", urlContribPackages, "\\1/)", sep = ""))
+)
+
+if (urlContribPackages != urlBasePackages) {
+  # macros to link to docs:
+  # - [NAME](&PACKAGE::FUNCTION)
+  # - [&PACKAGE::FUNCTION]
+  # - [NAME](%PACKAGE)
+  # - [%PACKAGE]
+  macrosRecom = c(
+    lapply(baseR, function(p) list(pattern = paste("\\[(.+?)\\]\\(&(", p, ")::([A-Za-z0-9.-_]+)\\)", sep = ""), replacement = paste("[\\1](", urlBasePackages, "\\2/\\3)", sep = ""))),
+    lapply(baseR, function(p) list(pattern = paste("\\[&(", p, ")::([A-Za-z0-9.-_]+?)\\]", sep = ""), replacement = paste("[\\1::\\2](", urlBasePackages, "\\1/\\2)", sep = ""))),
+    lapply(baseR, function(p) list(pattern = paste("\\[(.+?)\\]\\(%(", p, ")\\)", sep = ""), replacement = paste("[\\1](", urlBasePackages, "\\2/)", sep = ""))),
+    lapply(baseR, function(p) list(pattern = paste("\\[%(", p, ")\\]", sep = ""), replacement = paste("[\\1](", urlBasePackages, "\\1/)", sep = "")))
+  )
+  macros = c(macrosRecom, macros)
+}
+
+
+# helper functions #############################################################
+# generate useful exit status
+exit = function(status, msg, ...) {
+  if (!missing(msg))
+    cat(sprintf(msg, ...), "\n\n", sep = "")
+  quit(save = "no", status = status)
+}
+
+# set seed depending on file name
+setSeed = function(x, algo = "crc32") {
+  hash = digest(x, algo = algo)
+  set.seed(strtoi(sprintf("0x%s", substr(hash, 1L, 7L))))
+}
+
+# environment #################################################################
+
+ontravis = identical(Sys.getenv("TRAVIS"), "true")
+
+# start #######################################################################
+message("Loading required packages ...")
+suppressPackageStartupMessages({
+  # namespace conflicts
+  library(glmnet)   # auc
+  library(ROCR)
+
+  # required to build
+  library(methods)
+  library(parallel)
+  library(digest)
+  library(pander)
+  library(BBmisc)
+  library(knitr)
+  library(caret) # we get problems if this shadows "mlr::train"
+  suppressWarnings(library(rgl)) # suppress "no X" warning on travis
+  library(mlr)
+  library(stringr)
+  library(backports)
+})
+
+# turn warnings to errors, we don't want to miss them
+options(warn = 2L)
+
+# number of spaces to indent the code is 2 (for chunks with tidy=TRUE)
+opts_chunk$set(tidy.opts = list(indent = 2, width.cutoff = 80))

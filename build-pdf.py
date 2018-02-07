@@ -1,11 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 import os
 import re
 import sys
 
-os.chdir(os.path.join("pdf", "docs"))
-with open(os.path.join("..", "..", "mlr-tutorial.md"), "w") as fd:
+if len(sys.argv) < 4:
+  print("Usage: %s [source md file dir] [mkdocs.yml file] [outfile]\n" % sys.argv[0], file = sys.stderr)
+  sys.exit(1)
+
+indir = sys.argv[1]
+inyml = sys.argv[2]
+outfile = sys.argv[3]
+
+
+with open(outfile, "w") as fd:
   fd.write("""
 ---
 title: mlr Tutorial
@@ -28,7 +37,7 @@ author:
   - Lars Kotthoff
 ---
 """)
-  with open(os.path.join("..", "..", "mkdocs.yml"), "r") as fd2:
+  with open(inyml, "r") as fd2:
     line = fd2.readline()
     while line:
       if('Appendix' in line):
@@ -36,7 +45,7 @@ author:
       elif('.md' in line):
         m = re.search("[^']+\.md", line)
         fname = m.group(0)
-        with open(fname, "r") as fd3:
+        with open(os.path.join(indir, fname), "r") as fd3:
           for lin in fd3:
             if fname != "index.md":
               lin = re.sub(r'^(#+ [A-Za-z0-9])', '#\g<1>', lin)
@@ -49,20 +58,15 @@ author:
         if('hyperpar_tuning_effects.md' in line):
           fd.write("\n\n# Extend\n\n")
       line = fd2.readline()
-os.chdir(os.path.join("..", ".."))
 
 def link_fixer(match):
   file = match.group(1)
-  with open(os.path.join("pdf", "docs", file), 'r') as fd:
+  with open(os.path.join(indir, file), 'r') as fd:
     return "(" + re.sub(' ', '-', re.sub(' ', '', fd.readline().rstrip(), 1)).lower() + ")"
 
-with open('mlr-tutorial.md', 'r+') as fd:
+with open(outfile, 'r+') as fd:
   data = fd.read()
   out = re.sub(r'\(([a-zA-Z0-9_]+\.md)\)', link_fixer, data)
   fd.seek(0)
   fd.write(out)
   fd.truncate()
-# In a new version of pandoc he only accepts --pdf-engine=xelatex (?)
-retval = os.system("pandoc --number-sections --latex-engine=xelatex --variable colorlinks=\"true\" --listings -H latex-setup.tex --toc -f markdown+grid_tables+table_captions-implicit_figures -o mlr-tutorial-build.pdf mlr-tutorial.md")
-if retval != 0:
-  sys.exit(1)
