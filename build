@@ -1,0 +1,21 @@
+#!/bin/sh
+ncore=1
+OSNAME=$(uname -s)
+if [ "$OSNAME" = "Linux" ] ; then
+  ncore=$(grep -c ^processor /proc/cpuinfo)
+elif [ "$OSNAME" = "Darwin" ] ; then
+  ncore=$(sysctl -n hw.ncpu)
+fi
+
+echo -e "This build script is a wrapper around 'make -j NCORE' and\nonly runs the necessary steps according to which files changed recently."
+echo -e "To clean up intermediate files and build from the start, run 'make clean' before."
+echo -e "See README.md for more info.\n"
+echo -e "Building using $ncore thread(s)\nTo run with a different number of threads, use\n  make -j NTHREAD"
+if [ "$ncore" -gt 1 ] ; then
+  echo -e "Output may be a bit garbled because of this;\nfor clean output (but a slower build process), just run 'make' instead of './build'."
+  echo -e "\nRunning:\n  make -j ${ncore}\n"
+  exec make -j $ncore
+else
+  echo -e "\nRunning:\n  make\n"
+  exec make
+fi
