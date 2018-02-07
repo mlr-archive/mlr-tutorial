@@ -1,4 +1,5 @@
 site_name: mlr tutorial
+site_dir: local/html
 docs_dir: intermediate/md-files-for-html
 repo_url: https://github.com/mlr-org/mlr/
 use_directory_urls: False
