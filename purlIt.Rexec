@@ -1,0 +1,35 @@
+#!/usr/bin/env Rscript
+
+NEEDARGS = 2
+
+# get current script dir
+self.name = substring(grep("^--file=", commandArgs(), value = TRUE), 8)
+scriptdir = dirname(self.name)
+# if we were not called with Rscript, then scriptdir is empty--fall back to "."
+scriptdir = c(scriptdir, ".")[1]
+# load common configuration
+source(file.path(scriptdir, "buildheader.R"), chdir = TRUE)
+
+
+purlIt = function(infile, outfile) {
+  messagef("Purling file '%s' ...", infile)
+  f = basename(infile)
+  setSeed(f)
+
+  # write to a temporary file first, then move to actual target file after success.
+  # This is necessary to prevent half-completed files to be written when purling fails.
+  tmpoutput = paste0(outfile, ".tmp")
+
+  purl(
+    input = infile,
+    output = tmpoutput,
+    quiet = TRUE,
+    documentation = 0
+  )
+
+  file.rename(tmpoutput, outfile)
+
+  invisible(NULL)
+}
+
+purlIt(argv[1], argv[2])
