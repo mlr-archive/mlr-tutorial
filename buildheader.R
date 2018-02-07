@@ -6,7 +6,7 @@
 argv = commandArgs(TRUE)
 
 if (length(argv) < get0("NEEDARGS", ifnotfound = 0)) {
-  write(sprintf("Usage: %s Infile.Rmd Outfile.R", self.name), stderr())
+  write(sprintf("%s needs %d arguments (infile, [intermediates,] outfile)", self.name, NEEDARGS), stderr())
   quit(save = "no", status = 1)
 }
 
@@ -87,25 +87,37 @@ setSeed = function(x, algo = "crc32") {
 ontravis = identical(Sys.getenv("TRAVIS"), "true")
 
 # start #######################################################################
-message("Loading required packages ...")
-suppressPackageStartupMessages({
-  # namespace conflicts
-  library(glmnet)   # auc
-  library(ROCR)
 
-  # required to build
-  library(methods)
-  library(parallel)
+# load libraries that are needed for most processing
+suppressPackageStartupMessages({
   library(digest)
-  library(pander)
-  library(BBmisc)
   library(knitr)
-  library(caret) # we get problems if this shadows "mlr::train"
-  suppressWarnings(library(rgl)) # suppress "no X" warning on travis
-  library(mlr)
   library(stringr)
+  library(BBmisc)
   library(backports)
 })
+
+# load libraries that are only required for knitting
+loadlibraries = function() {
+
+  message("Loading required packages ...")
+  suppressPackageStartupMessages({
+    # namespace conflicts
+    library(glmnet)   # auc
+    library(ROCR)
+
+    # required to build
+    library(methods)
+    library(parallel)
+
+    library(pander)
+
+    library(caret) # we get problems if this shadows "mlr::train"
+    suppressWarnings(library(rgl)) # suppress "no X" warning on travis
+    library(mlr)
+  })
+
+}
 
 # turn warnings to errors, we don't want to miss them
 options(warn = 2L)

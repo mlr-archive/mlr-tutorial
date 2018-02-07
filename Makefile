@@ -2,16 +2,21 @@
 # location of the *.Rmd files
 SOURCEDIR = src
 # where the local instance of the html, pdf etc. are stored
+# NOTE: when changing this, also change mkdocs.yml
 LOCALDIR = local
 # where TRAVIS is supposed to put the created files
 RELEASEDIR = devel
 
-# intermediate build files
+# mkdocs.yml
+MKDOCSYML = mkdocs.yml
+
+### intermediate build files:
 TEMPDIR = intermediate
 # ... for the .md files that get used for PDFs
 MDOUT = $(TEMPDIR)/md-files
-# ... for the .md files that get used for HTML
-MDOUTHTML = $(TEMPDIR)/md-files-preprocessed
+# ... for the .md files that get used for HTML.
+# NOTE: THIS MUST ALSO BE SET IN mkdocs.yml!
+MDOUTHTML = $(TEMPDIR)/md-files-for-html
 # ... for the purled source files to be included in the html
 SRCOUT = $(TEMPDIR)/full_code_src
 
@@ -23,22 +28,41 @@ SOURCEFILES := $(patsubst $(SOURCEDIR)/%.Rmd,$(SRCOUT)/%.R,$(INFILES))
 MDFILES := $(patsubst $(SOURCEDIR)/%.Rmd,$(MDOUT)/%.md,$(INFILES))
 # pdf input md file
 PDFMASTERMD = $(TEMPDIR)/mlr-tutorial.md
+# all html input .md files created by convertIt
+MDHTMLFILES := $(patsubst $(SOURCEDIR)/%.Rmd,$(MDOUTHTML)/%.md,$(INFILES))
+
+### output files
+# html base directory. this overrides mkdocs.yml
+HTMLBASE = local/html
+# html zip
+ZIPFILE = $(LOCALDIR)/mlr_tutorial.zip
+# pdf file
+PDFFILE = $(LOCALDIR)/mlr-tutorial.pdf
 
 MKDIR_P = mkdir -p
 PURL_CMD = ./purlIt.Rexec
 KNIT_CMD = ./knitIt.Rexec
+CONVERT_CMD = ./convertIt.Rexec
+BUILDPDF_CMD = ./build-pdf.py
 
-.PHONY: all pdf html release clean
+.PHONY: most all pdf html release clean zip
 
-all: pdf html source
+most: pdf html
 
-pdf: $(LOCALDIR)/mlr-tutorial.pdf
+all: most zip
 
-html: source
+pdf: $(PDFFILE)
+
+html: $(MDHTMLFILES)
+	$(MKDIR_P) $(HTMLBASE)
+	mkdocs build -d $(HTMLBASE) -f $(MKDOCSYML)
+
+zip: $(ZIPFILE)
+
 
 source: $(SOURCEFILES)
 
-release: all $(LOCALDIR)/mlr_tutorial.zip
+release: all
 
 clean:
 	-rm $(PDFMASTERMD)
@@ -46,15 +70,21 @@ clean:
 	-rm $(SRCOUT)/*.tmp
 	-rm $(MDOUT)/*.md
 	-rm $(MDOUT)/*.tmp
+	-rm $(MDOUTHTML)/*.md
+	-rm $(MDOUTHTML)/*.tmp
+	-rm -r $(HTMLBASE)
+	-rm $(ZIPFILE)
+	-rm $(PDFFILE)
 
-$(LOCALDIR)/mlr_tutorial.zip:
+$(ZIPFILE): html
+	cd $(HTMLBASE) ; zip -r "$(shell readlink -f $@)" .
 
-$(LOCALDIR)/mlr-tutorial.pdf: $(PDFMASTERMD)
+$(PDFFILE): $(PDFMASTERMD)
 	pandoc --number-sections --latex-engine=xelatex --variable colorlinks="true" --listings -H latex-setup.tex --toc -f markdown+grid_tables+table_captions-implicit_figures -o "$@" "$<"
 
 $(PDFMASTERMD): $(MDFILES)
 	$(MKDIR_P) $(TEMPDIR)
-	exit 1
+	$(BUILDPDF_CMD) $(MDOUT) $(MKDOCSYML) $(PDFMASTERMD)
 
 # "purl" the .Rmd files into .R files
 $(SRCOUT)/%.R: $(SOURCEDIR)/%.Rmd
@@ -66,5 +96,8 @@ $(MDOUT)/%.md: $(SOURCEDIR)/%.Rmd
 	$(MKDIR_P) $(MDOUT)
 	$(KNIT_CMD) "$<" "$@"
 
-# TODO:
-# index: This document --> This webpage
+# convert md files knit for pdf to md files for html
+$(MDOUTHTML)/%.md: $(SOURCEDIR)/%.Rmd $(MDOUT)/%.md $(SRCOUT)/%.R
+	$(MKDIR_P) $(MDOUTHTML)
+	$(CONVERT_CMD) $? "$@"
+
