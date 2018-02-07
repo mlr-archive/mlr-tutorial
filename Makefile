@@ -6,6 +6,12 @@ SOURCEDIR = src
 LOCALDIR = local
 # where TRAVIS is supposed to put the created files
 RELEASEDIR = devel
+# cache directory to be cleaned in make clean.
+# This is hardcoded in the .Rexec scripts.
+CACHEDIR = cache/
+# figure directory to be cleaned in make clean.
+# This is hardcoded in the .Rexec scripts.
+FIGUREDIR = figure/
 
 # mkdocs.yml
 MKDOCSYML = mkdocs.yml
@@ -78,9 +84,11 @@ clean:
 	-rm $(MDOUT)/*.tmp
 	-rm $(MDOUTHTML)/*.md
 	-rm $(MDOUTHTML)/*.tmp
-	-rm -r $(HTMLBASE)
+	-rm -rf $(HTMLBASE)
 	-rm $(ZIPFILE)
 	-rm $(PDFFILE)
+	-rm -rf $(CACHEDIR)
+	-rm -rf $(FIGUREDIR)
 
 $(ZIPFILE): html
 	cd $(HTMLBASE) ; zip -r "$(shell readlink -f $@)" .
