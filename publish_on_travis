@@ -1,0 +1,26 @@
+#!/bin/sh
+SDIR=$(dirname "$(readlink -f "$0")")
+if [ "${SDIR}" != "$PWD" ] ; then
+  echo "publish script must be run in its own directory." >&2
+  exit 1
+fi
+
+if [ "$TRAVIS" != "true" ] ; then
+  if [ "$1" != "-f" ] ; then
+    echo "No TRAVIS detected. Use $0 -f to force running publish script." >&2
+    exit 1
+  fi
+  echo "No TRAVIS detected, but forcing run." >&2
+fi
+
+ncore=1
+OSNAME=$(uname -s)
+if [ "$OSNAME" = "Linux" ] ; then
+  ncore=$(grep -c ^processor /proc/cpuinfo)
+elif [ "$OSNAME" = "Darwin" ] ; then
+  ncore=$(sysctl -n hw.ncpu)
+fi
+
+echo -e "Building using $ncore thread(s)\n"
+exec make -j $ncore release
+
