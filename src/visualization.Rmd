@@ -143,7 +143,7 @@ pd = generatePartialDependenceData(mod, sonar, "V11")
 plt = plotPartialDependence(pd)
 head(plt$data)
 
-# plt # FIXME
+plt
 ```
 
 ```{r, fig.asp = 5/6}
