@@ -12,6 +12,8 @@ More detailed technical information can be found in the [manual pages](%mlr) whi
 are regularly updated and reflect the documentation of the
 [current package version on CRAN](http://cran.r-project.org/web/packages/mlr/index.html).
 
+For a quick overview please check out the [mlr cheatsheet](https://github.com/mlr-org/mlr-tutorial/raw/gh-pages/cheatsheet/MlrCheatsheet.pdf)!
+
 Offline versions of this tutorial are also available for download:
 
 * [current mlr release on CRAN](https://mlr-org.github.io/mlr-tutorial/release/mlr_tutorial.zip)
