@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li class="active">
     <a href="index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -224,14 +228,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../preproc/index.html">
+                        <a rel="prev" href="../impute/index.html">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/wrapper.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -243,6 +245,7 @@
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#wrapper">Wrapper</a></li>
             <li><a href="#example-bagging-wrapper">Example: Bagging wrapper</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -291,49 +294,37 @@ print(wrapped.lrn)
 We can use this newly constructed learner like all base learners, i.e. we can use it in <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/benchmark.html">benchmark</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a>, etc.</p>
 <pre><code class="r">benchmark(tasks = task, learners = list(base.lrn, wrapped.lrn))
 #&gt; Task: iris, Learner: classif.rpart
-#&gt; [Resample] cross-validation iter 1:
-#&gt; mmce.test.mean= 0.2
-#&gt; [Resample] cross-validation iter 2:
-#&gt; mmce.test.mean=0.0667
-#&gt; [Resample] cross-validation iter 3:
-#&gt; mmce.test.mean=   0
-#&gt; [Resample] cross-validation iter 4:
-#&gt; mmce.test.mean=0.0667
-#&gt; [Resample] cross-validation iter 5:
-#&gt; mmce.test.mean=   0
-#&gt; [Resample] cross-validation iter 6:
-#&gt; mmce.test.mean=0.0667
-#&gt; [Resample] cross-validation iter 7:
-#&gt; mmce.test.mean=   0
-#&gt; [Resample] cross-validation iter 8:
-#&gt; mmce.test.mean=0.133
-#&gt; [Resample] cross-validation iter 9:
-#&gt; mmce.test.mean=0.0667
-#&gt; [Resample] cross-validation iter 10:
-#&gt; mmce.test.mean=0.0667
-#&gt; [Resample] Aggr. Result: mmce.test.mean=0.0667
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce
+#&gt; [Resample] iter 1:    0.2000000
+#&gt; [Resample] iter 2:    0.0666667
+#&gt; [Resample] iter 3:    0.0000000
+#&gt; [Resample] iter 4:    0.0666667
+#&gt; [Resample] iter 5:    0.0000000
+#&gt; [Resample] iter 6:    0.0666667
+#&gt; [Resample] iter 7:    0.0000000
+#&gt; [Resample] iter 8:    0.1333333
+#&gt; [Resample] iter 9:    0.0666667
+#&gt; [Resample] iter 10:   0.0666667
+#&gt; 
+#&gt; Aggregated Result: mmce.test.mean=0.0666667
+#&gt; 
 #&gt; Task: iris, Learner: classif.rpart.bagged
-#&gt; [Resample] cross-validation iter 1:
-#&gt; mmce.test.mean= 0.2
-#&gt; [Resample] cross-validation iter 2:
-#&gt; mmce.test.mean=0.0667
-#&gt; [Resample] cross-validation iter 3:
-#&gt; mmce.test.mean=   0
-#&gt; [Resample] cross-validation iter 4:
-#&gt; mmce.test.mean=0.0667
-#&gt; [Resample] cross-validation iter 5:
-#&gt; mmce.test.mean=   0
-#&gt; [Resample] cross-validation iter 6:
-#&gt; mmce.test.mean=0.0667
-#&gt; [Resample] cross-validation iter 7:
-#&gt; mmce.test.mean=   0
-#&gt; [Resample] cross-validation iter 8:
-#&gt; mmce.test.mean=0.133
-#&gt; [Resample] cross-validation iter 9:
-#&gt; mmce.test.mean=   0
-#&gt; [Resample] cross-validation iter 10:
-#&gt; mmce.test.mean=0.0667
-#&gt; [Resample] Aggr. Result: mmce.test.mean=0.06
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce
+#&gt; [Resample] iter 1:    0.2000000
+#&gt; [Resample] iter 2:    0.0666667
+#&gt; [Resample] iter 3:    0.0000000
+#&gt; [Resample] iter 4:    0.0666667
+#&gt; [Resample] iter 5:    0.0000000
+#&gt; [Resample] iter 6:    0.0666667
+#&gt; [Resample] iter 7:    0.0000000
+#&gt; [Resample] iter 8:    0.1333333
+#&gt; [Resample] iter 9:    0.0000000
+#&gt; [Resample] iter 10:   0.0666667
+#&gt; 
+#&gt; Aggregated Result: mmce.test.mean=0.0600000
+#&gt; 
 #&gt;   task.id           learner.id mmce.test.mean
 #&gt; 1    iris        classif.rpart     0.06666667
 #&gt; 2    iris classif.rpart.bagged     0.06000000
@@ -394,30 +385,51 @@ print(tuned.lrn)
 #&gt; With control class: TuneControlRandom
 #&gt; Imputation value: 1
 #&gt; [Tune-x] 1: minsplit=5; bw.feats=0.935
-#&gt; [Tune-y] 1: mmce.test.mean=0.0467; time: 0.1 min
+#&gt; [Tune-y] 1: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 2: minsplit=9; bw.feats=0.675
-#&gt; [Tune-y] 2: mmce.test.mean=0.0467; time: 0.1 min
+#&gt; [Tune-y] 2: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 3: minsplit=2; bw.feats=0.847
-#&gt; [Tune-y] 3: mmce.test.mean=0.0467; time: 0.1 min
+#&gt; [Tune-y] 3: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 4: minsplit=4; bw.feats=0.761
-#&gt; [Tune-y] 4: mmce.test.mean=0.0467; time: 0.1 min
+#&gt; [Tune-y] 4: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 5: minsplit=6; bw.feats=0.338
-#&gt; [Tune-y] 5: mmce.test.mean=0.0867; time: 0.1 min
+#&gt; [Tune-y] 5: mmce.test.mean=0.0866667; time: 0.1 min
 #&gt; [Tune-x] 6: minsplit=1; bw.feats=0.637
-#&gt; [Tune-y] 6: mmce.test.mean=0.0467; time: 0.1 min
+#&gt; [Tune-y] 6: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 7: minsplit=1; bw.feats=0.998
-#&gt; [Tune-y] 7: mmce.test.mean=0.0467; time: 0.1 min
+#&gt; [Tune-y] 7: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 8: minsplit=4; bw.feats=0.698
-#&gt; [Tune-y] 8: mmce.test.mean=0.0467; time: 0.1 min
+#&gt; [Tune-y] 8: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 9: minsplit=3; bw.feats=0.836
-#&gt; [Tune-y] 9: mmce.test.mean=0.0467; time: 0.1 min
+#&gt; [Tune-y] 9: mmce.test.mean=0.0466667; time: 0.1 min
 #&gt; [Tune-x] 10: minsplit=10; bw.feats=0.529
-#&gt; [Tune-y] 10: mmce.test.mean=0.0533; time: 0.1 min
-#&gt; [Tune] Result: minsplit=1; bw.feats=0.998 : mmce.test.mean=0.0467
+#&gt; [Tune-y] 10: mmce.test.mean=0.0533333; time: 0.1 min
+#&gt; [Tune] Result: minsplit=1; bw.feats=0.998 : mmce.test.mean=0.0466667
 print(lrn)
 #&gt; Model for learner.id=classif.rpart.bagged.tuned; learner.class=TuneWrapper
 #&gt; Trained on: task.id = iris; obs = 150; features = 4
 #&gt; Hyperparameters: xval=0,bw.iters=100,bw.feats=0.5
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>data(iris)
+task = makeClassifTask(data = iris, target = &quot;Species&quot;, weights = as.integer(iris$Species))
+base.lrn = makeLearner(&quot;classif.rpart&quot;)
+wrapped.lrn = makeBaggingWrapper(base.lrn, bw.iters = 100, bw.feats = 0.5)
+print(wrapped.lrn)
+benchmark(tasks = task, learners = list(base.lrn, wrapped.lrn))
+getParamSet(wrapped.lrn)
+ctrl = makeTuneControlRandom(maxit = 10)
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
+par.set = makeParamSet(
+  makeIntegerParam(&quot;minsplit&quot;, lower = 1, upper = 10),
+  makeNumericParam(&quot;bw.feats&quot;, lower = 0.25, upper = 1)
+)
+tuned.lrn = makeTuneWrapper(wrapped.lrn, rdesc, mmce, par.set, ctrl)
+print(tuned.lrn)
+lrn = train(tuned.lrn, task = task)
+print(lrn)
 </code></pre></div>
         </div>
 
@@ -426,9 +438,12 @@ print(lrn)
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -451,7 +466,47 @@ print(lrn)
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

@@ -13,19 +13,19 @@ The *learn* and *impute* functions both have at least the following formal argum
 ## Example: Imputation using the mean
 Let's have a look at function [imputeMean](&imputations).
 
-```{r, include=FALSE}
+```{r, include=FALSE, purl= FALSE}
 showFunctionDef = function(fun, name = sub("^[^:]*:+", "", deparse(substitute(fun)))) {
   l = deparse(fun)
   l[1] = paste(name, l[1], sep = " = ")
   l
 }
 ```
-```{r, code=showFunctionDef(imputeMean), eval=FALSE, tidy=TRUE}
+```{r, code=showFunctionDef(imputeMean), eval=FALSE, tidy=TRUE, purl = FALSE}
 ```
 
 [imputeMean](&imputations) calls the unexported [%mlr] function `simpleImpute` which is defined as follows.
 
-```{r, code=showFunctionDef(mlr:::simpleImpute), eval=FALSE, tidy = TRUE}
+```{r, code=showFunctionDef(mlr:::simpleImpute), eval=FALSE, tidy = TRUE, purl= FALSE}
 ```
 
 The *learn* function calculates the mean of the non-missing observations in column ``col``.

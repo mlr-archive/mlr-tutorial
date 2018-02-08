@@ -65,22 +65,24 @@ measure for classification, on the test data set.
 The result `bmr` is an object of class [&BenchmarkResult]. Basically, it contains a [list](&base::list)
 of lists of [&ResampleResult] objects, first ordered by [&Task] and then by [Learner](&makeLearner).
 
+
 ### Making experiments reproducible
+Typically, we would want our experiment results to be reproducible. [%mlr] obeys
+the `set.seed` function, so make sure to use `set.seed` at the beginning of your
+script if you would like your results to be reproducible.
 
-Typically, we would want our experiment results to be reproducible. [%mlr] obeys 
-the `set.seed` function, so make sure to use `set.seed` at the beginning of your 
-script if you would like your results to be reproducible. 
-
-Note that if you are using parallel computing, you may need to adjust how you 
-call `set.seed` depending on your usecase. One possibility is to use 
-`set.seed(123, "L'Ecuyer")` in order to ensure the results are reproducible for 
-each child process. See the examples in [mclapply](&parallel::mclapply) for more 
+Note that if you are using parallel computing, you may need to adjust how you
+call `set.seed` depending on your usecase. One possibility is to use
+`set.seed(123, "L'Ecuyer")` in order to ensure the results are reproducible for
+each child process. See the examples in [mclapply](&parallel::mclapply) for more
 information on reproducibility and parallel computing.
+
 
 ## Accessing benchmark results
 [%mlr] provides several accessor functions, named `getBMR<WhatToExtract>`, that permit
 to retrieve information for further analyses. This includes for example the performances
 or predictions of the learning algorithms under consideration.
+
 
 ### Learner performances
 Let's have a look at the benchmark result above.
@@ -95,6 +97,14 @@ getBMRAggrPerformances(bmr)
 
 Since we used holdout as resampling strategy, individual and aggregated performance values
 coincide.
+
+By default, nearly all "getter" functions return a nested [list](&base::list), with the first
+level indicating the task and the second level indicating the learner.
+If only a single learner or, as in our case a single task is considered, setting
+`drop = TRUE` simplifies the result to a flat [list](&base::list).
+```{r}
+getBMRPerformances(bmr, drop = TRUE)
+```
 
 Often it is more convenient to work with [data.frame](&base::data.frame)s. You can easily
 convert the result structure by setting `as.df = TRUE`.
@@ -112,8 +122,8 @@ If you do not want to keep them, e.g., to conserve memory, set `keep.pred = FALS
 calling [&benchmark].
 
 You can access the predictions using function [&getBMRPredictions].
-Per default, you get a [list](&base::list) of lists of [&ResamplePrediction] objects.
-In most cases you might prefer the [data.frame](&base::data.frame) version.
+Per default, you get a nested [list](&base::list) of [&ResamplePrediction] objects.
+As above, you can use the `drop` or `as.df` options to simplify the result.
 
 ```{r}
 getBMRPredictions(bmr)
@@ -146,14 +156,16 @@ getBMRMeasureIds(bmr)
 ```
 
 
-### Learner models
+### Fitted models
 Per default the [&BenchmarkResult] also contains the fitted models for all learners on all tasks.
 If you do not want to keep them set `models = FALSE` when calling [&benchmark].
 The fitted models can be retrieved by function [&getBMRModels].
-It returns a [list](&base::list) of lists of [WrappedModel](&makeWrappedModel) objects.
+It returns a (possibly nested) [list](&base::list) of [WrappedModel](&makeWrappedModel) objects.
 
 ```{r}
 getBMRModels(bmr)
+
+getBMRModels(bmr, drop = TRUE)
 
 getBMRModels(bmr, learner.ids = "classif.lda")
 ```
@@ -512,7 +524,7 @@ perf = getBMRPerformances(bmr, as.df = TRUE)
 
 ## Density plots for two tasks
 qplot(mmce, colour = learner.id, facets = . ~ task.id,
-  data = perf[perf$task.id %in% c("iris-example", "Sonar-example"),], geom = "density") +
+  data = perf[perf$task.id %in% c("iris_example", "Sonar_example"),], geom = "density") +
   theme(strip.text.x = element_text(size = 8))
 ```
 
@@ -542,7 +554,7 @@ matrix of mean misclassification errors ([mmce](&measures.md)) on the [Sonar](&m
 data set.
 
 ```{r}
-perf = getBMRPerformances(bmr, task.id = "Sonar-example", as.df = TRUE)
+perf = getBMRPerformances(bmr, task.id = "Sonar_example", as.df = TRUE)
 df = reshape2::melt(perf, id.vars = c("task.id", "learner.id", "iter"))
 df = df[df$variable == "mmce",]
 df = reshape2::dcast(df, task.id + iter ~ variable + learner.id)

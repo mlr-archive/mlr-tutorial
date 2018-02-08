@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -229,9 +233,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/integrated_learners.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -242,9 +244,9 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#integrated-learners">Integrated Learners</a></li>
-            <li><a href="#classification-84">Classification (84)</a></li>
-            <li><a href="#regression-64">Regression (64)</a></li>
-            <li><a href="#survival-analysis-15">Survival analysis (15)</a></li>
+            <li><a href="#classification-85">Classification (85)</a></li>
+            <li><a href="#regression-62">Regression (62)</a></li>
+            <li><a href="#survival-analysis-12">Survival analysis (12)</a></li>
             <li><a href="#cluster-analysis-9">Cluster analysis (9)</a></li>
             <li><a href="#cost-sensitive-classification">Cost-sensitive classification</a></li>
             <li><a href="#multilabel-classification-3">Multilabel classification (3)</a></li>
@@ -261,7 +263,7 @@ weights are supported.</p>
 <p>Column <strong>Props</strong> shows further properties of the learning methods specific to the
 type of learning task.
 See also <a href="http://www.rdocumentation.org/packages/mlr/functions/RLearner.html">RLearner</a> for details.</p>
-<h3 id="classification-84">Classification (84)</h3>
+<h3 id="classification-85">Classification (85)</h3>
 <p>For classification the following additional learner properties are relevant and shown in
 column <strong>Props</strong>:</p>
 <ul>
@@ -287,7 +289,7 @@ column <strong>Props</strong>:</p>
 <tbody>
 <tr>
 <td align="left"><strong>classif.ada</strong> <br /> <em>ada</em> <br /><br />ada Boosting</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/ada/">ada</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/ada/">ada</a><br /><a href="http://www.rdocumentation.org/packages/rpart/">rpart</a></td>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
@@ -295,6 +297,17 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left">prob<br />twoclass</td>
 <td align="left"><code>xval</code> has been set to <code>0</code> by default for speed.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.adaboostm1</strong> <br /> <em>adaboostm1</em> <br /><br />ada Boosting M1</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/RWeka/">RWeka</a></td>
+<td align="center">X</td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left">NAs are directly passed to WEKA with <code>na.action = na.pass</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.bartMachine</strong> <br /> <em>bartmachine</em> <br /><br />Bayesian Additive Regression Trees</td>
@@ -306,17 +319,6 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left">prob<br />twoclass</td>
 <td align="left"><code>use_missing_data</code> has been set to <code>TRUE</code> by default to allow missing data support.</td>
-</tr>
-<tr>
-<td align="left"><strong>classif.bdk</strong> <br /> <em>bdk</em> <br /><br />Bi-Directional Kohonen map</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/kohonen/">kohonen</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left"><code>keep.data</code> is set to FALSE to reduce memory requirements.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.binomial</strong> <br /> <em>binomial</em> <br /><br />Binomial Regression</td>
@@ -353,7 +355,7 @@ column <strong>Props</strong>:</p>
 </tr>
 <tr>
 <td align="left"><strong>classif.bst</strong> <br /> <em>bst</em> <br /><br />Gradient Boosting</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/bst/">bst</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/bst/">bst</a><br /><a href="http://www.rdocumentation.org/packages/rpart/">rpart</a></td>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -430,7 +432,7 @@ column <strong>Props</strong>:</p>
 </tr>
 <tr>
 <td align="left"><strong>classif.dcSVM</strong> <br /> <em>dcSVM</em> <br /><br />Divided-Conquer Support Vector Machines</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/SwarmSVM/">SwarmSVM</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/SwarmSVM/">SwarmSVM</a><br /><a href="http://www.rdocumentation.org/packages/e1071/">e1071</a></td>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -441,7 +443,7 @@ column <strong>Props</strong>:</p>
 </tr>
 <tr>
 <td align="left"><strong>classif.earth</strong> <br /> <em>fda</em> <br /><br />Flexible Discriminant Analysis</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/earth/">earth</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/earth/">earth</a><br /><a href="http://www.rdocumentation.org/packages/stats/">stats</a></td>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
@@ -473,6 +475,50 @@ column <strong>Props</strong>:</p>
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>classif.fdausc.glm</strong> <br /> <em>fdausc.glm</em> <br /><br />Generalized Linear Models classification on FDA</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/fda.usc/">fda.usc</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass<br />functionals</td>
+<td align="left">model$C[[1]] is set to quote(classif.glm)</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.fdausc.kernel</strong> <br /> <em>fdausc.kernel</em> <br /><br />Kernel classification on FDA</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/fda.usc/">fda.usc</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass<br />single.functional</td>
+<td align="left">Argument draw=FALSE is used as default.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.fdausc.knn</strong> <br /> <em>fdausc.knn</em> <br /><br />fdausc.knn</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/fda.usc/">fda.usc</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">X</td>
+<td align="left">prob<br />twoclass<br />multiclass<br />single.functional</td>
+<td align="left">Argument draw=FALSE is used as default.</td>
+</tr>
+<tr>
+<td align="left"><strong>classif.fdausc.np</strong> <br /> <em>fdausc.np</em> <br /><br />Nonparametric classification on FDA</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/fda.usc/">fda.usc</a></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass<br />single.functional</td>
+<td align="left">Argument draw=FALSE is used as default. Additionally, mod$C[[1]] is set to quote(classif.np)</td>
+</tr>
+<tr>
 <td align="left"><strong>classif.featureless</strong> <br /> <em>featureless</em> <br /><br />Featureless classifier</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a></td>
 <td align="center">X</td>
@@ -480,7 +526,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left">prob<br />twoclass<br />multiclass<br />functionals</td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -507,7 +553,7 @@ column <strong>Props</strong>:</p>
 </tr>
 <tr>
 <td align="left"><strong>classif.gaterSVM</strong> <br /> <em>gaterSVM</em> <br /><br />Mixture of SVMs with Neural Network Gater Function</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/SwarmSVM/">SwarmSVM</a><br /><a href="http://www.rdocumentation.org/packages/e1071/">e1071</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/SwarmSVM/">SwarmSVM</a></td>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -577,7 +623,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
 <td align="left"></td>
@@ -588,7 +634,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center"></td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
 <td align="left">'distribution' is set automatically to 'gaussian'.</td>
@@ -599,7 +645,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass</td>
 <td align="left">'family' is always set to 'binomial' to get a binary classifier.</td>
@@ -610,20 +656,9 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"><strong>classif.hdrda</strong> <br /> <em>hdrda</em> <br /><br />High-Dimensional Regularized Discriminant Analysis</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/sparsediscrim/">sparsediscrim</a></td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">prob<br />twoclass</td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -800,7 +835,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">prob<br />twoclass</td>
-<td align="left"><code>penalty</code> has been set to <code>"lasso"</code> and <code>lambda</code> to <code>0.1</code> by default.</td>
+<td align="left"><code>penalty</code> has been set to <code>"lasso"</code> and <code>lambda</code> to <code>0.1</code> by default. The parameters <code>lambda</code>, <code>gamma</code>, <code>alpha</code>, <code>oscar.c</code>, <code>a</code>, <code>lambda1</code> and <code>lambda2</code> are the tuning parameters of the <code>penalty</code> function being used, and correspond to the parameters as named in the respective help files. Parameter <code>c</code> for penalty method <code>oscar</code> has been named <code>oscar.c</code>. Parameters <code>lambda1</code> and <code>lambda2</code> correspond to the parameters named 'lambda_1' and 'lambda_2' of the penalty functions <code>enet</code>, <code>fused.lasso</code>, <code>icb</code>, <code>licb</code>, as well as <code>weighted.fusion</code>.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.lssvm</strong> <br /> <em>lssvm</em> <br /><br />Least Squares Support Vector Machine</td>
@@ -856,6 +891,17 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass</td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>classif.mxff</strong> <br /> <em>mxff</em> <br /><br />Feedforward Neural Network</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mxnet/">mxnet</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">prob<br />twoclass<br />multiclass</td>
+<td align="left">Default of <code>learning.rate</code> set to <code>0.1</code>. Default of <code>array.layout</code> set to <code>'rowmajor'</code>.     Default of <code>verbose</code> is set to <code>FALSE</code>. If <code>symbol</code> is specified, it will be passed to mxnet     ignoring almost all other architectural specifications, the exception being that when convolution     is used in the symbol, <code>conv.layer1</code> has to be set to <code>TRUE</code> and <code>conv.data.shape</code> has to     be specified.     Default of <code>initializer</code> is set to NULL, which results in the default mxnet initializer being called when     training a model. Number of output nodes is detected automatically.     The upper bound for dropout is set to <code>1 - 1e-7</code> as in <code>mx.mlp</code>     in the <code>mxnet</code> package. If <code>dropout.global</code> is <code>TRUE</code>, the same dropout rate <code>dropout.input</code>     will be applied to the inputs and all the hidden layers. If <code>dropout.global</code> is <code>FALSE</code>,     <code>dropout.input</code> will be applied to the inputs, and the different <code>dropout.layer</code> parameters to     their respective layers.     <code>batch.normalization</code> specifies whether batch normalization should be used in all hidden layers.     If <code>batch.normalization</code> is set to <code>FALSE</code>, <code>batch.normalization1</code> specifies whether batch     normalization should be used in the first hidden layer,     <code>batch.normalization2</code> and <code>batch.normalization3</code> are defined accordingly.     If <code>conv.layer1</code> is <code>FALSE</code>, the first layer is a <code>FullyConnected</code> layer and <code>num.layer1</code> gives     the number of neurons. If <code>conv.layer1</code> is <code>TRUE</code>, then <code>num.layer1</code> gives the number of     filters. In this case, <code>act1</code> is applied as an <code>Activation</code> layer afterwards (as is the case     with a <code>FullyConnected</code> layer).     This is the same for <code>conv.layer2</code> and <code>conv.layer3</code>. A <code>Convolution</code>     layer cannot follow a <code>FullyConnected</code> layer. To stick with the example of the first layer,     <code>conv.kernel1</code>, <code>conv.stride1</code>,     <code>conv.dilate1</code> and <code>conv.pad1</code> correspond to the parameters     of <code>mx.symbol.Convolution</code>. When a <code>Convolution</code> layer is constructed, a <code>Pooling</code> layer is     constructed with it automatically. Again sticking to the example of the first layer,     <code>pool.kernel1</code>, <code>pool.stride1</code>, <code>pool.pad1</code>     and <code>pool.type1</code> correspond to the parameters in <code>mx.symbol.Pooling</code>.     When convolution is used, <code>conv.data.shape</code> needs to be specified, which is a vector giving the     dimensionality of the data (e.g. for MNIST <code>c(28, 28)</code> or <code>c(28, 28, 1) and for CIFAR10</code>c(28, 28, 3)<code>). Furthermore,</code>array.layout<code>is set to</code>colmajor<code>if convolution is used, to     enable compatability with</code>mxnet<code>. When using convolution,</code>mx.model.FeedForward.create<code>expects the array containing the data to have</code>4<code>dimensions.     To allow for flexibility,</code>conv.data.shape<code>can have length</code>1<code>to</code>4<code>, the dimensions are     taken in ascending order. For common cases, giving an</code>conv.data.shape<code>of length</code>2<code>or</code>3<code>is     sufficient.</code>validation.ratio<code>gives the ratio of training data that will not     be used for training but as validation data similar to the data provided in</code>eval.data<code>.     If</code>eval.data<code>is specified,</code>validation.ratio<code>will be ignored. Note that</code>eval.data<code>is passed     to</code>mx.model.FeedForward.create<code>unchanged to provide unconstrained usability of the underlying     learner. In particular, this implies that</code>array.layout<code>is not adapted when using convolution,     so</code>eval.data<code>needs to be provided in the right format.     If</code>validation.ratio<code>is specified, it is sampled randomly using</code>R<code>'s</code>sample<code>.     If</code>early.stop.badsteps<code>is specified and</code>epoch.end.callback<code>is not specified,     early stopping will be used using</code>mx.callback.early.stop<code>as</code>epoch.end.callback<code>with the     learner's</code>eval.metric<code>. In this case,</code>early.stop.badsteps<code>gives the number of</code>bad.steps<code>in</code>mx.callback.early.stop<code>and</code>early.stop.maximize<code>gives the</code>maximize<code>parameter in</code>mx.callback.early.stop<code>. Please note that when using</code>early.stop.badsteps<code>,</code>eval.metric<code>and     either</code>eval.data<code>or</code>validation.ratio` should be specified.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.naiveBayes</strong> <br /> <em>nbayes</em> <br /><br />Naive Bayes</td>
@@ -946,29 +992,7 @@ column <strong>Props</strong>:</p>
 <td align="left">NAs are directly passed to WEKA with <code>na.action = na.pass</code>.</td>
 </tr>
 <tr>
-<td align="left"><strong>classif.penalized.fusedlasso</strong> <br /> <em>fusedlasso</em> <br /><br />Logistic Fused Lasso Regression</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">prob<br />twoclass</td>
-<td align="left">trace=FALSE was set by default to disable logging output. lambda1 and lambda2 have been set to 1 by default, as fusedlasso needs both penalizations &gt; 0.</td>
-</tr>
-<tr>
-<td align="left"><strong>classif.penalized.lasso</strong> <br /> <em>lasso</em> <br /><br />Logistic Lasso Regression</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">prob<br />twoclass</td>
-<td align="left">trace=FALSE was set by default to disable logging output.</td>
-</tr>
-<tr>
-<td align="left"><strong>classif.penalized.ridge</strong> <br /> <em>ridge</em> <br /><br />Logistic Ridge Regression</td>
+<td align="left"><strong>classif.penalized</strong> <br /> <em>penalized</em> <br /><br />Penalized Logistic Regression</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
 <td align="center">X</td>
 <td align="center">X</td>
@@ -991,7 +1015,7 @@ column <strong>Props</strong>:</p>
 </tr>
 <tr>
 <td align="left"><strong>classif.plsdaCaret</strong> <br /> <em>plsdacaret</em> <br /><br />Partial Least Squares (PLS) Discriminant Analysis</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/caret/">caret</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/caret/">caret</a><br /><a href="http://www.rdocumentation.org/packages/pls/">pls</a></td>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -1064,7 +1088,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="left">prob<br />twoclass<br />multiclass<br />featimp<br />oobpreds</td>
-<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable.</td>
+<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>order</code> for all splitrules. All settings are changeable. <code>mtry.perc</code> sets <code>mtry</code> to <code>mtry.perc*getTaskNFeats(.task)</code>. Default for <code>mtry</code> is the floor of square root of number of features in task. Default for <code>min.node.size</code> is 1 for classification and 10 for probability estimation.</td>
 </tr>
 <tr>
 <td align="left"><strong>classif.rda</strong> <br /> <em>rda</em> <br /><br />Regularized Discriminant Analysis</td>
@@ -1198,20 +1222,9 @@ column <strong>Props</strong>:</p>
 <td align="left">prob<br />twoclass<br />multiclass<br />featimp</td>
 <td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> and <code>verbose</code> to <code>0</code> by default. <code>num_class</code> is set internally, so do not set this manually.</td>
 </tr>
-<tr>
-<td align="left"><strong>classif.xyf</strong> <br /> <em>xyf</em> <br /><br />X-Y fused self-organising maps</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/kohonen/">kohonen</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">prob<br />twoclass<br />multiclass</td>
-<td align="left"></td>
-</tr>
 </tbody>
 </table>
-<h3 id="regression-64">Regression (64)</h3>
+<h3 id="regression-62">Regression (62)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>se</em>: Standard errors can be predicted.</li>
@@ -1252,17 +1265,6 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="left">se</td>
 <td align="left"></td>
-</tr>
-<tr>
-<td align="left"><strong>regr.bdk</strong> <br /> <em>bdk</em> <br /><br />Bi-Directional Kohonen map</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/kohonen/">kohonen</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"></td>
-<td align="left"><code>keep.data</code> is set to FALSE to reduce memory requirements.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.bgp</strong> <br /> <em>bgp</em> <br /><br />Bayesian Gaussian Process</td>
@@ -1321,7 +1323,7 @@ column <strong>Props</strong>:</p>
 </tr>
 <tr>
 <td align="left"><strong>regr.bst</strong> <br /> <em>bst</em> <br /><br />Gradient Boosting</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/bst/">bst</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/bst/">bst</a><br /><a href="http://www.rdocumentation.org/packages/rpart/">rpart</a></td>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -1463,6 +1465,17 @@ column <strong>Props</strong>:</p>
 <td align="left"></td>
 </tr>
 <tr>
+<td align="left"><strong>regr.FDboost</strong> <br /> <em>FDboost</em> <br /><br />Functional linear array regression boosting</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/FDboost/">FDboost</a><br /><a href="http://www.rdocumentation.org/packages/mboost/">mboost</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">functionals</td>
+<td align="left">Only allow one base learner for functional covariate and one base learner for scalar covariate, the parameters for these base learners are the same. Also we currently do not support interaction between scalar covariates</td>
+</tr>
+<tr>
 <td align="left"><strong>regr.featureless</strong> <br /> <em>featureless</em> <br /><br />Featureless regression</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/mlr/">mlr</a></td>
 <td align="center">X</td>
@@ -1470,7 +1483,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="left"></td>
+<td align="left">functionals</td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -1570,7 +1583,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left">se</td>
-<td align="left">(1) As the optimization routine assumes that the inputs are scaled to the unit hypercube [0,1]^d,              the input gets scaled for each variable by default. If this is not wanted, scale = FALSE has             to be set. (2) We replace the GPfit parameter 'corr = list(type='exponential',power=1.95)' to be seperate              parameters 'type' and 'power', in the case of  corr = list(type='matern', nu = 0.5), the seperate parameters             are 'type' and 'matern_nu_k=0', and nu is computed by 'nu=(2*matern_nu_k+1)/2=0.5'</td>
+<td align="left">(1) As the optimization routine assumes that the inputs are scaled to the unit hypercube [0,1]^d,             the input gets scaled for each variable by default. If this is not wanted, scale = FALSE has             to be set. (2) We replace the GPfit parameter 'corr = list(type = 'exponential',power = 1.95)' to be seperate             parameters 'type' and 'power', in the case of  corr = list(type = 'matern', nu = 0.5), the seperate parameters             are 'type' and 'matern_nu_k = 0', and nu is computed by 'nu = (2 * matern_nu_k + 1) / 2 = 0.5'</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.h2o.deeplearning</strong> <br /> <em>h2o.dl</em> <br /><br />h2o.deeplearning</td>
@@ -1578,7 +1591,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left"></td>
 <td align="left"></td>
@@ -1589,7 +1602,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center"></td>
 <td align="left"></td>
 <td align="left">'distribution' is set automatically to 'gaussian'.</td>
@@ -1600,7 +1613,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left"></td>
 <td align="left">'family' is always set to 'gaussian'.</td>
@@ -1611,7 +1624,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center"></td>
 <td align="left"></td>
 <td align="left"></td>
@@ -1717,7 +1730,7 @@ column <strong>Props</strong>:</p>
 </tr>
 <tr>
 <td align="left"><strong>regr.mob</strong> <br /> <em>mob</em> <br /><br />Model-based Recursive Partitioning  Yielding a Tree with Fitted Models Associated with each Terminal Node</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/party/">party</a></td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/party/">party</a><br /><a href="http://www.rdocumentation.org/packages/modeltools/">modeltools</a></td>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center"></td>
@@ -1725,6 +1738,17 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="left"></td>
 <td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>regr.mxff</strong> <br /> <em>mxff</em> <br /><br />Feedforward Neural Network</td>
+<td align="left"><a href="http://www.rdocumentation.org/packages/mxnet/">mxnet</a></td>
+<td align="center">X</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="left">se</td>
+<td align="left">Default of <code>learning.rate</code> set to <code>0.1</code>. Default of <code>array.layout</code> set to <code>'rowmajor'</code>.     Default of <code>verbose</code> is set to <code>FALSE</code>. If <code>symbol</code> is specified, it will be passed to mxnet     ignoring other architectural specifications. Default of <code>initializer</code> is set to NULL, which     results in the default mxnet initializer being called when training a model. Number of output     nodes is detected automatically. The upper bound for dropout is set to <code>1 - 1e-7</code> as in <code>mx.mlp</code>     in the <code>mxnet</code> package. If <code>dropout.global</code> is <code>TRUE</code>, the same dropout rate <code>dropout.input</code>     will be applied to the inputs and all the hidden layers. If <code>dropout.global</code> is <code>FALSE</code>,     <code>dropout.input</code> will be applied to the inputs, and the different <code>dropout.layer</code> parameters to     their respective layers. <code>dropout.mode</code> specifies if dropout should only be used in training or     also for predictions, which allows stochastic predictions. This can be controlled for <code>se</code> with <code>dropout.predict.repls</code>.     If <code>conv.layer1</code> is <code>FALSE</code>, the first layer is a <code>FullyConnected</code> layer and <code>num.layer1</code> gives     the number of neurons. If <code>conv.layer1</code> is <code>TRUE</code>, then <code>num.layer1</code> gives the number of     filters. In this case, <code>act1</code> is applied as an <code>Activation</code> layer afterwards (as is the case     with a <code>FullyConnected</code> layer).     This is the same for <code>conv.layer2</code> and <code>conv.layer3</code>. A <code>Convolution</code>     layer cannot follow a <code>FullyConnected</code> layer. To stick with the example of the first layer,     <code>conv.kernel1</code>, <code>conv.stride1</code>,     <code>conv.dilate1</code> and <code>conv.pad1</code> correspond to the parameters     of <code>mx.symbol.Convolution</code>. When a <code>Convolution</code> layer is constructed, a <code>Pooling</code> layer is     constructed with it automatically. Again sticking to the example of the first layer,     <code>pool.kernel1</code>, <code>pool.stride1</code>, <code>pool.pad1</code>     and <code>pool.type1</code> correspond to the parameters in <code>mx.symbol.Pooling</code>.     When convolution is used, <code>conv.data.shape</code> needs to be specified, which is a vector giving the     dimensionality of the data (e.g. for MNIST <code>c(28, 28)</code> or <code>c(28, 28, 1) and for CIFAR10</code>c(28, 28, 3)<code>). Furthermore,</code>array.layout<code>is set to</code>colmajor<code>if convolution is used, to     enable compatability with</code>mxnet<code>. When using convolution,</code>mx.model.FeedForward.create<code>expects the array containing the data to have</code>4<code>dimensions.     To allow for flexibility,</code>conv.data.shape<code>can have length</code>1<code>to</code>4<code>, the dimensions are     taken in ascending order. For common cases, giving an</code>conv.data.shape<code>of length</code>2<code>or</code>3<code>is     sufficient.</code>validation.ratio<code>gives the ratio of training data that will not     be used for training but as validation data similar to the data provided in</code>eval.data<code>.     If</code>eval.data<code>is specified,</code>validation.ratio<code>will be ignored. Note that</code>eval.data<code>is passed     to</code>mx.model.FeedForward.create<code>unchanged to provide unconstrained usability of the underlying     learner. In particular, this implies that</code>array.layout<code>is not adapted when using convolution,     so</code>eval.data<code>needs to be provided in the right format.     If</code>validation.ratio<code>is specified, it is sampled randomly using</code>R<code>'s</code>sample<code>.     If</code>early.stop.badsteps<code>is specified and</code>epoch.end.callback<code>is not specified,     early stopping will be used using</code>mx.callback.early.stop<code>as</code>epoch.end.callback<code>with the     learner's</code>eval.metric<code>. In this case,</code>early.stop.badsteps<code>gives the number of</code>bad.steps<code>in</code>mx.callback.early.stop<code>and</code>early.stop.maximize<code>gives the</code>maximize<code>parameter in</code>mx.callback.early.stop<code>. Please note that when using</code>early.stop.badsteps<code>,</code>eval.metric<code>and     either</code>eval.data<code>or</code>validation.ratio` should be specified.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.nnet</strong> <br /> <em>nnet</em> <br /><br />Neural Network</td>
@@ -1760,29 +1784,7 @@ column <strong>Props</strong>:</p>
 <td align="left"></td>
 </tr>
 <tr>
-<td align="left"><strong>regr.penalized.fusedlasso</strong> <br /> <em>fusedlasso</em> <br /><br />Fused Lasso Regression</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"></td>
-<td align="left">trace=FALSE was set by default to disable logging output. lambda1 and lambda2 have been set to 1 by default, as fusedlasso needs both penalizations &gt; 0.</td>
-</tr>
-<tr>
-<td align="left"><strong>regr.penalized.lasso</strong> <br /> <em>lasso</em> <br /><br />Lasso Regression</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"></td>
-<td align="left">trace=FALSE was set by default to disable logging output.</td>
-</tr>
-<tr>
-<td align="left"><strong>regr.penalized.ridge</strong> <br /> <em>ridge</em> <br /><br />Ridge Regression</td>
+<td align="left"><strong>regr.penalized</strong> <br /> <em>penalized</em> <br /><br />Penalized Regression</td>
 <td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
 <td align="center">X</td>
 <td align="center">X</td>
@@ -1833,8 +1835,8 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left">featimp<br />oobpreds</td>
-<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable.</td>
+<td align="left">featimp<br />oobpreds<br />se</td>
+<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>order</code> for all splitrules. All settings are changeable. <code>mtry.perc</code> sets <code>mtry</code> to <code>mtry.perc*getTaskNFeats(.task)</code>. Default for <code>mtry</code> is the floor of square root of number of features in task.</td>
 </tr>
 <tr>
 <td align="left"><strong>regr.rknn</strong> <br /> <em>rknn</em> <br /><br />Random k-Nearest-Neighbors</td>
@@ -1919,25 +1921,14 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="center"></td>
+<td align="center">X</td>
 <td align="center">X</td>
 <td align="left">featimp</td>
 <td align="left">All settings are passed directly, rather than through <code>xgboost</code>'s <code>params</code> argument. <code>nrounds</code> has been set to <code>1</code> and <code>verbose</code> to <code>0</code> by default.</td>
 </tr>
-<tr>
-<td align="left"><strong>regr.xyf</strong> <br /> <em>xyf</em> <br /><br />X-Y fused self-organising maps</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/kohonen/">kohonen</a></td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
 </tbody>
 </table>
-<h3 id="survival-analysis-15">Survival analysis (15)</h3>
+<h3 id="survival-analysis-12">Survival analysis (12)</h3>
 <p>Additional learner properties:</p>
 <ul>
 <li><em>prob</em>: Probabilities can be predicted,</li>
@@ -1966,7 +1957,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">featimp<br />rcens</td>
+<td align="left">featimp</td>
 <td align="left">See <code>?ctree_control</code> for possible breakage for nominal features with missingness.</td>
 </tr>
 <tr>
@@ -1977,7 +1968,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
 </tr>
 <tr>
@@ -1988,7 +1979,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left"></td>
 </tr>
 <tr>
@@ -1999,7 +1990,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
 </tr>
 <tr>
@@ -2010,7 +2001,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.</td>
 </tr>
 <tr>
@@ -2021,7 +2012,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left"><code>family</code> has been set to <code>CoxPH()</code> by default.</td>
 </tr>
 <tr>
@@ -2032,7 +2023,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">prob<br />featimp<br />rcens</td>
+<td align="left">featimp</td>
 <td align="left"><code>keep.data</code> is set to FALSE to reduce memory requirements.</td>
 </tr>
 <tr>
@@ -2043,7 +2034,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left"><code>family</code> has been set to <code>CoxPH()</code> by default.</td>
 </tr>
 <tr>
@@ -2054,41 +2045,8 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center">X</td>
-<td align="left">rcens</td>
+<td align="left"></td>
 <td align="left">Factors automatically get converted to dummy columns, ordered factors to integer.       Parameter <code>s</code> (value of the regularization parameter used for predictions) is set to <code>0.1</code> by default,       but needs to be tuned by the user.       glmnet uses a global control object for its parameters. mlr resets all control parameters to their defaults       before setting the specified parameters and after training.       If you are setting glmnet.control parameters through glmnet.control,       you need to save and re-set them after running the glmnet learner.</td>
-</tr>
-<tr>
-<td align="left"><strong>surv.penalized.fusedlasso</strong> <br /> <em>fusedlasso</em> <br /><br />Fused Lasso Regression</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">rcens</td>
-<td align="left">trace=FALSE was set by default to disable logging output. lambda1 and lambda2 have been set to 1 by default, as fusedlasso needs both penalizations &gt; 0.</td>
-</tr>
-<tr>
-<td align="left"><strong>surv.penalized.lasso</strong> <br /> <em>lasso</em> <br /><br />LassoRegression</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">rcens</td>
-<td align="left">trace=FALSE was set by default to disable logging output.</td>
-</tr>
-<tr>
-<td align="left"><strong>surv.penalized.ridge</strong> <br /> <em>ridge</em> <br /><br />Ridge Regression</td>
-<td align="left"><a href="http://www.rdocumentation.org/packages/penalized/">penalized</a></td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center">X</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="left">rcens</td>
-<td align="left">trace=FALSE was set by default to disable logging output.</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.randomForestSRC</strong> <br /> <em>rfsrc</em> <br /><br />Random Forest</td>
@@ -2098,7 +2056,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">featimp<br />oobpreds<br />rcens</td>
+<td align="left">featimp<br />oobpreds</td>
 <td align="left"><code>na.action</code> has been set to <code>"na.impute"</code> by default to allow missing data support.</td>
 </tr>
 <tr>
@@ -2109,8 +2067,8 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center"></td>
 <td align="center"></td>
-<td align="left">featimp<br />rcens</td>
-<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>TRUE</code>. All settings are changeable.</td>
+<td align="left">featimp</td>
+<td align="left">By default, internal parallelization is switched off (<code>num.threads = 1</code>), <code>verbose</code> output is disabled, <code>respect.unordered.factors</code> is set to <code>order</code> for all splitrules. All settings are changeable.</td>
 </tr>
 <tr>
 <td align="left"><strong>surv.rpart</strong> <br /> <em>rpart</em> <br /><br />Survival Tree</td>
@@ -2120,7 +2078,7 @@ column <strong>Props</strong>:</p>
 <td align="center">X</td>
 <td align="center">X</td>
 <td align="center">X</td>
-<td align="left">featimp<br />rcens</td>
+<td align="left">featimp</td>
 <td align="left"><code>xval</code> has been set to <code>0</code> by default for speed.</td>
 </tr>
 </tbody>
@@ -2176,7 +2134,7 @@ column <strong>Props</strong>:</p>
 <td align="center"></td>
 <td align="center"></td>
 <td align="left"></td>
-<td align="left">A cluster index of NA indicates noise points. Specify <code>method = "dist"</code> if the data should be interpreted as dissimilarity matrix or object. Otherwise Euclidean distances will be used.</td>
+<td align="left">A cluster index of NA indicates noise points. Specify <code>method = 'dist'</code> if the data should be interpreted as dissimilarity matrix or object. Otherwise Euclidean distances will be used.</td>
 </tr>
 <tr>
 <td align="left"><strong>cluster.EM</strong> <br /> <em>em</em> <br /><br />Expectation-Maximization Clustering</td>
@@ -2315,9 +2273,12 @@ and the tutorial section on <a href="../multilabel/index.html">multilabel classi
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -2340,7 +2301,47 @@ and the tutorial section on <a href="../multilabel/index.html">multilabel classi
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

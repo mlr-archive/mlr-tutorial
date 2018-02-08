@@ -7,8 +7,6 @@ Often suitable parameter values are not obvious and it is preferable to tune the
 that is automatically identify values that lead to the best performance.
 
 
-## Basics
-
 In order to tune a machine learning algorithm, you have to specify:
 
 * the search space
@@ -56,7 +54,7 @@ hyperparameters of an SVM (function [ksvm](&kernlab::ksvm) from the [%kernlab] p
 with a radial basis kernel. The following examples tune the cost parameter `C` and
 the RBF kernel parameter `sigma` of the [ksvm](&kernlab::ksvm) function.
 
-### Specifying the search space
+## Specifying the search space
 
 We first must define a space to search when tuning our learner. For example, maybe
 we want to tune several specific values of a hyperparameter or perhaps we want to
@@ -89,8 +87,8 @@ Notice this time we use [makeNumericParam](&ParamHelpers::makeNumericParam):
 
 ```{r}
 num_ps = makeParamSet(
-  makeNumericParam("C", lower = -10, upper = 10, trafo = function(x) 10^x),
-  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 10^x)
+  makeNumericParam("C", lower = -10, upper = 10, trafo = function(x) 2^x),
+  makeNumericParam("sigma", lower = -10, upper = 10, trafo = function(x) 2^x)
 )
 ```
 
@@ -103,7 +101,7 @@ each parameter and get rid of the list structure!
 This is the case with the `kpar` argument of [ksvm](&kernlab::ksvm) which is a list of kernel parameters like `sigma`.
 This allows us to interface with learners from different packages in the same way when defining parameters to tune!
 
-### Specifying the optimization algorithm
+## Specifying the optimization algorithm
 
 Now that we have specified the search space, we need to choose an optimization algorithm for our
 parameters to pass to the [ksvm](&kernlab::ksvm) learner. Optimization algorithms are considered
@@ -150,7 +148,7 @@ ensure we adequately cover the space:
 ctrl = makeTuneControlRandom(maxit = 200L)
 ```
 
-### Performing the tuning
+## Performing the tuning
 
 Now that we have specified a search space and the optimization algorithm, it's time to
 perform the tuning. We will need to define a resampling strategy and make note of our performance measure.
@@ -216,7 +214,7 @@ res
 ```
 
 
-### Accessing the tuning result
+## Accessing the tuning result
 
 The result object [&TuneResult] allows you to access the best found settings `$x` and their
 estimated performance `$y`.
@@ -245,7 +243,7 @@ predict(m, task = iris.task)
 
 But what if you wanted to inspect the other points on the search path, not just the optimal?
 
-### Investigating hyperparameter tuning effects
+## Investigating hyperparameter tuning effects
 
 We can inspect all points evaluated during the search by using
 [generateHyperParsEffectData](&mlr::generateHyperParsEffectData):

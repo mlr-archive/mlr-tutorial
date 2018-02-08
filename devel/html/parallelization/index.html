@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -229,9 +233,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/parallelization.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -245,6 +247,7 @@
             <li><a href="#parallelization-levels">Parallelization levels</a></li>
             <li><a href="#custom-learners-and-parallelization">Custom learners and parallelization</a></li>
             <li><a href="#the-end">The end</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -253,7 +256,7 @@
 <p><strong>R</strong> by default does not make use of parallelization.
 With the integration of <a href="http://www.rdocumentation.org/packages/parallelMap/">parallelMap</a> into <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>, it becomes easy to activate the parallel
 computing capabilities already supported by <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a>.
-<a href="http://www.rdocumentation.org/packages/parallelMap/">parallelMap</a> supports all major parallelization backends: local multicore execution using
+<a href="http://www.rdocumentation.org/packages/parallelMap/">parallelMap</a> works with all major parallelization backends: local multicore execution using
 <a href="http://www.rdocumentation.org/packages/parallel/">parallel</a>, socket and MPI clusters using <a href="http://www.rdocumentation.org/packages/snow/">snow</a>, makeshift SSH-clusters using <a href="http://www.rdocumentation.org/packages/BatchJobs/">BatchJobs</a>
 and high performance computing clusters (managed by a scheduler like SLURM, Torque/PBS, SGE or LSF)
 also using <a href="http://www.rdocumentation.org/packages/BatchJobs/">BatchJobs</a>.</p>
@@ -268,8 +271,12 @@ parallelStartSocket(2)
 rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
 r = resample(&quot;classif.lda&quot;, iris.task, rdesc)
 #&gt; Exporting objects to slaves for mode socket: .mlr.slave.options
+#&gt; Resampling: cross-validation
+#&gt; Measures:             mmce
 #&gt; Mapping in parallel: mode = socket; cpus = 2; elements = 3.
-#&gt; [Resample] Aggr. Result: mmce.test.mean=0.02
+#&gt; 
+#&gt; Aggregated Result: mmce.test.mean=0.0200000
+#&gt; 
 
 parallelStop()
 #&gt; Stopped parallelization. All cleaned up.
@@ -288,21 +295,7 @@ Currently the following levels are supported:</p>
 #&gt; mlr: mlr.benchmark, mlr.resample, mlr.selectFeatures, mlr.tuneParams, mlr.ensemble
 </code></pre>
 
-<p>Here is a brief explanation of what these levels do:</p>
-<ul>
-<li><code>"mlr.resample"</code>: Each resampling iteration (a train / test step) is a parallel job.</li>
-<li><code>"mlr.benchmark"</code>: Each experiment "run this learner on this data set" is a parallel job.</li>
-<li><code>"mlr.tuneParams"</code>: Each evaluation in hyperparameter space "resample with these parameter
-  settings" is a parallel job.
-  How many of these can be run independently in parallel, depends on the tuning algorithm.
-  For grid search or random search this is
-  no problem, but for other tuners it depends on how many points are produced in each iteration
-  of the optimization. If a tuner works in a purely sequential fashion, we cannot work magic and the
-  hyperparameter evaluation will also run sequentially. But note that you can still parallelize the
-  underlying resampling.</li>
-<li><code>"mlr.selectFeatures"</code>: Each evaluation in feature space "resample with this feature subset" is a parallel job.
-  The same comments as for <code>"mlr.tuneParams"</code> apply here.</li>
-</ul>
+<p>For further details please see the <a href="http://www.rdocumentation.org/packages/mlr/functions/parallelization.html">parallelization</a> documentation page.</p>
 <h2 id="custom-learners-and-parallelization">Custom learners and parallelization</h2>
 <p>If you have <a href="../create_learner/index.html">implemented a custom learner yourself</a>, locally, you currently
 need to export this to the slave.
@@ -316,7 +309,18 @@ So if you see an error after calling, e.g., a parallelized version of <a href="h
 
 <h2 id="the-end">The end</h2>
 <p>For further details, consult the
-<a href="https://github.com/berndbischl/parallelMap#parallelmap">parallelMap tutorial</a> and <a href="http://www.rdocumentation.org/packages/parallelMap/">help</a>.</p></div>
+<a href="https://github.com/berndbischl/parallelMap#parallelmap">parallelMap tutorial</a> and <a href="http://www.rdocumentation.org/packages/parallelMap/">help</a>.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>library(&quot;parallelMap&quot;)
+parallelStartSocket(2)
+
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
+r = resample(&quot;classif.lda&quot;, iris.task, rdesc)
+
+parallelStop()
+parallelGetRegisteredLevels()
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
@@ -324,9 +328,12 @@ So if you see an error after calling, e.g., a parallelized version of <a href="h
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -349,7 +356,47 @@ So if you see an error after calling, e.g., a parallelized version of <a href="h
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

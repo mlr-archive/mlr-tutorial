@@ -370,11 +370,11 @@ It is also possible to extract the tuning results for individual tasks and learn
 as shown in earlier examples, inspect the [optimization path](&ParamHelpers::OptPath).
 
 ```{r}
-tune.res = getBMRTuneResults(res, task.ids = "Sonar-example", learner.ids = "classif.ksvm.tuned",
+tune.res = getBMRTuneResults(res, task.ids = "Sonar_example", learner.ids = "classif.ksvm.tuned",
   as.df = TRUE)
 tune.res
 
-getNestedTuneResultsOptPathDf(res$results[["Sonar-example"]][["classif.ksvm.tuned"]])
+getNestedTuneResultsOptPathDf(res$results[["Sonar_example"]][["classif.ksvm.tuned"]])
 ```
 
 
@@ -400,16 +400,20 @@ res
 ```
 
 The selected features can be extracted by function [&getBMRFeatSelResults].
+By default, a nested [list](&base::list), with the first level indicating the task and the
+second level indicating the learner, is returned.
+If only a single learner or, as in our case, a single task is considered, setting
+`drop = TRUE` simplifies the result to a flat [list](&base::list).
 
 ```{r}
 getBMRFeatSelResults(res)
+getBMRFeatSelResults(res, drop = TRUE)
 ```
 
 You can access results for individual learners and tasks and inspect them further.
 
 ```{r}
-feats = getBMRFeatSelResults(res, learner.id = "regr.lm.featsel")
-feats = feats$`BostonHousing-example`$`regr.lm.featsel`
+feats = getBMRFeatSelResults(res, learner.id = "regr.lm.featsel", drop = TRUE)
 
 ## Selected features in the first outer resampling iteration
 feats[[1]]$x

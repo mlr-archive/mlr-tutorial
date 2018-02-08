@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -229,9 +233,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/configureMlr.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -246,6 +248,7 @@
             <li><a href="#accessing-and-resetting-the-configuration">Accessing and resetting the configuration</a></li>
             <li><a href="#example-turning-off-parameter-checking">Example: Turning off parameter checking</a></li>
             <li><a href="#example-handling-errors-in-a-learning-method">Example: Handling errors in a learning method</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -272,7 +275,8 @@ session.</p>
 <p>You are bothered by all the output on the console like in this example?</p>
 <pre><code class="r">rdesc = makeResampleDesc(&quot;Holdout&quot;)
 r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
-#&gt; [Resample] holdout iter 1:
+#&gt; Resampling: holdout
+#&gt; Measures:             mmce
 #&gt; # weights:  18 (10 variable)
 #&gt; initial  value 109.861229 
 #&gt; iter  10 value 12.256619
@@ -287,8 +291,10 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 #&gt; iter 100 value 2.360602
 #&gt; final  value 2.360602 
 #&gt; stopped after 100 iterations
-#&gt; mmce.test.mean=0.02
-#&gt; [Resample] Aggr. Result: mmce.test.mean=0.02
+#&gt; [Resample] iter 1:    0.0200000
+#&gt; 
+#&gt; Aggregated Result: mmce.test.mean=0.0200000
+#&gt; 
 </code></pre>
 
 <p>You can suppress the output for this <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">Learner</a> and this <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> call as follows:</p>
@@ -311,13 +317,13 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $on.learner.error
-#&gt; [1] &quot;warn&quot;
+#&gt; [1] &quot;stop&quot;
 #&gt; 
 #&gt; $on.learner.warning
 #&gt; [1] &quot;warn&quot;
 #&gt; 
 #&gt; $on.par.without.desc
-#&gt; [1] &quot;warn&quot;
+#&gt; [1] &quot;stop&quot;
 #&gt; 
 #&gt; $on.par.out.of.bounds
 #&gt; [1] &quot;stop&quot;
@@ -457,7 +463,7 @@ pred
 #&gt; 4  4 setosa     &lt;NA&gt;
 #&gt; 5  5 setosa     &lt;NA&gt;
 #&gt; 6  6 setosa     &lt;NA&gt;
-#&gt; ... (150 rows, 3 cols)
+#&gt; ... (#rows: 150, #cols: 3)
 
 performance(pred)
 #&gt; mmce 
@@ -467,7 +473,56 @@ performance(pred)
 <p>If <code>on.learner.error = "warn"</code> a warning is issued instead of an exception and an object
 of class <a href="http://www.rdocumentation.org/packages/mlr/functions/FailureModel.html">FailureModel</a> is created.
 You can extract the error message using function <a href="http://www.rdocumentation.org/packages/mlr/functions/getFailureModelMsg.html">getFailureModelMsg</a>.
-All further steps like prediction and performance calculation work and return <code>NA's</code>.</p></div>
+All further steps like prediction and performance calculation work and return <code>NA's</code>.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>rdesc = makeResampleDesc(&quot;Holdout&quot;)
+r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
+lrn = makeLearner(&quot;classif.multinom&quot;, config = list(show.learner.output = FALSE))
+r = resample(lrn, iris.task, rdesc, show.info = FALSE)
+configureMlr(show.learner.output = FALSE, show.info = FALSE)
+r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
+getMlrOptions()
+configureMlr()
+getMlrOptions()
+## Support Vector Machine with linear kernel and new parameter 'newParam'
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3)
+
+## Turn off parameter checking completely
+configureMlr(on.par.without.desc = &quot;quiet&quot;)
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3)
+train(lrn, iris.task)
+
+## Option &quot;quiet&quot; also masks typos
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;)
+train(lrn, iris.task)
+
+## Alternatively turn off parameter checking, but still see warnings
+configureMlr(on.par.without.desc = &quot;warn&quot;)
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newParam = 3)
+
+train(lrn, iris.task)
+## This call gives an error caused by the low number of observations in class &quot;virginica&quot;
+train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
+
+## Get a warning instead of an error
+configureMlr(on.learner.error = &quot;warn&quot;)
+mod = train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
+
+mod
+
+## mod is an object of class FailureModel
+isFailureModel(mod)
+
+## Retrieve the error message
+getFailureModelMsg(mod)
+
+## predict and performance return NA's
+pred = predict(mod, iris.task)
+pred
+
+performance(pred)
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
@@ -475,9 +530,12 @@ All further steps like prediction and performance calculation work and return <c
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -500,7 +558,47 @@ All further steps like prediction and performance calculation work and return <c
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

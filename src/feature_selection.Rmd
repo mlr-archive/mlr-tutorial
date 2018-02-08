@@ -226,7 +226,7 @@ The following search strategies are available:
 
 Feature selection can be conducted with function [&selectFeatures].
 
-In the following example we perform an exhaustive search on the
+In the following example we perform a random search on the
 [Wisconsin Prognostic Breast Cancer](&TH.data::wpbc) data set.
 As learning method we use the [Cox proportional hazards model](&survival::coxph).
 The performance is assessed by the holdout estimate of the concordance index

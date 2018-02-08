@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li class="active">
     <a href="index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -224,14 +228,12 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../create_learner/index.html">
+                        <a rel="prev" href="../handling_of_spatial_data/index.html">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/out_of_bag_predictions.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -242,6 +244,7 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#out-of-bag-predictions">Out-of-Bag Predictions</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -256,6 +259,9 @@ each prediction is only made by learners that did not use the observation for tr
 <p>To get a list of learners that provide OOB predictions, you can call
 <code>listLearners(obj = NA, properties = "oobpreds")</code>.</p>
 <pre><code class="r">listLearners(obj = NA, properties = &quot;oobpreds&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
+#&gt; Warning in listLearners.character(obj = NA_character_, properties, quiet, : The following learners could not be constructed, probably because their packages are not installed:
+#&gt; classif.mxff,regr.mxff
+#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
 #&gt;                     class         package
 #&gt; 1    classif.randomForest    randomForest
 #&gt; 2 classif.randomForestSRC randomForestSRC
@@ -263,7 +269,7 @@ each prediction is only made by learners that did not use the observation for tr
 #&gt; 4          classif.rFerns          rFerns
 #&gt; 5       regr.randomForest    randomForest
 #&gt; 6    regr.randomForestSRC randomForestSRC
-#&gt; ... (8 rows, 2 cols)
+#&gt; ... (#rows: 8, #cols: 2)
 </code></pre>
 
 <p>In <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> function <a href="http://www.rdocumentation.org/packages/mlr/functions/getOOBPreds.html">getOOBPreds</a> can be used to extract these observations from the trained
@@ -279,22 +285,32 @@ oob
 #&gt; threshold: M=0.60,R=0.40
 #&gt; time: NA
 #&gt;   id truth    prob.M    prob.R response
-#&gt; 1  1     R 0.5781238 0.4218762        R
-#&gt; 2  2     R 0.5507498 0.4492502        R
-#&gt; 3  3     R 0.5309715 0.4690285        R
-#&gt; 4  4     R 0.4583185 0.5416815        R
-#&gt; 5  5     R 0.5787902 0.4212098        R
-#&gt; 6  6     R 0.3856006 0.6143994        R
-#&gt; ... (208 rows, 5 cols)
+#&gt; 1  1     R 0.5373385 0.4626615        R
+#&gt; 2  2     R 0.5971972 0.4028028        R
+#&gt; 3  3     R 0.5626560 0.4373440        R
+#&gt; 4  4     R 0.4319901 0.5680099        R
+#&gt; 5  5     R 0.5417589 0.4582411        R
+#&gt; 6  6     R 0.4005787 0.5994213        R
+#&gt; ... (#rows: 208, #cols: 5)
 
 performance(oob, measures = list(auc, mmce))
 #&gt;       auc      mmce 
-#&gt; 0.9412093 0.1442308
+#&gt; 0.9308071 0.1778846
 </code></pre>
 
 <p>As the predictions that are used are out-of-bag, this evaluation strategy is very similar
 to common resampling strategies like 10-fold cross-validation, but much faster, as only one
-training instance of the model is required.</p></div>
+training instance of the model is required.</p>
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>listLearners(obj = NA, properties = &quot;oobpreds&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
+lrn = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;, predict.threshold = 0.6)
+mod = train(lrn, sonar.task)
+oob = getOOBPreds(mod, sonar.task)
+oob
+
+performance(oob, measures = list(auc, mmce))
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
@@ -302,9 +318,12 @@ training instance of the model is required.</p></div>
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -327,7 +346,47 @@ training instance of the model is required.</p></div>
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>

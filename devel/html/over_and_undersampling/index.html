@@ -20,8 +20,8 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
-	
-	<script src="../js/jquery-1.10.2.min.js"></script>
+
+        <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script> 
     </head>
@@ -51,7 +51,7 @@
                         <a href="../index.html">Home</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Basics <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Walkthrough <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -68,6 +68,10 @@
                             
 <li >
     <a href="../predict/index.html">Predict</a>
+</li>
+                            
+<li >
+    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -105,10 +109,6 @@
                             
 <li >
     <a href="../wrapper/index.html">Wrapped Learners</a>
-</li>
-                            
-<li >
-    <a href="../preproc/index.html">Preprocessing</a>
 </li>
                             
 <li >
@@ -166,10 +166,14 @@
 <li >
     <a href="../out_of_bag_predictions/index.html">Out-of-Bag Predictions</a>
 </li>
+                            
+<li >
+    <a href="../handling_of_spatial_data/index.html">Handling of Spatial Data</a>
+</li>
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extend <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extending <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
 <li >
@@ -229,9 +233,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/mlr-org/mlr/">
-                                <i class="fa fa-github"></i>GitHub
-                        </a>
+                        <a href="https://github.com/mlr-org/mlr/edit/master/docs/over_and_undersampling.md"><i class="fa fa-github"></i> Edit on GitHub</a>
                     </li>
             </ul>
         </div>
@@ -244,6 +246,7 @@
         <li class="main active"><a href="#imbalanced-classification-problems">Imbalanced Classification Problems</a></li>
             <li><a href="#sampling-based-approaches">Sampling-based approaches</a></li>
             <li><a href="#cost-based-approaches">Cost-based approaches</a></li>
+            <li><a href="#complete-code-listing">Complete code listing</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -357,14 +360,14 @@ performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce,
 <p>In this case the <em>performance measure</em> has to be considered very carefully.
 As the <em>misclassification rate</em> (<a href="../measures/index.html">mmce</a>) evaluates the overall
 accuracy of the predictions, the <em>balanced error rate</em> (<a href="../measures/index.html">ber</a>) and
-<em>area under the ROC Curve</em> (<a href="../measures/index.html">auc</a>) 
+<em>area under the ROC Curve</em> (<a href="../measures/index.html">auc</a>)
 might be more suitable here, as the misclassifications within each class
 are separately taken into account.</p>
 <h3 id="over-and-undersampling-wrappers">Over- and undersampling wrappers</h3>
 <p>Alternatively, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> also offers the integration of over- and undersampling
 via a <a href="../wrapper/index.html">wrapper approach</a>. This way
 over- and undersampling can be applied to already existing <a href="../learner/index.html">learners</a>
-to extend their functionality. </p>
+to extend their functionality.</p>
 <p>The example given above is repeated once again, but this time with extended
 learners instead of modified tasks (see <a href="http://www.rdocumentation.org/packages/mlr/functions/makeUndersampleWrapper.html">makeOversampleWrapper</a>
 and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeUndersampleWrapper.html">makeUndersampleWrapper</a>).
@@ -487,11 +490,11 @@ As the <em>random forest</em> itself is already a strong learner (and a bagged o
 as well), a further bagging step isn't very helpful here and usually won't
 improve the model.</p>
 <h2 id="cost-based-approaches">Cost-based approaches</h2>
-<p>In contrast to sampling, <em>cost-based approaches</em> usually require particular 
+<p>In contrast to sampling, <em>cost-based approaches</em> usually require particular
 learners, which can deal with different <em>class-dependent costs</em>
 (<a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>).</p>
 <h3 id="weighted-classes-wrapper">Weighted classes wrapper</h3>
-<p>Another approach independent of the underlying classifier is to 
+<p>Another approach independent of the underlying classifier is to
 assign the costs as <em>class weights</em>, so that each observation receives a weight,
 depending on the class it belongs to. Similar to the sampling-based approaches,
 the effect of the minority class observations is thereby increased simply by a
@@ -506,13 +509,90 @@ wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
 </code></pre>
 
 <p>For binary classification, the single number passed to the classifier corresponds
-to the weight of the positive / majority class, while the negative / minority 
+to the weight of the positive / majority class, while the negative / minority
 class receives a weight of 1. So actually, no real costs are used within
 this approach, but the cost ratio is taken into account.</p>
 <p>If the underlying learner already has a parameter for class weighting (e.g.,
 <code>class.weights</code> in <code>"classif.ksvm"</code>), the <code>wcw.weight</code> is basically passed
 to the specific class weighting parameter.</p>
 <pre><code class="r">lrn = makeLearner(&quot;classif.ksvm&quot;)
+wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
+</code></pre>
+
+<h2 id="complete-code-listing">Complete code listing</h2>
+<p>The above code without the output is given below:</p>
+<pre><code>data.imbal.train = rbind(
+  data.frame(x = rnorm(100, mean = 1), class = &quot;A&quot;),
+  data.frame(x = rnorm(5000, mean = 2), class = &quot;B&quot;)
+)
+task = makeClassifTask(data = data.imbal.train, target = &quot;class&quot;)
+task.over = oversample(task, rate = 8)
+task.under = undersample(task, rate = 1/8)
+
+table(getTaskTargets(task))
+
+table(getTaskTargets(task.over))
+
+table(getTaskTargets(task.under))
+lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
+mod = train(lrn, task)
+mod.over = train(lrn, task.over)
+mod.under = train(lrn, task.under)
+data.imbal.test = rbind(
+  data.frame(x = rnorm(10, mean = 1), class = &quot;A&quot;),
+  data.frame(x = rnorm(500, mean = 2), class = &quot;B&quot;)
+)
+
+performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+
+performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+
+performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+lrn.over = makeOversampleWrapper(lrn, osw.rate = 8)
+lrn.under = makeUndersampleWrapper(lrn, usw.rate = 1/8)
+mod = train(lrn, task)
+mod.over = train(lrn.over, task)
+mod.under = train(lrn.under, task)
+
+performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+
+performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+
+performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+task.smote = smote(task, rate = 8, nn = 5)
+table(getTaskTargets(task))
+
+table(getTaskTargets(task.smote))
+lrn.smote = makeSMOTEWrapper(lrn, sw.rate = 8, sw.nn = 5)
+mod.smote = train(lrn.smote, task)
+performance(predict(mod.smote, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;response&quot;)
+obw.lrn = makeOverBaggingWrapper(lrn, obw.rate = 8, obw.iters = 3)
+lrn = setPredictType(lrn, &quot;prob&quot;)
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 5)
+r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE,
+  measures = list(mmce, ber, auc))
+r1$aggr
+
+obw.lrn = setPredictType(obw.lrn, &quot;prob&quot;)
+r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,
+  measures = list(mmce, ber, auc))
+r2$aggr
+lrn = makeLearner(&quot;classif.randomForest&quot;)
+obw.lrn = makeOverBaggingWrapper(lrn, obw.rate = 8, obw.iters = 3)
+
+lrn = setPredictType(lrn, &quot;prob&quot;)
+r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE,
+  measures = list(mmce, ber, auc))
+r1$aggr
+
+obw.lrn = setPredictType(obw.lrn, &quot;prob&quot;)
+r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,
+  measures = list(mmce, ber, auc))
+r2$aggr
+lrn = makeLearner(&quot;classif.logreg&quot;)
+wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
+lrn = makeLearner(&quot;classif.ksvm&quot;)
 wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
 </code></pre></div>
         </div>
@@ -522,9 +602,12 @@ wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
-        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -547,7 +630,47 @@ wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
             </div>
         </div>
     </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
+
 
     </body>
 </html>
