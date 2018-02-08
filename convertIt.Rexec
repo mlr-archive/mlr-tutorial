@@ -35,6 +35,18 @@ replacePdfWithSvg = function(includecommand) {
   stringr::str_c("![", match[1, 2], "](data:image/svg+xml;base64,", imagedata, ")")
 }
 
+replacePdfWithSvgImg = function(includecommand) {
+  match = stringr::str_match(includecommand, '<(embed|img) src="([^"]*)"([^>]*)>')
+  tail = match[1, 4]
+  if (match[1, 2] == "embed") {
+    tail = stringr::str_replace(tail, 'type="[^"]*" ', '')
+  }
+  origfile = match[1, 3]
+  svgfile = stringr::str_replace(origfile, "\\.pdf$", ".svg")
+  imagedata = base64enc::base64encode(svgfile)
+  stringr::str_c('<img src="data:image/svg+xml;base64,', imagedata, '"', tail, ">")
+}
+
 # worker function
 convertIt = function(infile, intermediate, rcode, outfile) {
   f = basename(infile)
@@ -82,6 +94,10 @@ convertIt = function(infile, intermediate, rcode, outfile) {
   lines = stringr::str_replace_all(lines,
     "!\\[([^]]*)\\]\\(([^)]*\\.(pdf|svg))\\)",
     replacePdfWithSvg)
+
+  lines = stringr::str_replace_all(lines,
+    '<(embed|img) src="[^"]*"[^>]*>',
+    replacePdfWithSvgImg)
 
   if (!isFALSE(knit.params$full.code$value)) {
     lines = c(
