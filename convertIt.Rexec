@@ -27,7 +27,7 @@ source(file.path(scriptdir, "buildheader.R"), chdir = TRUE)
 # where *** is the base64 encoding of path.svg.
 # @param includecommand [character(1)]: the "![pic](path.pdf)" string.
 replacePdfWithSvg = function(includecommand) {
-  match = stringr::str_match(includecommand, "!\\[([^]]*)\\]\\(([^)]*\\.pdf)\\)")
+  match = stringr::str_match(includecommand, "!\\[([^]]*)\\]\\(([^)]*\\.(pdf|svg))\\)")
 
   origfile = match[1, 3]
   svgfile = stringr::str_replace(origfile, "\\.pdf$", ".svg")
@@ -51,16 +51,6 @@ convertIt = function(infile, intermediate, rcode, outfile) {
       lines = str_replace_all(lines, macro$pattern, macro$replacement)
     }
 
-    if (!isFALSE(knit.params$full.code$value)) {
-      lines = c(
-        lines, "\n",
-        "## Complete code listing", "\n",
-        "The above code without the output is given below:", "\n",
-        "```{r, purl=FALSE, echo = FALSE, comment=''}",
-        paste0("cat(readLines('./",rcode, "'),fill = 2)"),
-        "```")
-    }
-
     cache.path = file.path("cache", f, "")
     opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = file.path("figure", str_replace(f, "\\.Rmd", ""), ""),
       dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
@@ -82,23 +72,26 @@ convertIt = function(infile, intermediate, rcode, outfile) {
       quiet = TRUE
     )
 
-    file.rename(tmpoutput, outfile)
+    lines = readLines(tmpoutput)
+
+    file.remove(tmpoutput)
   } else {
     lines = readLines(intermediate)
-
-    lines = stringr::str_replace_all(lines,
-      "!\\[([^]]*)\\]\\(([^)]*\\.pdf)\\)",
-      replacePdfWithSvg)
-
-    if (!isFALSE(knit.params$full.code$value)) {
-      lines = c(
-        lines, "\n",
-        "## Complete code listing", "\n",
-        "The above code without the output is given below:", "\n```",
-        readLines(rcode), "```")
-    }
-    write(lines, file = outfile)
   }
+
+  lines = stringr::str_replace_all(lines,
+    "!\\[([^]]*)\\]\\(([^)]*\\.(pdf|svg))\\)",
+    replacePdfWithSvg)
+
+  if (!isFALSE(knit.params$full.code$value)) {
+    lines = c(
+      lines, "\n",
+      "## Complete code listing", "\n",
+      "The above code without the output is given below:", "\n```",
+      readLines(rcode), "```")
+  }
+  write(lines, file = outfile)
+
   invisible(NULL)
 }
 
