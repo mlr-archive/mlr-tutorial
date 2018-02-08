@@ -287,7 +287,7 @@ yeast.task
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: FALSE
+#&gt; Has coordinates: FALSE
 #&gt; Classes: 14
 #&gt;  label1  label2  label3  label4  label5  label6  label7  label8  label9 
 #&gt;     762    1038     983     862     722     597     428     480     178 
@@ -323,7 +323,7 @@ lrn.rFerns
 <h3 id="problem-transformation-methods">Problem transformation methods</h3>
 <p>For generating a wrapped multilabel learner first create a binary (or multiclass)
 classification learner with <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a>. Afterwards apply a function like
-<a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelBinaryRelevanceWrapper.html">makeMultilabelBinaryRelevanceWrapper</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelClassifierChainsWrapper.html">makeMultilabelClassifierChainsWrapper</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelNestedStackingWrapper.html">makeMultilabelNestedStackingWrapper</a>, 
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelBinaryRelevanceWrapper.html">makeMultilabelBinaryRelevanceWrapper</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelClassifierChainsWrapper.html">makeMultilabelClassifierChainsWrapper</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelNestedStackingWrapper.html">makeMultilabelNestedStackingWrapper</a>,
 <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelDBRWrapper.html">makeMultilabelDBRWrapper</a> or <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelStackingWrapper.html">makeMultilabelStackingWrapper</a> on the learner to convert it to a learner that uses the respective problem transformation method.</p>
 <p>You can also generate a binary relevance learner directly, as you can see in the example.</p>
 <pre><code class="r">lrn.br = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
@@ -348,7 +348,7 @@ lrn.br2
 #&gt; Hyperparameters: xval=0
 </code></pre>
 
-<p>The different methods are shortly described in the following. </p>
+<p>The different methods are shortly described in the following.</p>
 <h4 id="binary-relevance">Binary relevance</h4>
 <p>This problem transformation method converts the multilabel problem to binary
 classification problems for each
@@ -445,7 +445,7 @@ performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, mult
 #&gt; multilabel.subset01  multilabel.hamloss      multilabel.acc 
 #&gt;           0.8642946           0.2043560           0.4639072 
 #&gt;       multilabel.f1         timepredict 
-#&gt;           0.5730995           2.7410000
+#&gt;           0.5730995           1.6820000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt;  [1] &quot;featperc&quot;            &quot;multilabel.tpr&quot;      &quot;multilabel.hamloss&quot; 
@@ -466,7 +466,7 @@ r
 #&gt; Task: multi
 #&gt; Learner: multilabel.binaryRelevance.classif.rpart
 #&gt; Aggr perf: multilabel.hamloss.test.mean=0.2220267
-#&gt; Runtime: 6.2222
+#&gt; Runtime: 6.07063
 
 r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
@@ -474,7 +474,7 @@ r
 #&gt; Task: multi
 #&gt; Learner: multilabel.rFerns
 #&gt; Aggr perf: multilabel.hamloss.test.mean=0.4745012
-#&gt; Runtime: 0.638307
+#&gt; Runtime: 0.775581
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>
@@ -522,44 +522,44 @@ getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
 
 <h2 id="complete-code-listing">Complete code listing</h2>
 <p>The above code without the output is given below:</p>
-<pre><code>yeast = getTaskData(yeast.task) 
-labels = colnames(yeast)[1:14] 
-yeast.task = makeMultilabelTask(id = &quot;multi&quot;, data = yeast, target = labels) 
-yeast.task 
-lrn.rfsrc = makeLearner(&quot;multilabel.randomForestSRC&quot;) 
-lrn.rFerns = makeLearner(&quot;multilabel.rFerns&quot;) 
-lrn.rFerns 
-lrn.br = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;) 
-lrn.br = makeMultilabelBinaryRelevanceWrapper(lrn.br) 
-lrn.br 
+<pre><code>yeast = getTaskData(yeast.task)
+labels = colnames(yeast)[1:14]
+yeast.task = makeMultilabelTask(id = &quot;multi&quot;, data = yeast, target = labels)
+yeast.task
+lrn.rfsrc = makeLearner(&quot;multilabel.randomForestSRC&quot;)
+lrn.rFerns = makeLearner(&quot;multilabel.rFerns&quot;)
+lrn.rFerns
+lrn.br = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
+lrn.br = makeMultilabelBinaryRelevanceWrapper(lrn.br)
+lrn.br
 
-lrn.br2 = makeMultilabelBinaryRelevanceWrapper(&quot;classif.rpart&quot;) 
-lrn.br2 
-mod = train(lrn.br, yeast.task) 
-mod = train(lrn.br, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500)) 
-mod 
+lrn.br2 = makeMultilabelBinaryRelevanceWrapper(&quot;classif.rpart&quot;)
+lrn.br2
+mod = train(lrn.br, yeast.task)
+mod = train(lrn.br, yeast.task, subset = 1:1500, weights = rep(1/1500, 1500))
+mod
 
-mod2 = train(lrn.rfsrc, yeast.task, subset = 1:100) 
-mod2 
-pred = predict(mod, task = yeast.task, subset = 1:10) 
-pred = predict(mod, newdata = yeast[1501:1600,]) 
-names(as.data.frame(pred)) 
+mod2 = train(lrn.rfsrc, yeast.task, subset = 1:100)
+mod2
+pred = predict(mod, task = yeast.task, subset = 1:10)
+pred = predict(mod, newdata = yeast[1501:1600,])
+names(as.data.frame(pred))
 
-pred2 = predict(mod2, task = yeast.task) 
-names(as.data.frame(pred2)) 
-performance(pred) 
+pred2 = predict(mod2, task = yeast.task)
+names(as.data.frame(pred2))
+performance(pred)
 
-performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc, 
-  multilabel.f1, timepredict)) 
+performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, multilabel.acc,
+  multilabel.f1, timepredict))
 
-listMeasures(&quot;multilabel&quot;) 
-rdesc = makeResampleDesc(method = &quot;CV&quot;, stratify = FALSE, iters = 3) 
-r = resample(learner = lrn.br, task = yeast.task, resampling = rdesc, show.info = FALSE) 
-r 
+listMeasures(&quot;multilabel&quot;)
+rdesc = makeResampleDesc(method = &quot;CV&quot;, stratify = FALSE, iters = 3)
+r = resample(learner = lrn.br, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r
 
-r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE) 
-r 
-getMultilabelBinaryPerformances(pred, measures = list(acc, mmce, auc)) 
+r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
+r
+getMultilabelBinaryPerformances(pred, measures = list(acc, mmce, auc))
 
 getMultilabelBinaryPerformances(r$pred, measures = list(acc, mmce))
 </code></pre></div>

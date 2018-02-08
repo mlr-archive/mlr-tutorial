@@ -303,11 +303,11 @@ to common resampling strategies like 10-fold cross-validation, but much faster, 
 training instance of the model is required.</p>
 <h2 id="complete-code-listing">Complete code listing</h2>
 <p>The above code without the output is given below:</p>
-<pre><code>listLearners(obj = NA, properties = &quot;oobpreds&quot;)[c(&quot;class&quot;, &quot;package&quot;)] 
-lrn = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;, predict.threshold = 0.6) 
-mod = train(lrn, sonar.task) 
-oob = getOOBPreds(mod, sonar.task) 
-oob 
+<pre><code>listLearners(obj = NA, properties = &quot;oobpreds&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
+lrn = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;, predict.threshold = 0.6)
+mod = train(lrn, sonar.task)
+oob = getOOBPreds(mod, sonar.task)
+oob
 
 performance(oob, measures = list(auc, mmce))
 </code></pre></div>
