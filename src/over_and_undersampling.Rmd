@@ -35,7 +35,7 @@ The *sampling-based approaches* can be divided further into three different cate
    Generation of additional cases (copies, artificial observations) of the minority
    class to increase their effect on the classifier. All cases of the majority
    class are kept.
-
+  
 3. **Hybrid methods**:
    Mixture of under- and oversampling strategies.
 
@@ -104,7 +104,7 @@ performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce,
 In this case the *performance measure* has to be considered very carefully.
 As the *misclassification rate* ([mmce](measures.md)) evaluates the overall
 accuracy of the predictions, the *balanced error rate* ([ber](measures.md)) and
-*area under the ROC Curve* ([auc](measures.md))
+*area under the ROC Curve* ([auc](measures.md)) 
 might be more suitable here, as the misclassifications within each class
 are separately taken into account.
 
@@ -114,7 +114,7 @@ are separately taken into account.
 Alternatively, [%mlr] also offers the integration of over- and undersampling
 via a [wrapper approach](wrapper.md). This way
 over- and undersampling can be applied to already existing [learners](learner.md)
-to extend their functionality.
+to extend their functionality. 
 
 The example given above is repeated once again, but this time with extended
 learners instead of modified tasks (see [makeOversampleWrapper](&makeUndersampleWrapper)
@@ -238,14 +238,14 @@ improve the model.
 
 ## Cost-based approaches
 
-In contrast to sampling, *cost-based approaches* usually require particular
+In contrast to sampling, *cost-based approaches* usually require particular 
 learners, which can deal with different *class-dependent costs*
 ([Cost-Sensitive Classification](cost_sensitive_classif.md)).
 
 
 ### Weighted classes wrapper
 
-Another approach independent of the underlying classifier is to
+Another approach independent of the underlying classifier is to 
 assign the costs as *class weights*, so that each observation receives a weight,
 depending on the class it belongs to. Similar to the sampling-based approaches,
 the effect of the minority class observations is thereby increased simply by a
@@ -263,7 +263,7 @@ wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
 ```
 
 For binary classification, the single number passed to the classifier corresponds
-to the weight of the positive / majority class, while the negative / minority
+to the weight of the positive / majority class, while the negative / minority 
 class receives a weight of 1. So actually, no real costs are used within
 this approach, but the cost ratio is taken into account.
 
