@@ -292,7 +292,7 @@ regr.task
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: FALSE
+#&gt; Has coordinates: FALSE
 </code></pre>
 
 <p>As you can see, the <a href="http://www.rdocumentation.org/packages/mlr/functions/Task.html">Task</a> records the type of the learning problem and basic information about
@@ -321,7 +321,7 @@ classif.task
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: FALSE
+#&gt; Has coordinates: FALSE
 #&gt; Classes: 2
 #&gt;    benign malignant 
 #&gt;       458       241 
@@ -360,7 +360,7 @@ surv.task
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: FALSE
+#&gt; Has coordinates: FALSE
 </code></pre>
 
 <p>The type of censoring can be specified via the argument <code>censoring</code>, which defaults to
@@ -388,7 +388,7 @@ yeast.task
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: FALSE
+#&gt; Has coordinates: FALSE
 #&gt; Classes: 14
 #&gt;  label1  label2  label3  label4  label5  label6  label7  label8  label9 
 #&gt;     762    1038     983     862     722     597     428     480     178 
@@ -413,7 +413,7 @@ cluster.task
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: FALSE
+#&gt; Has coordinates: FALSE
 </code></pre>
 
 <h3 id="cost-sensitive-classification">Cost-sensitive classification</h3>
@@ -446,7 +446,7 @@ costsens.task
 #&gt;           4           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: FALSE
+#&gt; Has coordinates: FALSE
 #&gt; Classes: 3
 #&gt; y1, y2, y3
 </code></pre>
@@ -497,7 +497,7 @@ the task you can use:</p>
 #&gt; $has.blocking
 #&gt; [1] FALSE
 #&gt; 
-#&gt; $is.spatial
+#&gt; $has.coordinates
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $class.levels
@@ -611,7 +611,7 @@ removeConstantFeatures(cluster.task)
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: FALSE
+#&gt; Has coordinates: FALSE
 
 ## Remove selected features
 dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;))
@@ -626,7 +626,7 @@ dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;))
 #&gt; Missings: TRUE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: FALSE
+#&gt; Has coordinates: FALSE
 
 ## Standardize numerical features
 task = normalizeFeatures(cluster.task, method = &quot;range&quot;)
@@ -664,74 +664,74 @@ A list of all <a href="http://www.rdocumentation.org/packages/mlr/functions/Task
 sets and data generating functions in package <a href="http://www.rdocumentation.org/packages/mlbench/">mlbench</a>.</p>
 <h2 id="complete-code-listing">Complete code listing</h2>
 <p>The above code without the output is given below:</p>
-<pre><code>data(BostonHousing, package = &quot;mlbench&quot;) 
-regr.task = makeRegrTask(id = &quot;bh&quot;, data = BostonHousing, target = &quot;medv&quot;) 
-regr.task 
-data(BreastCancer, package = &quot;mlbench&quot;) 
-df = BreastCancer 
-df$Id = NULL 
-classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;) 
-classif.task 
-classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;, positive = &quot;malignant&quot;) 
-data(lung, package = &quot;survival&quot;) 
-lung$status = (lung$status == 2) # convert to logical 
-surv.task = makeSurvTask(data = lung, target = c(&quot;time&quot;, &quot;status&quot;)) 
-surv.task 
-yeast = getTaskData(yeast.task) 
+<pre><code>data(BostonHousing, package = &quot;mlbench&quot;)
+regr.task = makeRegrTask(id = &quot;bh&quot;, data = BostonHousing, target = &quot;medv&quot;)
+regr.task
+data(BreastCancer, package = &quot;mlbench&quot;)
+df = BreastCancer
+df$Id = NULL
+classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;)
+classif.task
+classif.task = makeClassifTask(id = &quot;BreastCancer&quot;, data = df, target = &quot;Class&quot;, positive = &quot;malignant&quot;)
+data(lung, package = &quot;survival&quot;)
+lung$status = (lung$status == 2) # convert to logical
+surv.task = makeSurvTask(data = lung, target = c(&quot;time&quot;, &quot;status&quot;))
+surv.task
+yeast = getTaskData(yeast.task)
 
-labels = colnames(yeast)[1:14] 
-yeast.task = makeMultilabelTask(id = &quot;multi&quot;, data = yeast, target = labels) 
-yeast.task 
-data(mtcars, package = &quot;datasets&quot;) 
-cluster.task = makeClusterTask(data = mtcars) 
-cluster.task 
-df = iris 
-cost = matrix(runif(150 * 3, 0, 2000), 150) * (1 - diag(3))[df$Species,] 
-df$Species = NULL 
+labels = colnames(yeast)[1:14]
+yeast.task = makeMultilabelTask(id = &quot;multi&quot;, data = yeast, target = labels)
+yeast.task
+data(mtcars, package = &quot;datasets&quot;)
+cluster.task = makeClusterTask(data = mtcars)
+cluster.task
+df = iris
+cost = matrix(runif(150 * 3, 0, 2000), 150) * (1 - diag(3))[df$Species,]
+df$Species = NULL
 
-costsens.task = makeCostSensTask(data = df, cost = cost) 
-costsens.task 
-getTaskDesc(classif.task) 
-## Get the ID 
-getTaskId(classif.task) 
+costsens.task = makeCostSensTask(data = df, cost = cost)
+costsens.task
+getTaskDesc(classif.task)
+## Get the ID
+getTaskId(classif.task)
 
-## Get the type of task 
-getTaskType(classif.task) 
+## Get the type of task
+getTaskType(classif.task)
 
-## Get the names of the target columns 
-getTaskTargetNames(classif.task) 
+## Get the names of the target columns
+getTaskTargetNames(classif.task)
 
-## Get the number of observations 
-getTaskSize(classif.task) 
+## Get the number of observations
+getTaskSize(classif.task)
 
-## Get the number of input variables 
-getTaskNFeats(classif.task) 
+## Get the number of input variables
+getTaskNFeats(classif.task)
 
-## Get the class levels in classif.task 
-getTaskClassLevels(classif.task) 
-## Accessing the data set in classif.task 
-str(getTaskData(classif.task)) 
+## Get the class levels in classif.task
+getTaskClassLevels(classif.task)
+## Accessing the data set in classif.task
+str(getTaskData(classif.task))
 
-## Get the names of the input variables in cluster.task 
-getTaskFeatureNames(cluster.task) 
+## Get the names of the input variables in cluster.task
+getTaskFeatureNames(cluster.task)
 
-## Get the values of the target variables in surv.task 
-head(getTaskTargets(surv.task)) 
+## Get the values of the target variables in surv.task
+head(getTaskTargets(surv.task))
 
-## Get the cost matrix in costsens.task 
-head(getTaskCosts(costsens.task)) 
-## Select observations and/or features 
-cluster.task = subsetTask(cluster.task, subset = 4:17) 
+## Get the cost matrix in costsens.task
+head(getTaskCosts(costsens.task))
+## Select observations and/or features
+cluster.task = subsetTask(cluster.task, subset = 4:17)
 
-## It may happen, especially after selecting observations, that features are constant. 
-## These should be removed. 
-removeConstantFeatures(cluster.task) 
+## It may happen, especially after selecting observations, that features are constant.
+## These should be removed.
+removeConstantFeatures(cluster.task)
 
-## Remove selected features 
-dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;)) 
+## Remove selected features
+dropFeatures(surv.task, c(&quot;meal.cal&quot;, &quot;wt.loss&quot;))
 
-## Standardize numerical features 
-task = normalizeFeatures(cluster.task, method = &quot;range&quot;) 
+## Standardize numerical features
+task = normalizeFeatures(cluster.task, method = &quot;range&quot;)
 summary(getTaskData(task))
 </code></pre></div>
         </div>

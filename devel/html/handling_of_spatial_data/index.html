@@ -255,241 +255,161 @@
 
 <h1 id="handling-of-spatial-data">Handling of Spatial Data</h1>
 <h2 id="introduction">Introduction</h2>
-<p>Spatial data is different from non-spatial data by having a spatial reference information attached to each observation. 
-This information is usually stored as coordinates, often named <code>x</code> and <code>y</code>. 
-Coordinates are either stored in UTM (Universal Transverse Mercator) or latitude/longitude format. </p>
-<p>Treating spatial data sets like non-spatial ones leads to overoptimistic results in predictive accuracy of models (<a href="https://www.nat-hazards-earth-syst-sci.net/5/853/2005/">Brenning 2005</a>). 
+<p>Spatial data is different from non-spatial data by having a spatial reference information attached to each observation.
+This information is usually stored as coordinates, often named <code>x</code> and <code>y</code>.
+Coordinates are either stored in UTM (Universal Transverse Mercator) or latitude/longitude format.</p>
+<p>Treating spatial data sets like non-spatial ones leads to overoptimistic results in predictive accuracy of models (<a href="https://www.nat-hazards-earth-syst-sci.net/5/853/2005/">Brenning 2005</a>).
 This is due to the underlying spatial autocorrelation in the data.
 Spatial autocorrelation does occur in all spatial data sets.
-Magnitude varies depending on the characteristics of the data set. 
-The closer observations are located to each other, the more similar they are. </p>
+Magnitude varies depending on the characteristics of the data set.
+The closer observations are located to each other, the more similar they are.</p>
 <p>If common validation procedures like cross-validation are applied to such data sets, they assume independence of the observation upfront to provide unbiased estimates.
 However, this assumption is violated in the spatial case due to spatial autocorrelation.
 Subsequently, non-spatial cross-validation will fail to provide accurate performance estimates.</p>
 <p><img alt="Nested Spatial and Non-Spatial Validation" src="../img/spatial_cross_validation.png" title="Nested Spatial and Non-Spatial Validation" /></p>
 <p>By doing a random sampling of the data set (i.e., non-spatial sampling), training and test set data are often located directly next to each other (in geographical space).
-Hence, the test set will contain observations which are somewhat similar (due to spatial autocorrelation) to observations in the training set. 
-This leads to the effect that the model, which was trained on the training set, performs quite well on the test data because it already knows it to some degree. </p>
-<p>To reduce this bias on the resulting predictive accuracy estimate, <a href="https://www.nat-hazards-earth-syst-sci.net/5/853/2005/">Brenning 2005</a> suggested using spatial partitioning in favor of random partitioning (see Figure 1). 
-Here, spatial clusters are equal to the number of folds chosen. 
-These spatially disjoint subsets of the data introduce a spatial distance between training and test set. 
+Hence, the test set will contain observations which are somewhat similar (due to spatial autocorrelation) to observations in the training set.
+This leads to the effect that the model, which was trained on the training set, performs quite well on the test data because it already knows it to some degree.</p>
+<p>To reduce this bias on the resulting predictive accuracy estimate, <a href="https://www.nat-hazards-earth-syst-sci.net/5/853/2005/">Brenning 2005</a> suggested using spatial partitioning in favor of random partitioning (see Figure 1).
+Here, spatial clusters are equal to the number of folds chosen.
+These spatially disjoint subsets of the data introduce a spatial distance between training and test set.
 This reduces the influence of spatial autocorrelation and subsequently also the overoptimistic predictive accuracy estimates.
 The example in Figure 1 shows a five-fold nested cross-validation setting and exhibits the difference between spatial and non-spatial partitioning.
 The nested approach is used when hyperparameter tuning is performed.</p>
 <h2 id="how-to-use-spatial-partitioning-in-mlr">How to use spatial partitioning in mlr</h2>
-<p>Spatial partitioning can be used when performing cross-validation. 
-In any <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> call you can choose <code>SpCV</code> or <code>SpRepCV</code> to use it. 
-While <code>SpCV</code> will perform a spatial cross-validation with only one repetition, <code>SpRepCV</code> gives you the option to choose any number of repetitions. 
-As a rule of thumb, usually 100 repetitions are used with the aim to reduce variance introduced by partitioning.   </p>
+<p>Spatial partitioning can be used when performing cross-validation.
+In any <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> call you can choose <code>SpCV</code> or <code>SpRepCV</code> to use it.
+While <code>SpCV</code> will perform a spatial cross-validation with only one repetition, <code>SpRepCV</code> gives you the option to choose any number of repetitions.
+As a rule of thumb, usually 100 repetitions are used with the aim to reduce variance introduced by partitioning.</p>
 <p>There are some prerequisites for this:</p>
-<p>When specifying the <a href="../task/index.html">task</a>, you need to explicitly state that the task is <code>spatial</code> one by setting <code>spatial = TRUE</code>. 
-Next, there need to be two variables named <code>x</code> and <code>y</code> in your data set that store the coordinate information. 
-If this applies, the coordinates will be used for spatial partitioning if <code>SpCV</code> or <code>SpRepCV</code> are selected as resampling strategies. </p>
-<p>Also, these variables <strong>will be removed</strong> for any <a href="http://www.rdocumentation.org/packages/mlr/functions/train.html">train()</a> or <a href="http://www.rdocumentation.org/packages/mlr/functions/predict.html">predict()</a> call. 
-This means they will not be used as predictors within the specified learner but only to set up the sampling for the cross-validation task.</p>
-<p>Coordinates must be named <code>x</code> and <code>y</code> to be used for spatial partitioning. 
-If named differently and <code>spatial = TRUE</code> was set during task creation, an error will occur. </p>
+<p>When specifying the <a href="../task/index.html">task</a>, you need to provide spatial coordinates through argument <code>coordinates</code>.
+The supplied <code>data.frame</code> needs to have the same number of rows as the data and at least two dimensions need to be supplied.
+This means that a 3-D partitioning might also work but we have not tested this explicitly.
+Coordinates need to be numeric so it is suggested to use a UTM projection.
+If this applies, the coordinates will be used for spatial partitioning if <code>SpCV</code> or <code>SpRepCV</code> is selected as resampling strategy.</p>
 <h2 id="examples">Examples</h2>
-<p>The <code>bc.task.spatial</code> data set serves as an example data set for spatial modeling tasks in <code>mlr</code>.
-The <a href="../task/index.html">task</a> attribute <code>spatial</code> is set to <code>TRUE</code> to indicate that the data set also stores coordinate information.</p>
+<p>The <code>spatial.task</code> data set serves as an example data set for spatial modeling tasks in <code>mlr</code>.
+The <a href="../task/index.html">task</a> argument <code>coordinates</code> is a <code>data.frame</code> with two coordinates that will later be used for the spatial partitioning of the data set.</p>
 <p>In this example, the "Random Forest" algorithm (package <a href="http://www.rdocumentation.org/packages/ranger/functions/ranger.html">ranger</a>) is used to model a binomial response variable.</p>
-<p>For performance assessment, a repeated spatial cross-validation with 5 folds and 10 repetitions is chosen.</p>
+<p>For performance assessment, a repeated spatial cross-validation with 5 folds and 5 repetitions is chosen.</p>
 <h3 id="spatial-cross-validation">Spatial Cross-Validation</h3>
-<pre><code class="r">data(&quot;bc.task.spatial&quot;)
-bc.task.spatial
-#&gt; Supervised task: basque
+<pre><code class="r">data(&quot;spatial.task&quot;)
+spatial.task
+#&gt; Supervised task: ecuador
 #&gt; Type: classif
-#&gt; Target: diplo01
-#&gt; Observations: 944
+#&gt; Target: slides
+#&gt; Observations: 751
 #&gt; Features:
 #&gt;    numerics     factors     ordered functionals 
-#&gt;           9           2           0           0 
+#&gt;          10           0           0           0 
 #&gt; Missings: FALSE
 #&gt; Has weights: FALSE
 #&gt; Has blocking: FALSE
-#&gt; Is spatial: TRUE
+#&gt; Has coordinates: TRUE
 #&gt; Classes: 2
-#&gt;   0   1 
-#&gt; 720 224 
-#&gt; Positive class: 1
+#&gt; FALSE  TRUE 
+#&gt;   251   500 
+#&gt; Positive class: TRUE
 
-learner.glm = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;)
+learner.rf = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;)
 
-resampling = makeResampleDesc(&quot;SpRepCV&quot;, fold = 5, reps = 10)
+resampling = makeResampleDesc(&quot;SpRepCV&quot;, fold = 5, reps = 5)
 
 set.seed(123)
-out = resample(learner = learner.glm, task = bc.task.spatial,
+out = resample(learner = learner.rf, task = spatial.task,
   resampling = resampling, measures = list(auc))
 #&gt; Resampling: repeated spatial cross-validation
 #&gt; Measures:             auc
-#&gt; [Resample] iter 1:    0.8564829
-#&gt; [Resample] iter 2:    0.8903922
-#&gt; [Resample] iter 3:    0.8018739
-#&gt; [Resample] iter 4:    0.8170660
-#&gt; [Resample] iter 5:    0.8626639
-#&gt; [Resample] iter 6:    0.8888889
-#&gt; [Resample] iter 7:    0.9200000
-#&gt; [Resample] iter 8:    0.8844538
-#&gt; [Resample] iter 9:    0.7644215
-#&gt; [Resample] iter 10:   0.7704265
-#&gt; [Resample] iter 11:   0.8883220
-#&gt; [Resample] iter 12:   0.8430926
-#&gt; [Resample] iter 13:   0.7603609
-#&gt; [Resample] iter 14:   0.7996886
-#&gt; [Resample] iter 15:   0.9112150
-#&gt; [Resample] iter 16:   0.8575808
-#&gt; [Resample] iter 17:   0.8758170
-#&gt; [Resample] iter 18:   0.9722531
-#&gt; [Resample] iter 19:   0.7683578
-#&gt; [Resample] iter 20:   0.7707363
-#&gt; [Resample] iter 21:   0.8282783
-#&gt; [Resample] iter 22:   0.8040078
-#&gt; [Resample] iter 23:   0.8559476
-#&gt; [Resample] iter 24:   0.8466709
-#&gt; [Resample] iter 25:   0.8556985
-#&gt; [Resample] iter 26:   0.9694784
-#&gt; [Resample] iter 27:   0.8534002
-#&gt; [Resample] iter 28:   0.8696655
-#&gt; [Resample] iter 29:   0.7530708
-#&gt; [Resample] iter 30:   0.7707363
-#&gt; [Resample] iter 31:   0.7859410
-#&gt; [Resample] iter 32:   0.8797678
-#&gt; [Resample] iter 33:   0.7657106
-#&gt; [Resample] iter 34:   0.8925759
-#&gt; [Resample] iter 35:   0.9153037
-#&gt; [Resample] iter 36:   0.8602616
-#&gt; [Resample] iter 37:   0.8804180
-#&gt; [Resample] iter 38:   0.7662884
-#&gt; [Resample] iter 39:   0.7716682
-#&gt; [Resample] iter 40:   0.9719888
-#&gt; [Resample] iter 41:   0.7636481
-#&gt; [Resample] iter 42:   0.7815193
-#&gt; [Resample] iter 43:   0.9147196
-#&gt; [Resample] iter 44:   0.8892013
-#&gt; [Resample] iter 45:   0.8720978
-#&gt; [Resample] iter 46:   0.8436748
-#&gt; [Resample] iter 47:   0.7144397
-#&gt; [Resample] iter 48:   0.7679477
-#&gt; [Resample] iter 49:   0.8233804
-#&gt; [Resample] iter 50:   0.7238220
+#&gt; [Resample] iter 1:    0.6750295
+#&gt; [Resample] iter 2:    0.5390011
+#&gt; [Resample] iter 3:    0.7126168
+#&gt; [Resample] iter 4:    0.7179386
+#&gt; [Resample] iter 5:    0.4481074
+#&gt; [Resample] iter 6:    0.6661747
+#&gt; [Resample] iter 7:    0.5231959
+#&gt; [Resample] iter 8:    0.7140047
+#&gt; [Resample] iter 9:    0.7230064
+#&gt; [Resample] iter 10:   0.4368742
+#&gt; [Resample] iter 11:   0.6793610
+#&gt; [Resample] iter 12:   0.6912488
+#&gt; [Resample] iter 13:   0.5822304
+#&gt; [Resample] iter 14:   0.8494331
+#&gt; [Resample] iter 15:   0.6187330
+#&gt; [Resample] iter 16:   0.7044860
+#&gt; [Resample] iter 17:   0.6549153
+#&gt; [Resample] iter 18:   0.6441667
+#&gt; [Resample] iter 19:   0.5603976
+#&gt; [Resample] iter 20:   0.5034305
+#&gt; [Resample] iter 21:   0.6673554
+#&gt; [Resample] iter 22:   0.4422466
+#&gt; [Resample] iter 23:   0.7228560
+#&gt; [Resample] iter 24:   0.7178289
+#&gt; [Resample] iter 25:   0.5420875
 #&gt; 
-#&gt; Aggregated Result: auc.test.mean=0.8379085
+#&gt; Aggregated Result: auc.test.mean=0.6294690
 #&gt; 
 
 mean(out$measures.test$auc)
-#&gt; [1] 0.8379085
+#&gt; [1] 0.629469
 </code></pre>
 
 <p>We can check for the introduced spatial autocorrelation bias here by performing the same modeling task using a non-spatial partitioning setting.
-To force non-spatial cross-validation here, variables <code>x</code> and <code>y</code> need to be removed from the data set because they are not used for partitioning when using <code>RepCV</code> and also should not be used as predictors. </p>
-<p>Additionally, the <code>spatial</code> task attribute needs to be set to <code>FALSE</code>.
-Finally, <code>RepCV</code> is chosen instead of <code>SpRepCV</code>.</p>
+To do so, we simply choose <code>RepCV</code> instead of <code>SpRepCV</code>.
+There is no need to remove <code>coordinates</code> from the task as it is only used if <code>SpCV</code> or <code>SpRepCV</code> is selected as the resampling strategy.</p>
 <h3 id="non-spatial-cross-validation">Non-Spatial Cross-Validation</h3>
-<pre><code class="r">data(&quot;bc.task.spatial&quot;)
-bc.task.spatial
-#&gt; Supervised task: basque
-#&gt; Type: classif
-#&gt; Target: diplo01
-#&gt; Observations: 944
-#&gt; Features:
-#&gt;    numerics     factors     ordered functionals 
-#&gt;           9           2           0           0 
-#&gt; Missings: FALSE
-#&gt; Has weights: FALSE
-#&gt; Has blocking: FALSE
-#&gt; Is spatial: TRUE
-#&gt; Classes: 2
-#&gt;   0   1 
-#&gt; 720 224 
-#&gt; Positive class: 1
+<pre><code class="r">learner.rf = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;)
 
-bc.task.spatial$task.desc$spatial = FALSE
-bc.task.spatial$env$data$x = NULL
-bc.task.spatial$env$data$y = NULL
-
-learner.glm = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;)
-
-resampling = makeResampleDesc(&quot;RepCV&quot;, fold = 5, reps = 10)
+resampling = makeResampleDesc(&quot;RepCV&quot;, fold = 5, reps = 5)
 
 set.seed(123)
-out = resample(learner = learner.glm, task = bc.task.spatial,
+out = resample(learner = learner.rf, task = spatial.task,
   resampling = resampling, measures = list(auc))
 #&gt; Resampling: repeated cross-validation
 #&gt; Measures:             auc
-#&gt; [Resample] iter 1:    0.8967930
-#&gt; [Resample] iter 2:    0.9045999
-#&gt; [Resample] iter 3:    0.9294306
-#&gt; [Resample] iter 4:    0.8802067
-#&gt; [Resample] iter 5:    0.9297806
-#&gt; [Resample] iter 6:    0.9167055
-#&gt; [Resample] iter 7:    0.9145773
-#&gt; [Resample] iter 8:    0.9190111
-#&gt; [Resample] iter 9:    0.9230211
-#&gt; [Resample] iter 10:   0.8920038
-#&gt; [Resample] iter 11:   0.9174018
-#&gt; [Resample] iter 12:   0.9216362
-#&gt; [Resample] iter 13:   0.8649985
-#&gt; [Resample] iter 14:   0.9400488
-#&gt; [Resample] iter 15:   0.9335277
-#&gt; [Resample] iter 16:   0.8901363
-#&gt; [Resample] iter 17:   0.8874161
-#&gt; [Resample] iter 18:   0.9116547
-#&gt; [Resample] iter 19:   0.9056988
-#&gt; [Resample] iter 20:   0.9353667
-#&gt; [Resample] iter 21:   0.9007716
-#&gt; [Resample] iter 22:   0.9178832
-#&gt; [Resample] iter 23:   0.9260784
-#&gt; [Resample] iter 24:   0.8679113
-#&gt; [Resample] iter 25:   0.9532938
-#&gt; [Resample] iter 26:   0.8807246
-#&gt; [Resample] iter 27:   0.9007646
-#&gt; [Resample] iter 28:   0.9112245
-#&gt; [Resample] iter 29:   0.9021704
-#&gt; [Resample] iter 30:   0.9442953
-#&gt; [Resample] iter 31:   0.9243403
-#&gt; [Resample] iter 32:   0.9407455
-#&gt; [Resample] iter 33:   0.8723823
-#&gt; [Resample] iter 34:   0.9146044
-#&gt; [Resample] iter 35:   0.8980796
-#&gt; [Resample] iter 36:   0.9012854
-#&gt; [Resample] iter 37:   0.9103448
-#&gt; [Resample] iter 38:   0.9683020
-#&gt; [Resample] iter 39:   0.9169096
-#&gt; [Resample] iter 40:   0.8891844
-#&gt; [Resample] iter 41:   0.8992375
-#&gt; [Resample] iter 42:   0.8888889
-#&gt; [Resample] iter 43:   0.9168440
-#&gt; [Resample] iter 44:   0.9027697
-#&gt; [Resample] iter 45:   0.9038690
-#&gt; [Resample] iter 46:   0.9262346
-#&gt; [Resample] iter 47:   0.8470183
-#&gt; [Resample] iter 48:   0.8931188
-#&gt; [Resample] iter 49:   0.9615858
-#&gt; [Resample] iter 50:   0.9296015
+#&gt; [Resample] iter 1:    0.7362637
+#&gt; [Resample] iter 2:    0.7651485
+#&gt; [Resample] iter 3:    0.8119974
+#&gt; [Resample] iter 4:    0.6807436
+#&gt; [Resample] iter 5:    0.7441992
+#&gt; [Resample] iter 6:    0.7769076
+#&gt; [Resample] iter 7:    0.8383069
+#&gt; [Resample] iter 8:    0.7276557
+#&gt; [Resample] iter 9:    0.7341821
+#&gt; [Resample] iter 10:   0.7563874
+#&gt; [Resample] iter 11:   0.7542955
+#&gt; [Resample] iter 12:   0.7972408
+#&gt; [Resample] iter 13:   0.7444000
+#&gt; [Resample] iter 14:   0.7083333
+#&gt; [Resample] iter 15:   0.7405476
+#&gt; [Resample] iter 16:   0.7296736
+#&gt; [Resample] iter 17:   0.7212000
+#&gt; [Resample] iter 18:   0.7715856
+#&gt; [Resample] iter 19:   0.7898859
+#&gt; [Resample] iter 20:   0.7915686
+#&gt; [Resample] iter 21:   0.7391717
+#&gt; [Resample] iter 22:   0.7454031
+#&gt; [Resample] iter 23:   0.8092320
+#&gt; [Resample] iter 24:   0.7267977
+#&gt; [Resample] iter 25:   0.7643745
 #&gt; 
-#&gt; Aggregated Result: auc.test.mean=0.9104896
+#&gt; Aggregated Result: auc.test.mean=0.7562201
 #&gt; 
 
 mean(out$measures.test$auc)
-#&gt; [1] 0.9104896
+#&gt; [1] 0.7562201
 </code></pre>
 
-<p>The introduced bias (caused by spatial autocorrelation) in performance in this example is around 0.07 AUROC. </p>
+<p>The introduced bias (caused by spatial autocorrelation) in performance in this example is around 0.12 AUROC.</p>
 <h2 id="notes">Notes</h2>
 <ul>
 <li>
-<p>Usually, coordinates are not used as predictors in spatial modeling.
-If you insist on using them and also want to perform spatial cross-validation, add them to the data set with a different name than <code>x</code> or <code>y</code>, e.g. <code>x1</code> and <code>y1</code>.
-That way they will be treated as normal predictors.</p>
-</li>
-<li>
-<p>Some models are more affected by spatial autocorrelation than others. 
+<p>Some models are more affected by spatial autocorrelation than others.
 In general, it can be said that the more flexible a model is, the more it will profit from underlying spatial autocorrelation.
 Simpler models (e.g., GLM) will show less overoptimistic performance estimates.</p>
 </li>
 <li>
 <p>The concept of spatial cross-validation was originally implemented in package <a href="https://pat-s.github.io/sperrorest/index.html">sperrorest</a>.
-This package comes with even more partitioning options and the ability to visualize the spatial grouping of folds. 
+This package comes with even more partitioning options and the ability to visualize the spatial grouping of folds.
 We plan to integrate more functions from <a href="https://pat-s.github.io/sperrorest/index.html">sperrorest</a> into <code>mlr</code> so stay tuned!</p>
 </li>
 <li>
@@ -498,33 +418,26 @@ We plan to integrate more functions from <a href="https://pat-s.github.io/sperro
 </ul>
 <h2 id="complete-code-listing">Complete code listing</h2>
 <p>The above code without the output is given below:</p>
-<pre><code>library(&quot;mlr&quot;) 
-data(&quot;bc.task.spatial&quot;) 
-bc.task.spatial 
+<pre><code>library(&quot;mlr&quot;)
+data(&quot;spatial.task&quot;)
+spatial.task
 
-learner.glm = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;) 
+learner.rf = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;)
 
-resampling = makeResampleDesc(&quot;SpRepCV&quot;, fold = 5, reps = 10) 
+resampling = makeResampleDesc(&quot;SpRepCV&quot;, fold = 5, reps = 5)
 
-set.seed(123) 
-out = resample(learner = learner.glm, task = bc.task.spatial, 
-  resampling = resampling, measures = list(auc)) 
+set.seed(123)
+out = resample(learner = learner.rf, task = spatial.task,
+  resampling = resampling, measures = list(auc))
 
-mean(out$measures.test$auc) 
-data(&quot;bc.task.spatial&quot;) 
-bc.task.spatial 
+mean(out$measures.test$auc)
+learner.rf = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;)
 
-bc.task.spatial$task.desc$spatial = FALSE 
-bc.task.spatial$env$data$x = NULL 
-bc.task.spatial$env$data$y = NULL 
+resampling = makeResampleDesc(&quot;RepCV&quot;, fold = 5, reps = 5)
 
-learner.glm = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;) 
-
-resampling = makeResampleDesc(&quot;RepCV&quot;, fold = 5, reps = 10) 
-
-set.seed(123) 
-out = resample(learner = learner.glm, task = bc.task.spatial, 
-  resampling = resampling, measures = list(auc)) 
+set.seed(123)
+out = resample(learner = learner.rf, task = spatial.task,
+  resampling = resampling, measures = list(auc))
 
 mean(out$measures.test$auc)
 </code></pre></div>
