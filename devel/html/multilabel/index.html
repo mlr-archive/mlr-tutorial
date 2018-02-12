@@ -323,7 +323,7 @@ lrn.rFerns
 <h3 id="problem-transformation-methods">Problem transformation methods</h3>
 <p>For generating a wrapped multilabel learner first create a binary (or multiclass)
 classification learner with <a href="http://www.rdocumentation.org/packages/mlr/functions/makeLearner.html">makeLearner</a>. Afterwards apply a function like
-<a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelBinaryRelevanceWrapper.html">makeMultilabelBinaryRelevanceWrapper</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelClassifierChainsWrapper.html">makeMultilabelClassifierChainsWrapper</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelNestedStackingWrapper.html">makeMultilabelNestedStackingWrapper</a>,
+<a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelBinaryRelevanceWrapper.html">makeMultilabelBinaryRelevanceWrapper</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelClassifierChainsWrapper.html">makeMultilabelClassifierChainsWrapper</a>, <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelNestedStackingWrapper.html">makeMultilabelNestedStackingWrapper</a>, 
 <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelDBRWrapper.html">makeMultilabelDBRWrapper</a> or <a href="http://www.rdocumentation.org/packages/mlr/functions/makeMultilabelStackingWrapper.html">makeMultilabelStackingWrapper</a> on the learner to convert it to a learner that uses the respective problem transformation method.</p>
 <p>You can also generate a binary relevance learner directly, as you can see in the example.</p>
 <pre><code class="r">lrn.br = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
@@ -348,7 +348,7 @@ lrn.br2
 #&gt; Hyperparameters: xval=0
 </code></pre>
 
-<p>The different methods are shortly described in the following.</p>
+<p>The different methods are shortly described in the following. </p>
 <h4 id="binary-relevance">Binary relevance</h4>
 <p>This problem transformation method converts the multilabel problem to binary
 classification problems for each
@@ -445,7 +445,7 @@ performance(pred2, measures = list(multilabel.subset01, multilabel.hamloss, mult
 #&gt; multilabel.subset01  multilabel.hamloss      multilabel.acc 
 #&gt;           0.8642946           0.2043560           0.4639072 
 #&gt;       multilabel.f1         timepredict 
-#&gt;           0.5730995           1.6820000
+#&gt;           0.5730995           1.9670000
 
 listMeasures(&quot;multilabel&quot;)
 #&gt;  [1] &quot;featperc&quot;            &quot;multilabel.tpr&quot;      &quot;multilabel.hamloss&quot; 
@@ -466,7 +466,7 @@ r
 #&gt; Task: multi
 #&gt; Learner: multilabel.binaryRelevance.classif.rpart
 #&gt; Aggr perf: multilabel.hamloss.test.mean=0.2220267
-#&gt; Runtime: 6.07063
+#&gt; Runtime: 6.90599
 
 r = resample(learner = lrn.rFerns, task = yeast.task, resampling = rdesc, show.info = FALSE)
 r
@@ -474,7 +474,7 @@ r
 #&gt; Task: multi
 #&gt; Learner: multilabel.rFerns
 #&gt; Aggr perf: multilabel.hamloss.test.mean=0.4745012
-#&gt; Runtime: 0.775581
+#&gt; Runtime: 0.863915
 </code></pre>
 
 <h2 id="binary-performance">Binary performance</h2>

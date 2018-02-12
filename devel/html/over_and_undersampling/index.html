@@ -360,14 +360,14 @@ performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce,
 <p>In this case the <em>performance measure</em> has to be considered very carefully.
 As the <em>misclassification rate</em> (<a href="../measures/index.html">mmce</a>) evaluates the overall
 accuracy of the predictions, the <em>balanced error rate</em> (<a href="../measures/index.html">ber</a>) and
-<em>area under the ROC Curve</em> (<a href="../measures/index.html">auc</a>)
+<em>area under the ROC Curve</em> (<a href="../measures/index.html">auc</a>) 
 might be more suitable here, as the misclassifications within each class
 are separately taken into account.</p>
 <h3 id="over-and-undersampling-wrappers">Over- and undersampling wrappers</h3>
 <p>Alternatively, <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> also offers the integration of over- and undersampling
 via a <a href="../wrapper/index.html">wrapper approach</a>. This way
 over- and undersampling can be applied to already existing <a href="../learner/index.html">learners</a>
-to extend their functionality.</p>
+to extend their functionality. </p>
 <p>The example given above is repeated once again, but this time with extended
 learners instead of modified tasks (see <a href="http://www.rdocumentation.org/packages/mlr/functions/makeUndersampleWrapper.html">makeOversampleWrapper</a>
 and <a href="http://www.rdocumentation.org/packages/mlr/functions/makeUndersampleWrapper.html">makeUndersampleWrapper</a>).
@@ -490,11 +490,11 @@ As the <em>random forest</em> itself is already a strong learner (and a bagged o
 as well), a further bagging step isn't very helpful here and usually won't
 improve the model.</p>
 <h2 id="cost-based-approaches">Cost-based approaches</h2>
-<p>In contrast to sampling, <em>cost-based approaches</em> usually require particular
+<p>In contrast to sampling, <em>cost-based approaches</em> usually require particular 
 learners, which can deal with different <em>class-dependent costs</em>
 (<a href="../cost_sensitive_classif/index.html">Cost-Sensitive Classification</a>).</p>
 <h3 id="weighted-classes-wrapper">Weighted classes wrapper</h3>
-<p>Another approach independent of the underlying classifier is to
+<p>Another approach independent of the underlying classifier is to 
 assign the costs as <em>class weights</em>, so that each observation receives a weight,
 depending on the class it belongs to. Similar to the sampling-based approaches,
 the effect of the minority class observations is thereby increased simply by a
@@ -509,7 +509,7 @@ wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
 </code></pre>
 
 <p>For binary classification, the single number passed to the classifier corresponds
-to the weight of the positive / majority class, while the negative / minority
+to the weight of the positive / majority class, while the negative / minority 
 class receives a weight of 1. So actually, no real costs are used within
 this approach, but the cost ratio is taken into account.</p>
 <p>If the underlying learner already has a parameter for class weighting (e.g.,

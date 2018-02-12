@@ -255,38 +255,38 @@
 
 <h1 id="handling-of-spatial-data">Handling of Spatial Data</h1>
 <h2 id="introduction">Introduction</h2>
-<p>Spatial data is different from non-spatial data by having a spatial reference information attached to each observation.
-This information is usually stored as coordinates, often named <code>x</code> and <code>y</code>.
-Coordinates are either stored in UTM (Universal Transverse Mercator) or latitude/longitude format.</p>
-<p>Treating spatial data sets like non-spatial ones leads to overoptimistic results in predictive accuracy of models (<a href="https://www.nat-hazards-earth-syst-sci.net/5/853/2005/">Brenning 2005</a>).
+<p>Spatial data is different from non-spatial data by having a spatial reference information attached to each observation. 
+This information is usually stored as coordinates, often named <code>x</code> and <code>y</code>. 
+Coordinates are either stored in UTM (Universal Transverse Mercator) or latitude/longitude format. </p>
+<p>Treating spatial data sets like non-spatial ones leads to overoptimistic results in predictive accuracy of models (<a href="https://www.nat-hazards-earth-syst-sci.net/5/853/2005/">Brenning 2005</a>). 
 This is due to the underlying spatial autocorrelation in the data.
 Spatial autocorrelation does occur in all spatial data sets.
-Magnitude varies depending on the characteristics of the data set.
-The closer observations are located to each other, the more similar they are.</p>
+Magnitude varies depending on the characteristics of the data set. 
+The closer observations are located to each other, the more similar they are. </p>
 <p>If common validation procedures like cross-validation are applied to such data sets, they assume independence of the observation upfront to provide unbiased estimates.
 However, this assumption is violated in the spatial case due to spatial autocorrelation.
 Subsequently, non-spatial cross-validation will fail to provide accurate performance estimates.</p>
 <p><img alt="Nested Spatial and Non-Spatial Validation" src="../img/spatial_cross_validation.png" title="Nested Spatial and Non-Spatial Validation" /></p>
 <p>By doing a random sampling of the data set (i.e., non-spatial sampling), training and test set data are often located directly next to each other (in geographical space).
-Hence, the test set will contain observations which are somewhat similar (due to spatial autocorrelation) to observations in the training set.
-This leads to the effect that the model, which was trained on the training set, performs quite well on the test data because it already knows it to some degree.</p>
-<p>To reduce this bias on the resulting predictive accuracy estimate, <a href="https://www.nat-hazards-earth-syst-sci.net/5/853/2005/">Brenning 2005</a> suggested using spatial partitioning in favor of random partitioning (see Figure 1).
-Here, spatial clusters are equal to the number of folds chosen.
-These spatially disjoint subsets of the data introduce a spatial distance between training and test set.
+Hence, the test set will contain observations which are somewhat similar (due to spatial autocorrelation) to observations in the training set. 
+This leads to the effect that the model, which was trained on the training set, performs quite well on the test data because it already knows it to some degree. </p>
+<p>To reduce this bias on the resulting predictive accuracy estimate, <a href="https://www.nat-hazards-earth-syst-sci.net/5/853/2005/">Brenning 2005</a> suggested using spatial partitioning in favor of random partitioning (see Figure 1). 
+Here, spatial clusters are equal to the number of folds chosen. 
+These spatially disjoint subsets of the data introduce a spatial distance between training and test set. 
 This reduces the influence of spatial autocorrelation and subsequently also the overoptimistic predictive accuracy estimates.
 The example in Figure 1 shows a five-fold nested cross-validation setting and exhibits the difference between spatial and non-spatial partitioning.
 The nested approach is used when hyperparameter tuning is performed.</p>
 <h2 id="how-to-use-spatial-partitioning-in-mlr">How to use spatial partitioning in mlr</h2>
-<p>Spatial partitioning can be used when performing cross-validation.
-In any <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> call you can choose <code>SpCV</code> or <code>SpRepCV</code> to use it.
-While <code>SpCV</code> will perform a spatial cross-validation with only one repetition, <code>SpRepCV</code> gives you the option to choose any number of repetitions.
-As a rule of thumb, usually 100 repetitions are used with the aim to reduce variance introduced by partitioning.</p>
+<p>Spatial partitioning can be used when performing cross-validation. 
+In any <a href="http://www.rdocumentation.org/packages/mlr/functions/resample.html">resample</a> call you can choose <code>SpCV</code> or <code>SpRepCV</code> to use it. 
+While <code>SpCV</code> will perform a spatial cross-validation with only one repetition, <code>SpRepCV</code> gives you the option to choose any number of repetitions. 
+As a rule of thumb, usually 100 repetitions are used with the aim to reduce variance introduced by partitioning.   </p>
 <p>There are some prerequisites for this:</p>
 <p>When specifying the <a href="../task/index.html">task</a>, you need to provide spatial coordinates through argument <code>coordinates</code>.
 The supplied <code>data.frame</code> needs to have the same number of rows as the data and at least two dimensions need to be supplied.
 This means that a 3-D partitioning might also work but we have not tested this explicitly.
 Coordinates need to be numeric so it is suggested to use a UTM projection.
-If this applies, the coordinates will be used for spatial partitioning if <code>SpCV</code> or <code>SpRepCV</code> is selected as resampling strategy.</p>
+If this applies, the coordinates will be used for spatial partitioning if <code>SpCV</code> or <code>SpRepCV</code> is selected as resampling strategy. </p>
 <h2 id="examples">Examples</h2>
 <p>The <code>spatial.task</code> data set serves as an example data set for spatial modeling tasks in <code>mlr</code>.
 The <a href="../task/index.html">task</a> argument <code>coordinates</code> is a <code>data.frame</code> with two coordinates that will later be used for the spatial partitioning of the data set.</p>
@@ -399,17 +399,17 @@ mean(out$measures.test$auc)
 #&gt; [1] 0.7562201
 </code></pre>
 
-<p>The introduced bias (caused by spatial autocorrelation) in performance in this example is around 0.12 AUROC.</p>
+<p>The introduced bias (caused by spatial autocorrelation) in performance in this example is around 0.12 AUROC. </p>
 <h2 id="notes">Notes</h2>
 <ul>
 <li>
-<p>Some models are more affected by spatial autocorrelation than others.
+<p>Some models are more affected by spatial autocorrelation than others. 
 In general, it can be said that the more flexible a model is, the more it will profit from underlying spatial autocorrelation.
 Simpler models (e.g., GLM) will show less overoptimistic performance estimates.</p>
 </li>
 <li>
 <p>The concept of spatial cross-validation was originally implemented in package <a href="https://pat-s.github.io/sperrorest/index.html">sperrorest</a>.
-This package comes with even more partitioning options and the ability to visualize the spatial grouping of folds.
+This package comes with even more partitioning options and the ability to visualize the spatial grouping of folds. 
 We plan to integrate more functions from <a href="https://pat-s.github.io/sperrorest/index.html">sperrorest</a> into <code>mlr</code> so stay tuned!</p>
 </li>
 <li>
