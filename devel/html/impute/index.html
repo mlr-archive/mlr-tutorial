@@ -532,37 +532,37 @@ which is an interface to <a href="http://www.rdocumentation.org/packages/caret/"
 k-nearest neighbors, bagged trees, and by the median.</p>
 <h2 id="complete-code-listing">Complete code listing</h2>
 <p>The above code without the output is given below:</p>
-<pre><code>## Regression learners that can deal with missing values
-listLearners(&quot;regr&quot;, properties = &quot;missings&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
-data(airquality)
-summary(airquality)
-airq = airquality
-ind = sample(nrow(airq), 10)
-airq$Wind[ind] = NA
-airq$Wind = cut(airq$Wind, c(0,8,16,24))
-summary(airq)
-imp = impute(airq, classes = list(integer = imputeMean(), factor = imputeMode()),
-  dummy.classes = &quot;integer&quot;)
-head(imp$data, 10)
-imp$desc
-airq = subset(airq, select = 1:4)
-airq.train = airq[1:100,]
-airq.test = airq[-c(1:100),]
-imp = impute(airq.train, target = &quot;Ozone&quot;, cols = list(Solar.R = imputeHist(),
-  Wind = imputeLearner(&quot;classif.rpart&quot;)), dummy.cols = c(&quot;Solar.R&quot;, &quot;Wind&quot;))
-summary(imp$data)
+<pre><code>## Regression learners that can deal with missing values 
+listLearners(&quot;regr&quot;, properties = &quot;missings&quot;)[c(&quot;class&quot;, &quot;package&quot;)] 
+data(airquality) 
+summary(airquality) 
+airq = airquality 
+ind = sample(nrow(airq), 10) 
+airq$Wind[ind] = NA 
+airq$Wind = cut(airq$Wind, c(0,8,16,24)) 
+summary(airq) 
+imp = impute(airq, classes = list(integer = imputeMean(), factor = imputeMode()), 
+  dummy.classes = &quot;integer&quot;) 
+head(imp$data, 10) 
+imp$desc 
+airq = subset(airq, select = 1:4) 
+airq.train = airq[1:100,] 
+airq.test = airq[-c(1:100),] 
+imp = impute(airq.train, target = &quot;Ozone&quot;, cols = list(Solar.R = imputeHist(), 
+  Wind = imputeLearner(&quot;classif.rpart&quot;)), dummy.cols = c(&quot;Solar.R&quot;, &quot;Wind&quot;)) 
+summary(imp$data) 
 
-imp$desc
-airq.test.imp = reimpute(airq.test, imp$desc)
-head(airq.test.imp)
-lrn = makeImputeWrapper(&quot;regr.lm&quot;, cols = list(Solar.R = imputeHist(),
-  Wind = imputeLearner(&quot;classif.rpart&quot;)), dummy.cols = c(&quot;Solar.R&quot;, &quot;Wind&quot;))
-lrn
-airq = subset(airq, subset = !is.na(airq$Ozone))
-task = makeRegrTask(data = airq, target = &quot;Ozone&quot;)
-rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
-r = resample(lrn, task, resampling = rdesc, show.info = FALSE, models = TRUE)
-r$aggr
+imp$desc 
+airq.test.imp = reimpute(airq.test, imp$desc) 
+head(airq.test.imp) 
+lrn = makeImputeWrapper(&quot;regr.lm&quot;, cols = list(Solar.R = imputeHist(), 
+  Wind = imputeLearner(&quot;classif.rpart&quot;)), dummy.cols = c(&quot;Solar.R&quot;, &quot;Wind&quot;)) 
+lrn 
+airq = subset(airq, subset = !is.na(airq$Ozone)) 
+task = makeRegrTask(data = airq, target = &quot;Ozone&quot;) 
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3) 
+r = resample(lrn, task, resampling = rdesc, show.info = FALSE, models = TRUE) 
+r$aggr 
 lapply(r$models, getLearnerModel, more.unwrap = TRUE)
 </code></pre></div>
         </div>

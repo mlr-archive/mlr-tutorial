@@ -418,26 +418,26 @@ We plan to integrate more functions from <a href="https://pat-s.github.io/sperro
 </ul>
 <h2 id="complete-code-listing">Complete code listing</h2>
 <p>The above code without the output is given below:</p>
-<pre><code>library(&quot;mlr&quot;)
-data(&quot;spatial.task&quot;)
-spatial.task
+<pre><code>library(&quot;mlr&quot;) 
+data(&quot;spatial.task&quot;) 
+spatial.task 
 
-learner.rf = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;)
+learner.rf = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;) 
 
-resampling = makeResampleDesc(&quot;SpRepCV&quot;, fold = 5, reps = 5)
+resampling = makeResampleDesc(&quot;SpRepCV&quot;, fold = 5, reps = 5) 
 
-set.seed(123)
-out = resample(learner = learner.rf, task = spatial.task,
-  resampling = resampling, measures = list(auc))
+set.seed(123) 
+out = resample(learner = learner.rf, task = spatial.task, 
+  resampling = resampling, measures = list(auc)) 
 
-mean(out$measures.test$auc)
-learner.rf = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;)
+mean(out$measures.test$auc) 
+learner.rf = makeLearner(&quot;classif.ranger&quot;, predict.type = &quot;prob&quot;) 
 
-resampling = makeResampleDesc(&quot;RepCV&quot;, fold = 5, reps = 5)
+resampling = makeResampleDesc(&quot;RepCV&quot;, fold = 5, reps = 5) 
 
-set.seed(123)
-out = resample(learner = learner.rf, task = spatial.task,
-  resampling = resampling, measures = list(auc))
+set.seed(123) 
+out = resample(learner = learner.rf, task = spatial.task, 
+  resampling = resampling, measures = list(auc)) 
 
 mean(out$measures.test$auc)
 </code></pre></div>

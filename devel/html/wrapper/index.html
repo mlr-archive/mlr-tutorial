@@ -413,22 +413,22 @@ print(lrn)
 
 <h2 id="complete-code-listing">Complete code listing</h2>
 <p>The above code without the output is given below:</p>
-<pre><code>data(iris)
-task = makeClassifTask(data = iris, target = &quot;Species&quot;, weights = as.integer(iris$Species))
-base.lrn = makeLearner(&quot;classif.rpart&quot;)
-wrapped.lrn = makeBaggingWrapper(base.lrn, bw.iters = 100, bw.feats = 0.5)
-print(wrapped.lrn)
-benchmark(tasks = task, learners = list(base.lrn, wrapped.lrn))
-getParamSet(wrapped.lrn)
-ctrl = makeTuneControlRandom(maxit = 10)
-rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3)
-par.set = makeParamSet(
-  makeIntegerParam(&quot;minsplit&quot;, lower = 1, upper = 10),
-  makeNumericParam(&quot;bw.feats&quot;, lower = 0.25, upper = 1)
-)
-tuned.lrn = makeTuneWrapper(wrapped.lrn, rdesc, mmce, par.set, ctrl)
-print(tuned.lrn)
-lrn = train(tuned.lrn, task = task)
+<pre><code>data(iris) 
+task = makeClassifTask(data = iris, target = &quot;Species&quot;, weights = as.integer(iris$Species)) 
+base.lrn = makeLearner(&quot;classif.rpart&quot;) 
+wrapped.lrn = makeBaggingWrapper(base.lrn, bw.iters = 100, bw.feats = 0.5) 
+print(wrapped.lrn) 
+benchmark(tasks = task, learners = list(base.lrn, wrapped.lrn)) 
+getParamSet(wrapped.lrn) 
+ctrl = makeTuneControlRandom(maxit = 10) 
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 3) 
+par.set = makeParamSet( 
+  makeIntegerParam(&quot;minsplit&quot;, lower = 1, upper = 10), 
+  makeNumericParam(&quot;bw.feats&quot;, lower = 0.25, upper = 1) 
+) 
+tuned.lrn = makeTuneWrapper(wrapped.lrn, rdesc, mmce, par.set, ctrl) 
+print(tuned.lrn) 
+lrn = train(tuned.lrn, task = task) 
 print(lrn)
 </code></pre></div>
         </div>

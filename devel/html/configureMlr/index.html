@@ -317,13 +317,13 @@ r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
 #&gt; [1] FALSE
 #&gt; 
 #&gt; $on.learner.error
-#&gt; [1] &quot;stop&quot;
+#&gt; [1] &quot;warn&quot;
 #&gt; 
 #&gt; $on.learner.warning
 #&gt; [1] &quot;warn&quot;
 #&gt; 
 #&gt; $on.par.without.desc
-#&gt; [1] &quot;stop&quot;
+#&gt; [1] &quot;warn&quot;
 #&gt; 
 #&gt; $on.par.out.of.bounds
 #&gt; [1] &quot;stop&quot;
@@ -476,50 +476,50 @@ You can extract the error message using function <a href="http://www.rdocumentat
 All further steps like prediction and performance calculation work and return <code>NA's</code>.</p>
 <h2 id="complete-code-listing">Complete code listing</h2>
 <p>The above code without the output is given below:</p>
-<pre><code>rdesc = makeResampleDesc(&quot;Holdout&quot;)
-r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
-lrn = makeLearner(&quot;classif.multinom&quot;, config = list(show.learner.output = FALSE))
-r = resample(lrn, iris.task, rdesc, show.info = FALSE)
-configureMlr(show.learner.output = FALSE, show.info = FALSE)
-r = resample(&quot;classif.multinom&quot;, iris.task, rdesc)
-getMlrOptions()
-configureMlr()
-getMlrOptions()
-## Support Vector Machine with linear kernel and new parameter 'newParam'
-lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3)
+<pre><code>rdesc = makeResampleDesc(&quot;Holdout&quot;) 
+r = resample(&quot;classif.multinom&quot;, iris.task, rdesc) 
+lrn = makeLearner(&quot;classif.multinom&quot;, config = list(show.learner.output = FALSE)) 
+r = resample(lrn, iris.task, rdesc, show.info = FALSE) 
+configureMlr(show.learner.output = FALSE, show.info = FALSE) 
+r = resample(&quot;classif.multinom&quot;, iris.task, rdesc) 
+getMlrOptions() 
+configureMlr() 
+getMlrOptions() 
+## Support Vector Machine with linear kernel and new parameter 'newParam' 
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3) 
 
-## Turn off parameter checking completely
-configureMlr(on.par.without.desc = &quot;quiet&quot;)
-lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3)
-train(lrn, iris.task)
+## Turn off parameter checking completely 
+configureMlr(on.par.without.desc = &quot;quiet&quot;) 
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernel = &quot;vanilladot&quot;, newParam = 3) 
+train(lrn, iris.task) 
 
-## Option &quot;quiet&quot; also masks typos
-lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;)
-train(lrn, iris.task)
+## Option &quot;quiet&quot; also masks typos 
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;) 
+train(lrn, iris.task) 
 
-## Alternatively turn off parameter checking, but still see warnings
-configureMlr(on.par.without.desc = &quot;warn&quot;)
-lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newParam = 3)
+## Alternatively turn off parameter checking, but still see warnings 
+configureMlr(on.par.without.desc = &quot;warn&quot;) 
+lrn = makeLearner(&quot;classif.ksvm&quot;, kernl = &quot;vanilladot&quot;, newParam = 3) 
 
-train(lrn, iris.task)
-## This call gives an error caused by the low number of observations in class &quot;virginica&quot;
-train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
+train(lrn, iris.task) 
+## This call gives an error caused by the low number of observations in class &quot;virginica&quot; 
+train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104) 
 
-## Get a warning instead of an error
-configureMlr(on.learner.error = &quot;warn&quot;)
-mod = train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104)
+## Get a warning instead of an error 
+configureMlr(on.learner.error = &quot;warn&quot;) 
+mod = train(&quot;classif.qda&quot;, task = iris.task, subset = 1:104) 
 
-mod
+mod 
 
-## mod is an object of class FailureModel
-isFailureModel(mod)
+## mod is an object of class FailureModel 
+isFailureModel(mod) 
 
-## Retrieve the error message
-getFailureModelMsg(mod)
+## Retrieve the error message 
+getFailureModelMsg(mod) 
 
-## predict and performance return NA's
-pred = predict(mod, iris.task)
-pred
+## predict and performance return NA's 
+pred = predict(mod, iris.task) 
+pred 
 
 performance(pred)
 </code></pre></div>

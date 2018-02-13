@@ -521,78 +521,78 @@ wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
 
 <h2 id="complete-code-listing">Complete code listing</h2>
 <p>The above code without the output is given below:</p>
-<pre><code>data.imbal.train = rbind(
-  data.frame(x = rnorm(100, mean = 1), class = &quot;A&quot;),
-  data.frame(x = rnorm(5000, mean = 2), class = &quot;B&quot;)
-)
-task = makeClassifTask(data = data.imbal.train, target = &quot;class&quot;)
-task.over = oversample(task, rate = 8)
-task.under = undersample(task, rate = 1/8)
+<pre><code>data.imbal.train = rbind( 
+  data.frame(x = rnorm(100, mean = 1), class = &quot;A&quot;), 
+  data.frame(x = rnorm(5000, mean = 2), class = &quot;B&quot;) 
+) 
+task = makeClassifTask(data = data.imbal.train, target = &quot;class&quot;) 
+task.over = oversample(task, rate = 8) 
+task.under = undersample(task, rate = 1/8) 
 
-table(getTaskTargets(task))
+table(getTaskTargets(task)) 
 
-table(getTaskTargets(task.over))
+table(getTaskTargets(task.over)) 
 
-table(getTaskTargets(task.under))
-lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;)
-mod = train(lrn, task)
-mod.over = train(lrn, task.over)
-mod.under = train(lrn, task.under)
-data.imbal.test = rbind(
-  data.frame(x = rnorm(10, mean = 1), class = &quot;A&quot;),
-  data.frame(x = rnorm(500, mean = 2), class = &quot;B&quot;)
-)
+table(getTaskTargets(task.under)) 
+lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;prob&quot;) 
+mod = train(lrn, task) 
+mod.over = train(lrn, task.over) 
+mod.under = train(lrn, task.under) 
+data.imbal.test = rbind( 
+  data.frame(x = rnorm(10, mean = 1), class = &quot;A&quot;), 
+  data.frame(x = rnorm(500, mean = 2), class = &quot;B&quot;) 
+) 
 
-performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, ber, auc)) 
 
-performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, ber, auc)) 
 
-performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, ber, auc))
-lrn.over = makeOversampleWrapper(lrn, osw.rate = 8)
-lrn.under = makeUndersampleWrapper(lrn, usw.rate = 1/8)
-mod = train(lrn, task)
-mod.over = train(lrn.over, task)
-mod.under = train(lrn.under, task)
+performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, ber, auc)) 
+lrn.over = makeOversampleWrapper(lrn, osw.rate = 8) 
+lrn.under = makeUndersampleWrapper(lrn, usw.rate = 1/8) 
+mod = train(lrn, task) 
+mod.over = train(lrn.over, task) 
+mod.under = train(lrn.under, task) 
 
-performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+performance(predict(mod, newdata = data.imbal.test), measures = list(mmce, ber, auc)) 
 
-performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, ber, auc))
+performance(predict(mod.over, newdata = data.imbal.test), measures = list(mmce, ber, auc)) 
 
-performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, ber, auc))
-task.smote = smote(task, rate = 8, nn = 5)
-table(getTaskTargets(task))
+performance(predict(mod.under, newdata = data.imbal.test), measures = list(mmce, ber, auc)) 
+task.smote = smote(task, rate = 8, nn = 5) 
+table(getTaskTargets(task)) 
 
-table(getTaskTargets(task.smote))
-lrn.smote = makeSMOTEWrapper(lrn, sw.rate = 8, sw.nn = 5)
-mod.smote = train(lrn.smote, task)
-performance(predict(mod.smote, newdata = data.imbal.test), measures = list(mmce, ber, auc))
-lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;response&quot;)
-obw.lrn = makeOverBaggingWrapper(lrn, obw.rate = 8, obw.iters = 3)
-lrn = setPredictType(lrn, &quot;prob&quot;)
-rdesc = makeResampleDesc(&quot;CV&quot;, iters = 5)
-r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE,
-  measures = list(mmce, ber, auc))
-r1$aggr
+table(getTaskTargets(task.smote)) 
+lrn.smote = makeSMOTEWrapper(lrn, sw.rate = 8, sw.nn = 5) 
+mod.smote = train(lrn.smote, task) 
+performance(predict(mod.smote, newdata = data.imbal.test), measures = list(mmce, ber, auc)) 
+lrn = makeLearner(&quot;classif.rpart&quot;, predict.type = &quot;response&quot;) 
+obw.lrn = makeOverBaggingWrapper(lrn, obw.rate = 8, obw.iters = 3) 
+lrn = setPredictType(lrn, &quot;prob&quot;) 
+rdesc = makeResampleDesc(&quot;CV&quot;, iters = 5) 
+r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE, 
+  measures = list(mmce, ber, auc)) 
+r1$aggr 
 
-obw.lrn = setPredictType(obw.lrn, &quot;prob&quot;)
-r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,
-  measures = list(mmce, ber, auc))
-r2$aggr
-lrn = makeLearner(&quot;classif.randomForest&quot;)
-obw.lrn = makeOverBaggingWrapper(lrn, obw.rate = 8, obw.iters = 3)
+obw.lrn = setPredictType(obw.lrn, &quot;prob&quot;) 
+r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE, 
+  measures = list(mmce, ber, auc)) 
+r2$aggr 
+lrn = makeLearner(&quot;classif.randomForest&quot;) 
+obw.lrn = makeOverBaggingWrapper(lrn, obw.rate = 8, obw.iters = 3) 
 
-lrn = setPredictType(lrn, &quot;prob&quot;)
-r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE,
-  measures = list(mmce, ber, auc))
-r1$aggr
+lrn = setPredictType(lrn, &quot;prob&quot;) 
+r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE, 
+  measures = list(mmce, ber, auc)) 
+r1$aggr 
 
-obw.lrn = setPredictType(obw.lrn, &quot;prob&quot;)
-r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,
-  measures = list(mmce, ber, auc))
-r2$aggr
-lrn = makeLearner(&quot;classif.logreg&quot;)
-wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
-lrn = makeLearner(&quot;classif.ksvm&quot;)
+obw.lrn = setPredictType(obw.lrn, &quot;prob&quot;) 
+r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE, 
+  measures = list(mmce, ber, auc)) 
+r2$aggr 
+lrn = makeLearner(&quot;classif.logreg&quot;) 
+wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01) 
+lrn = makeLearner(&quot;classif.ksvm&quot;) 
 wcw.lrn = makeWeightedClassesWrapper(lrn, wcw.weight = 0.01)
 </code></pre></div>
         </div>
