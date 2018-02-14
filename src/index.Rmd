@@ -1,6 +1,7 @@
 ---
 params:
   full.code: FALSE
+  run.for.each.dev: TRUE
 ---
 # Machine Learning in R: mlr Tutorial
 This `r if (dev == "pdf") "document" else "web page"` provides an in-depth introduction to

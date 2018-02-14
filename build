@@ -1,224 +1,27 @@
-#!/usr/bin/env Rscript
+#!/bin/sh
+SDIR=$(dirname "$(readlink -f "$0")")
+if [ "${SDIR}" != "$PWD" ] ; then
+  echo "build script must be run in its own directory." >&2
+  exit 1
+fi
 
-# config #######################################################################
-src = "src"
-dest = "docs"
+ncore=1
+OSNAME=$(uname -s)
+if [ "$OSNAME" = "Linux" ] ; then
+  ncore=$(grep -c ^processor /proc/cpuinfo)
+elif [ "$OSNAME" = "Darwin" ] ; then
+  ncore=$(sysctl -n hw.ncpu)
+fi
 
-
-## urls for manual pages
-# - rdocumentation
-urlMlrFunctions = "http://www.rdocumentation.org/packages/mlr/functions/"
-urlContribPackages = urlBasePackages = "http://www.rdocumentation.org/packages/"
-docs = "functions/"
-ext = ".html"
-
-# - ianhowson (does not have base packages)
-# urlMlrFunctions = "http://rpackages.ianhowson.com/cran/mlr/man/"
-# urlContribPackages = "http://rpackages.ianhowson.com/cran/"
-# urlBasePackages = "http://www.inside-r.org/r-doc/"
-# docs = "man/"
-# ext = ".html"
-# baseR = c("base", "compiler", "datasets", "graphics", "grDevices", "grid", "methods", "parallel", "splines", "stats", "stats4","tcltk", "tools", "utils")
-
-# - inside-r (does have contributed packages and base/recommended packages in different places)
-# urlMlrFunctions = "http://www.inside-r.org/packages/cran/mlr/docs/"
-# urlContribPackages = "http://www.inside-r.org/packages/cran/"
-# urlBasePackages = "http://www.inside-r.org/r-doc/"
-# docs = "docs/"
-# ext = ""
-# baseR = c("base", "boot", "class", "cluster", "codetools", "compiler", "datasets", "foreign", "graphics", "grDevices", "grid", "KernSmooth", "lattice", "MASS", "Matrix", "methods", "mgcv", "nlme", "nnet", "parallel", "rpart", "spatial", "splines", "stats", "stats4", "survival", "tcltk", "tools", "utils")
-
-
-# macros to link to manual pages:
-# - [NAME](&PACKAGE::FUNCTION)
-# - [NAME](&FUNCTION) (mlr documentation)
-# - [&PACKAGE::FUNCTION]
-# - [&FUNCTION] (mlr documentation)
-# - [NAME](%PACKAGE)
-# - [%PACKAGE]
-
-macros = list(
-  list(pattern = "\\[(.+?)\\]\\(&([A-Za-z0-9.]+?)::([A-Za-z0-9.-_]+)\\)", replacement = paste("[\\1](", urlContribPackages, "\\2/", docs, "\\3", ext, ")", sep = "")),
-  list(pattern = "\\[(.+?)\\]\\(&([A-Za-z0-9.-]+?)\\)", replacement = paste("[\\1](", urlMlrFunctions, "\\2", ext, ")", sep = "")),
-  list(pattern = "\\[&([A-Za-z0-9.]+?)::([A-Za-z0-9.-_]+?)\\]", replacement = paste("[\\1::\\2](", urlContribPackages, "\\1/", docs, "\\2", ext, ")", sep = "")),
-  list(pattern = "\\[&([A-Za-z0-9.-]+?)\\]", replacement = paste("[\\1](", urlMlrFunctions, "\\1", ext, ")", sep = "")),
-  list(pattern = "\\[(.+?)\\]\\(%([A-Za-z0-9.-]+?)\\)", replacement = paste("[\\1](", urlContribPackages, "\\2/)", sep = "")),
-  list(pattern = "\\[%([A-Za-z0-9.-]+?)\\]", replacement = paste("[\\1](", urlContribPackages, "\\1/)", sep = ""))
-)
-
-if (urlContribPackages != urlBasePackages) {
-  # macros to link to docs:
-  # - [NAME](&PACKAGE::FUNCTION)
-  # - [&PACKAGE::FUNCTION]
-  # - [NAME](%PACKAGE)
-  # - [%PACKAGE]
-  macrosRecom = c(
-    lapply(baseR, function(p) list(pattern = paste("\\[(.+?)\\]\\(&(", p, ")::([A-Za-z0-9.-_]+)\\)", sep = ""), replacement = paste("[\\1](", urlBasePackages, "\\2/\\3)", sep = ""))),
-    lapply(baseR, function(p) list(pattern = paste("\\[&(", p, ")::([A-Za-z0-9.-_]+?)\\]", sep = ""), replacement = paste("[\\1::\\2](", urlBasePackages, "\\1/\\2)", sep = ""))),
-    lapply(baseR, function(p) list(pattern = paste("\\[(.+?)\\]\\(%(", p, ")\\)", sep = ""), replacement = paste("[\\1](", urlBasePackages, "\\2/)", sep = ""))),
-    lapply(baseR, function(p) list(pattern = paste("\\[%(", p, ")\\]", sep = ""), replacement = paste("[\\1](", urlBasePackages, "\\1/)", sep = "")))
-  )
-  macros = c(macrosRecom, macros)
-}
-
-
-# helper functions #############################################################
-# generate useful exit status
-exit = function(status, msg, ...) {
-  if (!missing(msg))
-    cat(sprintf(msg, ...), "\n\n", sep = "")
-  quit(save = "no", status = status)
-}
-
-# set seed depending on file name
-setSeed = function(x, algo = "crc32") {
-  hash = digest(x, algo = algo)
-  set.seed(strtoi(sprintf("0x%s", substr(hash, 1L, 7L))))
-}
-
-# worker function
-knitIt = function(f, dev) {
-  messagef("Knitting file '%s' ...", f)
-  lines = readLines(file.path(src, f))
-
-  # apply replacement macros
-  for (macro in macros)
-    lines = str_replace_all(lines, macro$pattern, macro$replacement)
-
-  # should we append the full source code at the end?
-  # to opt out add this to the yaml front matter
-  # params:
-  #  full.code: FALSE
-  knit.params = knit_params(lines)
-  if (!isFALSE(knit.params$full.code$value) && dev != "pdf") {
-    lines = c(
-      lines, "\n", 
-      "## Complete code listing", "\n",
-      "The above code without the output is given below:", "\n",
-      "```{r, purl=FALSE, echo = FALSE, comment=''}",
-      paste0("cat(readLines('./",file.path("full_code_src", str_replace(f, "\\.Rmd$", "\\.R")),"'),fill = 2)"),
-      "```")
-  }
-
-  cache.path = file.path("cache", f, "")
-  opts_chunk$set(cache = TRUE, cache.path = cache.path, fig.path = file.path("figure", dev, str_replace(f, "\\.Rmd", ""), ""), dev = dev, error = FALSE, comment = "#>", collapse = TRUE)
-  setSeed(f)
-
-  # FIXME: remove if mkdocs handles this, currently mkdocs puts yaml front matter in the output.
-  yaml.lines = which(lines == "---")
-  if (length(yaml.lines == 2)) {
-    lines = lines[-1 * seq(from = yaml.lines[1], to = yaml.lines[2])]
-  }
-  
-  knit(
-    text = lines,
-    output = file.path(dev, dest, str_replace(f, "\\.Rmd$", "\\.md")),
-    quiet = TRUE
-  )
-}
-
-# helper function to extract the source code
-purlIt = function(f, dest) {
-  messagef("Purling file '%s' ...", f)
-  setSeed(f)
-  purl(
-    input = file.path(src, f),
-    output = file.path(dest, str_replace(f, "\\.Rmd$", "\\.R")),
-    quiet = TRUE,
-    documentation = 0
-  )
-}
-
-# start #######################################################################
-message("Loading required packages ...")
-suppressPackageStartupMessages({
-  # namespace conflicts
-  library(glmnet)   # auc
-  library(ROCR)
-
-  # required to build
-  library(methods)
-  library(parallel)
-  library(digest)
-  library(pander)
-  library(BBmisc)
-  library(knitr)
-  library(caret) # we get problems if this shadows "mlr::train"
-  suppressWarnings(library(rgl)) # suppress "no X" warning on travis
-  library(mlr)
-  library(stringr)
-  library(backports)
-})
-
-# turn warnings to errors, we don't want to miss them
-options(warn = 2L)
-# number of spaces to indent the code is 2 (for chunks with tidy=TRUE)
-opts_chunk$set(tidy.opts = list(indent = 2, width.cutoff = 80))
-
-# create output directories for pdf and svg devices
-if (!isDirectory("svg") | !isDirectory(file.path("svg", "docs")))
-  dir.create(file.path("svg", "docs"), recursive = TRUE)
-if (!isDirectory("pdf") | !isDirectory(file.path("pdf", "docs")))
-  dir.create(file.path("pdf", "docs"), recursive = TRUE)
-if (!isDirectory("full_code_src"))
-  dir.create(file.path("full_code_src"))
-
-## Handle mlr Versions ####
-
-# if we have a new mlr version move old devel files into version directory
-mlr.version = as.character(packageVersion("mlr"))
-link = Sys.readlink(mlr.version)
-if (is.na(link)) {
-  # find the directory that linked to devel before and copy devel content to it.
-  old.version = names(which(sapply(list.files(".", pattern = "\\d\\..*", include.dirs = TRUE), Sys.readlink) == "devel"))
-  file.remove(old.version)
-  dir.create(old.version)
-  system(sprintf("cp -r devel/* %s", old.version))
-  # this old.version is probably the latest release so change this link to
-  file.remove("release")
-  file.symlink(old.version, "release")
-  # No directory or link for the new version exists so we create one
-  file.symlink("devel", mlr.version)
-  # Take care of github on Travis
-  if (identical(Sys.getenv("TRAVIS"), "true")) {
-    system(sprintf("git add %s", paste(mlr.version, old.version, "devel", "release")))
-  }
-} else if (link == "") {
-  # The directory exists but is not a link
-  warning("You are building the tutorial with an outdated mlr version! Please use the github version!")
-} else if (link != "devel") {
-  stopf("The directory %s should link to devel and not to %s", mlr.version, link)
-}
-
-## Do the building ####
-
-# do lapply for now. with mclapply it seems unclear how to stop best on error. this was 100% broken before
-message("Building purl version...")
-dummy = lapply(list.files(src, pattern = "\\.Rmd$"), purlIt, "full_code_src")
-message("Building PDF version...")
-dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "pdf")
-ok = system3("./build-pdf.py")
-if (ok$exit.code == 0L) {
-  # copy pdf to devel
-  ok = file.copy("mlr-tutorial-build.pdf", file.path("devel", "mlr-tutorial.pdf"), overwrite = TRUE)
-  if (!ok) {
-    stop("copy pdf failed.")
-  }
-  # embed images in HTML
-  opts_knit$set(upload.fun = image_uri)
-  message("Building HTML version...")
-  dummy = lapply(list.files(src, pattern = "\\.Rmd$"), knitIt, "svg")
-  ok = system3("mkdocs", "build")
-  message("Build successful!")
-  message("Now zip everything!")
-  setwd("devel/html/")
-  suppressAll(zip("../mlr_tutorial.zip", files = "."))
-  setwd("../../")
-  exit(0L)
-}
-
-messagef("Build failed!")
-exit(ok$exit.code)
-
-# vim: set ft=r:
-
+echo -e "This build script is a wrapper around 'make -j NCORE' and\nonly runs the necessary steps according to which files changed recently."
+echo -e "To clean up intermediate files and build from the start, run 'make clean' before."
+echo -e "See README.md for more info.\n"
+echo -e "Building using $ncore thread(s)\nTo run with a different number of threads, use\n  make -j NTHREAD"
+if [ "$ncore" -gt 1 ] ; then
+  echo -e "Output may be a bit garbled because of this;\nfor clean output (but a slower build process), just run 'make' instead of './build'."
+  echo -e "\nRunning:\n  make -j ${ncore}\n"
+  exec make -j $ncore
+else
+  echo -e "\nRunning:\n  make\n"
+  exec make
+fi

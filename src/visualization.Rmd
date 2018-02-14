@@ -1,3 +1,7 @@
+---
+params:
+  run.for.each.dev: TRUE
+---
 # Visualization
 
 ## Generation and plotting functions

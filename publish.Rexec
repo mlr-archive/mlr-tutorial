@@ -1,0 +1,43 @@
+#!/usr/bin/env Rscript
+
+# this does the auxiliary work of handling release folders and should only run on TRAVIS.
+
+
+# get current script dir
+self.name = substring(grep("^--file=", commandArgs(), value = TRUE), 8)
+scriptdir = dirname(self.name)
+# if we were not called with Rscript, then scriptdir is empty--fall back to "."
+scriptdir = c(scriptdir, ".")[1]
+# load common configuration
+source(file.path(scriptdir, "buildheader.R"), chdir = TRUE)
+
+loadlibraries()
+
+## Handle mlr Versions ####
+
+# if we have a new mlr version move old devel files into version directory
+mlr.version = as.character(packageVersion("mlr"))
+link = Sys.readlink(mlr.version)
+if (is.na(link)) {
+  message("Version updated, creating new 'devel' folder.")
+  # find the directory that linked to devel before and copy devel content to it.
+  old.version = names(which(sapply(list.files(".", pattern = "\\d\\..*", include.dirs = TRUE), Sys.readlink) == "devel"))
+  file.remove(old.version)
+  dir.create(old.version)
+  system(sprintf("cp -r devel/* %s", old.version))
+  # this old.version is probably the latest release so change this link to
+  file.remove("release")
+  file.symlink(old.version, "release")
+  # No directory or link for the new version exists so we create one
+  file.symlink("devel", mlr.version)
+  # Take care of github on Travis
+  if (ontravis) {
+    system(sprintf("git add %s", paste(mlr.version, old.version, "devel", "release")))
+  }
+} else if (link == "") {
+  # The directory exists but is not a link
+  warning("You are building the tutorial with an outdated mlr version! Please use the github version!")
+} else if (link != "devel") {
+  stopf("The directory %s should link to devel and not to %s", mlr.version, link)
+}
+
