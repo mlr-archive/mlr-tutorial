@@ -290,7 +290,7 @@ filters$rank.correlation$fun
 #&gt;     }
 #&gt;     setNames(abs(y[, &quot;correlation&quot;]), getTaskFeatureNames(task))
 #&gt; }
-#&gt; &lt;bytecode: 0xe0e4a48&gt;
+#&gt; &lt;bytecode: 0x118e27b8&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -364,10 +364,11 @@ in the alphabet.</p>
 #&gt; [11] nonsense.filter            oneR                      
 #&gt; [13] permutation.importance     randomForest.importance   
 #&gt; [15] randomForestSRC.rfsrc      randomForestSRC.var.select
-#&gt; [17] rank.correlation           relief                    
-#&gt; [19] symmetrical.uncertainty    univariate.model.score    
-#&gt; [21] variance                  
-#&gt; 24 Levels: anova.test auc carscore cforest.importance ... variance
+#&gt; [17] ranger.impurity            ranger.permutation        
+#&gt; [19] rank.correlation           relief                    
+#&gt; [21] symmetrical.uncertainty    univariate.model.score    
+#&gt; [23] variance                  
+#&gt; 26 Levels: anova.test auc carscore cforest.importance ... variance
 </code></pre>
 
 <p>You can use it like any other filter method already integrated in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> (i.e., via the
