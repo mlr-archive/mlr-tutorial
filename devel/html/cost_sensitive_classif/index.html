@@ -426,7 +426,7 @@ pred
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.50,Good=0.50
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -465,7 +465,7 @@ pred.th
 #&gt; Prediction: 1000 observations
 #&gt; predict.type: prob
 #&gt; threshold: Bad=0.17,Good=0.83
-#&gt; time: 0.02
+#&gt; time: 0.01
 #&gt;   id truth   prob.Bad prob.Good response
 #&gt; 1  1  Good 0.03525092 0.9647491     Good
 #&gt; 2  2   Bad 0.63222363 0.3677764      Bad
@@ -489,7 +489,7 @@ credit.costs
 #&gt; Minimize: TRUE
 #&gt; Best: 0; Worst: 5
 #&gt; Aggregated by: test.mean
-#&gt; Arguments: &lt;unnamed&gt;=&lt;matrix&gt;, &lt;unnamed&gt;=&lt;function&gt;
+#&gt; Arguments: costs=&lt;matrix&gt;, combine=&lt;function&gt;
 #&gt; Note:
 </code></pre>
 
@@ -522,7 +522,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.5831280,mmce.test.mean=0.3630397
-#&gt; Runtime: 0.214198
+#&gt; Runtime: 0.216766
 </code></pre>
 
 <p>If we are also interested in the cross-validated performance for the default threshold values
@@ -565,7 +565,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.8600427,mmce.test.mean=0.2520215
-#&gt; Runtime: 0.218724
+#&gt; Runtime: 0.217306
 
 ## Tune the threshold based on the predicted probabilities on the 3 test data sets
 tune.res = tuneThreshold(pred = r$pred, measure = credit.costs)
@@ -590,9 +590,6 @@ To find out which learning methods support either type of weights have a look at
 <a href="../integrated_learners/index.html">list of integrated learners</a> in the Appendix or use <a href="http://www.rdocumentation.org/packages/mlr/functions/listLearners.html">listLearners</a>.</p>
 <pre><code class="r">## Learners that accept observation weights
 listLearners(&quot;classif&quot;, properties = &quot;weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
-#&gt; Warning in listLearners.character(&quot;classif&quot;, properties = &quot;weights&quot;): The following learners could not be constructed, probably because their packages are not installed:
-#&gt; classif.mxff,regr.mxff
-#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
 #&gt;                class      package
 #&gt; 1   classif.binomial        stats
 #&gt; 2 classif.blackboost mboost,party
@@ -604,9 +601,6 @@ listLearners(&quot;classif&quot;, properties = &quot;weights&quot;)[c(&quot;clas
 
 ## Learners that can deal with class weights
 listLearners(&quot;classif&quot;, properties = &quot;class.weights&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
-#&gt; Warning in listLearners.character(&quot;classif&quot;, properties = &quot;class.weights&quot;): The following learners could not be constructed, probably because their packages are not installed:
-#&gt; classif.mxff,regr.mxff
-#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
 #&gt;                       class   package
 #&gt; 1              classif.ksvm   kernlab
 #&gt; 2  classif.LiblineaRL1L2SVC LiblineaR
@@ -670,7 +664,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.multinom
 #&gt; Aggr perf: credit.costs.test.mean=0.5851031,mmce.test.mean=0.3530387
-#&gt; Runtime: 0.250436
+#&gt; Runtime: 0.242734
 </code></pre>
 
 <p>For classification methods like <code>"classif.ksvm"</code> (the support vector machine
@@ -687,7 +681,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: weightedclasses.classif.ksvm
 #&gt; Aggr perf: credit.costs.test.mean=0.6520802,mmce.test.mean=0.3360276
-#&gt; Runtime: 0.393806
+#&gt; Runtime: 0.407607
 </code></pre>
 
 <p>Just like the theoretical threshold, the theoretical weights may not always be suitable,
@@ -765,7 +759,7 @@ r
 #&gt; Task: GermanCredit
 #&gt; Learner: classif.multinom.oversampled
 #&gt; Aggr perf: credit.costs.test.mean=0.5681190,mmce.test.mean=0.3360426
-#&gt; Runtime: 0.414834
+#&gt; Runtime: 0.404655
 </code></pre>
 
 <p>Of course, we can also tune the oversampling rate. For this purpose we again have to create
@@ -861,7 +855,7 @@ r
 #&gt; Task: waveform
 #&gt; Learner: classif.rpart
 #&gt; Aggr perf: wf.costs.test.mean=7.9568814,mmce.test.mean=0.3180386
-#&gt; Runtime: 0.0826485
+#&gt; Runtime: 0.0630825
 
 ## Calculate thresholds as 1/(average costs of true classes)
 th = 2/rowSums(costs)
@@ -1023,7 +1017,7 @@ pred
 #&gt; Prediction: 150 observations
 #&gt; predict.type: response
 #&gt; threshold: 
-#&gt; time: 0.05
+#&gt; time: 0.04
 #&gt;   id response
 #&gt; 1  1   setosa
 #&gt; 2  2   setosa

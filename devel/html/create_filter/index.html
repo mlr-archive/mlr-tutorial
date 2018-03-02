@@ -265,7 +265,7 @@ which interfaces function <a href="http://www.rdocumentation.org/packages/Rfast/
 <pre><code class="r">filters = as.list(mlr:::.FilterRegister)
 filters$rank.correlation
 #&gt; Filter: 'rank.correlation'
-#&gt; Packages: 'Rfast'
+#&gt; Packages: ''
 #&gt; Supported tasks: regr
 #&gt; Supported features: numerics
 
@@ -273,7 +273,7 @@ str(filters$rank.correlation)
 #&gt; List of 6
 #&gt;  $ name              : chr &quot;rank.correlation&quot;
 #&gt;  $ desc              : chr &quot;Spearman's correlation between feature and target&quot;
-#&gt;  $ pkg               : chr &quot;Rfast&quot;
+#&gt;  $ pkg               : chr(0) 
 #&gt;  $ supported.tasks   : chr &quot;regr&quot;
 #&gt;  $ supported.features: chr &quot;numerics&quot;
 #&gt;  $ fun               :function (task, nselect, ...)  
@@ -282,15 +282,11 @@ str(filters$rank.correlation)
 filters$rank.correlation$fun
 #&gt; function (task, nselect, ...) 
 #&gt; {
-#&gt;     d = getTaskData(task, target.extra = TRUE)
-#&gt;     y = Rfast::correls(d$target, d$data, type = &quot;spearman&quot;)
-#&gt;     for (i in which(is.na(y[, &quot;correlation&quot;]))) {
-#&gt;         y[i, &quot;correlation&quot;] = cor(d$target, d$data[, i], use = &quot;complete.obs&quot;, 
-#&gt;             method = &quot;spearman&quot;)
-#&gt;     }
-#&gt;     setNames(abs(y[, &quot;correlation&quot;]), getTaskFeatureNames(task))
+#&gt;     data = getTaskData(task, target.extra = TRUE)
+#&gt;     abs(cor(as.matrix(data$data), data$target, use = &quot;pairwise.complete.obs&quot;, 
+#&gt;         method = &quot;spearman&quot;)[, 1L])
 #&gt; }
-#&gt; &lt;bytecode: 0xd5b8960&gt;
+#&gt; &lt;bytecode: 0x192e8650&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
