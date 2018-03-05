@@ -265,7 +265,7 @@ which interfaces function <a href="http://www.rdocumentation.org/packages/Rfast/
 <pre><code class="r">filters = as.list(mlr:::.FilterRegister)
 filters$rank.correlation
 #&gt; Filter: 'rank.correlation'
-#&gt; Packages: 'Rfast'
+#&gt; Packages: ''
 #&gt; Supported tasks: regr
 #&gt; Supported features: numerics
 
@@ -273,7 +273,7 @@ str(filters$rank.correlation)
 #&gt; List of 6
 #&gt;  $ name              : chr &quot;rank.correlation&quot;
 #&gt;  $ desc              : chr &quot;Spearman's correlation between feature and target&quot;
-#&gt;  $ pkg               : chr &quot;Rfast&quot;
+#&gt;  $ pkg               : chr(0) 
 #&gt;  $ supported.tasks   : chr &quot;regr&quot;
 #&gt;  $ supported.features: chr &quot;numerics&quot;
 #&gt;  $ fun               :function (task, nselect, ...)  
@@ -282,15 +282,11 @@ str(filters$rank.correlation)
 filters$rank.correlation$fun
 #&gt; function (task, nselect, ...) 
 #&gt; {
-#&gt;     d = getTaskData(task, target.extra = TRUE)
-#&gt;     y = Rfast::correls(d$target, d$data, type = &quot;spearman&quot;)
-#&gt;     for (i in which(is.na(y[, &quot;correlation&quot;]))) {
-#&gt;         y[i, &quot;correlation&quot;] = cor(d$target, d$data[, i], use = &quot;complete.obs&quot;, 
-#&gt;             method = &quot;spearman&quot;)
-#&gt;     }
-#&gt;     setNames(abs(y[, &quot;correlation&quot;]), getTaskFeatureNames(task))
+#&gt;     data = getTaskData(task, target.extra = TRUE)
+#&gt;     abs(cor(as.matrix(data$data), data$target, use = &quot;pairwise.complete.obs&quot;, 
+#&gt;         method = &quot;spearman&quot;)[, 1L])
 #&gt; }
-#&gt; &lt;bytecode: 0xcf82f48&gt;
+#&gt; &lt;bytecode: 0xb55b178&gt;
 #&gt; &lt;environment: namespace:mlr&gt;
 </code></pre>
 
@@ -364,10 +360,11 @@ in the alphabet.</p>
 #&gt; [11] nonsense.filter            oneR                      
 #&gt; [13] permutation.importance     randomForest.importance   
 #&gt; [15] randomForestSRC.rfsrc      randomForestSRC.var.select
-#&gt; [17] rank.correlation           relief                    
-#&gt; [19] symmetrical.uncertainty    univariate.model.score    
-#&gt; [21] variance                  
-#&gt; 24 Levels: anova.test auc carscore cforest.importance ... variance
+#&gt; [17] ranger.impurity            ranger.permutation        
+#&gt; [19] rank.correlation           relief                    
+#&gt; [21] symmetrical.uncertainty    univariate.model.score    
+#&gt; [23] variance                  
+#&gt; 26 Levels: anova.test auc carscore cforest.importance ... variance
 </code></pre>
 
 <p>You can use it like any other filter method already integrated in <a href="http://www.rdocumentation.org/packages/mlr/">mlr</a> (i.e., via the

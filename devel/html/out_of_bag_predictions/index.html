@@ -259,9 +259,6 @@ each prediction is only made by learners that did not use the observation for tr
 <p>To get a list of learners that provide OOB predictions, you can call
 <code>listLearners(obj = NA, properties = "oobpreds")</code>.</p>
 <pre><code class="r">listLearners(obj = NA, properties = &quot;oobpreds&quot;)[c(&quot;class&quot;, &quot;package&quot;)]
-#&gt; Warning in listLearners.character(obj = NA_character_, properties, quiet, : The following learners could not be constructed, probably because their packages are not installed:
-#&gt; classif.mxff,regr.mxff
-#&gt; Check ?learners to see which packages you need or install mlr with all suggestions.
 #&gt;                     class         package
 #&gt; 1    classif.randomForest    randomForest
 #&gt; 2 classif.randomForestSRC randomForestSRC
