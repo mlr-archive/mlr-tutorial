@@ -474,14 +474,14 @@ r1 = resample(learner = lrn, task = task, resampling = rdesc, show.info = FALSE,
   measures = list(mmce, ber, auc))
 r1$aggr
 #&gt; mmce.test.mean  ber.test.mean  auc.test.mean 
-#&gt;     0.03509804     0.46089748     0.58514212
+#&gt;     0.03509804     0.46089748     0.59116252
 
 obw.lrn = setPredictType(obw.lrn, &quot;prob&quot;)
 r2 = resample(learner = obw.lrn, task = task, resampling = rdesc, show.info = FALSE,
   measures = list(mmce, ber, auc))
 r2$aggr
 #&gt; mmce.test.mean  ber.test.mean  auc.test.mean 
-#&gt;     0.04098039     0.45961754     0.54926842
+#&gt;     0.04294118     0.45306161     0.54678328
 </code></pre>
 
 <p>While <em>overbagging</em> slighty improves the performance of the <em>decision tree</em>,
