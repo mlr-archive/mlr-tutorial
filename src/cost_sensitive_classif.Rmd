@@ -520,7 +520,7 @@ For this purpose the feature values $x$ and an $n \times K$ ``cost`` matrix that
 the cost vectors for all $n$ examples in the data set are required.
 
 We use the [iris](&datasets::iris) data and generate an artificial cost matrix
-(see [Beygelzimer et al., 2005](http://dx.doi.org/10.1145/1102351.1102358)).
+(see [Beygelzimer et al., 2005](https://doi.org/10.1145/1102351.1102358)).
 
 ```{r}
 df = iris
