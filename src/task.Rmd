@@ -142,7 +142,7 @@ the feature values $x$ and a ``cost`` matrix, which contains the cost vectors fo
 set, are required to create the [CostSensTask](&Task).
 
 In the following example we use the [iris](&datasets::iris) data and an artificial cost matrix
-(as proposed by [Beygelzimer et al., 2005](http://dx.doi.org/10.1145/1102351.1102358)):
+(as proposed by [Beygelzimer et al., 2005](https://doi.org/10.1145/1102351.1102358)):
 
 ```{r}
 df = iris
