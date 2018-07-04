@@ -1,0 +1,8 @@
+RedirectMatch 301 / http://www.mlr-org.github.io/mlr$1
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule .* 404.html [L]
+</IfModule>
