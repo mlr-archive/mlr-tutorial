@@ -1,10 +1,8 @@
-# mlr-tutorial
-The mlr package online tutorial
+# IMPORTANT
 
-[![Build Status](https://travis-ci.org/mlr-org/mlr-tutorial.svg?branch=gh-pages)](https://travis-ci.org/mlr-org/mlr-tutorial)
-
-Everything you are looking for is in the `gh-pages` branch.
-This branch contains the build files for the most up to date **[mlr](https://github.com/berndbischl/mlr)** tutorial.
-To view the tutorial online see:
- * http://mlr-org.github.io/mlr-tutorial/devel/html/ - targets the github-version of **mlr**
- * http://mlr-org.github.io/mlr-tutorial/release/html/ - targets the cran-version of **mlr**.
+* The tutorial has moved to http://mlr-org.github.io/mlr!
+* Issues have been ported to https://github.com/mlr-org/mlr.
+  * The source of the tutorial resides in https://github.com/mlr-org/mlr/tree/master/vignettes/tutorial
+  * The new building process uses pkgdown and pushes the changes to the gh-branch in mlr.
+  
+Please do **NOT** open new issues in this repo!
