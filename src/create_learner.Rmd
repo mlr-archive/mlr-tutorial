@@ -530,7 +530,13 @@ e.g., `train("classif.lda", iris.task)` should run.
 Sometimes, this makes it necessary to change or set some additional defaults as explained above
 and -- very important -- informing the user about this in the `note`.
 
-* The parameter set of the learner should be as complete as possible.
+* The parameter set of the learner:
+  * It should be as complete as possible.
+  * The defaults have to reflect the defaults of the underlying original train function.
+
+* If you want to override the default parameter settings, do it in the `par.vals` by providing a named list with the settings and mention the change and the motivation shortly in the note.
+
+* The note should only contain information about diverging behavior from the defaults. Other useful information should go into the roxygen part.
 
 * Every learner interface must be unit tested.
 
